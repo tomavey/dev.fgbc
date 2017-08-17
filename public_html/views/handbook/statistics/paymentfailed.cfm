@@ -1,0 +1,1 @@
+<h1>For some reason your payment was not accepted by our online payment system.  Please contact Sandy Barret for assistance - <cfoutput>#mailto("sandy@fgbc.org")#</cfoutput></h1>

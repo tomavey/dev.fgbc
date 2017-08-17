@@ -1,0 +1,73 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+		font-family:Georgia, "Times New Roman", Times, serif;
+	}
+#survey {
+	width:960px;
+	margin-right:auto;
+	margin-left:auto;
+	border:1px solid gray;
+	}
+
+textarea {
+	width:500px;
+	height:100px;
+	}
+
+tr {
+	height:40px;
+	}
+
+td {
+	padding:10px;
+	}
+
+tr.age {
+	background-color:#ffffcc;
+	margin-bottom:20px;
+	}
+
+td.ageoption {
+	text-align:right;
+	width:35%
+	}
+
+tr.cost {
+	background-color:#e6ffe6;
+	}
+
+tr.ratings {
+	background-color:#fff2e6;
+	}
+
+tr.count {
+	background-color:#d8f2fa;
+	}
+
+tr.effect {
+	background-color:#fddfef;
+	}
+tr.other {
+	background-color:#f3f3f1;
+	}
+
+#thankyou {
+	text-align:center;
+	margin:20px;
+	}
+
+h1 {
+	text-align:center;
+	}
+
+.eachcomment {border:1px solid gray;margin:5px;padding:3px}
+
+#survey li {padding:3px}
+
+#survey li p {margin-left:20px}
+
+.pastyear {font-size:.8em;color:gray}
+
+#survey select, #survey input  {font-size: 1.5em}

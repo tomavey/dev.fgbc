@@ -1,0 +1,3 @@
+<cfoutput>
+#includePartial("handbookprofile")#
+</cfoutput>

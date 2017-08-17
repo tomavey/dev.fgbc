@@ -1,0 +1,1 @@
+var lodgingRequestsApp = angular.module("lodgingRequestsApp",['lodgingRequestsServices','lodgingRequestsControllers','firebase','ngRoute','ngCkeditor','ngSanitize']);

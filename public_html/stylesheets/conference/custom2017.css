@@ -1,0 +1,392 @@
+.xregistration-center, .main {
+    background-image: url(http://www.access2017.com/assets/pictures/background-conference-5.jpg);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-color: #D1D4C9;
+    padding:20px;
+    margin-top: 100px;
+}
+
+#welcome a.btn {
+    font-size: 1.4em;
+}
+
+#welcome p {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    font-weight: normal;
+}
+
+#welcome p span {
+    font-weight: bolder;
+    display: block;
+    text-decoration: underline;
+}
+
+.Message {
+    height: 100%;
+    margin-bottom: 20px;
+}
+
+#selectoptions {
+    background-color: white;
+    border: 2px solid gray;
+}
+
+.shoppingCart {
+    background-color: white;
+}
+
+#selectoptions legend {
+    width:90%;
+}
+
+fieldset#personNames, fieldset#registrationOptions  {
+    width:90%;
+}
+
+#selectoptions input#person, #addoptions input#person {
+    width: 90%;
+}
+
+#specialcode p label {
+    width:100%;
+}
+
+p.desc {
+    font: .7em normal;
+}
+
+a#emptyCart {
+    font:.7em normal;
+}
+
+div#instructions, fieldset#personInfo {
+    width:90%;
+    background-color: white;
+    border-radius: 20px;
+    border: solid 1px gray;
+}
+
+fieldset#personInfo, fieldset#familyInfo, fieldset#specialNeeds, div.eachregistration, div#invoice {
+    width:70%;
+    background-color: white;
+    border-radius: 20px;
+    margin-top:10px;
+}
+
+div#invoicePayment ul li{
+    font-size: 1.2em;
+}
+
+div#invoiceItems {
+    font-size: 1.2em;
+}
+
+table.shoppingCartReview {
+    margin: 0 auto;
+}
+
+table.shoppingCartReview th.person{
+    text-align: center;
+}
+
+div#cartTotal a {
+    width: 100%;
+    height: 50px;
+    line-height: 40px;
+    font: 2em bolder;
+    margin:20px;
+}
+
+div.registeredfor {
+    border-radius: 20px
+}
+
+div#getAgent div.eachItemShown {
+    background-color: white;
+}
+
+form#getagent {
+    width: 90%;
+}
+
+form#getagent input {
+    width: 50%;
+}
+
+div#invoiceItems table td, div#invoiceItems table tr {
+    font-size:14px;
+}
+
+div#invoicePayment {
+    text-align: left;
+    font-size:12px;
+}
+
+div#emailThisInvoice a {
+    font:.7em normal gray
+}
+
+.invoiceRegName {
+    text-align: left
+}
+
+#addregs {
+    font-size: 12px;
+}
+
+#addregs a {
+    margin: 0 auto;
+    width:90%
+}
+
+#selectoptions label, #addoptions label {
+    width: 77%;
+}
+
+#selectoptions select, #addoptions select {
+    width: 20%;
+}
+
+div#selectoptions {
+    border-radius: 20px;
+}
+
+th.person {
+    margin-top:30px;
+}
+
+.Message {
+    background-color: white;
+    border-radius: 20px;
+    border: 2px solid gray;
+    padding: 10px;
+    font-size: .9em;
+}
+
+.Message h2 {
+    padding-bottom:20px;
+    color:black;
+}
+
+input#person, select, input#fname, input#lname, input#email, input#phone, input#agent {
+    height:50px;
+    border-radius:10px;
+    background-color: #caf2f2;
+}
+
+div.regcosts table tr th {
+    text-align: center; 
+    padding:15px; 
+    font-size:.8em; 
+    border-style:1px grey
+}
+
+div.regcosts table tr td:first-child {
+    font-size: .6em; 
+    font-weight: normal 
+}
+
+.row {
+    width:100% !important;
+}
+
+#selectregtype div.Message {
+    width:100%;
+    font-size: 2em;
+}
+
+.regtypes img {
+    border-radius: 10px;
+}
+
+.regtypes .btn {
+    height: 50px;
+    word-break: normal;
+}
+
+div.eachregistration {
+    font-size: large;
+    font-weight: normal;
+    text-align: center;
+}
+
+div.eachregistration .personsname{
+    font-weight:bold;
+}
+
+div.eachregistration .personsname span{
+    font-weight:bolder;
+    font-size:1.5em
+}
+
+.showfamilyregs ul li {
+    font-size: .6em;
+    font-weight: bold;
+}
+
+#selectoptions {
+    padding:20px;
+    font-size: .9em;
+}
+
+#selectoptions .desc {
+    font-size: 1.1em;
+    font-family: "Roboto Condensed","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+}
+
+#selectoptions .cost {
+    font-size: 1.2em;
+    font-family: "Roboto Condensed","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+}
+
+.showfamilyregs ul li {
+    font-size: 1.2em;
+}
+#courseslist .eachworkshop {
+    border:2px solid grey;
+    background-color:white;
+    padding:20px;
+    border-radius: 10px;
+    width:100%;
+    margin-left:0px;
+}
+
+#courseslist .workshopdescription {
+    font-size:14px;
+    margin-top:10px;
+}
+
+#courseslist .workshoptime {
+    font-size:10px;
+    float: none;
+}
+
+#courseslist .controls {
+    font-size:10px;
+    float: none;
+}
+
+#courseslist .facilitators {
+    font-size:10px;
+    float: none;
+}
+
+div#courseslist {
+    margin:0 auto;
+}
+
+div#selectworkshops {
+    margin:0 auto;
+}
+
+div#coursequestions .question {
+    font-size:14px
+}
+
+div#coursequestions .postedby, div#courseslist .postedby {
+    font-size: 8px;
+
+}
+
+div.addcoursequestion {
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+#getagent p {
+    text-align: center;
+}
+
+#getagent p label {
+    font-size:large;
+}
+
+.getagentinstructions {
+    text-align: center;
+    font-size:large;
+}
+
+.cohortmessage {
+    text-align: center;
+    font-size:2em;
+}
+
+a.clearAllSelections {
+    display:block;
+    text-align: center;
+    background-color: lightyellow;
+    opacity: 0.7;
+    border-radius: 5px;
+    border: 1px ridge blanchedalmond;
+}
+
+a.clearAllSelections:hover {
+    border: 1px groove blanchedalmond;
+    opacity: 1;
+}
+
+.cohortsubmit {
+    font-size: 1.5em;
+    font-weight: bold;
+    padding:10px;
+}
+
+.eachcohort {
+    text-align: center;
+    font-size: 2em;
+}
+
+.eachcohort .description {
+    font-size: .8em;
+}
+.eachcohort input[type="checkbox"] {
+    display:inline-block;
+    width:20px;
+    height:20px;
+    border-radius:10px;
+}
+
+.eachworkshop {
+    text-align: center;
+}    
+
+#selectworkshops .well {
+    text-align: center;
+}
+
+.header-wrapper .header {
+    min-height: 100px;
+    text-align: center;
+}
+
+#exhibitRequestForm, #exhibitorguidelines {
+    background-color: white;
+    border:2px solid grey;
+    border-radius: 10px;
+    padding:20px;
+}
+
+textarea #exhibit-specialrequest {
+    width: 50%;
+}
+
+#main-navbar {
+    float: right;
+}
+
+.questionsheader {
+    font-style: italic;
+    font-weight: lighter;
+}
+
+p.groupreginfo {
+    font-size: 1.4em
+}
+
+.eachcohort .subtype {
+    font-size:.6em;
+}

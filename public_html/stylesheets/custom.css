@@ -1,0 +1,20 @@
+.well .ta-text {
+    background-color: white;
+    border: 1px gray solid;
+    padding: 5px;
+}
+
+.newministryshow .eachquestion {
+    border:1px #D0D0D0  solid;
+    padding:10px;
+    margin:10px;
+    border-radius: 5px;
+}
+
+.newministryshow .question {
+    font-style: italic;
+}
+
+.newministryshow .answer {
+    margin-left:20px;
+}

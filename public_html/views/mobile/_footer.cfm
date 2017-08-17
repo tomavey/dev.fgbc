@@ -1,0 +1,1 @@
+<cfoutput>#linkTo(text="Go to the full site", controller="home", action="index", data_ajax="false", data_role="button", class="ui-btn-right")#</cfoutput>
