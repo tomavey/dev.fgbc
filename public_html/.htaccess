@@ -10,7 +10,7 @@
 #RewriteCond %{REQUEST_URI} !^.*/(flex2gateway|partials|js|jrunscripts|cfide|cfformgateway|cffileservlet|railo-context|files|images|javascripts|miscellaneous|stylesheets|robots.txt|favicon.ico|sitemap.xml|rewrite.cfm)($|/.*$) [NC]
 #RewriteRule ^(.*)$ ./rewrite.cfm/$1 [NS,L]
 
-Options +FollowSymLinks
+#Options +FollowSymLinks
 RewriteEngine On
 RewriteCond %{REQUEST_URI} ^.*/index.cfm/(.*)$ [NC]
 RewriteRule ^.*/index.cfm/(.*)$ ./rewrite.cfm/$1 [NS,L]
