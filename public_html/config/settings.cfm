@@ -27,7 +27,7 @@
 	<cfif cgi.http_host is "localhost:8080" || cgi.http_host is "localhost:8888" || cgi.http_host is "fgbc:8080">
              	      <cfset set(URLRewriting="Off")>
 	<cfelse>
-	       <cfset set(URLRewriting="Partial")>
+	       <cfset set(URLRewriting="Off")>
 	       <cfset set(reloadPassword="charis")>
 	</cfif>
 
