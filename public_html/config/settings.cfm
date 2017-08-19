@@ -3,13 +3,14 @@
 	set(dataSourceName="fgbc_main_3")
 	set(dataSourceUserName="root");
 	set(dataSourcePassword="j11itbwtw"); 
-	<cfif cgi.http_host is "localhost:8080" || cgi.http_host is "localhost:8888" || cgi.http_host is "fgbc:8080">
+	if (cgi.http_host is "localhost:8080" || cgi.http_host is "localhost:8888" || cgi.http_host is "fgbc:8080") {
 		set(dataSourceUserName="root");
 		set(dataSourcePassword="j11itbwtw"); 
-	<cfelse>
+	}
+	else {
 		set(dataSourceUserName="tomavey.fgbc");
 		set(dataSourcePassword="J316fgsltw!"); 
-	</cfif>
+	}
 </cfscript>
 
 <!---Defaults for form helpers--->
