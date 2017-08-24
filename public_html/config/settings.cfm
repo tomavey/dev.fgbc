@@ -118,21 +118,21 @@
 	<cfset set(workshopnotifications = "tomavey@fgbc.org")>
 
 <!---What is open and what is not--->
-	<cfset set(registrationIsOpen = true)>
-	<cfset set(groupregistrationIsOpen = true)>
-	<cfset set(convertGroupRegistrationIsOpen = true)>
+	<cfset set(registrationIsOpen = false)>
+	<cfset set(groupregistrationIsOpen = false)>
+	<cfset set(convertGroupRegistrationIsOpen = false)>
 	<cfset set(monitoring = false)>
-	<cfset set(mealsregistrationIsOpen = true)>
-	<cfset set(optionsregistrationIsOpen = true)>
+	<cfset set(mealsregistrationIsOpen = false)>
+	<cfset set(optionsregistrationIsOpen = false)>
 	<cfset set(preregistrationIsOpen = false)>
-	<cfset set(ccareregistrationIsOpen = true)>
-	<cfset set(exhibitorsIsOpen = true)>
-	<cfset set(regAccountIsOpen = true)>
-	<cfset set(workshopsRegIsOpen = true)>
-	<cfset set(workshopsEventsAreSet = true)>
-	<cfset set(workshopNotificationsOpen = true)>
+	<cfset set(ccareregistrationIsOpen = false)>
+	<cfset set(exhibitorsIsOpen = false)>
+	<cfset set(regAccountIsOpen = false)>
+	<cfset set(workshopsRegIsOpen = false)>
+	<cfset set(workshopsEventsAreSet = false)>
+	<cfset set(workshopNotificationsOpen = false)>
 	<cfset set(showFacilitatorsWithCourse = false)>
-	<cfset set(showSubTypesOfCourses = true)>
+	<cfset set(showSubTypesOfCourses = false)>
 
 <!---For Facebook OAuth--->
 	<cfif cgi.http_host is "localhost:8080" OR cgi.http_host is "localhost:8888">
