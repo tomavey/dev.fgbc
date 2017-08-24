@@ -58,6 +58,12 @@ p.desc {
     font: .7em normal;
 }
 
+fieldset#childcare p.desc {
+    display: block;
+    font-size: 1em;
+    color: gray;
+}
+
 a#emptyCart {
     font:.7em normal;
 }
@@ -171,11 +177,22 @@ th.person {
     color:black;
 }
 
-input#person, select, input#fname, input#lname, input#email, input#phone, input#agent {
+input#person, select, input#fname, input#lname, input#email, input#phone, input#agent, #courseresourceform input, #courseresourceslist input {
     height:50px;
     border-radius:10px;
     background-color: #caf2f2;
 }
+
+#courseresourceform input, #courseresourceform select, #courseresourceform label {
+   margin: 10px auto;
+   display: block;
+   text-align: center;
+}
+
+#courseresourceform label {
+    margin-top:30px;
+}
+
 
 div.regcosts table tr th {
     text-align: center; 
@@ -260,7 +277,7 @@ div.eachregistration .personsname span{
 }
 
 #courseslist .workshoptime {
-    font-size:10px;
+    font-size:1.2em;
     float: none;
 }
 
@@ -389,4 +406,45 @@ p.groupreginfo {
 
 .eachcohort .subtype {
     font-size:.6em;
+}
+
+.courseresourcecomment {
+    background-color: white;
+    padding:10px;
+    border: 2px solid darkgray;
+    border-radius: 10px;
+    font-size: 1.5em;
+}
+
+.courseresourcelink, .courseresourcefile  {
+    text-align: center;
+    font-size: 2em;
+}
+
+.courseresourceauthor{
+    text-align: right; 
+    color:gray;
+    font-size:.8em;
+}
+
+.eachcourseresourced {
+    border: 1px solid grey;
+    background-color: lightgray;
+    border-radius: 10px;
+    margin:10px;
+    margin-bottom: 25px;
+    padding:10px;
+}
+
+.eachcourseresource {
+    border: 1px solid grey;
+    background-color: lightyellow;
+    border-radius: 10px;
+    margin:10px;
+    padding:10px;
+}
+
+a.courseresourcenewlink {
+    display:block;
+    text-align: center;
 }

@@ -1,10 +1,10 @@
-	<cfoutput>
+<cfoutput>
 <div class="row">
 
-<div class="span5 well">
-#imageTag("/focus/family2016.jpg")#
+<div class="span4 well">
+#imageTag("/focus/apprentice2017b.jpg")#
 </div>
-<div class="span5 well">
+<div class="span7 well">
 		<h1 id="logoheader">#getFocusContent("MainTitle")#</h1>
 		<h2 id="logoheader2">#getFocusContent("mainTitleText")#<br />
         <div class="listofretreats">
