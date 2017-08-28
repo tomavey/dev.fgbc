@@ -17,7 +17,10 @@
 
 		<cftry>
 		<cfset church = model("Handbookorganization").findOne(where="id=#session.delegate.churchid#", include="Handbookstate")>
-		<cfset church.delegatecount = getDelegatesAllowed(session.delegate.churchid)>
+
+		<cfset church.delegatecount = getDelegatesStatus(session.delegate.churchid).delegates>
+		<cfset church.wereStatSubmitted = getDelegatesStatus(session.delegate.churchid).statsReturned>
+
 		<cfif NOT church.delegatecount>
 			<cfset redirectTo(action="needStats", key=session.delegate.churchid)>
 		</cfif>
@@ -78,7 +81,7 @@
 	</cffunction>
 
 	<cffunction name="downloadDelegates">
-		<cfset fgbcdelegates = model("Fgbcdelegate").findAll(where="year = '#application.wheels.delegateyear#'", include="Handbookorganization(Handbookstate)", order="name")>
+		<cfset fgbcdelegates = model("Fgbcdelegate").findAll(where="year = '#getdelegateyear()#'", include="Handbookorganization(Handbookstate)", order="name")>
 		<cfset renderPage(layout="/layout_download")>
 	</cffunction>
 
@@ -127,6 +130,7 @@
 		</cfif>
 		<cfset church = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
 		<cfset church.delegatecount = getDelegatesAllowed(params.key)>
+		<cfset church.wereStatSubmitted = getDelegatesStatus(params.key).statsReturned>
 		<cfset fgbcdelegate = model("Fgbcdelegate").new()>
 		<cfset fgbcdelegate.status = "active">
 		<cfset fgbcdelegate.year = application.wheels.delegateyear>
@@ -303,28 +307,31 @@
 	</cffunction>
 
 	<!--- fgbcdelegates/getDelegatesAllowed --->
-	<cffunction name="getDelegatesAllowed">
+	<cffunction name="getDelegatesStatus">
 	<cfargument name="churchid" required="true" type="numeric">
-	<cfset var thisyear = val(application.wheels.delegateyear) - 1>
-	<cfset var delegates = 0>
+	<cfset var thisyear = val(application.wheels.delegateyear)-1>
+	<cfset var loc = structNew()>
+	<cfset loc.delegates = 0>
+	<cfset loc.statsReturned = "False">
 		<cfset var church = model("Handbookstatistic").findOne(where="organizationid = #arguments.churchid# AND year = '#thisyear#'")>
 		<cfif isObject(church)>
+			<cfset loc.statsReturned = "true">
 			<cfset church.att = val(church.att)>
-			<cfset delegates = 2>
+			<cfset loc.delegates = 2>
 			<cfif church.att GT 50>
-				<cfset delegates = 3>
+				<cfset loc.delegates = 3>
 			</cfif>
 			<cfif church.att GT 100>
-				<cfset delegates = 5>
+				<cfset loc.delegates = 5>
 			</cfif>
 			<cfif church.att GT 200>
-				<cfset delegates = 10>
+				<cfset loc.delegates = 10>
 			</cfif>
 			<cfif church.att GT 300>
-				<cfset delegates = 20>
+				<cfset loc.delegates = 20>
 			</cfif>
 			<cfif church.att GT 500>
-				<cfset delegates = 25>
+				<cfset loc.delegates = 25>
 			</cfif>
 			<cfif church.att GT 1000>
 				<cfset delegates = 30>
@@ -334,10 +341,17 @@
 			</cfif>
 
 		<cfelse>
-			<cfset delegates=0>
+			<cfset loc.statsReturned = "false">
+			<cfset loc.delegates=0>
 		</cfif>
 
-		<cfreturn delegates>
+		<cfreturn loc>
+	</cffunction>
+
+	<cffunction name="getDelegatesAllowed">
+	<cfargument name="churchid" required="true" type="numeric">
+		<cfset var return = getDelegatesStatus(arguments.churchid).delegates>
+	<cfreturn return>
 	</cffunction>
 
 	<cffunction name="testGetDelegatesAllowed">
