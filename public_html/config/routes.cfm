@@ -24,9 +24,10 @@
 			.resources("users")
 			.resources("groups")
 			.resources("rights")
-			.get(name="forgotpassword", pattern="/users/get-email-for-change-password-link", controller="users", action="get-email-for-change-password-link")
 			.get(name="checklogin", pattern="/users/checklogin", controller="users", action="checklogin")
 		.end()
+
+		.get(name="forgotpassword", pattern="/auth/users/get-email-for-change-password-link", controller="auth.users", action="get-email-for-change-password-link")
 
 		.namespace("handbook")
 			.resources("admin")
