@@ -24,6 +24,7 @@
 			.resources("users")
 			.resources("groups")
 			.resources("rights")
+			.get(name="checklogin", pattern=".users/checklogin", controller="auth.users", action="checklogin")
 		.end()
 
 		.namespace("handbook")
