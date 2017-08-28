@@ -1,7 +1,5 @@
 <cfcomponent extends="Controller" output="false">
 
-<cfdump var="#params#"><cfabort>
-
 	<cffunction name="init">
 		<cfset filters(through="isSuperadmin", only="index,show,loginAsUser")>
 		<cfset filters(through="setReturn", only="index,show")>
@@ -170,6 +168,8 @@
 	</cffunction>
 
 	<cffunction name="getEmailForChangePasswordLink">
+<cfdump var="#params#"><cfabort>
+
 		<cfset user= model("Authuser").new()>
 	</cffunction>
 
