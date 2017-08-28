@@ -28,7 +28,7 @@
 	</cffunction>
 
 	<cffunction name="rss">
-		<cfset announcements = model("Mainannouncement").findAll(where="startat < now() AND onhold = 'N' AND (type = '' OR type LIKE '%Both%' OR type LIKE '%Feed%' OR type IS NULL)", order="createdAt desc")>
+		<cfset announcements = model("Mainannouncement").findAll(where="startat < now() AND onhold = 'N' AND type <> 'Announcement Only'", order="createdAt desc")>
 		
 		<cfset title = "FGBC Announcements">
 		<cfset description= "Official Communication of the FGBC National Office">
