@@ -11,7 +11,25 @@
 
 	<!--- events/index --->
 	<cffunction name="index">
-		<cfset events = model("Mainevent").findAll(order="begin,end")>
+		<cfif isDefined("params.sortby")>
+			<cfswitch expression="#params.sortby#">
+				<cfcase value="ascendingDates">
+					<cfset orderString = "begin,end">
+				</cfcase>
+				<cfcase value="sponsor">
+					<cfset orderString = "sponsor">
+				</cfcase>
+				<cfcase value="event">
+					<cfset orderString = "event">
+				</cfcase>
+				<cfdefaultcase>
+					<cfset orderString = "begin DESC,end">
+				</cfdefaultcase>
+			</cfswitch>
+		<cfelse>
+			<cfset orderString = "begin DESC,end">
+		</cfif>
+		<cfset events = model("Mainevent").findAll(order=orderString)>
 		<cfset session.return = params.action>
 	</cffunction>
 	
