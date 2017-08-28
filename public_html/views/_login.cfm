@@ -35,7 +35,7 @@
 				<p>&nbsp;</p>
 			</div>
 			<div class="modal-footer">
-				#linkTo(text="Create a new FGBC account", controller="auth.users", action="new")#
+				#linkTo(text="Create a new FGBC account", controller="auth/users", action="new")#
 			</div>
 		</div>
 	</cfif>
@@ -58,7 +58,7 @@
 		</div>
 		<div class="modal-footer">
 			<button type="submit" name="submit" value="Login" class="btn btn-primary">Login</button>
-			<p>#linkTo(text="Create a new FGBC account", controller="auth.users", action="new")#</p>
+			<p>#linkTo(text="Create a new FGBC account", controller="auth/users", action="new")#</p>
 		</div>
 			#endFormTag()#
 	</div>
