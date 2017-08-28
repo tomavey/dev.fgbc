@@ -558,6 +558,28 @@
 		}
 	}
 
+	public function removeDuplicatesFromList(list,delimiter,case=true){
+		var i = 0;
+		var listitem = "";
+		var newlist = "";
+
+		if(!isDefined("delimiter")){delimiter=","};
+		for (i=1; i LTE listLen(list,delimiter); i=i+1){
+			listItem = listGetAt(list,i,delimiter);
+			if (case is true){
+			if (!listFind(newlist,listitem,delimiter)){
+				newlist = newlist & delimiter & listitem;
+				}
+			}
+			else {
+			if (!listFindNoCase(newlist,listitem,delimiter)){
+				newlist = newlist & delimiter & listitem;
+				}
+			}	
+		};
+		return newlist;
+	}
+
 </cfscript>		
 
 </cfcomponent>
