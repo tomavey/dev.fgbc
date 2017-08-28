@@ -68,21 +68,6 @@ private function everythingAsJson(){
           "term": "@accessfgbc"
         }
       ]
-    },
-    {
-      "sections": [
-        {
-          "id": "98OzKjt2FQKhQ6k1R9",
-          "type": "about-section",
-          "title": "Access2017",
-          "content": "<p>Leaders need access! In the church, leaders need other Jesus-following-leaders who have the experiences and perspectives that help them advance. Access2017 has be intentionally designed to give leaders meaningful, ministry-changing access. We have created more time in the schedule for you to gather with other leaders who know what you need and need what you know. Call them cohorts, or round-tables, or interest groups but we will provide ample time for you to talk about what you are learning in ministry. We like to call access2017 a customized conference.  You will have new connections that can call anytime you learn something new or need a fresh idea. This can change your ministry!</p><p>Access2017 is an annual conference sponsored by the&nbsp;<a href=\"http://www.fgbc.org\">Fellowship of Grace Brethren Churches</a></p>"
-        }
-      ],
-      "name": "About",
-      "type": "feature-about",
-      "icon": "26",
-      "id": "98G5YCtyX3VcTZLZR6",
-      "sorting": "manual"
     }
   ]
 }
@@ -252,6 +237,51 @@ private function personalitiesAsJson(){
             "lastName": "Minier",
             "files": [],
             "position": "Conference Director",
+            "sessions": [],
+            "company": ""
+          },
+          {
+            "description": "In 1990, Kevin came to Grace Community Church as an Assistant Youth Pastor/Custodian. Three years later, he became the Lead Pastor. Since 1993, Grace has grown to an average Sunday morning attendance of 1,824 in the small town of Fremont, Ohio. In addition to the Fremont main location, GCC also has campuses located in Northwood, Ohio (near Toledo) and Paulding, Ohio. Kevin and Pam, have three children; Pastor Zach (married to Kaitlynn), Brianne (married to Jacob Wukie), and Karissa (married to Calvin Spriggs) and three grandchildren. Kevin enjoys pointing people to our Savior, spending time with his family, exercise, football, being in the mountains, and traveling.",
+            "email": "kpinkerton@ohiograce.com",
+            "groups": [],
+            "phone": "",
+            "firstName": "Kevin",
+            "type": "speaker",
+            "photo": "http://www.fgbc.org/images/conference/instructors/pinkerton120.jpg",
+            "id": "pinkerton",
+            "lastName": "Pinkerton",
+            "files": [],
+            "position": "Host Pastor",
+            "sessions": [],
+            "company": ""
+          },
+          {
+            "description": "Zach has served as Young Adult, Middle School, and currently as the High School Pastor since 2010. Pastor Zach earned a Bachelor of Science degree in Biblical studies from Liberty University, a Master of Arts in Religion in theology and apologetics from Liberty Baptist Theological Seminary in Lynchburg, Virginia, a Masters in Religious Education from Liberty, and a Masters of Arts in Ministry Studies from Grace College, as well as a Masters of Business Administration degree from Franklin University in Columbus, Ohio.Zach’s wife, Kaitlyn, is also a Liberty graduate with a degree in Graphic Arts.  Zach and Kait have a boy named Toby, and two dogs, Wrigley and Buckeye, named after each of their favorite teams.",
+            "email": "zpinkerton@ohiograce.com",
+            "groups": [],
+            "phone": "",
+            "firstName": "Zach",
+            "type": "speaker",
+            "photo": "http://www.fgbc.org/images/conference/instructors/pinkerton_z120-b.jpg",
+            "id": "pinkerton_z",
+            "lastName": "Pinkerton",
+            "files": [],
+            "position": "Host Contact",
+            "sessions": [],
+            "company": ""
+          },
+          {
+            "description": "Forrest has served as Pastor of Administration and Pastoral Care at Grace Community since 2006.  Pastor Forrest graduated from Indiana Baptist College with a Bachelor of Science degree in Bible. He served as a youth pastor in New Washington, Indiana.  He also served 15 years in Christian education as a principal in Indiana, New York and Ohio. He joined the Grace Community staff in 2006.  He is responsible for hospital visitation, Wednesday Night Bible Study, Lay Counseling Ministry and administration. Forrest and his wife, Vickie, have four children, Clay (married to Crystal and father of Indy and Brody), Kyle (married to Katie), Holly (married to Jimmie) and Kelsey.  Forrest enjoys spending time with his family, watching sports (especially football and Indy racing), camping and playing the piano.",
+            "email": "fkirchenbauer@ohiograce.com",
+            "groups": [],
+            "phone": "",
+            "firstName": "Forrest",
+            "type": "speaker",
+            "photo": "http://www.fgbc.org/images/conference/instructors/kirchenbauer120.jpg",
+            "id": "kirchenbauer",
+            "lastName": "Kirchenbauer",
+            "files": [],
+            "position": "Host Contact",
             "sessions": [],
             "company": ""
           },
@@ -598,7 +628,7 @@ private function getOptionDescriptionForEvent(eventid){
 private function getDescriptionForEvent(eventid){
   var event = model("Conferenceevent").findOne(where="id=#eventid#");
   var addednote = "";
-  if (event.category EQ "Meal") {addednote = "Tickets for this meal were sold online. Check at the Welcome Center to see if more are available."}
+  if (event.category EQ "Meal") {addednote = " Tickets for this meal were sold online. Check at the Welcome Center to see if more are available."}
   var eventdescription = event.description;
   var eventdescriptionprogram = event.descriptionprogram;
   var optiondescription = getOptionDescriptionForEvent(eventid);

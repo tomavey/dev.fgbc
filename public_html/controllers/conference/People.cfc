@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/conference/adminlayout")>
-		<cfset filters("officeOnly")>
+		<cfset filters(through="officeOnly", except="show")>
 		<cfset filters(through="setreturn", only="index,show,list")>
 	</cffunction>
 
@@ -38,6 +38,10 @@
 	        <cfset flashInsert(error="people #params.key# was not found")>
 	        <cfset redirectTo(action="index")>
 	    </cfif>
+
+		<cfif !gotRights("office")>
+			<cfset renderpage(layout="/conference/layout2017")>
+		</cfif>
 
 	</cffunction>
 

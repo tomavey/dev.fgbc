@@ -8,12 +8,19 @@
 
 	<!--- registrations/index --->
 	<cffunction name="index">
+		<cfset var orderString = "createdAT desc">
 		<cfif isDefined("params.status")>
 			<cfset whereString = "event='#getEvent()#' AND ccstatus = '#params.status#'">
 		<cfelse>
 			<cfset whereString = "event='#getEvent()#'">
 		</cfif>
-		<cfset registrations = model("Conferenceregistration").findAll(where=whereString, include="person(family),option,invoice", order="createdAt desc")>
+		<cfif isDefined("params.sortby")>
+			<cfset orderString = params.sortby>
+		</cfif>
+		<cfset registrations = model("Conferenceregistration").findAll(where=whereString, include="person(family),option,invoice", order=orderString)>
+		<cfif isDefined("params.download")>
+			  <cfset renderPage(layout="/conference/layoutdownload")>
+		</cfif>
     </cffunction>
 
 	<cffunction name="parentEmail">

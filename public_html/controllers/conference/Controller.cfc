@@ -111,10 +111,12 @@
 				<cfset loc.return.id = loc.spouse.id>
 				<cfset loc.return.fname = loc.spouse.fname>
 				<cfset loc.return.equip_prayer_tripletsid = loc.spouse.equip_prayer_tripletsid>
+                <cfset loc.return.email = loc.spouse.email>
 			<cfelse>
 				<cfset loc.return.id = "">
 				<cfset loc.return.fname = "">
 				<cfset loc.return.equip_prayer_tripletsid = "">
+                <cfset loc.return.email = "">
 			</cfif>
 
 		<cfelseif isObject(loc.thisperson) AND loc.thisperson.type is "spouse">
@@ -124,18 +126,21 @@
 				<cfset loc.return.id = loc.adult.id>
 				<cfset loc.return.fname = loc.adult.fname>
 				<cfset loc.return.equip_prayer_tripletsid = loc.adult.equip_prayer_tripletsid>
+                <cfset loc.return.email = loc.adult.email>
 			<cfelse>
 				<cfset loc.return.id = "">
 				<cfset loc.return.fname = "">
 				<cfset loc.return.equip_prayer_tripletsid = "">
+	            <cfset loc.return.email = "">
 			</cfif>
 
 		<cfelse>
 				<cfset loc.return.id = "">
 				<cfset loc.return.fname = "">
 				<cfset loc.return.equip_prayer_tripletsid = "">
+	            <cfset loc.return.email = "">
 		</cfif>
-	<cfreturn loc.return>
+    <cfreturn loc.return>
 	</cffunction>
 
 	<cffunction name="testGetSpouse">
@@ -215,7 +220,7 @@
     </cffunction>
 
     <cffunction name="childRegIsOpen">
-    <cfif application.wheels.ccareregistrationIsOpen OR gotRights("office") or isDefined("params.openreg") || isDefined("session.auth.openreg")>
+    <cfif (application.wheels.ccareregistrationIsOpen && isBefore(application.wheels.ccareregistrationDeadline)) OR gotRights("office") or isDefined("params.openreg") || isDefined("session.auth.openreg")>
         <cfreturn true>
     <cfelse>
         <cfreturn false>
@@ -228,6 +233,21 @@
     <cfelse>
         <cfreturn false>
     </cfif>
+    </cffunction>
+
+    <cffunction name="urlExists">
+    <cfargument name="url" required="true" type="string">
+    <cfset var test = "">
+        <cfif len(arguments.url)>
+        <cfhttp url='#arguments.url#' method="head" result="test">
+        <cfif isDefined("test.responseheader.status_code") && test.responseheader.status_code is 200>
+            <cfreturn true>
+        <cfelse>
+            <cfreturn false>
+        </cfif>        
+        <cfelse>
+            <cfreturn false>
+        </cfif>    
     </cffunction>
 
 <cfscript>
@@ -433,6 +453,10 @@
         return application.wheels.dollar;
     }
 
+    function getChildcareRegistrationDeadline() {
+        return application.wheels.ccareregistrationDeadline;
+    }
+
     function clearSession(){
         StructClear(session);
         return true;
@@ -485,7 +509,20 @@
          return "paid";
          break;
     case "0":
-         return "temp";
+        if (!gotRights("office")){
+            return "UnPaid";
+            }
+         else {
+            return "Temp";
+         };
+         break;
+    case "temp":     
+        if (!gotRights("office")){
+            return "<span style='color:red'>UnPaid</span>";
+            }
+         else {
+            return "Temp";
+         };
          break;
     default:
          return status;

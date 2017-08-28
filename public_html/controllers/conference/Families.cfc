@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/conference/adminlayout")>
-		<cfset filters(through="officeOnly", except="showregs")>
+		<cfset filters(through="officeOnly", except="showregs,show")>
 		<cfset filters(through="setReturn", only="index,show,list,envelopes")>
 	</cffunction>
 
@@ -22,6 +22,10 @@
 	        <cfset flashInsert(error="family #params.key# was not found")>
 	        <cfset redirectTo(action="index")>
 	    </cfif>
+
+		<cfif !gotRights("office")>
+			<cfset renderpage(layout="/conference/layout2017")>
+		</cfif>
 
 	</cffunction>
 
@@ -281,7 +285,11 @@
 			<cfset wherestring = whereString & " AND name = '#params.option#'">
 		</cfif>
 
-			<cfset familyRegInfo = Model("Conferenceregistration").findAll(where=wherestring, include="option,invoice", order=itemOrder)>
+		<cfif !isDefined("params.showall")>
+			<cfset whereString = whereString & " AND quantity <> 0">
+		</cfif>		
+
+		<cfset familyRegInfo = Model("Conferenceregistration").findAll(where=wherestring, include="option,invoice", order=itemOrder)>
 
 		<cftry>
 			<cfset envelopeInfo.status = paystatus(familyRegInfo.ccstatus)>
@@ -303,8 +311,8 @@
 	</cffunction>
 
 	<cffunction name="TestThisFamilyEnvelopeInfo">
-		<cfset test1 = thisFamilyEnvelopeInfo(1610)>
-		<cfset test2 = thisFamilyEnvelopeInfo(1545)>
+		<cfset test1 = thisFamilyEnvelopeInfo(2432)>
+		<cfset test2 = thisFamilyEnvelopeInfo(2945)>
 		<cfdump var="#test1#"><cfdump var="#test2#"><cfabort>
 	</cffunction>
 

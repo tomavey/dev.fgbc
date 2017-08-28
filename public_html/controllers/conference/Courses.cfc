@@ -67,6 +67,12 @@
 		<cfset courses = model("Conferencecourse").findList(order=arguments.orderby, type="#arguments.type#", recorded="#arguments.recorded#", event=arguments.event, courseid=arguments.courseid)>
 	</cffunction>
 
+	<cffunction name="getCourseResources">
+	<cfargument name="courseId" required="true" type="numeric">
+		<cfset var resources = model("Conferencecourseresource").findall(where="id=#arguments.courseId#", order="createdAt DESC")>
+	<cfreturn resources>
+	</cffunction>
+
 	<cffunction name="getSubtypes">
 		<cfset subtypes = structNew()>
 		<cfset subtypes.A = "A-Cohorts: Tuesday and Wednesday AM">

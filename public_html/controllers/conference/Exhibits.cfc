@@ -11,7 +11,7 @@
 		<cfif application.wheels.exhibitorsIsOpen || gotrights("office")>
 			<cfreturn true>
 		<cfelse>
-			<cfset renderText("Vision Conference is soon! Exhibits are all set.  Check back next year.")>
+			<cfset renderText("<h2 style='text-align:center'>#getEventAsText()# is just around the corner! Exhibits are all set.  Check back next year.</h2>")>
 		</cfif>
 	</cffunction>
 

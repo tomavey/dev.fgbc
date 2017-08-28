@@ -149,6 +149,8 @@
     </cffunction>
 
     <cffunction name="sendAnnouncement">
+    <cfargument name="dontsendto" default="">
+    <cfset var args = arguments>
         <cfset announcement = model("Conferenceannouncement").findByKey(params.key)>
         <cfif !useTestEmailList()>
             <cfset announcement.sentAt = now()>
@@ -159,27 +161,35 @@
         <cfelse>
             <cfset thissubject="#getEventAsTextA()# Announcement: #announcement.subject#">
         </cfif>
-        <cfloop list="#regEmailLessNotList()#" index="i">
+        <cfif isDefined("announcement.dontsendto")>
+            <cfset args.dontsendto = announcement.dontsendto>
+        </cfif>    
+        <cfset args.useThisEmailList = regEmailLessNotList(args.dontsendto)>
+        <cfloop list="#args.useThisEmailList#" index="i">
             <cfif isValid("email",trim(i))>
-                <cfset sendEmail(template="announcementemail", from=announcement.author, to=trim(i), subject=thissubject, layout="/conference/layout_for_announcements")>
+                <cfif application.wheels.environment is "Production">
+                    <cfset sendEmail(template="announcementemail", from=announcement.author, to=trim(i), subject=thissubject, layout="/conference/layout_for_announcements")>
+                </cfif>
             </cfif>
         </cfloop>
+        <cfset showThisEmailList = args.useThisEmailList>
         <cfif application.wheels.environment is "Development">
             <cfset renderpage(layout="/conference/layout_for_announcements", template="announcementemail")>
         </cfif>
     </cffunction>
 
     <cffunction name="regEmailLessNotList">
+    <cfargument name="dontsendtothese" default="">
     <cfset var emaillist = "">
 
         <cfloop list="#regEmails()#" index="i">
-            <cfif not listFind(emailnotList(),trim(i)) and isValid("email",trim(i))>
+            <cfif not listFindNoCase(emailnotList(arguments.dontsendtothese),trim(i)) and isValid("email",trim(i))>
                 <cfset emaillist = emaillist & ", " & trim(i)>
             </cfif>
         </cfloop>
 
         <cfset emaillist = replace(emaillist,", ","")>
-
+        <cfset emaillist = removeDuplicatesFromList(emaillist,', ','nocase')>
         <cfreturn emaillist>
     </cffunction>
 
@@ -194,7 +204,18 @@
     </cffunction>
 
     <cffunction name="emailNotList">
-        <cfreturn application.wheels.emailnotList>
+    <cfargument name="dontsendtothese" default="">
+    <cfset var returnthis = application.wheels.emailnotList>
+    <cfif ListLen(arguments.dontsendtothese)>
+        <cfset returnthis = returnthis & "," & arguments.dontsendtothese>
+    </cfif>
+        <cfset returnThis= replace(returnthis," ","","all")>    
+        <cfreturn returnthis>
+    </cffunction>
+
+    <cffunction name="testemailNotList">
+        <cfdump var="#emailNotList('tomavey@fgbc.org,sandy@fgbc.org,sandiavey@gmail.com')#">
+        <cfabort>
     </cffunction>
 
     <cffunction name="useTestEmailList">
