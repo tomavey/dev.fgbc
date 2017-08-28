@@ -65,7 +65,7 @@
 			.resources("shoppingcarts")
 			.get(name="shoppingcartagent", pattern="/shoppingcarts/agent/[key]", controller="shoppingcarts", action="agent")
 			.resources("testmonies")
-			.get(name="retreat", pattern="/retreats/[key]", controller="main", action="retreat")
+			.get(name="showRetreat", pattern="/retreat/[key]", controller="main", action="retreat")
 			.root(controller="main", action="welcome")
 		.end()
 
