@@ -18,6 +18,7 @@
               <li class="active">#linkTo(text="Home", controller="membership.delegates", action="index")#</li>
 
               <li>#linkTo(text="Delinquent", controller="membership.delegates", action="delinquent")#</li>
+              <li>#linkTo(text="PDF Form", href="http://www.fgbc.org/files/credential_form.pdf")#</li>
 
       			  <!---li>	
       				  	#startFormTag(action="search", class="navbar-search")#

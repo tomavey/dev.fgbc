@@ -1,6 +1,9 @@
-<h1>Editing forumforum</h1>
-
 <cfoutput>
+<cfif isDefined("forumForum.forum")>
+<h1>Editing #forumForum.forum#</h1>
+<cfelse>
+<h1>Editing this Forum</h1>
+</cfif>
 
 			#errorMessagesFor("forumforum")#
 	

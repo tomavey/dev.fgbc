@@ -36,7 +36,9 @@
 					
 						#textField(objectName='equipannouncement', property='author', label='Author')#
 																
+						#textArea(objectName='equipannouncement', property='onlysendto', label='Only send to these email addresses: ')#
 				
+						#textArea(objectName='equipannouncement', property='dontsendto', label='Send to everyone registered except these email addresses: ')#
 					
 						#textField(objectName='equipannouncement', property='approved', label='Approved')#
 																

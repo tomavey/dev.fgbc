@@ -66,4 +66,5 @@
 	<cfset emailallnominators = replace(emailallnominators,";","","one")>
 	<p>Nominators: #mailTo(emailallnominators)#</p>	
 	<p>#linkTo(text="View List", action="list", class="btn")#</p>
+	<p>#linkTo(text="View Elected List", action="list", params="elected", class="btn")#</p>
 </cfoutput>

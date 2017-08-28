@@ -8,6 +8,6 @@
     <p>Or you can bookmark this link: <a href="http://www.fgbc.org/membership/delegates/#params.key#">www.fgbc.org/membership/delegates/#params.key#</a></p>
     <cfcatch></cfcatch></cftry>
     </cfoutput>
-    <h2 class="well">When ready (soon!), delegate instructions and reports will be available at<br/> <a href="http://www.fgbc.org/page/delegates2016">www.fgbc.org/page/delegates2016</a>.<br/>  Please share this link with all your delegates</a></h2>
+    <h2 class="well">When ready (soon!), delegate instructions and reports will be available at<br/> <a href="http://www.fgbc.org/page/delegates2017">www.fgbc.org/page/delegates2017</a>.<br/>  Please share this link with all your delegates</a></h2>
 </center>
 </cfif>

@@ -10,7 +10,7 @@
 			#spotlightTag(image="charisalliance.jpg", text="Charis Alliance", route="page", key=82)#
 		</div>
 
-	<cfif isBefore("August 20, 2017")>
+	<cfif isBefore("August 1, 2017")>
 		<div class="spotlightImageHolder">
 			#spotlightTag(image="access2017.jpg", text="Access 2017", href="http://www.access2017.com")#
 		</div>

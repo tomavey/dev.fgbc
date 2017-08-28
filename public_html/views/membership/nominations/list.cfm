@@ -1,13 +1,29 @@
-<cfoutput><h1>Nominees for Fellowship Council #application.wheels.nominateTerm#</h1>
+<cfparam name="showElected" type="string" default="false">
+
+<cfif isDefined("params.elected")>
+	<cfset showElected = "true">
+</cfif>
+
+<cfoutput>
+<cfif !showElected>
+<h1>Nominees for Fellowship Council #application.wheels.nominateTerm#</h1>
+<cfelse>
+<h1>New Fellowship Council Members</h1>
 #linkto(text="What is the Fellowship Council?", href="http://fgbc.org/contents/show/22")#
+</cfif>
 <div class="hero-unit">
-<h3>The Nominating Committee of the <a href="http://www.fgbc.org/">Fellowship of Grace Brethren Churches</a> is pleased to nominate the following people to the #application.wheels.nominateTerm# term of the <a href="http://fgbc.org/contents/show/22">Fellowship Council</a> of the <a href="http://www.fgbc.org/">Fellowship of Grace Brethren Churches</a>:</h3>
-<p>Delegates at National Conference will select one representative from each region from this list.</p>
-<ul>
-    <li>Region A: Arctic, Hawaii, Mountain Plains, Nor-Cal, Pacific Northwest, Southern California-Arizona, Iowa Midlands, and Heartland</li>
-    <li>Region B: Northcentral Ohio, Northeastern Ohio, Northwest Ohio, Tri-State, Allegheny and Western Pennsylvania</li>
-    <li>Region C: Blue Ridge, Chesapeake, Mid-Atlantic, Northern Atlantic, Florida, and Southern.</li>
-</ul>
+	<cfif !showElected>
+	<h3>The Nominating Committee of the <a href="http://www.fgbc.org/">Fellowship of Grace Brethren Churches</a> is pleased to nominate the following people to the #application.wheels.nominateTerm# term of the <a href="http://fgbc.org/contents/show/22">Fellowship Council</a> of the <a href="http://www.fgbc.org/">Fellowship of Grace Brethren Churches</a>:</h3>
+	<p>Delegates at National Conference will select one representative from each region from this list.</p>
+	<ul>
+		<li>Region A: Arctic, Hawaii, Mountain Plains, Nor-Cal, Pacific Northwest, Southern California-Arizona, Iowa Midlands, and Heartland</li>
+		<li>Region B: Northcentral Ohio, Northeastern Ohio, Northwest Ohio, Tri-State, Allegheny and Western Pennsylvania</li>
+		<li>Region C: Blue Ridge, Chesapeake, Mid-Atlantic, Northern Atlantic, Florida, and Southern.</li>
+	</ul>
+	<cfelse>
+	<h3>The following were elected to serve on the #linkto(text="Fellowship Council", href="http://fgbc.org/contents/show/22")# of the FGBC for #application.wheels.nominateTerm#</h3>
+	</cfif>
+
 </div>
 <hr/>
 </cfoutput>
@@ -36,7 +52,7 @@
 <hr/>
 </cfoutput>
 
-<cfif len(nominateMessage)>
+<cfif len(nominateMessage) && !showElected>
 	<cfoutput>
 		<div id="nominatemessage">
 			#nominateMessage#

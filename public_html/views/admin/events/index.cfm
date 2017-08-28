@@ -5,23 +5,31 @@
 	<p>#linkTo(text="Create a new Event", action="new")#</p>
 </cfoutput>
 <table class="table">
+<cfoutput>
 <tr>
 	<th>
-		Event
+		#linkTo(text="Event", params="sortby=event")#
 	</th>
 	<th>
-		Begin
+		<cfif isDefined("params.sortby") && params.sortby is "ascendingDates">
+			#linkTo(text="Begin &uarr;", params="")#
+		<cfelseif isDefined("params.sortby") && params.sortby NEQ "ascendingDates">
+			#linkTo(text="Begin &darr;", params="sortby=ascendingDates")#
+		<cfelse>	
+			#linkTo(text="Begin &darr;", params="sortby=ascendingDates")#
+		</cfif>
 	</th>
 	<th>
 		End
 	</th>
 	<th>
-		Sponsor
+		#linkTo(text="Sponsor", params="sortby=sponsor")#
 	</th>
 	<th>
 		&nbsp;
 	</th>
 </tr>
+</cfoutput>
 <cfoutput query="events">
 	<tr>
 		<td>

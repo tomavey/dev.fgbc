@@ -12,7 +12,7 @@
 				
 					<cfcol header="Updated At" text="#dateformat(updatedAt)#" />
 				
-	<cfcol header="" text="#linkTo(text='Show', controller="forumPosts", action='list', key=id)#" />
+	<cfcol header="" text="#linkTo(text='Show', controller="forums.Posts", action='list', key=id)#" />
 	<cfcol header="" text="#linkTo(text='Edit', action='edit', key=id)#" />
 	<cfcol header="" text="#linkTo(text='Delete', action='delete', key=id, confirm='Are you sure?')#" />
 </cftable>
