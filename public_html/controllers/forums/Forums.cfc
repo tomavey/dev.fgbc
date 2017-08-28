@@ -1,11 +1,37 @@
 <cfcomponent extends="Controller" output="false">
-	
-	<cffunction name="init">
-		<cfset usesLayout("/forums/layout")>
-		<cfset filters(through="forumCheckin", except="login,authorize,logmein,about")>
-	</cffunction>
 
-	<cffunction name="authorize">
+<cfscript>
+	public function init(){
+		usesLayout("/forums/layout");
+		filters(through="forumCheckin", except="login,authorize,logmein,about,index");
+	}
+
+	private function authorize(){
+		if (isdefined("params.email") AND isdefined("params.groupcode")){
+			redirectTo(controller="forums.posts", action="logmein", params="email=#params.email#&groupcode=#params.groupcode#");
+		} 
+		elseif (isdefined("params.key") and params.key is "constitution") {
+			redirectTo(controller="forums.posts", action="login", params="groupcode=constitution");
+		} 
+		elseif (!isdefined("session.auth.email") or len(session.auth.email) is 0){
+			redirectTo(controller="forums.posts", action="login");
+		}
+		elseif (isdefined("params.key") and params.key is "constitution"){
+			redirectTo(controller="forums.posts", action="login", params="groupcode=constitution");
+		}		
+		elseif (!isdefined("session.auth.email") or len(session.auth.email) is 0){
+			redirectTo(controller="forums.posts", action="login");
+		}			
+		elseif (!isdefined("session.auth.forumid") or len(session.auth.forumid) is 0){
+			redirectTo(controller="forums.posts", action="login");	
+		}		
+		else {	
+			session.auth.forum = 1
+		}			
+	}
+</cfscript>	
+
+	<cffunction name="Xauthorize">
 
 		<cfif isdefined("params.email") AND isdefined("params.groupcode")>
 			<cfset redirectTo(controller="forums.posts", action="logmein", params="email=#params.email#&groupcode=#params.groupcode#")>		

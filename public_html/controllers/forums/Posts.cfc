@@ -222,12 +222,14 @@
 
 	<cffunction name="list">
 		<cfset setreturn()>
+		<cfif !isDefined("params.key")>
 			<cftry>
 				<cfset params.key = session.auth.forumid>
 			<cfcatch>
 				<cfset redirectTo(action="login")>
 			</cfcatch>	
 			</cftry>
+		</cfif>	
 		<cfset posts = model("Forumpost").findAll(where="forumid='#params.key#' AND parentid IS NULL", include="Forumforum", order="sortorder")>
 		<cfset allposts = model("Forumpost").findAll(where="forumid='#params.key#' AND parentid IS NOT NULL", include="Forumforum", order="createdAt DESC")>
 		<cfset user = model("Forumuser").findOne(where="email = '#session.auth.email#' AND groupcode = '#getGroupCode(session.auth.forumid)#'")>
