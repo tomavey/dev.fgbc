@@ -25,6 +25,7 @@
 			.resources("groups")
 			.resources("rights")
 			.get(name="forgotpassword", pattern="/users/get-email-for-change-password-link", controller="auth.users", action="get-email-for-change-password-link")
+			.get(name="checklogin", pattern="/users/checklogin", controller="auth.users", action="checklogin")
 		.end()
 
 		.namespace("handbook")
