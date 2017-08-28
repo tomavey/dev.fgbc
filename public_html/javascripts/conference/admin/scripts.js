@@ -75,5 +75,7 @@ $(document).ready(function () {
                  $("#selectquantitymax").hide()
             };
          })
+
+         $(".ckeditor").ckeditor();
 })
 
