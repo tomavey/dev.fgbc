@@ -57,7 +57,7 @@
  <cffunction name="fbx" output="No">
    <cfargument name="p_fuseaction" default="">
    <cfset var result=''>
-   <cfset result = 'index.cfm?fuseaction=' & trim(p_fuseaction)>
+   <cfset result = '/fc/index.cfm?fuseaction=' & trim(p_fuseaction)>
    <cfreturn result>
  </cffunction>
 

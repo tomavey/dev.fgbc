@@ -217,9 +217,8 @@
 <cfargument name="DESCRIPTION" type="string">
 <cfargument name="DATETIME" type="date">
 <cfargument name="RIGHTS" type="string">
-<cfargument name="SORTORDER" default="sortorder desc">
+<cfargument name="SORTORDER" default="content_documents.datetime ASC">
 <cfargument name="tag" default="fellowshipcouncil">
-
       <cfquery datasource="#dsn#" name="data">
             SELECT *
             FROM content_documents, content_documents_tags

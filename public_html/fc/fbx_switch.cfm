@@ -129,12 +129,18 @@
 	</cfloop> 
 	<cfset xfa.formaction = "postdocumentupload">
    <cfinclude template="frm_documentupload.cfm">
-   <cfinvoke component="control" method="get_content_documents" returnvariable="documents" >
+
+   <cfinvoke component="control" method="get_content_documents" returnvariable="documents">
 		<cfif isdefined("url.key")>
 			<cfinvokeargument name="id" value="#url.key#">
 		</cfif>
+    <cfif isDefined("url.sortorder")>
+			<cfinvokeargument name="sortorder" value="#url.sortorder#">
+    <cfelse>
+			<cfinvokeargument name="sortorder" value="content_documents.datetime desc">
+    </cfif>  
    </cfinvoke>	
-   	<div id="content">
+  <div id="content">
    		<cfinclude template="dsp_documents.cfm">
 	</div>
    <cfinclude template="dsp_std_navigation.cfm">
