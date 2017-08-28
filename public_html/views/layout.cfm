@@ -81,7 +81,6 @@
 					<div class="linkGroup">
 						<h4>Ministries</h4>
 						<div>
-							<a href="http://www.go2ministries.com">Go2 Ministries</a><br/>
 							<a href="http://www.encompassworldpartners.org/">Encompass World Partners</a><br/>
 							<a href="http://www.grace.edu">Grace College and Seminary</a><br/>
 							<a href="http://www.eaglecommission.org/">Eagle Commission</a><br/>
