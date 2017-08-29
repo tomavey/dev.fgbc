@@ -170,8 +170,6 @@
 	</cffunction>
 
 	<cffunction name="getEmailForChangePasswordLink">
-<cfdump var="#params#"><cfabort>
-
 		<cfset user= model("Authuser").new()>
 	</cffunction>
 
