@@ -239,6 +239,10 @@
 		<!---cfset user.return = cgi.HTTP_REFERER--->
 	</cffunction>
 
+	<cffunction name="testcheck">
+	<cfdump var="#params#"><cfabort>
+	</cffunction>
+
 	<cffunction name="checkLogin">
 	<cfset var loc=structnew()>
 
