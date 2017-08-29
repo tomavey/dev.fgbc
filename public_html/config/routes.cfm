@@ -21,13 +21,12 @@
 		.end()
 
 		.namespace("auth")
-			.resources("users")
-			.resources("groups")
-			.resources("rights")
+			.get(name="newAuthUser", pattern="/users/new", controller="users", action="new")
 			.get(name="checklogin", pattern="/users/checklogin", controller="users", action="checklogin")
 		.end()
 
 		.get(name="forgotpassword", pattern="/auth/users/get-email-for-change-password-link", controller="auth.users", action="get-email-for-change-password-link")
+		.get(name="newAuthUser", pattern="/auth/users/new", controller="auth.users", action="new")
 
 		.namespace("handbook")
 			.resources("admin")
