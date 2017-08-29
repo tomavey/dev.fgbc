@@ -22,6 +22,7 @@
 
 		.namespace("auth")
 			.get(name="checklogin", pattern="/users/checklogin", controller="users", action="checklogin")
+			.get(name="newUser", pattern="/new", controller="users", action="new")
 		.end()
 
 		.get(name="forgotpassword", pattern="/auth/users/get-email-for-change-password-link", controller="auth.users", action="get-email-for-change-password-link")
