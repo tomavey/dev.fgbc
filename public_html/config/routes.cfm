@@ -21,7 +21,6 @@
 		.end()
 
 		.namespace("auth")
-			.get(name="newAuthUser", pattern="/users/new", controller="users", action="new")
 			.get(name="checklogin", pattern="/users/checklogin", controller="users", action="checklogin")
 		.end()
 
