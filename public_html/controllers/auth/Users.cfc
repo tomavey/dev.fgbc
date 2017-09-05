@@ -48,7 +48,7 @@
 
 	<!--- users/show/key --->
 	<cffunction name="show">
-	<cftry>
+	<cfdump var="#params#"><cfabort>
 		<!--- Find the record --->
     	<cfset user = model("Authuser").findOne(where="id=#params.key#")>
 		<cfset groups = model("Authusersgroup").findall(where="auth_usersid = #params.key#", include="Group")>
@@ -60,8 +60,6 @@
 	        <cfset flashInsert(error="User #params.key# was not found")>
 	        <cfset redirectTo(action="index")>
 	    </cfif>
-	<cfcatch></cfcatch>
-	</cftry>
 	</cffunction>
 
 	<!--- users/new --->
