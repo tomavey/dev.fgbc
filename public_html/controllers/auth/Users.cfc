@@ -48,8 +48,9 @@
 
 	<!--- users/show/key --->
 	<cffunction name="show">
+	<cftry>
 		<!--- Find the record --->
-    	<cfset user = model("Authuser").findOne(where="id=#val(params.key)#")>
+    	<cfset user = model("Authuser").findOne(where="id=#params.key#")>
 		<cfset groups = model("Authusersgroup").findall(where="auth_usersid = #params.key#", include="Group")>
 		<cfset allgroups = model("Authgroup").findall(order="name")>
 		<cfset rights = model("Authuser").getRights(params.key)>
@@ -59,7 +60,8 @@
 	        <cfset flashInsert(error="User #params.key# was not found")>
 	        <cfset redirectTo(action="index")>
 	    </cfif>
-
+	<cfcatch></cfcatch>
+	</cftry>
 	</cffunction>
 
 	<!--- users/new --->
