@@ -16,8 +16,8 @@
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="##">Account<b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li>#linkTo(text="Create an Account.", route="AuthNewUser")#</li>
-					<li>#linkTo(text="Forgot Password.", route="ForgotPassword")#</li>
+					<li>#linkTo(text="Create an Account.", route="authNewUser")#</li>
+					<li>#linkTo(text="Forgot Password.", route="authForgotPassword")#</li>
 				</ul>
 			</li>
 			<li>#linkTo(text="Contact Us", controller="messages", action="new")#</li>
