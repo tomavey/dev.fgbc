@@ -243,7 +243,7 @@
 	<cfdump var="#params#"><cfabort>
 	</cffunction>
 
-	<cffunction name="checkLogin">
+	<cffunction name="checklogin">
 	<cfset var loc=structnew()>
 
 	<cftry>

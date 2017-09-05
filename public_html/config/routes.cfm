@@ -24,7 +24,7 @@
 			.get(name='LogoutUser', pattern="/users/logout", controller="users", action="logout")
 			.get(name='NewUser', pattern="/users/new", controller="users", action="new")
 			.get(name='ForgotPassword', pattern="/users/logout", controller="users", action="get-email-for-change-password-link")
-			.get(name="CheckLogin", pattern="/users/checklogin", controller="users", action="check-login")
+			.get(name="CheckLogin", pattern="/users/checklogin", controller="users", action="checklogin")
 			.resources("users")
 			.resources("groups")
 			.resources("rights")
