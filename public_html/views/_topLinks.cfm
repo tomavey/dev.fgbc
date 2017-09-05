@@ -10,14 +10,14 @@
 					<li>#linkTo(text="My Account", controller="auth.users", action="edit", key=session.auth.userid)#</li>
 				</ul>
 			</li>
-			<li>#linkTo(text="Logout", controller="auth.users", action="logout")#</li>
+			<li>#linkTo(text="Logout", route="authLogoutUser")#</li>
 			<li id="status"></li>
 		<cfelse>
 			<li class="dropdown">
 				<a class="dropdown-toggle" data-toggle="dropdown" href="##">Account<b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li>#linkTo(text="Create an Account.", route="newAuthUser")#</li>
-					<li>#linkTo(text="Forgot Password.", route="forgotpassword")#</li>
+					<li>#linkTo(text="Create an Account.", route="AuthNewUser")#</li>
+					<li>#linkTo(text="Forgot Password.", route="AuthNewUser")#</li>
 				</ul>
 			</li>
 			<li>#linkTo(text="Contact Us", controller="messages", action="new")#</li>
