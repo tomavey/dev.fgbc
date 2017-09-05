@@ -14,7 +14,7 @@
 					
 						#textField(objectName='menu', property='controllerr', label='Controller: ')#
 					
-						#textField(objectName='menu', property='actionn', label='Action: (default="index")') ')#
+						#textField(objectName='menu', property='actionn', label='Action: (default="index")')#
 					
 						#textField(objectName='menu', property='keyy', label='Key: ')#
 
