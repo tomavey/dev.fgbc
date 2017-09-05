@@ -30,16 +30,6 @@
 			.resources("rights")
 		.end()
 
-		.namespace("auths")
-			.get(name="CheckLogin", pattern="/users/checklogin/", controller="users", action="checklogin")
-			.get(name='LogoutUser', pattern="/users/logout", controller="users", action="logout")
-			.get(name='NewUser', pattern="/users/new", controller="users", action="new")
-			.get(name='ForgotPassword', pattern="/users/logout", controller="users", action="get-email-for-change-password-link")
-			.resources("users")
-			.resources("groups")
-			.resources("rights")
-		.end()
-
 		.namespace("handbook")
 			.resources("admin")
 			.resources("agbm")

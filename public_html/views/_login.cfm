@@ -41,7 +41,7 @@
 	</cfif>
 
 	<div class="modal-right">
-		#startFormTag(route="authsCheckLogin")#
+		#startFormTag(route="authCheckLogin")#
 		<div class="modal-body">
 			<h4 id="myModalLabel">Login with your FGBC account</h4>
 				<div class="row-fluid">
@@ -63,4 +63,5 @@
 			#endFormTag()#
 	</div>
 </div>
+
 </cfoutput>
