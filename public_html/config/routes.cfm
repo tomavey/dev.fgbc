@@ -21,12 +21,12 @@
 		.end()
 
 		.namespace("auth")
-			.resources("users")
-			.resources("groups")
-			.resources("rights")
 			.get(name='LogoutUser', pattern="/users/logout", controller="users", action="logout")
 			.get(name='NewUser', pattern="/users/new", controller="users", action="new")
 			.get(name='ForgotPassword', pattern="/users/logout", controller="users", action="logout")
+			.resources("users")
+			.resources("groups")
+			.resources("rights")
 		.end()
 
 		.namespace("handbook")
