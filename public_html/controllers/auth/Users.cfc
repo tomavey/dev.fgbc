@@ -50,7 +50,7 @@
 	<cffunction name="show">
 
 		<!--- Find the record --->
-    	<cfset user = model("Authuser").findByKey(params.key)>
+    	<cfset user = model("Authuser").findOne(where="id=#params.key#")>
 		<cfset groups = model("Authusersgroup").findall(where="auth_usersid = #params.key#", include="Group")>
 		<cfset allgroups = model("Authgroup").findall(order="name")>
 		<cfset rights = model("Authuser").getRights(params.key)>
