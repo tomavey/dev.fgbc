@@ -10,7 +10,7 @@
 					
 						#textField(objectName='menu', property='image', label='Image: ')#
 					
-						#textField(objectName='menu', property='link', label='Link: ')#
+						#textField(objectName='menu', property='link', label='Link: (only use this for a full path, including http, dont use if linking through a controller)')#
 					
 						#textField(objectName='menu', property='controllerr', label='Controller: ')#
 					
