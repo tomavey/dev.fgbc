@@ -240,6 +240,7 @@
 	</cffunction>
 
 	<cffunction name="testcheck">
+	testcheck...
 	<cfdump var="#params#"><cfabort>
 	</cffunction>
 

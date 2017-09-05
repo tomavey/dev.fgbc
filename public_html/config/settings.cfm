@@ -30,6 +30,7 @@
 	       <cfset set(URLRewriting="On")>
 	       <cfset set(reloadPassword="charis")>
 	</cfif>
+	<cfset set(autologin=true)>
 
 <!---Misc settings--->
 	<cfset set(sendEmailOnError=false)>

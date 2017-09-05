@@ -41,7 +41,7 @@
 	</cfif>
 
 	<div class="modal-right">
-		#startFormTag(controller="auth/users", action="testcheck")#
+		#startFormTag(controller="auth.users", action="checklogin")#
 		<div class="modal-body">
 			<h4 id="myModalLabel">Login with your FGBC account</h4>
 				<div class="row-fluid">
