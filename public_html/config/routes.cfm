@@ -223,7 +223,6 @@
 		.get(name="handbook-welcome", pattern="/handbook-welcome/checkin", controller="handbook.welcome", action="checkin")
 		.get(name="handbook-loginform", pattern="/handbook-welcome/login-form", controller="handbook.welcome", action="login-form")
 		.get(name="freelodging", pattern="/ifeelgood", controller="conference.lodgingrequests", action="new")
-		.root(controller="Home", action="index")
 		.get(name="access2017", pattern="/access2017", controller="conference.register", action="welcome")
 		.get(name="cci", pattern="/cci", controller="about", action="cci")
 		.get(name="ccci", pattern="/ccci", controller="about", action="cci")
@@ -237,6 +236,7 @@
 		.get(name="forAttendifyJson", pattern="/conference.attendify/schema", controller="conference.attendify", action="json")
 		.get(name="constitution", pattern="/constitution", controller="contents", action="constitution")
 		.get(name="churches", pattern="/churches", controller="churches", action="index")
+		.root(controller="Home", action="index")
 		.wildcard()
 
 	.end();
