@@ -22,8 +22,8 @@
 
 		.namespace("auth")
 			.resources("users")
-			.resource("groups")
-			.resource("rights")
+			.resources("groups")
+			.resources("rights")
 		.end()
 
 		.namespace("handbook")
