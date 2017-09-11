@@ -46,6 +46,7 @@
 			.resources("prayers")
 			.resources("profiles")
 			.resources("statistics")
+			.post(name="Searchtags", pattern="/tags/search/[search]", controller="tags", action="search")
 			.resources("tags")
 			.get(name="deletesubscribe", pattern="/subscribes/[key]/delete/", controller="subscribes", action="delete")
 			.resources("subscribes")
