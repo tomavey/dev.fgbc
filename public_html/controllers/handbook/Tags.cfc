@@ -83,6 +83,7 @@
 
 	<cffunction name="search">
 	<cfset var loc=structNew()>
+	<cfdump var="#params#"><cfabort>
 
 		<cfif !isDefined("params.search") || !len(trim(params.search))>
 	        <cfset flashInsert(error="Enter your search text in the space provided above")>
