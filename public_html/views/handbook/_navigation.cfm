@@ -6,7 +6,7 @@
 		 #linkto(text="FGBC Handbook", class="brand", route="handbookPeople")#
 		 </cfif>
 		 <div class="pull-right">
-				#startFormTag(controller="handbook/tags", action="search", class="navbar-search pull-left")#
+				#startFormTag(controller="handbook/tags", action="search", method="get", class="navbar-search pull-left")#
 				#textFieldTag(name="Search", class="search-query input-small", placeholder="Search", prependToLabel="", append="")#
 				#endFormTag()#
 		</div>
