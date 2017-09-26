@@ -43,7 +43,7 @@
 			.get(name="move", pattern="/organizations/move/", controller="organizations", action="move")
 			.resources("organizations")
 			.resources("people")
-			.get(name="addnewstaff", pattern="/people/newstaff/[key]", controller="people", action="newstaff")
+			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
 			.resources("personUpdates")
 			.resources("pictures")
 			.resources("prayers")

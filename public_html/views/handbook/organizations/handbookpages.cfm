@@ -86,7 +86,7 @@
   		  </cfloop>
   
 	  </ul>
-	  #linkTo(text="Add a new staff member", route="handbookAddnewstaff", key=params.key, params="SortOrder=#nextSortOrder#&organizationid=#params.key#", class="btn")#
+	  #linkTo(text="Add a new staff member", route="handbookAddstaff", key=params.key, params="SortOrder=#nextSortOrder#&organizationid=#params.key#", class="btn")#
   </cfoutput>
 </div>
 </div>
