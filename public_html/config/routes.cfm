@@ -55,7 +55,8 @@
 			.resources("updates")
 			.resources("welcome")
    			.get(name="handbookaddpayment", pattern="/handbook/add/[key]", controller="handbook.agbmInfo", action="add")
-			.get(name="viewperson", pattern="/people/[key]/view", controller="people", action="view")   
+			.get(name="viewperson", pattern="/people/[key]/view", controller="people", action="view")
+			.get(name="addnewstaff", pattern="/people/new-staff/[key]", controller="people", action="newStaff")   
 		.end()
 
 		.namespace("focus")
