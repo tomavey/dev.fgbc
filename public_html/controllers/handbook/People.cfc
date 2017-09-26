@@ -808,7 +808,6 @@ public function newstaff(organizationid,sortOrder){
 	organizationid = arguments.organizationid;
 	sortorder = arguments.sortorder;
 	allHandbookPeople = model("Handbookperson").findAll(where="p_sortorder < #getNonStaffSortOrder()+1#", order="alpha", include="Handbookstate,Handbookpositions");
-	writeDump(allHandbookPeople.properties());abort;
 }
 
 public function newposition(){
