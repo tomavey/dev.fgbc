@@ -57,6 +57,7 @@
    			.get(name="handbookaddpayment", pattern="/handbook/add/[key]", controller="handbook.agbmInfo", action="add")
 			.get(name="viewperson", pattern="/people/[key]/view", controller="people", action="view")
 			.get(name="addnewstaff", pattern="/people/new-staff/[key]", controller="people", action="newStaff")   
+			.get(name="addnewposition", pattern="/positions/new/[key]", controller="positions", action="new")
 		.end()
 
 		.namespace("focus")

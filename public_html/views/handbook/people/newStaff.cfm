@@ -1,7 +1,7 @@
 <cfoutput>
 <h2>Two options:</h2>
 <div class="well text-center">##1 - Add someone show is already listed in the handbook to your staff...
-#startFormTag(controller="handbook.positions", action="new", method="get")#
+#startFormTag(route='handbookaddnewposition', method="get")#
 <select name="key">
         <option value="">----Select One----</option>
 
