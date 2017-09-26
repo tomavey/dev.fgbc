@@ -42,7 +42,7 @@
 			.get(name="handbookPagesEdit", pattern="/organizations/handbookpages/[key]", controller="organizations", action="handbookpages")
 			.get(name="move", pattern="/organizations/move/", controller="organizations", action="move")
 			.resources("organizations")
-			.get(name="addnewstaff", pattern="/people/new-staff/[key]", controller="people", action="newStaff")   
+			.get(name="addnewstaff", pattern="/people/newstaff/[key]", controller="people", action="newstaff")   
 			.resources("people")
 			.resources("personUpdates")
 			.resources("pictures")
