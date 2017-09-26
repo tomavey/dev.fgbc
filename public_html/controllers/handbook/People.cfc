@@ -805,6 +805,7 @@ public function changeToAGBMOnly (positionId){
 }
 
 public function newstaff(organizationid,sortOrder){
+	WriteOutput("hello");abort;
 	organizationid = arguments.organizationid;
 	sortorder = arguments.sortorder;
 	allHandbookPeople = model("Handbookperson").findAll(where="p_sortorder < #getNonStaffSortOrder()+1#", order="alpha", include="Handbookstate,Handbookpositions");
