@@ -15,6 +15,9 @@
 			#handbookorganization.address2#<br/>
 		</cfif>
 		#handbookorganization.org_city#, #handbookorganization.handbookstate.state# #handbookorganization.zip#<br/>
+		<cfif isDefined('handbookorganization.meetingplace') && len(handbookorganization.meetingplace)>
+			Meeting at: #handbookorganization.meetingplace#<br/>
+		</cfif>
 		#handbookorganization.phone#<br/>
 		#mailto(handbookorganization.email)#<br/>
 		<cfif gotrights("office") and len(handbookorganization.email2)>

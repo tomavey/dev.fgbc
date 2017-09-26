@@ -46,7 +46,10 @@
       		<li>#organization.address2#</li>
       	  </cfif>
   		  <li>#organization.org_city#, #organization.handbookstate.state_mail_abbrev#, #organization.zip#</li>
-  		  <cfif len(organization.email)>
+  		  <cfif isDefined('organization.meetingplace') && len(organization.meetingplace)>
+					Meeting at: #organization.meetingplace#
+				</cfif>
+				<cfif len(organization.email)>
   		  	<li>#organization.email#</li>
   		  </cfif>
   		  <cfif len(organization.phone)>
