@@ -813,10 +813,10 @@ public function addstaff(organizationid,sortOrder){
 		loc.organizationid = arguments.organizationid
 	}
 	if (isDefined('params.sortorder')){
-		loc.organizationid = params.sortorder
+		loc.sortorder = params.sortorder
 	}
 	else {
-		loc.organizationid = arguments.sortorder
+		loc.sortorder = arguments.sortorder
 	}
 	writeDump(loc);abort;
 	allHandbookPeople = model("Handbookperson").findAll(where="p_sortorder < #getNonStaffSortOrder()+1#", order="alpha", include="Handbookstate,Handbookpositions");
