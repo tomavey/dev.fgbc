@@ -819,6 +819,7 @@ public function addstaff(organizationid,sortOrder){
 		loc.sortorder = arguments.sortorder
 	}
 	allHandbookPeople = model("Handbookperson").findAll(where="p_sortorder < #getNonStaffSortOrder()+1#", order="alpha", include="Handbookstate,Handbookpositions");
+	renderPage(template="addstaff")
 }
 
 public function newposition(){
