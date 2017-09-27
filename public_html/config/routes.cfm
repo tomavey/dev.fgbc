@@ -39,6 +39,7 @@
 			.resources("groupTypes")
 			.resources("menus")
 			.resources("notes")
+			
 			.get(name="handbookPagesEdit", pattern="/organizations/handbookpages/[key]", controller="organizations", action="handbookpages")
 			.get(name="move", pattern="/organizations/move/", controller="organizations", action="move")
 			.get(name="removeStaff", pattern="/organizations/removeStaff/[key]", controller="organizations", action="notStaff")
