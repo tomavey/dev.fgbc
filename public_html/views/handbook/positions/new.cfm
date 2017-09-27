@@ -15,7 +15,7 @@
 
 			#errorMessagesFor("handbookposition")#
 	
-			#startFormTag(coute="handbookcreatenewposition")#
+			#startFormTag(route="handbookCreatenewposition")#
 		
 						#hiddenField(objectName='handbookposition', property='personid')#			
 
