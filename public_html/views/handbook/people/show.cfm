@@ -187,7 +187,7 @@
 
 					<p>#editTag(handbookperson.id)# #deleteTag(id=handbookperson.id, class="noAjax")#</p>
 
-					<p>#linkto(text="Add a new position for #handbookperson.fname#", controller='handbook.positions', action="new", key=params.key, class="btn")#</p>
+					<p>#linkto(text="Add a new position for #handbookperson.fname#", route="handbookAddnewposition", key=params.key, class="btn")#</p>
 
 					<p>#linkto(text="Add an AGBM-Only position for #handbookperson.fname#", controller='handbook.positions', action="new", key=params.key, class="btn", params="position=#urlEncodedFormat('AGBM Only')#&sortorder=500&positiontypeid=32")#</p>
 
