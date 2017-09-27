@@ -191,7 +191,7 @@
 
 					<p>#linkto(text="Add an AGBM-Only position for #handbookperson.fname#", route="handbookAddnewposition", key=params.key, class="btn", params="position=#urlEncodedFormat('AGBM Only')#&sortorder=500&positiontypeid=32")#</p>
 
-					<p>#linkto(text="Add an AGBM payment for #handbookperson.fname#", controller='handbook.agbm-info', action="add", key=params.key, class="btn")#</p>
+					<p>#linkto(text="Add an AGBM payment for #handbookperson.fname#", controller='handbook.AgbmInfo', action="add", key=params.key, class="btn")#</p>
 
 					<p>#linkTo(text="Search Conference regs for #handbookperson.lname#", controller="conference.registrations", action="showsearch", params="search=#handbookperson.lname#", class="btn", target="_new")#</p>
 
