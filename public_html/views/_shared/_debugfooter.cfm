@@ -15,5 +15,10 @@ Cookies:
 <cfdump var="#cookie#">
 <cfcatch></cfcatch>
 </cftry>
+<cftry>
+Set Return To:
+<cfdump var="#session.originalUrl#">
+<cfcatch></cfcatch>
+</cftry>
 Params:
 <cfdump var="#params#">
