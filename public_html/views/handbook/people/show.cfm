@@ -193,9 +193,10 @@
 
 					<p>#linkto(text="Add an AGBM payment for #handbookperson.fname#", route="handbookAddAGBMPayment", key=params.key, class="btn")#</p>
 
+<!---
+
 					<p>#linkTo(text="Search Conference regs for #handbookperson.lname#", controller="conference.registrations", action="showsearch", params="search=#handbookperson.lname#", class="btn", target="_new")#</p>
 
-<!---
 				#includePartial("groups")#
 --->
 					<cftry>
