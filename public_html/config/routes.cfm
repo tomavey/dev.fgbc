@@ -63,8 +63,8 @@
 			.resources("subscribes")
 
 			.resources("updates")
-			.get(name="unlockLinkfor", pattern="/unlock/[key]", controller="welcome", action="welcome")
 			.get(name="unlockLink", pattern="/unlock/", controller="welcome", action="welcome")
+			.get(name="unlockLinkfor", pattern="/unlock/[key]", controller="welcome", action="welcome")
 			.resources("welcome")
 
 			.get(name="addstaffandposition", pattern="/positions/new/", controller="positions", action="new")
