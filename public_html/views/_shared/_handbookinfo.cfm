@@ -7,7 +7,7 @@
                                 <cftry>
 		  	#linkto(text='<i class="icon-search"></i>', controller="handbook.People", action="show", key=id, class="tooltipside", title="Show #fname# #lname#", onclick="window.open(this.href); return false;")#
                                     <cfcatch>---</cfcatch></cftry>
-			<cfif !isAgbm(id)>						
+			<cfif !isAgbm(id) and gotRights("office")>						
 				#linkto(text='<i class="icon-trash"></i>', controller="handbook.People", action="delete", method="delete", key=id, class="tooltipside ajaxdelete", title="Delete #fname# #lname#", onclick="confirm('Are you sure?')", target="_blank")#
 			</cfif>  
 		  </cfif>
