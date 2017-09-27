@@ -48,6 +48,7 @@
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
+			.get(name="viewperson", pattern="/people/[key]/view", controller="people", action="view")
 			.resources("people")
 
 			.resources("personUpdates")
@@ -73,7 +74,6 @@
 			.resources("positions")
 
    			.get(name="handbookaddpayment", pattern="/handbook/add/[key]", controller="handbook.agbmInfo", action="add")
-			.get(name="viewperson", pattern="/people/[key]/view", controller="people", action="view")
 		.end()
 
 		.namespace("focus")
