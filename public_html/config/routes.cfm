@@ -33,6 +33,8 @@
 		.namespace("handbook")
 			.resources("admin")
 			.resources("agbm")
+
+			.get(name="addAGBMPayment", pattern="agbminfo/add/[key]", controller="AgbmInfo", action="add")
 			.resources("agbmInfo")
 			.resources("districts")
 			.resources("groups")
