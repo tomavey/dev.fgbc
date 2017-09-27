@@ -42,7 +42,6 @@
 			.get(name="handbookPagesEdit", pattern="/organizations/handbookpages/[key]", controller="organizations", action="handbookpages")
 			.get(name="move", pattern="/organizations/move/", controller="organizations", action="move")
 			.resources("organizations")
-			.post(name="addstaffandposition", pattern="/positions/new/", controller="positions", action="addstaff")
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
 			.resources("people")
 			.resources("personUpdates")
@@ -58,6 +57,7 @@
 			.resources("welcome")
    			.get(name="handbookaddpayment", pattern="/handbook/add/[key]", controller="handbook.agbmInfo", action="add")
 			.get(name="viewperson", pattern="/people/[key]/view", controller="people", action="view")
+			.post(name="addstaffandposition", pattern="/positions/new/", controller="positions", action="new")
 			.get(name="addnewposition", pattern="/positions/new/[key]", controller="positions", action="new")
 		.end()
 
