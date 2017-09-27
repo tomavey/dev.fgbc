@@ -39,24 +39,30 @@
 			.resources("groupTypes")
 			.resources("menus")
 			.resources("notes")
-			
+
 			.get(name="handbookPagesEdit", pattern="/organizations/handbookpages/[key]", controller="organizations", action="handbookpages")
 			.get(name="move", pattern="/organizations/move/", controller="organizations", action="move")
 			.get(name="removeStaff", pattern="/organizations/removeStaff/[key]", controller="organizations", action="notStaff")
 			.resources("organizations")
+
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
 			.resources("people")
+
 			.resources("personUpdates")
 			.resources("pictures")
 			.resources("prayers")
 			.resources("profiles")
 			.resources("statistics")
+
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
 			.resources("tags")
+
 			.get(name="deletesubscribe", pattern="/subscribes/[key]/delete/", controller="subscribes", action="delete")
 			.resources("subscribes")
+
 			.resources("updates")
 			.resources("welcome")
+
    			.get(name="handbookaddpayment", pattern="/handbook/add/[key]", controller="handbook.agbmInfo", action="add")
 			.get(name="viewperson", pattern="/people/[key]/view", controller="people", action="view")
 			.get(name="addstaffandposition", pattern="/positions/new/", controller="positions", action="new")
