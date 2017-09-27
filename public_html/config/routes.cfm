@@ -57,7 +57,7 @@
 			.resources("welcome")
    			.get(name="handbookaddpayment", pattern="/handbook/add/[key]", controller="handbook.agbmInfo", action="add")
 			.get(name="viewperson", pattern="/people/[key]/view", controller="people", action="view")
-			.post(name="addstaffandposition", pattern="/positions/new/", controller="positions", action="new")
+			.get(name="addstaffandposition", pattern="/positions/new/", controller="positions", action="new")
 			.get(name="addnewposition", pattern="/positions/new/[key]", controller="positions", action="new")
 		.end()
 
