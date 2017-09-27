@@ -76,7 +76,7 @@
 									#linkto(text='<i class="icon-arrow-down"></i>', action="move", params="positionid=#handbookpositionid#&sortorder=#p_sortorder#&otherID=#nextposition.id#&otherSortOrder=#nextposition.sortorder#&orgid=#organization.id#", class="tooltipside", title="Move #fname# Down")#
 								</cfif>
 							</cfif>
-      		  		#linkto(text='[remove]', action="notStaff", key=handbookpositionid, class="tooltipside", title="Remove #fname# from staff list", onclick="return confirm('Are you sure you want to remove #fname# from your staff list?')")#
+      		  		#linkto(text='[remove]', route="handbookremoveStaff" key=handbookpositionid, class="tooltipside", title="Remove #fname# from staff list", onclick="return confirm('Are you sure you want to remove #fname# from your staff list?')")#
       		  		#linkto(text='[edit]', controller="Handbook.people", action="edit", key=id, class="tooltipside", title="Edit #fname#")#
       				</span>
       		  </li>
