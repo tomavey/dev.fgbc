@@ -62,6 +62,7 @@
 	
 	<!--- handbook-positions/create --->
 	<cffunction name="create">
+		<cfdump var="#params#"><cfabort>
 		<cfset handbookposition = model("HandbookPosition").new(params.handbookposition)>
 		
 		<!--- Verify that the handbookposition creates successfully --->
