@@ -59,6 +59,7 @@
 			.get(name="viewperson", pattern="/people/[key]/view", controller="people", action="view")
 			.get(name="addstaffandposition", pattern="/positions/new/", controller="positions", action="new")
 			.get(name="addnewposition", pattern="/positions/new/[key]", controller="positions", action="new")
+			.post(name="createnewposition", pattern="/positions/create/", controller="positions", action="create")
 		.end()
 
 		.namespace("focus")
