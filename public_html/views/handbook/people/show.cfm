@@ -13,8 +13,8 @@
 
 		
 			<ul class="nav nav-pills">
-			<li>#linkTo(text="Edit #handbookperson.fname#", key=params.key, action="edit")#</li>
-			<li>#linkTo(text="Add a picture", controller="handbook.pictures", action="new", params="personid=#params.key#")#</li>
+			<li>#linkTo(text="Edit #handbookperson.fname#", route="editHandbookPerson", key=params.key)#</li>
+			<li>#linkTo(text="Add a picture", route="editHandbookPerson", params="personid=#params.key#")#</li>
 			<li>#linkTo(text="This information is correct", controller="handbook.people", action="setReview", key=params.key)#</li>
 			</ul>
 
