@@ -62,8 +62,6 @@
                         <cfset args.includeString = '#args.modelName#(State)'>
                      </cfif>
 
-                     <cfdump var="#args.includeString#"><cfabort>
-
                     <cfset args.updates = model("Handbookupdate").findAll(
                            where=args.whereString,
                            include=args.includeString,
