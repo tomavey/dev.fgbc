@@ -126,7 +126,7 @@
 	</cffunction>
 
 <!---Misc Methods--->	
-	<cffunction name="setPictureAsDefault">
+	<cffunction name="setpictureasdefault">
 	<cfargument name="id" default="#params.key#">
 		<cfset model("Handbookpicture").setAsDefault(arguments.id)>
 		<cfset returnBack()>
