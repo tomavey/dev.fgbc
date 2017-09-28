@@ -38,7 +38,7 @@
         			<cfif useFor is "default">
         			  *
         			<cfelse>  			
-                      #linkTo(text='<i class="icon-ok"></i>', controller="handbook.pictures", action='setpictureasdefault', key=ID, class="tooltipside", title="Set this picture as the default")#
+                      #linkTo(text='<i class="icon-ok"></i>', controller="handbook/pictures", action='setpictureasdefault', key=ID, class="tooltipside", title="Set this picture as the default")#
         			</cfif>  
 
             </cfif>
