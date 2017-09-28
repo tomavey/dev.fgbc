@@ -49,7 +49,7 @@
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
 			.get(name="viewperson", pattern="/people/[key]/view", controller="people", action="view")
-			.get(name="setreview", pattern="/people/setreview/", controller="people", action="setReview")
+			.get(name="setreview", pattern="/people/setreview/[key]", controller="people", action="setReview")
 			.resources("people")
 
 			.resources("personUpdates")
