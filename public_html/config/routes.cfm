@@ -63,6 +63,7 @@
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
+			.get(name="removeTags", pattern"/tags/remove/[tag]/[itemid]", controller="tags", action="removeFromTag")
 			.resources("tags")
 
 			.get(name="deletesubscribe", pattern="/subscribes/[key]/delete/", controller="subscribes", action="delete")

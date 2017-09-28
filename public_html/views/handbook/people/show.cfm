@@ -123,7 +123,7 @@
 							#linkTo(
 								text="<span style='color:grey'><sup>x</sup></span>",
 								controller="handbook.tags",
-								action="removeFromTag",
+								action="handbookRemoveTags",
 								params="tag=#tag#&itemid=#itemid#",
 								class="tooltipside",
 								title="Remove #handbookperson.fname# from #tag#"
