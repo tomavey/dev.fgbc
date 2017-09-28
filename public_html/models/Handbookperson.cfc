@@ -5,6 +5,7 @@
 		<!---Associations--->
 		<cfset belongsTo(name="Handbookstate", modelName="Handbookstate", foreignKey="stateid")>
 		<cfset belongsTo(name="State", modelName="Handbookstate", foreignkey="stateid")>
+		<cfset belongsTo(name="Handbookstate", modelName="Handbookstate", foreignkey="stateid")>
 		<cfset hasMany(name="Handbookpositions", modelName="Handbookposition", foreignKey="personid", dependent="delete", joinType="outer")>
 		<cfset hasMany(name="Handbooktags", foreignKey="itemid", dependent="delete")>
 		<cfset hasMany(name="Handbookgroup", foreignKey="personid", joinType="outer", dependent="delete")>
