@@ -135,7 +135,7 @@
 
 					<p class="form-inline">Tag this person (separate multiple tags with a comma):
 					<fieldset>
-						#startFormTag(controller="handbook.tags", action="create", class="form-search")#
+						#startFormTag(route="handbookTags", class="form-search")#
 						<div class="input-append">
 						#putFormTag()#
 						#hiddenFieldTag(name="itemid", value=params.key)#
