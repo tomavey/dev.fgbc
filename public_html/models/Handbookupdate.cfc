@@ -57,7 +57,7 @@
                     </cfif>
 
                     <cfif args.modelName is "Handbookposition">
-                        <cfset args.includeString = '#args.modelName#(Handbookperson(Handbookstate))'>
+                        <cfset args.includeString = '#args.modelName#(Handbookperson(State))'>
                      <cfelse>
                         <cfset args.includeString = '#args.modelName#(Handbookstate)'>
                      </cfif>
