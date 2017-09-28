@@ -137,7 +137,6 @@
 					<fieldset>
 						#startFormTag(route="handbookTags", class="form-search")#
 						<div class="input-append">
-						#putFormTag()#
 						#hiddenFieldTag(name="itemid", value=params.key)#
 						#hiddenFieldTag(name="type", value="person")#
 						<cfif isdefined("session.auth.username")>
