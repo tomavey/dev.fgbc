@@ -1,4 +1,4 @@
-<!---cftry>--->
+<cftry>
 <cfset isNotes=arraylen(handbookperson.handbooknotes)>
 
 
@@ -198,12 +198,9 @@
 
 				#includePartial("groups")#
 --->
-					<p>
-					#linkto(text="Access handbook as #handbookperson.fname# #handbookperson.lname#", route="handbookUnlockLinkfor", key=encrypt(handbookperson.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX"), onlyPath=false, params="logoutfirst=true", class="btn")#
-					</p>
 					<cftry>
 					<p>
-					#linkto(text="Access handbook as #handbookperson.fname# #handbookperson.lname#", route="handbookUnlockLinkfor", key=encrypt(handbookperson.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX"), onlyPath=false, params="logoutfirst=true", class="btn")#
+					#linkto(text="Access handbook as #handbookperson.fname# #handbookperson.lname#", route="UnlockLinkfor", key=encrypt(handbookperson.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX"), onlyPath=false, params="logoutfirst=true", class="btn")#
 					</p>
 					<cfcatch></cfcatch></cftry>
 					<cftry>
@@ -221,7 +218,6 @@
 </div>
 
 </cfoutput>
-<!---
 	<cfcatch>
 		<cfset session.cfcatch = structNew()>
 		<cfif isDefined("cfcatch.message")>
@@ -229,6 +225,6 @@
 		</cfif>
 		<cfset #sendPersonPageErrorNotice()#>
 	        	<cfset redirectTo(action="index", error="Oops! Something went wrong try to access this person.  We are working on a solution. You should be able to continue from this page.")>
+		<cfdump var="#catch#">		
 	</cfcatch>
 </cftry>
---->
