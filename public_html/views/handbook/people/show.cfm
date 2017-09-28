@@ -15,7 +15,7 @@
 			<ul class="nav nav-pills">
 			<li>#linkTo(text="Edit #handbookperson.fname#", route="editHandbookPerson", key=params.key)#</li>
 			<li>#linkTo(text="Add a picture", route="newHandbookPicture", params="personid=#params.key#")#</li>
-			<li>#linkTo(text="This information is correct", controller="handbook.people", action="setReview", key=params.key)#</li>
+			<li>#linkTo(text="This information is correct", route="handbookSetReview", key=params.key)#</li>
 			</ul>
 
 		<p class="lastreviewed pull-right">
