@@ -47,7 +47,7 @@
 			</cfif>
 			#linkTo(
 				text=left("#linkToText#",linkToTextMaxLength),
-				action="show",
+				route="handbookOrganization",
 				key=id,
 				class="tooltip2 ajaxclickable",
 				title="Click to show #name# in the center panel.",
