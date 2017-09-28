@@ -16,7 +16,7 @@
                             #selectNameCity2#
                         </cfif>                    
 						<cfif gotrights("superadmin")>
-							#deleteTag(controller="handbook.positions", action="delete", key=positionTypeId)#
+							#deleteTag(controller="handbook.positions", action="delete", key=positionTypeId, class="noAjax")#
 						</cfif>
 						</p>
 					</cfloop>
