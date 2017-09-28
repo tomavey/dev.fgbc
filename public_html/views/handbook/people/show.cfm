@@ -99,7 +99,7 @@
     				<cfif (isDefined("session.auth.handbook.people") AND gotHandbookPersonRights(handbookperson.id)) OR gotrights("superadmin,office,agbmadmin,handbookedit")>
     					<p>#linkTo(text="This information is correct", route="handbookSetReview", key=params.key, class="btn tooltipside", title="Click this to let us know when the information is correct")#</p>
     					<p>#linkTo(text="Edit #handbookperson.fname# #handbookperson.lname#", route="editHandbookPerson", key=params.key, class="btn")#</p>
-    					<p>#linkTo(text="Add a picture of #handbookperson.fname#", controller="handbook.pictures", action="new", params="personid=#params.key#", class="btn")#</p>
+    					<p>#linkTo(text="Add a picture of #handbookperson.fname#", route="newHandbookPicture", params="personid=#params.key#", class="btn")#</p>
     				</cfif>
 
 						<p>#linkTo(text="Import into outlook", controller="handbook.people", action="vcard", key=params.key, class="btn")#</p>
