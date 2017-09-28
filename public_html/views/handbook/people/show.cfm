@@ -198,6 +198,8 @@
 
 				#includePartial("groups")#
 --->
+					#linkto(text="Access handbook as #handbookperson.fname# #handbookperson.lname#", route="UnlockLinkfor", key=encrypt(handbookperson.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX"), onlyPath=false, params="logoutfirst=true", class="btn")#
+					</p>
 					<cftry>
 					<p>
 					#linkto(text="Access handbook as #handbookperson.fname# #handbookperson.lname#", route="UnlockLinkfor", key=encrypt(handbookperson.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX"), onlyPath=false, params="logoutfirst=true", class="btn")#
