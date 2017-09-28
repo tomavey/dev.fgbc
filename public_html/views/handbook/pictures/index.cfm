@@ -33,7 +33,7 @@
             </cfif>
 
             <cfif gotRights("superadmin,office") OR email is session.auth.email>
-              #deleteTag()#
+              #deleteTag(class="noAjax")#
             
         			<cfif useFor is "default">
         			  *
