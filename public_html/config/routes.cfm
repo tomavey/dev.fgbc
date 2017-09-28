@@ -53,7 +53,11 @@
 			.resources("people")
 
 			.resources("personUpdates")
+
+			.get(name="setPictureAsDefault", pattern="/pictures/setdefault/[key]", controller="pictures", action="
+			setpictureasdefault")
 			.resources("pictures")
+
 			.resources("prayers")
 			.resources("profiles")
 			.resources("statistics")
