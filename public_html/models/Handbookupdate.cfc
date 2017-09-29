@@ -7,7 +7,7 @@
             <cfset belongsTo(name="Handbookposition", foreignKey="recordId")>
 	</cffunction>
 
-       <cffunction name="findUpdates" hint="I am called by findPeopleUpdates and findOrganizationUpdates" access="private">
+       <cffunction name="findUpdates" hint="NOT IN USE ... I am called by findPeopleUpdates and findOrganizationUpdates" access="private">
             <cfargument name="args" required = "true" type="struct">
             <cfset var args = arguments.args>
             <cfparam name="args.showperson" default=0>
@@ -87,10 +87,10 @@
                 ON p.stateid = s.id
                 WHERE modelName = "Handbookperson"
                 <cfif args.showOnlyToday>
-                    AND handbookupdates.createdAt like '#args.today#%'
+                    AND u.createdAt like '#args.today#%'
                 </cfif>
                 <cfif args.showOnlyYesterday>
-                    handbookupdates.createdAt like '#args.yesterday#%'
+                    AND u.createdAt like '#args.yesterday#%'
                 </cfif>
                 ORDER BY u.createdAt DESC
                 LIMIT #args.showmaxrows#
@@ -117,10 +117,10 @@
                 WHERE modelname='handbookperson'
                 AND datatype='new'
                 <cfif args.showOnlyToday>
-                    AND handbookupdates.createdAt like '#args.today#%'
+                    AND u.createdAt like '#args.today#%'
                 </cfif>
                 <cfif args.showOnlyYesterday>
-                    handbookupdates.createdAt like '#args.yesterday#%'
+                    AND u.createdAt like '#args.yesterday#%'
                 </cfif>
                 ORDER BY u.createdAt DESC
                 LIMIT #args.showmaxrows#
@@ -144,10 +144,10 @@
                 ON o.stateid = s.id
                 WHERE modelName = "handbookorganization"
                 <cfif args.showOnlyToday>
-                    AND handbookupdates.createdAt like '#args.today#%'
+                    AND u.createdAt like '#args.today#%'
                 </cfif>
                 <cfif args.showOnlyYesterday>
-                    handbookupdates.createdAt like '#args.yesterday#%'
+                    AND u.createdAt like '#args.yesterday#%'
                 </cfif>
                 ORDER BY u.createdAt DESC
                 LIMIT #args.showmaxrows#
@@ -172,10 +172,10 @@
                 ON ppl.stateid = s.id
                 WHERE modelName="handbookposition"
                 <cfif args.showOnlyToday>
-                    AND handbookupdates.createdAt like '#args.today#%'
+                    AND u.createdAt like '#args.today#%'
                 </cfif>
                 <cfif args.showOnlyYesterday>
-                    handbookupdates.createdAt like '#args.yesterday#%'
+                    AND u.createdAt like '#args.yesterday#%'
                 </cfif>
                 ORDER BY u.createdAt DESC
                 LIMIT #args.showmaxrows#
@@ -199,10 +199,10 @@
                 WHERE modelname = "handbookperson"
                 AND dataType = 'delete'
                 <cfif args.showOnlyToday>
-                    AND handbookupdates.createdAt like '#args.today#%'
+                    AND u.createdAt like '#args.today#%'
                 </cfif>
                 <cfif args.showOnlyYesterday>
-                    handbookupdates.createdAt like '#args.yesterday#%'
+                    AND u.createdAt like '#args.yesterday#%'
                 </cfif>
                 LIMIT #args.showmaxrows#
             </cfquery>
