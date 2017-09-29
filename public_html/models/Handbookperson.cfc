@@ -38,6 +38,10 @@
 			sql="SELECT state_mail_abbrev FROM handbookstates where handbookstates.id = handbookpeople.stateid"
 			)>
 		<cfset property(
+			name="state",
+			sql="SELECT state FROM handbookstates where handbookstates.id = handbookpeople.stateid"
+			)>
+		<cfset property(
 			name="selectName",
 			sql="CONCAT_WS(', ',lname,fname,city,state_mail_abbrev)"
 			)>
@@ -53,7 +57,7 @@
 			name="spousefullname",
 			sql="TRIM(CONCAT_WS(' ',spouse,lname,suffix))"
 			)>
-			<cfset property(
+		<cfset property(
 			name="file",
 			sql="SELECT file FROM handbookpictures where personid = handbookpeople.id AND usefor = 'default' LIMIT 1"
 			)>

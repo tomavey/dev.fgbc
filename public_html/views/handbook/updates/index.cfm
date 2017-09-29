@@ -14,8 +14,8 @@
 	<cfoutput>
 
 	<cfif gotrights("superadmin,office,handbook,handbookedit") AND params.controller is "handbook.updates">
-		<div class="span2">#linkTo(text="Subscribe me",controller="handbook.Subscribes",action="updates", class="tooltip2", title="Receive notices of updates to #session.auth.email#.", class="btn", onlyPath="false")#</div>
-		<div class="span2">#linkTo(text="Un-Subscribe me",controller="handbook.Subscribes",action="unsubscribe",key="updates", class="tooltip2", title="Stop receiving notices of updates via email.", class="btn", onlyPath="false")#</div>
+		<div class="span2">#linkTo(text="Subscribe me", route="handbookSubscribeMe", class="tooltip2", title="Receive notices of updates to #session.auth.email#.", class="btn", onlyPath="false")#</div>
+		<div class="span2">#linkTo(text="Un-Subscribe me", route="handbookUnSubscribeMe", key="updates", class="tooltip2", title="Stop receiving notices of updates via email.", class="btn", onlyPath="false")#</div>
 	</cfif>
 	<cfif params.controller is "handbook.updates">
 		<div class="span2">#linkTo(text="Today's Updates", params="showTodayOnly", class="tooltip2", title="Stop receiving notices of updates via email.", class="btn", onlyPath="false")#</div>

@@ -117,15 +117,12 @@
 <!---Specialized Views--->
 <!---Specialized Views--->
 <!---Specialized Views--->
-	<!--- handbook.subscribes/delete/key --->
+
+	<!--- route="subscribeMe", pattern="/subscribeme/updates/" --->
 	<cffunction name="updates">
 		<cfset subscription = model("Handbooksubscribe").new()>
 		<cfset subscription.type = "updates">
 		<cfset subscription.email = session.auth.email>
-
-		<cfif subscription.email is "tomavey@fgbc.org">
-			  <cfset subscription.email = "tomavey@comcast.net">
-		</cfif>
 
 		<cfset check = model("Handbooksubscribe").findAll(where="type='#subscription.type#' AND email='#subscription.email#'")>
 
@@ -295,6 +292,7 @@
 
 	</cffunction>
 
+	<!--- route="unSubscribeMe", pattern="/updates/unsubscribeme/[key] --->
 	<cffunction name="unsubscribe">
 		<cfset unsubscribe = model("Handbooksubscribe").deleteAll(where="email='#session.auth.email#' AND type='#params.key#'")>
 		<cfset flashInsert(update="Your subscription has been removed")>
