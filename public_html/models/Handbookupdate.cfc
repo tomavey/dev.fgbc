@@ -77,6 +77,7 @@
        <cffunction name="findPeopleUpdates">
             <cfargument name="args" required = "true" type="struct">
             <cfset var args = arguments.args>
+            <cfdump var="#args#"><cfabort>
 
               <cfset args.modelName = "Handbookperson"><!---Needed to select type of update by modelName--->
 
