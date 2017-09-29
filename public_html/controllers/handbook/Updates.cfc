@@ -61,7 +61,7 @@
 		<cfset peopleUpdates = model("Handbookupdate").findPeopleUpdates(args)>
 --->	
 		<cfset args.wherestring = "modelName='handbookperson'">
-		<cfset args.includeString = "Handbookperson(Handbookstate)">	
+		<cfset args.includeString = "HandbookPerson(Handbookstate)">	
 		<cfset peopleUpdates = model("Handbookupdate")
 			.findAll(
 				where=args.wherestring, 
