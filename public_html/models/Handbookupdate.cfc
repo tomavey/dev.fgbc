@@ -2,12 +2,12 @@
 
 	<cffunction name="init">
 		<cfset table("handbookupdates")>
-		<cfset belongsTo(name="Handbookperson", modelName="handbookPerson", foreignKey="recordId")>
+		<cfset belongsTo(name="Handbookperson", foreignKey="recordId")>
 		<cfset belongsTo(name="Handbookorganization", foreignKey="recordId")>
         <cfset belongsTo(name="Handbookposition", foreignKey="recordId")>
 	</cffunction>
 
-       <cffunction name="findUpdates" hint="NOT IN USE ... I am called by findPeopleUpdates and findOrganizationUpdates" access="private">
+       <cffunction name="findUpdates" hint="I am called by findPeopleUpdates and findOrganizationUpdates" access="private">
             <cfargument name="args" required = "true" type="struct">
             <cfset var args = arguments.args>
             <cfparam name="args.showperson" default=0>
@@ -73,8 +73,92 @@
               <cfreturn args.updates>
 
        </cffunction>
-
        <cffunction name="findPeopleUpdates">
+            <cfargument name="args" required = "true" type="struct">
+            <cfset var args = arguments.args>
+
+              <cfset args.modelName = "Handbookperson"><!---Needed to select type of update by modelName--->
+
+              <cfset args.peopleUpdates = findUpdates(args)>
+
+            <cfreturn args.peopleUpdates>
+
+       </cffunction>
+
+       <cffunction name="findPeopleCreates">
+            <cfargument name="args" required = "true" type="struct">
+            <cfset var args = arguments.args>
+            <cfparam name="args.page" default=0>
+            <cfparam name="args.perpage" default=50>
+
+                    <cfset args.createsWhereString = "modelName='HandbookPerson' AND dataType = 'new'">
+
+                    <cfif args.showOnlyToday>
+                        <cfset args.createsWhereString = args.createsWhereString & " AND handbookupdates.createdAt like '#args.today#%'">
+                    </cfif>
+
+                    <cfif args.showOnlyYesterday>
+                        <cfset args.createsWhereString = args.createsWhereString & " AND handbookupdates.createdAt like '#args.yesterday#%'">
+                    </cfif>
+
+                    <cfset args.creates = model("Handbookupdate").findAll(
+                           where= args.createsWhereString,
+                           page = args.page,
+                           perpage = args.perpage,
+                           maxrows = args.perpage,
+                           order="createdAt DESC")>
+
+              <cfreturn args.creates>
+
+       </cffunction>
+
+       <cffunction name="findOrganizationUpdates">
+            <cfargument name="args" required = "true" type="struct">
+            <cfset var args = arguments.args>
+
+              <cfset args.modelName = "Handbookorganization"><!---Needed to select type of update by modelName--->
+
+              <cfset args.organizationUpdates = findUpdates(args)>
+
+            <cfreturn args.organizationUpdates>
+
+       </cffunction>
+
+       <cffunction name="findPositionUpdates">
+            <cfargument name="args" required = "true" type="struct">
+            <cfset var args = arguments.args>
+
+              <cfset args.modelName = "Handbookposition"><!---Needed to select type of update by modelName--->
+
+              <cfset args.organizationUpdates = findUpdates(args)>
+
+            <cfreturn args.organizationUpdates>
+
+       </cffunction>
+
+       <cffunction name="findPeopleDeletes">
+            <cfargument name="args" required = "true" type="struct">
+            <cfset var args = arguments.args>
+
+                    <cfset args.deleteWhereString = "modelName= 'HandbookPerson' AND dataType = 'deleted'">
+
+                    <cfif args.showOnlyToday>
+                        <cfset args.deleteWhereString = args.deleteWhereString & " AND handbookupdates.createdAt like '#args.today#%'">
+                    </cfif>
+
+                    <cfif args.showOnlyYesterday>
+                        <cfset args.deleteWhereString = args.deleteWhereString & " AND handbookupdates.createdAt like '#args.yesterday#%'">
+                    </cfif>
+
+                    <cfset peopledeletes = model("Handbookupdate").findAll(
+                           where= args.deleteWhereString,
+                           order="createdAt DESC")>
+
+              <cfreturn peopledeletes>
+
+       </cffunction>
+
+       <cffunction name="xfindPeopleUpdates">
             <cfargument name="args" required = "true" type="struct">
             <cfset var args = arguments.args>
 
@@ -101,7 +185,7 @@
 
        </cffunction>
 
-       <cffunction name="findPeopleCreates">
+       <cffunction name="xfindPeopleCreates">
             <cfargument name="args" required = "true" type="struct">
             <cfset var args = arguments.args>
             <cfparam name="args.page" default=0>
@@ -131,7 +215,7 @@
 
        </cffunction>
 
-       <cffunction name="findOrganizationUpdates">
+       <cffunction name="xfindOrganizationUpdates">
             <cfargument name="args" required = "true" type="struct">
             <cfset var args = arguments.args>
 
@@ -157,7 +241,7 @@
 
        </cffunction>
 
-       <cffunction name="findPositionUpdates">
+       <cffunction name="xfindPositionUpdates">
             <cfargument name="args" required = "true" type="struct">
             <cfset var args = arguments.args>
 
@@ -185,7 +269,7 @@
 
        </cffunction>
 
-       <cffunction name="findPeopleDeletes">
+       <cffunction name="xfindPeopleDeletes">
             <cfargument name="args" required = "true" type="struct">
             <cfset var args = arguments.args>
 

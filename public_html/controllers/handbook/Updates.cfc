@@ -99,7 +99,6 @@
 
 	<cffunction name="list">
 		<cfset updates = model("Handbookupdate").findAll(include="Handbookperson(Handbookstate)", order="createdAt DESC", maxrows=100)>
-		<cfdump var="#updates#"><cfabort>
 	</cffunction>
 
 	<!--- handbook-updates/show/key --->
