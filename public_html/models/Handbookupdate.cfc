@@ -59,7 +59,7 @@
                     <cfif args.modelName is "Handbookposition">
                         <cfset args.includeString = '#args.modelName#(Handbookperson(State))'>
                      <cfelse>
-                        <cfset args.includeString = '#args.modelName#(State)'>
+                        <cfset args.includeString = '#args.modelName#(Handbookstate)'>
                      </cfif>
 
                     <cfset args.updates = model("Handbookupdate").findAll(
