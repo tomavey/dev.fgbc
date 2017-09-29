@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset table("handbookupdates")>
-		<cfset belongsTo(name="Handbookperson", foreignKey="recordId")>
+		<cfset belongsTo(name="Handbookperson", modelName="handbookPerson", foreignKey="recordId")>
 		<cfset belongsTo(name="Handbookorganization", foreignKey="recordId")>
         <cfset belongsTo(name="Handbookposition", foreignKey="recordId")>
 	</cffunction>
