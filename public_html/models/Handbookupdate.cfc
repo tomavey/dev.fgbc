@@ -79,10 +79,20 @@
             <cfset var args = arguments.args>
 
               <cfset args.modelName = "Handbookperson"><!---Needed to select type of update by modelName--->
+            <cfquery datasource='#getDataSource()#' name="args.peopleUpdates">
+                SELECT *
+                FROM handbookupdates u
+                LEFT JOIN handbookpeople p
+                ON u.recordid = p.id
+                LEFT JOIN handbookstates s
+                ON p.stateid = s.id
+                WHERE modelName = "Handbookperson"
+                LIMIT #args.showmaxrows#
+            </cfquery>
 
+<!---
               <cfset args.peopleUpdates = findUpdates(args)>
-
-            <cfdump var="#args#"><cfabort>
+--->
 
             <cfreturn args.peopleUpdates>
 
