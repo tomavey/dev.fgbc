@@ -57,16 +57,7 @@
 
 		<!---people updates--->
 
-<!---
 		<cfset peopleUpdates = model("Handbookupdate").findPeopleUpdates(args)>
---->	
-		<cfset args.wherestring = "modelName='handbookperson'">
-		<cfset args.includeString = "HandbookPerson(Handbookstate)">	
-		<cfset peopleUpdates = model("Handbookupdate")
-			.findAll(
-				where=args.wherestring, 
-				include= args.includeString, 
-				maxrows=args.showMaxRows)>
 
 		<cfdump var="#peopleUpdates#"><cfabort>
 
