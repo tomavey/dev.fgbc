@@ -59,8 +59,6 @@
 
 		<cfset peopleUpdates = model("Handbookupdate").findPeopleUpdates(args)>
 
-		<cfdump var="#peopleUpdates#"><cfabort>
-
 		<cfif !peopleUpdates.recordcount>
 			<cfset args.showpeopleUpdates = false>
 		</cfif>

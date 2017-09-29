@@ -78,7 +78,8 @@
             <cfargument name="args" required = "true" type="struct">
             <cfset var args = arguments.args>
 
-              <cfset args.modelName = "Handbookperson"><!---Needed to select type of update by modelName--->
+            <cfset args.modelName = "Handbookperson"><!---Needed to select type of update by modelName--->
+
             <cfquery datasource='#getDataSource()#' name="args.peopleUpdates">
                 SELECT *
                 FROM handbookupdates u
@@ -114,6 +115,19 @@
                         <cfset args.createsWhereString = args.createsWhereString & " AND handbookupdates.createdAt like '#args.yesterday#%'">
                     </cfif>
 
+            <cfquery datasource='#getDataSource()#' name="args.creates">
+                SELECT *
+                FROM handbookupdates u
+                LEFT JOIN handbookpeople p
+                ON u.recordid = p.id
+                LEFT JOIN handbookstates s
+                ON p.stateid = s.id
+                WHERE 0 = 1
+                LIMIT #args.showmaxrows#
+            </cfquery>
+
+              <cfreturn args.creates>
+
                     <cfset args.creates = model("Handbookupdate").findAll(
                            where= args.createsWhereString,
                            page = args.page,
@@ -121,7 +135,6 @@
                            maxrows = args.perpage,
                            order="createdAt DESC")>
 
-              <cfreturn args.creates>
 
        </cffunction>
 
@@ -130,6 +143,19 @@
             <cfset var args = arguments.args>
 
               <cfset args.modelName = "Handbookorganization"><!---Needed to select type of update by modelName--->
+
+            <cfquery datasource='#getDataSource()#' name="args.organizationUpdates">
+                SELECT *
+                FROM handbookupdates u
+                LEFT JOIN handbookpeople p
+                ON u.recordid = p.id
+                LEFT JOIN handbookstates s
+                ON p.stateid = s.id
+                WHERE 0 = 1
+                LIMIT #args.showmaxrows#
+            </cfquery>
+
+              <cfreturn args.organizationUpdates>
 
               <cfset args.organizationUpdates = findUpdates(args)>
 
@@ -142,6 +168,19 @@
             <cfset var args = arguments.args>
 
               <cfset args.modelName = "Handbookposition"><!---Needed to select type of update by modelName--->
+
+            <cfquery datasource='#getDataSource()#' name="args.organizationUpdates">
+                SELECT *
+                FROM handbookupdates u
+                LEFT JOIN handbookpeople p
+                ON u.recordid = p.id
+                LEFT JOIN handbookstates s
+                ON p.stateid = s.id
+                WHERE 0 = 1
+                LIMIT #args.showmaxrows#
+            </cfquery>
+
+              <cfreturn args.organizationUpdates>
 
               <cfset args.organizationUpdates = findUpdates(args)>
 
@@ -162,6 +201,18 @@
                     <cfif args.showOnlyYesterday>
                         <cfset args.deleteWhereString = args.deleteWhereString & " AND handbookupdates.createdAt like '#args.yesterday#%'">
                     </cfif>
+            <cfquery datasource='#getDataSource()#' name="args.peopledeletes">
+                SELECT *
+                FROM handbookupdates u
+                LEFT JOIN handbookpeople p
+                ON u.recordid = p.id
+                LEFT JOIN handbookstates s
+                ON p.stateid = s.id
+                WHERE 0 = 1
+                LIMIT #args.showmaxrows#
+            </cfquery>
+
+              <cfreturn args.peopledeletes>
 
                     <cfset peopledeletes = model("Handbookupdate").findAll(
                            where= args.deleteWhereString,
