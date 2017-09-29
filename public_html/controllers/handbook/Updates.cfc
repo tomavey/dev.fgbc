@@ -5,6 +5,11 @@
 		<cfset filters(through="gotBasicHandbookRights", except="index")>
 	</cffunction>
 
+<!---------------------->
+<!---------------------->
+<!---View Controllers--->	
+<!---------------------->
+
 	<!--- handbook-updates/index --->
 	<cffunction name="index">
 	<cfset args = structNew()>
@@ -109,6 +114,11 @@
 	    </cfif>
 
 	</cffunction>
+
+<!------------------------>
+<!--- Model Controllers--->
+<!------------------------>
+
 
 	<!--- handbook-updates/new --->
 	<cffunction name="new">
