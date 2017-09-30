@@ -50,7 +50,10 @@
 			.get(name="downloadmembers", pattern="/organizations/downloadmemberchurches/", controller="organizations", action="downloadMemberChurches")
 			.get(name="downloadMemberChurchesForBrotherhoodPreview", pattern="/organizations/brotherhood/preview/", controller="organizations", action="downloadMemberChurchesForBrotherhood")
 			.get(name="downloadMemberChurchesForBrotherhood", pattern="/organizations/brotherhood/[key]", controller="organizations", action="downloadMemberChurchesForBrotherhood")
-			.get(name="updatelinks", pattern="/organization/updatelinks", controller="organizations", action="updatelinks")
+			.get(name="downloadMemberChurchesForBrotherhood", pattern="/brotherhood/[key]", action="downloadMemberChurchesForBrotherhood")
+			.namespace("organizations")
+				.get(name="updatelinks", pattern="/updatelinks", action="updatelinks")
+			.end()				
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")

@@ -43,7 +43,7 @@
 
     					<cfif gotRights("superadmin,office")>
 							<li>
-								#linkto(text="Links to handbook review pages", controller="handbook.organizations", route="handbookUpdatelinks", id="navsearch", title="Download a spreadsheet of links to church update pages", class="tooltip2 btn btn-large btn-block btn-primary")#
+								#linkto(text="Links to handbook review pages", route="handbookOrganizationsUpdatelinks", id="navsearch", title="Download a spreadsheet of links to church update pages", class="tooltip2 btn btn-large btn-block btn-primary")#
 							</li>
 							<li>
 								#linkto(text="Brotherhood Mutual Download", route="handbookDownloadMemberChurchesForBrotherhoodPreview", id="navsearch", title="Download a spreadsheet for Brotherhood Mutual", class="tooltip2 btn btn-large btn-block btn-primary")#
