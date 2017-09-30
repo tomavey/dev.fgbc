@@ -31,6 +31,7 @@
 		.end()
 
 		.namespace("handbook")
+			.get(name="downloadmemberchurchesadmin", pattern="/admin/downloadmemberchurches/", controller="admin", action="downloadMemberChurches")
 			.resources("admin")
 			.resources("agbm")
 

@@ -14,10 +14,10 @@
 <cfoutput>
     				<ul>
         				<li>
-        					#linkto(text="Member Churches and their campuses", controller="handbook.organizations", action="download-member-churches", id="navsearch", title="Download Spreadsheet of Member Churches with their campuses", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+        					#linkto(text="Member Churches and their campuses", route="handbookDownloadmembers", id="navsearch", title="Download Spreadsheet of Member Churches with their campuses", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
         				</li>
 						<li>
-							#linkto(text="Member Churches, their campuses and new churches", controller="handbook.admin", action="download-member-churches", key="includecampusesandnewchurches", params="download=", id="navsearch", title="Download Spreadsheet of Member Churches, with campuses PLUS new churches", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+							#linkto(text="Member Churches, their campuses and new churches", controller="handbook.admin", route="handbookDownloadmembers", key="includecampusesandnewchurches", params="download=", id="navsearch", title="Download Spreadsheet of Member Churches, with campuses PLUS new churches", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
 						</li>
 						<li>&nbsp;</li>
         				<li>
