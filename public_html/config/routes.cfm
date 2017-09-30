@@ -45,8 +45,8 @@
 			.get(name="handbookPagesEdit", pattern="/organizations/handbookpages/[key]", controller="organizations", action="handbookpages")
 			.get(name="move", pattern="/organizations/move/", controller="organizations", action="move")
 			.get(name="removeStaff", pattern="/organizations/removeStaff/[key]", controller="organizations", action="notStaff")
-			.get(name="downloadguidelines", pattern="downloadguidelines", controller="organizations", action="downloadguidelines")
-			.get(name="downloadmembers", pattern="downloadmemberchurches", controller="organizations", action="downloadMemberChurches")
+			.get(name="downloadguidelines", pattern="/organizations/downloadguidelines/", controller="organizations", action="downloadguidelines")
+			.get(name="downloadmembers", pattern="/organizations/downloadmemberchurches/", controller="organizations", action="downloadMemberChurches")
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")

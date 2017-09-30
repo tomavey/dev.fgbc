@@ -313,6 +313,7 @@ private function $connectNewChurchToHandbook(newchurchUUID, handbookId){
 
 	</cffunction>">
 
+	<!--------handbookDownloadguidelines	GET	/handbook/downloadguidelines----------->
 	<cffunction name="downloadguidelines">
 		<cfset renderPage(layout="/handbook/layout_handbook1")>
 	</cffunction>
