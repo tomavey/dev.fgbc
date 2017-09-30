@@ -279,6 +279,7 @@
 		<cfset renderPage(layout="/layout_naked")>
 	</cffunction>
 
+	<!---handbookBluepages	GET	/handbook/people/bluepages--->
 	<cffunction name="bluepages">
 		<cfset whereString = " AND statusid in (1,8,3,4,2,9,10,11)">
 		<cfif NOT isDefined("params.showremoved")>
