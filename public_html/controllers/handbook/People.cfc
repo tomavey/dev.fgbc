@@ -43,15 +43,18 @@
 
 <!---End of Filters--->
 
-<!---Basic CRUD--->
-	<!--- handbookpeople/index --->
+<!-------------------------->
+<!-----view controllers----->
+<!-------------------------->
+
+	<!--- route="handbookPeople" pattern="handbook/people" --->
 	<cffunction name="index">
 		<cfset allHandbookPeople = model("Handbookperson").findAll(where="p_sortorder < #getNonStaffSortOrder()+1#", order="alpha", include="Handbookstate,Handbookpositions")>
 		<cfset handbookPeople = model("Handbookperson").findHandbookPeople(params)>
 	</cffunction>
 
 
-	<!--- handbookpeople/show/key --->
+	<!--- route="handbookPerson" pattern="handbook/person/[key]" handbookpeople/show/key --->
 	<cffunction name="show">
 
 	<cftry>
@@ -59,10 +62,6 @@
     	<cfset handbookperson = model("Handbookperson").findByKey(key=params.key, include="Handbookstate,Handbookprofile,Handbookpictures,Handbooknotes")>
 
 		<cfset tags=model("Handbooktag").findMyTagsForId(params.key,"person")>
-
-<!---
-		<cfset nextperson = findNextHandbookPerson(params.key)>
---->
 
 	<cfif gotrights("agbm,office,superadmin,agbmadmin")>
 		<!---Set up new form for groups within the show report--->
@@ -90,33 +89,33 @@
 
 	</cffunction>
 
+	<!---route="handbookViewperson", pattern="/handbook/people/[key]"---->
 	<cffunction name="view">
 		<cfset handbookperson = model("Handbookperson").findByKey(key=params.key, include="State,Handbookpositions,Handbookpictures")>
 		<cfset renderPage(layout="/handbook/layout_handbook2")>
 	</cffunction>
 
+	<!---route="handbookVcard", pattern=pattern="/people/vcard/[key]"--->
 	<cffunction name="vcard">
     	<cfset handbookperson = model("Handbookperson").findByKey(key=params.key, include="Handbookstate,Handbookprofile,Handbookpictures,Handbooknotes")>
-<!---		<cfdump var="#handbookperson#"><cfabort>
---->
 		<cfsavecontent variable="vcard">
-<cfoutput>
-<cfcontent type="text/x-vCard">
-<cfheader name="Content-Disposition" value="inline; filename=newPerson.vcf">
-BEGIN:VCARD
-VERSION:3.0
-N;charset=iso-8859-1:#handbookperson.lname#;#handbookperson.fname#
-BDAY;value=date:#handbookperson.handbookprofile.birthdayasstring#
-EMAIL;type=HOME:#handbookperson.email#
-ADR;type=WORK;charset=iso-8859-1:;;#handbookperson.address1#;#handbookperson.address2#;#handbookperson.city#;#handbookperson.state_mail_abbrev#;#handbookperson.zip#
-TEL;type=HOME:#handbookperson.phone#
-END:VCARD
-</cfoutput>
+			<cfoutput>
+			<cfcontent type="text/x-vCard">
+			<cfheader name="Content-Disposition" value="inline; filename=newPerson.vcf">
+			BEGIN:VCARD
+			VERSION:3.0
+			N;charset=iso-8859-1:#handbookperson.lname#;#handbookperson.fname#
+			BDAY;value=date:#handbookperson.handbookprofile.birthdayasstring#
+			EMAIL;type=HOME:#handbookperson.email#
+			ADR;type=WORK;charset=iso-8859-1:;;#handbookperson.address1#;#handbookperson.address2#;#handbookperson.city#;#handbookperson.state_mail_abbrev#;#handbookperson.zip#
+			TEL;type=HOME:#handbookperson.phone#
+			END:VCARD
+			</cfoutput>
 		</cfsavecontent>
 		<cfset renderText(vcard)>
 	</cffunction>
 
-	<!--- handbookpeople/new --->
+	<!--- "newHandbookPerson" /handbook/people/new --->
 	<cffunction name="new">
 	<cfset var loc = structNew()>
 		<cfset loc.newposition = [ model("Handbookposition").new() ]>
@@ -150,7 +149,7 @@ END:VCARD
 
 	</cffunction>
 
-	<!--- handbookpeople/edit/key --->
+	<!---"editHandbookPerson" /handbook/people/[key]/edit --->
 	<cffunction name="edit">
 	<cfset var profile = "">
 
@@ -167,7 +166,11 @@ END:VCARD
 
 	</cffunction>
 
-	<!--- handbookpeople/create --->
+<!--------------------------->
+<!-----model controllers----->
+<!--------------------------->
+
+	<!--- handbookPeople	POST	/handbook/people --->
 	<cffunction name="create">
 
 		<cfset handbookperson = model("Handbookperson").new(params.handbookperson)>
@@ -196,7 +199,7 @@ END:VCARD
 
 	</cffunction>
 
-	<!--- handbookpeople/update --->
+	<!--- handbookPerson	PUT	/handbook/people/[key] --->
 	<cffunction name="update">
 
 		<!---Check to see if there is a profile record for this person and create one if not--->
@@ -242,7 +245,7 @@ END:VCARD
 		</cfif>
 	</cffunction>
 
-	<!--- handbookpeople/delete/key --->
+	<!--- handbookPerson	DELETE	/handbook/people/[key] --->
 	<cffunction name="delete">
 		<cfset handbookperson = model("Handbookperson").findByKey(key=params.key, include="HandbookState,Handbookpositions")>
 		<cfset profilesDeleted = model("Handbookprofile").deleteAll(where="personid=#params.key#")>

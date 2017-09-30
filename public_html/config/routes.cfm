@@ -45,11 +45,14 @@
 			.get(name="handbookPagesEdit", pattern="/organizations/handbookpages/[key]", controller="organizations", action="handbookpages")
 			.get(name="move", pattern="/organizations/move/", controller="organizations", action="move")
 			.get(name="removeStaff", pattern="/organizations/removeStaff/[key]", controller="organizations", action="notStaff")
+			.get(name="downloadguidelines", pattern="downloadguidelines", controller="organizations", action="downloadguidelines")
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
 			.get(name="viewperson", pattern="/people/[key]/view", controller="people", action="view")
 			.get(name="setreview", pattern="/people/setreview/[key]", controller="people", action="setReview")
+			.get(name="vcard", pattern="/people/vcard/[key]", controller="people", action="vcard")
+			.get(name="bluepages", pattern="/people/bluepages/", controller="people", action="bluepages")
 			.resources("people")
 
 			.resources("personUpdates")
