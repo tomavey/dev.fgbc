@@ -48,6 +48,8 @@
 			.get(name="removeStaff", pattern="/organizations/removeStaff/[key]", controller="organizations", action="notStaff")
 			.get(name="downloadguidelines", pattern="/organizations/downloadguidelines/", controller="organizations", action="downloadguidelines")
 			.get(name="downloadmembers", pattern="/organizations/downloadmemberchurches/", controller="organizations", action="downloadMemberChurches")
+			.get(name="downloadMemberChurchesForBrotherhood", pattern="/organizations/brotherhood", controller="organizations", action="downloadMemberChurchesForBrotherhood")
+			.get(name="updatelinks", pattern="/organization/updatelinks", controller="organizations", action="updatelinks")
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")

@@ -9,6 +9,7 @@ Most related actions are in handbook-statictis--->
 		<cfset filters(through="isoffice")>
 	</cffunction>
 
+	<!---handbookDownloadmemberchurchesadmin	GET	/handbook/admin/downloadmemberchurches--->
 	<cffunction name="downloadMemberChurches">
 	<cfif isDefined("params.key") and params.key is "includecampuses">
 		<cfset wherestring = "statusid = 1 OR statusid = 8 OR statusid = 9">

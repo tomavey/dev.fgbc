@@ -17,7 +17,7 @@
         					#linkto(text="Member Churches and their campuses", route="handbookDownloadmembers", id="navsearch", title="Download Spreadsheet of Member Churches with their campuses", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
         				</li>
 						<li>
-							#linkto(text="Member Churches, their campuses and new churches", controller="handbook.admin", route="handbookDownloadmembers", key="includecampusesandnewchurches", params="download=", id="navsearch", title="Download Spreadsheet of Member Churches, with campuses PLUS new churches", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+							#linkto(text="Member Churches, their campuses and new churches", controller="handbook.admin", route="downloadmemberchurchesadmin", key="includecampusesandnewchurches", params="download=", id="navsearch", title="Download Spreadsheet of Member Churches, with campuses PLUS new churches", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
 						</li>
 						<li>&nbsp;</li>
         				<li>
@@ -43,10 +43,10 @@
 
     					<cfif gotRights("superadmin,office")>
 							<li>
-								#linkto(text="Links to handbook review pages", controller="handbook.organizations", action="updatelinks", id="navsearch", title="Download a spreadsheet of links to church update pages", class="tooltip2 btn btn-large btn-block btn-primary")#
+								#linkto(text="Links to handbook review pages", controller="handbook.organizations", route="handbookUpdatelinks", id="navsearch", title="Download a spreadsheet of links to church update pages", class="tooltip2 btn btn-large btn-block btn-primary")#
 							</li>
 							<li>
-								#linkto(text="Brotherhood Mutual Download", controller="handbook.organizations", action="downloadMemberChurchesForBrotherhood", id="navsearch", title="Download a spreadsheet for Brotherhood Mutual", class="tooltip2 btn btn-large btn-block btn-primary")#
+								#linkto(text="Brotherhood Mutual Download", route="handbookDownloadMemberChurchesForBrotherhood", id="navsearch", title="Download a spreadsheet for Brotherhood Mutual", class="tooltip2 btn btn-large btn-block btn-primary")#
 							</li>
     					</cfif>
     				</ul>

@@ -320,11 +320,13 @@ private function $connectNewChurchToHandbook(newchurchUUID, handbookId){
 
 
 <!---Downloads--->
+	<!---handbookDownloadmembers	GET	/handbook/organizations/downloadmemberchurches--->
 	<cffunction name="downloadMemberChurches">
 		<cfset memberChurches = model("Handbookorganization").findAll(where="statusId in (1,8,9)",include="Handbookstate,Handbookdistrict,Handbookstatus")>
 		<cfset setDownloadLayout()>
 	</cffunction>
 
+	<!---handbookDownloadMemberChurchesForBrotherhood	GET	/handbook/organizations/brotherhood--->
 	<cffunction name="downloadMemberChurchesForBrotherhood">
 		<cfset memberChurches = model("Handbookorganization").findAll(where="statusId in (1,2,8,9,10,11)",include="Handbookstate,Handbookdistrict,Handbookstatus")>
 		<cfset setDownloadLayout()>
@@ -457,6 +459,7 @@ public function notStaff(){
 		<cfset test = reSort(arguments.organizationid)>
 	</cffunction>
 
+	<!--- handbookUpdatelinks	GET	/handbook/organization/updatelinks --->
 	<cffunction name="updateLinks">
 		<cfif isDefined("params.reviewedAfter")>
 			<cfset wherestring = "p_sortorder = 1 AND statusid IN (1,8,9,2) AND reviewedAt > '#params.reviewedafter#'">
