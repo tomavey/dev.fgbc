@@ -52,7 +52,7 @@
 			.get(name="downloadMemberChurchesForBrotherhood", pattern="/organizations/brotherhood/[key]", controller="organizations", action="downloadMemberChurchesForBrotherhood")
 			.get(name="downloadMemberChurchesForBrotherhood", pattern="/brotherhood/[key]", action="downloadMemberChurchesForBrotherhood")
 			.namespace("organizations")
-				.get(name="updatelinks", pattern="/updatelinks", action="updatelinks")
+				.get(name="updatelinks", pattern="/updatelinks", controller="", action="updatelinks")
 			.end()				
 			.resources("organizations")
 
