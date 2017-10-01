@@ -5,7 +5,7 @@
 <cfset count = 1>
 <cfset emailall = "">
 <cfoutput>
-<h1>#capitalize(pluralize(params.key))#</h1>
+<h1>#capitalize(pluralize(params.dateType))#</h1>
 
 <div class="well">
 <cfif params.isSubscribed>
