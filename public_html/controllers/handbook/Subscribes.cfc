@@ -182,7 +182,7 @@
 
 		<cfset emailall = "">
 
-		<cfif isDefined("params.key") and params.key is "test">
+		<cfif isDefined("params.go") && params.go is "test">
 			<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@comcast.net", subject="TEST - From the FGBC Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_naked")>
 		<cfelse>
 			<cfif isDefined("params.sendto") and len(params.sendto)>
