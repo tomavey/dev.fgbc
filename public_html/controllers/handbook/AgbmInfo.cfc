@@ -342,17 +342,6 @@
 	<cfreturn trim(loc.return)>
 	</cffunction>
 
-	<cffunction name="unRepeatCity">
-	<cfargument name="city" required="true" type="string">
-	<cfargument name="name" required="true" type="string">
-	<cfset var loc=structNew()>
-	<cfset loc.return = arguments.city & ",">
-	<cfif find(city,name)>
-		<cfset loc.return = "">
-	</cfif>
-	<cfreturn trim(loc.return)>
-	</cffunction>
-
 	<cffunction name="testget">
 	<cfargument name="personid" default="233">
 	<cfset var loc=arguments>
