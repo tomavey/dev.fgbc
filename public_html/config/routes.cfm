@@ -67,7 +67,7 @@
 			.get(name="downloadagbm", pattern="/people/downloadagbm/", controller="people", action="downloadagbm")
 			.get(name="distribution", pattern="/people/distribution/", controller="people", action="distribution")
 			.get(name="birthdays", pattern="/people/dates", controller="people", action="dates")
-			.get(name="datesByAge", pattern"/people/dates/byage/", controller="people", action="datesByYear")
+			.get(name="datesByAge", pattern="/people/dates/byage/", controller="people", action="datesByYear")
 			.resources("people")
 
 			.resources("personUpdates")
