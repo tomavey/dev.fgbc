@@ -174,6 +174,7 @@
 			.get(name="postCarts", pattern="/register/postCarts/", controller="register", action="postCarts")
 			.get(name="getAgent", pattern="/register/getAgent/", controller="register", action="getAgent")
 			.post(name="saveAgent", pattern="/register/saveAgent/", controller="register", action="saveAgent")
+			.get(name="payonline", pattern="/register/payonline/", controller="register", action="payonline")
 
 			.get(name="survey", pattern="/survey/", controller="surveys", action="new")
 			.get(name="surveyresults", pattern="/surveyresults/", controller="surveys", action="report")
