@@ -47,7 +47,6 @@
 			.get(name="move", pattern="/organizations/move/", controller="organizations", action="move")
 			.get(name="removeStaff", pattern="/organizations/removeStaff/[key]", controller="organizations", action="notStaff")
 			.get(name="downloadguidelines", pattern="/organizations/downloadguidelines/", controller="organizations", action="downloadguidelines")
-			.get(name="downloadmembersexcel", pattern="/organizations/downloadmemberchurches/[key]", controller="organizations", action="downloadMemberChurches")
 			.get(name="downloadmembers", pattern="/organizations/downloadmemberchurches/", controller="organizations", action="downloadMemberChurches")
 			.get(name="downloadMemberChurchesForBrotherhoodPreview", pattern="/organizations/brotherhood/preview/", controller="organizations", action="downloadMemberChurchesForBrotherhood")
 			.get(name="downloadMemberChurchesForBrotherhood", pattern="/organizations/brotherhood/[key]", controller="organizations", action="downloadMemberChurchesForBrotherhood")
