@@ -118,12 +118,12 @@
 <!---Specialized Views--->
 <!---Specialized Views--->
 
-	<!--- route="subscribeMe", pattern="/subscribeme/updates/" --->
+	<!--- name="subscribeMe", pattern="/subscribeme/" --->
 	<cffunction name="updates">
 		<cfset subscription = model("Handbooksubscribe").new()>
 		<cfset subscription.type = "updates">
 		<cfset subscription.email = session.auth.email>
-
+<cfdump var="#params#"><cfabort>
 		<cfset check = model("Handbooksubscribe").findAll(where="type='#subscription.type#' AND email='#subscription.email#'")>
 
 		<cfif check.recordcount>
