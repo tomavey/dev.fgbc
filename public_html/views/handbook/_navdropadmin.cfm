@@ -21,7 +21,7 @@
                             #linkto(text="Subscribers", controller="handbook.subscribes", action="index", id="navsearch", title="List Subscriptions", class="tooltip2")#
                         </li>
                         <li>
-                            #linkto(text="Send Email", controller="handbook.people", action="sendToHandbookPeople", id="navsearch", title="Send a pre-set email", class="tooltip2")#
+                            #linkto(text="Send Email", controller="handbook.people", action="sendToHandbookPeople", id="navsearch", title="Send a pre-set email after confirmation", class="tooltip2")#
                         </li>
                         <li>
                             #linkto(text="Send Dates", controller="handbook.subscribes", action="sendTodaysDates", key="test", id="navsearch", title="Send todays birthdays and anniversaries to subscribed emails", class="tooltip2")#

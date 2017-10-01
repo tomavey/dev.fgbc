@@ -392,7 +392,7 @@
 		<cfset maxsortorder = 500>
 		<cfset maxrows = 100000>
 
-		<cfif isDefined("params.key") AND params.key is "test">
+		<cfif isDefined("params.test")>
 			<cfset maxrows = 5>
 		</cfif>
 
@@ -425,12 +425,12 @@
 				<cfset emailall = emailall & "; " & emailsend>
 				<cfset count = count +1 >
 
-				<cfif isdefined("params.key") and params.key is "send">
+				<cfif isdefined("params.go") and params.go is "send">
 					<cfset sendEmail(from="tomavey@fgbc.org", subject=emailsubject, bcc="tomavey9173@gmail.com", to=emailsend, template="message", layout="/layout_naked", name=name)>
 				</cfif>
 
-				<cfif isdefined("params.key") and params.key is "test">
-					<cfset sendEmail(from="tomavey@fgbc.org", subject=emailsubject, bcc="tomavey9173@gmail.com", to="tomavey@comcast.net", template="message", layout="/layout_naked", name=name)>
+				<cfif isdefined("params.go") and params.go is "test">
+					<cfset sendEmail(from="tomavey@fgbc.org", subject=emailsubject, bcc="tomavey9173@gmail.com", to="tomavey@fgbc.org", template="message", layout="/layout_naked", name=name)>
 				</cfif>
 			</cfif>
 		</cfloop>

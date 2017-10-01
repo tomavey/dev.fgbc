@@ -1,7 +1,7 @@
-<cfif not isdefined("params.key") OR params.key is not "send">
+<cfif !isdefined("params.go") || params.go is not "send">
 	<cfoutput>
-		#linkTo(text="Send test to tomavey", key="test", class="btn")#<br/>
-		#linkTo(text="Send this email to: ", key="send", class="btn")#
+		#linkTo(text="Send test to tomavey", params="go=test", class="btn")#<br/>
+		#linkTo(text="Send this email to: ", params="go=send", class="btn")#
 
 		<p>
 			Subject = #emailsubject#
@@ -14,7 +14,7 @@
 #getEmailMessage()#
 </cfoutput>
 
-<cfif not isdefined("params.key") OR params.key is not "send">
+<cfif not isdefined("params.go") OR params.go is not "send">
 	<table>
 		<cfoutput query="distinctemail">
 			<cfif isValid("email",emailsend)>
