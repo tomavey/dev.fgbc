@@ -11,9 +11,9 @@ Most related actions are in handbook-statictis--->
 
 	<!---handbookDownloadmemberchurchesadmin	GET	/handbook/admin/downloadmemberchurches--->
 	<cffunction name="downloadMemberChurches">
-	<cfif isDefined("params.key") and params.key is "includecampuses">
+	<cfif isDefined("params.include") && params.include is "includecampuses">
 		<cfset wherestring = "statusid = 1 OR statusid = 8 OR statusid = 9">
-	<cfelseif isDefined("params.key") and params.key is "includecampusesandnewchurches">
+	<cfelseif isDefined("params.include") && params.include is "includecampusesandnewchurches">
 		<cfset wherestring = "statusid = 1 OR statusid = 8 OR statusid = 2 OR statusid = 9">
 	<cfelse>
 		<cfset wherestring = "statusid = 1">
