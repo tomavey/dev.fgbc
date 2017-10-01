@@ -5,8 +5,8 @@
 <cfparam name="anniversarysubject" default="Happy Anniversary">
 <cfparam name="anniversarymessage" default="Happy Anniversary!">
 
-<cfif isDefined("params.key") and params.key is "test">
-	<cfoutput>#linkto(text="Send to subscribers", key="go", class="btn")#</cfoutput>
+<cfif isDefined("params.go") && params.go is "test">
+	<cfoutput>#linkto(text="Send to subscribers", params="go=send", class="btn")#</cfoutput>
 </cfif>
 
 <!---cfif isDefined("emailall")>
