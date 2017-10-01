@@ -350,7 +350,7 @@
 	</cffunction>
 
 	<cffunction name="datesByYear">
-		<cfset datesSorted = model("Handbookperson").findDatesSorted(params.key,"birthdayyear DESC")>
+		<cfset datesSorted = model("Handbookperson").findDatesSorted(params.dateType,"birthdayyear DESC")>
 	</cffunction>
 
 	<cffunction name="currentministry">

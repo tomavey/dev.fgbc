@@ -32,9 +32,11 @@
 </cfif>				
 </cfoutput>
 </div>
+
 <cfif gotRights("office")>
-#linkto(text="LIST BY AGE", route="handbookdatesByAge", key="birthday", class="btn")#
+	#linkto(text="LIST BY AGE", route="handbookdatesByAge", params="dateType=birthday", class="btn")#
 </cfif>
+
 </cfoutput>
   <h3>Soon...</h3>
 
