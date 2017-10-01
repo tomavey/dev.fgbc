@@ -3,7 +3,7 @@
 <cfif isdefined("params.format") and params.format is "excel">
 
 <cfelse>	
-	<cfoutput>#Linkto(text="Download as excel", params="format=excel")#</cfoutput>
+	<cfoutput>#Linkto(text="Download as excel", route="handbookDownloadagbm", params="format=excel")#</cfoutput>
 </cfif>
 
 <table class="table">
