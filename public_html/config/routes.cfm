@@ -170,6 +170,7 @@
 			.post(name="addPersonToRegCart", pattern="/register/addPersonToRegistrationCart/", controller="register", action="addPersonToRegistrationCart")
 			.get(name="showRegs", pattern="/register/showregs/", controller="register", action="showregs")
 			.get(name="registerPerson", pattern="/register/person/", controller="register", action="person")
+			.get(name="postCarts", pattern="/register/postCarts/", controller="register", action="postCarts")
 
 			.get(name="survey", pattern="/survey/", controller="surveys", action="new")
 			.get(name="surveyresults", pattern="/surveyresults/", controller="surveys", action="report")
