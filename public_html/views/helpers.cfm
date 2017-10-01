@@ -776,6 +776,13 @@
 <cfreturn trim(loc.return)>
 </cffunction>
 
+<cffunction name="gbcIt">
+	<cfargument name="churchname" required="true" type="string">
+	<cfset var loc=structNew()>
+	<cfset loc.return = replace(arguments.churchname,"Grace Brethren Church","GBC","all")>
+<cfreturn trim(loc.return)>
+</cffunction>
+
 <cfscript>
 
 public function getAlphabet(){
