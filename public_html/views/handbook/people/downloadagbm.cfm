@@ -1,9 +1,9 @@
 <cfset count = 1>
 
-<cfif isdefined("params.key") and params.key is "excel">
+<cfif isdefined("params.format") and params.format is "excel">
 
 <cfelse>	
-	<cfoutput>#buttonTo(text="Download as excel", key="excel")#</cfoutput>
+	<cfoutput>#Linkto(text="Download as excel", key="excel")#</cfoutput>
 </cfif>
 
 <table class="table">
