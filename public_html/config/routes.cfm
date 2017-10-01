@@ -66,6 +66,7 @@
 			.get(name="bluepages", pattern="/people/bluepages/", controller="people", action="bluepages")
 			.get(name="downloadagbm", pattern="/people/downloadagbm/", controller="people", action="downloadagbm")
 			.get(name="distribution", pattern="/people/distribution/", controller="people", action="distribution")
+			.get(name="birthdays", pattern="/people/dates", controller="people", action="dates")
 			.resources("people")
 
 			.resources("personUpdates")

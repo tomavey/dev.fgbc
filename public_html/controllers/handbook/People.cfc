@@ -336,9 +336,12 @@
 
 	<!---Used for birthday and anniversary reports--->
 	<cffunction name="dates">
+	<cfif !isDefined("params.dateType")>
+		<cfset params.dateType = "birthday">
+	</cfif>
 
-		<cfset datesSorted = model("Handbookperson").findDatesSorted(params.key)>
-		<cfset datesThisWeek = model("Handbookperson").findDatesThisWeek(params.key)>
+		<cfset datesSorted = model("Handbookperson").findDatesSorted(params.dateType)>
+		<cfset datesThisWeek = model("Handbookperson").findDatesThisWeek(params.dateType)>
 		<cfset subscribed = model("Handbooksubscribe").findOne(where="email = '#session.auth.email#' AND type='dates'")>
 		<cfif isObject(subscribed)>
 			  <cfset params.isSubscribed = true>
