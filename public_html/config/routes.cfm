@@ -89,7 +89,7 @@
 			.get(name="subscribeMe", pattern="/subscribeme/", controller="subscribes", action="updates")
 			.get(name="unSubscribeMe", pattern="/unsubscribeme/[key]", controller="subscribes", action="unsubscribe")
 			.get(name="subscribeMeDates", pattern="/subscribemedates/", controller="subscribes", action="subscribeToDates")
-			.get(name="sendTodaysDates", pattern="/subscribes/sendTodaysDates/", controller="subscribes", action="sendTodaysDates")
+			.get(name="sendTodaysDates", pattern="/subscribes/sendTodaysDates/[key]", controller="subscribes", action="sendTodaysDates")
 			.get(name="sendTodaysPrayerReminders", pattern="/subscribes/sendTodaysPrayerReminders/[key]", controller="subscribes", action="sendTodaysPrayerReminders")
 			.get(name="sendThisWeeksPrayerReminders", pattern="/subscribes/sendThisWeeksPrayerReminders/[key]", controller="subscribes", action="sendThisWeeksPrayerReminders")
 			.resources("subscribes")

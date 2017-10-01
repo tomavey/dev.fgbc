@@ -448,7 +448,7 @@
 		<cfset renderPage(template="/handbook/updates/index.cfm")>
 	</cffunction>
 
-	<cffunction name="sendThisWeeksPrayerReminders">
+	<cffunction name="sendTodaysDates">
 		<cfset sendPrayerReminders(timeframe="week")>
 		<cfset renderPage(template="sendPrayerReminders")>
 	</cffunction>
