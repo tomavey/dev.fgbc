@@ -56,7 +56,9 @@
 			.get(name="updatelinks", pattern="/organizations/updatelinks/", controller="organizations", action="updatelinks")
 			.get(name="yellowpages", pattern="/organizations/yellowpages/", controller="organizations", action="yellowpages")
 			.get(name="prayerlist", pattern="/organizations/prayerlist/", controller="organizations", action="prayerlist")
+			.controller("organizations")
 			.get(name="distribution", pattern="/organizations/distribution/", controller="organizations", action="distribution")
+			.end()
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
