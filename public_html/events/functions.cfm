@@ -169,5 +169,10 @@
         <cfreturn newquery>
     </cffunction>
 
+	<cffunction name="h">
+	<cfargument name="text" required="true" type="string">
+	<return xmlFormat(text)>
+	</cffunction>
+
 
 
