@@ -57,7 +57,7 @@
 			.get(name="yellowpages", pattern="/organizations/yellowpages/", controller="organizations", action="yellowpages")
 			.get(name="prayerlist", pattern="/organizations/prayerlist/", controller="organizations", action="prayerlist")
 			.controller("organizations")
-			.get(name="distribution", pattern="/organizations/distribution/", controller="organizations", action="distribution")
+				.get(name="distribution", pattern="/organizations/distribution/", action="distribution")
 			.end()
 			.resources("organizations")
 
