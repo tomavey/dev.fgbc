@@ -167,6 +167,7 @@
 			.get(name="selectregtype", pattern="/register/selectregtype/", controller="register", action="selectregtype")
 			.get(name="selectoptions", pattern="/register/selectoptions/", controller="register", action="selectoptions")
 			.post(name="createCartItemsFromForm", pattern="/register/createCartItemsFromForm/", controller="register", action="createCartItemsFromForm")
+			.post(name="addPersonToRegCart", pattern="/register/addPersonToRegistrationCart/", controller="register", action="addPersonToRegistrationCart")
 			.get(name="registerPerson", pattern="/register/person/", controller="register", action="person")
 
 			.get(name="survey", pattern="/survey/", controller="surveys", action="new")
