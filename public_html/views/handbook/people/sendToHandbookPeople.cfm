@@ -1,6 +1,6 @@
 <cfif !isdefined("params.go") || params.go is not "send">
 	<cfoutput>
-		#linkTo(text="Send test to tomavey", route="handbookSendEmailToPeople", params="go=test", class="btn", onclick='confirm("Are you sure?")')#<br/>
+		#linkTo(text="Send test to tomavey", route="handbookSendEmailToPeople", params="go=test", class="btn", confirm="Are you sure?")#<br/>
 		#linkTo(text="Send this email to: ", route="handbookSendEmailToPeople", params="go=send", class="btn")#
 
 		<p>
