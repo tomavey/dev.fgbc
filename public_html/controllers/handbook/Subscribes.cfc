@@ -12,8 +12,8 @@
 <!---CRUD--->
 	<!--- handbook-subscribes/index --->
 	<cffunction name="index">
-		<cfif isDefined("params.key")>
-			<cfset orderstring = params.key>
+		<cfif isDefined("params.sortBy")>
+			<cfset orderstring = params.sortBy>
 		<cfelse>
 			<cfset orderstring = "email">
 		</cfif>

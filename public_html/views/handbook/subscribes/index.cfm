@@ -9,10 +9,10 @@
 <table class="table table-striped">
 	<tr>
 		<th>
-		#linkto(text="Email", key="email", class="btn")#</th>
-		<th>#linkto(text="Type", key="type", class="btn")#</th>
+		#linkto(text="Email", params="sortBy=email", class="btn")#</th>
+		<th>#linkto(text="Type", params="sortBy=type", class="btn")#</th>
 		<th>Last Send</th>
-		<th>#linkto(text="Date", key="createdAt", class="btn")#</th>
+		<th>#linkto(text="Date", params="sortBy=createdAt", class="btn")#</th>
 		<th>Handbook id</th>
 		<th>&nbsp;</th>
 	</tr>
