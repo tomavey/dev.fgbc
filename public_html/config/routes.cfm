@@ -166,6 +166,7 @@
 			.get(name="payinvoice", pattern="/payinvoice", controller="register", action="payExistingInvoiceOnline")
 			.get(name="selectregtype", pattern="/register/selectregtype/", controller="register", action="selectregtype")
 			.get(name="selectoptions", pattern="/register/selectoptions/", controller="register", action="selectoptions")
+			.post(name="CreateCartItemsFromForm", pattern="/register/CreateCartItemsFromForm/", controller="register", action="CreateCartItemsFromForm")
 
 			.get(name="survey", pattern="/survey/", controller="surveys", action="new")
 			.get(name="surveyresults", pattern="/surveyresults/", controller="surveys", action="report")
