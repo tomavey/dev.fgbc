@@ -90,7 +90,9 @@
 			.get(name="subscribeMeDates", pattern="/subscribemedates/", controller="subscribes", action="subscribeToDates")
 			.resources("subscribes")
 
+			.get(name="hits", pattern="/updates/hits/", controller="updates", action="hits")
 			.resources("updates")
+
 			.get(name="unlockLink", pattern="/unlock/", controller="welcome", action="welcome")
 			.get(name="unlockLinkfor", pattern="/unlock/[key]", controller="welcome", action="welcome")
 			.resources("welcome")
