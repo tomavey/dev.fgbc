@@ -41,10 +41,10 @@
     				#linkto(text="Pictures", controller="handbook.pictures", action="index", title="Pictures of people", class="tooltip2")#
     			</li>
     			<li>
-    				#linkto(text="Birthdays", controller="handbook.people", action="dates", dateType="birthday", title="View Birthdays", class="tooltip2")#
+    				#linkto(text="Birthdays", controller="handbook.people", action="dates", params="dateType=birthday", title="View Birthdays", class="tooltip2")#
     			</li>
     			<li>
-    				#linkto(text="Anniversaries", controller="handbook.people", action="dates", dateType="anniversary", title="View Anniversaries", class="tooltip2")#
+    				#linkto(text="Anniversaries", controller="handbook.people", action="dates", params="dateType=anniversary", title="View Anniversaries", class="tooltip2")#
     			</li>
 
 				<!---
