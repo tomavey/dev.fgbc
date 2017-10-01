@@ -153,7 +153,7 @@
 
 		<cfif NOT isObject(check)>
 			<cfif subscription.save()>
-				<cfset message="You will now recieve daily prayer reminders.">
+				<cfset message="You are now subscribed!.">
 			<!--- Otherwise --->
 			<cfelse>
 				<cfset message="There was an error creating the subscription.">
