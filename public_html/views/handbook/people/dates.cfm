@@ -48,10 +48,10 @@
 </cfif>    
 </cfoutput>
 
-<cfoutput query="datesSorted" group="#params.key#monthnumber">
+<cfoutput query="datesSorted" group="#params.dateType#monthnumber">
 <cfif isInHandbook(personid)>
 
-<cfset dateInfo.month = '#params.key#monthnumber'>
+<cfset dateInfo.month = '#params.dateType#monthnumber'>
 <cfset dateInfo.month = evaluate(dateInfo.month)>
 
   <h3>#monthAsString(dateInfo.month)#</h3>
