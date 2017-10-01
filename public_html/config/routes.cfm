@@ -86,6 +86,7 @@
 			.get(name="deletesubscribe", pattern="/subscribes/[key]/delete/", controller="subscribes", action="delete")
 			.get(name="subscribeMe", pattern="/subscribeme/", controller="subscribes", action="updates")
 			.get(name="unSubscribeMe", pattern="/unsubscribeme/[key]", controller="subscribes", action="unsubscribe")
+			.get(name="subscribeMeDates", pattern="/subscribemedates/", controller="subscribes", action="subscribeToDates")
 			.resources("subscribes")
 
 			.resources("updates")

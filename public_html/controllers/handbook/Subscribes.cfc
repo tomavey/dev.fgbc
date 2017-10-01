@@ -124,7 +124,6 @@
 		<cfset subscription.type = "updates">
 		<cfset subscription.email = session.auth.email>
 		<cfset check = model("Handbooksubscribe").findAll(where="type='#subscription.type#' AND email='#subscription.email#'")>
-<cfdump var="#check#"><cfabort>
 
 		<cfif check.recordcount>
 			<cfset flashInsert(update="You are already subscribed to this service")>

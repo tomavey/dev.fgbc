@@ -25,7 +25,7 @@
 <cfelse>				
 		#linkTo(
 				text="Subscribe me",
-				route="handbookSubscribeMe",
+				route="handbooksubscribeMeDates",
 				title="Receive daily notices of birthdays and anniversaries to #session.auth.email#.", 
 				class="btn tooltip2"
 				)#
