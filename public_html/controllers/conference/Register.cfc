@@ -802,7 +802,7 @@
 				<cfset rc[eachperson].snameid = sperson.id>
 			<cfelse>
 				<cfset rc[eachperson].id = rc[eachperson].fnameid>
-				<cfset thisperson = model("Conferenceperson").findByKey(rc[eachperson].snameid)>
+				<cfset thisperson = model("Conferenceperson").findByKey(key=rc[eachperson].snameid, include="family")>
 				<cfset thisperson.update(params)>
 			</cfif>
 		</cfif>
