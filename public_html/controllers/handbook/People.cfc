@@ -398,7 +398,7 @@
 
 		<cfset peopleEmails1 = model("Handbookperson").findAll(select="handbookpeople.email as emailsend, fname as name", where="p_sortorder <= #maxsortorder# AND statusid IN (1,8,3,4,2,9,10,11)", maxrows=maxrows, include="Handbookstate,Handbookpositions(Handbookorganization)")>
 		<cfset peopleEmails2 = model("Handbookperson").findAll(select="handbookpeople.email2 as emailsend, fname as name", where="p_sortorder <= #maxsortorder# AND statusid IN (1,8,3,4,2,9,10,11)", maxrows=maxrows, include="Handbookstate,Handbookpositions(Handbookorganization)")>
-		<cfset churchEmails1 = model("Handbookorganization").findAll(where="statusid IN (1,8,3,4,2,9,10,11)", select="(handbookorganization.email as emailsend, name as name)", maxrows=maxrows, include="Handbookstate")>
+		<cfset churchEmails1 = model("Handbookorganization").findAll(where="statusid IN (1,8,3,4,2,9,10,11)", select="handbookorganizations.email as emailsend, name as name", maxrows=maxrows, include="Handbookstate")>
 
 		<cfquery dbtype="query" name="allemails">
 			SELECT *
