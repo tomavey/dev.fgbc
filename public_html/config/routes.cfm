@@ -154,6 +154,7 @@
 			.resources("registrations")
 			
 			.resources("resources")
+
 			.get(name="conferenceworkshops", pattern="/workshops/", controller="courses", action="workshops")
 			.get(name="conferenceworkshopstable", pattern="/workshops/table/", controller="courses", action="workshopstable")
 			.get(name="conferenceriscurions", pattern="/riscursions/", controller="courses", action="riskursions")
@@ -171,6 +172,7 @@
 			.get(name="showRegs", pattern="/register/showregs/", controller="register", action="showregs")
 			.get(name="registerPerson", pattern="/register/person/", controller="register", action="person")
 			.get(name="postCarts", pattern="/register/postCarts/", controller="register", action="postCarts")
+			.get(name="getAgent", pattern="/register/getAgent/", controller="register", action="getAgent")
 
 			.get(name="survey", pattern="/survey/", controller="surveys", action="new")
 			.get(name="surveyresults", pattern="/surveyresults/", controller="surveys", action="report")
