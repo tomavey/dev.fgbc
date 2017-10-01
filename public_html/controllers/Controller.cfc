@@ -278,7 +278,7 @@
 	</cffunction>
 
 	<cffunction name="setDownloadLayout">
-			<cfif isdefined("params.key") AND params.key is "excel">
+			<cfif (isdefined("params.key") && params.key is "excel") || (isdefined("params.format") && params.format is "excel")>
 				<cfset renderPage(layout='/layout_download', showDebugOutput="No")>
 			<cfelse>
 				<cfset renderPage(layout='/layout_naked', showDebugOutput="No")>
