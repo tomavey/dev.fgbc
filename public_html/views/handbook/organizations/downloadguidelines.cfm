@@ -24,10 +24,10 @@
         					#linkto(text="People - Blue Pages", route="handbookBluepages", params="download=1", id="navsearch", title="Download a spreadsheet of all people in the blue pages of the handbook.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
         				</li>
         				<li>
-        					#linkto(text="People - Church Staff", controller="handbook.people", action="bluepages", params="download=1&staffonly=1", id="navsearch", title="Download a spreadsheet of all church staff.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+        					#linkto(text="People - Church Staff", route="handbookBluepages", params="download=1&staffonly=1", id="navsearch", title="Download a spreadsheet of all church staff.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
         				</li>
 						<li>
-							#linkto(text="People - Church Staff with 'Pastor' in their title", controller="handbook.people", action="bluepages", params="download=1&pastoralstaffonly=1", id="navsearch", title="Download a spreadsheet of all church staff that have the word 'pastor' in their title.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+							#linkto(text="People - Church Staff with 'Pastor' in their title", route="handbookBluepages", params="download=1&pastoralstaffonly=1", id="navsearch", title="Download a spreadsheet of all church staff that have the word 'pastor' in their title.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
 						</li>
 						<li><h3 class="text-center">Download staff of churches in a district:</h3> 
 							<cfoutput query="districts">
@@ -38,7 +38,7 @@
 						</li>
 						<li>&nbsp;</li>
 	       				<li>
-        					#linkto(text="AGBM", controller="handbook.people", action="downloadagbm", id="navsearch", title="Download a spreadsheet of all AGBM members.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+        					#linkto(text="AGBM", route="handbookDownloadagbm", id="navsearch", title="Download a spreadsheet of all AGBM members.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
         				</li>
 
     					<cfif gotRights("superadmin,office")>
