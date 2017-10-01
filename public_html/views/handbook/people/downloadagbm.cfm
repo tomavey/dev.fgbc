@@ -3,7 +3,7 @@
 <cfif isdefined("params.key") and params.key is "excel">
 
 <cfelse>	
-	<cfoutput>#buttonTo(text="Download as excel", key="excel")#</cfoutput>
+	<cfoutput>#buttonTo(text="Download as excel", route="handbookDownloadagbm", params="format=excel")#</cfoutput>
 </cfif>
 
 <table class="table">

@@ -59,7 +59,7 @@
 			.get(name="setreview", pattern="/people/setreview/[key]", controller="people", action="setReview")
 			.get(name="vcard", pattern="/people/vcard/[key]", controller="people", action="vcard")
 			.get(name="bluepages", pattern="/people/bluepages/", controller="people", action="bluepages")
-			.get(name="downloadagbm", pattern="/people/agbm/", controller="people", action="downloadagbm")
+			.get(name="downloadagbm", pattern="/people/downloadagbm/", controller="people", action="downloadagbm")
 			.resources("people")
 
 			.resources("personUpdates")
