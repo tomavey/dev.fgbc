@@ -133,21 +133,26 @@
 			.resources("contents")
 			.resources("errors")
 			.resources("events")
+
 			.get(name="newexhibitform", pattern="/exhibit/", controller="exhibits", action="new")
 			.get(name="deleteexhibits", pattern="/exhibits/[key]/delete", controller="exhibits", action="delete")
 			.resources("exhibits")
+			
 			.resources("families")
+			
 			.get(name="showinvoice", pattern="/invoice/[key]", controller="invoices", action="show")
 			.resources("invoices")
 			.resources("locations")
 			.resources("main")
 			.resources("options")
 			.resources("people")
+			
 			.get(name="registration", pattern="/registration/", controller="register", action="welcome")
 			.get(name="register", pattern="/register/", controller="register", action="welcome")
 			.get(name="deleteregistration", pattern="/registrations/[key]/delete", controller="registrations", action="delete")
 			.get(name="showregistration", pattern="/registrations/[key]", controller="registrations", action="show")
 			.resources("registrations")
+			
 			.resources("resources")
 			.get(name="conferenceworkshops", pattern="/workshops/", controller="courses", action="workshops")
 			.get(name="conferenceworkshopstable", pattern="/workshops/table/", controller="courses", action="workshopstable")
@@ -156,14 +161,18 @@
 			.get(name="conferenceworkshopsrss", pattern="/workshops/rss/", controller="courses", action="rss")
 			.get(name="selectworkshopperson", pattern="/select/[type]/", controller="courses", action="selectworkshops")
 			.get(name="selectworkshop", pattern="/select/[type]/[personid]", controller="courses", action="selectworkshops")
+
 			.get(name="addOptions", pattern="/register/addOptions/[key]", controller="register", action="startFamilyRegs")
+			.get(name="payinvoice", pattern="/payinvoice", controller="register", action="payExistingInvoiceOnline")
+			.get(name="selectregtype", pattern="/register/selectregtype/", controller="register", action="selectregtype")
+
 			.get(name="survey", pattern="/survey/", controller="surveys", action="new")
 			.get(name="surveyresults", pattern="/surveyresults/", controller="surveys", action="report")
 			.get(name="comments", pattern="/comments/", controller="surveys", action="comments")
+
 			.get(name="lodgingrequest", pattern="/lodgingrequest/[key]", controller="lodgingrequests", action="new")
 			.get(name="lodgingrequest", pattern="/lodgingrequest/", controller="lodgingrequests", action="new")
 			.get(name="lodgingrequests", pattern="/lodgingrequests/", controller="lodgingrequests", action="index")
-			.get(name="payinvoice", pattern="/payinvoice", controller="register", action="payExistingInvoiceOnline")
 		.end()
 
 		.namespace("membership")
