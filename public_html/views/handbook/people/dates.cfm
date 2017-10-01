@@ -16,9 +16,8 @@
 <cfoutput>
 <cfif params.isSubscribed>
 		#linkTo(
-				text="Un-Subscribe me", 
-				controller="handbook.subscribes", 
-				action="unsubscribe", 
+				text="Un-Subscribe me",
+				route="handbookUnSubscribeMe", 
 				key="dates", 
 				title="Stop receiving notices of updates via email.", 
 				class="btn tooltip2"
@@ -26,8 +25,7 @@
 <cfelse>				
 		#linkTo(
 				text="Subscribe me",
-				controller="handbook.subscribes", 
-				action="dates", 
+				route="handbookSubscribeMe",
 				title="Receive daily notices of birthdays and anniversaries to #session.auth.email#.", 
 				class="btn tooltip2"
 				)#
