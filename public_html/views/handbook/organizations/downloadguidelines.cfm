@@ -21,7 +21,7 @@
 						</li>
 						<li>&nbsp;</li>
         				<li>
-        					#linkto(text="People - Blue Pages", controller="handbook.people", action="bluepages", params="download=1", id="navsearch", title="Download a spreadsheet of all people in the blue pages of the handbook.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+        					#linkto(text="People - Blue Pages", route="handbookBluepages", params="download=1", id="navsearch", title="Download a spreadsheet of all people in the blue pages of the handbook.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
         				</li>
         				<li>
         					#linkto(text="People - Church Staff", controller="handbook.people", action="bluepages", params="download=1&staffonly=1", id="navsearch", title="Download a spreadsheet of all church staff.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
@@ -32,7 +32,7 @@
 						<li><h3 class="text-center">Download staff of churches in a district:</h3> 
 							<cfoutput query="districts">
 								<cfif district NEQ "Empty">
-								#linkTo(text=district, controller="handbook.people", action="bluepages", params="download=1&staffonly=1&districtid=#districtid#", id="navsearch", title="Download a spreadsheet of all church staff in district.", class="btn btn-large btn-primary tooltip2 downloadconfirm")# 
+								#linkTo(text=district, route="handbookBluepages", params="download=1&staffonly=1&districtid=#districtid#", id="navsearch", title="Download a spreadsheet of all church staff in district.", class="btn btn-large btn-primary tooltip2 downloadconfirm")# 
 								</cfif>
 							</cfoutput>
 						</li>
