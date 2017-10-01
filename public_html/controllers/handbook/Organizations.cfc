@@ -472,7 +472,7 @@ public function notStaff(){
 		<cfelse>
 			<cfset wherestring = "p_sortorder = 1 AND statusid IN (1,8,9,2)">
 		</cfif>
-		<cfset organizations = model("handbookorganization").findall(where=wherestring, order="state, org_city", include="Handbookpositions(Handbookperson),Handbookstate")>
+		<cfset organizations = model("handbookorganization").findall(where=wherestring, order="state, org_city", include="Positions(Handbookperson),Handbookstate")>
 
 		<cfif isDefined("params.download")>
 			<cfset renderPage(layout="/layout_download")>
