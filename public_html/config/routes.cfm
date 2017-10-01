@@ -68,7 +68,7 @@
 			.get(name="distribution", pattern="/people/distribution/", controller="people", action="distribution")
 			.get(name="birthdays", pattern="/people/dates", controller="people", action="dates")
 			.get(name="datesByAge", pattern="/people/dates/byage/", controller="people", action="datesByYear")
-			.get(name="sendEmailToPeople"), pattern="/people/sendemail/", controller="people", action="sendToHandbookPeople")
+			.get(name="sendEmailToPeople", pattern="/people/sendemail/", controller="people", action="sendToHandbookPeople")
 			.resources("people")
 
 			.resources("personUpdates")
