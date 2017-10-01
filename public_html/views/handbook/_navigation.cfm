@@ -83,13 +83,13 @@
     				#linkToData(href="##", class="dropdown-toggle", data_toggle="dropdown", text="Handbook Reports<b class='caret'></b>")#
     				<ul class="dropdown-menu">
         				<li>
-        					#linkto(text="Blue Pages", controller="handbook.people", action="bluepages", id="navsearch", title="People Info for Handbook", class="tooltip2")#
+        					#linkto(text="Blue Pages", route="handbookBluepages", id="navsearch", title="People Info for Handbook", class="tooltip2")#
         				</li>
         				<li>
-        					#linkto(text="Yellow Pages", controller="handbook.organizations", action="yellowpages", id="navsearch", title="Church Info for Handbook", class="tooltip2")#
+        					#linkto(text="Yellow Pages", route="handbookYellowpages", id="navsearch", title="Church Info for Handbook", class="tooltip2")#
         				</li>
         				<li>
-        					#linkto(text="Prayer List", controller="handbook.organizations", action="prayerlist", id="navsearch", title="Generate a prayerlist for the handbook.", class="tooltip2")#
+        					#linkto(text="Prayer List", route="handbookPrayerlist", id="navsearch", title="Generate a prayerlist for the handbook.", class="tooltip2")#
         				</li>
         				<li>
         					#linkto(text="Districts", controller="handbook.districts", action="index", id="navsearch", title="Links to District Information", class="tooltip2")#

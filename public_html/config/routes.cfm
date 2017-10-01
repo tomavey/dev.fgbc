@@ -52,6 +52,8 @@
 			.get(name="downloadMemberChurchesForBrotherhood", pattern="/organizations/brotherhood/[key]", controller="organizations", action="downloadMemberChurchesForBrotherhood")
 			.get(name="downloadMemberChurchesForBrotherhood", pattern="/brotherhood/[key]", action="downloadMemberChurchesForBrotherhood")
 			.get(name="updatelinks", pattern="/organizations/updatelinks/", controller="organizations", action="updatelinks")
+			.get(name="yellowpages", pattern="/organizations/yellowpages/", controller="organizations", action="yellowpages")
+			.get(name="prayerlist", pattern="/organizations/prayerlist/", controller="organizations", action="prayerlist")
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
