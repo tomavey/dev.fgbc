@@ -194,6 +194,7 @@
 			.get(name="newchurches", pattern="/newchurches/", controller="newchurches", action="index")
 			.get(name="shownewchurch", pattern="/newchurch/[key]", controller="newchurches", action="show")
 			.get(name="editnewchurch", pattern="/newchurch/[key]/edit", controller="newchurches", action="edit")
+			.get(name="checkin", pattern="/newchurch/checkn/", controller="newchurches", action="checkin")
 			.get(name="newministries", pattern="/newministries/", controller="newministries", action="index")
 		.end()
 
@@ -229,8 +230,8 @@
 		.get(name="agbminfo", pattern="/handbook-agbm/index/", controller="handbook.agbminfo", action="index")
 		.get(name="sendhandbook", pattern="/sendhandbook/[key]", controller="handbook.people", action="sendhandbook")
 		.get(name="about", pattern="/about/", controller="about", action="ourStory")
-		.get(name="newchurch", pattern="/newchurch/", controller="membership.newchurches", action="welcome")
 		.get(name="editnewchurch", pattern="/newchurch/[key]", controller="membership.newchurches", action="edit")
+		.get(name="newchurch", pattern="/newchurch/", controller="membership.newchurches", action="welcome")
 		.get(name="newchurches", pattern="/newchurches/", controller="membership.newchurches", action="index")
 		.get(name="newministries", pattern="/newministries/", controller="membership.newministries", action="index")
 		.get(name="newministry", pattern="/newministry/", controller="membership.newministries", action="new")
