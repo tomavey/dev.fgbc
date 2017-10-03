@@ -35,7 +35,8 @@
 			.resources("admin")
 			.resources("agbm")
 
-			.get(name="addAGBMPayment", pattern="agbminfo/add/[key]", controller="AgbmInfo", action="add")
+			.get(name="addAGBMPayment", pattern="/agbminfo/add/[key]", controller="AgbmInfo", action="add")
+			.get(name="agbmpage", pattern="/agbminfo/list", controller="agbmList", action="list")
 			.resources("agbmInfo")
 
 			.get(name="districtsReport", pattern="/districts/report/", controller="districts", action="handbookreport")
@@ -79,6 +80,8 @@
 
 			.resources("prayers")
 			.resources("profiles")
+
+			.get(name="liststatistics", pattern="/handbook/stats/", controller="statistics", action="welcome")
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
