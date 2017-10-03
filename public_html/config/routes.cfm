@@ -195,6 +195,7 @@
 			.get(name="shownewchurch", pattern="/newchurch/[key]", controller="newchurches", action="show")
 			.get(name="editnewchurch", pattern="/newchurch/[key]/edit", controller="newchurches", action="edit")
 			.get(name="checkin", pattern="/newchurch/checkin/", controller="newchurches", action="checkin")
+			.get(name="createBlankForm", pattern="/newchurches/createBlankForm/", controller="newchurches", action="createBlankForm")
 			.get(name="newministries", pattern="/newministries/", controller="newministries", action="index")
 		.end()
 
