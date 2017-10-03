@@ -231,7 +231,7 @@
 		.get(name="sendhandbook", pattern="/sendhandbook/[key]", controller="handbook.people", action="sendhandbook")
 		.get(name="about", pattern="/about/", controller="about", action="ourStory")
 		.get(name="editnewchurch", pattern="/newchurch/[key]", controller="membership.newchurches", action="edit")
-		.get(name="newchurch", pattern="/newchurch/", controller="membership.newchurches", action="welcome")
+		.get(name="newchurch", pattern="/newchurch/", controller="membership.newchurches", action="checkin")
 		.get(name="newchurches", pattern="/newchurches/", controller="membership.newchurches", action="index")
 		.get(name="newministries", pattern="/newministries/", controller="membership.newministries", action="index")
 		.get(name="newministry", pattern="/newministry/", controller="membership.newministries", action="new")
