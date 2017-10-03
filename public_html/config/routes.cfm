@@ -36,7 +36,7 @@
 			.resources("agbm")
 
 			.get(name="addAGBMPayment", pattern="/agbminfo/add/[key]", controller="AgbmInfo", action="add")
-			.get(name="agbmpage", pattern="/agbminfo/list", controller="agbmList", action="list")
+			.get(name="agbmpage", pattern="/agbmInfo/list", controller="agbmInfo", action="list")
 			.resources("agbmInfo")
 
 			.get(name="districtsReport", pattern="/districts/report/", controller="districts", action="handbookreport")
