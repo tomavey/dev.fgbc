@@ -194,7 +194,7 @@
 			.get(name="newchurches", pattern="/newchurches/", controller="newchurches", action="index")
 			.get(name="shownewchurch", pattern="/newchurch/[key]", controller="newchurches", action="show")
 			.get(name="editnewchurch", pattern="/newchurch/[key]/edit", controller="newchurches", action="edit")
-			.get(name="checkin", pattern="/newchurch/checkn/", controller="newchurches", action="checkin")
+			.get(name="checkin", pattern="/newchurch/checkin/", controller="newchurches", action="checkin")
 			.get(name="newministries", pattern="/newministries/", controller="newministries", action="index")
 		.end()
 
