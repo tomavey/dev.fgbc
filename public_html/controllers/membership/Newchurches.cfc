@@ -3,7 +3,7 @@
 	<cffunction name="init">
 		<cfset usesLayout("/membership/layout")>
 		<cfset filters(through="setreturn", only="index,show")>
-		<cfset filters(through="isAuthorized", except="createblankform,emailVerify,emailsent,verify,functions,index,update,edit,isEmailOnMembershipTeam")>
+		<cfset filters(through="isAuthorized", except="checkin,createblankform,emailVerify,emailsent,verify,functions,index,update,edit,isEmailOnMembershipTeam")>
 		<cfset filters(through="loadStates,setPageTitle")>
 		<cfset filters(through="loadChurch", only="edit,show,emailverify,delete,thankyou")>
 		<cfset filters(through="loadChurches", only="new,create,update")>
