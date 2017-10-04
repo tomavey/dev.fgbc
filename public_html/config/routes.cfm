@@ -83,7 +83,7 @@
 			.resources("profiles")
 
 			.get(name="liststatistics", pattern="/handbook/stats/", controller="statistics", action="welcome")
-			.get(name="deliquencies", pattern="/stats/deliquencies/", controller="statistics", action="delinquencies")
+			.get(name="deliquencies", pattern="/stats/deliquent/", controller="statistics", action="delinquent")
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
