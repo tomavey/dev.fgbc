@@ -86,6 +86,7 @@
 			.get(name="deliquencies", pattern="/stats/deliquent/", controller="statistics", action="delinquent")
 			.get(name="allCurrent", pattern="/stats/allCurrent/", controller="statistics", action="allCurrent")
 			.get(name="allCurrentKey", pattern="/stats/allCurrent/[key]", controller="statistics", action="allCurrent")
+			.get(name="grouproster", pattern="/grouproster/", controller="statistics", action="groupRoster")
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
