@@ -84,6 +84,7 @@
 
 			.get(name="liststatistics", pattern="/handbook/stats/", controller="statistics", action="welcome")
 			.get(name="deliquencies", pattern="/stats/deliquent/", controller="statistics", action="delinquent")
+			.get(name="allCurent", pattern="'stats/allCurent/", controller="statistics", action="allCurrent")
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
