@@ -40,7 +40,7 @@
 		WHERE
 			(
 				s.year = '#loc.statyear#'
-				AND s.createdAt <= '#loc.oneYearAgo#'
+				AND s.createdAt <= #loc.oneYearAgo#
 			) 
 		AND 
 			(
