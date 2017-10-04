@@ -35,7 +35,7 @@
 							#linkto(text="Not Paid (#year(now())#)", controller="handbook.statistics", action="allCurrent", params="type=notpaid")#
 						</li>
 						<li>
-							#linkto(text="Not Paid (#year(now())-1#)", controller="handbook.statistics", action="allCurrent", params="type=notpaid", params="year=#year(now())-1#")#
+							#linkto(text="Not Paid (#year(now())-1#)", controller="handbook.statistics", action="allCurrent", params="type=notpaid&year=#year(now())-1#")#
 						</li>
 						<li>
 							#linkto(text="All", controller="handbook.statistics", action="allCurrent")#
