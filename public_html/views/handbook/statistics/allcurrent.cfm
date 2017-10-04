@@ -5,15 +5,15 @@
 <cfparam name="isDownload" default=false>
 
 <cfoutput>
-<cfif isdefined("params.key") and params.key is "notpaid">
+<cfif isdefined("params.type") and params.type is "notpaid">
 	<h1>Churches who have not paid in #getThisYear()#</h1>
 </cfif>
-<cfif isdefined("params.key") and params.key is "paid">
+<cfif isdefined("params.type") and params.type is "paid">
 	<h1>Churches who have paid in #getThisYear()#</h1>
 </cfif>
 
 <cfif not isDownload>
-#linkto(text="<i class='icon-download-alt'></i>", action=params.action, key=params.key, params="download", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
+#linkto(text="<i class='icon-download-alt'></i>", action=params.action, key=params.type, params="download", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
 </cfif>
 
 </cfoutput>
@@ -24,13 +24,13 @@
 	<cfset thismemfee = getFeePaid(id)>
 
 	<cfset showThisChurch = false>
-	<cfif isdefined("params.key") and params.key is "notpaid" and thismemfee is "NONE">
+	<cfif isdefined("params.type") and params.type is "notpaid" and thismemfee is "NONE">
 		<cfset showThisChurch = true>
 	</cfif>
-	<cfif isdefined("params.key") and params.key is "paid" and val(thismemfee)>
+	<cfif isdefined("params.type") and params.type is "paid" and val(thismemfee)>
 		<cfset showThisChurch = true>
 	</cfif>
-	<cfif NOT isdefined("params.key")>
+	<cfif NOT isdefined("params.type")>
 		<cfset showThisChurch = true>
 	</cfif>
 
@@ -95,7 +95,7 @@
 				</cfif>
 				<td>#linkTo(text="Stats", action="show", key=id)#</td>
 
-				<cfif isdefined("params.key") AND params.key is "notpaid">
+				<cfif isdefined("params.type") AND params.type is "notpaid">
 					<td>#linkTo(text="Add Stats", action="new", key=id)#</td>
 				</cfif>
 
@@ -122,9 +122,9 @@
 <cfoutput>
 <p class="pull-right">
 <cfif !isDefined("params.year")>
-	#linkto(text="Use #getthisyear()-1# stats", action="allCurrent", key=params.key, params="year=#getthisyear()-1#", class="btn")#
+	#linkto(text="Use #getthisyear()-1# stats", action="allCurrent", key=params.type, params="year=#getthisyear()-1#", class="btn")#
 <cfelse>	
-	#linkto(text="Use #getthisyear()# stats", action="allCurrent", key=params.key, params="year=#getthisyear()#", class="btn")#
+	#linkto(text="Use #getthisyear()# stats", action="allCurrent", key=params.type, params="year=#getthisyear()#", class="btn")#
 </cfif>
 </p>
 	Count Not Paid: #countNotPaid#</br>

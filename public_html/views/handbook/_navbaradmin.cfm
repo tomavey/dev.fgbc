@@ -29,13 +29,13 @@
 							#linkto(text="Deliquencies", controller="handbook.statistics", action="delinquent")#
 						</li>
 						<li>
-							#linkto(text="Paid", controller="handbook.statistics", action="allCurrent", key="paid")#
+							#linkto(text="Paid", controller="handbook.statistics", action="allCurrent", params="type=paid")#
 						</li>
 						<li>
-							#linkto(text="Not Paid (#year(now())#)", controller="handbook.statistics", action="allCurrent", key="notpaid")#
+							#linkto(text="Not Paid (#year(now())#)", controller="handbook.statistics", action="allCurrent", params="type=notpaid")#
 						</li>
 						<li>
-							#linkto(text="Not Paid (#year(now())-1#)", controller="handbook.statistics", action="allCurrent", key="notpaid", params="year=#year(now())-1#")#
+							#linkto(text="Not Paid (#year(now())-1#)", controller="handbook.statistics", action="allCurrent", params="type=notpaid", params="year=#year(now())-1#")#
 						</li>
 						<li>
 							#linkto(text="All", controller="handbook.statistics", action="allCurrent")#
