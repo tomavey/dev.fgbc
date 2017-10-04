@@ -37,7 +37,7 @@
 	<cfset loc.count = findAll(select=loc.selectString, where=loc.whereString)>
 --->
 
-<cfquery datasource="#getDatasourse()#" name="loc.count">
+<cfquery datasource="#getDatasource()#" name="loc.count">
 SELECT count(year) as counta, sum(memfee) as summemfee
 FROM handbookstatistics
 WHERE
