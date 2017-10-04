@@ -33,26 +33,20 @@
 	<cfset loc.selectString = "count(year) as counta, sum(memfee) as summemfee">
 	<cfset loc.whereString = "year=#loc.statyear# AND createdAt <= '#loc.oneYearAgo#'">
 
-<!---
-	<cfset loc.count = findAll(select=loc.selectString, where=loc.whereString)>
---->
 
-<cfquery datasource="#getDatasource()#" name="loc.count">
-SELECT count(year) as counta, sum(memfee) as summemfee
-FROM handbookstatistics
-WHERE
-(
-handbookstatistics.year =
-'#loc.statyear#'
-AND 
-handbookstatistics.createdAt <=
-''#loc.oneYearAgo#''
-) AND (
-handbookstatistics.deletedAt IS NULL
-)
-</cfquery>
-
-<cfdump var="#loc.count#"><cfabort>
+	<cfquery datasource="#getDatasource()#" name="loc.count">
+		SELECT count(year) as counta, sum(memfee) as summemfee
+		FROM handbookstatistics s
+		WHERE
+			(
+				s.year = '#loc.statyear#'
+				AND s.createdAt <= '#loc.oneYearAgo#'
+			) 
+		AND 
+			(
+				s.deletedAt IS NULL
+			)
+	</cfquery>
 
 	<cfset loc.return.countmemfee = loc.count.counta>
 	<cfset loc.return.summemfee = loc.count.summemfee>
