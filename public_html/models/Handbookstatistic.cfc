@@ -52,7 +52,7 @@ handbookstatistics.deletedAt IS NULL
 )
 </cfquery>
 
-<cfdump var="#data#"><cfabort>
+<cfdump var="#loc.data#"><cfabort>
 
 	<cfset loc.return.countmemfee = loc.count.counta>
 	<cfset loc.return.summemfee = loc.count.summemfee>
