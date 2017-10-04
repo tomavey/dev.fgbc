@@ -116,7 +116,7 @@
 </cfoutput>
 </table>
 <cfset emailall = removeDuplicatesFromList(emailAll,"; ")>
-<cfset emailall = replace(emailall,"; ",","one")>
+<cfset emailall = replace(emailall,"; ","","one")>
 <p>&nbsp;</p>
 <p>
 <cfif not isDownload>
