@@ -123,7 +123,7 @@
 <cfoutput>
 <p class="pull-right">
 <cfif !isDefined("params.year")>
-	#linkto(text="Use #getthisyear()-1# stats", action="allCurrent", params="type=#params.type#, params="year=#getthisyear()-1#", class="btn")#
+	#linkto(text="Use #getthisyear()-1# stats", action="allCurrent", params="type=#params.type#", params="year=#getthisyear()-1#", class="btn")#
 <cfelse>	
 	#linkto(text="Use #getthisyear()# stats", action="allCurrent", params="type=#params.type#", params="year=#getthisyear()#", class="btn")#
 </cfif>
