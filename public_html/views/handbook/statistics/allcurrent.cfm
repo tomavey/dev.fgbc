@@ -3,6 +3,7 @@
 <cfset totalPaid = 0>
 <cfset emailall = "">
 <cfparam name="isDownload" default=false>
+<cfparam name="params.type" default="">
 
 <cfoutput>
 <cfif isdefined("params.type") and params.type is "notpaid">
@@ -13,7 +14,7 @@
 </cfif>
 
 <cfif not isDownload>
-#linkto(text="<i class='icon-download-alt'></i>", action=params.action, key=params.type, params="download", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
+#linkto(text="<i class='icon-download-alt'></i>", action=params.action, params="type=#params.type#, params="download", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
 </cfif>
 
 </cfoutput>
@@ -122,9 +123,9 @@
 <cfoutput>
 <p class="pull-right">
 <cfif !isDefined("params.year")>
-	#linkto(text="Use #getthisyear()-1# stats", action="allCurrent", key=params.type, params="year=#getthisyear()-1#", class="btn")#
+	#linkto(text="Use #getthisyear()-1# stats", action="allCurrent", params="type=#params.type#, params="year=#getthisyear()-1#", class="btn")#
 <cfelse>	
-	#linkto(text="Use #getthisyear()# stats", action="allCurrent", key=params.type, params="year=#getthisyear()#", class="btn")#
+	#linkto(text="Use #getthisyear()# stats", action="allCurrent", params="type=#params.type#, params="year=#getthisyear()#", class="btn")#
 </cfif>
 </p>
 	Count Not Paid: #countNotPaid#</br>
