@@ -30,8 +30,10 @@
 	<cfset var loc=structNew()>
 	<cfset loc.oneYearAgo = dateAdd("yyyy",arguments.yearsago,arguments.today)>
 	<cfset loc.statyear = arguments.statyear+(arguments.yearsago-1)>
+	<cfset loc.selectString = 'count(year) as counta, sum(memfee) as summemfee'>
+	<cfset loc.whereString = 'year=#loc.statyear# AND createdAt <= "#loc.oneYearAgo#"'>
 
-	<cfset loc.count = findAll(select='count(year) as counta, sum(memfee) as summemfee', where='year=#loc.statyear# AND createdAt <= "#loc.oneYearAgo#"')>
+	<cfset loc.count = findAll(select=loc.selectString, where=whereString)>
 
 	<cfset loc.return.countmemfee = loc.count.counta>
 	<cfset loc.return.summemfee = loc.count.summemfee>
