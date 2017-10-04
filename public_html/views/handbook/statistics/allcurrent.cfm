@@ -14,7 +14,7 @@
 </cfif>
 
 <cfif not isDownload>
-#linkto(text="<i class='icon-download-alt'></i>", action=params.action, params="type=#params.type#, params="download", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
+#linkto(text="<i class='icon-download-alt'></i>", action=params.action, params="type=#params.type#", params="download", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
 </cfif>
 
 </cfoutput>
@@ -116,7 +116,7 @@
 </cfoutput>
 </table>
 <cfset emailall = removeDuplicatesFromList(emailAll,"; ")>
-<cfset emailall = replace(emailall,"; ","","one")>
+<cfset emailall = replace(emailall,"; ",","one")>
 <p>&nbsp;</p>
 <p>
 <cfif not isDownload>
@@ -125,7 +125,7 @@
 <cfif !isDefined("params.year")>
 	#linkto(text="Use #getthisyear()-1# stats", action="allCurrent", params="type=#params.type#, params="year=#getthisyear()-1#", class="btn")#
 <cfelse>	
-	#linkto(text="Use #getthisyear()# stats", action="allCurrent", params="type=#params.type#, params="year=#getthisyear()#", class="btn")#
+	#linkto(text="Use #getthisyear()# stats", action="allCurrent", params="type=#params.type#", params="year=#getthisyear()#", class="btn")#
 </cfif>
 </p>
 	Count Not Paid: #countNotPaid#</br>
