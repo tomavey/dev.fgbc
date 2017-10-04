@@ -33,7 +33,7 @@
 	<cfset loc.selectString = 'count(year) as counta, sum(memfee) as summemfee'>
 	<cfset loc.whereString = 'year=#loc.statyear# AND createdAt <= "#loc.oneYearAgo#"'>
 
-	<cfset loc.count = findAll(select=loc.selectString, where=whereString)>
+	<cfset loc.count = findAll(select=loc.selectString, where=loc.whereString)>
 
 	<cfset loc.return.countmemfee = loc.count.counta>
 	<cfset loc.return.summemfee = loc.count.summemfee>
