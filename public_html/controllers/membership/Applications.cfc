@@ -96,6 +96,18 @@
 
 	<cffunction name="step1">
 	</cffunction>
+	<cffunction name="step2">
+	</cffunction>
+	<cffunction name="step3">
+	</cffunction>
+	<cffunction name="step4">
+	</cffunction>
+	<cffunction name="step5">
+	</cffunction>
+	<cffunction name="step6">
+	</cffunction>
+	<cffunction name="step7">
+	</cffunction>
 
 	<!--- -membershipapplications/edit/key --->
 	<cffunction name="edit">
