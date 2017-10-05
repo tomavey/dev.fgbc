@@ -44,7 +44,7 @@
 					#dateformat(endAt)#
 				</td>
 				<td>
-					#showTag()# #editTag()# #deleteTag()# #copyTag()#
+					#showTag()# #editTag()# #deleteTag(class="noAjax")# #copyTag()#
 				</td>
 			</tr>
 	

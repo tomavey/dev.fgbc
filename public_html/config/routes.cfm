@@ -9,7 +9,9 @@
 	drawRoutes()
 
 		.namespace("admin")
+			.get(name="copy", pattern="/announcement/[key]/copy/", controller="announcements", action="copy")
 			.resources("announcements")
+
 			.resources("blogs")
 			.resources("contents")
 			.resources("events")
