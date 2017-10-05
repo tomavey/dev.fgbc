@@ -15,8 +15,9 @@ Might need to do without plugin
 Hint - check into how the FC site does it using cffile tag
 ------------------------------------->
 
-						#select(objectName='announcement', property='position', label='Position: ', options="1,2")#
-
+<!--- Not used
+						#hidden(objectName='announcement', property='position', label='Position: ', options="1,2")#
+--->
 						#select(objectName='announcement', property='type', label='Where to post? ', options="Both,Announcement Only,News Feed Only")#
 
 						<p>
