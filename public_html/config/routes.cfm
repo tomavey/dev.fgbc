@@ -197,6 +197,12 @@
 
 		.namespace("membership")
 			.get(name="step1", pattern="/step1/", controller="applications", action="step1")
+			.get(name="step2", pattern="/step2/", controller="applications", action="step1")
+			.get(name="step3", pattern="/step3/", controller="applications", action="step1")
+			.get(name="step4", pattern="/step4/", controller="applications", action="step1")
+			.get(name="step5", pattern="/step5/", controller="applications", action="step1")
+			.get(name="step6", pattern="/step6/", controller="applications", action="step1")
+			.get(name="step7", pattern="/step7/", controller="applications", action="step1")
 			.resources("applications")
 			.resources("delegates")
 			.get(name="newchurches", pattern="/newchurches/", controller="newchurches", action="index")
