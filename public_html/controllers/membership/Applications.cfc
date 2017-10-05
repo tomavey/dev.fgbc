@@ -94,6 +94,9 @@
 		<cfset membershipapplication = model("Membershipapplication").new()>
 	</cffunction>
 
+	<cffunction name="step1">
+	</cffunction>
+
 	<!--- -membershipapplications/edit/key --->
 	<cffunction name="edit">
 

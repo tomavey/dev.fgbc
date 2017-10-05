@@ -196,6 +196,7 @@
 		.end()
 
 		.namespace("membership")
+			.get(name="step1", pattern="/step1/", controller="applications", action="step1")
 			.resources("applications")
 			.resources("delegates")
 			.get(name="newchurches", pattern="/newchurches/", controller="newchurches", action="index")
