@@ -5,5 +5,5 @@
 <cfif cgi.http_host is "localhost:8080" OR cgi.http_host is "localhost:8888">
 	<cfset set(environment="development")>
 <cfelse>
-	<cfset set(environment="production")>
+	<cfset set(environment="development")>
 </cfif>

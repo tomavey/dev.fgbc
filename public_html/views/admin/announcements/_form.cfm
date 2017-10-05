@@ -5,6 +5,7 @@
 
 						#textField(objectName='announcement', property='link', label='Link: ')#
 
+
 						#fileField(objectName='announcement', property='image', label='Image: ')#
 						<p>Note: images should be 250px wide and no more that 200px high.</p>
 

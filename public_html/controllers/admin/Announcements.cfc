@@ -76,6 +76,7 @@
 	
 	<!--- announcements/create --->
 	<cffunction name="create">
+	<cfdump var="#params.announcement#"><cfabort>
 		<cfset announcement = model("Mainannouncement").new(params.announcement)>
 		
 		<!--- Verify that the announcement creates successfully --->
