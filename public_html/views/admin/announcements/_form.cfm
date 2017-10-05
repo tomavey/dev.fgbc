@@ -1,7 +1,9 @@
 <cfoutput>
+#ckeditor()#
+
 						#textField(objectName='announcement', property='title', label='Title: ')#
 
-						#textArea(objectName='announcement', property='content', label='Content: ', cols="75", rows="10")#
+						#textArea(objectName='announcement', property='content', label='Content: ', cols="75", rows="10", class="ckeditor")#
 
 						#textField(objectName='announcement', property='link', label='Link: ')#
 
