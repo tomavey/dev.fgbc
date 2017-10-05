@@ -5,7 +5,7 @@
 
 						#textArea(objectName='announcement', property='content', label='Content: ', cols="75", rows="10", class="ckeditor")#
 
-						#textField(objectName='announcement', property='link', label='Link: ')#
+						#textField(objectName='announcement', property='link', label='Link: (use full URL)')#
 
 <!---Not working - needs to be fixed---
 Might need to do without plugin
