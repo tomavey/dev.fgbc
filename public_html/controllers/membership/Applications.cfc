@@ -7,7 +7,7 @@
 		<cfset filters(through="isCheckedInOrAuthorized", except="index,checkin,update,create,resources,about,clear,show,edit")>
 		<cfset filters(through="getApplication", only="step1,step2,step3,step4,step5,step6,step7")>
 		<cfset filters(through="reloadLanguage,setReturn", only="checkin,step1,step2,step3,step4,step5,step6,step7,edit,show")>
-		<cfset filters(through="provideChurches", only="new,edit")>
+		<cfset filters(through="provideChurches", only="new,edit,step7")>
 	</cffunction>
 
 	<cffunction name="getCurrentApplicationYearStart">
