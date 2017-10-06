@@ -6,7 +6,7 @@
 
 						#textField(objectName='event', property='begin', Label="The date the event BEGINS, written out (ie:January 1, 2021)")#
 					
-						#textField(objectName='event', property='end', label="The date the event ENDS, written out (ie:January 1, 2021)")#
+						#textField(objectName='event', property='end', label="The date the event ENDS, written out (ie:January 10, 2021)")#
 					
 						#textField(objectName='event', property='description', label='Description: ')#
 					
