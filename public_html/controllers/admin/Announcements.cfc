@@ -5,9 +5,23 @@
 		<cfset usesLayout("/layoutadmin")>
 	</cffunction>
 
-	<!--- announcements/index --->
-	<cffunction name="adminindex">
-		<cfset announcements = model("Mainannouncement").findAll(order="position,startAt desc")>
+	<!---------->
+	<!---CRUD--->
+	<!---------->
+
+	<!---announcements/index--->
+	<cffunction name="index">
+		<cfparam name="params.page" default="1">
+		<cfparam name="params.perpage" default="10">
+		<cfif isDefined("params.showall")>
+			<cfset params.whereString = "">
+		<cfelse>					
+			<cfset params.whereString = "endAt > now() AND onhold = 'N'">
+		</cfif>	
+		<cfif isDefined("params.search") and len(params.search)>
+			  <cfset params.whereString = params.whereString & " AND (title LIKE '%#params.search#%' OR content LIKE '%#params.search#%')">
+		</cfif>
+		<cfset announcements = model("Mainannouncement").findall(where=params.whereString, order="startAt desc", page=params.page, perpage=params.perpage)>
 	</cffunction>
 	
 	<!--- announcements/show/key --->
@@ -59,21 +73,6 @@
 		
 	</cffunction>
 
-	<!--- announcements/replicate --->
-	<cffunction name="replicate">
-		<cfset announcement = model("Mainannouncement").new(params.announcement)>
-		
-		<!--- Verify that the announcement creates successfully --->
-		<cfif announcement.save()>
-			<cfset flashInsert(success="The announcement was copied successfully.")>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error copying the announcement.")>
-			<cfset renderPage(action="new")>
-		</cfif>
-	</cffunction>
-	
 	<!--- announcements/create --->
 	<cffunction name="create">
 		<cfset announcement = model("Mainannouncement").new(params.announcement)>
@@ -118,20 +117,8 @@
 			<cfset redirectTo(action="index")>
 		</cfif>
 	</cffunction>
-	
-	<cffunction name="index">
-		<cfparam name="params.page" default="1">
-		<cfparam name="params.perpage" default="10">
-		<cfif isDefined("params.showall")>
-			<cfset params.whereString = "">
-		<cfelse>					
-			<cfset params.whereString = "endAt > now() AND onhold = 'N'">
-		</cfif>	
-		<cfif isDefined("params.search") and len(params.search)>
-			  <cfset params.whereString = params.whereString & " AND (title LIKE '%#params.search#%' OR content LIKE '%#params.search#%')">
-		</cfif>
-		<cfset announcements = model("Mainannouncement").findall(where=params.whereString, order="startAt desc", page=params.page, perpage=params.perpage)>
-	</cffunction>
+
+	<!---End of Crud--->
 
 	<cffunction name="rss">
 		<cfset announcements = model("Mainannouncement").findAll(where="startat < now() AND onhold = 'N'", order="createdAt desc")>
@@ -142,7 +129,7 @@
 	</cffunction>
 
 	<cffunction name="uploadImage">
-		<cfimage action="resize" width="250" height="" name="thumb" source="#expandpath('.')#/images/announcements/#params.image#" destination="#expandpath('.')#/images/announcements/thumb_#params.image#" overwrite="true">		
+		<cfimage action="resize" width="300" height="" name="thumb" source="#expandpath('.')#/images/announcements/#params.image#" destination="#expandpath('.')#/images/announcements/thumb_#params.image#" overwrite="true">		
         <cfset returnback()>
 	</cffunction>
 
