@@ -1,6 +1,6 @@
 <div class="postbox">
 <cfoutput>
-<h1>#group.name#</h1>
+<h2>Group name: #group.name#</h2>
 
 
 					<p><span>Description: </span>
