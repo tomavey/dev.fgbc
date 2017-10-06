@@ -5,6 +5,10 @@
 		<cfset usesLayout("/layoutadmin")>
 	</cffunction>
 
+<!-------------------------------------->
+<!---------------Basic CRUD------------->
+<!-------------------------------------->
+
 	<!--- -groups/index --->
 	<cffunction name="index">
 		<cfset groups = model("Authgroup").findAll(order="name")>
@@ -89,6 +93,8 @@
 			<cfset redirectTo(action="index")>
 		</cfif>
 	</cffunction>
+
+<!------------END of CRUD---------------->	
 	
 	<cffunction name="addARight">
 	<cfargument name="rightId" default='#params.rightid#'>

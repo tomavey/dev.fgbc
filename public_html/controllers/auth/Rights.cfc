@@ -6,6 +6,11 @@
 		<cfset usesLayout("/layoutadmin")>
 	</cffunction>
 	
+<!-------------------------------------->
+<!---------------Basic CRUD------------->
+<!-------------------------------------->
+
+
 	<!--- rights/show/key --->
 	<cffunction name="show">
 		
