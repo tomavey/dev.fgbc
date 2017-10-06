@@ -10,6 +10,7 @@
 
 		.namespace("admin")
 			.get(name="copy", pattern="/announcement/[key]/copy/", controller="announcements", action="copy")
+			.get(name="rss", pattern="/announcements/rss/", controller="announcements", action="rss")
 			.resources("announcements")
 
 			.resources("blogs")
