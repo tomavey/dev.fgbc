@@ -32,8 +32,8 @@
 			.get(name="loginAsUser", pattern="users/loginAsUser", controller="users", action="loginAsUser")
 			.resources("users")
 
-			.get(name="addARight", pattern="/groups/addARight/" controller="groups", action="addARight")
-			.get(name="removeRight", pattern="/groups/removeRight/" controller="groups", action="removeRight")
+			.get(name="addARight", pattern="/groups/addARight/", controller="groups", action="addARight")
+			.get(name="removeRight", pattern="/groups/removeRight/", controller="groups", action="removeRight")
 			.resources("groups")
 
 			.resources("rights")
