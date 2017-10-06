@@ -14,7 +14,7 @@
 
 					<p>Rights: 
 					<cfloop query="rights">
-						#linkTo(text=name, controller="rights", action="show", key=ID)#-#linkTo(text="x", controller="Groups", action="removeRight", params="groupId=#params.key#&rightid=#auth_rightsid#")#  
+						#linkTo(text=name, route="handbookremoveRight", key=ID)#-#linkTo(text="x", controller="Groups", action="removeRight", params="groupId=#params.key#&rightid=#auth_rightsid#")#  
 					</cfloop>
 			#startFormTag(action="addARight", key=params.key)#
 			
