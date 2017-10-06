@@ -32,7 +32,7 @@
 			.get(name="loginAsUser", pattern="users/loginAsUser", controller="users", action="loginAsUser")
 			.resources("users")
 
-			.post(name="addARight", pattern="/groups/addARight/", controller="groups", action="addARight")
+			.post(name="addARight", pattern="/groups/addARight/[key]", controller="groups", action="addARight")
 			.get(name="removeRight", pattern="/groups/removeRight/", controller="groups", action="removeRight")
 			.resources("groups")
 
