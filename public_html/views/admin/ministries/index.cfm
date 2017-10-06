@@ -44,7 +44,7 @@
 		</td>
 		<td>
 			<cfif gotRights("superadmin,office")>
-				#edittag()##Showtag()##DeleteTag(class="Ajax")#
+				#edittag()##Showtag()##DeleteTag()#
 			</cfif>
 		</td>
 </cfoutput>
