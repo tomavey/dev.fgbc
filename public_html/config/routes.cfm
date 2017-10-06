@@ -29,6 +29,7 @@
 			.get(name='NewUser', pattern="/users/new", controller="users", action="new")
 			.get(name='ForgotPassword', pattern="/users/get-email-for-change-password-link/", controller="users", action="get-email-for-change-password-link")
 			.get(name="thankyou", pattern="/users/thankyou", controller="users", action="thankYou")
+			.get(name="loginAsUser", pattern="users/loginAsUser", controller="users", action="loginAsUser")
 			.resources("users")
 			.resources("groups")
 			.resources("rights")
