@@ -11,6 +11,6 @@
 
 						#select(objectName='ministry', property='status', label='Status', options="active,dropdown,inactive")#
 
-						#textField(objectName='ministry', property='category', label='Category')#
+						#select(objectName='ministry', property='category', label='Category', options=getministryCategories(), includeBlank="----select ministry category---")#
 
 </cfoutput>

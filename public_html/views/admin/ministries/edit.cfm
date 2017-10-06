@@ -1,7 +1,7 @@
 <div class="postbox">
-<h1>Editing fgbc_ministry</h1>
-
 <cfoutput>
+
+<h1>Edit #ministry.name#</h1>
 
 			#errorMessagesFor("ministry")#
 	

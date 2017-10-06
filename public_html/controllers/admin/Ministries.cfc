@@ -97,4 +97,12 @@
 		</cfif>
 	</cffunction>
 
+<!---Get Settings--->
+
+<cfscript>
+	function getministryCategories(){
+		return application.wheels.ministryCategories;
+	}
+</cfscript>	
+
 </cfcomponent>

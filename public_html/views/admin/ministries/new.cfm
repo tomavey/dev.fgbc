@@ -1,5 +1,5 @@
 <div class="postbox" id=#params.controller#.#params.action#>
-<h1>Create new fgbc_ministry</h1>
+<h1>Create a new ministry</h1>
 
 <cfoutput>
 
