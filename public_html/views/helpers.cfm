@@ -203,8 +203,11 @@
 <cffunction name="deleteTag">
 <cfargument name="id" default='#id#'>
 <cfargument name="controller" default="#params.controller#">
-<cfargument name="class" default="ajaxdeleterow">
+<cfargument name="class" default="noAjax">
 <cfargument name="method" default="delete">
+<cfif arguments.class is "Ajax">
+	<cfset arguments.class="ajaxdeleterow">
+</cfif>
 
 		<cfreturn "#linkTo(
 						text="<i class='icon-trash'></i>",
