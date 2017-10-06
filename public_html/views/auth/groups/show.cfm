@@ -1,15 +1,9 @@
 <div class="postbox">
-<h1>Showing group</h1>
-
 <cfoutput>
+<h1>#group.name#</h1>
 
-					<p><label>ID:</label> 
-						#group.ID#</p>
-				
-					<p><label>Name: </label> 
-						#group.name#</p>
-				
-					<p><label>Description: </label>
+
+					<p><span>Description: </span>
 						#group.description#</p>
 
 					<p>Rights: 
