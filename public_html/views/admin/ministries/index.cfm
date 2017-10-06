@@ -2,6 +2,12 @@
 
 <div class="span12"><h1>Listing FGBC Ministries</h1>
 
+<cfif gotRights("superadmin,office")>
+	<cfoutput>
+		<p>#addTag()#</p>
+	</cfoutput>
+</cfif>
+
 <table class="table table-striped">
 	<tr>
 		<th>
@@ -38,7 +44,7 @@
 		</td>
 		<td>
 			<cfif gotRights("superadmin,office")>
-				#edittag()##Showtag()##DeleteTag()#
+				#edittag()##Showtag()##DeleteTag(class="noAjax")#
 			</cfif>
 		</td>
 </cfoutput>
