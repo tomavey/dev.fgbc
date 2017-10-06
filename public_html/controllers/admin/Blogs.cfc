@@ -6,18 +6,13 @@
 		<cfset usesLayout("/layoutadmin")>
 	</cffunction>
 	
+<!-------------------------->
+<!-------CRUD--------------->
+<!-------------------------->
+	
 	<!--- blogs/index --->
 	<cffunction name="index">
 		<cfset blogs = model("Mainblog").findAll()>
-	</cffunction>
-	
-	<cffunction name="list">
-		<cfset blogs = model("Mainblog").findAll(where="active='yes'", order="createdAt DESC")>
-		<cfif isdefined("url.items")>
-			<cfset nitems = url.items>
-		<cfelse>
-			<cfset nitems = 4>
-		</cfif>
 	</cffunction>
 	
 	<!--- blogs/show/key --->
@@ -97,28 +92,6 @@
 			<cfset flashInsert(error="There was an error deleting the blog.")>
 			<cfset redirectTo(action="index")>
 		</cfif>
-	</cffunction>
-	
-	<cffunction name="undelete">
-		<cfif isdefined("params.key")>
-			<cfset blog = model("Mainblog").findByKey(params.key)>
-			<cfset blog.deletedAt = "null">
-			<cfset blog.update(params.key)>
-		<cfelse>
-			<cfset model("Mainblog").unDeleteAll()>
-		</cfif>					
-		<cfset redirectTo(action="index")>
-	</cffunction>
-	
-	<cffunction name="insertsql">
-		<cfset useslayout("/layout_naked")>
-		<cfset blogs = model("Mainblog").findall()>
-		<cfset fieldslist = "">
-		<cfloop list="#blogs.columnList#" index="i">
-			<cfset fieldslist = fieldslist & "','" & i>
-		</cfloop>
-		<cfset fieldslist = replace(fieldslist,"',","","one")& "'">
-		<cfset columnlist = blogs.columnlist>
 	</cffunction>
 	
 </cfcomponent>

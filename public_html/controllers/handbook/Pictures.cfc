@@ -67,9 +67,9 @@
 	<cffunction name="create">
 		<cfset handbookpicture = model("Handbookpicture").new(params.handbookpicture)>
 
-
 		<!--- Verify that the handbookpicture creates successfully --->
 		<cfif handbookpicture.save()>
+		<cfdump var='#handbookpicture.properties()#'><cfabort>
 			<cfset model("Handbookpicture").setAsDefault(handbookpicture.id)>
 			<cfset flashInsert(success="The handbookpicture was created successfully.")>
 			<cfset thumbnail(handbookpicture.file)>

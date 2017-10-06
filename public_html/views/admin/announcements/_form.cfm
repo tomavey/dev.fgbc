@@ -8,10 +8,11 @@
 						#textField(objectName='announcement', property='link', label='Link: (use full URL)')#
 
 <!---Not working - needs to be fixed---
-Might need to do without plugin
+
 						#fileField(objectName='announcement', property='image', label='Image: ')#
 						<p>Note: images should be 250px wide and no more that 200px high.</p>
 
+Might need to do without plugin
 Hint - check into how the FC site does it using cffile tag
 ------------------------------------->
 

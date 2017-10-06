@@ -76,9 +76,11 @@
 	<!--- announcements/create --->
 	<cffunction name="create">
 		<cfset announcement = model("Mainannouncement").new(params.announcement)>
+		<!---cfdump var='#announcement.properties()#'><cfabort--->
 		
 		<!--- Verify that the announcement creates successfully --->
 		<cfif announcement.save()>
+			<!---cfset $uploadImage(params.announcement.image)--->
 			<cfset flashInsert(success="The announcement was created successfully.")>
             <cfset redirectTo(action="index")>
 		<!--- Otherwise --->
@@ -94,6 +96,8 @@
 		
 		<!--- Verify that the announcement updates successfully --->
 		<cfif announcement.update(params.announcement)>
+
+			<!---cfset $uploadImage(params.announcement.image)--->
 			<cfset flashInsert(success="The announcement was updated successfully.")>	
             <cfset redirectTo(action="index")>
 		<!--- Otherwise --->
@@ -120,17 +124,20 @@
 
 	<!---End of Crud--->
 
-	<cffunction name="rss">
-		<cfset announcements = model("Mainannouncement").findAll(where="startat < now() AND onhold = 'N'", order="createdAt desc")>
-		
-		<cfset title = "FGBC Announcements">
-		<cfset description= "Official Communication of the FGBC National Office">
-		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
-	</cffunction>
-
-	<cffunction name="uploadImage">
-		<cfimage action="resize" width="300" height="" name="thumb" source="#expandpath('.')#/images/announcements/#params.image#" destination="#expandpath('.')#/images/announcements/thumb_#params.image#" overwrite="true">		
-        <cfset returnback()>
+<!---Not Used Needs work--->
+	<cffunction name="$uploadImage" access="private">
+	<cfargument name="image" required="true" type="string">
+	<cfset var loc = arguments>
+	<cfset loc.destination = "#expandpath('.')#/images/announcements/">
+	<cfdump var="#loc#"><cfabort>
+	<cffile action = "upload"
+          fileField = loc.image
+          destination = loc.destination
+          accept = "image/jpeg, text/html, application/msword,  application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.msword, application/vnd.ms-excel, application/msexcel, application/unknown, application/x-octet-stream,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          nameconflict="overwrite">
+	<!---
+		<cfimage action="resize" width="300" height="" name="thumb" source="#expandpath('.')#/images/announcements/#arguments.image#" destination="#expandpath('.')#/images/announcements/thumb_#arguments.image#" overwrite="true">		
+	--->	
 	</cffunction>
 
 </cfcomponent>

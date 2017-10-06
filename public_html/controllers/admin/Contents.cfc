@@ -7,18 +7,15 @@
 		<cfset usesLayout("/layoutadmin")>
 	</cffunction>
 
-	<!---Filters--->
-	<cffunction name="isPageEditor">
-		<cfif gotRights("office,pageEditor")>
-			<cfreturn true>
-		<cfelse>
-			<cfset renderText("You do have persmission to view this page")>
-		</cfif>
-	</cffunction>
 
+	<!---Filters--->
 	<cffunction name="getAllRights">
 		<cfset rights = model("Authright").findAll(order="name")>
 	</cffunction>
+
+<!--------------------------------->
+<!------------CRUD----------------->
+<!--------------------------------->
 
 	<!--- contents/index --->
 	<cffunction name="index">
@@ -43,11 +40,6 @@
 	        <cfset redirectTo(action="index")>
 	    </cfif>
 
-	</cffunction>
-
-	<cffunction name="conferenceInformationAsJson">
-	    	<cfset data = model("Maincontent").findOne(where="shortlink='generalconferenceinfo'").content>
-	        	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 	<!--- contents/new --->
@@ -112,6 +104,13 @@
 			<cfset flashInsert(error="There was an error deleting the content.")>
 			<cfset redirectTo(action="index")>
 		</cfif>
+	</cffunction>
+
+<!---- Special View Controllers--->
+
+	<cffunction name="conferenceInformationAsJson">
+	    	<cfset data = model("Maincontent").findOne(where="shortlink='generalconferenceinfo'").content>
+        	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="manualOfProcedure">

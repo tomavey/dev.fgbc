@@ -9,6 +9,11 @@
 		--->
 	</cffunction>
 
+<!--------------------------------->
+<!------------CRUD----------------->
+<!--------------------------------->
+
+
 	<!--- events/index --->
 	<cffunction name="index">
 		<cfif isDefined("params.sortby")>
@@ -54,7 +59,6 @@
 	</cffunction>
 
 	<!--- events/copy/key ---->
-	<!--- announcements/copy/key --->
 	<cffunction name="copy">
 	
 		<!--- Find the record --->
@@ -62,7 +66,7 @@
     	
     	<!--- Check if the record exists --->
 	    <cfif NOT IsObject(event)>
-	        <cfset flashInsert(error="Announcement #params.key# was not found")>
+	        <cfset flashInsert(error="Event #params.key# was not found")>
 			<cfset redirectTo(action="index")>
 	    </cfif>
 

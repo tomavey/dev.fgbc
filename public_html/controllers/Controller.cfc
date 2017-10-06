@@ -67,6 +67,10 @@
 	    <cfreturn key>
 	</cffunction>
 
+<!-------------------------->
+<!---Authoriztion methods--->
+<!-------------------------->
+
 	<cffunction name="isSuperadmin">
 		<cftry>
 			<cfif not listFind(session.auth.rightslist,"superadmin")>
@@ -127,6 +131,18 @@
 		</cfcatch>
 		</cftry>
 	</cffunction>
+
+	<cffunction name="isPageEditor">
+		<cfif gotRights("office,pageEditor")>
+			<cfreturn true>
+		<cfelse>
+			<cfset renderText("You do have persmission to view this page")>
+		</cfif>
+	</cffunction>
+
+
+<!----End of authorization methods---->
+
 
 	<cffunction name="setOrgId">
 	<cfif isDefined("session.auth.email")>

@@ -3,14 +3,15 @@
 	<cffunction name="init">
 	</cffunction>
 
+<!--------------------------------->
+<!------------CRUD----------------->
+<!--------------------------------->
+
+
 	<!--- contents/index --->
 	<cffunction name="index">
 		<cfset setreturn()>
 		<cfset contents = model("Maincontent").findAll(order="createdAt DESC")>
-	</cffunction>
-
-	<cffunction name="list">
-		<cfset redirectTo("index")>
 	</cffunction>
 
 	<!--- contents/show/key --->
@@ -34,6 +35,8 @@
 	    </cfif>
 
 	</cffunction>
+
+<!---Special view controllers--->
 
 	<cffunction name="manualOfProcedure">
    		<cfset content = model("Maincontent").findByKey(19)>
