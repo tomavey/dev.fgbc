@@ -149,6 +149,7 @@
 			.resources("contents")
 			.resources("errors")
 			.resources("events")
+			.resources("age_ranges")
 
 			.get(name="newexhibitform", pattern="/exhibit/", controller="exhibits", action="new")
 			.get(name="deleteexhibits", pattern="/exhibits/[key]/delete", controller="exhibits", action="delete")
