@@ -164,6 +164,8 @@
 			.resources("options")
 			.resources("people")
 			.resources("announcements")
+
+			.get(name="listcoursequestions", pattern="/coursequestions/list/", controller="coursequestions", action="list")
 			.resources("coursequestions")
 			
 			.get(name="registration", pattern="/registration/", controller="register", action="welcome")
