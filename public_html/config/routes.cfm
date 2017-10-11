@@ -162,6 +162,7 @@
 			.resources("main")
 			.resources("options")
 			.resources("people")
+			.resources("announcements")
 			
 			.get(name="registration", pattern="/registration/", controller="register", action="welcome")
 			.get(name="register", pattern="/register/", controller="register", action="welcome")
