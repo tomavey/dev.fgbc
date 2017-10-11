@@ -5,6 +5,10 @@
 		<cfset filters("officeOnly")>
 	</cffunction>
 		
+<!------------------------------------------>
+<!----------------CRUD---------------------->
+<!------------------------------------------>
+
 	<!--- contents/index --->
 	<cffunction name="index">
 		<cfset contents = model("Conferencecontent").findAll()>

@@ -4,6 +4,10 @@
 		<cfset usesLayout("/conference/adminlayout")>
 	</cffunction>
 
+<!-------------------------------------------->	
+<!-------------CRUD--------------------------->	
+<!-------------------------------------------->	
+
 	<cffunction name="new">
 		<cfset newcourse = false>
 		<cfset newinstructor = false>

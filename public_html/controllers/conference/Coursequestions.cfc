@@ -20,17 +20,9 @@
     Coursequestions = model("Conferencecoursequestion").findAll(include="person(family),course");
   }
   
-  // Coursequestions/list
-  function list(){
-    var whereString = "id > 0";
-    if (isDefined("params.courseid")){
-      whereString = whereString & " AND courseid = #params.courseid#";
-      courseTitle = model("Conferencecourse").findOne(where="id=#params.courseid#").title;
-    }
-    Coursequestions = model("Conferencecoursequestion").findAll(where=whereString, include="person(family),course", order="createdAt DESC");
-    headerSubTitle = "Cohort Questions";
-    renderPage(layout="/conference/layout2017");
-  }
+//---------------------------------------
+//-----------CRUD------------------------
+//---------------------------------------
 
   // Coursequestions/show/key
   function show(){
@@ -110,5 +102,17 @@
 			redirectTo(action="index");
     }
   }
-  
+
+  // Coursequestions/list
+  function list(){
+    var whereString = "id > 0";
+    if (isDefined("params.courseid")){
+      whereString = whereString & " AND courseid = #params.courseid#";
+      courseTitle = model("Conferencecourse").findOne(where="id=#params.courseid#").title;
+    }
+    Coursequestions = model("Conferencecoursequestion").findAll(where=whereString, include="person(family),course", order="createdAt DESC");
+    headerSubTitle = "Cohort Questions";
+    renderPage(layout="/conference/layout2017");
+  }
+
 </cfscript></cfcomponent>

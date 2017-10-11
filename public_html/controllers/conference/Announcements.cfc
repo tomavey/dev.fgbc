@@ -5,6 +5,10 @@
         <cfset filters(through="officeOnly", except="list")>
     </cffunction>
 
+<!------------------------------------->
+<!---------------CRUD------------------>
+<!------------------------------------->
+
     <!--- announcements/index --->
     <cffunction name="index">
         <cfset setReturn()>
@@ -13,12 +17,6 @@
         <cfelse>
             <cfset announcements = model("Conferenceannouncement").findAll(where="event = '#getevent()#'", order="createdAt DESC")>
         </cfif>
-    </cffunction>
-
-    <!--- announcements/rss --->
-    <cffunction name="rss">
-            <cfset announcements = model("Conferenceannouncement").findAll(where="event = '#getevent()#' AND approved='yes'", order="createdAt DESC")>
-		    <cfset renderPage(template="rss.cfm", layout="rsslayout")>
     </cffunction>
 
     <!--- announcments/show/key --->
@@ -104,6 +102,16 @@
         </cfif>
     </cffunction>
 
+<!-------------------------------------->
+<!--------OTHER VIEW CONTROLLERS------------------------------>
+<!-------------------------------------->
+
+    <!--- announcements/rss --->
+    <cffunction name="rss">
+            <cfset announcements = model("Conferenceannouncement").findAll(where="event = '#getevent()#' AND approved='yes'", order="createdAt DESC")>
+		    <cfset renderPage(template="rss.cfm", layout="rsslayout")>
+    </cffunction>
+
     <cffunction name="approve">
         <cfset announcement  = model("Conferenceannouncement").findByKey(params.key)>
         <cfset announcement.update(approved="yes")>
@@ -164,7 +172,7 @@
         <cfif isDefined("announcement.dontsendto")>
             <cfset args.dontsendto = announcement.dontsendto>
         </cfif>    
-        <cfset args.useThisEmailList = regEmailLessNotList(args.dontsendto)>
+        <cfset args.useThisEmailList = $regEmailLessNotList(args.dontsendto)>
         <cfloop list="#args.useThisEmailList#" index="i">
             <cfif isValid("email",trim(i))>
                 <cfif application.wheels.environment is "Production">
@@ -178,12 +186,16 @@
         </cfif>
     </cffunction>
 
-    <cffunction name="regEmailLessNotList">
+<!--------------------------------->
+<!------------CONTROLLER SERVICES--------------------->
+<!--------------------------------->
+
+    <cffunction name="$regEmailLessNotList" access="private">
     <cfargument name="dontsendtothese" default="">
     <cfset var emaillist = "">
 
-        <cfloop list="#regEmails()#" index="i">
-            <cfif not listFindNoCase(emailnotList(arguments.dontsendtothese),trim(i)) and isValid("email",trim(i))>
+        <cfloop list="#$regEmails()#" index="i">
+            <cfif not listFindNoCase($emailnotList(arguments.dontsendtothese),trim(i)) and isValid("email",trim(i))>
                 <cfset emaillist = emaillist & ", " & trim(i)>
             </cfif>
         </cfloop>
@@ -193,7 +205,7 @@
         <cfreturn emaillist>
     </cffunction>
 
-    <cffunction name="regEmails">
+    <cffunction name="$regEmails" access="private">
     <cfset var loc = structNew()>
         <cfif useTestEmailList()>
             <cfset loc.emails = application.wheels.testEmailList>
@@ -203,7 +215,7 @@
         <cfreturn loc.emails>
     </cffunction>
 
-    <cffunction name="emailNotList">
+    <cffunction name="$emailNotList" access="private">
     <cfargument name="dontsendtothese" default="">
     <cfset var returnthis = application.wheels.emailnotList>
     <cfif ListLen(arguments.dontsendtothese)>
@@ -212,6 +224,10 @@
         <cfset returnThis= replace(returnthis," ","","all")>    
         <cfreturn returnthis>
     </cffunction>
+
+<!-------------------------------------->
+<!-------TESTS DURING DEVELOPMENT-------------------------->
+<!-------------------------------------->
 
     <cffunction name="testemailNotList">
         <cfdump var="#emailNotList('tomavey@fgbc.org,sandy@fgbc.org,sandiavey@gmail.com')#">
