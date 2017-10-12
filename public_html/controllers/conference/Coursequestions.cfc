@@ -103,6 +103,8 @@
     }
   }
 
+//-------------Other View Controllers-------------------
+
   // Coursequestions/list
   function list(){
     var whereString = "id > 0";

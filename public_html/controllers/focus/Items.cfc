@@ -6,6 +6,10 @@
 		<cfset filters(through="setReturn", only="index,show,items")>
 		<cfset filters(through="getRetreatRegions")>	
 	</cffunction>
+
+<!----------------------------------------------->	
+<!-------------CCRUD------------------------------>	
+<!----------------------------------------------->	
 	
 	<!--- -items/index --->
 	<cffunction name="index">

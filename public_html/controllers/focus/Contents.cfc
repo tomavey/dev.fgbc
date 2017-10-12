@@ -7,6 +7,10 @@
 		<cfset filters(through="getRetreatRegions")>
 	</cffunction>
 
+<!------------------------------->
+<!--------CRUD------------------->
+<!------------------------------->
+
 	<!--- -contents/index --->
 	<cffunction name="index">
 		<cfset contents = model("Focuscontent").findAll()>

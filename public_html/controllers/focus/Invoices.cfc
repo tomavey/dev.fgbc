@@ -8,6 +8,10 @@
 		<cfset filters(through="getRetreatRegions", except="testconfirm")><!---In controllers/controller.cfc--->
 	</cffunction>
 
+<!----------------------------------------------->	
+<!-------------CRUD------------------------------>	
+<!----------------------------------------------->	
+
 	<!--- -invoices/index --->
 	<cffunction name="index">
 		<cfset invoices = model("Focusinvoice").findAll(order="createdAt DESC")>
@@ -95,11 +99,16 @@
 		</cfif>
 	</cffunction>
 
+<!-------------------------------------------------->
+<!------OTHER VIEW CONTROLLERS---------------------->
+<!-------------------------------------------------->
+
 	<cffunction name="agent">
 		<cfset renderPage(layout='/focus/layout2')>
 	</cffunction>
 
-	<cffunction name="payonline">
+	<cffunction name="payonline" 
+		hint="This controller calls a payonline view with a form that auto submits with document.form1.submit();">
 		<cfset payonline = model("Focusinvoice").findByKey(params.key)>
 		<cfset payonline.merchant = "fellowshipofgracen">
 		<cfset payonline.email = payonline.agent>
@@ -116,7 +125,8 @@
 		<cfset renderPage(layout='/focus/layout2')>
 	</cffunction>
 
-	<cffunction name="confirm">
+	<cffunction name="confirm" 
+		hint="goemerchant will call back to this controller">
 		<cfset var invoiceid = val(params.orderid)>
 
 		<cfif params.status is 0>
@@ -135,7 +145,6 @@
 		<cfset items = model("Focusregistration").findAll(where="invoiceId = #invoiceid#", include="item,registrant")>
 		<cfset sendEmail(layout="/focus/emaillayout", to=application.wheels.registrant, from=invoice.agent, cc=invoice.agent, subject="Focus Retreat Registration", template="confirm")>
 		<cfset redirectTo(action="thankyou", key=invoiceid)>
-
 	</cffunction>
 
 	<cffunction name="thankyou">
@@ -147,6 +156,5 @@
 	<cffunction name="testConfirm">
 		<cflocation url="http://dev.fgbc.org/focus/invoices/confirm?OrderID=16Aeast11&total=10.00&Status=1&approval_code=064435&authresponse=APPROVED&avs=Y&cvv2=M&Cardname=visa&NameonCard=Thomas%20D%20Avey&Cardstreet=PO%20Box%20386&Cardcity=Winona%20Lake&Cardstate=IN&Cardzip=46590&Cardcountry=US&email=tomavey@fgbc.org&phone=574-527-6061">
 	</cffunction>
-
 
 </cfcomponent>

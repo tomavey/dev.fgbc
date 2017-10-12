@@ -6,9 +6,15 @@ component extends="Controller" output="false" {
     filters(through="setReturn", only="index,list");
   }
 
+//----------Filters-----------------
+
   private function getCourses(orderby="title", type="cohort", event=getEvent()){
 		courses = model("Conferencecourse").findAll(where="event='#arguments.event#' AND type='#arguments.type#'", order=arguments.orderby, type="#arguments.type#", event=arguments.event);
   }
+
+//-----------------------------------------
+//----------------CRUD---------------------
+//-----------------------------------------
 
   // Conferencecourseresources/index
   public void function index(){
@@ -91,7 +97,7 @@ component extends="Controller" output="false" {
     
     if (isDefined("Resource.uploaded_file") && len(Resource.uploaded_file)){
       var directory = GetDirectoryFromPath(GetBaseTemplatePath()) & "files\courseresources";
-      var mimetypes = getMimeTypes();
+      var mimetypes = $getMimTypes();
       try {
       var result = fileUpload('#directory#',Resource.uploaded_file,mimetypes,'overwrite');
       Resource.uploaded_file = result.serverFile;
@@ -162,19 +168,19 @@ component extends="Controller" output="false" {
     }
   }
 
-  public function getAdminEmail(){
-    return "tomavey@fgbc.org";
-  }
+//--------------------------------------
+//--------Other View or Send COntrollers
+//--------------------------------------
 
   public function sendEditEmail(required string email, required string uuid){
    var confirmation = "";
    try {
    sendEmail(
       to=email, 
-      from=getAdminEmail(), 
+      from=$getAdminEmail(), 
       type="html", 
       subject="Your Cohort Resource Post", 
-      cc=getAdminEmail(), 
+      cc=$getAdminEmail(), 
       template="sendEditEmail", 
       layout="/layout_for_email",
       uuid = uuid);
@@ -186,7 +192,13 @@ component extends="Controller" output="false" {
     return confirmation;  
   }
 
-  private function getMimeTypes(){
+//----------Controller services---------
+
+  private function $getAdminEmail(){
+    return "tomavey@fgbc.org";
+  }
+
+  private function $getMimTypes(){
     return 'application/epub+zip,
     application/java-archive,
     application/javascript,

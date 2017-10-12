@@ -128,19 +128,26 @@
 		.namespace("focus")
 			.resources("contents")
 			.resources("invoices")
+			
 			.get(name="deleteitem", pattern="/items/[key]/delete/", controller="items", action="delete")
 			.get(name="copyitem", pattern="/items/[key]/copy", controller="items", action="copy")
 			.resources("items")
+			
+			.get(name="thisRetreat", pattern="/[key]", controller="main", action="retreat")
 			.resources("main")
 			.resources("registrants")
+			
 			.get(name="deleteregistration", pattern="/registrations/[key]/delete/", controller="registrations", action="delete")
 			.get(name="deleteretreat", pattern="/retreat/[key]/delete/", controller="retreats", action="delete")
 			.resources("registrations")
-			.resources("retreats")
-			.resources("shoppingcarts")
-			.get(name="shoppingcartagent", pattern="/shoppingcarts/agent/[key]", controller="shoppingcarts", action="agent")
-			.resources("testmonies")
+			
 			.get(name="showRetreat", pattern="/retreat/[key]", controller="main", action="retreat")
+			.resources("retreats")
+			
+			.get(name="shoppingcartagent", pattern="/shoppingcarts/agent/[key]", controller="shoppingcarts", action="agent")
+			.resources("shoppingcarts")
+			
+			.resources("testmonies")
 			.root(controller="main", action="welcome")
 		.end()
 
@@ -167,6 +174,9 @@
 
 			.get(name="listcoursequestions", pattern="/coursequestions/list/", controller="coursequestions", action="list")
 			.resources("coursequestions")
+
+			.get(name="sendEditEmail", pattern="/courseresources/sendEditEmail", controller="courseresources", action="sendEditEmail")
+			.resources("courseresources")
 			
 			.get(name="registration", pattern="/registration/", controller="register", action="welcome")
 			.get(name="register", pattern="/register/", controller="register", action="welcome")
