@@ -7,9 +7,15 @@
 		<cfset filters(through="getRetreatRegions")>
 	</cffunction>
 
+<!----Filters---->
+
 	<cffunction name="getRetreats">
 		<cfset retreats = model("Focusretreat").findAll(where="active='yes' and endAt > now()", order="startAt")>
 	</cffunction>
+
+<!-------------------------------->
+<!---------VIEW CONTROLLERS------->
+<!-------------------------------->
 
 	<cffunction name="welcome">
 		<cfset content = getFocusContent("introContent")>
@@ -26,7 +32,7 @@
 		<cfif val(params.key)>
 			<cfset whereString = "id='#params.key#'">
 		<cfelse>
-			<cfset whereString = "regid='#params.key#'">
+			<cfset whereString = "regid='#$getRegIdFromName(params.key)#'">
 		</cfif>
 
 		<cfset retreat = model("Focusretreat").findOne(where=whereString)>
@@ -41,6 +47,13 @@
 			<cfset redirectTo(action="welcome")>
 		</cfif>
 
+	</cffunction>
+
+	<cffunction name="$getRegIdFromName" access="private" hint="used to pick the lates retreat based on name">
+	<cfargument name="name" required="true" type="string">
+	<cfset var loc = arguments>
+		<cfset loc.retreat = model("Focusretreat").findAll(where="regid like '#loc.name#%'", order="createdAt DESC")>
+		<cfreturn loc.retreat.regid>
 	</cffunction>
 
 	<cffunction name="showRegistration" hint="used in the view to control displaying link and info to registration page">
