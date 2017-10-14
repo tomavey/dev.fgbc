@@ -28,7 +28,9 @@
         	<cfset set(URLRewriting="Off")>
 	<cfelse>
 	       <cfset set(URLRewriting="On")>
+		  <!--- 
 	       <cfset set(reloadPassword="charis")>
+		  ---> 
 	</cfif>
 	<cfset set(autologin=true)>
 
