@@ -32,7 +32,7 @@
 			.get(name="loginAsUser", pattern="users/loginAsUser", controller="users", action="loginAsUser")
 			.get(name="emailSent", pattern="/users/emailSent", controller="users", action="emailSent")
 			.get(name="changePassword", pattern="/users/changePassword", controller="users", action="changePassword")
-			.post(name="getPassword", pattern="/users/EmailChangePasswordLink/", controller="users", action="EmailChangePasswordLink")
+			.post(name="getPassword", pattern="/users/EmailChangePasswordLink/[key]", controller="users", action="EmailChangePasswordLink")
 			.resources("users")
 
 			.post(name="addARight", pattern="/groups/addARight/[key]", controller="groups", action="addARight")
