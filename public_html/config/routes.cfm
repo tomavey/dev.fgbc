@@ -30,7 +30,8 @@
 			.get(name='ForgotPassword', pattern="/users/get-email-for-change-password-link/", controller="users", action="get-email-for-change-password-link")
 			.get(name="thankyou", pattern="/users/thankyou", controller="users", action="thankYou")
 			.get(name="loginAsUser", pattern="users/loginAsUser", controller="users", action="loginAsUser")
-			.post(name="getPassword", pattern="/users/getPassword/", controller="users", action="EmailChangePasswordLink")
+			.get(name="emailSent", pattern="/users/emailSent", controller="users", action="emailSent")
+			.post(name="getPassword", pattern="/users/EmailChangePasswordLink/", controller="users", action="EmailChangePasswordLink")
 			.resources("users")
 
 			.post(name="addARight", pattern="/groups/addARight/[key]", controller="groups", action="addARight")
