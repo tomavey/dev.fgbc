@@ -63,7 +63,7 @@
 	<td>
 		#showTag()#
 		#editTag()#
-		#deleteTag()#
+		#deleteTag(class="noajax")#
 		#linkTo(text="login as #fname#", action="loginAsUser", params="username=#username#&userid=#id#&email=#email#")#
 	</td>
 </tr>
