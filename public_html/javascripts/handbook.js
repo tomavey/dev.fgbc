@@ -216,7 +216,7 @@ function $navsearch(){
 /*Turn page header into link to default page*/
 function $pageheader(){
 	$('#pageheader').click(function(){
-		open("/handbook/people/index/","_top")
+		open("/handbook/people/","_top")
 		});
 		$('#pageheader').mouseover(function(){
 		$('#loading').text('Click to return to main page').show().css("cursor","pointer");
