@@ -9,7 +9,6 @@
 
 	<!--- -registrations/index --->
 	<cffunction name="index">
-	<cfdump var="#params#"><cfabort>
 
 		<cfset showsummary=true>
 

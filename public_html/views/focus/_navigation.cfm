@@ -15,7 +15,7 @@
               	<li class="#getActive('about')#">#linkTo(text="About", controller="focus.main", action="about")#</li>
               	<li class="#getActive('testimonies')#">#linkTo(text="Stories", controller="focus.testimonies", action="list")#</li>
 				<cfif isOffice()>
-              	<li class="#getActive('admin')#">#linkTo(text="Admin", controller="focus.registrations", action="index", params="unlock=charis")#</li>
+              	<li class="#getActive('admin')#">#linkTo(text="Admin", route="focusRegistrations", params="unlock=charis")#</li>
 				</cfif>
         <cfif isDefined("retreats")>
 				<li class="dropdown">
