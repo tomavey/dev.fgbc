@@ -131,6 +131,11 @@
 
 		.namespace("focus")
 			.resources("contents")
+
+			.get(name="payonline", pattern="/focus/payonline/", controller="invoices", action="payonline")
+			.get(name="agent", pattern="/focus/agent/", controller="invoices", action="agent")
+			.get(name="confirm", pattern="/focus/confirm/", controller="invoices", action="confirm")
+			.get(name="thankyou", pattern="/focus/thankyou/", controller="invoices", action="thankyou")
 			.resources("invoices")
 			
 			.get(name="deleteitem", pattern="/items/[key]/delete/", controller="items", action="delete")
@@ -152,6 +157,7 @@
 			.resources("shoppingcarts")
 			
 			.resources("testmonies")
+			.get(name="about", pattern="/focus/about/", controller="main", action="about")
 			.root(controller="main", action="welcome")
 		.end()
 
