@@ -147,10 +147,11 @@
 			.resources("registrants")
 			
 			.get(name="deleteregistration", pattern="/registrations/[key]/delete/", controller="registrations", action="delete")
-			.get(name="deleteretreat", pattern="/retreat/[key]/delete/", controller="retreats", action="delete")
+			.get(name="registrations", pattern="/registrations/", controller="registrations", action="index")
 			.resources("registrations")
 			
 			.get(name="showRetreat", pattern="/retreat/[key]", controller="main", action="retreat")
+			.get(name="deleteretreat", pattern="/retreat/[key]/delete/", controller="retreats", action="delete")
 			.resources("retreats")
 			
 			.get(name="shoppingcartagent", pattern="/shoppingcarts/agent/[key]", controller="shoppingcarts", action="agent")
