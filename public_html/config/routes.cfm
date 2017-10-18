@@ -158,7 +158,6 @@
 			
 			.resources("testmonies")
 			.get(name="about", pattern="/focus/about/", controller="main", action="about")
-			.root(controller="main", action="welcome")
 		.end()
 
 		.namespace("conference")
