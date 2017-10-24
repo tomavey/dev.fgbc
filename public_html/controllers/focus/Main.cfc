@@ -36,7 +36,7 @@
 		</cfif>
 
 		<cfset retreat = model("Focusretreat").findOne(where=whereString)>
-
+<cfdump var="#params#"><cfabort>
 		<cfif !len(retreat.notopenmessage)>
 			<cfset retreat.notopenmessage = "Registration for this retreat is closed.">
 		</cfif>
