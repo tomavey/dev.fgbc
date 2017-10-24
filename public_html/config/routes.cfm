@@ -145,11 +145,6 @@
 			.get(name="deleteregistration", pattern="/registrations/[key]/delete/", controller="registrations", action="delete")
 			.resources("registrations")
 						
-			.get(name="thisRetreat", pattern="/[key]", controller="main", action="retreat")
-			.get(name="welcome", pattern="", controller="main", action="welcome")
-			.get(name="about", pattern="/about/", controller="main", action="about")
-			.resources("main")
-
 			.resources("registrants")
 			
 			.get(name="showRetreat", pattern="/retreat/[key]", controller="main", action="retreat")
@@ -160,6 +155,12 @@
 			.resources("shoppingcarts")
 			
 			.resources("testmonies")
+
+			.get(name="thisRetreat", pattern="/[key]", controller="main", action="retreat")
+			.get(name="welcome", pattern="", controller="main", action="welcome")
+			.get(name="about", pattern="/about/", controller="main", action="about")
+			.resources("main")
+
 		.end()
 
 		.namespace("conference")
