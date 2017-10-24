@@ -185,20 +185,16 @@
 
 		if (StructKeyExists(arguments, "group"))
 		{
-			if (ListFindNoCase(variables.wheels.class.calculatedPropertyList, arguments.group))
-			{
-				arguments.select = ListAppend(arguments.select, variables.wheels.class.calculatedProperties[arguments.group].sql & " AS " & arguments.group);
-			}
-			else
-			{
-				arguments.select = ListAppend(arguments.select, tableName() & "." & arguments.group);
-			}
+			arguments.select = ListAppend(arguments.select, $createSQLFieldList(clause="select", list=arguments.group, include=arguments.include, includeSoftDeletes=arguments.includeSoftDeletes, returnAs="query"));
 		}
 
 		// call `findAll` with `select`, `where`, `group`, `parameterize` and `include` but delete all other arguments
 		StructDelete(arguments, "type");
 		StructDelete(arguments, "property");
 		StructDelete(arguments, "distinct");
+
+		// since we don't return any records for calculation methods we want to skip the callbacks
+		arguments.callbacks = false;
 
 		loc.rv = findAll(argumentCollection=arguments);
 		if (!StructKeyExists(arguments, "group"))

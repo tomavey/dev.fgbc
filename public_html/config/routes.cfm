@@ -132,10 +132,10 @@
 		.namespace("focus")
 			.resources("contents")
 
-			.get(name="payonline", pattern="/focus/payonline/", controller="invoices", action="payonline")
-			.get(name="agent", pattern="/focus/agent/", controller="invoices", action="agent")
-			.get(name="confirm", pattern="/focus/confirm/", controller="invoices", action="confirm")
-			.get(name="thankyou", pattern="/focus/thankyou/", controller="invoices", action="thankyou")
+			.get(name="payonline", pattern="/payonline/", controller="invoices", action="payonline")
+			.get(name="agent", pattern="/agent/", controller="invoices", action="agent")
+			.get(name="confirm", pattern="/confirm/", controller="invoices", action="confirm")
+			.get(name="thankyou", pattern="/thankyou/", controller="invoices", action="thankyou")
 			.resources("invoices")
 			
 			.get(name="deleteitem", pattern="/items/[key]/delete/", controller="items", action="delete")
@@ -144,13 +144,12 @@
 			
 			.get(name="thisRetreat", pattern="/[key]", controller="main", action="retreat")
 			.get(name="welcome", pattern="", controller="main", action="welcome")
-			.get(name="about", pattern="/focus/about/", controller="main", action="about")
+			.get(name="about", pattern="/about/", controller="main", action="about")
 			.resources("main")
 
 			.resources("registrants")
 			
 			.get(name="deleteregistration", pattern="/registrations/[key]/delete/", controller="registrations", action="delete")
-			.resources("registrations")
 			
 			.get(name="showRetreat", pattern="/retreat/[key]", controller="main", action="retreat")
 			.get(name="deleteretreat", pattern="/retreat/[key]/delete/", controller="retreats", action="delete")
