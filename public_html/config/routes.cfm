@@ -142,6 +142,9 @@
 			.get(name="copyitem", pattern="/items/[key]/copy", controller="items", action="copy")
 			.resources("items")
 			
+			.get(name="deleteregistration", pattern="/registrations/[key]/delete/", controller="registrations", action="delete")
+			.resources("registrations")
+						
 			.get(name="thisRetreat", pattern="/[key]", controller="main", action="retreat")
 			.get(name="welcome", pattern="", controller="main", action="welcome")
 			.get(name="about", pattern="/about/", controller="main", action="about")
@@ -149,9 +152,6 @@
 
 			.resources("registrants")
 			
-			.get(name="deleteregistration", pattern="/registrations/[key]/delete/", controller="registrations", action="delete")
-			.resources("registrations")
-						
 			.get(name="showRetreat", pattern="/retreat/[key]", controller="main", action="retreat")
 			.get(name="deleteretreat", pattern="/retreat/[key]/delete/", controller="retreats", action="delete")
 			.resources("retreats")
