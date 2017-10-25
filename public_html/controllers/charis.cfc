@@ -1,6 +1,6 @@
 component extends="Controller" {
 
-    public function init(){
+    private function init(){
         usesLayout="layout";
     }
 

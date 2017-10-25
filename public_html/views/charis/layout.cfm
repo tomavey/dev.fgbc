@@ -24,30 +24,30 @@
 
   <!-- CSS Global Icons -->
   #styleSheetLinkTag("
-        #folder#icon-awesome/css/font-awesome.min.css,
-        #folder#icon-line/css/simple-line-icons.css
-        #folder#icon-etlinefont/style.css,
-        #folder#icon-line-pro/style.css,
-        #folder#icon-hs/style.css,
-        #folder#dzsparallaxer/dzsparallaxer.css,
-        #folder#dzsparallaxer/dzsscroller/scroller.css,
-        #folder#dzsparallaxer/advancedscroller/plugin.css,
-        #folder#animate.css,
-        #folder#fancybox/jquery.fancybox.min.css,
-        #folder#slick-carousel/slick/slick.css,
-        #folder#typedjs/typed.css,
-        #folder#hs-megamenu/src/hs.megamenu.css,
-        #folder#hamburgers/hamburgers.min.css
+        #folder#icon-awesome/css/font-awesome.min,
+        #folder#icon-line/css/simple-line-icons,
+        #folder#icon-etlinefont/style,
+        #folder#icon-line-pro/style,
+        #folder#icon-hs/style,
+        #folder#dzsparallaxer/dzsparallaxer,
+        #folder#dzsparallaxer/dzsscroller/scroller,
+        #folder#dzsparallaxer/advancedscroller/plugin,
+        #folder#animate,
+        #folder#fancybox/jquery.fancybox.min,
+        #folder#slick-carousel/slick/slick,
+        #folder#typedjs/typed,
+        #folder#hs-megamenu/src/hs.megamenu,
+        #folder#hamburgers/hamburgers.min
       ")#
 
   <!-- CSS Unify -->
 
   <cfset folder = "charis/">
   #styleSheetLinkTag("
-        #folder#unify-core.css,
-        #folder#unify-components.css,
-        #folder#unify-globals.css,
-        #folder#custom.css
+        #folder#unify-core,
+        #folder#unify-components,
+        #folder#unify-globals,
+        #folder#custom
   ")#
 
 </cfoutput>  
@@ -73,7 +73,7 @@
         #folder#/jquery/jquery.min.js,
         #folder#/jquery-migrate/jquery-migrate.min.js,
         #folder#/jquery.easing/js/jquery.easing.js,
-        #folder#/vendor/popper.min.js,
+        #folder#/popper.min.js,
         #folder#/bootstrap/bootstrap.min.js
     ")#
 
@@ -91,8 +91,9 @@
     ")#
 
   <!-- JS Unify -->
-  <cfset folder = "charis/">
+  <cfset folder = "charis">
   #javaScriptIncludeTag("
+    #folder#/hs.core.js,
     #folder#/components/hs.carousel.js,
     #folder#/components/hs.header.js,
     #folder#/helpers/hs.hamburgers.js,
