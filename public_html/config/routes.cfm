@@ -9,7 +9,7 @@
 	drawRoutes()
 
 		.namespace("charis")
-			.root(controller="charis", action="index")
+			.root(action="index")
 		.end()	
 
 		.namespace("admin")
