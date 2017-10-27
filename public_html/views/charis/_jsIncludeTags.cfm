@@ -19,6 +19,8 @@
         #folder#/dzsparallaxer/dzsparallaxer.js,
         #folder#/dzsparallaxer/dzsscroller/scroller.js,
         #folder#/dzsparallaxer/advancedscroller/plugin.js,
+        #folder#/hs-bg-video/hs-bg-video.js,
+        #folder#/hs-bg-video/vendor/player.min.js,
         #folder#/fancybox/jquery.fancybox.min.js,
         #folder#/typedjs/typed.min.js
     ")#
