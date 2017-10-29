@@ -18,10 +18,10 @@
 							#linkto(text="Members", route="handbookAgbmList", action="list", params="type=members")#
 						</li>
 						<li>
-							#linkto(text="Mail List", controller="handbook.agbm-info", action="list", key="mail")#
+							#linkto(text="Mail List", route="handbookAgbmList", action="list", key="mail")#
 						</li>
 						<li>
-							#linkto(text="Handbook List", controller="handbook.agbm-info", action="handbook")#
+							#linkto(text="Handbook List", route="handbookList", action="handbook")#
 						</li>
 					</ul>	
 				</li>

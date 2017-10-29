@@ -50,7 +50,8 @@
 
 			.get(name="addAGBMPayment", pattern="/agbminfo/add/[key]", controller="AgbmInfo", action="add")
 			.get(name="agbmList", pattern="/agbmInfo/list/", controller="agbmInfo", action="list")
-			.get(name="agbmListMembers", pattern="/agbmInfo/list/[key]", controller="agbmInfo", action="list")
+			.get(name="list", pattern="/agbmInfo/handbook/", controller="agbmInfo", action="handbook")
+			.get(name="dashboard", pattern="/agbmInfo/dashboard/", controller="agbmInfo", action="dashboard")
 			.resources("agbmInfo")
 
 			.get(name="districtsReport", pattern="/districts/report/", controller="districts", action="handbookreport")
