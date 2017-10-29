@@ -49,6 +49,7 @@
 			.resources("agbm")
 
 			.get(name="addAGBMPayment", pattern="/agbminfo/add/[key]", controller="AgbmInfo", action="add")
+			.get(name="agbmList", pattern="/agbmInfo/list/[key]", controller="agbmInfo", action="list")
 			.get(name="agbmList", pattern="/agbmInfo/list/", controller="agbmInfo", action="list")
 			.resources("agbmInfo")
 
