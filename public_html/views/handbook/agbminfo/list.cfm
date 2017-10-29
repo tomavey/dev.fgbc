@@ -19,9 +19,9 @@
 
 <p>
 	<cfoutput query="districts">
-		#linkto(text=district, key="members", params="type=members&district=#districtid#")#
+		#linkto(text=district, route="handbookAgbmList", key="members", params="type=members&district=#districtid#")#
 	</cfoutput>
-	<cfoutput>#linkto(text="ALL", key="members", params="type=members&district=all")#</cfoutput>
+	<cfoutput>#linkto(text="ALL", route="handbookAgbmList", params="type=members&district=all")#</cfoutput>
 </p>
 
 <cfif isDefined("params.district")>
