@@ -4,7 +4,7 @@
 	<cffunction name="init">
 		<cfset usesLayout(template="/handbook/layout_admin")>
 		<cfset filters(through="isAuthorized", only="new,edit")>
-		<cfset filters(through="paramsKeyRequired", only="sizeByPercent,getSummary")>
+		<cfset filters(through="paramsKeyRequired", only="sizeByPercent")>
 	</cffunction>
 
 	<cffunction name="isAuthorized">
