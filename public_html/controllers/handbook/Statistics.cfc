@@ -413,20 +413,17 @@
 	<!---Stat Report Functions--->
 	<cffunction name="getSummary">
 		<cfset summary1 = model("Handbookstatistic").findStatsSummary(params.key)>
-		<cfdump var="#summary1#"><cfabort>
-		<cfset selectstring = "(sum(att) as sumAtt, avg(att) as avgAtt, sum(ss) as sumSs, avg(ss) as avgSs, sum(conversions) as sumConversions, avg(conversions) as avgConversions, sum(baptisms) as sumBaptisms, avg(baptisms) as avgBaptisms, sum(members) as sumMembers, avg(members) as avgMembers, sum(triune) as sumTriune, avg(triune) as avgTriune)">
-		<cfset summary1 = model("Handbookstatistic").findAll(where="year=#params.key#", select=selectstring)>
 		<cfif isdefined("params.compYear")>
-			<cfset summaryCompYear = model("Handbookstatistic").findAll(where="year=#params.compyear#", select=selectstring)>
+			<cfset summaryCompYear = model("Handbookstatistic").findStatsSummary(params.key)>
 		</cfif>
 		<cfif isdefined("params.compYear2")>
-			<cfset summaryCompYear2 = model("Handbookstatistic").findAll(where="year=#params.compyear2#", select=selectstring)>
+			<cfset summaryCompYear2 = model("Handbookstatistic").findStatsSummary(params.key)>
 		</cfif>
 		<cfif isdefined("params.compYear3")>
-			<cfset summaryCompYear3 = model("Handbookstatistic").findAll(where="year=#params.compyear3#", select=selectstring)>
+			<cfset summaryCompYear3 = model("Handbookstatistic").findStatsSummary(params.key)>
 		</cfif>
 		<cfif isdefined("params.compYear4")>
-			<cfset summaryCompYear4 = model("Handbookstatistic").findAll(where="year=#params.compyear4#", select=selectstring)>
+			<cfset summaryCompYear4 = model("Handbookstatistic").findStatsSummary(params.key)>
 		</cfif>
 		<cfset ewp = ewpSummary()>
 	</cffunction>
