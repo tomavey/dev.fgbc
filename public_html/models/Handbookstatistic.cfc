@@ -55,4 +55,22 @@
 
 	</cffunction>
 
+	<cffunction name="findStatsSummary">
+	<cfargument name="year" required="true" type="numeric">
+	<cfset var loc = structNew()>
+		<cfquery datasource='#getDatasource()#' name="loc.data">
+			SELECT sum(att) as sumAtt, avg(att) as avgAtt, sum(ss) as sumSs, avg(ss) as avgSs, sum(conversions) as sumConversions, avg(conversions) as avgConversions, sum(baptisms) as sumBaptisms, avg(baptisms) as avgBaptisms, sum(members) as sumMembers, avg(members) as avgMembers, sum(triune) as sumTriune, avg(triune) as avgTriune
+			FROM handbookstatistics s
+			WHERE
+				s.year = '#arguments.year#'
+			AND 
+				s.deletedAt IS NULL
+		</cfquery>
+
+	<cfreturn loc.data>		
+
+	</cffunction>
+
+
+
 </cfcomponent>
