@@ -413,7 +413,7 @@
 	<!---Stat Report Functions--->
 	<cffunction name="getSummary">
 		<cfset summary1 = model("Handbookstatistic").findStatsSummary(param.key)>
-		<cfdump var="#summary1#"></cfabort>
+		<cfdump var="#summary1#"><cfabort>
 		<cfset selectstring = "(sum(att) as sumAtt, avg(att) as avgAtt, sum(ss) as sumSs, avg(ss) as avgSs, sum(conversions) as sumConversions, avg(conversions) as avgConversions, sum(baptisms) as sumBaptisms, avg(baptisms) as avgBaptisms, sum(members) as sumMembers, avg(members) as avgMembers, sum(triune) as sumTriune, avg(triune) as avgTriune)">
 		<cfset summary1 = model("Handbookstatistic").findAll(where="year=#params.key#", select=selectstring)>
 		<cfif isdefined("params.compYear")>
