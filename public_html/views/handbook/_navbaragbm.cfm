@@ -32,7 +32,7 @@
 							#linkto(text="Dashboard", controller="handbook.agbmInfo", action="dashboard")#
 						</li>
 						<li>
-							#linkto(text="Sr Pastor Not-list", controller="handbook.agbm-info", action="pastorsnotagbm", params="type=seniorpastors")#
+							#linkto(text="Sr Pastor Not-list", route="handbookPastorsNotAgbm", params="type=seniorpastors")#
 						</li>
 						<li>
 							#linkto(text="Staff Pastor Not-list", controller="handbook.agbm-info", action="pastorsnotagbm", params="type=staffpastors")#
