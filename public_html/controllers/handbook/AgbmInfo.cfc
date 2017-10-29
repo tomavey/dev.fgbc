@@ -24,13 +24,13 @@
 		<cfset districts=model("Handbookdistrict").findAll(where="district NOT IN ('Empty','National Ministry','Cooperating Ministry')")>
 		<cfif isDefined("params.search")>
 			  <cfset people = model("Handbookagbminfo").findAllMembers(search=params.search,currentMembershipYear=currentmembershipyear)>
-		<cfelseif isDefined("params.key") and params.key is "members" and isDefined("params.alpha") and len(params.alpha)>
+		<cfelseif isDefined("params.type") and params.type is "members" and isDefined("params.alpha") and len(params.alpha)>
 			  <cfset people = model("Handbookagbminfo").findAllMembers(alpha=params.alpha,currentMembershipYear=currentmembershipyear)>
-		<cfelseif isDefined("params.key") and params.key is "members" and isDefined("params.district") and len(params.district)>
+		<cfelseif isDefined("params.type") and params.type is "members" and isDefined("params.district") and len(params.district)>
 			  <cfset people = model("Handbookagbminfo").findAllMembers(district=params.district,currentMembershipYear=currentmembershipyear)>
-		<cfelseif isDefined("params.key") and params.key is "members">
+		<cfelseif isDefined("params.type") and params.type is "members">
 			  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear)>
-		<cfelseif isDefined("params.key") and (params.key is "mailinglist" or params.key is "mail")>
+		<cfelseif isDefined("params.type") and (params.type is "mailinglist" or params.type is "mail")>
 			  <cfset people = model("Handbookagbminfo").findAllMailingList(currentMembershipYear=currentmembershipyear)>
 		<cfelse>
 			  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear)>
