@@ -223,9 +223,9 @@
 	</cffunction>
 
 	<cffunction name="pastorsNotAgbm">
-	<cfif isDefined("params.key") AND params.key is "seniorpastors">
+	<cfif isDefined("params.type") AND params.type is "seniorpastors">
 		  <cfset wherestring = "p_sortorder = 1 AND ">
-	<cfelseif isDefined("params.key") AND params.key is "staffpastors">
+	<cfelseif isDefined("params.type") AND params.type is "staffpastors">
 		  <cfset wherestring = "p_sortorder <> 1 AND position LIKE '%pastor%' AND ">
 	<cfelse>
 		  <cfset wherestring = "p_sortorder < 500 AND ">
