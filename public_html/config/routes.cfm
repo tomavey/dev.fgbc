@@ -56,6 +56,7 @@
 			.get(name="AgbmDelinquent", pattern="/agbmInfo/delinquent/", controller="agbmInfo", action="delinquent")
 			.get(name="AgbmRss", pattern="/agbmInfo/rss/", controller="agbmInfo", action="rss")
 			.get(name="MembershipReport", pattern="/agbmInfo/handbookMembershipReport/", controller="agbmInfo", action="handbookMembershipReport")
+			.get(name="setYear", pattern="/agbmInfo/setyear/[key]", controller="agbmInfo", action="setyear")
 			.resources("agbmInfo")
 
 			.get(name="districtsReport", pattern="/districts/report/", controller="districts", action="handbookreport")
