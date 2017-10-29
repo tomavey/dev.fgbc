@@ -7,7 +7,7 @@
 
 	<!--- handbookagbmregions/index --->
 	<cffunction name="index">
-		<cfset handbookagbmregions = model("Handbookagbmregion").findAll(include="Handbookperson(Handbookstate)")>
+		<cfset handbookagbmregions = model("Handbookagbmregion").findAll(include="agbmrep(Handbookstate)")>
 	</cffunction>
 
 	<cffunction name="getCurrentMembershipYear">
