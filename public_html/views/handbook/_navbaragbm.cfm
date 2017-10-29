@@ -18,7 +18,7 @@
 							#linkto(text="Members", route="handbookAgbmList", action="list", params="type=members")#
 						</li>
 						<li>
-							#linkto(text="Mail List", route="handbookAgbmList", action="list", key="mail")#
+							#linkto(text="Mail List", route="handbookAgbmList", action="list", params="type=mail")#
 						</li>
 						<li>
 							#linkto(text="Handbook List", route="handbookList", action="handbook")#
@@ -32,10 +32,10 @@
 							#linkto(text="Dashboard", controller="handbook.agbmInfo", action="dashboard")#
 						</li>
 						<li>
-							#linkto(text="Sr Pastor Not-list", controller="handbook.agbm-info", action="pastorsnotagbm", key="seniorpastors")#
+							#linkto(text="Sr Pastor Not-list", controller="handbook.agbm-info", action="pastorsnotagbm", params="type=seniorpastors")#
 						</li>
 						<li>
-							#linkto(text="Staff Pastor Not-list", controller="handbook.agbm-info", action="pastorsnotagbm", key="staffpastors")#
+							#linkto(text="Staff Pastor Not-list", controller="handbook.agbm-info", action="pastorsnotagbm", params="type=staffpastors")#
 						</li>
 						<li>
 							#linkto(text="All Staff Not-list", controller="handbook.agbm-info", action="pastorsnotagbm")#
