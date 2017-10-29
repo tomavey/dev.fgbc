@@ -60,7 +60,7 @@
 			.get(name="AgbmRegions", pattern="/agbmregions/", controller="agbmregions", action="index")
 			.resources("agbmInfo")
 
-			.resource("agbmregions")
+			.resources("agbmregions")
 
 			.get(name="districtsReport", pattern="/districts/report/", controller="districts", action="handbookreport")
 			.resources("districts")
