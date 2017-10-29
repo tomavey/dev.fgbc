@@ -13,7 +13,7 @@
 		<cfloop list="#getAlphabet()#" index="i">
 			#linkto(text=i, route="handbookAgbmList", params="type=members&alpha=#i#")#
 		</cfloop>
-		#linkto(text="ALL", route="handbookAgbmList", )#
+		#linkto(text="ALL", route="handbookAgbmList")#
 	</p>
 </cfoutput>
 
