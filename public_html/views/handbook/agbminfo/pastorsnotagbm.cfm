@@ -3,19 +3,19 @@
 <cfif NOT isDefined("params.download")>
 	<cfoutput>
 		<cfif isDefined("params.key")>
-			#linkto(text="<i class='icon-download-alt'></i>", action="pastorsnotagbm", key=params.key, params="download=true", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
+			#linkto(text="<i class='icon-download-alt'></i>", action="pastorsnotagbm", params="type=#params.key#", params="download=true", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
 		<cfelse>
 			#linkto(text="<i class='icon-download-alt'></i>", action="pastorsnotagbm", params="download=true", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
 		</cfif>
 	</cfoutput>
 </cfif>
 
-<cfif isDefined("params.key") and params.key is "seniorpastors">
+<cfif isDefined("params.type") and params.type is "seniorpastors">
 	<h3>Seniors Pastors that are not members of the AGBM</h3>
 	<p class="well">
 		These are Senior pastors (listed first in the handbook under the church listing) that are not current members of the AGBM. If they have been members in the past, their past payment information is shown under their name. Click the name for the handbook listing or the payment info for a payment history.
 	</p>
-	<cfelseif isDefined("params.key") and params.key is "staffpastors">
+	<cfelseif isDefined("params.type") and params.type is "staffpastors">
 		<h3>Staff Pastors that are not members of the AGBM</h3>
 		<p class="well">
 			These are Staff pastors (have the word "Pastor" in their title and are not senior pastors) that are not current members of the AGBM. If they have been members in the past, their past payment information is shown under their name. Click the name for the handbook listing or the payment info for a payment history.
