@@ -11,9 +11,9 @@
 <cfoutput>
 	<p>
 		<cfloop list="#getAlphabet()#" index="i">
-			#linkto(text=i, key="members", params="alpha=#i#")#
+			#linkto(text=i, route="handbookAgbmList", params="type=members&alpha=#i#")#
 		</cfloop>
-		#linkto(text="ALL", key="members")#
+		#linkto(text="ALL", route="handbookAgbmList", )#
 	</p>
 </cfoutput>
 

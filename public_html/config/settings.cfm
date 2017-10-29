@@ -60,7 +60,7 @@
 	<cfset set(nonStaffSortOrder = 500)>
 	<cfset set(churchStatusForHandbook = "1,4,8,9")>
 	<cfset set(churchAndOrgStatusForHandbook = "1,4,8,9,10,11")>
-	<cfset set(alphabet = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,W,Z")>
+	<cfset set(alphabet = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z")>
 	<cfset set(delegateyear = "2016")>
 	<cfset set(controllerlocation = "devwc.trunk.controllers.Controller")>
 	<cfset set(memFee = 6.25)>
