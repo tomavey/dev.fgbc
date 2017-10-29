@@ -32,7 +32,8 @@
         #folder#/slick-carousel/slick/slick,
         #folder#/typedjs/typed,
         #folder#/hs-megamenu/src/hs.megamenu,
-        #folder#/hamburgers/hamburgers.min
+        #folder#/hamburgers/hamburgers.min,
+        #folder#/hs-bg-video/hs-bg-video
       ")#
 
   <!-- CSS Unify -->

@@ -1,7 +1,11 @@
 component extends="Controller" {
 
     private function init(){
-        usesLayout="layout";
+        usesLayout("layout");
+    }
+
+    public function index2(){
+        renderPage(layout="layout2");
     }
 
 }

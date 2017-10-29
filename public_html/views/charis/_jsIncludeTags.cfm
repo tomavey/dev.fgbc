@@ -4,38 +4,41 @@
   <cfset folder = "/assets/vendor">
 
     #javaScriptIncludeTag("
-        #folder#/jquery/jquery.min.js,
-        #folder#/jquery-migrate/jquery-migrate.min.js,
-        #folder#/jquery.easing/js/jquery.easing.js,
-        #folder#/popper.min.js,
-        #folder#/bootstrap/bootstrap.min.js
+        #folder#/jquery/jquery.min,
+        #folder#/jquery-migrate/jquery-migrate.min,
+        #folder#/jquery.easing/js/jquery.easing,
+        #folder#/popper.min,
+        #folder#/bootstrap/bootstrap.min
     ")#
 
   <!-- JS Implementing Plugins -->
 
     #javaScriptIncludeTag("
-        #folder#/slick-carousel/slick/slick.js,
-        #folder#/hs-megamenu/src/hs.megamenu.js,
-        #folder#/dzsparallaxer/dzsparallaxer.js,
-        #folder#/dzsparallaxer/dzsscroller/scroller.js,
-        #folder#/dzsparallaxer/advancedscroller/plugin.js,
-        #folder#/hs-bg-video/hs-bg-video.js,
-        #folder#/hs-bg-video/vendor/player.min.js,
-        #folder#/fancybox/jquery.fancybox.min.js,
-        #folder#/typedjs/typed.min.js
+        #folder#/slick-carousel/slick/slick,
+        #folder#/hs-megamenu/src/hs.megamenu,
+        #folder#/dzsparallaxer/dzsparallaxer,
+        #folder#/dzsparallaxer/dzsscroller/scroller,
+        #folder#/dzsparallaxer/advancedscroller/plugin,
+        #folder#/cubeportfolio-full/cubeportfolio/js/jquery.cubeportfolio.min,
+        #folder#/hs-bg-video/hs-bg-video,
+        #folder#/hs-bg-video/vendor/player.min,
+        #folder#/fancybox/jquery.fancybox.min,
+        #folder#/typedjs/typed.min
     ")#
 
   <!-- JS Unify -->
     <cfset folder = "/assets/js">
     #javaScriptIncludeTag("
       #folder#/hs.core.js,
-      #folder#/components/hs.carousel.js,
-      #folder#/components/hs.header.js,
-      #folder#/helpers/hs.hamburgers.js,
-      #folder#/components/hs.tabs.js,
-      #folder#/components/hs.popup.js,
-      #folder#/components/text-animation/hs.text-slideshow.js,
-      #folder#/components/hs.go-to.js,
+      #folder#/components/hs.carousel,
+      #folder#/components/hs.header,
+      #folder#/helpers/hs.hamburgers,
+      #folder#/components/hs.tabs,
+      #folder#/components/hs.cubeportfolio,
+      #folder#/helpers/hs.bg-video,
+      #folder#/components/hs.popup,
+      #folder#/components/text-animation/hs.text-slideshow,
+      #folder#/components/hs.go-to,
       #folder#/vue.min,
       #folder#/app
     ")#
@@ -53,6 +56,9 @@
 
         // initialization of tabs
         $.HSCore.components.HSTabs.init('[role="tablist"]');
+
+        // initialization of video on background
+        $.HSCore.helpers.HSBgVideo.init('.js-bg-video');
 
         // initialization of popups
         $.HSCore.components.HSPopup.init('.js-fancybox');
