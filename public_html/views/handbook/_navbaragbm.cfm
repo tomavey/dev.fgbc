@@ -15,7 +15,7 @@
 					#linkToData(text="Lists<b class='caret'></b>", href="##", data_toggle= "dropdown", class="dropdown-toggle")#
 					<ul class="dropdown-menu">
 						<li>
-							#linkto(text="Members", controller="handbook.agbm-info", action="list", params="type=members")#
+							#linkto(text="Members", route="handbookAgbmList", action="list", params="type=members")#
 						</li>
 						<li>
 							#linkto(text="Mail List", controller="handbook.agbm-info", action="list", key="mail")#
