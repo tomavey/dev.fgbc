@@ -61,7 +61,7 @@
 							#linkTo(text="Set Current Membership Year to #currentmembershipyear+1#", route="handbookSetYear", key=currentmembershipyear+1)#
 						</li>
 						<li>
-							#linkTo(text="Set Current Membership Year to #currentmembershipyear-1#", controller="handbook.agbm-info", action="setyear", key=currentmembershipyear-1)#
+							#linkTo(text="Set Current Membership Year to #currentmembershipyear-1#", route="handbookSetYear", key=currentmembershipyear-1)#
 						</li>
 						<li>
 							#linkTo(text="AGBM Regions", controller="handbook.agbmregions", action="index")#
