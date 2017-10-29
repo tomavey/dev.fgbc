@@ -35,13 +35,13 @@
 							#linkto(text="Sr Pastor Not-list", route="handbookPastorsNotAgbm", params="type=seniorpastors")#
 						</li>
 						<li>
-							#linkto(text="Staff Pastor Not-list", controller="handbook.agbm-info", action="pastorsnotagbm", params="type=staffpastors")#
+							#linkto(text="Staff Pastor Not-list", route="handbookPastorsNotAgbm", params="type=staffpastors")#
 						</li>
 						<li>
-							#linkto(text="All Staff Not-list", controller="handbook.agbm-info", action="pastorsnotagbm")#
+							#linkto(text="All Staff Not-list", route="handbookPastorsNotAgbm")#
 						</li>
 						<li>
-							#linkto(text="Not-paid list", controller="handbook.agbmInfo", action="delinquent")#
+							#linkto(text="Not-paid list", route="handbookAgbmDelinquent")#
 						</li>
 					</ul>	
 				</li>

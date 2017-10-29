@@ -53,6 +53,7 @@
 			.get(name="list", pattern="/agbmInfo/handbook/", controller="agbmInfo", action="handbook")
 			.get(name="dashboard", pattern="/agbmInfo/dashboard/", controller="agbmInfo", action="dashboard")
 			.get(name="pastorsNotAgbm", pattern="/agbmInfo/pastorsnotagbm/", controller="agbmInfo", action="pastorsnotagbm")
+			.get(name="AgbmDelinquent", pattern="/agbmInfo/delinquent/", controller="agbmInfo", action="delinquent")
 			.resources("agbmInfo")
 
 			.get(name="districtsReport", pattern="/districts/report/", controller="districts", action="handbookreport")
