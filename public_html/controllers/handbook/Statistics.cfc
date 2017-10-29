@@ -4,7 +4,7 @@
 	<cffunction name="init">
 		<cfset usesLayout(template="/handbook/layout_admin")>
 		<cfset filters(through="isAuthorized", only="new,edit")>
-		<cfset filters(through="paramsKeyRequired", only="sizeByPercent")>
+		<cfset filters(through="paramsKeyRequired", only="sizeByPercent,getSummary")>
 	</cffunction>
 
 	<cffunction name="isAuthorized">
@@ -413,7 +413,7 @@
 	<!---Stat Report Functions--->
 	<cffunction name="getSummary">
 		<cfset selectstring = "sum(att) as sumAtt, avg(att) as avgAtt, sum(ss) as sumSs, avg(ss) as avgSs, sum(conversions) as sumConversions, avg(conversions) as avgConversions, sum(baptisms) as sumBaptisms, avg(baptisms) as avgBaptisms, sum(members) as sumMembers, avg(members) as avgMembers, sum(triune) as sumTriune, avg(triune) as avgTriune">
-		<cfset summary1 = model("Handbookstatistic").findAll(where="year=#params.year#", select=selectstring)>
+		<cfset summary1 = model("Handbookstatistic").findAll(where="year='#params.key#", select=selectstring)>
 		<cfif isdefined("params.compYear")>
 			<cfset summaryCompYear = model("Handbookstatistic").findAll(where="year=#params.compyear#", select=selectstring)>
 		</cfif>
