@@ -366,6 +366,26 @@
 		<cfdump var="#getPositionForHandbookReport(loc.personid)#"><cfabort>
 	</cffunction>
 
+	<cffunction name="paidLastYearNotThisYear" access="private">
+	<cfargument name="personid" required="true" type="numeric">
+	<cfargument name="currentMembershipyear" required="true" type="string">
+	<cfset var loc=structNew()>
+	<cfset loc.currentmembershipyear = arguments.currentMembershipyear>
+
+	<cfset loc.return = false>
+	<cfset loc.lastyear = loc.currentmembershipyear-1>
+	<cfset loc.thisyear = loc.currentmembershipyear>
+
+		<cfset loc.lastYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.lastyear#'")>
+		<cfif isObject(loc.lastYearsPayment)>
+			<cfset loc.thisYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.thisyear#'")>
+			<cfif NOT isObject(loc.thisYearsPayment)>
+				<cfset loc.return = true>
+			</cfif>
+		</cfif>
+	<cfreturn loc.return>
+	</cffunction>
+	
 
 <cfscript>
 
