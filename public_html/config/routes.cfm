@@ -58,6 +58,7 @@
 			.get(name="MembershipReport", pattern="/agbmInfo/handbookMembershipReport/", controller="agbmInfo", action="handbookMembershipReport")
 			.get(name="setYear", pattern="/agbmInfo/setyear/[key]", controller="agbmInfo", action="setyear")
 			.get(name="AgbmRegions", pattern="/agbmregions/", controller="agbmregions", action="index")
+			.post(name="searchAgbm", pattern="/agbminfo/list/", controller="agbmInfo", action="list")
 			.resources("agbmInfo")
 
 			.resources("agbmregions")

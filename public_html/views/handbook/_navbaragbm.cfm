@@ -73,7 +73,7 @@
 					</ul>	
 				</li>
 			  <li>	
-				  	#startFormTag(controller="handbook.agbm-info", action="list", class="navbar-search")#
+				  	#startFormTag(route="handbookSearchAgbm", class="navbar-search")#
 					#textFieldTag(name="search", class="search-query input-small", placeholder="Search")#
 					#endFormTag()#
 			  </li>	
