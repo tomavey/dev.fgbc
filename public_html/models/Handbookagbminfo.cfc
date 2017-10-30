@@ -229,7 +229,7 @@ private function $arrayOfStructsSort(aOfS,key){
 		<cfquery dbtype="query" name="loc.return">
 			SELECT *
 			FROM loc.Agbm
-			WHERE lastpayment <= #arguments.currentmembershipyear-1#
+			WHERE lastpayment <= #arguments.currentmembershipyear#-1
 		</cfquery>
 
 		<cfreturn loc.return>
