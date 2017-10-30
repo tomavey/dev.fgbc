@@ -222,14 +222,14 @@ private function $arrayOfStructsSort(aOfS,key){
 	<cffunction name="findAllMailingList">
 	<cfargument name="orderby" default="lname,fname">
 	<cfargument name="currentMembershipYear" default="#currentMembershipYear()#">
-	<cfset var loc=structNew()>
+	<cfset var loc=arguments>
 
 		<cfset loc.agbm = getAgbm()>
 
 		<cfquery dbtype="query" name="loc.return">
 			SELECT *
 			FROM loc.Agbm
-			WHERE lastpayment <= #arguments.currentmembershipyear#-1
+			WHERE lastpayment <= #loc.currentmembershipyear#-1
 		</cfquery>
 
 		<cfreturn loc.return>
