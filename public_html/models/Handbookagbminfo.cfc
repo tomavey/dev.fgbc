@@ -228,15 +228,8 @@ private function $arrayOfStructsSort(aOfS,key){
 		<cfquery dbtype="query" name="loc.return">
 			SELECT *
 			FROM loc.Agbm
-			WHERE lastpayment <= #currentmembershipyear()-1#
+			WHERE lastpayment <= #currentMembershipYear()-1#
 		</cfquery>
-
-<!---
-Clean up maillist group assignments
-		<cfloop query="loc.return">
-			<cfset deletethis = model("Handbookgroup").deleteAll(where="personid = #id# AND grouptypeid = 16)>
-		</cfloop>
---->
 
 		<cfreturn loc.return>
 	</cffunction>
