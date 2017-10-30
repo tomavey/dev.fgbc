@@ -59,7 +59,7 @@
 			.get(name="setYear", pattern="/agbmInfo/setyear/[key]", controller="agbmInfo", action="setyear")
 			.get(name="AgbmRegions", pattern="/agbmregions/", controller="agbmregions", action="index")
 			.post(name="searchAgbm", pattern="/agbminfo/list/", controller="agbmInfo", action="list")
-			.get(name-"agbmLogout", pattern="/agbmInfo/logout/",controller="agbmInfo", action="logout")
+			.get(name="agbmLogout", pattern="/agbmInfo/logout/",controller="agbmInfo", action="logout")
 			.resources("agbmInfo")
 
 			.resources("agbmregions")
