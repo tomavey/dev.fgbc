@@ -2,13 +2,13 @@
   Default Styles
 ------------------------------------*/
 html {
-  font-size: 14px;
+  font-size: 16px;
   overflow-x: hidden; }
 
 body {
   font-weight: 400;
   font-size: 1rem;
-  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-family: "Fjalla One", Helvetica, Arial, sans-serif;
   line-height: 1.6;
   color: #555;
   -webkit-font-smoothing: antialiased;
@@ -18,12 +18,12 @@ body {
   background-color: #fff; }
 
 a {
-  color: #72c02c;
+  color: #4d7f70;
   outline: none; }
 
 a:focus,
 a:hover {
-  color: #66ab27; }
+  color: #70a086; }
 
 .nav-link {
   color: #555; }
@@ -39,8 +39,11 @@ figure {
   Headings
 ------------------------------------*/
 .h1, .h2, .h3, .h4, .h5, .h6, .h7,
-h1, h2, h3, h4, h5, h6 {
+h1
+{
   line-height: 1.4; }
+h2, h3, h4, h5, h6 {
+  line-height: 3; }
 
 .h7 {
   font-size: .75rem; }
@@ -58,16 +61,16 @@ h1, h2, h3, h4, h5, h6 {
 ------------------------------------*/
 ::-moz-selection {
   color: #fff;
-  background-color: #72c02c; }
+  background-color: #70a086; }
 
 ::selection {
   color: #fff;
-  background-color: #72c02c; }
+  background-color: #94d6ea; }
 
 .g-bg-primary ::-moz-selection {
-  color: #72c02c;
+  color: #70a086;
   background-color: #fff; }
 
 .g-bg-primary ::selection {
-  color: #72c02c;
+  color: #70a086;
   background-color: #fff; }

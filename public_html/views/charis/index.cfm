@@ -6,6 +6,7 @@
 
     <hr class="g-brd-gray-light-v4 my-0">
 
+<!---
     #includePartial("video2")#
 
     #includePartial("ourservices")#
@@ -17,6 +18,7 @@
     #includePartial("solutions")#
 
     #includePartial("counters")#
+--->
 
     #includePartial("news")#
 

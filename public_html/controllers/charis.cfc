@@ -5,7 +5,7 @@ component extends="Controller" {
     }
 
     public function index2(){
-        renderPage(layout="layout2");
+        renderPage(layout="layout");
     }
 
 }
