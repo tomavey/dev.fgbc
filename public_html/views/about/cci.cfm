@@ -2,14 +2,7 @@
 <cfoutput>
 
 
-<div class="row-fluid contentStart">
-    <div class="span12 well contentBg">
-        <div class="row-fluid">
-            <div class="span4">
-                #includePartial(partial="whoweare", selected="contact")#
-            </div>
-
-    <div id="cci" class="span8" style="margin-top:50px;">
+    <div id="cci" class="container card card-charie">
 
         <div id="introduction">
 
@@ -161,10 +154,10 @@
                     <li>We affirm that God&rsquo;s plan for this age includes the recognition, training and releasing of spiritually qualified and appropriately trained leaders.#getFootnote(99)# While the specific gifts, abilities and responsibilities of leaders may vary, all leaders must serve as servants of God,#getFootnote(100)# shepherds of God&rsquo;s people#getFootnote(101)# and stewards of God&rsquo;s resources.#getFootnote(102)#</li>
                     <li>We affirm that God&rsquo;s plan for this age is most fully expressed through establishing healthy churches. Although practices may vary between cultures, healthy local churches are comprised of believers in Christ who assume a mutual commitment to worship, learning, service, prayer and witness.#getFootnote(103)#</li>
                     <li>We affirm that God&rsquo;s plan for this age includes our responsibility to express the compassion of Christ through proclaiming the Gospel in words while loving in deeds.#getFootnote(104)# We are committed to finding creative and practical ways to address the physical, emotional, social and spiritual needs of a fallen humanity.#getFootnote(105)#</li>
-                </ol>
-            </div><!---end #charisidentity--->
-        </div>
-    </div><!---end #ourcci--->
+                    </ol>
+                </div><!---end #charisidentity--->
+            </div>
+    </div>    
 
     <div id="footnotes">
         <div class="sectionheader">
@@ -176,9 +169,9 @@
                 <li id="#i#">#i# - #footnotes[i]#</li>
             </cfloop>
         </ul>
-      </div>
+    </div>
 
 </div>
-
+</div>
 
 </cfoutput>

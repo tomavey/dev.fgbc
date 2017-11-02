@@ -4,12 +4,7 @@
 </cfif>
 <cfoutput>
 
-<div class="row-fluid well contentStart contentBg">
-	<div class="span3">
-		#includePartial(partial="sidebar", selected="home")#
-	</div>
-
-	<div class="span9">
+<div class="container card card-charis text-center">
 
 		<cfif isDefined("session.contactMessage")>
 		#session.contactMessage#
@@ -40,6 +35,6 @@
 		<cfif gotRights("superadmin,office")>
 			#linkTo(text="Return to the listing", action="index")#
 		</cfif>
-	</div>
+
 </div>
 </cfoutput>

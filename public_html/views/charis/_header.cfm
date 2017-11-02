@@ -7,50 +7,11 @@
 
             <div class="col-auto g-px-15 w-100 g-width-auto--md">
               <ul id="dropdown-megamenu" class="d-md-block collapse list-inline g-line-height-1 g-mx-minus-4 mb-0">
+              <cfoutput>
                 <li class="d-block d-md-inline-block g-mx-4">
-                  <a href="#" class="g-color-white g-color-primary--hover g-text-underline--none--hover">Contact</a>
+                  #linkTo(text="Contact Us", controller="messages", action="new", class="g-color-white g-color-primary--hover g-text-underline--none--hover")#
                 </li>
-                <li class="d-block g-hidden-md-down d-md-inline-block g-mx-4">|</li>
-                <li class="d-block d-md-inline-block g-mx-4">
-                  <a href="#" class="g-color-white g-color-primary--hover g-text-underline--none--hover">Forums</a>
-                </li>
-                <li class="d-block g-hidden-md-down d-md-inline-block g-mx-4">|</li>
-                <li class="hs-has-sub-menu d-block d-md-inline-block g-pos-rel g-mx-4">
-                  <a href="#" id="dropdown-invoker-3" class="g-color-white g-color-primary--hover g-text-underline--none--hover" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-3">Dropdown
-                  </a>
-                  <ul id="dropdown-3" class="hs-sub-menu list-unstyled g-bg-gray-dark-v1 g-py-10 g-px-20 g-mt-13" aria-labelledby="dropdown-invoker-3">
-                    <li class="g-py-10">
-                      <a href="#" class="d-block g-text-underline--none--hover g-color-white g-color-primary--hover">Dropdown Item</a>
-                    </li>
-                    <li class="g-py-10">
-                      <a href="#" class="d-block g-text-underline--none--hover g-color-white g-color-primary--hover">Dropdown Item</a>
-                    </li>
-                    <li class="hs-has-sub-menu g-py-10">
-                      <a href="#" id="dropdown-invoker-4" class="d-block g-text-underline--none--hover g-color-white g-color-primary--hover" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-4">Dropdown Item
-                  </a>
-                      <ul id="dropdown-4" class="hs-sub-menu list-unstyled g-bg-gray-dark-v1 g-py-10 g-px-20" aria-labelledby="dropdown-invoker-4">
-                        <li class="g-py-10">
-                          <a href="#" class="d-block g-text-underline--none--hover g-color-white g-color-primary--hover">Dropdown Item</a>
-                        </li>
-                        <li class="g-py-10">
-                          <a href="#" class="d-block g-text-underline--none--hover g-color-white g-color-primary--hover">Dropdown Item</a>
-                        </li>
-                        <li class="hs-has-sub-menu g-py-10">
-                          <a href="#" id="dropdown-invoker-5" class="d-block g-text-underline--none--hover g-color-white g-color-primary--hover" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-5">Dropdown Item
-                      </a>
-                          <ul id="dropdown-5" class="hs-sub-menu list-unstyled g-bg-gray-dark-v1 g-py-10 g-px-20" aria-labelledby="dropdown-invoker-5">
-                            <li class="g-py-10">
-                              <a href="#" class="d-block g-text-underline--none--hover g-color-white g-color-primary--hover">Dropdown Item</a>
-                            </li>
-                            <li class="g-py-10">
-                              <a href="#" class="d-block g-text-underline--none--hover g-color-white g-color-primary--hover">Dropdown Item</a>
-                            </li>
-                          </ul>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
+              </cfoutput>  
               </ul>
             </div>
 
@@ -92,26 +53,22 @@
 
             <!-- Navigation -->
             <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
-              <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto">
-                <li class="nav-item g-mx-20--lg active">
-                  <a href="index.cfm" class="nav-link px-0">Home
-                <span class="sr-only">(current)</span>
-              </a>
-                </li>
-                <li class="nav-item g-mx-20--lg">
-                  <a href="#" class="nav-link px-0">WHO WE ARE</a>
-                </li>
           <cfoutput>
+              <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto">
                 <li class="nav-item g-mx-20--lg">
-                    #linkTo(text="CHURCHES", controller="churches", action="index", class="nav-link px-0")#
-                
-              </a>
+                  #linkTo(text="HOME", controller="home", action="index", class="nav-link px-0 #isNavActive("home")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
-                    #linkTo(text="EVENTS", controller="events", action="index", class="nav-link px-0")#
+                  #linkTo(text="WHO ARE WE", controller="about", action="cci", class="nav-link px-0 #isNavActive("about")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
-                    #linkTo(text="OPPORTUNITIES", controller="jobs", action="index", class="nav-link px-0")#
+                    #linkTo(text="CHURCHES", controller="churches", action="index", class="nav-link px-0 #isNavActive("churches")#")#
+                </li>
+                <li class="nav-item g-mx-20--lg">
+                    #linkTo(text="EVENTS", controller="events", action="index", class="nav-link px-0 #isNavActive("events")#")#
+                </li>
+                <li class="nav-item g-mx-20--lg">
+                    #linkTo(text="OPPORTUNITIES", controller="jobs", action="index", class="nav-link px-0 #isNavActive("jobs")#")#
                 </li>
                 </cfoutput>       
               </ul>
@@ -122,3 +79,12 @@
       </div>
     </header>
     <!-- End Header -->
+
+    <cfscript>
+      public function isNavActive(item){
+        if (item EQ params.controller){
+          return "active";
+        } 
+        return "inactive";
+      }
+    </cfscript>
