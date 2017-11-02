@@ -43,6 +43,10 @@
 			.resources("rights")
 		.end()
 
+		.namespace("charis")
+			.resources("events")
+		.end()	
+
 		.namespace("handbook")
 			.get(name="downloadmemberchurchesadmin", pattern="/admin/downloadmemberchurches/", controller="admin", action="downloadMemberChurches")
 			.resources("admin")
