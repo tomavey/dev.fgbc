@@ -267,7 +267,7 @@
 			.root(controller="posts", action="login")
 		.end()
 
-		.resources("events")
+		.get(name="events", pattern="/events/", controller="events", action="index")
 		.get(name="showpage", pattern="page/[key]", controller="contents", action="show")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
 		.get(name="questions", pattern="/questions", controller="messages", action="cci_new")
