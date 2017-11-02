@@ -44,7 +44,7 @@
 		.end()
 
 		.namespace("charis")
-			.resources("events")
+			.get(name="events", pattern="/events", controller="charis", action="events")
 		.end()	
 
 		.namespace("handbook")
