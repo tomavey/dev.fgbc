@@ -1,3 +1,4 @@
+<cfdump var="#params#"><cfabort>
       <!-- Promo Block -->
     <section class="g-pos-rel">
       <div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll" data-options='{direction: "reverse", settings_mode_oneelement_max_offset: "150"}'>
