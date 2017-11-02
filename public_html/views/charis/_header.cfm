@@ -86,7 +86,7 @@
             <!-- End Responsive Toggle Button -->
             <!-- Logo -->
             <a href="index.html" class="navbar-brand">
-              <img src="../assets/img/logo/charis-logo-main.png" alt="charis-fellowship-logo">
+              <img src="../../assets/img/logo/charis-logo-main.png" alt="charis-fellowship-logo">
             </a>
             <!-- End Logo -->
 
