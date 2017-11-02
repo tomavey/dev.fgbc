@@ -267,6 +267,7 @@
 			.root(controller="posts", action="login")
 		.end()
 
+		.resources("events")
 		.get(name="showpage", pattern="page/[key]", controller="contents", action="show")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
 		.get(name="questions", pattern="/questions", controller="messages", action="cci_new")
@@ -378,7 +379,7 @@
 		.get(name="forAttendifyJson", pattern="/conference.attendify/schema", controller="conference.attendify", action="json")
 		.get(name="constitution", pattern="/constitution", controller="contents", action="constitution")
 		.get(name="churches", pattern="/churches", controller="churches", action="index")
-		.root(controller="Home", action="index")
+		.root(controller="Charis", action="index")
 		.wildcard()
 
 	.end();
