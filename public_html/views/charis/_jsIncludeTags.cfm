@@ -23,7 +23,8 @@
         #folder#/hs-bg-video/hs-bg-video,
         #folder#/hs-bg-video/vendor/player.min,
         #folder#/fancybox/jquery.fancybox.min,
-        #folder#/typedjs/typed.min
+        #folder#/typedjs/typed.min,
+        #folder#/custombox/custombox.min
     ")#
 
   <!-- JS Unify -->
@@ -37,6 +38,7 @@
       #folder#/components/hs.cubeportfolio,
       #folder#/helpers/hs.bg-video,
       #folder#/components/hs.popup,
+      #folder#/components/hs.modal-window,
       #folder#/components/text-animation/hs.text-slideshow,
       #folder#/components/hs.go-to,
       #folder#/vue
@@ -64,6 +66,9 @@
 
         // initialization of go to
         $.HSCore.components.HSGoTo.init('.js-go-to');
+
+        // initialization of popups
+        $.HSCore.components.HSModalWindow.init('[data-modal-target]');
 
         // initialization of text animation (typing)
         $(".u-text-animation.u-text-animation--typing").typed({

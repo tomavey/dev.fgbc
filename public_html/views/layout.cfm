@@ -5,6 +5,8 @@
 
     #includePartial("/charis/head")#
 
+    #includePartial("/charis/modal_login")#
+
         <body>
 
             <main>

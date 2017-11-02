@@ -1,13 +1,6 @@
 <cfoutput>
 
-<div class="row-fluid well contentStart contentBg">
-
-	<div class="span3">
-		#includePartial("/about/whoweare")#
-	</div>
-
-
-	<div class="span9">
+<div class="container card card-charis">
 
 		<cfif !len(content.rightsRequired) OR gotRights(content.rightsRequired)>
 
@@ -42,8 +35,6 @@
 		<cfelse>
 			<p>You do not have permission to view this page.</p>
 		</cfif>		
-
-	</div>
 
 </div>
 </cfoutput>

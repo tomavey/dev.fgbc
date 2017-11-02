@@ -18,7 +18,7 @@
             <div class="col-auto g-px-15">
               <ul class="list-inline g-line-height-1 g-mt-minus-10 g-mx-minus-4 mb-0">
                 <li class="list-inline-item g-mx-4 g-mt-10">
-                  <a href="#" class="g-color-white g-color-primary--hover g-text-underline--none--hover">Login</a>
+                  <a href="#login" data-modal-target="#login" data-modal-effect="slide" class="g-color-white g-color-primary--hover g-text-underline--none--hover">Login</a>
                 </li>
                 <li class="list-inline-item g-mx-4 g-mt-10">|</li>
                 <li class="list-inline-item g-mx-4 g-mt-10">
@@ -77,6 +77,7 @@
           </div>
         </nav>
       </div>
+
     </header>
     <!-- End Header -->
 

@@ -36,6 +36,13 @@
         #folder#/hs-bg-video/hs-bg-video
       ")#
 
+  <!-- Implementing Pluggins -->
+
+#styleSheetLinkTag("
+      #folder#/custombox/custombox.min
+")#
+      
+
   <!-- CSS Unify -->
 
   <cfset folder = "/assets/css">
