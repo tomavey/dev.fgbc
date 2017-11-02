@@ -10,12 +10,11 @@
       </div>
     </section>
     <!-- End Promo Block --> 
-<cfoutput>#opportunities.columnlist#</cfoutput>
 	  <div class="container text-center g-py-100">
             <div class="g-pr-40--lg">
               <!-- Heading -->
               <h2 class="h2 g-color-grey g-font-weight-600 mb-4">Opportunities</h2>
-              <cfoutput query="opportunities">
+              <cfoutput query="job">
               <div class="card card-charis">
               <h4 class="card-title">#linkTo(text=title, key=id)#</h4>
               <div class="card-text text-left">
