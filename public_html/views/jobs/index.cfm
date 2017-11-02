@@ -5,12 +5,16 @@
 
          <div class="container text-center g-py-130">
         <h3 class="h3 g-color-white g-font-weight-300 mb-2">Ministry Possibilities</h3>
-        <p class="g-color-white g-font-weight-600 g-font-size-35 text-uppercase">Charis Fellowship Churches have posted the following opennings.</p>
+        <p class="g-color-white g-font-weight-600 g-font-size-35 text-uppercase">Charis Fellowship churches have posted the following opennings...</p>
       </div>
       </div>
     </section>
     <!-- End Promo Block --> 
 	  <div class="container text-center g-py-100">
+			<cfoutput>
+				<div>#getcontent("jobs").content#</div>
+				<hr/>
+			</cfoutput>
             <div class="g-pr-40--lg">
               <!-- Heading -->
               <h2 class="h2 g-color-grey g-font-weight-600 mb-4">Opportunities</h2>
