@@ -13,7 +13,8 @@
     <!-- End Promo Block --> 
 	  <div class="container text-center g-py-100">
 			<cfoutput>
-				<div>#getcontent("jobs").content#</div>
+				<p>#getcontent("jobs").content#</p>
+        #linkto(text="Post a new opportunity", controller="jobs", action="new", class="btn btn-md u-btn-outline-teal g-mr-10 g-mb-15")#
 				<hr/>
 			</cfoutput>
             <div class="g-pr-40--lg">
