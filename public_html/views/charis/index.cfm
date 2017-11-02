@@ -20,7 +20,7 @@
     #includePartial("counters")#
 --->
 
-    #includePartial("new")#
+    #includePartial("news")#
 
 </cfoutput>
 
