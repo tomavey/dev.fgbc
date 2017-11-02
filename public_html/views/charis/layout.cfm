@@ -2,27 +2,27 @@
 <html lang="en">
 
 <cfoutput>
-#includePartial("head")#
 
+    #includePartial("head")#
 
-<body>
+        <body>
 
-<main>
+            <main>
 
-#includePartial("header")#
+                #includePartial("header")#
 
-#contentForLayout()#
-   
-</main>
+                #contentForLayout()#
 
-<div class="u-outer-spaces-helper"></div>
+                #includePartial("footer")#
 
+            </main>
 
-#includePartial("jsIncludeTags")#
+        <div class="u-outer-spaces-helper"></div>
+
+        #includePartial("jsIncludeTags")#
+
+    </body>
+
 </cfoutput>
-
-
-
-</body>
 
 </html>

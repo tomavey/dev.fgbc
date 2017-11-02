@@ -39,8 +39,7 @@
       #folder#/components/hs.popup,
       #folder#/components/text-animation/hs.text-slideshow,
       #folder#/components/hs.go-to,
-      #folder#/vue.min,
-      #folder#/app
+      #folder#/vue
     ")#
 
   <!-- JS Customization -->

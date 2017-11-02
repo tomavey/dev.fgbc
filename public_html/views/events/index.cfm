@@ -21,9 +21,9 @@
                               #dateformat(begin,"medium")#
                           <cfelse>
                               <cfif datepart("m",begin) is datepart("m",end)>
-                            #dateformat(begin,"MMM")# #dateformat(begin,"dd")# - #dateformat(end,"dd")#, #dateformat(begin,"yyyy")#
+                                #dateformat(begin,"MMM")# #dateformat(begin,"dd")# - #dateformat(end,"dd")#, #dateformat(begin,"yyyy")#
                               <cfelse>
-                              #dateformat(begin,"MMM")# #dateformat(begin,"dd")# - #dateformat(end,"MMM")# #dateformat(end,"dd")#, #dateformat(begin,"yyyy")#
+                                #dateformat(begin,"MMM")# #dateformat(begin,"dd")# - #dateformat(end,"MMM")# #dateformat(end,"dd")#, #dateformat(begin,"yyyy")#
                               </cfif>
                           </cfif>
             </div>
