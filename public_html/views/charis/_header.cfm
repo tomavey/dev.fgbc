@@ -113,7 +113,7 @@
                     #linkTo(text="EVENTS", controller="events", action="index", class="nav-link px-0")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
-                    #linkTo(text="OPPORTUNITIES", controller="charis", action="opportunities", class="nav-link px-0")#
+                    #linkTo(text="OPPORTUNITIES", controller="jobs", action="index", class="nav-link px-0")#
                 </li>
                 </cfoutput>       
               </ul>
