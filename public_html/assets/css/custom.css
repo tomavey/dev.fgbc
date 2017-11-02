@@ -1,1 +1,11 @@
-.card-charis {border-radius:20px; border-width:5px; margin-bottom:10px; border-color:#699082; padding:10px}
+.card-charis {
+    border-radius:20px; 
+    border-width:5px; 
+    margin:10 0; 
+    border-color:#699082; 
+    padding:10px
+}
+
+.card-charis-square {
+    border-radius:0px;
+}
