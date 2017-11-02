@@ -11,10 +11,6 @@
 		<cfset events = model("Mainevent").findAll(order="begin,end")>
 	</cffunction>
 
-	<cffunction name="events">
-		<cfdump var="#params#"><cfabort>
-	</cffunction>
-
 	<cffunction name="list">
 		<cfset redirectTo("index")>
 	</cffunction>

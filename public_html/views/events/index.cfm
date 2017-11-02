@@ -1,3 +1,5 @@
+Events
+<!---
 <cfoutput> 
 <div class="row-fluid well contentStart contentBg">
     <div class="span3">
@@ -39,3 +41,4 @@
      </div>
 </div>
 </cfoutput>
+--->
