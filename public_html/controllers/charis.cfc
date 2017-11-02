@@ -12,6 +12,10 @@ component extends="Controller" {
         events = model("Mainevent").findAll(where="begin > now()", order="begin,end");
     }
 
+    public function index(){
+        writeOutput("Hi");abort;
+    }
+
     public function opportunities(){
         var loc = structNew();
 		if (isdefined("params.key")) {
