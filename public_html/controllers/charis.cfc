@@ -13,7 +13,6 @@ component extends="Controller" {
     }
 
     public function index(){
-        writeOutput("Hi");abort;
     }
 
     public function opportunities(){
