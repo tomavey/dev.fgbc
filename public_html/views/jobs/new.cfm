@@ -1,10 +1,5 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
-	<div class="span3">
-		#includePartial(partial="sidebar", selected="all")#
-	</div>
-
-	<div class="span9">
+	<div class="container card card-charis">
 			#errorMessagesFor("job")#
 			<cfif flashKeyExists("error")>
 				<p class="errorMessage">
@@ -35,5 +30,4 @@
 #linkTo(text="Return to the listing", action="index")#
 
 	</div>
-</div>
 </cfoutput>

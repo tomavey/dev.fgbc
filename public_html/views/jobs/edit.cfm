@@ -1,4 +1,4 @@
-<div class="colorbox postbox">
+<div class="container card card-charis">
 
 <cfoutput>
 
