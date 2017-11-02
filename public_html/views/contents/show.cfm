@@ -11,7 +11,7 @@
     </section>
     <!-- End Promo Block --> 
 
-<div class="container card card-charis">
+<div class="container card card-charis card-charis-square">
 
 		<cfif !len(content.rightsRequired) OR gotRights(content.rightsRequired)>
 
