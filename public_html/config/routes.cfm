@@ -43,10 +43,6 @@
 			.resources("rights")
 		.end()
 
-		.namespace("charis")
-			.get(name="events", pattern="/events", controller="charis", action="events")
-		.end()	
-
 		.namespace("handbook")
 			.get(name="downloadmemberchurchesadmin", pattern="/admin/downloadmemberchurches/", controller="admin", action="downloadMemberChurches")
 			.resources("admin")
@@ -270,6 +266,8 @@
 			.get(name="show", pattern="/page/[key]", controller="posts", action="show")
 			.root(controller="posts", action="login")
 		.end()
+
+		.get(name="events", pattern="/events", controller="charis", action="events")
 
 		.get(name="showpage", pattern="page/[key]", controller="contents", action="show")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
