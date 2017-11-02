@@ -1,3 +1,30 @@
+<div class="container text-center">
+<cfoutput query="churches" group="state">
+    <h2>#state#</h2>
+    <cfoutput>
+      <p>
+      #name#<br/>
+      <cfif len(address1)>
+        #address1#<br/>
+      </cfif>  
+      <cfif len(address2)>
+        #address2#<br/>
+      </cfif>  
+      #org_city# #state# #zip#<br/>
+      <cfif len(email)>
+        #mailto(email)#<br/>
+      </cfif>  
+      <cfif len(phone)>
+        #phone#
+      </cfif>  
+      
+      </p>
+    </cfoutput>
+</cfoutput>
+</div>
+
+
+<!---
 <cfoutput>
   <div class="row-fluid well contentStart contentBg">
     <div class="span3">
@@ -172,3 +199,4 @@
         // });
       });
     </script>
+    --->

@@ -1,3 +1,5 @@
+<cfdump var="#churches#">
+<!---
 <cfoutput>
   <div class="row-fluid well contentStart contentBg">
     <div class="span3">
@@ -144,3 +146,4 @@
         // });
       });
     </script>
+    --->

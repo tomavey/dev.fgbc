@@ -85,7 +85,7 @@
             </button>
             <!-- End Responsive Toggle Button -->
             <!-- Logo -->
-            <a href="index.html" class="navbar-brand">
+            <a href="index.cfm" class="navbar-brand">
               <img src="../../assets/img/logo/charis-logo-main.png" alt="charis-fellowship-logo">
             </a>
             <!-- End Logo -->
@@ -94,21 +94,19 @@
             <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
               <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto">
                 <li class="nav-item g-mx-20--lg active">
-                  <a href="#" class="nav-link px-0">Home
+                  <a href="index.cfm" class="nav-link px-0">Home
                 <span class="sr-only">(current)</span>
               </a>
                 </li>
                 <li class="nav-item g-mx-20--lg">
-                  <a href="#" class="nav-link px-0">WHO WE ARE
-                
-              </a>
+                  <a href="#" class="nav-link px-0">WHO WE ARE</a>
                 </li>
+          <cfoutput>
                 <li class="nav-item g-mx-20--lg">
-                  <a href="#" class="nav-link px-0">CHURCHES
+                    #linkTo(text="CHURCHES", controller="churches", action="index", class="nav-link px-0")#
                 
               </a>
                 </li>
-                <cfoutput>
                 <li class="nav-item g-mx-20--lg">
                     #linkTo(text="EVENTS", controller="events", action="index", class="nav-link px-0")#
                 </li>
