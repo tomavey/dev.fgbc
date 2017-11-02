@@ -8,7 +8,7 @@
 
 	<cffunction name="index">
 		<cfset setreturn()>
-		<cfset events = model("Mainevent").findAll(order="begin,end")>
+		<cfset events = model("Mainevent").findAll(where="begin > now()", order="begin,end")>
 	</cffunction>
 
 	<cffunction name="list">
