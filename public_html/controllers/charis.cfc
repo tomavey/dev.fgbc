@@ -9,6 +9,7 @@ component extends="Controller" {
     }
 
     public function events(){
+        writeDump(params);abort;
         events = model("Mainevent").findAll(where="begin > now()", order="begin,end");
     }
 
