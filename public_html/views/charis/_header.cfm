@@ -110,7 +110,7 @@
                 </li>
                 <cfoutput>
                 <li class="nav-item g-mx-20--lg">
-                    #linkTo(text="EVENTS", controller="charis", action="events", class="nav-link px-0")#
+                    #linkTo(text="EVENTS", controller="events", action="index", class="nav-link px-0")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
                     #linkTo(text="OPPORTUNITIES", controller="charis", action="opportunities", class="nav-link px-0")#
