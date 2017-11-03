@@ -60,7 +60,7 @@
             </button>
             <!-- End Responsive Toggle Button -->
             <!-- Logo -->
-            <a href="index.cfm" class="navbar-brand">
+            <a href="/" class="navbar-brand">
               <img src="../../assets/img/logo/charis-logo-main.png" alt="charis-fellowship-logo">
             </a>
             <!-- End Logo -->
@@ -70,7 +70,7 @@
           <cfoutput>
               <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto">
                 <li class="nav-item g-mx-20--lg">
-                  #linkTo(text="HOME", controller="Home", action="index", class="nav-link px-0 #isNavActive("home")#")#
+                  #linkTo(text="HOME", route="home", class="nav-link px-0 #isNavActive("home")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
                   #linkTo(text="WHO ARE WE", controller="about", action="cci", class="nav-link px-0 #isNavActive("about")#")#
