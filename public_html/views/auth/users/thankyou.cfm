@@ -1,5 +1,5 @@
 <div class="container card card-charis card-charis-square text-center">
-<h1>Thank you for creating a new account at fgbc.org!</h1>
+<h1>Thank you for creating a new account at charisfellowship.us!</h1>
 <p>You should be logged in now.</p>
 <cfoutput>
 	<cfif isDefined("session.originalURL")>
