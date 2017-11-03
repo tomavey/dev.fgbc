@@ -36,43 +36,44 @@
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Grace College and Seminary</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.encompassworldpartners.org/" target="_new">Eagle Commission</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Eagle Commission</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">CE National</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.cenational.org/" target="_new">CE National</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
                             <li class="g-pos-rel g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Grace Brethren Investment Foundation</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.gbif.com/" target="_new">Grace Brethren Investment Foundation</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+                            <li class="g-pos-rel g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.grace.edu" target="_new">Grace College and Seminary</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+
+							  <li class="g-pos-rel g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.graceconnect.us/" target="_new">Grace Connect</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
 							  <li class="g-pos-rel g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Grace Connect</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.wgusa.org" target="_new">Women of Grace</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
 							  <li class="g-pos-rel g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Women of Grace</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-							  <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Association of Grace Brethren Ministers</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.agbm.org" target="_new">Association of Grace Brethren Ministers</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>

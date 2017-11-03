@@ -1,4 +1,4 @@
-<div class="postbox">
+<div class="container card card-charis card-charis-square">
 <h1>Thank you for creating a new account at fgbc.org!</h1>
 <p>You should be logged in now.</p>
 <cfoutput>
