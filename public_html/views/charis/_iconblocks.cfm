@@ -31,7 +31,7 @@ COMMITMENTS</h1>
             <!-- Icon Blocks -->
             <div class="text-center">
               <h3 class="h5 g-color-gray-dark-v2 g-font-weight-600 text-uppercase mb-3">BIBLICAL<br>MISSION</h3>
-              <p class="mb-0">We affirm that God’s plan for this age is best summarized in Jesus’ command to make disciples of all nations. This includes the evangelistic call to reconciliation with God by means of the completed work of Christ and the lifelong pursuit of obedience to God by means of the ongoing work of the Holy Spirit.</p>
+              <p class="mb-0">We affirm that God's plan for this age is best summarized in Jesus' command to make disciples of all nations. This includes the evangelistic call to reconciliation with God by means of the completed work of Christ and the lifelong pursuit of obedience to God by means of the ongoing work of the Holy Spirit.</p>
             </div>
             <!-- End Icon Blocks -->
           </div>
