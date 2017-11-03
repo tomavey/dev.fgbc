@@ -60,7 +60,7 @@ MISSION</h1>
                         <h3 class="h5 g-color-white g-font-weight-600 text-uppercase mb-3">PLANTING CHURCHES</h3>
                         <p class="g-color-white">Text placed here about planting churches. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         <cfoutput>
-                          #linkTo(text="GET STARTED", route="showpage", key=110, class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
+                          #linkTo(text="GET STARTED", route="showpage", key="plantingchurches" , class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
                         </cfoutput>  
                       </div>
                       <!-- End Icon Blocks -->
