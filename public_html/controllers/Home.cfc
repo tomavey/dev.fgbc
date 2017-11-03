@@ -14,14 +14,7 @@
 
 <!---Views--->
 	<cffunction name="index">
-		<cfif isDefined("params.nomobile")>
-			<cfset session.auth.nomobile = true>
-		<cfelseif isDefined("params.mobile")>
-			<cfset session.auth.nomobile = false>
-		</cfif>
-		<cfif isMobile()>
-			<cfset redirectTo(controller="mobile")>
-		</cfif>
+		<cfset session.auth.nomobile = true>
 		<cfif isDefined("session.auth.login") and session.auth.login>
 			<cfset isCategoryMenu = true>
 		<cfelse>
