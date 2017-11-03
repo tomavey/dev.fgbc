@@ -1,9 +1,23 @@
-<div class="container text-center">
+<cfparam name="title" default="Churches and Campuses in the Charis Fellowship">
+
+      <!-- Promo Block -->
+    <section class="g-pos-rel">
+      <div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll" data-options='{direction: "reverse", settings_mode_oneelement_max_offset: "150"}'>
+        <div class="divimage dzsparallaxer--target w-100 g-bg-cover g-bg-pos-top-center g-bg-img-hero g-bg-bluegray-opacity-0_2--after" style="height: 130%; background-image: url(../assets/img/extra-hero-image.jpg);"></div>
+
+         <div class="container text-center g-py-130">
+        <p class="g-color-white g-font-weight-600 g-font-size-35 text-uppercase"><cfoutput>#title#</cfoutput></p>
+      </div>
+      </div>
+    </section>
+    <!-- End Promo Block --> 
+    
+<div class="container card card-charis card-charis-square text-center">
 <cfoutput query="churches" group="state">
     <h2>#state#</h2>
     <cfoutput>
-      <p>
-      #name#<br/>
+    <p class="card">
+      <h4>#name#</h4>
       <cfif len(address1)>
         #address1#<br/>
       </cfif>  
@@ -17,8 +31,7 @@
       <cfif len(phone)>
         #phone#
       </cfif>  
-      
-      </p>
+    </p>  
     </cfoutput>
 </cfoutput>
 </div>

@@ -1,4 +1,4 @@
-<div class="postbox" id=#params.controller#.#params.action#>
+<div class="container card card-charis text-center">
 <cfoutput>
 <h1>Edit Account for Username: "#user.username#"</h1>
 

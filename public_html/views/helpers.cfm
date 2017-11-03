@@ -176,7 +176,7 @@
 <cfargument name="params" require="false" type="string">
 <cfif isDefined("arguments.id")>
 	<cfreturn "#linkTo(
-					text="<i class='icon-plus'></i>",
+					text="add",
 					controller = '#arguments.controller#',
 					action=arguments.action,
 					key=arguments.id,
@@ -184,7 +184,7 @@
 					)#">
 <cfelseif isDefined("arguments.params")>
 	<cfreturn "#linkTo(
-					text="<i class='icon-plus'></i>",
+					text="add",
 					controller = '#arguments.controller#',
 					action=arguments.action,
 					params=arguments.params,
@@ -192,7 +192,7 @@
 					)#">
 <cfelse>
 	<cfreturn "#linkTo(
-					text="<i class='icon-plus'></i>",
+					text="add",
 					controller = '#arguments.controller#',
 					action=arguments.action,
 					title="Add New"
@@ -210,7 +210,7 @@
 </cfif>
 
 		<cfreturn "#linkTo(
-						text="<i class='icon-trash'></i>",
+						text="delete",
 						controller=arguments.controller,
 						action='delete',
 						key=arguments.id,
@@ -228,7 +228,7 @@
 <cfargument name="action" default="show">
 <cfargument name="params" default="">
 		<cfreturn "#linkTo(
-						text="<i class='icon-search'></i>",
+						text="show",
 						controller=arguments.controller,
 						action=arguments.action,
 						key=arguments.ID,
@@ -241,7 +241,7 @@
 <cfargument name="controller" default="#params.controller#">
 <cfset arguments.controller = lCase(arguments.controller)>
 	<cfreturn "#linkTo(
-					text="#imageTag('/list-icon.png')#",
+					text="list",
 					controller=arguments.controller,
 					action='index',
 					title="list"
@@ -253,7 +253,7 @@
 <cfargument name="controller" default="#params.controller#">
 <cfset arguments.controller = lCase(arguments.controller)>
 			<cfreturn "#linkTo(
-							text='<i class="icon-edit"></i>',
+							text='edit',
 							controller=arguments.controller,
 							action='edit',
 							key=arguments.id,
@@ -266,7 +266,7 @@
 <cfargument name="controller" default="#params.controller#">
 <cfset arguments.controller = lCase(arguments.controller)>
 			<cfreturn "#linkTo(
-							text='<i class="icon-plus-sign"></i>',
+							text='copy',
 							controller=arguments.controller,
 							action='copy',
 							key=arguments.id,

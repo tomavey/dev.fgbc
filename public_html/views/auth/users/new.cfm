@@ -1,5 +1,5 @@
-<div class="postbox" id="#params.controller##params.action#">
-<h1>Create a new FGBC user account: </h1>
+<div class="container card card-charis text-center">
+<h1>Create a new Charis user account: </h1>
 
 <cfoutput>
 

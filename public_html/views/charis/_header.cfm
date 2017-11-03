@@ -15,19 +15,33 @@
               </ul>
             </div>
 
+<cfoutput>
             <div class="col-auto g-px-15">
               <ul class="list-inline g-line-height-1 g-mt-minus-10 g-mx-minus-4 mb-0">
                 <li class="list-inline-item g-mx-4 g-mt-10">
-                  <a href="#login" data-modal-target="#login" data-modal-effect="slide" class="g-color-white g-color-primary--hover g-text-underline--none--hover">Login</a>
+                  <cfif gotRights("basic")>
+                      #linkTo(text="Logout", route="authLogoutUser", class="g-color-white g-color-primary--hover g-text-underline--none--hover")#
+                  <cfelse>
+                      <a href="##login" data-modal-target="##login" data-modal-effect="slide" class="g-color-white g-color-primary--hover g-text-underline--none--hover">Login</a>
+                  </cfif>    
                 </li>
+                <cfif !gotRights("basic")>
                 <li class="list-inline-item g-mx-4 g-mt-10">|</li>
-                <li class="list-inline-item g-mx-4 g-mt-10">
-                  <a href="#" class="g-color-white g-color-primary--hover g-text-underline--none--hover">Register</a>
-                </li>
+                  <li class="dropdown list-inline-item g-mx-4 g-mt-10">
+                    <a class="dropdown-toggle g-color-white g-color-primary--hover g-text-underline--none--hover" data-toggle="dropdown" href="##">Account<b class="caret"></b></a>
+                    <ul class="dropdown-menu" style="padding:10px">
+                      <li>#linkTo(text="Create an Account.", route="authNewUser")#</li>
+                      <li class="list-inline-item g-mx-4 g-mt-10">
+                      </li>
+                      <li>#linkTo(text="Forgot Password.", route="authForgotPassword")#</li>
+                    </ul>
+                  </li>
+                </cfif>    
                 <li class="list-inline-item g-mx-4 g-mt-10">
                 </li>
               </ul>
             </div>
+  </cfoutput>          
           </div>
         </div>
       </div>
@@ -56,7 +70,7 @@
           <cfoutput>
               <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto">
                 <li class="nav-item g-mx-20--lg">
-                  #linkTo(text="HOME", controller="Charis", action="index", class="nav-link px-0 #isNavActive("home")#")#
+                  #linkTo(text="HOME", controller="Home", action="index", class="nav-link px-0 #isNavActive("home")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
                   #linkTo(text="WHO ARE WE", controller="about", action="cci", class="nav-link px-0 #isNavActive("about")#")#
@@ -70,8 +84,8 @@
                 <li class="nav-item g-mx-20--lg">
                     #linkTo(text="OPPORTUNITIES", controller="jobs", action="index", class="nav-link px-0 #isNavActive("jobs")#")#
                 </li>
-                </cfoutput>       
               </ul>
+            </cfoutput>       
             </div>
             <!-- End Navigation -->
           </div>

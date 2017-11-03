@@ -59,7 +59,9 @@ MISSION</h1>
                         <img src="assets/img/icons/planting-churches-1.png" alt="Church Planting" width="170" class="u-image-icon-size-2xl rounded-circle g-mb-25">
                         <h3 class="h5 g-color-white g-font-weight-600 text-uppercase mb-3">PLANTING CHURCHES</h3>
                         <p class="g-color-white">Text placed here about planting churches. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-						  <a href="#" class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15">GET STARTED</a>
+                        <cfoutput>
+                          #linkTo(text="GET STARTED", controller="contents", action="show", key=111, class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
+                        </cfoutput>  
                       </div>
                       <!-- End Icon Blocks -->
                     </div>
@@ -70,7 +72,9 @@ MISSION</h1>
                         <img class="u-image-icon-size-2xl rounded-circle g-mb-25" src="assets/img/icons/training-leaders-1.png" alt="Church Planting">
                         <h3 class="h5 g-color-white g-font-weight-600 text-uppercase mb-3">TRAINING LEADERS</h3>
                         <p class="g-color-white">Text placed here about training leaders. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-						  <a href="#" class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15">LEARN HOW</a>
+                        <cfoutput>
+                          #linkTo(text="LEARN HOW", controller="contents", action="show", key=110, class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
+                        </cfoutput>  
                       </div>
                       <!-- End Icon Blocks -->
                     </div>
@@ -81,7 +85,9 @@ MISSION</h1>
                         <img class="u-image-icon-size-2xl rounded-circle g-mb-25" src="assets/img/icons/doing-good.png" alt="Church Planting">
                         <h3 class="h5 g-color-white g-font-weight-600 text-uppercase mb-3">DOING GOOD</h3>
                         <p class="g-color-white">Text placed here about doing good. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-						  <a href="#" class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15">DO GOOD</a>
+                        <cfoutput>
+                          #linkTo(text="GET STARTED", controller="contents", action="show", key=112, class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
+                        </cfoutput>  
                       </div>
                       <!-- End Icon Blocks -->
                     </div>

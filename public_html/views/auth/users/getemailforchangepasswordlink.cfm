@@ -1,4 +1,4 @@
-<div class="postbox" id=#params.controller#.#params.action#>
+<div class="container card card-charis text-center">
 <h1>Enter your email address:</h1>
 <p>If the email address you enter here is found in our system, you will be sent a link to change your password.</p>
 <cfoutput>

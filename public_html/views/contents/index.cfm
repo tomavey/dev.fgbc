@@ -1,4 +1,4 @@
-<div class="postbox" id=#params.controller#.#params.action#>
+<div class="container card card-charis card-charis-square" id=#params.controller#.#params.action#>
 
 <h1>Listing contents</h1>
 

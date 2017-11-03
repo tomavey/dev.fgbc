@@ -2,7 +2,7 @@
 <cfset officemenucount = 0>
 
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
+<div class="container card card-charis card-charis-square">
     <div class="span3">
         &nbsp;
     </div>
