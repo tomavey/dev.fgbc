@@ -1,7 +1,7 @@
 <cfoutput>
     <!-- Promo Block -->
-    <section class="g-pos-rel">
-      <div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll promo-charis" data-options='{direction: "reverse", settings_mode_oneelement_max_offset: "150"}'>
+    <section class="g-pos-rel promo-charis">
+      <div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll" data-options='{direction: "reverse", settings_mode_oneelement_max_offset: "150"}'>
         <div class="divimage dzsparallaxer--target w-100 g-bg-cover g-bg-pos-top-center g-bg-img-hero g-bg-bluegray-opacity-0_2--after" style="height: 130%; background-image: url(../assets/img/extra-hero-image.jpg);"></div>
 
          <div class="container text-center g-py-130">
