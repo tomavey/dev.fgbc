@@ -267,7 +267,7 @@
 			.root(controller="posts", action="login")
 		.end()
 
-		.get(name="showpage", pattern="page/[key]", controller="contents", action="show")
+		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
 		.get(name="questions", pattern="/questions", controller="messages", action="cci_new")
 		.get(name="conferencereg", pattern="/conference", controller="conference.register", action="welcome")
@@ -280,7 +280,6 @@
 		.get(name="application", pattern="/application/[key]", controller="membership.applications", action="checkin")
 		.get(name="application", pattern="/application", controller="membership.applications", action="checkin")
 		.get(name="applications", pattern="/applications", controller="membership.applications", action="index")
-		.get(name="page", pattern="/page/[key]", controller="contents", action="show")
 		.get(name="delegate", pattern="/delegate", controller="membership.delegates", action="new")
 		.get(name="delegates", pattern="/delegates", controller="membership.delegates", action="index")
 		.get(name="senddelegates", pattern="/senddelegates/", controller="membership.delegates", action="submit")
