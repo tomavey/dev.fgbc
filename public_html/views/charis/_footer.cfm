@@ -57,7 +57,7 @@
                           <ul class="list-unstyled g-mt-minus-10 mb-0">
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.encompassworldpartners.org/">Encompass World Partners</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.encompassworldpartners.org/" target="_blank">Encompass World Partners</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
@@ -109,6 +109,63 @@
                       </div>
                       <!-- End Footer Content -->
 
+                      <!-- Footer Content -->
+                      <div class="col-lg-3 col-md-6 g-mb-40 g-mb-0--lg">
+                        <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
+                          <h2 class="u-heading-v2__title h6 text-uppercase mb-0">MINISTRIES</h2>
+                        </div>
+
+                        <nav class="text-uppercase1">
+                          <ul class="list-unstyled g-mt-minus-10 mb-0">
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.assistcx.org/" target="_blank">Assist Church Expansion</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.eaglecommission.org/" target="_new">Eagle Commission</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.grownewengland.net/" target="_new">Grow New England</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+                            <li class="g-pos-rel g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.metrograce.org/" target="_new">Metro Grace</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+                            <li class="g-pos-rel g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.goseednet.com/" target="_new">SeedNet</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+
+							  <li class="g-pos-rel g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.graceconnect.us/" target="_new">Grace Connect</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+							  <li class="g-pos-rel g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.visionusa.org/" target="_new">Vision USA</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+                          </ul>
+                        </nav>
+                      </div>
+                      <!-- End Footer Content -->
+
+<!---                      
                       <!-- Footer Content -->
                       <div class="col-lg-3 col-md-6 g-mb-40 g-mb-0--lg">
                         <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
@@ -184,6 +241,9 @@
                         </ul>
                       </div>
                       <!-- End Footer Content -->
+
+--->
+
                     </div>
                   </div>
                 </div>
