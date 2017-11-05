@@ -6,18 +6,14 @@
           <div class="row flex-column flex-md-row align-items-center justify-content-between text-uppercase g-color-white g-font-size-11 g-mx-minus-15">
 
             <div class="col-auto g-px-15 w-100 g-width-auto--md">
-              <ul id="dropdown-megamenu" class="d-md-block collapse list-inline g-line-height-1 g-mx-minus-4 mb-0">
-              <cfoutput>
-                <li class="d-block d-md-inline-block g-mx-4">
-                  #linkTo(text="Contact Us", controller="messages", action="new", class="g-color-white g-color-primary--hover g-text-underline--none--hover")#
-                </li>
-              </cfoutput>  
-              </ul>
             </div>
 
 <cfoutput>
             <div class="col-auto g-px-15">
               <ul class="list-inline g-line-height-1 g-mt-minus-10 g-mx-minus-4 mb-0">
+                <li class="list-inline-item g-mx-4 g-mt-10">
+                    #linkTo(text="Contact Us", controller="messages", action="new", class="g-color-white g-color-primary--hover g-text-underline--none--hover")#
+                </li>
                 <li class="list-inline-item g-mx-4 g-mt-10">
                   <cfif gotRights("basic")>
                       #linkTo(text="Logout", route="authLogoutUser", class="g-color-white g-color-primary--hover g-text-underline--none--hover")#
@@ -78,12 +74,36 @@
                 <li class="nav-item g-mx-20--lg">
                     #linkTo(text="CHURCHES", controller="churches", action="index", class="nav-link px-0 #isNavActive("churches")#")#
                 </li>
-                <li class="nav-item g-mx-20--lg">
-                    #linkTo(text="EVENTS", controller="events", action="index", class="nav-link px-0 #isNavActive("events")#")#
-                </li>
-                <li class="nav-item g-mx-20--lg">
-                    #linkTo(text="OPPORTUNITIES", controller="jobs", action="index", class="nav-link px-0 #isNavActive("jobs")#")#
-                </li>
+                <li class="nav-item dropdown g-mx-20--lg">
+                    #linkTo(
+                        text="EVENTS<b class='caret'></b>", 
+                        controller="events", 
+                        action="index", 
+                        class="dropdown-toggle nav-link px-0 #isNavActive("events")#", data_toggle="dropdown")#
+                    <ul class="dropdown-menu" style="padding:10px">
+                      <li>#linkTo(text="General Calendar", controller="events", action="index")#</li>
+                      <li class="list-inline-item g-mx-4 g-mt-10">
+                      </li>
+                      <li>#linkTo(text="Focus Retreats", controller="focus.main", action="welcome")#</li>
+                      <li class="list-inline-item g-mx-4 g-mt-10">
+                      <li>#linkTo(text="Access2018", href="http://www.access2017.org")#</li>
+                    </ul>
+                  </li>
+                <li class="nav-item dropdown g-mx-20--lg">
+                    #linkTo(
+                        text="OPPORTUNITIES<b class='caret'></b>", 
+                        controller="jobs", 
+                        action="index", 
+                        class="dropdown-toggle nav-link px-0 #isNavActive("events")#", data_toggle="dropdown")#
+                    <ul class="dropdown-menu" style="padding:10px">
+                      <li>#linkTo(text="Positions", controller="jobs", action="index")#</li>
+                      <li class="list-inline-item g-mx-4 g-mt-10">
+                      </li>
+                      <li>#linkTo(text="Ministries", controller="ministries", action="index")#</li>
+                      <li class="list-inline-item g-mx-4 g-mt-10">
+                      <li>#linkTo(text="Resources", controller="resources", action="index")#</li>
+                    </ul>
+                  </li>
               </ul>
             </cfoutput>       
             </div>

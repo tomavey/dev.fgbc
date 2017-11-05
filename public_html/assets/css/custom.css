@@ -18,3 +18,9 @@
     float:left;
     margin-right: 40px
 }
+
+.card-charis-sub {
+    background-color: lightgrey;
+    padding:10px;
+    margin:10px;
+}

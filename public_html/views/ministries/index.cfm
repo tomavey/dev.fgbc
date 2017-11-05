@@ -1,17 +1,12 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
-	<div class="span3">
-		#includePartial(partial="sidebar", selected="all")#
-	</div>
-
-	<div class="span9">
+	<div class="container card card-charis card-charis-square text-center">
 		<cfoutput query="ministry" group="category">
 		<cfif not category is "none">
 			<div class="postbox categories"><h1>#category#</h1></div>
 
 			<cfoutput>
-				<div class="well ministries">
-							<h2>#ministry.name#</h2>
+				<div class="card card-charis-sub">
+							<h2 class="card-title">#ministry.name#</h2>
 
 							<cftry>
 								<cfif len(webaddress)>
@@ -40,5 +35,4 @@
 		</cfif>
 		</cfoutput>
 	</div>
-</div>
 </cfoutput>

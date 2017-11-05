@@ -1,10 +1,5 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
-	<div class="span3">
-		#includePartial(partial="sidebar", selected="home")#
-	</div>
-
-	<div class="span9"><h1>Resources...</h1>
+	<div class="container card"><h1>Resources...</h1>
 	<p>Here are some resources that many of our churches are using...</p>
 		</cfoutput>
 		<ul>
@@ -39,5 +34,4 @@
 		</p>
 			</cfif>
 		</cfoutput>
-	</div>
 </div>

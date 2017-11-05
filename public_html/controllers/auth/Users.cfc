@@ -387,7 +387,7 @@
 
 	<cffunction name="logout">
 		<cfset structDelete(session,"auth")>
-		<cfset redirectTo(controller="home", action="index")>
+		<cflocation url="/" addToken="no">
 	</cffunction>
 
 	<cffunction name="addToGroup">
