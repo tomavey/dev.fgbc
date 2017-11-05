@@ -72,7 +72,7 @@
                   #linkTo(text="HOME", href="/", class="nav-link px-0 #isNavActive("home")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
-                  #linkTo(text="Rebranding", href="##rebrand", class="nav-link px-0 #isNavActive("about")#")#
+                  #linkTo(text="Rebranding", href="##rebrand", data_modal_target="##rebrand", data_modal_effect="slide", class="nav-link px-0 #isNavActive("about")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
                   #linkTo(text="WHO ARE WE", controller="about", action="cci", class="nav-link px-0 #isNavActive("about")#")#
