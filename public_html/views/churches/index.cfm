@@ -12,7 +12,7 @@
     </section>
     <!-- End Promo Block --> 
     
-<p class="container card text-center"><a href="/handboook/" target="_new">Access the online handbook</a></p>
+<p class="container card text-center"><a href="/handbook/" target="_new">Access the online handbook</a></p>
 <div class="container card card-charis card-charis-square text-center">
 <cfoutput query="churches" group="state">
     <h2>#state#</h2>
