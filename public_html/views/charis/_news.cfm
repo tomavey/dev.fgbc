@@ -6,9 +6,11 @@
           </div>
         </header>
 					<div class="row">
-                    <div class="col-lg-4 g-mb-30">
+                    <div class="col-lg-6 g-mb-30">
                       <!-- Article -->
                       <article>
+                    <cfoutput>#includePartial("announcements")#</cfoutput>
+                    <!---
                         <img class="img-fluid w-100 g-mb-20" src="assets/img/novannouncement500.jpg" alt="Image Description">
 
                         <h3 class="text-uppercase g-font-size-15">
@@ -20,13 +22,16 @@
                         <strong>
                           <a class="text-uppercase g-font-size-12" href="#">See More</a>
                         </strong>
+                      --->  
                       </article>
                       <!-- End Article -->
                     </div>
 
-                    <div class="col-lg-4 g-mb-30">
+                    <div class="col-lg-6 g-mb-30">
                       <!-- Article -->
                       <article>
+                    <cfoutput>#includePartial("twitterfeed")#</cfoutput>
+<!---
                         <img class="img-fluid w-100 g-mb-20" src="assets/img/charis-website.jpg" alt="Image Description">
 
                         <h3 class="text-uppercase g-font-size-15">
@@ -38,10 +43,11 @@
                         <strong>
                           <a class="text-uppercase g-font-size-12" href="#">See More</a>
                         </strong>
+--->
                       </article>
                       <!-- End Article -->
                     </div>
-
+<!---
                     <div class="col-lg-4 g-mb-30">
                       <!-- Article -->
                       <article>
@@ -59,6 +65,7 @@
                       </article>
                       <!-- End Article -->
                     </div>
+--->                    
                   </div>
                 </div>
 		</div>
