@@ -8,7 +8,33 @@
                         <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
                           <h2 class="u-heading-v2__title h6 text-uppercase mb-0">About Us</h2>
                         </div>
-
+                          <ul class="list-unstyled g-mt-minus-10 mb-0">
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/cci">Our Common Identity</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/page/ccm-en">Our Common Mission</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/page/fellowshipcouncil">the Fellowship Council</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/handbook">Online Handbook</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+                          </ul>
+<!---
                         <p>Subscribe below to stay up to date about what is happening within the Charis Fellowship.</p>
 
                         <div class="input-group border-0">
@@ -17,6 +43,7 @@
                             <button class="btn u-btn-primary rounded-0 g-px-12 g-py-8" type="submit" role="button">Subscribe</button>
                           </div>
                         </div>
+--->                        
                       </div>
                       <!-- End Footer Content -->
 
@@ -30,13 +57,13 @@
                           <ul class="list-unstyled g-mt-minus-10 mb-0">
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Encompass World Partners</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.encompassworldpartners.org/">Encompass World Partners</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.encompassworldpartners.org/" target="_new">Eagle Commission</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.eaglecommission.org/" target="_new">Eagle Commission</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
@@ -165,7 +192,7 @@
                 <!-- Copyright Footer -->
                 <footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 text-center g-py-20">
                   <div class="container">
-                    <small class="g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">2017 © Charis Fellowship - All Rights Reserved. Web Design Customized by
+                    <small class="g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">2017 &copy; Charis Fellowship - All Rights Reserved. Web Design Customized by
                       <a href="https://ericmillercreative.com">Eric Miller Creative</a>
                     </small>
                   </div>
