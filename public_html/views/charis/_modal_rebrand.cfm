@@ -3,7 +3,7 @@
         <button type="button" class="close" onclick="Custombox.modal.close();">
           <i class="hs-icon hs-icon-close"></i>
         </button>
-        <h4 class="g-mb-10">The Fellowship of Grace Brethren Churches is now doing business as Charis Fellowship!</h4>
+        <p class="g-mb- text-center">The Fellowship of Grace Brethren Churches is now doing business as Charis Fellowship!</p>
         <cfoutput>
             Why?
             When?
