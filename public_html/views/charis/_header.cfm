@@ -14,9 +14,11 @@
                 <li class="list-inline-item g-mx-4 g-mt-10">
                     <a href="##rebrand" data-modal-target="##rebrand" data-modal-effect="slide" class="g-color-white g-color-primary--hover g-text-underline--none--hover">Looking for fgbc.org?</a>
                 </li>
+                <li class="list-inline-item g-mx-4 g-mt-10">|</li>
                 <li class="list-inline-item g-mx-4 g-mt-10">
                     #linkTo(text="Contact Us", controller="messages", action="new", class="g-color-white g-color-primary--hover g-text-underline--none--hover")#
                 </li>
+                <li class="list-inline-item g-mx-4 g-mt-10">|</li>
                 <li class="list-inline-item g-mx-4 g-mt-10">
                   <cfif gotRights("basic")>
                       #linkTo(text="Logout", route="authLogoutUser", class="g-color-white g-color-primary--hover g-text-underline--none--hover")#
