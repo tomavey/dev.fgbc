@@ -12,7 +12,7 @@
             <div class="col-auto g-px-15">
               <ul class="list-inline g-line-height-1 g-mt-minus-10 g-mx-minus-4 mb-0">
                 <li class="list-inline-item g-mx-4 g-mt-10">
-                    Looking for fgbc.org?
+                    <a href="##rebrand" data-modal-target="##rebrand" data-modal-effect="slide" class="g-color-white g-color-primary--hover g-text-underline--none--hover">Looking for fgbc.org?</a>
                 </li>
                 <li class="list-inline-item g-mx-4 g-mt-10">
                     #linkTo(text="Contact Us", controller="messages", action="new", class="g-color-white g-color-primary--hover g-text-underline--none--hover")#
