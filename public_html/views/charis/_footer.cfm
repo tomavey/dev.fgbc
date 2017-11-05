@@ -33,6 +33,12 @@
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/messages/new/">Contact Us</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
                           </ul>
 <!---
                         <p>Subscribe below to stay up to date about what is happening within the Charis Fellowship.</p>
@@ -148,6 +154,18 @@
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
+							  <li class="g-pos-rel g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.kalahariretreat.com/" target="_new">Kalahari Retreat</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+							  <li class="g-pos-rel g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://keepaneyetothesky.org/" target="_new">Skywatchers</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
                           </ul>
                         </nav>
                       </div>
@@ -195,6 +213,18 @@
 							  <li class="g-pos-rel g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
                                 <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.waterforgood.org/" target="_new">Water For Good</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+							  <li class="g-pos-rel g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://breathepartners.com/" target="_new">Breathe Partners</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+							  <li class="g-pos-rel g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://gcbi.net/" target="_new">Great Commission Bible Institute</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
