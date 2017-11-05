@@ -7,6 +7,8 @@
 
     #includePartial("/charis/modal_login")#
 
+    #includePartial("/charis/modal_rebrand")#
+
         <body>
 
             <main>
