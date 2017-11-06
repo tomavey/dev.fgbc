@@ -15,7 +15,7 @@
           Why Charis? Why Fellowship?
         </p> 
         <p class="card">
-          More Questions and Answers
+          <a href="http://charisfellowship.us/page/charisfellowship">Frequently Asked Questions</a>
         </p>
         <p class="card">
           Watch the big announcement as it happened live on November 7!
