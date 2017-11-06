@@ -14,18 +14,27 @@
           </p>
         </div>
         <div class="card card-charis card-charis-square">
-          <h4>What went into the rebranding process?</h4>
+          <h4 class="text-center">What went into the rebranding process?</h4>
           <p>in 2013, our Executive Director Bartley Sawatsky recommended we begin a process to rebrand our movement. A rebranding team was formed by the Fellowship Council and they began a long, prayerful process. Hundreds of leaders from our church shared ideas and perspectives during Focus Retreats in 2016. And the team was able to seek the advice of some young professional marketers who also happen to love our fellowship. This past summer (2017), the Fellowship Council approved the name "Charis Fellowship". For more information go <a href="http://charisfellowship.us/page/charisfellowship">here</a>.</p> 
          
         </div>
         <div class="card card-charis card-charis-square">
-          <h4>Why Charis? Why Fellowship?</h4>
+          <h4 class="text-center">Why Charis? Why Fellowship?</h4>
           <p>
             We observed that we already have a nickname for ourselves... "the fellowship"! Young leaders are more globally minded than pastor generations and we already use the word "Charis" in the name of our global movement "Charis Alliance". Since Charis means Grace, it made sense you take advantage of these realities to express our grace commitment in a fresh way. Watch this...
              <iframe src="https://player.vimeo.com/video/235957161" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/235957161">What is Brand</a> from <a href="https://vimeo.com/fgbc">Grace Brethren Churches</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
           </p>
         </div> 
         <div class="card card-charis card-charis-square">
+          <h4 class="text-center">What's next?</h4>
+          <p>
+            Wow! That's a huge question but we are so glad you asked!
+          </p>
+          <p>
+            New churches &middot; New resources for planting even more churches &middot; New tools for local churches to training leaders &middot; Better tools to mentor and qualify pastors &middot; Access2018 where leaders access leaders &middot; More cohorts of leaders &middot; Churches who are committed to helping other churches &middot; Expansion of larger churches through campusing &middot; and we are only just beginning to dream! 
+          </p>
+        </div> 
+        <div class="card card-charis card-charis-square text-center">
           <a href="http://charisfellowship.us/page/charisfellowship">Frequently Asked Questions</a>
         </div>
         <div class="card text-center">
