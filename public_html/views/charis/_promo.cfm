@@ -9,7 +9,7 @@
               <h1 class="g-color-white g-font-weight-700 g-font-size-50 g-font-size-120--md g-line-height-1_1 mb-0">truth.<br>
 				relationship.<br>
 				mission.</h1>
-          <span class="d-block g-color-white g-font-size-20 g-pos-rel g-top-minus-30--md g-line-height-1_2 ml-md-0">charis: <em>khar'-ece</em><br>definition: <em>grace</em></span>
+          <span class="d-block g-color-white g-font-size-20 g-pos-rel g-top-minus-30--md g-line-height-1_2 ml-md-0">charis: <em>kar'-is</em><br>definition: <em>grace</em></span>
             </div>
             <div class="col-lg-6">
               <!-- Vimeo Example -->
