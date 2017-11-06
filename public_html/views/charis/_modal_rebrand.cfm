@@ -3,13 +3,15 @@
         <button type="button" class="close" onclick="Custombox.modal.close();">
           <i class="hs-icon hs-icon-close"></i>
         </button>
-        <p class="g-mb-20 text-center" style="font-size:1.3em;font-weight:bold">The Fellowship of Grace Brethren Churches is now doing business as Charis Fellowship!</p>
+        <p class="g-mb-20 text-center" style="font-size:1.4em;font-weight:bold;text-align:center">The Fellowship of Grace Brethren Churches is now doing business as Charis Fellowship!</p>
         <cfoutput>
-        <div class="card">
-          Our web site is now at charisfellowship.org.
+        <div class="card text-center" style="font-size:1.2em">
+          Our web site is now at <a href="http://charisfellowship.us/">charisfellowship.us</a>
         </div>
-        <div class="card">
+        <div class="card text-center">
+          <p>
           <iframe src="https://player.vimeo.com/video/241505017" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/241505017">the Rebranding Team</a> from <a href="https://vimeo.com/fgbc">Grace Brethren Churches</a> on <a href="https://vimeo.com">Vimeo</a></p>.
+          </p>
         </div>
         <div class="card card-charis card-charis-square">
           <h4>What went into the rebranding process?</h4>
