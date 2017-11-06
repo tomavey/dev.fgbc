@@ -31,7 +31,7 @@
             Wow! That's a huge question but we are so glad you asked!
           </p>
           <p class="text-center">
-            New churches &middot; New resources for planting even more churches &middot; New tools for local churches to training leaders &middot; Better tools to mentor and qualify pastors &middot; Access2018 where leaders access leaders &middot; More cohorts of leaders &middot; Churches who are committed to helping other churches &middot; Expansion of larger churches through campusing &middot; and we are only just beginning to dream! 
+            New churches &middot; New resources for planting even more churches &middot; New tools for local churches to training leaders &middot; Better tools to mentor and qualify pastors &middot; Access2018 where leaders access leaders &middot; More cohorts of leaders &middot; Churches who are committed to helping other churches &middot; Expansion of larger churches through campusing &middot; A new Crisis Coalition &middot; All these are in-the-works! 
           </p>
         </div> 
         <div class="card card-charis card-charis-square text-center">
