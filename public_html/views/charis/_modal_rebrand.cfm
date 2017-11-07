@@ -8,6 +8,9 @@
         <div class="card text-center" style="font-size:1.2em">
           Our web site is now at <a href="http://charisfellowship.us/">charisfellowship.us</a>
         </div>
+        <div class="card text-center" style="font-size:1.2em">
+            <a href="http://charisfellowship.us/files/Charis_Fellowship_Press_Release.docx">Press Release</a>
+        </div>
         <div class="card text-center">
           <p>
           <iframe src="https://player.vimeo.com/video/241505017" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/241505017">the Rebranding Team</a> from <a href="https://vimeo.com/fgbc">Grace Brethren Churches</a> on <a href="https://vimeo.com">Vimeo</a></p>.
@@ -44,7 +47,7 @@
           <a href="http://charisfellowship.us/page/charisfellowship">Frequently Asked Questions</a>
         </div>
         <div class="card text-center">
-          Watch the big announcement as it happened live on November 7!
+          Watch the big announcement as it happened live on November 7! Link coming soon!
         </div>
         </cfoutput>
       </div>
