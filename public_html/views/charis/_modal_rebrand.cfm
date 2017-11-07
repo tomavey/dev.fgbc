@@ -34,7 +34,7 @@
             New churches &middot; New resources for planting even more churches &middot; New tools for local churches to training leaders &middot; Better tools to mentor and qualify pastors &middot; Access2018 where leaders access leaders &middot; More cohorts of leaders &middot; Churches who are committed to helping other churches &middot; Expansion of larger churches through campusing &middot; A new Crisis Coalition &middot; All these are in-the-works. Stay tuned!
           </p>
           <p class="text-center">
-            <a href="http://charisfellowship.us/page/charisgraphics">Download graphics for you churches printed or electronic media here.</a>
+            <a href="http://charisfellowship.us/page/charisgraphics">Download graphics for your church's printed or electronic media here.</a>
           </p>
         </div> 
         <div class="card card-charis card-charis-square text-center">
