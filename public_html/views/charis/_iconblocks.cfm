@@ -58,7 +58,7 @@ MISSION</h1>
                       <div class="text-center u-icon-block--hover">
                         <img src="assets/img/icons/planting-churches-1.png" alt="Church Planting" width="170" class="u-image-icon-size-2xl rounded-circle g-mb-25">
                         <h3 class="h5 g-color-white g-font-weight-600 text-uppercase mb-3">PLANTING CHURCHES</h3>
-                        <p class="g-color-white">We affirm that the church is God’s plan for this age and commit to mobilize our members and resources to plant new churches.</p>
+                        <p class="g-color-white">We affirm that the church is God's plan for this age and commit to mobilize our members and resources to plant new churches.</p>
                         <cfoutput>
                           #linkTo(text="GET STARTED", route="showpage", key="plantingchurches" , class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
                         </cfoutput>  
