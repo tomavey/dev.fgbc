@@ -14,7 +14,7 @@
             <div class="col-lg-6">
               <!-- Vimeo Example -->
               <div class="embed-responsive embed-responsive-16by9">
-                <iframe src="https://player.vimeo.com/video/237645132" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
+                <iframe src="https://player.vimeo.com/video/241505017" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe>
               </div>
               <!-- End Vimeo Example -->
             </div>
