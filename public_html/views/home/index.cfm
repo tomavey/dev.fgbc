@@ -1,10 +1,13 @@
 <cfoutput>
 
+    #includePartial("/charis/livestream")#
+
     <cfif !gotRights("basic")>
         #includePartial("/charis/promo")#
     <cfelse>
         #includePartial("/home/categorymenu")#
     </cfif>
+
     #includePartial("/charis/iconblocks")#
 
     <hr class="g-brd-gray-light-v4 my-0">
