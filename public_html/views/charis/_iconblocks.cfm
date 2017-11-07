@@ -58,7 +58,7 @@ MISSION</h1>
                       <div class="text-center u-icon-block--hover">
                         <img src="assets/img/icons/planting-churches-1.png" alt="Church Planting" width="170" class="u-image-icon-size-2xl rounded-circle g-mb-25">
                         <h3 class="h5 g-color-white g-font-weight-600 text-uppercase mb-3">PLANTING CHURCHES</h3>
-                        <p class="g-color-white">Text placed here about planting churches. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p class="g-color-white">We affirm that the church is God’s plan for this age and commit to mobilize our members and resources to plant new churches.</p>
                         <cfoutput>
                           #linkTo(text="GET STARTED", route="showpage", key="plantingchurches" , class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
                         </cfoutput>  
@@ -71,7 +71,7 @@ MISSION</h1>
                       <div class="text-center u-icon-block--hover">
                         <img class="u-image-icon-size-2xl rounded-circle g-mb-25" src="assets/img/icons/training-leaders-1.png" alt="Church Planting">
                         <h3 class="h5 g-color-white g-font-weight-600 text-uppercase mb-3">TRAINING LEADERS</h3>
-                        <p class="g-color-white">Text placed here about training leaders. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p class="g-color-white">We affirm that a leader is a person who influences others towards the fulfilment of defined objectives and is indispensable to the health and multiplication of the Church.</p>
                         <cfoutput>
                           #linkTo(text="LEARN HOW", route="showpage", key="trainingleaders",  class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
                         </cfoutput>  
@@ -84,7 +84,7 @@ MISSION</h1>
                       <div class="text-center u-icon-block--hover">
                         <img class="u-image-icon-size-2xl rounded-circle g-mb-25" src="assets/img/icons/doing-good.png" alt="Church Planting">
                         <h3 class="h5 g-color-white g-font-weight-600 text-uppercase mb-3">DOING GOOD</h3>
-                        <p class="g-color-white">Text placed here about doing good. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p class="g-color-white">We affirm that God has created human beings with physical, emotional and spiritual needs and that the Church expresses the compassion of Christ in proclaiming the Gospel while caring for various needs of mankind.</p>
                         <cfoutput>
                           #linkTo(text="GET STARTED", route="showpage", key="doinggood", class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
                         </cfoutput>  
