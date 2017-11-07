@@ -1,6 +1,6 @@
 <head>
   <!-- Title -->
-  <title>Charis Fellowship</title>
+  <title>Charis Fellowship: Truth-Relationship-Mission</title>
 
   <!-- Required Meta Tags Always Come First -->
   <meta charset="utf-8">
