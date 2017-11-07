@@ -36,6 +36,9 @@
           <p class="text-center">
             <a href="http://charisfellowship.us/page/charisgraphics">Download graphics for your church's printed or electronic media here.</a>
           </p>
+          <p class="text-center">
+            <a href="http://charisfellowship.us/files/Charis_Fellowship_Press_Release.docx">Press Release</a>
+          </p>
         </div> 
         <div class="card card-charis card-charis-square text-center">
           <a href="http://charisfellowship.us/page/charisfellowship">Frequently Asked Questions</a>
