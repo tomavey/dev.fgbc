@@ -1,6 +1,6 @@
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
 
-<div class="span12"><h1>Listing Announcements</h1>
+<h1>Listing Announcements</h1>
 <cfoutput>
 	<p>#addTag()#</p>
 	<cfif isDefined("params.showall")>
@@ -53,4 +53,4 @@
 </table>	
 
 
-</div></div>
+</div>
