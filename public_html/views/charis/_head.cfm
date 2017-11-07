@@ -1,6 +1,6 @@
 <head>
   <!-- Title -->
-  <title>Home Default | Unify - Responsive Website Template</title>
+  <title>Charis Fellowship</title>
 
   <!-- Required Meta Tags Always Come First -->
   <meta charset="utf-8">
