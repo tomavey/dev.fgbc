@@ -4,7 +4,6 @@
 		<cfset filters(through="isSuperadmin", only="index,new,delete")>
 		<cfset filters(through="isPageEditor", only="edit")>
 		<cfset filters(through="getAllRights", only="new,edit")>
-		<cfset usesLayout("/layoutadmin")>
 	</cffunction>
 
 

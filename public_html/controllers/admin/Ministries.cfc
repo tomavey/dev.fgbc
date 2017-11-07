@@ -1,7 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 	<cffunction name="init">
 		<cfset filters(through="setReturn", only="show,index")>
-		<cfset usesLayout("/layoutadmin")>
 		<!---
 		<cfset filters(through="logview")>
 		--->

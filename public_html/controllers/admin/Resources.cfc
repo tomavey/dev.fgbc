@@ -2,7 +2,6 @@
 
 	<cffunction name="init">
 		<!---cfset filters(through="logview")--->
-		<cfset usesLayout("/layoutadmin")>
 	</cffunction>
 
 	<!--- resources/index --->

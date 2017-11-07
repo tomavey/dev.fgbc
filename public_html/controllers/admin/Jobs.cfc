@@ -2,7 +2,6 @@
 	
 	<cffunction name="init">
 		<cfset filters(through="setReturn", only="list,index,show")>
-		<cfset usesLayout("/layoutadmin")>
 	</cffunction>
 
 	<!--- jobs/index --->

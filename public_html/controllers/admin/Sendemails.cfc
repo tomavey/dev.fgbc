@@ -3,7 +3,6 @@ component extends="Controller" output="false" {
 
 
   public void function init(){
-    usesLayout("/layoutadmin");
   }
 
   public function usetestlist(){
