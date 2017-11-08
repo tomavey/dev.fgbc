@@ -7,10 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="/assets/img/facebookog.png" />
+  <meta property="og:image" content="http://charisfellowship.us/assets/img/facebookog.png" />
   <meta property="og:url" content="http://charisfellowship.us" />
   <meta property="og:title" content="Charis Fellowship | Planting Churches - Training Leaders - Doing Good" />
-  <meta property="og:description" content="Charis Fellowship is a group of churches and ministries in North America who value Truth, Relationship and Mission and Plant Church, Train Leasders, and Do Good in their communities" />
+  <meta property="og:description" content="Charis Fellowship is a group of churches and ministries in North America who value Truth, Relationship, and Mission. And who plant churches, train leaders, and do good in their communities" />
   
   <!-- Favicon -->
   <link rel="shortcut icon" href="/assets/img/favicon2.ico">
