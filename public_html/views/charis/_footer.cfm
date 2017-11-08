@@ -168,6 +168,12 @@
                             </li>
 							  <li class="g-pos-rel g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.visionalaska.org/" target="_new">Vision Alaska</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+							  <li class="g-pos-rel g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
                                 <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.kalahariretreat.com/" target="_new">Kalahari Retreat</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
