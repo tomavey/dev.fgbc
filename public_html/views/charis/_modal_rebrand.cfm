@@ -13,7 +13,13 @@
         </div>
         <div class="card text-center">
           <p>
-          <iframe src="https://player.vimeo.com/video/241505017" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/241505017">the Rebranding Team</a> from <a href="https://vimeo.com/fgbc">Grace Brethren Churches</a> on <a href="https://vimeo.com">Vimeo</a></p>.
+          <iframe src="https://player.vimeo.com/video/241833716" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<p><a href="https://vimeo.com/241833716">Charis Fellowship Live Stream</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+          </p>
+        </div>
+        <div class="card text-center">
+          <p>
+          <iframe src="https://player.vimeo.com/video/241505017" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/241505017">the Rebranding Team</a> from <a href="https://vimeo.com/fgbc">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>.
           </p>
         </div>
         <div class="card card-charis card-charis-square">
