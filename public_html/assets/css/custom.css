@@ -27,3 +27,11 @@
 
 .u-image-icon-size-charis {
     height: 346px; }
+
+.charis-video-left {
+    padding-right:5px
+}    
+
+.charis-video-right {
+    padding-left:5px
+}    

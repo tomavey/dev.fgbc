@@ -28,6 +28,8 @@
 
     #includePartial("/charis/news")#
 
+    #includePartial("/charis/videostories")#
+
 </cfoutput>
 
 
