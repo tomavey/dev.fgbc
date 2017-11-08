@@ -32,6 +32,9 @@
       <cfif len(email)>
         #mailto(email)#<br/>
       </cfif>  
+      <cfif len(website)>
+        #linkto(text=website, href="http://#fixwebsite(website)#")#<br/>
+      </cfif>  
       <cfif len(phone)>
         #phone#
       </cfif>  
