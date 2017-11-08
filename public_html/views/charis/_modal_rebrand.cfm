@@ -14,7 +14,7 @@
         <div class="card text-center">
           <p>
           <iframe src="https://player.vimeo.com/video/241833716" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-<p><a href="https://vimeo.com/241833716">Charis Fellowship Live Stream</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+<p><a href="https://vimeo.com/241833716">Charis Fellowship Live Stream - Recorded</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
           </p>
         </div>
         <div class="card text-center">
