@@ -26,6 +26,9 @@
         #address2#<br/>
       </cfif>  
       #org_city# #state# #zip#<br/>
+      <cfif len(meetingplace)>
+        Meeting at: #meetingplace#<br/>
+      </cfif>
       <cfif len(email)>
         #mailto(email)#<br/>
       </cfif>  
