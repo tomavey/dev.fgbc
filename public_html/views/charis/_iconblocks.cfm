@@ -60,7 +60,7 @@ MISSION</h1>
                         <h3 class="h5 g-color-white g-font-weight-600 text-uppercase mb-3">PLANTING CHURCHES</h3>
                         <p class="g-color-white">We affirm that the church is God's plan for this age and commit to mobilize our members and resources to plant new churches.</p>
                         <cfoutput>
-                          #linkTo(text="GET STARTED", route="showpage", key="plantingchurches" , class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
+                          #linkTo(text="GET STARTED", controller="ministries", index="index", params="category=#urlEncode('church planting ministries')#", class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
                         </cfoutput>  
                       </div>
                       <!-- End Icon Blocks -->
@@ -73,7 +73,7 @@ MISSION</h1>
                         <h3 class="h5 g-color-white g-font-weight-600 text-uppercase mb-3">TRAINING LEADERS</h3>
                         <p class="g-color-white">We affirm that a leader is a person who influences others towards the fulfilment of defined objectives and is indispensable to the health and multiplication of the Church.</p>
                         <cfoutput>
-                          #linkTo(text="LEARN HOW", route="showpage", key="trainingleaders",  class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
+                          #linkTo(text="LEARN HOW", controller="ministries", index="index", params="category=#urlEncode('Leadership Training Ministries')#",  class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
                         </cfoutput>  
                       </div>
                       <!-- End Icon Blocks -->
@@ -86,7 +86,7 @@ MISSION</h1>
                         <h3 class="h5 g-color-white g-font-weight-600 text-uppercase mb-3">DOING GOOD</h3>
                         <p class="g-color-white">We affirm that God has created human beings with physical, emotional and spiritual needs and that the Church expresses the compassion of Christ in proclaiming the Gospel while caring for various needs of mankind.</p>
                         <cfoutput>
-                          #linkTo(text="GET STARTED", route="showpage", key="doinggood", class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
+                          #linkTo(text="GET STARTED", controller="ministries", index="index", params="category=#urlEncode('Doing Good')#",  class="btn btn-md u-btn-outline-white g-mr-10 g-mb-15")#
                         </cfoutput>  
                       </div>
                       <!-- End Icon Blocks -->

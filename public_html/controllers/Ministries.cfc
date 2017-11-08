@@ -5,10 +5,10 @@
 
 	<!--- ministries/show/key --->
 	<cffunction name="index">
-
 		<cfif isdefined("params.key")>
 			<cfset wherestring = "id=#params.key#">
 		<cfelseif isDefined("params.category")>
+			<cfset params.category = urlDecode(params.category)>	
 			<cfset wherestring = "category='#params.category#' AND status <> 'inactive'">
 		<cfelse>
 			<cfset wherestring = "status <> 'inactive'">
