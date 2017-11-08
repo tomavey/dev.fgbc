@@ -1,7 +1,7 @@
 <cfoutput>
 						#textField(objectName='ministry', property='name', label='Name')#
 
-						#textField(objectName='ministry', property='webaddress', label='Web')#
+						#textField(objectName='ministry', property='webaddress', label='Web (use full url)')#
 
 						#textField(objectName='ministry', property='image', label='Image')#
 
