@@ -9,29 +9,26 @@ COMMITMENTS</h1>
           </div>
         </header>
         <div class="row no-gutters">
-          <div class="col-lg-4 g-px-20 g-mb-50 g-mb-0--lg">
+          <div class="col-lg-3 g-px-20 g-mb-50 g-mb-0--lg">
             <!-- Icon Blocks -->
             <div class="text-center">
-              <h3 class="h5 g-color-gray-dark-v2 g-font-weight-600 text-uppercase mb-3">BIBLICAL<br>TRUTH</h3>
-              <p class="mb-0">We declare that Jesus Christ, the incarnate Word of God as revealed in the Bible, the written Word of God, is the only Savior and Lord. He is the center of our shared experience of true biblical unity. </p>
+              <img class="u-image-icon-size-charis g-mb-25" src="assets/img/logo/PNGs/CHARIS-Truth.png" alt="Truth">
             </div>
             <!-- End Icon Blocks -->
           </div>
 
-          <div class="col-lg-4 g-brd-left--lg g-brd-gray-light-v4 g-px-40 g-mb-50 g-mb-0--lg">
+          <div class="col-lg-6 g-brd-left--lg g-brd-gray-light-v4 g-px-40 g-mb-50 g-mb-0--lg">
             <!-- Icon Blocks -->
             <div class="text-center">
-              <h3 class="h5 g-color-gray-dark-v2 g-font-weight-600 text-uppercase mb-3">BIBLICAL<br>RELATIONSHIP</h3>
-              <p class="mb-0">We affirm that the mandate and urgency to fulfill the Great Commission leads us to seek ways to cooperate with one another, and with likeminded Christians on the local, regional and global levels.</p>
+              <img class="u-image-icon-size-charis g-mb-25" src="assets/img/logo/PNGs/CHARIS-Relationship.png" alt="Relationship">
             </div>
             <!-- End Icon Blocks -->
           </div>
 
-          <div class="col-lg-4 g-brd-left--lg g-brd-gray-light-v4 g-px-40">
+          <div class="col-lg-3 g-brd-left--lg g-brd-gray-light-v4 g-px-40">
             <!-- Icon Blocks -->
             <div class="text-center">
-              <h3 class="h5 g-color-gray-dark-v2 g-font-weight-600 text-uppercase mb-3">BIBLICAL<br>MISSION</h3>
-              <p class="mb-0">We affirm that God's plan for this age is best summarized in Jesus' command to make disciples of all nations. This includes the evangelistic call to reconciliation with God by means of the completed work of Christ and the lifelong pursuit of obedience to God by means of the ongoing work of the Holy Spirit.</p>
+              <img class="u-image-icon-size-charis g-mb-25" src="assets/img/logo/PNGs/CHARIS-Mission.png" alt="Mission">
             </div>
             <!-- End Icon Blocks -->
           </div>
