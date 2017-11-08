@@ -111,7 +111,7 @@
 	<cfset set(eventDaysOptions="Monday,Tuesday,Wednesday,Thursday")>
 	<cfset set(eventFirstDaysOptionsDate="2017-07-24")>
 	<cfset set(eventCategories="Celebration,Workshop,Excursion,Roundtable,Network,Meal,ChildCare,Kids Konference,Reception,Board Meeting,Other,Office,Rehearsal,Exhibits,Prayer,Other-Public,Cohort")>
-	<cfset set(ministryCategories=listSort("Church Planting Ministries, Communication, Districts, Integrated Ministries, Leadership Development, none","text"))>
+	<cfset set(ministryCategories=listSort("Church Planting Ministries, Communication, Districts, Doing Good, Leadership Training Ministries, none","text"))>
 
 <!---email addresses used--->
 	<cfset set(registrarEmail="tomavey@fgbc.org,sandy@fgbc.org")>
