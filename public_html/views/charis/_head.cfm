@@ -10,7 +10,7 @@
   <meta property="og:image" content="http://charisfellowship.us/assets/img/facebookog.png" />
   <meta property="og:url" content="http://charisfellowship.us" />
   <meta property="og:title" content="Charis Fellowship | Planting Churches - Training Leaders - Doing Good" />
-  <meta property="og:description" content="We value Truth, Relationship and Mission. We plant churches, train leaders, and do good in our communities." />
+  <meta property="og:description" content="Churches who value Truth, Relationship and Mission... Churches who start more churches, train leaders, and do good in our communities." />
   
   <!-- Favicon -->
   <link rel="shortcut icon" href="/assets/img/favicon2.ico">
