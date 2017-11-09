@@ -41,11 +41,13 @@
       #folder#/components/hs.modal-window,
       #folder#/components/text-animation/hs.text-slideshow,
       #folder#/components/hs.go-to,
-      #folder#/vue
+      #folder#/vue,
+      #folder#/app
     ")#
 
   <!-- JS Customization -->
   #javaScriptIncludeTag("#folder#/custom")#
+
 
 </cfoutput>
 

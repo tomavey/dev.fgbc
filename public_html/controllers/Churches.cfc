@@ -12,6 +12,8 @@
 		<cfelse>
 			<cfset churches = model("Handbookorganization").findAll(where="statusid in (1,8,4,2)", include="Handbookstate", order="state,org_city,name")>
 		</cfif>
+		<cfset churchesjson = queryToJson(churches)>
+
 <!---		<cfdump var="#churches#"><cfabort>--->
 		<cfset churchStates = model("Handbookorganization").findAll(order="state", distinct=true, select="state", include="Handbookstate")>
 
