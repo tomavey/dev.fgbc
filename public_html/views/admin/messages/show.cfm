@@ -1,7 +1,5 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
-
-<div class="span12">
+<div class="container">
 
 <h1>Showing message</h1>
 
@@ -28,7 +26,6 @@
 
 </cfif>
 
-</div>
 </div>
 
 </cfoutput>

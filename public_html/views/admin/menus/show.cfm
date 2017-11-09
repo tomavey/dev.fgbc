@@ -1,7 +1,5 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
-
-<div class="span12">
+<div class="container">
 
 <h1>Showing menu</h1>
 
@@ -44,6 +42,5 @@
 				
 
 #linkTo(text="Return to the listing", action="index")# | #linkTo(text="Edit this menu", action="edit", key=menu.id)#
-</div>
 </div>
 </cfoutput>

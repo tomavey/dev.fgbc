@@ -1,6 +1,6 @@
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
 
-<div class="span12"><h1>Listing FGBC Ministries</h1>
+<h1>Listing FGBC Ministries</h1>
 
 <cfif gotRights("superadmin,office")>
 	<cfoutput>
@@ -57,5 +57,4 @@
 	</cfoutput>
 </cfif>
 
-</div>
 </div>

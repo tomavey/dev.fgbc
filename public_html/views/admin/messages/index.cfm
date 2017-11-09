@@ -1,7 +1,5 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
-
-<div class="span12">
+<div class="container">
 
 <h1>Listing messages</h1>
 
@@ -49,6 +47,4 @@
 	<p>#addTag()#</p>
 
 </div>
-</div>
-<cfdump var="#params#">
 </cfoutput>

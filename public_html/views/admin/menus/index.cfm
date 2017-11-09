@@ -1,6 +1,6 @@
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
 
-<div class="span12"><h1>Listing Menus</h1>
+<h1>Listing Menus</h1>
 
 <table class="table">
 <tr>
@@ -52,5 +52,5 @@
 <cfoutput>
 #gotRights("superadmin")#
 </cfoutput>
-</div>
+
 </div>

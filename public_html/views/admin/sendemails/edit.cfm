@@ -1,4 +1,4 @@
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
 <h1>Editing Message</h1>
 
 <cfoutput>#includePartial("showFlash")#</cfoutput>

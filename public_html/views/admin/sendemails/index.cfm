@@ -1,4 +1,4 @@
-<div class="row-fluid well contentStart contentBg" ng-app="sendEmailApp">
+<div class="container" ng-app="sendEmailApp">
 <h1>Listing Send-emails</h1>
 
 <cfoutput>#includePartial("showFlash")#</cfoutput>

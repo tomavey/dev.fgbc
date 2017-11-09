@@ -1,6 +1,6 @@
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
 
-<div class="span12"><h1>Listing Events</h1>
+<h1>Listing Events</h1>
 <cfoutput>
 	<p>#linkTo(text="Create a new Event", action="new")#</p>
 </cfoutput>
@@ -56,4 +56,4 @@
 	<p>#linkTo(text="Create a new Event", action="new")#</p>
 </cfoutput>
 
-</div></div>
+</div>

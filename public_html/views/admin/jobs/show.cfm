@@ -1,7 +1,6 @@
 <cfoutput>
-	<div class="row-fluid well contentStart contentBg">
+	<div class="container">
 
-<div class="span12">
 
 
 	<cfoutput query="job">
@@ -33,7 +32,6 @@
 		#linkto(text="rss", action="rss")#
 	</p>
 
-</div>
 </div>
 </cfoutput>
 

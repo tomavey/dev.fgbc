@@ -1,8 +1,8 @@
 <cfoutput>
 
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
 
-<div class="span12"><h1>#content.name#</h1>
+<h1>#content.name#</h1>
 
 							#content.content#
 
@@ -24,8 +24,7 @@
 		<p>Link to this page: #linkTo(controller="contents", action="show", key=params.key, onlyPath=false)#</p>
 	</cfif>
 
-	</div>
-	</div>
+</div>
 
 </cfoutput>
 

@@ -1,10 +1,5 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
-	<div class="span3">
-		#includePartial(partial="sidebar", selected="all")#
-	</div>
-
-	<div class="span9">	
+<div class="container">
 		<cfoutput query="ministry" group="category">
 		<cfif not category is "none">
 			<div class="postbox categories"><h1>#category#</h1></div>
@@ -29,6 +24,5 @@
 			</cfoutput>
 		</cfif>
 		</cfoutput>
-	</div>	
 </div>
 </cfoutput>

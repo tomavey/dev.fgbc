@@ -1,6 +1,4 @@
-<div class="row-fluid well contentStart contentBg">
-
-<div class="span12">
+<div class="container">
 
 <h1>Listing groups</h1>
 
@@ -39,5 +37,4 @@
 <cfoutput>
 	<p>#addTag()#</p>
 </cfoutput>
-</div>
 </div>

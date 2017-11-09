@@ -1,12 +1,6 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
     
-    <div class="span3">
-        #includePartial(partial="sidebar", selected="home")#
-    </div>
-
-    <div class="span9">
-
 		Page:
 		<ul>
 		#paginationLinks(linkToCurrentPage=true, prepend="<li>", append="</li>")#
@@ -22,6 +16,5 @@
 			#includePartial("/mainhome/announcements")#
 		</div>
 
-	</div>
 </div>
 </cfoutput>

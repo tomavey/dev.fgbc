@@ -1,4 +1,4 @@
-<div class="postbox" id=#params.controller##params.action#>
+<div class="container">
 
 <h1>Create new resource</h1>
 

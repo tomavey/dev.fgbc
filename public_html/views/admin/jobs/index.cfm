@@ -1,6 +1,6 @@
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
 
-<div class="span12"><h1>Listing Jobs</h1>
+<h1>Listing Jobs</h1>
 
 <cfif gotrights("superadmin,office")>
 	<cfoutput>

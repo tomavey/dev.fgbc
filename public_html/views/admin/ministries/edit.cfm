@@ -1,4 +1,4 @@
-<div class="postbox">
+<div class="container">
 <cfoutput>
 
 <h1>Edit #ministry.name#</h1>

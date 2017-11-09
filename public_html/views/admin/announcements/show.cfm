@@ -1,7 +1,7 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
 
-<div class="span12"><h1>#announcement.title#</h1>
+<h1>#announcement.title#</h1>
 
 				<cftry>
 					<div>#imageTag("/announcements/#announcement.image#")#</div>
@@ -32,6 +32,5 @@
 #linkTo(text="Return to the listing", action="index")# | #linkTo(text="Edit this announcement", action="edit", key=announcement.id)#
 </cfif>
 
-</div>
 </div>
 </cfoutput>
