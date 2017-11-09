@@ -28,7 +28,7 @@
 		</td>
 		<td>
 			#editTag()# 
-			#linkTo(text="<i class='icon-search'></i>", key=id, route="showpage")# 
+			#showTag()#
 			#deleteTag(class="noajax")#
 		</td>
 	</tr>
