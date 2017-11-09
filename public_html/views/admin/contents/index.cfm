@@ -1,6 +1,6 @@
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
 
-<div class="span12"><h1>Listing Pages</h1>
+<h1>Listing Pages</h1>
 
 <cfoutput>
 	<p>#linkTo(text="New page", action="new")#</p>
