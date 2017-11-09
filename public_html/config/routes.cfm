@@ -134,6 +134,7 @@
 			.get(name="unlockLink", pattern="/unlock/", controller="welcome", action="welcome")
 			.get(name="unlockLinkfor", pattern="/unlock/[key]", controller="welcome", action="welcome")
 			.get(name="logout", pattern="/logout/", controller="welcome", action="logout")
+			.get(name="login", pattern="/login/", controller="welcome", action="loginForm")
 			.resources("welcome")
 
 			.get(name="addstaffandposition", pattern="/positions/new/", controller="positions", action="new")
