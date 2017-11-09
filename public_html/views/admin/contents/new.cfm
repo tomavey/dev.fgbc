@@ -1,5 +1,5 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
 #ckeditor()#
 <div class="span12">
 <h1>Create new content</h1>
