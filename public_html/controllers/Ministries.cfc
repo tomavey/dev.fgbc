@@ -11,6 +11,7 @@
 			<cfset params.category = urlDecode(params.category)>	
 			<cfset wherestring = "category='#params.category#' AND status <> 'inactive'">
 		<cfelse>
+			<cfset params.category = "all">
 			<cfset wherestring = "status <> 'inactive'">
 		</cfif>
 
