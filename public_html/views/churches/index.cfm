@@ -11,9 +11,10 @@
       </div>
     </section>
     <!-- End Promo Block --> 
-<p class="container card text-center" id="churches1"><a href="/handbook/" target="_new">Access the online handbook</a></p>
+<p class="container card text-center"><a href="/handbook/" target="_new">Access the online handbook</a></p>
 
-<div class="container card card-charis card-charis-square text-center">
+<div class="container card card-charis card-charis-square text-center" id="churches1">
+{{welcome}}
 <cfoutput query="churches" group="state">
     <h2>#state#</h2>
     <cfoutput>
@@ -42,7 +43,21 @@
     </cfoutput>
 </cfoutput>
 </div>
-
+<!---
+<cfoutput>
+#churchesjson#
+</cfoutput>
+<cfset name = #churchesjson#>
+<cfoutput>
+<script>
+var a = '#name#'
+var b = function(){
+  console.log(a)
+  }
+b();
+</script>
+</cfoutput>
+--->
 <!---
 <cfoutput>
   <div class="row-fluid well contentStart contentBg">

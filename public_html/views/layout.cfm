@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <cfoutput>
 
     #includePartial("/charis/head")#

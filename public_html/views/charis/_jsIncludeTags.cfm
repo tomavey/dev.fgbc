@@ -42,6 +42,7 @@
       #folder#/components/text-animation/hs.text-slideshow,
       #folder#/components/hs.go-to,
       #folder#/vue,
+      #folder#/vue-resource,
       #folder#/app
     ")#
 
