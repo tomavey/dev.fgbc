@@ -36,6 +36,8 @@
 			.post(name="searchUsers", pattern="/users/search/", controller="users", action="search")
 			.get(name="loginAsUaser", pattern="/loginAsUser/", controller="users", action="loginAsUser")
 			.post(name="addToGroup", pattern="/addToGroup/", controller="users", action="addToGroup")
+			.get(name="addToGroup", pattern="/addToGroup/", controller="users", action="addToGroup")
+			.get(name="removeFromGroup", pattern="/removeFromGroup/", controller="users", action="removeFromGroup")
 			.resources("users")
 
 			.post(name="addARight", pattern="/groups/addARight/[key]", controller="groups", action="addARight")

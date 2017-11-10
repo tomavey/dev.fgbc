@@ -399,11 +399,11 @@
 			<cfset userGroup.auth_usersid = arguments.userid>
 			<cfset userGroup.auth_groupsid = arguments.groupid>
 			<cfif usergroup.save()>
-				<cfset redirectTo(back=true)>
+				<cfset returnBack()>
 			</cfif>
-				<cfset redirectTo(back=true)>
+				<cfset returnBack()>
 		</cfif>
-				<cfset redirectTo(back=true)>
+				<cfset returnBack()>
 	</cffunction>
 
 	<cffunction name="removeFromGroup">
@@ -412,7 +412,7 @@
 
 		<cfset user = model("Authusersgroup").deleteAll(where="auth_usersid='#arguments.userid#' AND auth_groupsid='#arguments.groupid#'")>
 
-		<cfset redirectTo(back=true)>
+		<cfset returnBack()>
 	</cffunction>
 
 	<cffunction name="getpassword">
