@@ -502,6 +502,15 @@
 		<cfreturn super.isMobile()>
 	</cffunction>
 
+	<cffunction name="isLoggedIn">
+	<cfset var loc = structNew()>
+		<cfif isDefined("session.auth.login") AND session.auth.login>
+			<cfreturn true>
+		<cfelse>
+			<cfreturn false>
+		</cfif>
+	</cffunction>
+
 	<cffunction name="simpleEncode">
 	<cfargument name="numbertoEncode" required="true" type="numeric">
 	<cfargument name="factor" default=3>

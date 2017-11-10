@@ -2,7 +2,7 @@
 
     #includePartial("/charis/livestream")#
 
-    <cfif !gotRights("basic")>
+    <cfif !gotRights("basic") || !isLoggedIn()>
         #includePartial("/charis/promo")#
     <cfelse>
         #includePartial("/home/categorymenu")#

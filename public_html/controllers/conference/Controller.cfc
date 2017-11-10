@@ -149,15 +149,6 @@
 		<cfdump var="#return#"><cfabort>
 	</cffunction>
 
-	<cffunction name="isLoggedIn">
-	<cfset var loc = structNew()>
-		<cfif isDefined("session.auth.login") AND session.auth.login>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction>
-
 	<cffunction name="getConfUrl">
 		<cfreturn application.wheels.webpage>
 	</cffunction>
