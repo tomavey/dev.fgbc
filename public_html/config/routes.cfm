@@ -35,9 +35,9 @@
 			.post(name="getPassword", pattern="/users/EmailChangePasswordLink/", controller="users", action="EmailChangePasswordLink")
 			.post(name="searchUsers", pattern="/users/search/", controller="users", action="search")
 			.get(name="loginAsUaser", pattern="/users/loginAsUser/", controller="users", action="loginAsUser")
-			.post(name="addToGroup", pattern="/users/addToGroup/", controller="users", action="addToGroup")
-			.put(name="addToGroup", pattern="/users/addToGroup/", controller="users", action="addToGroup")
-			.get(name="addToGroup", pattern="/users/addToGroup/", controller="users", action="addToGroup")
+			.post(name="addToGroup", pattern="/users/addToGroup/[key]", controller="users", action="addToGroup")
+			.put(name="addToGroup", pattern="/users/addToGroup/[key]", controller="users", action="addToGroup")
+			.get(name="addToGroup", pattern="/users/addToGroup/[key]", controller="users", action="addToGroup")
 			.get(name="removeFromGroup", pattern="/users/removeFromGroup/", controller="users", action="removeFromGroup")
 			.resources("users")
 
