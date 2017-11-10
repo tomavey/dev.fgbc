@@ -3,23 +3,24 @@
 <div class="container">
 
 
-<h1>Editing announcement</h1>
+	<h1>Editing announcement</h1>
 
 
-			#errorMessagesFor("announcement")#
-	
-			#startFormTag(action="update", key=params.key)#
-		
-			#putFormTag()#		
+		#errorMessagesFor("announcement")#
 
-			#includePartial("form")#	
+		#startFormTag(action="update", key=params.key)#
 
-			#submitTag()#
-				
-			#endFormTag()#
+		#putFormTag()#		
+
+		#includePartial("form")#	
+
+		#submitTag()#
 			
+		#endFormTag()#
+				
 
-#linkTo(text="Return to the listing", action="index")#
+	#linkTo(text="Return to the listing", action="index")#
+
 </div>
 
 </cfoutput>

@@ -1,24 +1,22 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
-#ckeditor()#
-<div class="span12">
-<h1>Editing content</h1>
+<div class="container">
+	#ckeditor()#
+	<h1>Editing content</h1>
 
 
-			#errorMessagesFor("content")#
-	
-			#startFormTag(action="update", key=params.key)#
-		
-			#putFormTag()#		
+		#errorMessagesFor("content")#
 
-			#includePartial("form")#
+		#startFormTag(action="update", key=params.key)#
 
-			#submitTag()#
-				
-			#endFormTag()#
+		#putFormTag()#		
+
+		#includePartial("form")#
+
+		#submitTag()#
 			
+		#endFormTag()#
+				
 
-#linkTo(text="Return to the listing", action="index")#
-</div>
+	#linkTo(text="Return to the listing", action="index")#
 </div>
 </cfoutput>

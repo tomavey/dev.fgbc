@@ -1,27 +1,25 @@
 <cfoutput>
 
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
 
-<div class="span12">
-
-<h1>Create new announcement</h1>
+	<h1>Create new announcement</h1>
 
 
-			#errorMessagesFor("announcement")#
+		#errorMessagesFor("announcement")#
+
+		#startFormTag(action="create", multipart="true")#
 	
-			#startFormTag(action="create", multipart="true")#
-		
-			#includePartial("form")#	
+		#includePartial("form")#	
 
-			#submitTag()#
-				
-			#endFormTag()#
+		#submitTag()#
 			
+		#endFormTag()#
+				
 
-#linkTo(text="Return to the listing", action="index")#
+	#linkTo(text="Return to the listing", action="index")#
 
-#expandpath('.')#/images/announcements/
+	#expandpath('.')#/images/announcements/
 
-</div></div>
+</div>
 
 </cfoutput>

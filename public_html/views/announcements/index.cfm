@@ -3,7 +3,7 @@
     
 		Page:
 		<ul>
-		#paginationLinks(linkToCurrentPage=false, prepend="<li>", append="</li>")#
+			#paginationLinks(linkToCurrentPage=false, prepend="<li>", append="</li>")#
 		</ul>
 
 		<div id="search">
