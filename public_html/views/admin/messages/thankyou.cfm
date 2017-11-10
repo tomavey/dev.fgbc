@@ -1,5 +1,5 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
+<div class="container card">
 	<div class="span3">
 		#includePartial(partial="sidebar", selected="home")#
 	</div>

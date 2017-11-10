@@ -1,24 +1,24 @@
-<div class="postbox">
-<h1>Editing group</h1>
+<div class="container">
+	<h1>Editing group</h1>
 
-<cfoutput>
+	<cfoutput>
 
-			#errorMessagesFor("group")#
+		#errorMessagesFor("group")#
+
+		#startFormTag(action="update", key=params.key)#
 	
-			#startFormTag(action="update", key=params.key)#
-		
-			#putFormTag()#		
+		#putFormTag()#		
 
-						#textField(objectName='group', property='name', label='Name')#
-					
-						#textField(objectName='group', property='description', label='Description')#
-					
+					#textField(objectName='group', property='name', label='Name')#
 				
-				#submitTag()#
+					#textField(objectName='group', property='description', label='Description')#
 				
-			#endFormTag()#
 			
+			#submitTag()#
+			
+		#endFormTag()#
+		
 
-#linkTo(text="Return to the listing", action="index")#
-</cfoutput>
+		#linkTo(text="Return to the listing", action="index")#
+	</cfoutput>
 </div>

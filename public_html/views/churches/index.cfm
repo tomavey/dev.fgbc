@@ -42,7 +42,35 @@
     </p>  
     </cfoutput>
 </cfoutput>
+
+<!---
+<div>
+<ul>
+<li v-for="church in churches">{{church.address1}}</li>
+</ul>
 </div>
+--->
+
+</div>
+
+
+<cfoutput>
+
+<script>
+var vm = new Vue({
+    el: "##churches1",
+    data: {
+        welcome: "Hello",
+        churches: #churchesjson#
+    },
+});
+
+console.log(vm.churches)
+
+</script>
+
+</cfoutput>
+
 <!---
 <cfoutput>
 #churchesjson#

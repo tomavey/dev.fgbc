@@ -1,4 +1,4 @@
-<div id="#params.controller##params.action#">
+<div class="container" id="#params.controller##params.action#">
 <h1>Showing resource</h1>
 
 <cfoutput>

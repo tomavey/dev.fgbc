@@ -1,4 +1,4 @@
-<div class="postbox">
+<div class="container">
 <h1>Create new group</h1>
 
 <cfoutput>

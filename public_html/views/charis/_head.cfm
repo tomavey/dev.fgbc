@@ -68,6 +68,13 @@
         #folder#/custom
   ")#
 
+  <!---Load Vue Early--->
+  <cfset folder = "/assets/js">
+    #javaScriptIncludeTag("
+      #folder#/vue,
+      #folder#/vue-resource
+    ")#
+
 </cfoutput>  
 
 </head>

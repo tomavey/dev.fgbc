@@ -1,4 +1,4 @@
-<div class="colorbox postbox">
+<div class="colorbox container">
 
 <cfoutput>
 

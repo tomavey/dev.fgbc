@@ -1,5 +1,5 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
     <div class="span3">
     	&nbsp;
     </div>

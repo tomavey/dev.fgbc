@@ -1,24 +1,26 @@
-<div class="postbox" id=#params.controller#.#params.action#>
-<h1>Editing user</h1>
+<div class="container" id="#params.controller#.#params.action#">
+	<h1>Editing user</h1>
 
-<cfoutput>
+	<cfoutput>
 
-			#errorMessagesFor("user")#
+		#errorMessagesFor("user")#
+
+		#startFormTag(action="update", key=params.key)#
+
+		#putFormTag()#		
 	
-			#startFormTag(action="update", key=params.key)#
-
-			#putFormTag()#		
-		
-			#includePartial("form")#				
-					
-			#submitTag()#
+		#includePartial("form")#				
 				
-			#endFormTag()#
+		#submitTag()#
 			
-<cfif gotRights("superadmin")>
-	#linkTo(text="Return to the listing", action="index")#
-<cfelse>
-	#linkTo(text="Change Password", controller="auth.users", action="get-email-for-change-password-link")#
-</cfif>
-</cfoutput>
+		#endFormTag()#
+				
+		<cfif gotRights("superadmin")>
+			#linkTo(text="Return to the listing", action="index")#
+		<cfelse>
+			#linkTo(text="Change Password", controller="auth.users", action="get-email-for-change-password-link")#
+		</cfif>
+
+	</cfoutput>
+
 </div>

@@ -1,22 +1,24 @@
-<div class="container card card-charis text-center">
+<div class="container">
 <h1>Create a new Charis user account: </h1>
 
-<cfoutput>
+	<cfoutput>
 
-			#errorMessagesFor("user")#
-	
-			#startFormTag(action="create")#
+		#errorMessagesFor("user")#
+
+		#startFormTag(action="create")#
+
+		#includePartial("form")#	
 		
-			#includePartial("form")#	
-			
-			#includePartial("/captcha")#	
+		#includePartial("/captcha")#	
 
-			#submitTag("Create Your New Account")#
-				
-			#endFormTag()#
+		#submitTag("Create Your New Account")#
 			
-<cfif gotRights("superadmin")>
-	#linkTo(text="Return to the listing", action="index")#
-</cfif>
-</cfoutput>
+		#endFormTag()#
+				
+		<cfif gotRights("superadmin")>
+			#linkTo(text="Return to the listing", action="index")#
+		</cfif>
+
+	</cfoutput>
+
 </div>

@@ -1,13 +1,10 @@
-<div class="row-fluid well contentStart contentBg">
+<div class="container">
 
-<div class="span12">
 
 	<h1>Listing rights</h1>
 	<cfoutput>
 		<p>#addTag()#</p>
-	</cfoutput>
 
-	<cfoutput>
 		[#linkTo(text="Groups", controller="auth.groups", action="index")#]
 		[#linkTo(text="Users", controller="auth.users", action="index")#]
 	</cfoutput>
@@ -26,6 +23,5 @@
 		<p>#addTag()#</p>
 	</cfoutput>
 
-</div>
 
 </div>
