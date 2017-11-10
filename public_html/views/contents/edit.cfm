@@ -1,5 +1,5 @@
 <div class="container" id=#params.controller#.#params.action#>
-<h1>Editing content</h1>
+<h1>Editing content.</h1>
 
 <cfoutput>
 
