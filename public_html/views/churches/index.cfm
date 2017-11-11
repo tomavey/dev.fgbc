@@ -11,45 +11,28 @@
       </div>
     </section>
     <!-- End Promo Block --> 
-<p class="container card text-center"><a href="/handbook/" target="_new">Access the online handbook</a></p>
+
+<p class="container card text-center"><a href="/handbook/" target="_new" class="btn btn-md u-btn-inset u-btn-bluegray g-mr-10 g-mb-15">Access the online handbook</a></p>
 
 <div class="container card card-charis card-charis-square text-center" id="churches1">
-{{welcome}}
-<cfoutput query="churches" group="state">
-    <h2>#state#</h2>
-    <cfoutput>
-    <p class="card">
-      <h4>#name#</h4>
-      <cfif len(address1)>
-        #address1#<br/>
-      </cfif>  
-      <cfif len(address2)>
-        #address2#<br/>
-      </cfif>  
-      #org_city# #state# #zip#<br/>
-      <cfif len(meetingplace)>
-        Meeting at: #meetingplace#<br/>
-      </cfif>
-      <cfif len(email)>
-        #mailto(email)#<br/>
-      </cfif>  
-      <cfif len(website)>
-        #linkto(text=website, href="http://#fixwebsite(website)#")#<br/>
-      </cfif>  
-      <cfif len(phone)>
-        #phone#
-      </cfif>  
-    </p>  
-    </cfoutput>
-</cfoutput>
 
-<!---
-<div>
-<ul>
-<li v-for="church in churches">{{church.address1}}</li>
-</ul>
-</div>
---->
+<p><input v-model="searchString" placeholder="SearchBy"></p>
+  <cfoutput>
+  <div v-for="(church, index) in filteredChurches">
+    <h1 v-if="isNewState(index,church.state,filteredChurches)">{{church.state}}</h1>
+    <p class="card">
+      <h4>{{church.name}}</h4>
+      {{church.address1}}</br>
+      <span v-if="church.address2.length">{{church.address2}}</br></span>
+      {{church.org_city}}, {{church.state}} {{church.zip}}</br>
+      <span v-if="church.org_city !== church.listed_as_city">Listed as: {{church.listed_as_city}}</br></span>
+      <span v-if="church.meetingplace.length">Meeting at: {{church.meetingplace}}</br></span>
+      <span v-if="church.website.length"><a v-bind:href="fixurl(church.website)">{{church.website}}</a></br></span>
+      <span v-if="church.email.length">{{church.email}}</br></span>
+      {{church.phone}}</br>
+    </p>
+  </div>
+  </cfoutput>
 
 </div>
 
@@ -61,204 +44,52 @@ var vm = new Vue({
     el: "##churches1",
     data: {
         welcome: "Hello",
-        churches: #churchesjson#
+        churches: #churchesjson#,
+        searchString: ""
     },
+    methods: {
+        fixurl: function(website){
+          if (website.includes("https://")){
+            return website;
+          };
+          website = website.replace("http://","");
+          return "http://" + website;
+        },
+        isNewState: function(index,state,churches){
+          if (index==0){
+            return true;
+          };
+          if (churches[index-1].state !== state) {
+            return true;
+          };
+          return false;
+        }
+    },
+    computed: {
+        filteredChurches: function(){
+          var searchString = this.searchString,
+              church_array = this.churches;
+          if(!searchString){
+            return church_array;
+          }
+          searchString = searchString.trim().toLowerCase();
+          church_array = church_array.filter(function(item){
+            if(item.name.toLowerCase().indexOf(searchString) !== -1 ||
+              item.state.toLowerCase().indexOf(searchString) !== -1 ||
+              item.org_city.toLowerCase().indexOf(searchString) !== -1 ||
+              item.email.toLowerCase().indexOf(searchString) !== -1 ||
+              item.listed_as_city.toLowerCase().indexOf(searchString) !== -1 
+              ){
+              return item
+            }
+          })
+          return church_array;
+        }
+    }
 });
 
-console.log(vm.churches)
 
 </script>
 
 </cfoutput>
 
-<!---
-<cfoutput>
-#churchesjson#
-</cfoutput>
-<cfset name = #churchesjson#>
-<cfoutput>
-<script>
-var a = '#name#'
-var b = function(){
-  console.log(a)
-  }
-b();
-</script>
-</cfoutput>
---->
-<!---
-<cfoutput>
-  <div class="row-fluid well contentStart contentBg">
-    <div class="span3">
-    #includePartial(partial="states", selected="all", qStates=churchStates)#
-  </div>
-  <div class="span9">
-    <h3 class="addBottomBorder">Church Directory</h3>
-    <div class="row-fluid" style="background-color:##555; padding:5px; margin:5px 0 0 0;">
-      <div class="span12">
-        <input type="text" name="searchChurch" id="searchChurch" class="input-block-level" style="margin-bottom:0;" placeholder="Search for a Church (By State or Zip Code)">
-      </div>
-    </div>
-    <div class="row-fluid" style="margin-top:25px;">
-        <div class="span12">
-          <div style="width:100%; height:400px;" id="map-canvas"></div>
-        </div>
-    </div>
-    <h3 style="border-bottom:2px solid ##dcdcdc;" id="churchHeader">All Churches</h3>
-    <div class="row-fluid" style="margin-top:25px;">
-      <div class="span12" id="churchAddresses">
-      </div>
-    </div>
-  </div>
-  </div>
-  <!--- address template --->
-  <script type="text/html" id="addressLine">
-    <div style="border-bottom:1px solid ##dcdcdc; margin-bottom:15px;">
-      <strong>{{ NAME }}</strong><br/>
-      {{ ADDRESS }}<br/>
-      {{ LOCATION }}<br/>
-      <span class="churchwebsite">{{ PHONE }}<br/></span>
-      <span class="churchwebsite"><a href="http://{{ WEBSITE }}">{{WEBSITE}}</a><br/></span>
-      <span class="churchwebsite">{{ MEETING }}<br/><br/>
-    </div>
-  </script>
-</cfoutput>
-
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2mNVfNLXhFDFf5Falvw8re9RZbxVqKUA&sensor=true"></script>
-    <script type="text/javascript">
-    var geocoder;
-    var map;
-    var infowindow;
-
-      function initialize() {
-        geocoder = new google.maps.Geocoder();
-        var myLatLng = new google.maps.LatLng(38.50, -96.50);
-        var mapOptions = {
-          center: myLatLng,
-          zoom: 4,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        map = new google.maps.Map(document.getElementById("map-canvas"),
-            mapOptions);
-        infowindow = new google.maps.InfoWindow();
-
-      }
-
-      function codeAddress(longitude, latitude,id, address, churchName, site, phone, location){
-        var contentString = "<strong>"+churchName+"</strong><br/>"+
-            address+"<br/>"+
-            location+"<br/>"+
-            phone+"<br/>";
-        if(site != ""){
-          contentString += "<a href='http://"+site+"'>"+site+"</a>"
-        }
-
-        var latlng = new google.maps.LatLng(latitude,longitude);
-            var marker = new google.maps.Marker({
-              map:map,
-              position:latlng,
-              content:contentString
-            });
-            google.maps.event.addListener(marker, 'click', function() {
-              map.setZoom(8);
-              map.setCenter(marker.getPosition());
-              infowindow.setPosition(latlng);
-              infowindow.setContent(marker.content);
-              infowindow.open(map, marker);
-            });
-
-      }
-
-
-      $(function(){
-        initialize();
-        $.getJSON("/churches/getAddressesForMap?format=json", {}, function(data){
-          $.each(data, function(i){
-              codeAddress(data[i].LONG, data[i].LAT, data[i].ID, data[i].ADDRESS, data[i].NAME, data[i].WEBSITE, data[i].PHONE, data[i].LOCATION);
-              if(data[i].FAX != ""){
-                data[i].FAX = "Fax: "+data[i].FAX;
-              }
-              if(data[i].MEETING != ""){
-                data[i].MEETING = "Meeting at: "+data[i].MEETING;
-              }
-              var resultAddress = ich.addressLine(data[i]);
-              $("#churchAddresses").append(resultAddress);
-          });
-        });
-
-        $("#searchChurch").on("change", function(){
-          $.getJSON("/churches/getAddressesForMap?format=json", {searchText: $(this).val()}, function(data){
-            $("#churchAddresses").html("");
-            $.each(data, function(i){
-              var resultAddress = ich.addressLine(data[i]);
-              $("#churchHeader").text("Church Found");
-              $("#churchAddresses").append(resultAddress);
-            });
-            if(data.length === 1){
-              var zoom = 8;
-            }else{
-              var zoom = 6;
-            }
-            var theGeo = new google.maps.Geocoder();
-            theGeo.geocode({'address':data[0].LOCATION}, function(results, status){
-              if (status == google.maps.GeocoderStatus.OK) {
-                 map.setCenter(results[0].geometry.location);
-                 map.setZoom(zoom);
-               } else {
-                 alert("Geocode was not successful for the following reason: " + status);
-               }
-            });
-          });
-        });
-
-        $(".state").on("click", function(){
-          $(".nav-list li").removeClass("active");
-          $(this).parent().addClass("active");
-          var st = $(this).text();
-          if(st === "Washington"){
-            st = "Washington State";
-          }
-            geocoder.geocode({'address':st+", USA"}, function(results, status){
-            if (status == google.maps.GeocoderStatus.OK) {
-              map.setCenter(results[0].geometry.location);
-              map.setZoom(6);
-            } else {
-              alert("Geocode was not successful for the following reason: " + status);
-            }
-          });
-          $.getJSON("/churches/getAddressesForMap?format=json", {state:$(this).text()},function(data){
-            $("#churchAddresses").html('');
-            $.each(data, function(i){
-              var resultAddress = ich.addressLine(data[i]);
-              $("#churchHeader").text(st+" Churches");
-              $("#churchAddresses").append(resultAddress);
-            });
-          });
-
-          return false;
-        });
-        // $(".state").on("click", function(){
-        //   var st = $(this).text();
-        //   if($(this).text() === "Washington"){
-        //     st = "Washington State";
-        //   }
-        //   geocoder.geocode({'address':st+", USA"}, function(results, status){
-        //     if (status == google.maps.GeocoderStatus.OK) {
-        //       map.setCenter(results[0].geometry.location);
-        //       map.setZoom(6);
-        //     } else {
-        //       alert("Geocode was not successful for the following reason: " + status);
-        //     }
-        //   });
-        //   $.getJSON("/index.cfm?controller=main-churches&action=getAddressesForMap&format=json", {state:$(this).text()},function(data){
-        //     $("#churchAddresses").html('');
-        //     $.each(data, function(i){
-        //       var resultAddress = ich.addressLine(data[i]);
-        //       $("#churchHeader").text(st+" Churches");
-        //       $("#churchAddresses").append(resultAddress);
-        //     });
-        //   });
-        // });
-      });
-    </script>
-    --->
