@@ -12,7 +12,7 @@
 
 	<cffunction name="welcome">
 		<cfif isDefined("params.id")>
-			<cfset redirectTo(action="index", params="unlockcode=#params.key#")>
+			<cfset redirectTo(action="index", params="unlockcode=#params.id#")>
 		<cfelse>
 			<cfset redirectTo(action="index")>
 		</cfif>
