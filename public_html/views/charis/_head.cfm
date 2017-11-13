@@ -72,7 +72,8 @@
   <cfset folder = "/assets/js">
     #javaScriptIncludeTag("
       #folder#/vue,
-      #folder#/vue-resource
+      #folder#/vue-resource,
+      #folder#/lodash.min
     ")#
 
 </cfoutput>  

@@ -16,7 +16,9 @@
 
 <div class="container card card-charis card-charis-square text-center" id="churches1">
 
-<p><input v-model="searchString" placeholder="SearchBy"></p>
+<p><input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search By">
+
+</p>
   <cfoutput>
   <div v-for="(church, index) in filteredChurches">
     <h1 v-if="isNewState(index,church.state,filteredChurches)">{{church.state}}</h1>
@@ -45,7 +47,8 @@ var vm = new Vue({
     data: {
         welcome: "Hello",
         churches: #churchesjson#,
-        searchString: ""
+        searchString: "",
+        filterString: ""
     },
     methods: {
         fixurl: function(website){
@@ -63,28 +66,32 @@ var vm = new Vue({
             return true;
           };
           return false;
-        }
-    },
+        },
+        onkeyup: _.debounce(function(){
+          this.filterString = this.searchString;
+          console.log(this.filterString);
+        },300),
+      },
     computed: {
         filteredChurches: function(){
-          var searchString = this.searchString,
-              church_array = this.churches;
+          var searchString = this.filterString,
+              church_array = this.churches
           if(!searchString){
             return church_array;
           }
           searchString = searchString.trim().toLowerCase();
-          church_array = church_array.filter(function(item){
-            if(item.name.toLowerCase().indexOf(searchString) !== -1 ||
-              item.state.toLowerCase().indexOf(searchString) !== -1 ||
-              item.org_city.toLowerCase().indexOf(searchString) !== -1 ||
-              item.email.toLowerCase().indexOf(searchString) !== -1 ||
-              item.listed_as_city.toLowerCase().indexOf(searchString) !== -1 
-              ){
-              return item
-            }
-          })
-          return church_array;
-        }
+            church_array = church_array.filter(function(item){
+              if(item.name.toLowerCase().indexOf(searchString) !== -1 ||
+                item.state.toLowerCase().indexOf(searchString) !== -1 ||
+                item.org_city.toLowerCase().indexOf(searchString) !== -1 ||
+                item.email.toLowerCase().indexOf(searchString) !== -1 ||
+                item.listed_as_city.toLowerCase().indexOf(searchString) !== -1 
+                ){
+                return item
+              }
+            })
+            return church_array;
+          },
     }
 });
 
