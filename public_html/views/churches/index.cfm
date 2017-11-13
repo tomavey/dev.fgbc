@@ -16,12 +16,13 @@
 
 <div class="container card card-charis card-charis-square text-center" v-cloak id="churches1">
 
-<p><input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search By Church Name, City or State">
-
 <p>
 <span>| </span>
 <span v-for="state in states"><a href="" v-on:click.prevent="setSearch(state.state)">{{state.state}} | </a></span>
 </p>
+
+<p><input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search By Church Name, City or State">
+
 
 </p>
   <cfoutput>
