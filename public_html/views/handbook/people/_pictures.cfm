@@ -1,9 +1,8 @@
 <cfoutput>
 <div>
 <cfset isPictures=arraylen(handbookperson.handbookpictures)>
-#isPictures#
+
 <cfset pictureShown = false>
-			 <cftry>
         		<cfif isPictures>
 					  <cfloop from="1" to="#ispictures#" index="i">
 					  <cfif isPictures EQ 1 OR handbookperson.handbookpictures[i].usefor is "default">
@@ -25,8 +24,6 @@
 							#linkTo(text="<i class='icon-picture'></i>", controller="handbook.pictures", action="index", params="personid=#params.key#", class="tooltipside", title="Show more pictures of #handbookperson.fname#")#
 						</cfif>
         		</cfif>
-				<cfcatch>Missing Picture</cfcatch>
-			</cftry>
     				<cfif !isAjax() && 
 					(
 							(
