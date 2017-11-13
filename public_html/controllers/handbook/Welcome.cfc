@@ -11,7 +11,7 @@
 	</cffunction>
 
 	<cffunction name="welcome">
-		<cfif isDefined("params.key")>
+		<cfif isDefined("params.id")>
 			<cfset redirectTo(action="index", params="unlockcode=#params.key#")>
 		<cfelse>
 			<cfset redirectTo(action="index")>
