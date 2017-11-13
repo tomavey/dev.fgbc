@@ -15,7 +15,8 @@
 		<cfset churchesjson = queryToJson(churches)>
 
 <!---		<cfdump var="#churches#"><cfabort>--->
-		<cfset churchStates = model("Handbookorganization").findAll(order="state", distinct=true, select="state", include="Handbookstate")>
+		<cfset churchStates = model("Handbookorganization").findAll(where="statusid IN (1,4,8,9)", order="state", distinct=true, select="state", include="Handbookstate")>
+		<cfset churchStatesJson = queryToJson(churchStates)>
 
 	</cffunction>
 

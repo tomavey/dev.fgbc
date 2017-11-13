@@ -16,7 +16,12 @@
 
 <div class="container card card-charis card-charis-square text-center" id="churches1">
 
-<p><input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search By">
+<p><input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search By Church Name, City or State">
+
+<p>
+<span>| </span>
+<span v-for="state in states"><a href="" v-on:click.prevent="setSearch(state.state)">{{state.state}} | </a></span>
+</p>
 
 </p>
   <cfoutput>
@@ -47,6 +52,7 @@ var vm = new Vue({
     data: {
         welcome: "Hello",
         churches: #churchesjson#,
+        states: #churchStatesJson#,
         searchString: "",
         filterString: ""
     },
@@ -70,8 +76,11 @@ var vm = new Vue({
         onkeyup: _.debounce(function(){
           this.filterString = this.searchString;
           console.log(this.filterString);
-        },300),
-      },
+          },300),
+        setSearch: function(state){
+          this.filterString = state;
+         },
+      },     
     computed: {
         filteredChurches: function(){
           var searchString = this.filterString,
