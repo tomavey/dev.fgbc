@@ -1,4 +1,4 @@
-<cftry>
+<!---cftry--->
 <cfset isNotes=arraylen(handbookperson.handbooknotes)>
 
 
@@ -216,6 +216,7 @@
 </div>
 
 </cfoutput>
+<!---
 	<cfcatch>
 		<cfset session.cfcatch = structNew()>
 		<cfif isDefined("cfcatch.message")>
@@ -225,3 +226,4 @@
 	        	<cfset redirectTo(action="index", error="Oops! Something went wrong try to access this person.  We are working on a solution. You should be able to continue from this page.")>
 	</cfcatch>
 </cftry>
+--->

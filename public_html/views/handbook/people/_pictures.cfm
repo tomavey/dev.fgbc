@@ -5,16 +5,16 @@
 <cfset pictureShown = false>
 			 <cftry>
         		<cfif isPictures>
-					  <cfloop from="1" to="#ispictures#" index="i">
+				  <cfloop from="1" to="#ispictures#" index="i">
 					  <cfif isPictures EQ 1 OR handbookperson.handbookpictures[i].usefor is "default">
         				#linkTo(
 								text=imageTag(source="/handbookpictures/thumb_#handbookperson.handbookpictures[i].file#"),
 								href="/images/handbookpictures/web_#handbookperson.handbookpictures[i].file#")
 								#
-						<cfset pictureShown = true>
-						<cfbreak>
+							<cfset pictureShown = true>
+							<cfbreak>
 						</cfif>
-						</cfloop>
+					</cfloop>
 						<cfif not pictureShown>
             				#linkTo(
     								text=imageTag(source="/handbookpictures/thumb_#handbookperson.handbookpictures[ispictures].file#"),
