@@ -174,9 +174,10 @@
 <cfargument name="action" default="new">
 <cfargument name="id" required="false" type="numeric">
 <cfargument name="params" require="false" type="string">
+<cfargument name="icon" default = "<i class='fa fa-plus'></i>">
 <cfif isDefined("arguments.id")>
 	<cfreturn "#linkTo(
-					text="add",
+					text=arguments.icon,
 					controller = '#arguments.controller#',
 					action=arguments.action,
 					key=arguments.id,
@@ -184,7 +185,7 @@
 					)#">
 <cfelseif isDefined("arguments.params")>
 	<cfreturn "#linkTo(
-					text="add",
+					text=arguments.icon,
 					controller = '#arguments.controller#',
 					action=arguments.action,
 					params=arguments.params,
@@ -192,7 +193,7 @@
 					)#">
 <cfelse>
 	<cfreturn "#linkTo(
-					text="add",
+					text=arguments.icon,
 					controller = '#arguments.controller#',
 					action=arguments.action,
 					title="Add New"
@@ -210,7 +211,7 @@
 </cfif>
 
 		<cfreturn "#linkTo(
-						text="delete",
+						text="<i class='fa fa-trash'></i>",
 						controller=arguments.controller,
 						action='delete',
 						key=arguments.id,
@@ -228,7 +229,7 @@
 <cfargument name="action" default="show">
 <cfargument name="params" default="">
 		<cfreturn "#linkTo(
-						text="show",
+						text="<i class='fa fa-search'></i>",
 						controller=arguments.controller,
 						action=arguments.action,
 						key=arguments.ID,
@@ -253,7 +254,7 @@
 <cfargument name="controller" default="#params.controller#">
 <cfset arguments.controller = lCase(arguments.controller)>
 			<cfreturn "#linkTo(
-							text='edit',
+							text="<i class='fa fa-pencil-square'></i>",
 							controller=arguments.controller,
 							action='edit',
 							key=arguments.id,
@@ -266,7 +267,7 @@
 <cfargument name="controller" default="#params.controller#">
 <cfset arguments.controller = lCase(arguments.controller)>
 			<cfreturn "#linkTo(
-							text='copy',
+							text="<i class='fa fa-copy'></i>",
 							controller=arguments.controller,
 							action='copy',
 							key=arguments.id,

@@ -18,7 +18,7 @@
 		<cfset spancount = 6>
 	</cfif>	
 
-	<div class="span1">
+	<div class="span0">
 	</div>
 	
 	<div class="span#spancount#" id="maininfo">

@@ -1,6 +1,7 @@
 <cfoutput>
 <div>
 <cfset isPictures=arraylen(handbookperson.handbookpictures)>
+#isPictures#
 <cfset pictureShown = false>
 			 <cftry>
         		<cfif isPictures>

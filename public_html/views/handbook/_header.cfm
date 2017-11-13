@@ -21,11 +21,9 @@
 	
 	
 	<cfoutput>
-		#styleSheetLinkTag("bootstrap,bootstrap-responsive.min,handbook,../javascripts/jquery-ui/jquery-ui.min,../javascripts/jquery-ui/jquery-ui.structure.min,../javascripts/jquery-ui/jquery-ui.theme.min")#    
+		#styleSheetLinkTag("bootstrap,bootstrap-responsive.min,handbook,../javascripts/jquery-ui/jquery-ui.min,../javascripts/jquery-ui/jquery-ui.structure.min,../javascripts/jquery-ui/jquery-ui.theme.min,/assets/vendor/icon-awesome/css/font-awesome.min")#    
 	</cfoutput>
 
 </head>
 
-<body>
-
-    
+<body>    
