@@ -43,6 +43,11 @@
 		<cfset renderpage(action="show")>
 	</cffunction>
 
+	<cffunction name="charisgraphics">
+   		<cfset content = model("Maincontent").findByKey(78)>
+		<cfset renderpage(action="show")>
+	</cffunction>
+
 	<cffunction name="constitution">
    		<cfset content = model("Maincontent").findByKey(18)>
 		<cfset renderpage(action="show")>
