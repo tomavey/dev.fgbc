@@ -24,7 +24,6 @@
 							#linkTo(text="<i class='icon-picture'></i>", controller="handbook.pictures", action="index", params="personid=#params.key#", class="tooltipside", title="Show more pictures of #handbookperson.fname#")#
 						</cfif>
         		</cfif>
-		</cftry>
     				<cfif !isAjax() && 
 					(
 							(
