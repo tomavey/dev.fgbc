@@ -125,7 +125,7 @@
 
     <cffunction name="submit">
         <cfif isDefined("params.test")>
-            <cfset requestBody =  '{ "author":"tomavey@fgbc.org", "content":"Workshops will be Friday, Saturday and Sunday during Flinch: Conference. Sign up before they fill up!", "subject":"test subject", "postAt":"Jul 1 2015", "link":"www.fgbc.org", "approved":"yes"}'>
+            <cfset requestBody =  '{ "author":"tomavey@fgbc.org", "content":"Workshops will be Friday, Saturday and Sunday during Flinch: Conference. Sign up before they fill up!", "subject":"test subject", "postAt":"Jul 1 2015", "link":"www.charisfellowship.us", "approved":"yes"}'>
         <cfelse>
             <cfset requestBody = toString(getHttpRequestData().content)>
          </cfif>

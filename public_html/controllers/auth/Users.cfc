@@ -247,7 +247,7 @@
 			<cfset redirectTo(action="facebookOAuth")>
 		</cfif>
 	<cfcatch>
-		<cfset sendLoginErrorNotice(subject="FGBC.org login problem at fb login")>
+		<cfset sendLoginErrorNotice(subject="Charisfellowship.us login problem at fb login")>
 		<cfset redirectTo(controller="home", action="index")>
 	</cfcatch>
 	</cftry>
@@ -255,7 +255,7 @@
 	<cftry>
 		<cfset pauseLogin()>
 	<cfcatch>
-		<cfset sendLoginErrorNotice(subject="FGBC.org login problem at pause login")>
+		<cfset sendLoginErrorNotice(subject="Charisfellowship.us login problem at pause login")>
 	</cfcatch>
 	</cftry>
 
@@ -297,7 +297,7 @@
 			<cfset redirectTo(controller="auth.users", action='loginform')>
 		</cfif>
 	<cfcatch>
-		<cfset sendLoginErrorNotice(subject="FGBC.org login problem at last step")>
+		<cfset sendLoginErrorNotice(subject="Charisfellowship.us login problem at last step")>
 		<cfset redirectTo(controller="home", action="index")>
 	</cfcatch>
 	</cftry>
