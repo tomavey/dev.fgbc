@@ -21,10 +21,11 @@
 <span v-for="state in states"><a href="" v-on:click.prevent="setSearch(state.state)">{{state.state}} | </a></span>
 </p>
 
-<p><input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search By Church Name, City or State">
-
-
+<p>
+  <input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search for..." /></br>
+  Search by state, city, or church name
 </p>
+
   <cfoutput>
   <div v-for="(church, index) in filteredChurches">
     <h1 v-if="isNewState(index,church.state,filteredChurches)">{{church.state}}</h1>
@@ -36,7 +37,7 @@
       <span v-if="church.org_city !== church.listed_as_city">Listed as: {{church.listed_as_city}}</br></span>
       <span v-if="church.meetingplace.length">Meeting at: {{church.meetingplace}}</br></span>
       <span v-if="church.website.length"><a v-bind:href="fixurl(church.website)">{{church.website}}</a></br></span>
-      <span v-if="church.email.length">{{church.email}}</br></span>
+      <span v-if="church.email.length"><a v-bind:href="'mailto:'+church.email">{{church.email}}</a></br></span>
       {{church.phone}}</br>
     </p>
   </div>
