@@ -17,7 +17,7 @@
 	
 		<cfelse>
 		
-			<cfset job = model("Mainjob").findAll(where="expirationdate > now() AND approved='Y'", order="createdAt ASC")>
+			<cfset job = model("Mainjob").findAll(where="expirationdate > now() AND approved='Y'", order="createdAt DESC")>
 	
 		</cfif>	
     		
