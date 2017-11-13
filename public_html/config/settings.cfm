@@ -146,7 +146,7 @@
 	<cfelse>
 		<cfset application.fbappid = "143684413289">
 		<cfset application.fbsecret = "76738ed83f18239fcfb90f652813de25">
-		<cfset application.fbredirecturl = "http://www.fgbc.org/auth.users/facebooklogin">
+		<cfset application.fbredirecturl = "http://www.charisfellowship.us/auth.users/facebooklogin">
 	</cfif>
             <cfset set(facebookloginisopen = true)>
 

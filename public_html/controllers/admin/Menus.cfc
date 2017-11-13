@@ -99,21 +99,11 @@
 	</cffunction>
 
 	<cffunction name="fellowshipCouncil">
-		<cflocation url="http://www.fgbc.org/fc?code=fellowshipcouncil&email=#session.auth.email#">
+		<cflocation url="http://www.charisfellowship.us/fc?code=fellowshipcouncil&email=#session.auth.email#">
 	</cffunction>
 	
 	<cffunction name="fellowshipCouncilDev">
-		<cflocation url="http://www.fgbc.org/fc?code=fellowshipcouncil&email=#session.auth.email#">
-	</cffunction>
-
-	<cffunction name="evlc">
-		<cfset unlockKey = getKey(session.auth.email)>
-		<cflocation url="http://www.fgbc.org/imagine?key=#unlockKey#">
-	</cffunction>
-	
-	<cffunction name="evlcDev">
-		<cfset unlockKey = getKey(session.auth.email)>
-		<cflocation url="http://www.fgbc.org/imagine?key=#unlockKey#">
+		<cflocation url="http://www.charisfellowship.us/fc?code=fellowshipcouncil&email=#session.auth.email#">
 	</cffunction>
 
 	<cffunction name="handbookadmin">
@@ -123,15 +113,15 @@
 
 	<cffunction name="handbookadmiDev">
 		<cfset unlockKey = getKey(session.auth.email)>
-		<cflocation url="http://www.fgbc.org/handbook/adm?key=#unlockKey#">
+		<cflocation url="http://www.charisfellowship.us/handbook/adm?key=#unlockKey#">
 	</cffunction>
 	<cffunction name="myfgbc">
 		<cfset unlockKey = getKey(session.auth.email)>
-		<cflocation url="http://my.fgbc.org/data?key=#unlockKey#">
+		<cflocation url="http://my.charisfellowship.us/data?key=#unlockKey#">
 	</cffunction>
 
 	<cffunction name="myfgbc">
-		<cflocation url="http://www.fgbc.org/data?unlock=charis">
+		<cflocation url="http://www.charisfellowship.us/data?unlock=charis">
 	</cffunction>
 
 </cfcomponent>

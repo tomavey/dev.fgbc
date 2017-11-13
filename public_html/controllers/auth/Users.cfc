@@ -185,7 +185,7 @@
 
 			<!---Send email links to reset password for each token--->
 			<cfif usersTokens.recordcount>
-				<cfset sendEmail(template="emailChangePasswordLink", layout="layoutforemail", from=application.wheels.userAdminEmailAddress, to=users.email, bcc="tomavey@fgbc.org", subject="Your Password on fgbc.org")>
+				<cfset sendEmail(template="emailChangePasswordLink", layout="layoutforemail", from=application.wheels.userAdminEmailAddress, to=users.email, bcc="tomavey@fgbc.org", subject="Your Password on charisfellowship.us")>
 				<cfif isLocalMachine()>
 				<cfelse>
 					<cfset renderPage(action="emailSent")>

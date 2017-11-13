@@ -106,7 +106,7 @@
 
 	<cffunction name="notification">
     	<cfset message = model("Mainmessage").findByKey(params.key)>
-		<cfset sendEmail(template="notification", from=message.email, to="tomavey@comcast.net", subject="A message from www.fgbc.org contact page...", layout="/layout_naked")>
+		<cfset sendEmail(template="notification", from=message.email, to="tomavey@comcast.net", subject="A message from charisfellowship.us contact page...", layout="/layout_naked")>
         <cfset redirectTo(action="thankyou")>
 	</cffunction>
 
