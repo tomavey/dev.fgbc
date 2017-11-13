@@ -35,3 +35,7 @@
 .charis-video-right {
     padding-left:5px
 }    
+
+[v-cloak] {
+    display:none;
+}

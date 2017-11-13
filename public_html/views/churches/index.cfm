@@ -14,7 +14,7 @@
 
 <p class="container card text-center"><a href="/handbook/" target="_new" class="btn btn-md u-btn-inset u-btn-bluegray g-mr-10 g-mb-15">Access the online handbook</a></p>
 
-<div class="container card card-charis card-charis-square text-center" id="churches1">
+<div class="container card card-charis card-charis-square text-center" v-cloak id="churches1">
 
 <p><input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search By Church Name, City or State">
 
