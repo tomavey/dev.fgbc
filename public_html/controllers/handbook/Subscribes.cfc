@@ -183,7 +183,7 @@
 		<cfset emailall = "">
 
 		<cfif isDefined("params.go") && params.go is "test">
-			<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@comcast.net", subject="TEST - From the FGBC Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_naked")>
+			<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@fgbc.org", subject="TEST - From the Charis Fellowship C Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_naked")>
 		<cfelse>
 			<cfif isDefined("params.sendto") and len(params.sendto)>
 				<cfset subscriptions = listToQuery(list=params.sendto, columnName="email")>
@@ -448,7 +448,7 @@
 		<cfset renderPage(template="/handbook/updates/index.cfm")>
 	</cffunction>
 
-	<cffunction name="xsendTodaysDates">
+f`	<cffunction name="xsendTodaysDates">
 		<cfset sendPrayerReminders(timeframe="week")>
 		<cfset renderPage(template="sendPrayerReminders")>
 	</cffunction>

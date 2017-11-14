@@ -24,16 +24,16 @@
                             #linkto(text="Send Email", controller="handbook.people", action="sendToHandbookPeople", id="navsearch", title="Send a pre-set email after confirmation", class="tooltip2")#
                         </li--->
                         <li>
-                            #linkto(text="Send Dates", route="handbooksendTodaysDates",key="test", id="navsearch", title="Send todays birthdays and anniversaries to subscribed emails", class="tooltip2")#
+                            #linkto(text="Send Dates", route="handbooksendTodaysDates", params="go=test", id="navsearch", title="Send todays birthdays and anniversaries to subscribed emails", class="tooltip2")#
                         </li>
                         <li>
-                            #linkto(text="Send Prayer - Daily", controller="handbook.subscribes", action="sendTodaysprayerreminders", key="test", id="navsearch", title="Send todays prayer notices to subscribed emails", class="tooltip2")#
+                            #linkto(text="Send Prayer - Daily", controller="handbook.subscribes", action="sendTodaysprayerreminders", params="go=test", id="navsearch", title="Send todays prayer notices to subscribed emails", class="tooltip2")#
                         </li>
                         <li>
-                            #linkto(text="Send Prayer - Weekly", controller="handbook.subscribes", action="sendThisWeeksPrayerReminders", key="test", id="navsearch", title="Send todays prayer notices to subscribed emails", class="tooltip2")#
+                            #linkto(text="Send Prayer - Weekly", controller="handbook.subscribes", action="sendThisWeeksPrayerReminders", params="go=test", id="navsearch", title="Send todays prayer notices to subscribed emails", class="tooltip2")#
                         </li>
                         <li>
-                            #linkto(text="Send Yesterdays Updates", controller="handbook.subscribes", action="sendYesterdaysUpdates", key="test", id="navsearch", title="Sends yesterdays updates to the handbook.", class="tooltip2")#
+                            #linkto(text="Send Yesterdays Updates", controller="handbook.subscribes", action="sendYesterdaysUpdates", params="go=test", id="navsearch", title="Sends yesterdays updates to the handbook.", class="tooltip2")#
                         </li>
 <!---
                         <li>
