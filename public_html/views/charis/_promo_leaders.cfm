@@ -6,6 +6,8 @@
         <div class="container g-bg-cover__inner g-py-150">
           <div class="row align-items-center">
             <div class="col-lg-6 g-mb-30 g-mb-0--lg">
+            <img class="u-image-icon-size-2xl rounded-circle g-mb-25" src="/assets/img/icons/training-leaders-1.png" alt="Training Leaders">
+
               <h1 class="g-color-white g-font-weight-700 g-font-size-50 g-font-size-120--md g-line-height-1_1 mb-0">Training<br>
 				Leaders<br>
                 </h1>
