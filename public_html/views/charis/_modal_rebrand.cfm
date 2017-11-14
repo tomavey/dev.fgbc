@@ -12,13 +12,13 @@
             <a href="http://charisfellowship.us/files/Charis_Fellowship_Press_Release.docx">Press Release</a>
         </div>
         <div class="card text-center">
-          <p>
+          <p class="embed-responsive embed-responsive-16by9">
           <iframe src="https://player.vimeo.com/video/241833716" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 <p><a href="https://vimeo.com/241833716">Charis Fellowship Live Stream - Recorded</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
           </p>
         </div>
         <div class="card text-center">
-          <p>
+          <p class="embed-responsive embed-responsive-16by9">
           <iframe src="https://player.vimeo.com/video/241505017" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/241505017">the Rebranding Team</a> from <a href="https://vimeo.com/fgbc">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>.
           </p>
         </div>
@@ -31,7 +31,9 @@
           <h4 class="text-center">Why Charis? Why Fellowship?</h4>
           <p>
             We observed that we already have a nickname for ourselves... "the fellowship"! Young leaders are more globally minded than pastor generations and we already use the word "Charis" in the name of our global movement "Charis Alliance". Since Charis means Grace, it made sense you take advantage of these realities to express our grace commitment in a fresh way. Watch this...
+            <p class="embed-responsive embed-responsive-16by9">
              <iframe src="https://player.vimeo.com/video/235957161" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/235957161">What is Brand</a> from <a href="https://vimeo.com/fgbc">Grace Brethren Churches</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+             </p>
           </p>
         </div> 
         <div class="card card-charis card-charis-square">
