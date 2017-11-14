@@ -6,7 +6,7 @@
 <cfparam name="anniversarymessage" default="Happy Anniversary!">
 
 <cfif isDefined("params.go") && params.go is "test">
-	<cfoutput>#linkto(text="Send to subscribers", params="go=send", class="btn")#</cfoutput>
+	<cfoutput>#linkto(text="Send to subscribers", route="handbookSendTodaysDates", params="go=send", class="btn")#</cfoutput>
 </cfif>
 
 <!---cfif isDefined("emailall")>
