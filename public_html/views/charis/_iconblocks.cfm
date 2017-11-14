@@ -66,7 +66,7 @@ MISSION</h1>
                     <div class="col-lg-4 g-px-20 g-mb-50 g-mb-0--lg">
                       <!-- Icon Blocks -->
                       <div class="text-center u-icon-block--hover">
-                        <img class="u-image-icon-size-2xl rounded-circle g-mb-25" src="assets/img/icons/training-leaders-1.png" alt="Church Planting">
+                        <img class="u-image-icon-size-2xl rounded-circle g-mb-25" src="assets/img/icons/training-leaders-1.png" alt="Training Leaders">
                         <h3 class="h5 g-color-white g-font-weight-600 text-uppercase mb-3">TRAINING LEADERS</h3>
                         <p class="g-color-white">We affirm that a leader is a person who influences others towards the fulfilment of defined objectives and is indispensable to the health and multiplication of the Church.</p>
                         <cfoutput>
@@ -79,7 +79,7 @@ MISSION</h1>
                     <div class="col-lg-4 g-px-20 g-mb-50 g-mb-0--lg">
                       <!-- Icon Blocks -->
                       <div class="text-center u-icon-block--hover">
-                        <img class="u-image-icon-size-2xl rounded-circle g-mb-25" src="assets/img/icons/doing-good.png" alt="Church Planting">
+                        <img class="u-image-icon-size-2xl rounded-circle g-mb-25" src="assets/img/icons/doing-good.png" alt="Doing Good">
                         <h3 class="h5 g-color-white g-font-weight-600 text-uppercase mb-3">DOING GOOD</h3>
                         <p class="g-color-white">We affirm that God has created human beings with physical, emotional and spiritual needs and that the Church expresses the compassion of Christ in proclaiming the Gospel while caring for various needs of mankind.</p>
                         <cfoutput>

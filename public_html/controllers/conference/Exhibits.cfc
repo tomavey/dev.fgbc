@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/conference/adminlayout")>
-		<cfset filters(through="officeOnly", only="edit,delete,index")>
+		<cfset filters(through="officeOnly", only="edit,delete")>
 		<cfset filters(through="isExhibitsOpen", only="new,info")>
 		<cfset filters(through="setReturn", only="list,index")>
 	</cffunction>
