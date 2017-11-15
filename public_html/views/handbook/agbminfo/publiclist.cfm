@@ -26,3 +26,6 @@
 </ol>
 </cfoutput>
 </div>
+<cfoutput>
+Total Count = #ministerium.recordcount#<br/>
+</cfoutput>

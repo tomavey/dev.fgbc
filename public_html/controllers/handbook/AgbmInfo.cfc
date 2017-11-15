@@ -47,6 +47,10 @@
 
 	</cffunction>
 
+	<cffunction name="publiclist">
+		<cfset ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district, lname")>
+	</cffunction>
+
 	<cffunction name="handbook">
 		<cfset params.all = true>
 		<cfset handbookPeople = model("Handbookperson").findHandbookPeople(params)>
@@ -272,11 +276,6 @@
 	<cffunction name="json">
 		<cfset data = model("Handbookagbminfo").Handbookagbminfoasjson()>
 		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
-	</cffunction>
-
-	<cffunction name="publiclist">
-		<cfset ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district,lname,fname")>
-		<cfset renderPage(layout="/layout_naked")>
 	</cffunction>
 
 	<cffunction name="handbookMembershipReport">
