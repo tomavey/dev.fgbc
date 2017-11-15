@@ -335,6 +335,7 @@
                 <!-- End Footer -->
 
                 <!-- Copyright Footer -->
+                <a href="http//charisfellowship.us"><img src="http://charisfellowship.us/assets/img/logo/memberof_blue_bk.jpg" /></a>
                 <footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 text-center g-py-20">
                   <div class="container">
                     <small class="g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">2017 &copy; Charis Fellowship - All Rights Reserved. Web Design Customized by
