@@ -37,6 +37,7 @@
 		</cfif>
 
 		<cfif !gotRights("agbm,superadmin,agbmadmin")>
+		  	<cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district")>
 			<cfset renderPage(template="publicList")>
 		</cfif>
 
