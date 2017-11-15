@@ -8,8 +8,7 @@
             <div class="col-lg-6 g-mb-30 g-mb-0--lg">
             <img class="u-image-icon-size-2xl rounded-circle g-mb-25" src="/assets/img/icons/training-leaders-1.png" alt="Training Leaders">
 
-              <h1 class="g-color-white g-font-weight-700 g-font-size-50 g-font-size-120--md g-line-height-1_1 mb-0">Training<br>
-				Leaders<br>
+              <h1 class="g-color-white g-font-weight-700 g-font-size-50 g-font-size-120--md g-line-height-1_1 mb-0">Training Leaders<br>
                 </h1>
           <span class="d-block g-color-white g-font-size-20 g-pos-rel g-top-minus-30--md g-line-height-1_2 ml-md-0"></span>
             </div>
