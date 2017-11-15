@@ -13,7 +13,7 @@
 	    	
 		<cfelseif gotrights("superadmin,office")>
 		
-			<cfset job = model("Mainjob").findAll(order="id desc")>
+			<cfset job = model("Mainjob").findAll(order="createdAt DESC")>
 	
 		<cfelse>
 		
