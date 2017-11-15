@@ -47,7 +47,8 @@
 
 	</cffunction>
 
-	<cffunction name="publiclist">
+	<cffunction name="publicList">
+	<cfdump var="#params#"><cfabort>
 		<cfset ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district, lname")>
 	</cffunction>
 
