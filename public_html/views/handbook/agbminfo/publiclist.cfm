@@ -27,5 +27,5 @@
 </cfoutput>
 </div>
 <cfoutput>
-Total Count = #ministerium.recordcount#<br/>
+Total Count = #people.recordcount#<br/>
 </cfoutput>
