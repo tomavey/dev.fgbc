@@ -26,7 +26,7 @@
 	    <cfif isInHandbook(personid) and positioninfo does not contain "Removed from Staff">
 
 	     	<cfset birthdaysubject = urlEncodedFormat("Happy Birthday #fname#!")>
-		    <li>#h(fullname)# - #mailTo(name="Send a greeting!", emailAddress="#fullname# <#handbookpersonemail#>?subject=#birthdaysubject#&body=#birthdaymessage#")# #handbookpersonphone# (#birthdaymonthnumber#/#birthdaydaynumber#)
+		    <li>#fullname# - #mailTo(name="Send a greeting!", emailAddress="#fullname# <#handbookpersonemail#>?subject=#birthdaysubject#&body=#birthdaymessage#")# #handbookpersonphone# (#birthdaymonthnumber#/#birthdaydaynumber#)
 				<ul>
 					<li class="positioninfo">#positioninfo#</li>
 				</ul>					

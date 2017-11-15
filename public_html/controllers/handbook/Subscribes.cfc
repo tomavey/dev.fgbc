@@ -194,7 +194,7 @@
 
 					<cfset useThisEmail = useHandbookEmail(email,handbookemail)>
 
-					<cfset sendEMail(from="tomavey@fgbc.org", to=scrubEmail(useThisEmail), subject="From the FGBC Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_for_email", type="html")>--->
+					<cfset sendEMail(from="tomavey@fgbc.org", to=scrubEmail(useThisEmail), subject="From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_for_email", type="html")>--->
 					<cfset emailall = emailall & ";" & useThisEmail>
 					<cfif isDefined("id")>
 						<cfset setLastSendAt(id)>
