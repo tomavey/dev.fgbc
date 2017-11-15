@@ -16,7 +16,7 @@
             <div class="col-lg-6">
               <!-- Vimeo Example -->
               <div class="embed-responsive embed-responsive-16by9">
-                <iframe src="https://player.vimeo.com/video/242130368" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe><p><a href="https://vimeo.com/242130368">Keith Minier about TRaining Leaders/a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>
+                <iframe src="https://player.vimeo.com/video/242130368" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe><p><a href="https://vimeo.com/242130368">Keith Minier about Training Leaders</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>
               </div>
               <!-- End Vimeo Example -->
             </div>
