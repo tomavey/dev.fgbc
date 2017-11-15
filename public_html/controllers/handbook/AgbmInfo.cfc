@@ -36,6 +36,10 @@
 			  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear)>
 		</cfif>
 
+		<cfif !gotRights("agbm,superadmin,agbmadmin")>
+			<cfset renderPage(template="publicList")>
+		</cfif>
+
 		<!---Set the layout for normal, download view, or download excel--->
 		<cfif isdefined("params.download")>
 			<cfif isDefined("params.excel")>
@@ -48,7 +52,6 @@
 	</cffunction>
 
 	<cffunction name="publicList">
-	<cfdump var="#params#"><cfabort>
 		<cfset ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district, lname")>
 	</cffunction>
 
