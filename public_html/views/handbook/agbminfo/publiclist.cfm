@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <h2>AGBM Membership List</h2>
+          <h2>AGBM Membership List for #currentMembershipYear#</h2>
           <div class="nav-collapse">
           </div><!--/.nav-collapse -->
 			</cfoutput>
