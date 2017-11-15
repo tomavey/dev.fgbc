@@ -8,12 +8,7 @@
 	</cfif>
 
 	<cfif params.category is "Doing Good">
-		<div class="card card-charis">
-		 <h2 class="text-center">#linkTo(text="Watch Barb Wooler talk about training leaders in the Charis Fellowship", href="https://vimeo.com/242130542")#</h2>
-		 <div class="text-center embed-responsive embed-responsive-16by9">
-			<iframe src="https://player.vimeo.com/video/242130542" width="640" height="363" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-			<p><a href="https://vimeo.com/242130542">Barn Wooler and the Charis Fellowship</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
-		</div>
+		#includePartial("/charis/promo_doinggood")#
 	</div>
 	</cfif>
 	<div class="container card card-charis card-charis-square text-center">
