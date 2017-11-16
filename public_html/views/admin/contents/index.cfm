@@ -28,7 +28,12 @@
 		</td>
 		<td>
 			#editTag()# 
-			#showTag()#
+			#linkTo(
+						text="<i class='fa fa-search'></i>",
+						route="showpage",
+						key=ID,
+						title="show"
+						)# 
 			#deleteTag(class="noajax")#
 		</td>
 	</tr>
