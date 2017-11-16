@@ -23,7 +23,14 @@
 			#dateformat(updatedAt)#	
 		</td>
 		<td>
-			#editTag()# #showTag(route="showpage")# #deleteTag()#
+			#editTag()# 
+			#linkTo(
+						text="<i class='fa fa-search'></i>",
+						route="showpage",
+						key=ID,
+						title="show"
+						)# 
+			#deleteTag()#
 		</td>
 	</tr>
 </cfoutput>

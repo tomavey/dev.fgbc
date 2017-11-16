@@ -229,15 +229,6 @@
 <cfargument name="action" default="show">
 <cfargument name="params" default="">
 <cfargument name="route" default="">
-	<cfif len(arguments.route)>
-		<cfreturn "#linkTo(
-						text="<i class='fa fa-search'></i>",
-						route=arguments.route,
-						key=arguments.ID,
-						params=arguments.params,
-						title="show"
-						)#">
-	</cfif>
 		<cfreturn "#linkTo(
 						text="<i class='fa fa-search'></i>",
 						controller=arguments.controller,
