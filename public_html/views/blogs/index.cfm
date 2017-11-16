@@ -1,11 +1,5 @@
 <cfoutput>
-<div class="row-fluid well contentStart contentBg">
-    <div class="span3">
-        #includePartial(partial="sidebar", selected="home")#
-    </div>
-
-    <div class="span9">
-
+<div class="container">
 		<div id="instructions">
 			#getcontent("blogs").content#
 
@@ -25,6 +19,5 @@
 				</td>
 			</tr>
 		</table>
-	</div>
 </div>
 </cfoutput>
