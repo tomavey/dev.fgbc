@@ -39,3 +39,9 @@
 [v-cloak] {
     display:none;
 }
+
+.charis-columns {
+    column-count: 3; 
+    column-width:300px; 
+    column-rule: 2px outset #698F81
+}

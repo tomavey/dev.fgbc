@@ -26,6 +26,7 @@
   Search by state, city, or church name
 </p>
 
+  <div v-bind:class="columnsClass">
   <cfoutput>
   <div v-for="(church, index) in filteredChurches">
     <h1 v-if="isNewState(index,church.state,filteredChurches)">{{church.state}}</h1>
@@ -42,7 +43,7 @@
     </p>
   </div>
   </cfoutput>
-
+  </div>
 </div>
 
 
@@ -56,7 +57,8 @@ var vm = new Vue({
         churches: #churchesjson#,
         states: #churchStatesJson#,
         searchString: "",
-        filterString: ""
+        filterString: "",
+        columnsClass: "charis-columns"
     },
     methods: {
         fixurl: function(website){
@@ -78,9 +80,11 @@ var vm = new Vue({
         onkeyup: _.debounce(function(){
           this.filterString = this.searchString;
           console.log(this.filterString);
+          this.columnsClass = "";
           },300),
         setSearch: function(state){
           this.filterString = state;
+          this.columnsClass = "";
          },
       },     
     computed: {
