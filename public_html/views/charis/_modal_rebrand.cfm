@@ -38,7 +38,7 @@
         </div> 
         <div class="card card-charis card-charis-square">
           <h4 class="text-center">Where can I download graphics for my web site?</h4>
-          <h2>
+          <h2 class="text-center">
               <a href="http://charisfellowship.us/page/charisgraphics">charisfellowship.us/page/charisgraphics</a>            
           </h2>
         </div> 
