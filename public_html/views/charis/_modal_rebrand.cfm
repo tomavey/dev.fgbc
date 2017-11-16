@@ -37,6 +37,12 @@
           </p>
         </div> 
         <div class="card card-charis card-charis-square">
+          <h4 class="text-center">Where can I download graphics for my web site?</h4>
+          <h2>
+              <a href="http://charisfellowship.us/page/charisgraphics">charisfellowship.us/page/charisgraphics</a>            
+          </h2>
+        </div> 
+        <div class="card card-charis card-charis-square">
           <h4 class="text-center">What's next?</h4>
           <p class="text-center">
             Wow! That's a huge question but we are so glad you asked!
