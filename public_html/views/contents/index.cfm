@@ -23,7 +23,7 @@
 			#dateformat(updatedAt)#	
 		</td>
 		<td>
-			#editTag()# #showTag()# #deleteTag()#
+			#editTag()# #showTag(route="showpage")# #deleteTag()#
 		</td>
 	</tr>
 </cfoutput>

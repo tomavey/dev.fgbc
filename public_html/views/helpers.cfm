@@ -228,9 +228,12 @@
 <cfargument name="controller" default="#params.controller#">
 <cfargument name="action" default="show">
 <cfargument name="params" default="">
+<cfargument name="route" default="">
+
 		<cfreturn "#linkTo(
 						text="<i class='fa fa-search'></i>",
 						controller=arguments.controller,
+						route=arguments.route,
 						action=arguments.action,
 						key=arguments.ID,
 						params=arguments.params,
