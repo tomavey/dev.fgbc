@@ -31,7 +31,7 @@
 		
 	</p>
 
-	<div v-for="ministry in filteredMinistries" class="card card-charis-sub">
+	<div v-for="ministry in filteredMinistries" class="card card-charis-sub" v-cloak>
 			<h2 class="card-title">{{ministry.name}}</h2>
 			<p v-if="ministry.image.length"><img v-bind:src="'/images/ministries/' + ministry.image" /></p>
 			<p>{{ministry.summary}}</p>
@@ -93,7 +93,10 @@ var vm = new Vue({
             return ministries_array;
           },
 		  showCategoriesFilter: function(){
-			  return this.category.length;
+			  if (this.category == "all"){
+				  return true
+			  }
+			  return false;
 		  }
     }
 });
