@@ -1,7 +1,5 @@
 <cfoutput>
 
-    #includePartial("/charis/livestream")#
-
     <cfif !gotRights("basic") || !isLoggedIn()>
         #includePartial("/charis/promo")#
     <cfelse>
