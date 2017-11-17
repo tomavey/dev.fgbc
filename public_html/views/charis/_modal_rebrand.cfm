@@ -11,6 +11,12 @@
         <div class="card text-center" style="font-size:1.2em">
             <a href="http://charisfellowship.us/files/Charis_Fellowship_Press_Release.docx">Press Release</a>
         </div>
+        <div class="card card-charis card-charis-square">
+          <h4 class="text-center">Where can I download graphics for my web site?</h4>
+          <h2 class="text-center">
+              <a href="http://charisfellowship.us/page/charisgraphics">charisfellowship.us/page/charisgraphics</a>            
+          </h2>
+        </div> 
         <div class="card text-center">
           <p class="embed-responsive embed-responsive-16by9">
           <iframe src="https://player.vimeo.com/video/241833716" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
@@ -35,12 +41,6 @@
              <iframe src="https://player.vimeo.com/video/235957161" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://vimeo.com/235957161">What is Brand</a> from <a href="https://vimeo.com/fgbc">Grace Brethren Churches</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
              </p>
           </p>
-        </div> 
-        <div class="card card-charis card-charis-square">
-          <h4 class="text-center">Where can I download graphics for my web site?</h4>
-          <h2 class="text-center">
-              <a href="http://charisfellowship.us/page/charisgraphics">charisfellowship.us/page/charisgraphics</a>            
-          </h2>
         </div> 
         <div class="card card-charis card-charis-square">
           <h4 class="text-center">What's next?</h4>
