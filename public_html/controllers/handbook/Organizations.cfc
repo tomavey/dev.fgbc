@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/handbook/layout_handbook")>
-		<cfset filters(through="gotBasicHandbookRights,logview", except="memberChurches,findChurches")>
+		<cfset filters(through="gotBasicHandbookRights,logview", except="memberChurches,findChurches,findChurchWithStaff")>
 		<!---
 		<cfset filters(through="isOnStaffHere", except="index,show,handbookpages,edit,new,notStaff,resort,move")>
 		--->
