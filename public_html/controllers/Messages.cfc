@@ -96,7 +96,7 @@
 		<cfif len(message.subject)>
 			<cfset loc.subject = message.subject>
 		<cfelse>
-			<cfset loc.subject = "A message from www.fgbc.org contact page...">
+			<cfset loc.subject = "A message from charisfellowship.us contact page...">
 		</cfif>	
 		<cfset sendEmail(template="notification", from=message.email, to="tomavey@fgbc.org", subject=loc.subject, layout="/layout_naked")>
         <cfset redirectTo(action="thankyou")>
