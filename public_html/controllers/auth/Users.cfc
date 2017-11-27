@@ -266,7 +266,7 @@
 			<cfset redirectTo(action='loginform')>
 		</cfif>
 	<cfcatch>
-		<cfset sendLoginErrorNotice(subject="FGBC.org login problem check user name")>
+		<cfset sendLoginErrorNotice(subject="Charisfellowship.us login problem check user name")>
 		<cfset redirectTo(controller="home", action="index")>
 	</cfcatch>
 	</cftry>

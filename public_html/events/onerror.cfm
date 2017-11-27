@@ -40,7 +40,7 @@
              </head>
              <body>
                             <p>
-                                Error on http://www.fgbc.org#cgi.path_info#<cfif len(cgi.query_string)>?#cgi.query_string#</cfif> <cfif len(cgi.http_referer)> from #cgi.http_referer#</cfif>
+                                Error on http://www.charisfellowship.us#cgi.path_info#<cfif len(cgi.query_string)>?#cgi.query_string#</cfif> <cfif len(cgi.http_referer)> from #cgi.http_referer#</cfif>
                             </p>
                             <cfif isDefined("arguments.exception.message")>
                                 <p>Error Message:</p>
@@ -79,7 +79,7 @@
                                 <p>User rightslist</p>
                                 <p>#session.auth.rightslist#</p>
                             </cfif>
-                            <p>Reload web site: http://www.fgbc.org/?reload=true&password=charis</p>
+                            <p>Reload web site: http://www.charisfellowship.us/?reload=true&password=charis</p>
                  </body>
                  </html>
             </cfmail>
