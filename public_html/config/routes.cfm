@@ -123,10 +123,11 @@
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
-			.get(name="removeTags", pattern="/tags/remove/", controller="tags", action="removeFromTag")
+			.get(name="removeFromTag", pattern="/tags/remove/", controller="tags", action="removeFromTag")
+			.get(name="removeTag", pattern="/tag/remove/[key]", controller="tags", action="removeTag")
+			.get(name="downloadTag", pattern="/tag/download/[key]", controller="tags", action="download")
 			.post(name="changeTag", pattern="/tag/change/", controller="tags", action="changeTag")
 			.post(name="shareTag", pattern="/tag/share/", controller="tags", action="shareTag")
-			.post(name="downloadTag", pattern="/tag/download/", controller="tags", action="download")
 			.resources("tags")
 
 			.get(name="deletesubscribe", pattern="/subscribes/[key]/delete/", controller="subscribes", action="delete")
