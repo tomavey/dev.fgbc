@@ -124,7 +124,7 @@
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
 			.get(name="removeTags", pattern="/tags/remove/", controller="tags", action="removeFromTag")
-			.post(name="changeTag", pattern="/tag/change/[tag]", controller="tags", action="changeTag")
+			.post(name="changeTag", pattern="/tag/change/", controller="tags", action="changeTag")
 			.resources("tags")
 
 			.get(name="deletesubscribe", pattern="/subscribes/[key]/delete/", controller="subscribes", action="delete")
