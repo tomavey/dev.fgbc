@@ -126,6 +126,7 @@
 			.get(name="removeTags", pattern="/tags/remove/", controller="tags", action="removeFromTag")
 			.post(name="changeTag", pattern="/tag/change/", controller="tags", action="changeTag")
 			.post(name="shareTag", pattern="/tag/share/", controller="tags", action="shareTag")
+			.post(name="downloadTag", pattern="/tag/download/", controller="tags", action="download")
 			.resources("tags")
 
 			.get(name="deletesubscribe", pattern="/subscribes/[key]/delete/", controller="subscribes", action="delete")
