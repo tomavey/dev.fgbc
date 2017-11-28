@@ -6,8 +6,9 @@
 	</div>	
 <cfelse>	
 	<h1>An email has been sent to #newchurch.email# with a link to verify your email address.</h1>
-	<h2>Your new-church record has been started.  Use this link to complete the form.  Save this link so you can edit the for later.</h2>
-<p>#linkto(controller="membership.newchurches", action="edit", key=newchurch.uuid, onlyPath=false)#
+	<h2>Your new-church record has been started.</h2>
+	<p class="well">Use this link to complete the form.  Save this link so you can edit the form later.</p>
+	<p>#linkto(controller="membership.newchurches", action="edit", key=newchurch.uuid, onlyPath=false)#
 </p>
 </cfif>
 </cfoutput>
