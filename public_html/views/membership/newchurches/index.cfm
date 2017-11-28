@@ -5,7 +5,7 @@
 <cfoutput>#includePartial("showFlash")#
 
 
-	<p>#linkTo(text="Add a new church", action="welcome")#</p>
+	<p>#linkTo(text="Add a new church", route="newchurch")#</p>
 	<cfif isDefined("params.showall")>
 		<p>#linkTo(text="Show only verified", action="index")#</p>
 	<cfelse>
