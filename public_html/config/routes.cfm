@@ -273,6 +273,7 @@
 			.post(name="createBlankForm", pattern="/newchurches/createBlankForm/", controller="newchurches", action="createBlankForm")
 			.get(name="emailSent", pattern="/newchurches/emailsent/", controller="newchurches", action="emailsent")
 			.get(name="newministries", pattern="/newministries/", controller="newministries", action="index")
+			.resources('newchurches')
 		.end()
 
 		.namespace("forums")

@@ -78,7 +78,7 @@
 
 						#textArea(objectName='newchurch', property='gospel', label='In 100 words or less, what is the Gospel?', class="ckeditor")#
 
-						#textArea(objectName='newchurch', property='leaders', label='Who is/are your leader(s) (ie: gatherer, shepherd, elder)', class="ckeditor")#
+						#textArea(objectName='newchurch', property='leaders', label='Who are your leader(s) (ie: gatherer, shepherd, elder)? May we contact them?', class="ckeditor")#
 
 						#textArea(objectName='newchurch', property='ordinances', label='Tell us about your practice of the ordinances (Baptism and Communion).', class="ckeditor")#
 
