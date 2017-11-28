@@ -86,7 +86,7 @@
 
 </cfif>
 
-						#select(objectName='newchurch', property='becomefgbc', label='Does this new church intend to become an official member of the FGBC within 3 years? ', options="No,Yes,Maybe", class="input-small")#
+						#select(objectName='newchurch', property='becomefgbc', label='Does this new church intend to become an official member of Charis Fellowship(*) within 3 years? ', options="No,Yes,Maybe", class="input-small")#
 
 
 						#textArea(objectName='newchurch', property='story', label='Tell us your church starting story... ', class="ckeditor")#
@@ -127,6 +127,8 @@
 						#textField(objectName='newchurch', property='grantEligibleAt', label='Eligible for a grant at conference in: ')#
 
 </fieldset>
+
+<p>* Charis Fellowship is the DBA for the Fellowship of Grace Brethren Churches, inc.</p>
 
 </cfif>
 
