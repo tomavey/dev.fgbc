@@ -73,9 +73,7 @@
   <cfoutput query="bluepagesPeople" group="alpha">
     <cfoutput group="id">
 
-  <!---cfif len(trim(address1)) or len(trim(address2)) or len(trim(city)) or len(trim(state_mail_abbrev)) or len(trim(phone)) or len(trim(email))--->
-
-      <cfif not isDefined("params.nonstaff") OR (not isNatMinOrCoopMin(id) AND not isAGBMMember(id))>
+      <cfif (!isDefined("params.nonstaff")) || (!isNatMinOrCoopMin(id) && !isAGBMMember(id))>
 
         <cfif lname EQ previouslname and fname EQ previousfname and isDefined("params.showalert")>
            <cfset alert = 1>
@@ -84,7 +82,7 @@
           <cfset previouslname = "">
           <cfset previousfname = "">
 
-        <cfif lname NEQ "Pastor" and fname NEQ "No">
+        <cfif lname NEQ "Pastor" && fname NEQ "No" && !isFormerAGBMMember(id)>
           <cfif alert>
             **Possible Duplication**&nbsp;<br/>
           </cfif>
@@ -123,7 +121,6 @@
 
       </cfif>
 
-  <!---/cfif--->
     </cfoutput>
   </cfoutput>
 

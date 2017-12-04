@@ -78,7 +78,7 @@
 					 <cfif isAgbmMember(params.key)>
 					 	<p>Member of the Association of Grace Brethren Ministers</p>
 					 </cfif>
-					 <cfif isAGBM(params.key) and gotRights("office") and NOT isAgbmMember(params.key)>
+					 <cfif gotRights("office") and isFormerAgbmMember(params.key)>
 					 	<p>Former member of the AGBM.</p>
 					 </cfif>
 

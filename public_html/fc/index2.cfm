@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-
-    <title>Dashboard Template for Bootstrap</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/assets/img/favicon2.ico">
+  
+    <title>Fellowship Council</title>
 
     <!-- Bootstrap core CSS -->
     <link href="assets/vendors/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -23,7 +23,7 @@
       <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">Dashboard</a>
+      <a class="navbar-brand" href="#">Fellowship Council</a>
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
@@ -31,16 +31,16 @@
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Settings</a>
+            <a class="nav-link" href="#">Agenda</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
+            <a class="nav-link" href="#">Minutes</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Help</a>
+            <a class="nav-link" href="#">Commissions</a>
           </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
+        <form class="form-inline mt-2 mt-md-0 hidden">
           <input class="form-control mr-sm-2" type="text" placeholder="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
@@ -49,7 +49,7 @@
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+        <nav class="col-sm-3 col-md-2 bg-faded sidebar" :class="sideBarClass()">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
               <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
@@ -93,10 +93,10 @@
           </ul>
         </nav>
 
-        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-          <h1>{{welcome}}</h1>
+        <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" :class="mainClass()">
+          <h1 v-cloak>{{message}}</h1>
 
-          <section class="row text-center placeholders">
+          <section class="row text-center placeholders" :class="circlesClass()">
             <div class="col-6 col-sm-3 placeholder">
               <img src="data:image/gif;base64,R0lGODlhAQABAIABAAJ12AAAACwAAAAAAQABAAACAkQBADs=" width="200" height="200" class="img-fluid rounded-circle" alt="Generic placeholder thumbnail">
               <h4>Label</h4>
@@ -119,6 +119,7 @@
             </div>
           </section>
 
+          <div :class="contentClass">
           <h2>Section title</h2>
           <div class="table-responsive">
             <table class="table table-striped">
@@ -246,6 +247,7 @@
                 </tr>
               </tbody>
             </table>
+            </div>
           </div>
         </main>
       </div>
@@ -266,7 +268,23 @@
     var vm = new Vue({
         el: "#app",
         data: {
-            welcome: "Working",
+            message: "Working",
+        },
+        methods: {
+          mainClass: function(){
+            return ""
+          },
+          sideBarClass: function(){
+            return "hidden-xs-down"
+          },
+          circlesClass: function(){
+            return ""
+          },
+          contentClass: function(){
+            return ""
+          }
+
+
         }
     })
     </script>

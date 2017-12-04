@@ -676,11 +676,6 @@
 	<cfset redirectTo(action="distribution")>
 </cffunction>
 
-<cffunction name="isAgbmMember">
-<cfargument name="personid" required="true" type="numeric">
-<cfreturn model("Handbookagbminfo").isAgbmMember(arguments.personid)>
-</cffunction>
-
 <cffunction name="findAllStaff">
 	<cfset staff = model("Handbookperson").findAllStaff()>
 	<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>

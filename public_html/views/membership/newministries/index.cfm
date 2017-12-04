@@ -1,42 +1,48 @@
-<div ng-app="newMinistriesApp">
+<div id="newMinistriesApp" class="container">
+<p>{{message}}</p>
 <cfoutput>
 
-<div ng-controller="indexController" class="row-fluid well contentStart contentBg">
+<div class="row-fluid well contentStart contentBg">
+
+<my-component></my-component>    
+
 <div class="form-group">
-    <input ng-model="query" type="text" placeholder="Search" class="input-xlarge search-query"/>
+    <input v-model="query" @keyup="onKeyUp" type="text" placeholder="Search" class="input-xlarge search-query"/>
 </div>
 
 <cfif gotRights("office")>
-<p>&nbsp;</p>
-#linkto(text="Start a New Cooperating Ministry Application", controller="membership.newministries", action="new", class="btn btn-block")#
+    <p>&nbsp;</p>
+    #linkto(text="Start a New Cooperating Ministry Application", controller="membership.newministries", action="new", class="btn btn-block")#
 </cfif>
 
 <p>&nbsp;</p>
 <table class="table table-striped table-bordered table-hover">
 <tr>
-    <th><a href="" ng-click="sortField = 'name'; reverse=!reverse">Ministry Name</a></th>
-    <th><a href="" ng-click="sortField = 'contactemail'; reverse=!reverse">Contact Email</a></th>
-    <th><a href="" ng-click="sortField = 'date'; reverse=!reverse">Created</a></th>
-    <th><a href="" ng-click="sortField = 'updatedAt'; reverse=!reverse">Updated</a></th>
+    <th ><a href="" @click.prevent="reSortBy('name')">Ministry Name</a></th>
+    <th><a href="" @click.prevent="reSortBy('email')">Contact Email</a></th>
+    <th><a href="" @click.prevent="reSortBy('datetime')">Created</a></th>
+    <th><a href=""  @click.prevent="reSortBy('updatedAt')">Updated</a></th>
     <th>&nbsp;</th>
 </tr>
-<tr ng-show='!ministries.length'><td>Loading...</td></tr>
-<tr ng-repeat="ministry in ministries | filter:query | orderBy:sortField:reverse">
+<tr v-show='!ministries.length'><td>Loading...</td></tr>
+<tr v-for="ministry in filteredMinistriesArray">
     <td>
-        <a href="/index.cfm/membership.newministries/show?id={{ministry.$id}}">{{ministry.name}}</a>
+        <a :href="show(ministry['.key'])">{{ministry.name}}</a>
     </td>
     <td>
-        <a href="mailto:{{ministry.contactemail}}">{{ministry.contactemail}}</a>
+        <a :href="mailTo(ministry.contactemail)">{{ministry.contactemail}}</a>
     </td>
     <td>
-        {{ministry.datetime | date:'MM/dd/yyyy @ h:mma'}}
+        {{ministry.datetime | dateFormat}}
     </td>
     <td>
-        {{ministry.updatedAt | date:'MM/dd/yyyy @ h:mma'}}
+        {{ministry.updatedAt | dateFormat}}
     </td>
-    <td><a href="/index.cfm/membership.newministries/show?id={{ministry.$id}}">Show</a>
+    <td><a :href="show(ministry['.key'])">Show</a>
     <cfif gotRights("office")>
-         | <a href="/index.cfm/newministry?id={{ministry.$id}}">Edit</a> | <a href="" ng-click="removeMinistry(ministry)">Delete</a> | <a href="mailto:{{ministry.contactemail}}&body=http://www.fgbc.org/newministry/new%3fid={{ministry.$id}}">Email</a>
+         | <a :href="edit(ministry['.key'])">Edit</a> | 
+         <a :href="remove(ministry['.key'])">Delete</a> | 
+         <a :href="mailTo(ministry.contactemail)">Email</a>
      </cfif>
     </td>
 </tr>

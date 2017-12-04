@@ -111,5 +111,18 @@ public function paramsEmailRequired(){
 <cfreturn loc.return>
 </cffunction>
 
+<cffunction name="isAgbmMember">
+<cfargument name="personid" required="true" type="numeric">
+<cfreturn model("Handbookagbminfo").isAgbmMember(arguments.personid)>
+</cffunction>
+
+<cffunction name="isFormerAGBMMember">
+<cfargument name="personid" required="true" type="numeric">
+    <cfif isAGBM(personid) && !isAgbmMember(personid)>
+        <cfreturn true>
+    <cfelse>    
+        <cfreturn false>
+    </cfif>    
+</cffunction>
 
 </cfcomponent>

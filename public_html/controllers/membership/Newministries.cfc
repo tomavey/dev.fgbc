@@ -2,7 +2,7 @@ component extends="Controller" output="false" {
 
  public void function init(){
     filters(through="checkauth", except="new,questions,show,index,email");
-    usesLayout("/layoutadmin");
+    usesLayout("/layout");
   }
 
  public void function checkauth(){

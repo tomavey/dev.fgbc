@@ -68,3 +68,11 @@ h1 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
+
+[v-cloak] {
+  display:none
+}
+
+.hidden {
+  display:none;
+}
