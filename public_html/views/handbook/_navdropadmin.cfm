@@ -33,7 +33,7 @@
                             #linkto(text="Send Prayer - Weekly", controller="handbook.subscribes", action="sendThisWeeksPrayerReminders", params="go=test", id="navsearch", title="Send todays prayer notices to subscribed emails", class="tooltip2")#
                         </li>
                         <li>
-                             #linkto(text="Send Yesterdays Updates", controller="handbook.subscribes", action="sendYesterdaysUpdates", params="go=test", id="navsearch", title="Sends yesterdays updates to the handbook.", class="tooltip2")#
+                             #linkto(text="Send Yesterdays Updates", route="handbookSendYesterdaysUpdates", params="go=test", id="navsearch", title="Sends yesterdays updates to the handbook.", class="tooltip2")#
                         </li>
 <!---
                         <li>
