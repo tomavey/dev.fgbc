@@ -345,6 +345,7 @@
 	</cffunction>
 
 	<cffunction name="payonline">
+	<cfdump var="#params#"><cfabort>
 	<cfif isDefined("params.churchid")>
 		<cfset params.key = params.churchid>
 	</cfif>
