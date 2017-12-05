@@ -1,7 +1,8 @@
 <cfcomponent extends="Controller" output="false">
 
 	<cffunction name="init">
-		<cfset usesLayout("/membership/layout")>
+		<cfset usesLayout(template="/membership/layout", except="about")>
+		<cfset usesLayout(template="/membership/layout_no_navbar", only="about")>
 
 		<cfset filters(through="getstates")>
 		<cfset filters(through="isCheckedInOrAuthorized", except="index,checkin,update,create,resources,about,clear,show,edit")>
