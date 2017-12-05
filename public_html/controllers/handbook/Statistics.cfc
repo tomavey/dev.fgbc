@@ -130,7 +130,7 @@
 	<!--- handbook-statistics/create --->
 	<cffunction name="create">
 		<cfset var ii = "">
-
+<cfdump var="#params#"><cfabort>
 		<cftry>
 		<cfloop list="att,members,memfee,members,baptisms,conversions" index="ii">
 			<cfif isDefined("params.handbookstatistic[ii]") && isValid("string",params.handbookstatistic[ii])>
@@ -345,7 +345,6 @@
 	</cffunction>
 
 	<cffunction name="payonline">
-	<cfdump var="#params#"><cfabort>
 	<cfif isDefined("params.churchid")>
 		<cfset params.key = params.churchid>
 	</cfif>
