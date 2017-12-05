@@ -124,6 +124,8 @@
 			.get(name="allCurrentKey", pattern="/stats/allCurrent/[key]", controller="statistics", action="allCurrent")
 			.get(name="statsSummary", pattern="/statistics/getSummary/[key]", controller="statistics", action="getSummary")
 			.get(name="churchGrowth", pattern="/statistics/churchgrowth/", controller="statistics", action="churchgrowth")
+			.get(name="payonline", patterm="/statistics/payonline/[key]", controller="statistics", action="payonline")
+			.post(name="payonline", patterm="/statistics/payonline/[key]", controller="statistics", action="payonline")
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
@@ -132,7 +134,6 @@
 			.get(name="downloadTag", pattern="/tag/download/[key]", controller="tags", action="download")
 			.post(name="changeTag", pattern="/tag/change/", controller="tags", action="changeTag")
 			.post(name="shareTag", pattern="/tag/share/", controller="tags", action="shareTag")
-			.get(name="payonline", patterm="/statistics/payonline/[key]", controller="statistics", action="payonline")
 			.resources("tags")
 
 			.get(name="deletesubscribe", pattern="/subscribes/[key]/delete/", controller="subscribes", action="delete")
