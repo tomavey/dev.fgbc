@@ -345,6 +345,9 @@
 	</cffunction>
 
 	<cffunction name="payonline">
+	<cfif isDefined("params.churchid")>
+		<cfset params.key = params.churchid>
+	</cfif>
 
 		<cfset payonline = structnew()>
 		<cfset payonline.merchant = "fellowshipofgracen">

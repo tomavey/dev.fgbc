@@ -124,7 +124,7 @@
 			.get(name="allCurrentKey", pattern="/stats/allCurrent/[key]", controller="statistics", action="allCurrent")
 			.get(name="statsSummary", pattern="/statistics/getSummary/[key]", controller="statistics", action="getSummary")
 			.get(name="churchGrowth", pattern="/statistics/churchgrowth/", controller="statistics", action="churchgrowth")
-			.post(name="payonline", pattern="/statistics/payonline/[key]", controller="statistics", action="payonline")
+			.post(name="paystatsonline", pattern="/statistics/payonline/[key]", controller="statistics", action="payonline")
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
