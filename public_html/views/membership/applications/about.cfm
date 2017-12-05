@@ -8,7 +8,7 @@
     #getContent("Joining the FGBC Family").content#
 <cfelse>
     <div class="well">
-    #getContent("Joining the FGBC").content#
+    #getContent("Joining the Charis Fellowship").content#
     </div>
 </cfif>
 

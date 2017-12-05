@@ -266,6 +266,7 @@
 			.get(name="step5", pattern="/step5/", controller="applications", action="step5")
 			.get(name="step6", pattern="/step6/", controller="applications", action="step6")
 			.get(name="step7", pattern="/step7/", controller="applications", action="step7")
+			.get(name="about", pattern="/about/", controller="applications", action="about")
 			.resources("applications")
 			.resources("delegates")
 			.get(name="newchurches", pattern="/newchurches/", controller="newchurches", action="index")
