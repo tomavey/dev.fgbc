@@ -263,7 +263,7 @@
 		<cfif isDefined("params.user.username")>
 			<cfset loc.checkUserName = checkUserName('#params.user.username#')>
 		<cfelse>
-			<cfset redirectTo(action='checklogin')>
+			<cfset redirectTo(action='loginform')>
 		</cfif>
 	<cfcatch>
 		<cfset sendLoginErrorNotice(subject="Charisfellowship.us login problem check user name")>

@@ -39,6 +39,7 @@
 			.put(name="addToGroup", pattern="/users/addToGroup/[key]", controller="users", action="addToGroup")
 			.get(name="addToGroup", pattern="/users/addToGroup/[key]", controller="users", action="addToGroup")
 			.get(name="removeFromGroup", pattern="/users/removeFromGroup/", controller="users", action="removeFromGroup")
+			.get(name="reCheckLogin", pattern="/users/checkLogin/", controller="users", action="loginform")
 			.resources("users")
 
 			.post(name="addARight", pattern="/groups/addARight/[key]", controller="groups", action="addARight")
