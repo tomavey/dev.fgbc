@@ -92,7 +92,7 @@
 			.get(name="distribution", pattern="/organizations/distribution/", controller="organizations", action="distribution")
 			.get(name="grouproster", pattern="/grouproster/", controller="organizations", action="groupRoster")
 			.get(name="pages", pattern="/pages/[key]", controller="organizations", action="show")
-			.get(name="review", pattern="/organizations/review/", controller="organizations", action="handbookReviewOptions")
+			.get(name="organizationsReview", pattern="/organizations/review/", controller="organizations", action="handbookReviewOptions")
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
@@ -105,7 +105,7 @@
 			.get(name="birthdays", pattern="/people/dates", controller="people", action="dates")
 			.get(name="datesByAge", pattern="/people/dates/byage/", controller="people", action="datesByYear")
 			.get(name="sendEmailToPeople", pattern="/people/sendemail/", controller="people", action="sendToHandbookPeople")
-			.get(name="review", pattern="/people/review/", controller="people", action="handbookReviewOptions")
+			.get(name="peopleReview", pattern="/people/review/", controller="people", action="handbookReviewOptions")
 			.resources("people")
 
 			.resources("personUpdates")
