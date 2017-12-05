@@ -374,7 +374,7 @@
 		.post(name="apiCrudAnswerSubmit", pattern="/api/crud/", controller="crud", action="submit")
 		.delete(name="apiCrudAnswerDelete", pattern="/api/crud/[id]", controller="crud", action="delete")
 		.get(name="handbookdistricts", pattern="/handbook-districts/show/[key]", controller="handbook.districts", action="show")
-		.get(name="handbookpages", pattern="/handbookpages/[key]", controller="handbook.organization", action="show")
+		.get(name="handbookpages", pattern="/handbookpages/[key]", controller="handbook.organizations", action="show")
 		.get(name="handbook-subscribes", pattern="/handbook-subscribes/subscribeToDates", controller="handbook.subscribes", action="subscribeToDates")
 		.get(name="handbook-people", pattern="/handbook-people/show/[key]", controller="handbook.people", action="show")
 		.get(name="handbook-people", pattern="/handbook-welcome/welcome/[key]", controller="handbook.welcome", action="welcome")
