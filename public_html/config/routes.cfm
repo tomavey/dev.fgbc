@@ -91,6 +91,7 @@
 			.get(name="prayerlist", pattern="/organizations/prayerlist/", controller="organizations", action="prayerlist")
 			.get(name="distribution", pattern="/organizations/distribution/", controller="organizations", action="distribution")
 			.get(name="grouproster", pattern="/grouproster/", controller="organizations", action="groupRoster")
+			.get(name="pages", pattern="/handbookpages/[key]", controller="organizations", action="show")
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
