@@ -86,7 +86,7 @@
 
 
         </cfif>
-<cfcatch><p>Email notice not sent!</p></cfcatch>
+<cfcatch><p>Email error notice not sent!</p></cfcatch>
 </cftry>
 
 </p>
