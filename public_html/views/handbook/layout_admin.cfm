@@ -9,6 +9,10 @@
 		#javaScriptIncludeTag("bootstrap,jquery_ujs,custom")#
 
 	</cfoutput>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/assets/img/favicon2.ico">
+
 </head>
 
 <body style="padding-top: 60px;">
