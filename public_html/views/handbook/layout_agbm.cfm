@@ -10,6 +10,9 @@
 
 		#javaScriptIncludeTag("bootstrap,jquery_ujs,custom")#
 
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/assets/img/favicon2.ico">
+
 	</cfoutput>
 </head>
 

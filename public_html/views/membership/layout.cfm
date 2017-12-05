@@ -13,6 +13,10 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		#javaScriptIncludeTag("jquery_ujs")#
 </cfoutput>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/assets/img/favicon2.ico">
+
 </head>
 <body>
 
