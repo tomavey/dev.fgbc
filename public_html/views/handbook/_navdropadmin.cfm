@@ -44,10 +44,10 @@
                             #linkto(text="Tasks", controller="handbook.tasks", action="index", id="navsearch", title="Tasks needed in handbook", class="tooltip2")#
                         </li>
                         <li>
-                            #linkto(text="View Update Church Links", controller="handbook.organizations", action="handbookReviewOptions", id="navsearch", title="under development", class="tooltip2")#
+                            #linkto(text="Send Update Church Links", controller="handbook.organizations", action="handbookReviewOptions", id="navsearch", title="under development", class="tooltip2")#
                         </li>
                         <li>
-                            #linkto(text="View Update Person Links", controller="handbook.people", action="handbookReviewOptions", id="navsearch", title="under development", class="tooltip2")#
+                            #linkto(text="Send Update Person Links", controller="handbook.people", action="handbookReviewOptions", id="navsearch", title="under development", class="tooltip2")#
                         </li>
 						<li>
 							#linkto(text="501c3 Group Roster", controller="handbook.organizations", action="groupRoster")#
