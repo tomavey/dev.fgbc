@@ -216,6 +216,11 @@
 		<cfset membershipapplications = model("Membershipapplication").findApps(params.search)>
 		<cfset renderPage(action="index")>
 	</cffunction>
+
+	<cffunction name="about">
+		<cfset renderPage(layout="/membership/layout_no_navbar")>
+	</cffunction>
+
 <!---Security functions--->
 
 	<cffunction name="clear">
