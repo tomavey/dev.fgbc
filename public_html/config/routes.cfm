@@ -132,6 +132,7 @@
 			.get(name="downloadTag", pattern="/tag/download/[key]", controller="tags", action="download")
 			.post(name="changeTag", pattern="/tag/change/", controller="tags", action="changeTag")
 			.post(name="shareTag", pattern="/tag/share/", controller="tags", action="shareTag")
+			.get(name="payonline", patterm="/statistics/payonline/[key]", controller="statistics", action="payonline")
 			.resources("tags")
 
 			.get(name="deletesubscribe", pattern="/subscribes/[key]/delete/", controller="subscribes", action="delete")
