@@ -92,6 +92,7 @@
 			.get(name="distribution", pattern="/organizations/distribution/", controller="organizations", action="distribution")
 			.get(name="grouproster", pattern="/grouproster/", controller="organizations", action="groupRoster")
 			.get(name="pages", pattern="/pages/[key]", controller="organizations", action="show")
+			.get(name="review", pattern="/organizations/review/", controller="organizations", action="handbookReviewOptions")
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
