@@ -7,7 +7,7 @@
 <meta name="description" content="" />
 <cfoutput>
 
-	#styleSheetLinkTag("bootstrapfocus,focus")#
+	#styleSheetLinkTag("bootstrapfocus,focus,/assets/vendor/icon-awesome/css/font-awesome.min")#
 
 </cfoutput>
     <style>
