@@ -76,7 +76,7 @@
 	<cffunction name="new">
 		<cfset handbookstatistic = model("Handbookstatistic").new()>
 		<cfif isdefined("params.key")>
-			<cfset params.key = keyFromChurchid(params.key)>
+			<cfset params.key = keyFromChurchid()>
 			<cfset handbookstatistic.organizationid = params.key>
 			<cfset thisorg = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
 		</cfif>
@@ -95,7 +95,7 @@
 		</cfif>
 		<cfset handbookstatistic = model("Handbookstatistic").new()>
 		<cfif isdefined("params.key") || isDefined("params.churchid")>
-			<cfset params.key = keyFromChurchid(params.key)>
+			<cfset params.key = keyFromChurchid()>
 			<cfset handbookstatistic.organizationid = params.key>
 			<cfset thisorg = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
 		<cfelse>
