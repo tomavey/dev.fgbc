@@ -38,8 +38,14 @@
         <tr>
             <td valign="top">
                 <cfloop from="1" to="#arraylen(churches)#" index="i">
-                    #linkto(text=churches[i].selectName, controller="handbook.organizations", action="show", key=churches[i].id, target="_blank")#: 
-                    #churches[i].email# #createEmailToUpdateOrg(churches[i].id,churches[i].email)#</br>
+                    #linkto(
+                        text=churches[i].selectName, 
+                        controller="handbook.organizations", 
+                        action="show", 
+                        key=churches[i].id, target="_blank")
+                    #: 
+                    #churches[i].email# 
+                    #createEmailToUpdateOrg(churches[i].id,churches[i].email)#</br>
                     Last reviewed #churches[i].lastreviewedAt# by #churches[i].lastreviewedby#</br> 
                     #linkto(text='<i class="icon-remove"></i>', action="removeChurchFromSessionArray", params="item=#i#")#</br>
                     </br>
