@@ -191,6 +191,8 @@
 			
 			.get(name="shoppingcartagent", pattern="/shoppingcarts/agent/[key]", controller="shoppingcarts", action="agent")
 			.post(name="checkout", pattern="/shoppingcarts/checkout/[key]", controller="shoppingcarts", action="checkout")
+			.post(name="payonline", pattern="/shoppingcarts/payonline/", controller="shoppingcarts", action="payonline")
+			.get(name="payonline2", pattern="/shoppingcarts/payonline/", controller="shoppingcarts", action="payonline")
 			.resources("shoppingcarts")
 			
 			.resources("testmonies")
