@@ -135,6 +135,7 @@
 	<cfset set(workshopNotificationsOpen = false)>
 	<cfset set(showFacilitatorsWithCourse = false)>
 	<cfset set(showSubTypesOfCourses = false)>
+	<cfset set(delegatesSubmitIsOpen = false)
 
 <!---For Facebook OAuth--->
 	<cfif cgi.http_host is "localhost:8080" OR cgi.http_host is "localhost:8888">

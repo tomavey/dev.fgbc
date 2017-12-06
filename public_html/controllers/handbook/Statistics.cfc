@@ -367,7 +367,7 @@
 		<cfif payonline.amount GTE getOnlineMemFeeMax()>
 			<cfset payonline.amount = getOnlineMemFeeMax()>
 		</cfif>
-		<cfset payonline.url = "http://#CGI.http_host#/handbook.statistics/confirm">
+		<cfset payonline.url = "http://#CGI.http_host#/handbook/statistics/confirm">
 		<cfset renderPage(layout="/handbook/layout_handbook2")>
 
 	</cffunction>

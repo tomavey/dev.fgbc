@@ -125,4 +125,8 @@ public function paramsEmailRequired(){
     </cfif>    
 </cffunction>
 
+<cffunction name="delegatesSubmitIsOpen">
+    <cfreturn application.wheels.delegatesSubmitIsOpen>
+</cffunction>
+
 </cfcomponent>

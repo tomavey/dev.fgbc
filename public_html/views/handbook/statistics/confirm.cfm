@@ -46,8 +46,10 @@
 	</li>
 
 </ul>
-<div class="well">
-#linkTo(text="Submit your delegates now", route="sendmydelegates", key=church.id, class="btn btn-primary")#
-</div>
+<cfif delegatesSubmitIsOpen()>
+	<div class="well">
+	#linkTo(text="Submit your delegates now", route="sendmydelegates", key=church.id, class="btn btn-primary")#
+	</div>
+</cfif>
 </cfoutput>
 </div>
