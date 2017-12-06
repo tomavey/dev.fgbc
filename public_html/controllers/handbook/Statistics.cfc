@@ -85,12 +85,8 @@
 
 	<!--- handbook-statistics/submit --->
 	<cffunction name="submit">
-		<cfif not isdefined("params.key")>
+		<cfif !isdefined("params.key") && !isdefined("params.churchid")>
 			  <cfset flashInsert(error="Welcome! Please select your church from this drop-down list...")>
-			  <cfset redirectTo(action="getChurchid")>
-		</cfif>
-		<cfif not len(params.key)>
-			  <cfset flashInsert(error="Please select your church from the drop-down list")>
 			  <cfset redirectTo(action="getChurchid")>
 		</cfif>
 		<cfif isDefined("params.extendDeadline")>

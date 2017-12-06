@@ -1,5 +1,5 @@
 <cfoutput>			
-	<cfif isdefined("params.key")>			
+	<cfif isdefined("params.key") || isDefined("params.churchid")>			
 		#hiddenField(objectName='handbookstatistic', property='organizationid')#
 	<cfelse>
 		#select(objectName='handbookstatistic', property='organizationId', label='Organization: ', options=organizations, textField="selectnamecity")#

@@ -10,7 +10,7 @@
 
 	#startFormTag(action="submit", method="get")#
 
-	#selectTag(name="key", options=churches, textField="selectNameCity", includeBlank="- Select Your Church From This List -", class="span5")#
+	#selectTag(name="churchid", options=churches, textField="selectNameCity", includeBlank="- Select Your Church From This List -", class="span5")#
 
 	#submitTag(value="Enter Stats for this church.", class="btn btn-primary")#
 				
