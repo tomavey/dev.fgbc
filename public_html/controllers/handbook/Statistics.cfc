@@ -145,9 +145,9 @@
 
 		<!--- Verify that the handbookstatistic creates successfully --->
 		<cfif handbookstatistic.save()>
-<cfdump var="#handbookstatistic.properties()#"><cfabort>
 			<cfset flashInsert(success="The handbookstatistic was created successfully.")>
 			<cfif isdefined("params.pay") and params.pay>
+<cfdump var="#handbookstatistic.properties()#"><cfabort>
 	            <cfset redirectTo(action="payonline", key=params.handbookstatistic.organizationid, params="year=#handbookstatistic.year#")>
 			<cfelse>
 	            <cfset redirectTo(action="index")>
