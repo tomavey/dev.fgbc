@@ -142,6 +142,8 @@
 		<cfset handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)>
 		<cfset organizations = model("Handbookorganization").findall(include="Handbookstate", order="selectName")>
 
+<cfdump var="#handbookstatistic.properties()#"><cfabort>
+
 		<!--- Verify that the handbookstatistic creates successfully --->
 		<cfif handbookstatistic.save()>
 			<cfset flashInsert(success="The handbookstatistic was created successfully.")>
