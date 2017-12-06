@@ -350,14 +350,10 @@
 	</cffunction>
 
 	<cffunction name="payonline">
-<cfdump var="#params#"><cfabort>
-	<cfif isDefined("params.churchid")>
-		<cfset params.key = params.churchid>
-	</cfif>
 
 		<cfset payonline = structnew()>
 		<cfset payonline.merchant = "fellowshipofgracen">
-		<cfset church = model("Handbookorganization").findOne(where="id=#params.key#", include="handbookstate", order="createdAt DESC")>
+		<cfset church = model("Handbookorganization").findOne(where="id=#params.churchid#", include="handbookstate", order="createdAt DESC")>
 		<cfset church.name = replace(church.name," ","","all")>
 		<cfset church.org_city = replace(church.org_city," ","","all")>
 		<cfset payonline.orderid = createOrderId(church.properties())>
@@ -366,7 +362,7 @@
 		<cfelse>
 			<cfset payonline.usethisyear = params.year>
 		</cfif>	
-		<cfset stat = model("handbookstatistics").findOne(where="organizationid=#params.key# AND year = #payonline.usethisyear#", order="id desc")>
+		<cfset stat = model("handbookstatistics").findOne(where="organizationid=#params.churchid# AND year = #payonline.usethisyear#", order="id desc")>
 		<cfset payonline.amount = round(val(stat.att) * getOnlineMemFee())>
 		<cfif payonline.amount GTE getOnlineMemFeeMax()>
 			<cfset payonline.amount = getOnlineMemFeeMax()>
