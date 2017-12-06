@@ -147,9 +147,11 @@
 		<cfif handbookstatistic.save()>
 			<cfset flashInsert(success="The handbookstatistic was created successfully.")>
 			<cfif isdefined("params.pay") and params.pay>
+<!---			
 <cfdump var="#handbookstatistic.properties()#">
 <cfdump var="#params#">
 <cfabort>
+--->
 	            <cfset redirectTo(action="payonline", key=params.handbookstatistic.organizationid, params="year=#handbookstatistic.year#")>
 			<cfelse>
 	            <cfset redirectTo(action="index")>
@@ -348,6 +350,7 @@
 	</cffunction>
 
 	<cffunction name="payonline">
+<cfdump var="#params#"><cfabort>
 	<cfif isDefined("params.churchid")>
 		<cfset params.key = params.churchid>
 	</cfif>
