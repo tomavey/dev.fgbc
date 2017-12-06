@@ -190,6 +190,7 @@
 			.resources("retreats")
 			
 			.get(name="shoppingcartagent", pattern="/shoppingcarts/agent/[key]", controller="shoppingcarts", action="agent")
+			.post(name="checkout", pattern="/shoppingcarts/checkout/[key]", controller="shoppingcarts", action="checkout")
 			.resources("shoppingcarts")
 			
 			.resources("testmonies")
