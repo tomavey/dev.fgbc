@@ -148,7 +148,7 @@
 <cfargument name="email" required="true" type="string">
 <cfargument name="name" default="Greetings">
 <cfargument name="message" required="false">
-<cfargument name="subject" default='#urlEncode("Please review #name# FGBC Handbook listing")#'>
+<cfargument name="subject" default='#URLEncodedFormat("Please review #name# FGBC Handbook listing")#'>
 <cfargument name="changeMessageDate" default="September 20, #year(now())#">
 <cfsavecontent variable="createEmailLink">
 <cfoutput>
