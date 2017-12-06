@@ -2,7 +2,7 @@
 /* CSS Document */
 
 body {
-	background-color:#f1f1e7;
+	background-color:#314A47;
 	background-repeat:repeat-x;
 	text-align:center;
 	color:#1F0C0C
@@ -16,7 +16,7 @@ a {
 
 .container,
 #main {
-    background-color: #F1F3F2;
+    background-color: #FFF;
     text-align: left
 }
 #main {
