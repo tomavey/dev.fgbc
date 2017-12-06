@@ -152,7 +152,7 @@
 <cfdump var="#params#">
 <cfabort>
 --->
-	            <cfset redirectTo(action="payonline", key=params.handbookstatistic.organizationid, params="year=#handbookstatistic.year#")>
+	            <cfset redirectTo(action="payonline", params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#")>
 			<cfelse>
 	            <cfset redirectTo(action="index")>
 			</cfif>
