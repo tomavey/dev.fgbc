@@ -76,6 +76,7 @@
 	<cffunction name="new">
 		<cfset handbookstatistic = model("Handbookstatistic").new()>
 		<cfif isdefined("params.key")>
+			<cfset params.key = keyFromChurchid(params.key)>
 			<cfset handbookstatistic.organizationid = params.key>
 			<cfset thisorg = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
 		</cfif>
@@ -93,7 +94,8 @@
 			<cfset session.statistics.extendDeadLine = true>
 		</cfif>
 		<cfset handbookstatistic = model("Handbookstatistic").new()>
-		<cfif isdefined("params.key")>
+		<cfif isdefined("params.key") || isDefined("params.churchid")>
+			<cfset params.key = keyFromChurchid(params.key)>
 			<cfset handbookstatistic.organizationid = params.key>
 			<cfset thisorg = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
 		<cfelse>
@@ -745,5 +747,13 @@
 		<cfreturn memfee>
 	</cffunction>
 
+	<cffunction name="keyFromChurchid"><!---Method to use churchid for key if it is set--->
+	<cfargument name="params" default=params>
+		<cfif isDefined("params.churchid")>
+			<cfreturn params.churchid>
+		<cfelse>
+			<cfreturn params.key>	
+		</cfif>	
+	</cffunction>
 
 </cfcomponent>
