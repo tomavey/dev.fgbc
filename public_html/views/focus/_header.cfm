@@ -16,5 +16,8 @@
       }
     </style>
 
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/assets/img/favicon2.ico">
+
 </head>
 <body>
