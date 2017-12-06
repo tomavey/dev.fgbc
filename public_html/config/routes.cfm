@@ -170,7 +170,7 @@
 		.namespace("focus")
 			.resources("contents")
 
-			.get(name="payonline", pattern="/payonline/", controller="invoices", action="payonline")
+			.get(name="payonline", pattern="/payonline/[key]", controller="invoices", action="payonline")
 			.get(name="agent", pattern="/agent/", controller="invoices", action="agent")
 			.get(name="confirm", pattern="/confirm/", controller="invoices", action="confirm")
 			.get(name="thankyou", pattern="/thankyou/", controller="invoices", action="thankyou")
@@ -191,8 +191,6 @@
 			
 			.get(name="shoppingcartagent", pattern="/shoppingcarts/agent/[key]", controller="shoppingcarts", action="agent")
 			.post(name="checkout", pattern="/shoppingcarts/checkout/[key]", controller="shoppingcarts", action="checkout")
-			.post(name="payonline", pattern="/shoppingcarts/payonline/", controller="shoppingcarts", action="payonline")
-			.get(name="payonline2", pattern="/shoppingcarts/payonline/", controller="shoppingcarts", action="payonline")
 			.resources("shoppingcarts")
 			
 			.resources("testmonies")
