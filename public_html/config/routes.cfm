@@ -127,6 +127,8 @@
 			.get(name="getChurchId", pattern="/statistics/getChurchid/", controller="statistics", action="getChurchid")
 			.post(name="paystatsonline", pattern="/statistics/payonline/", controller="statistics", action="payonline")
 			.get(name="paystatsonline2", pattern="/statistics/payonline/", controller="statistics", action="payonline")
+			.get(name="confirmPayment", pattern="/statistics/confirm/", controller="statistics", action="confirm")
+			.get(name="failedPayment", pattern="/statistics/paymentfailed/", controller="statistics", action="paymentfailed")
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
