@@ -748,7 +748,7 @@
 	</cffunction>
 
 	<cffunction name="keyFromChurchid"><!---Method to use churchid for key if it is set--->
-	<cfargument name="params" default=params>
+	<cfargument name="params" default="#params#">
 	<cfdump var="#arguments#"><cfabort>
 		<cfif isDefined("params.churchid")>
 			<cfreturn params.churchid>
