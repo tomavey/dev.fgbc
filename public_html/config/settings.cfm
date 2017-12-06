@@ -24,13 +24,11 @@
 	<cfset set(functionName="timeSelect", labelPlacement="before", prependToLabel="<p>", append="</p>")>
 
 <!---Settings for rewriting, reloading and errors--->
-	<cfif cgi.http_host is "localhost:8080" || cgi.http_host is "localhost:8888" || cgi.http_host is "fgbc:8080">
+	<cfif cgi.http_host contains ":8080">
         	<cfset set(URLRewriting="Off")>
 	<cfelse>
 	       <cfset set(URLRewriting="On")>
-<!---
-	       <cfset set(reloadPassword="charis")>
---->
+	       <cfset set(reloadPassword="mack")>
 	</cfif>
 	<cfset set(autologin=true)>
 

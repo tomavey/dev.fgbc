@@ -130,7 +130,7 @@
 	<!--- handbook-statistics/create --->
 	<cffunction name="create">
 		<cfset var ii = "">
-<cfdump var="#params#"><cfabort>
+
 		<cftry>
 		<cfloop list="att,members,memfee,members,baptisms,conversions" index="ii">
 			<cfif isDefined("params.handbookstatistic[ii]") && isValid("string",params.handbookstatistic[ii])>
@@ -140,8 +140,11 @@
 		<cfcatch></cfcatch>
 		</cftry>
 
+
 		<cfset handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)>
 		<cfset organizations = model("Handbookorganization").findall(include="Handbookstate", order="selectName")>
+
+<cfdump var="#handbookstatistic#"><cfabort>
 
 		<!--- Verify that the handbookstatistic creates successfully --->
 		<cfif handbookstatistic.save()>
