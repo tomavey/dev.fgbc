@@ -7,6 +7,7 @@
         #folder#/jquery/jquery.min,
         #folder#/jquery-migrate/jquery-migrate.min,
         #folder#/jquery.easing/js/jquery.easing,
+        jquery_ujs,
         #folder#/popper.min,
         #folder#/bootstrap/bootstrap.min
     ")#
