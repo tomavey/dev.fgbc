@@ -49,8 +49,6 @@
 	<!--- contents/edit/key --->
 	<cffunction name="edit">
 
-	<cfdump var="#params#"><cfabort>
-
 		<!--- Find the record --->
     	<cfset content = model("Maincontent").findByKey(params.key)>
 
