@@ -2,6 +2,7 @@
 
 	<cffunction name="init">
 		<cfset filters(through="isSuperadmin", only="adminindex,edit,new,delete")>
+		<cfset filters(through-"setReturn", only="index,show")>
 	</cffunction>
 
 	<!---------->
@@ -88,6 +89,7 @@
 		<cfif announcement.save()>
 			<!---cfset $uploadImage(params.announcement.image)--->
 			<cfset flashInsert(success="The announcement was created successfully.")>
+			<cfset returnBack()>
             <cfset redirectTo(action="index")>
 		<!--- Otherwise --->
 		<cfelse>
@@ -105,6 +107,7 @@
 
 			<!---cfset $uploadImage(params.announcement.image)--->
 			<cfset flashInsert(success="The announcement was updated successfully.")>	
+			<cfset returnBack()>
             <cfset redirectTo(action="index")>
 		<!--- Otherwise --->
 		<cfelse>
