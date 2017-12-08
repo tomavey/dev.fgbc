@@ -45,3 +45,7 @@
     column-width:300px; 
     column-rule: 2px outset #698F81
 }
+
+.announcementContent {
+    text-align: center;
+}
