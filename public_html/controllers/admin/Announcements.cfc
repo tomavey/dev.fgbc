@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset filters(through="isSuperadmin", only="adminindex,edit,new,delete")>
-		<cfset filters(through-"setReturn", only="index,show")>
+		<cfset filters(through="setReturn", only="index,show")>
 	</cffunction>
 
 	<!---------->
