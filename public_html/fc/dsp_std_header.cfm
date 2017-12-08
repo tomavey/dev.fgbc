@@ -26,6 +26,9 @@
 <script type="text/javascript" src="/javascripts/datatable/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/javascripts/ajaxdelete.js"></script>
 
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="/assets/img/favicon2.ico">
+
 <script>
 
 

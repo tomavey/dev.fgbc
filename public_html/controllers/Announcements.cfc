@@ -28,11 +28,14 @@
 	</cffunction>
 
 	<cffunction name="rss">
-		<cfset announcements = model("Mainannouncement").findAll(where="startat < now() AND onhold = 'N' AND type <> 'Announcement Only'", order="createdAt desc")>
-		
-		<cfset title = "FGBC Announcements">
-		<cfset description= "Official Communication of the FGBC National Office">
-		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
+		<cfset whereString = "startat < now() AND onhold = 'N' AND type <> 'Announcement Only'">
+		<cfif isDefined("params.id")>
+			<cfset whereString = whereString & " AND id=#params.id#">
+		</cfif>
+		<cfset announcements = model("Mainannouncement").findAll(where=whereString, order="createdAt desc")>
+		<cfset title = "Charis Fellowship Announcements">
+		<cfset description= "Official Communication of the Charis Fellowship National Office">
+		<cfset renderPage(template="rss.cfm", layout="rsslayout", showDebugOutput="No")>
 	</cffunction>
 
 </cfcomponent>

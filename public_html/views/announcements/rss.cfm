@@ -9,7 +9,7 @@
 <cfxml variable="rssFeed">
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
      <channel>
-	 <atom:link href="http://www.fgbc.org/announcements/rss" rel="self" type="application/rss+xml" />
+	 <atom:link href="http://charisfellowship.us/announcements/rss" rel="self" type="application/rss+xml" />
 		<cfoutput>
         	<title>#title#</title>
         	<link>#link#</link>
@@ -22,7 +22,7 @@
 			  <![CDATA[#title#]]>
 			</title>
 			<link>
-			  http://www.fgbc.org/announcements/show/#id#
+			  http://charisfellowship.us/announcements/show/#id#
 			</link>
             <description>
 			  <![CDATA[#content#]]>
@@ -31,7 +31,7 @@
 			  #GetHttpTimeString(startAt)#
 			</pubDate>
             <guid>
-			  http://www.fgbc.org/announcements/show/#id#
+			  http://charisfellowship.us/announcements/show/#id#
 			</guid>
            </item>
         </cfoutput>

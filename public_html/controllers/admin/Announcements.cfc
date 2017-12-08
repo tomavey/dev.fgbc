@@ -11,9 +11,16 @@
 	<!---announcements/index--->
 	<cffunction name="index">
 		<cfparam name="params.page" default="1">
-		<cfparam name="params.perpage" default="10">
+		<cfparam name="params.perpage" default="20">
 		<cfif isDefined("params.showall")>
 			<cfset params.whereString = "">
+			<cfset params.perpage = 10000000000000000>
+		<cfelseif isDefined("params.announcements")>	
+			<cfset params.whereString = "endAt > now() AND onhold = 'N' AND (type = 'Announcement Only' OR type = 'Both' OR type = '')">
+			<cfset params.perpage = 10000000000000000>
+		<cfelseif isDefined("params.feeds")>	
+			<cfset params.whereString = "(type = 'News Feed Only' OR type = 'Both' OR type = '')">
+			<cfset params.perpage = 10000000000000000>
 		<cfelse>					
 			<cfset params.whereString = "endAt > now() AND onhold = 'N'">
 		</cfif>	
