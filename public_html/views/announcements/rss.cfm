@@ -24,10 +24,13 @@
 			<link>
 			  http://charisfellowship.us/announcements/show/#id#
 			</link>
-            <description>
+      <description>
 			  <![CDATA[#content#]]>
 			</description>
-            <pubDate>
+			<image>
+				#image#
+			</image>
+      <pubDate>
 			  #GetHttpTimeString(startAt)#
 			</pubDate>
             <guid>

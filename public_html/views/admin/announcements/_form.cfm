@@ -7,6 +7,8 @@
 
 						#textField(objectName='announcement', property='link', label='Link: (use full URL)')#
 
+						#textField(objectName="announcement", property="image", label="imageUrl")#
+
 <!---Not working - needs to be fixed---
 
 						#fileField(objectName='announcement', property='image', label='Image: ')#

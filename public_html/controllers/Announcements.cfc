@@ -1,6 +1,15 @@
 <cfcomponent extends="Controller" output="false">
 
 	<cffunction name="init">
+		<cfset filters(through="setRssEnvironment", only="rss")>
+	</cffunction>
+
+	<!---Filters--->
+
+	<cffunction name="setRssEnvironment">
+		<cfif application.wheels.environment NEQ "production">
+			<cfset set(environment="production")>
+		</cfif>
 	</cffunction>
 
 	<!--- announcements/show/key --->
@@ -35,7 +44,7 @@
 		<cfset announcements = model("Mainannouncement").findAll(where=whereString, order="createdAt desc")>
 		<cfset title = "Charis Fellowship Announcements">
 		<cfset description= "Official Communication of the Charis Fellowship National Office">
-		<cfset renderPage(template="rss.cfm", layout="rsslayout", showDebugOutput="No")>
+		<cfset renderPage(template="rss.cfm", layout="rsslayout", showDebugInformation=false)>
 	</cffunction>
 
 </cfcomponent>

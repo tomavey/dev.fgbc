@@ -17,6 +17,13 @@
 				#linkto(text="This Story", controller="announcements", action="show", key=announcement.id)#
 			</cfif>
 			</p>
+			<p>
+				<cfif len(announcement.image)>
+					<a href="#announcement.image#" target="_new"><img src="#announcement.image#" /></a>
+				<cfelse>
+					No Image	
+				</cfif>	
+			</p>
 
 <cfif gotrights("superadmin,office")>
 					
