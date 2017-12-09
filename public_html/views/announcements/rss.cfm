@@ -17,23 +17,23 @@
         	<pubDate>#GetHttpTimeString(date)#</pubDate>
 		</cfoutput>
         <cfoutput query="announcements">
-           <item>
+          <item>
             <title>
-			  <![CDATA[#title#]]>
-			</title>
-			<link>
-			  http://charisfellowship.us/announcements/show/#id#
-			</link>
-      <description>
-			  <![CDATA[#content#]]>
-			</description>
-      <pubDate>
-			  #GetHttpTimeString(startAt)#
-			</pubDate>
+			  			<![CDATA[#title#]]>
+						</title>
+						<link>
+			  			http://charisfellowship.us/announcements/show/#id#
+						</link>
+      			<description>
+			  			<![CDATA[#content#]]>
+						</description>
+     				<pubDate>
+			  				#GetHttpTimeString(startAt)#
+						</pubDate>
             <guid>
-			  http://charisfellowship.us/announcements/show/#id#
-			</guid>
-           </item>
+			  			http://charisfellowship.us/announcements/show/#id#
+						</guid>
+          </item>
         </cfoutput>
      </channel>
   </rss>
