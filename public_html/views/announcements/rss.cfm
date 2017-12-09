@@ -27,9 +27,6 @@
       <description>
 			  <![CDATA[#content#]]>
 			</description>
-			<image>
-				#image#
-			</image>
       <pubDate>
 			  #GetHttpTimeString(startAt)#
 			</pubDate>
