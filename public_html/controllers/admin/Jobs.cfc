@@ -6,7 +6,7 @@
 
 	<!--- jobs/index --->
 	<cffunction name="index">
-		<cfset jobs = model("Mainjob").findAll(order="createdAt desc")>
+		<cfset jobs = model("Mainjob").findAll(order="createdAt DESC")>
 	</cffunction>
 	
 	<!--- jobs/show/key --->
@@ -18,11 +18,11 @@
 	    	
 		<cfelseif gotrights("superadmin,office")>
 		
-			<cfset job = model("Mainjob").findAll(order="id desc")>
+			<cfset job = model("Mainjob").findAll(order="id DESC")>
 	
 		<cfelse>
 		
-			<cfset job = model("Mainjob").findAll(where="expirationdate > now() AND approved='Y'", order="id desc")>
+			<cfset job = model("Mainjob").findAll(where="expirationdate > now() AND approved='Y'", order="id DESC")>
 	
 		</cfif>	
     		
@@ -122,7 +122,7 @@
 	</cffunction>
 	
 	<cffunction name="rss">
-		<cfset jobs = model("Mainjob").findAll(where="approved='y' AND expirationDate > now()", order="createdAt desc")>
+		<cfset jobs = model("Mainjob").findAll(where="approved='y' AND expirationDate > now()", order="createdAt DESC")>
 		
 		<cfset title = "FGBC Jobs">
 		<cfset description= "Ministry Positions posted by Grace Brethren Churches">

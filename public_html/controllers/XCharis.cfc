@@ -27,7 +27,7 @@ component extends="Controller" {
         else {
             loc.whereString = "expirationdate > now() AND approved='Y'";
         }
-		opportunities = model("Mainjob").findAll(where=loc.whereString, order="id desc");
+		opportunities = model("Mainjob").findAll(where=loc.whereString, order="id DESC");
     }
 
     public function churches(){

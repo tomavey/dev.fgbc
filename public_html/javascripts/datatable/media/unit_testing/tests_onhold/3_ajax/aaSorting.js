@@ -46,7 +46,7 @@ $(document).ready( function () {
 	
 	
 	oTest.fnWaitTest( 
-		"Custom sorting on single string column desc",
+		"Custom sorting on single string column DESC",
 		function () {
 			oSession.fnRestore();
 			$('#example').dataTable( {
@@ -72,7 +72,7 @@ $(document).ready( function () {
 	
 	
 	oTest.fnWaitTest( 
-		"Custom sorting on single int column desc",
+		"Custom sorting on single int column DESC",
 		function () {
 			oSession.fnRestore();
 			$('#example').dataTable( {
@@ -97,7 +97,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnWaitTest( 
-		"Multi-column sorting (2 column) - string asc / string desc",
+		"Multi-column sorting (2 column) - string asc / string DESC",
 		function () {
 			oSession.fnRestore();
 			$('#example').dataTable( {
@@ -121,7 +121,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnWaitTest( 
-		"Multi-column sorting (2 column) - string desc / string desc",
+		"Multi-column sorting (2 column) - string desc / string DESC",
 		function () {
 			oSession.fnRestore();
 			$('#example').dataTable( {
@@ -146,7 +146,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnWaitTest( 
-		"Multi-column sorting (2 column) - string asc / int desc",
+		"Multi-column sorting (2 column) - string asc / int DESC",
 		function () {
 			oSession.fnRestore();
 			$('#example').dataTable( {
@@ -170,7 +170,7 @@ $(document).ready( function () {
 	);
 	
 	oTest.fnWaitTest( 
-		"Multi-column sorting (2 column) - string desc / int desc",
+		"Multi-column sorting (2 column) - string desc / int DESC",
 		function () {
 			oSession.fnRestore();
 			$('#example').dataTable( {

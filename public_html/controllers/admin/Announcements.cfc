@@ -28,7 +28,7 @@
 		<cfif isDefined("params.search") and len(params.search)>
 			  <cfset params.whereString = params.whereString & " AND (title LIKE '%#params.search#%' OR content LIKE '%#params.search#%')">
 		</cfif>
-		<cfset announcements = model("Mainannouncement").findall(where=params.whereString, order="startAt desc", page=params.page, perpage=params.perpage)>
+		<cfset announcements = model("Mainannouncement").findall(where=params.whereString, order="startAt DESC", page=params.page, perpage=params.perpage)>
 	</cffunction>
 	
 	<!--- announcements/show/key --->

@@ -137,7 +137,7 @@
     <cfif isDefined("url.sortorder")>
 			<cfinvokeargument name="sortorder" value="#url.sortorder#">
     <cfelse>
-			<cfinvokeargument name="sortorder" value="content_documents.datetime desc">
+			<cfinvokeargument name="sortorder" value="content_documents.datetime DESC">
     </cfif>  
    </cfinvoke>	
   <div id="content">

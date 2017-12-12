@@ -20,7 +20,7 @@
 		<cfelse>
 			<cfset isCategoryMenu = false>
 		</cfif>
-		<cfset announcements = model("Mainannouncement").findall(where="startAt <= now() AND endAt >= now() AND onhold = 'N' AND (type LIKE '%Both%' OR type LIKE '%Announcement%' OR type IS NULL)", order="startAt desc", maxRows=5)>
+		<cfset announcements = model("Mainannouncement").findall(where="startAt <= now() AND endAt >= now() AND onhold = 'N' AND (type LIKE '%Both%' OR type LIKE '%Announcement%' OR type IS NULL)", order="startAt DESC", maxRows=5)>
 		<cfif announcements.recordcount>
 			<cfset showannouncements = true>
 			<cfset announcementsspan = "span6">

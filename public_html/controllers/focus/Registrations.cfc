@@ -15,7 +15,7 @@
 		<cfif isDefined("params.byLName")>
 			<cfset orderby = "lname">
 		<cfelse>
-			<cfset orderby = "registrantid desc">
+			<cfset orderby = "registrantid DESC">
 		</cfif>
 
 		<cfif isdefined("params.retreatid")>
@@ -117,9 +117,9 @@
 
 		<!---Get info for selects--->
 		<cfset registrants = model("Focusregistrant").findall(order="lname,fname")>
-		<cfset items = model("Focusitem").findall(order="id desc")>
+		<cfset items = model("Focusitem").findall(order="id DESC")>
 
-		<cfset invoices = model("Focusinvoice").findall(order="id desc")>
+		<cfset invoices = model("Focusinvoice").findall(order="id DESC")>
 
     	<!--- Check if the record exists --->
 	    <cfif NOT IsObject(registration)>

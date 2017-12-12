@@ -12,7 +12,7 @@
 <!-------------->
 
 	<cffunction name="getEvents">
-		<cfset events = model("Conferenceoption").findall(where="event='#application.wheels.event#'", order="type desc")>
+		<cfset events = model("Conferenceoption").findall(where="event='#application.wheels.event#'", order="type DESC")>
 	</cffunction>
 
 	<cffunction name="getLocations">

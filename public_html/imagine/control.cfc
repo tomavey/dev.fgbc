@@ -214,7 +214,7 @@
 <cfargument name="DESCRIPTION" type="string">
 <cfargument name="DATETIME" type="date">
 <cfargument name="RIGHTS" type="string">
-<cfargument name="SORTORDER" default="sortorder desc">
+<cfargument name="SORTORDER" default="sortorder DESC">
 <cfargument name="tag" default="natminproj">
 
       <cfquery datasource="#dsn#" name="data">

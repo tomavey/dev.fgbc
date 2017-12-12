@@ -33,10 +33,10 @@
 				#linkto(text="First Name", params="orderby=fname")#
 			</th>
 			<th>
-				#linkto(text="Created", params="orderby=createdAt desc")#
+				#linkto(text="Created", params="orderby=createdAt DESC")#
 			</th>
 			<th>
-				#linkto(text="Last Login", params="orderby=lastloginAt desc")#		
+				#linkto(text="Last Login", params="orderby=lastloginAt DESC")#		
 			</th>
 			<th>
 				&nbsp;

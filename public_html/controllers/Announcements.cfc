@@ -33,7 +33,7 @@
 		<cfif isDefined("params.search") and len(params.search)>
 			  <cfset params.whereString = params.whereString & " AND (title LIKE '%#params.search#%' OR content LIKE '%#params.search#%')">
 		</cfif>
-		<cfset announcements = model("Mainannouncement").findall(where=params.whereString, order="startAt desc", page=params.page, perpage=params.perpage)>
+		<cfset announcements = model("Mainannouncement").findall(where=params.whereString, order="startAt DESC", page=params.page, perpage=params.perpage)>
 	</cffunction>
 
 	<cffunction name="rss">
@@ -41,7 +41,7 @@
 		<cfif isDefined("params.id")>
 			<cfset whereString = whereString & " AND id=#params.id#">
 		</cfif>
-		<cfset announcements = model("Mainannouncement").findAll(where=whereString, order="createdAt desc")>
+		<cfset announcements = model("Mainannouncement").findAll(where=whereString, order="createdAt DESC")>
 		<cfset title = "Charis Fellowship Announcements">
 		<cfset description= "Official Communication of the Charis Fellowship National Office">
 		<cfset renderPage(template="rss.cfm", layout="rsslayout", showDebugInformation=false)>

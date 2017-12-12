@@ -6,7 +6,7 @@
 
 	<cffunction name="index">
 		<cfset setReturn()>
-		<cfset announcements = model("Mainannouncement").findall(where="startAt <= now() AND endAt > now() AND onhold = 'N'", order="startAt desc", maxRows=3)>
+		<cfset announcements = model("Mainannouncement").findall(where="startAt <= now() AND endAt > now() AND onhold = 'N'", order="startAt DESC", maxRows=3)>
     	<cfset ministry = model("Mainministry").findAll(order="category,name")>	
 		<cfset churches = model("Handbookorganization").findAll(where=" statusid in ('1,4,8,9')", include="Handbookstate", order="state,org_city,name")>
 		<cfset menuoptions = model("Mainmenu").FindAllGotRightsTo()>
@@ -20,7 +20,7 @@
 
 	<cffunction name="opportunities">
 		<cfset setReturn()>
-		<cfset job = model("Mainjob").findAll(where="expirationdate > now() AND approved='Y'", order="id desc")>
+		<cfset job = model("Mainjob").findAll(where="expirationdate > now() AND approved='Y'", order="id DESC")>
 		<cfset dataajax = "false">
 	</cffunction>
 

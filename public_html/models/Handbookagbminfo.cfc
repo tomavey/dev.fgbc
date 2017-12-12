@@ -140,7 +140,7 @@ private function $isThisOrgAChurch(required organizationid){
 private function $getMembershipFeeInfo(required number personid){
 	var loc = arguments;
 	var personInfoArray = [];
-	var personInfo = findAll(select="id,membershipfeeyear,membershipfee,category", where = "personid = #loc.personid#", order="membershipfeeyear desc");
+	var personInfo = findAll(select="id,membershipfeeyear,membershipfee,category", where = "personid = #loc.personid#", order="membershipfeeyear DESC");
 	var personInfoArray = queryToArray(personInfo);
 	return personInfoArray;
 }

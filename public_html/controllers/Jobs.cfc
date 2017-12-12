@@ -126,7 +126,7 @@
 	</cffunction>
 	
 	<cffunction name="rss">
-		<cfset jobs = model("Mainjob").findAll(where="approved='y' AND expirationDate > now()", order="createdAt desc")>
+		<cfset jobs = model("Mainjob").findAll(where="approved='y' AND expirationDate > now()", order="createdAt DESC")>
 		
 		<cfset title = "FGBC Jobs">
 		<cfset description= "Ministry Positions posted by Grace Brethren Churches">

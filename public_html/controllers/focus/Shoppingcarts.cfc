@@ -46,7 +46,7 @@
 		<cfif isDefined("params.shoppingCartid")>
 			<cfset shoppingCart.shoppingCartid = params.shoppingCartid>
 		</cfif>
-		<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId='#params.retreatid#' AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price desc")>
+		<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId='#params.retreatid#' AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price DESC")>
 		<cfset retreat = model("Focusretreat").findByKey(params.retreatid)>
 		<cfset renderPage(layout="/focus/layout2")>
 	</cffunction>
@@ -60,7 +60,7 @@
 		<!--- Get all items for this retreat --->
 
 		<cfset shoppingcart.retreatid = model("Focusitem").findByKey(listfirst(shoppingCart.items)).retreatid>
-		<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId='#shoppingcart.retreatid#' AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price desc")>
+		<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId='#shoppingcart.retreatid#' AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price DESC")>
 
 		<!--- Get information about this retreat --->
 		<cfset retreat = model("Focusretreat").findByKey(params.key)>
@@ -78,7 +78,7 @@
 	<cffunction name="create">
 
 		<cfset shoppingcart = model("Focusshoppingcart").new(params.shoppingcart)>
-		<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId=#shoppingcart.retreat# AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price desc")>
+		<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId=#shoppingcart.retreat# AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price DESC")>
 
 		<cfif isdefined("params.specialCode") and len(params.specialCode)>
 		<cfloop list="#params.specialCode#" index="i">
@@ -98,7 +98,7 @@
 			<cfset shoppingcart.quantities = defaultQuantities(items=shoppingcart.items)>
 		<cfelse>
 			<cfset flashInsert(error="Please select at least one item.")>
-			<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId=#shoppingcart.retreat# AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price desc")>
+			<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId=#shoppingcart.retreat# AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price DESC")>
 			<cfset retreat = model("Focusretreat").findByKey(shoppingcart.retreat)>
 			<cfset renderPage(action="new", key=shoppingCart.retreat, layout="/focus/layout2")>
 		</cfif>
@@ -110,7 +110,7 @@
 		<cfelse>
 
 			<cfset flashInsert(error="There was an error creating the shoppingcart.")>
-			<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId=#shoppingcart.retreat# AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price desc")>
+			<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId=#shoppingcart.retreat# AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price DESC")>
 			<cfset retreat = model("Focusretreat").findByKey(shoppingcart.retreat)>
 			<cfset renderPage(action="new", key=shoppingCart.retreat, layout="/focus/layout2")>
 		</cfif>

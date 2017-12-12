@@ -8,7 +8,7 @@
 
 	<!--- registrations/index --->
 	<cffunction name="index">
-		<cfset var orderString = "createdAT desc">
+		<cfset var orderString = "createdAT DESC">
 		<cfif isDefined("params.status")>
 			<cfset whereString = "event='#getEvent()#' AND ccstatus = '#params.status#'">
 		<cfelse>

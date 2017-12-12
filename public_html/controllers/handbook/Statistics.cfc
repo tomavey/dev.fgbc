@@ -64,7 +64,7 @@
 	<cffunction name="show">
 
 		<!--- Find the record --->
-    	<cfset handbookstatistic = model("Handbookstatistic").findAll(where="organizationid=#params.key#",include="Handbookorganization(Handbookstate)",order="year desc")>
+    	<cfset handbookstatistic = model("Handbookstatistic").findAll(where="organizationid=#params.key#",include="Handbookorganization(Handbookstate)",order="year DESC")>
 
 		<cfif not GotRights("superadmin,office")>
 			  <cfset renderPage(layout="/handbook/layout_handbook1")>
@@ -362,7 +362,7 @@
 		<cfelse>
 			<cfset payonline.usethisyear = params.year>
 		</cfif>	
-		<cfset stat = model("handbookstatistics").findOne(where="organizationid=#params.churchid# AND year = #payonline.usethisyear#", order="id desc")>
+		<cfset stat = model("handbookstatistics").findOne(where="organizationid=#params.churchid# AND year = #payonline.usethisyear#", order="id DESC")>
 		<cfset payonline.amount = round(val(stat.att) * getOnlineMemFee())>
 		<cfif payonline.amount GTE getOnlineMemFeeMax()>
 			<cfset payonline.amount = getOnlineMemFeeMax()>
@@ -520,7 +520,7 @@
 			<cfset stattype = params.key>
 		</cfif>
 		<cfset churches = model("Handbookorganization").findAll(select="id,state,state_mail_abbrev,org_city,name,selectname", where="statusid = 1", include="Handbookstate", order="state, org_city, id")>
-		<cfset churchyears = model("Handbookstatistic").findAll(order="year desc")>
+		<cfset churchyears = model("Handbookstatistic").findAll(order="year DESC")>
 		<cfset years = "">
 		<cfoutput query="churchyears" group="year">
 			<cfset years = years & "," & year>
@@ -570,36 +570,36 @@
 	<cfset var loc=structnew()>
 	<cfset loc.arguments = arguments>
 		<cfif arguments.xxlarge>
-			<cfset loc.xxlarge = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.xxlarge# AND 100000", include="Handbookorganization(Handbookstate)", select="sum(#arguments.fieldname#) as size", order="att desc")>
+			<cfset loc.xxlarge = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.xxlarge# AND 100000", include="Handbookorganization(Handbookstate)", select="sum(#arguments.fieldname#) as size", order="att DESC")>
 		<cfelse>
 			<cfset loc.xxlarge.size = "">
 		</cfif>
 		<cfif arguments.xlarge>
-			<cfset loc.xlarge = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.xlarge# AND #arguments.xxlarge-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att desc")>
+			<cfset loc.xlarge = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.xlarge# AND #arguments.xxlarge-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att DESC")>
 		<cfelse>
 			<cfset loc.xlarge.size = "">
 		</cfif>
 		<cfif arguments.large>
-			<cfset loc.large = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.large# AND #arguments.xlarge-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att desc")>
+			<cfset loc.large = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.large# AND #arguments.xlarge-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att DESC")>
 		<cfelse>
 			<cfset loc.large.size = "">
 		</cfif>
 		<cfif arguments.large>
-			<cfset loc.medium = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.medium# AND #arguments.large-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att desc")>
+			<cfset loc.medium = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.medium# AND #arguments.large-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att DESC")>
 		<cfelse>
 			<cfset loc.medium.size = "">
 		</cfif>
 		<cfif arguments.small>
-			<cfset loc.small = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.small# AND #arguments.medium-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att desc")>
+			<cfset loc.small = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.small# AND #arguments.medium-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att DESC")>
 		<cfelse>
 			<cfset loc.small.size = "">
 		</cfif>
 		<cfif arguments.xsmall>
-			<cfset loc.xsmall = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.xsmall# AND #arguments.small-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att desc")>
+			<cfset loc.xsmall = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.xsmall# AND #arguments.small-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att DESC")>
 		<cfelse>
 			<cfset loc.xsmall.size = "">
 		</cfif>
-		<cfset loc.all = model("Handbookstatistic").findAll(where="year='#params.key#'", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att desc")>
+		<cfset loc.all = model("Handbookstatistic").findAll(where="year='#params.key#'", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att DESC")>
 		<cfdump var='#loc#'><cfabort>
 	</cffunction>
 
@@ -637,7 +637,7 @@
 		<cfset loc.small.maxrows = 10000>
 		<cfset loc.small.endrow = loc.small.startrow + loc.small.maxrows>
 
-		<cfset loc.all = model("Handbookstatistic").findAll(where="year='#params.key#'", include="Handbookorganization(Handbookstate)", order="attInt desc")>
+		<cfset loc.all = model("Handbookstatistic").findAll(where="year='#params.key#'", include="Handbookorganization(Handbookstate)", order="attInt DESC")>
 		<cfset loc.xxlarge.total = getTotal(
 							fieldname=arguments.fieldname,
 							thisquery=loc.all,

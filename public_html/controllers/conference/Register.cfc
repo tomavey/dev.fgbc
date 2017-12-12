@@ -1789,7 +1789,7 @@
 
 <cffunction name="getSingleRegOptionId">
 <cfset var loc=structNew()>
-	<cfset loc.singleReg = model("Conferenceoption").findAll(where="type='Registration-Single' AND event='#getevent()#'", order="cost desc")>
+	<cfset loc.singleReg = model("Conferenceoption").findAll(where="type='Registration-Single' AND event='#getevent()#'", order="cost DESC")>
 <cfreturn loc.singleReg.id[1]>
 </cffunction>
 
