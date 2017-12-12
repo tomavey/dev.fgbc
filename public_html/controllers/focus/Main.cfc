@@ -42,7 +42,7 @@
 		</cfif>
 
 		<cfif isobject(retreat)>
-			<cfset options = model("Focusitem").findall(where="retreatId='#retreat.id#' AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'public'", order="price desc")>
+			<cfset options = model("Focusitem").findall(where="retreatId='#retreat.id#' AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'public'", order="price DESC")>
 		<cfelse>
 			<cfset redirectTo(action="welcome")>
 		</cfif>
