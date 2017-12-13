@@ -418,7 +418,7 @@
 		</cfif>
 
 		<!---Set the email list--->
-		<cfif isDefined("params.key") AND params.key is "test">
+		<cfif isDefined("params.go") AND params.go is "test">
 			<cfset emailTestList = "tomavey@fgbc.org">
 			<cfset subscriptions = listToQuery(emailTestList,"email")>
 		<cfelse>
