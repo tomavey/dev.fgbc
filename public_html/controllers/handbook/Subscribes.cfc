@@ -430,11 +430,15 @@
 
 			<!---Start gathering list of emails for report--->
 			<cfset emailTo = "">
-
 			<!---Send notice to the list of email addresses--->
 			<cfoutput query="subscriptions">
 				<cfset emailTo = emailTo & ", " & email>
 				<cfset sendEmail(to=email, from="tomavey@fgbc.org", subject="Yesterdays Handbook Updates", template="/handbook/updates/index.cfm", layout="/layout_for_email")>
+				<cfif isDefined("id")>
+					<cftry>
+						<cfset setLastSendAt(id)>
+					<cfcatch></cfcatch></cftry>
+				</cfif>
 			</cfoutput>
 
 			<!---Put list of emails in variable that is only used in the web page report, not the email notification--->
