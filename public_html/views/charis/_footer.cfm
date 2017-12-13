@@ -299,7 +299,6 @@
                         </article>
 
                         <hr class="g-brd-white-opacity-0_1 g-my-15">
-
                         <article class="media g-mb-20">
                           <div class="d-flex g-mt-3 mr-3">
                             <span class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-color-white-opacity-0_6 rounded-circle" href="#">
@@ -320,38 +319,43 @@
                       </div>
                       <!-- End Footer Content -->
 
+--->
+
                       <!-- Footer Content -->
-                      <div class="col-lg-3 col-md-6">
+                      <div class="col-lg-12 col-md-12 text-center" id="socialIcons">
                         <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
                           <h2 class="u-heading-v2__title h6 text-uppercase mb-0">Follow Us</h2>
                         </div>
 
                         <ul class="list-inline mb-0">
                           <li class="list-inline-item g-mr-10">
-                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="#">
+                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://www.facebook.com/charischurches">
                               <i class="fa fa-facebook"></i>
                             </a>
                           </li>
+                          <!---
                           <li class="list-inline-item g-mr-10">
                             <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="#">
                               <i class="fa fa-instagram"></i>
                             </a>
                           </li>
+                          --->
                           <li class="list-inline-item g-mr-10">
-                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="#">
+                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://twitter.com/charischurches">
                               <i class="fa fa-twitter"></i>
                             </a>
                           </li>
+                          <!---
                           <li class="list-inline-item g-mr-10">
                             <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="#">
                               <i class="fa fa-dribbble"></i>
                             </a>
                           </li>
+                          --->
                         </ul>
                       </div>
                       <!-- End Footer Content -->
 
---->
 
                     </div>
                   </div>

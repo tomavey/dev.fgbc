@@ -49,3 +49,7 @@
 .announcementContent {
     text-align: center;
 }
+
+#socialIcons {
+    margin:auto 0;
+}
