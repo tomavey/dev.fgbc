@@ -370,6 +370,10 @@
 		<cfset renderPage(template="sendPrayerReminders")>
 	</cffunction>
 
+	<cffunction name="sendVerificationToAdmin">
+		<cfset sendEmail(to="tomavey@fgbc.org", from="tomavey9173@gmail.com", subject="Did his work?", template="sendVerificationToAdmin", layout="/layout_for_email")>
+	</cffunction>
+
 	<cffunction name="sendYesterdaysUpdates">
 	<cfset args = structNew()>
 		<cfset args.yesterday = dateformat(dateAdd("d",-1,now()),"yyyy-mm-dd")>
