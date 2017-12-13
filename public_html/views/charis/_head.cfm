@@ -16,6 +16,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta property="fb:app_id" content="1771808052863201"/>
   <meta property="og:type" content="website" />
   <meta property="og:image" content="http://charisfellowship.us/assets/img/logo/PNGs/facebookog.png" />
   <meta property="og:url" content="http://charisfellowship.us" />
