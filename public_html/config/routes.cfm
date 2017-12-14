@@ -72,6 +72,7 @@
 			.resources("agbmregions")
 
 			.get(name="districtsReport", pattern="/districts/report/", controller="districts", action="handbookreport")
+			.get(name="districtChurches", pattern="/districts/churches", controller="districts", action="listChurches")
 			.resources("districts")
 			.resources("groups")
 			.resources("groupTypes")

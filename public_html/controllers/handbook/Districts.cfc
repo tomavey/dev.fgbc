@@ -45,6 +45,11 @@
 		</cfif>
 		<cfset districts = model("Handbookdistrict").findAll(where="district <> 'Empty' AND district <> 'National Ministry' AND district <> 'Cooperating Ministry' AND district <> 'NO DISTRICT'", order=orderString, include="agbmregion")>
 	</cffunction>
+
+	<cffunction name="listChurches">
+		<cfset orderString = "district, state, org_city">
+		<cfset districts = model("Handbookdistrict").findAll(where="district <> 'Empty' AND district <> 'National Ministry' AND district <> 'Cooperating Ministry' AND district <> 'NO DISTRICT' AND statusid in (1,8)", order=orderString, include="organizations(state)")>
+	</cffunction>
 	
 	<cffunction name="edit">
 		<cfset district = model("Handbookdistrict").findOne(where="districtid=#params.key#")>			

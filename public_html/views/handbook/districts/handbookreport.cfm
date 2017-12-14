@@ -2,6 +2,8 @@
 <cfset churchcount = 0>
 <cfset previouscity = "">
 
+<div class="span11">
+
 <cfoutput query="districts" group="district">
 	<div style="font-size:1em">
 		#district#
@@ -26,3 +28,4 @@
 <cfoutput>
 #churchcount#
 </cfoutput>
+</div>
