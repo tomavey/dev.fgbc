@@ -161,6 +161,7 @@
 
 			.get(name="addstaffandposition", pattern="/positions/new/", controller="positions", action="new")
 			.get(name="addnewposition", pattern="/positions/new/[key]", controller="positions", action="new")
+			.get(name="listPeople", pattern='/positions/listpeople/', controller="positions", action="listpeople")
 			.post(name="createnewposition", pattern="/positions/create/", controller="positions", action="create")
 			.resources("positions")
 
