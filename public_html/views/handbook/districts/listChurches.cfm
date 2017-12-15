@@ -1,4 +1,4 @@
-<div class="spann11">
+<div class="span11">
     <h1>Charis Fellowship Districts and Churches</h1>
     <div class="offset1">
         <cfoutput query="districts" group="district">

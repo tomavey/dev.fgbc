@@ -1,4 +1,4 @@
-<div class="spann11">
+<div class="span11">
 <cfif gotRights("superadmin,office")>
 	<cfoutput>
 		#linkTo(text="Add new", action="new", class="btn")#
