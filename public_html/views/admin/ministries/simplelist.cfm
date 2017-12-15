@@ -3,7 +3,7 @@
         <p>
             <span style="font-size:1.2em">#name#</span><br/>
             #fixWebSite(webaddress)#<br/>
-            #email#<br/>
+            #lcase(email)#<br/>
             #phone#
         </p>
     </cfoutput>
