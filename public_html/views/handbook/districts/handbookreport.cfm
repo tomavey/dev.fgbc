@@ -5,9 +5,9 @@
 <div class="span11">
 
 <cfoutput query="districts" group="district">
-	<p style="font-size:1em">
-		#district#
-		<div style="font-size:.7em">
+	<p>
+		<span style="font-size:1em">#district#</span>
+		<span style="font-size:.7em">
 			<cfoutput group="state">
 			#state#: 
 				<cfoutput>
@@ -17,9 +17,8 @@
 					</cfif>	
 					<cfset previouscity = org_city>
 				</cfoutput>
-				<br/>
 			</cfoutput>
-		</div>
+		</span>
 	</p>
 </cfoutput>
 
