@@ -29,7 +29,7 @@
 
 	<cffunction name="simpleList">
 	<!---used for insider cover of handbook--->
-		<cfset wherestring = "status='active' AND category in ('Church Planting Ministries','Doing Good', 'Communication', 'Leadership Training Ministries') AND name NOT LIKE 'Camp%'">
+		<cfset wherestring = "status <>'inactive' AND category in ('Church Planting Ministries','Doing Good', 'Communication', 'Leadership Training Ministries') AND name NOT LIKE 'Camp%'">
     	<cfset ministries = model("Mainministry").findAll(where=whereString, order="name")>
 	</cffunction>
 
