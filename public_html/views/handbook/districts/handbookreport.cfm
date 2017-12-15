@@ -6,7 +6,7 @@
 
 <cfoutput query="districts" group="district">
 	<p>
-		<span style="font-size:1em">#district#</span>
+		<span style="font-size:1em">#district#</span><br/>
 		<span style="font-size:.7em">
 			<cfoutput group="state">
 			#state#: 
