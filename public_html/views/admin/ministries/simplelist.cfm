@@ -4,7 +4,7 @@
             <span style="font-size:1.2em">#name#</span><br/>
             #fixWebSite(webaddress)#<br/>
             #lcase(email)#<br/>
-            #phone#
+            #fixPhone(phone)#
         </p>
     </cfoutput>
 </div>
