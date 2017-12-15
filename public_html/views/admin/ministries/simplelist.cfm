@@ -6,7 +6,7 @@
                 <br/>&nbsp;&nbsp;#fixWebSite(webaddress)#
             </cfif>
             <cfif len(email)>
-                <br/>>&nbsp;&nbsp;#lcase(email)#
+                <br/>&nbsp;&nbsp;#lcase(email)#
             </cfif>
             <cfif len(phone)>
                 <br/>&nbsp;&nbsp;#fixPhone(phone)#
