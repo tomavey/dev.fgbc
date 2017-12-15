@@ -30,7 +30,7 @@
 	<cffunction name="simpleList">
 	<!---used for insider cover of handbook--->
 		<cfset wherestring = "status='active' AND category in ('Church Planting Ministries','Doing Good', 'Communication', 'Leadership Training Ministries')">
-    	<cfset ministries = model("Mainministry").findAll(where=whereString, order="category,name")>
+    	<cfset ministries = model("Mainministry").findAll(where=whereString, order="name")>
 	</cffunction>
 
 	<!--- ministries/new --->
