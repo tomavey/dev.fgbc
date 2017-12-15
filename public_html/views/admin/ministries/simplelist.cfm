@@ -3,13 +3,13 @@
         <p>
             <span style="font-size:1.2em">#name#</span>
             <cfif len(webaddress)>
-                <br/>#fixWebSite(webaddress)#
+                <br/>&nbsp;&nbsp;#fixWebSite(webaddress)#
             </cfif>
             <cfif len(email)>
-                <br/>#lcase(email)#
+                <br/>&nbsp;&nbsp;#lcase(email)#
             </cfif>
             <cfif len(phone)>
-                <br/>#fixPhone(phone)#
+                <br/>&nbsp;&nbsp;#fixPhone(phone)#
             </cfif>
         </p>
     </cfoutput>
