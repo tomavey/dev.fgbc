@@ -14,7 +14,7 @@
 			Name
 		</th>
 		<th>
-			Web/Phone
+			Web/Phone/Email
 		</th>
 		<th>
 			Summary
@@ -40,7 +40,10 @@
 				#linktoUrl(webaddress)#<br/>
 			</cfif>
 			<cfif len(phone)>
-				#fixphone(phone)#
+				#fixphone(phone)#<br/>
+			</cfif>
+			<cfif len(email)>
+				#mailto(lcase(email))#
 			</cfif>
 		</td>
 		<td>
