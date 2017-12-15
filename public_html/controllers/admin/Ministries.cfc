@@ -11,7 +11,7 @@
 		<cfset ministries = model("Mainministry").findAll(order="category,name")>
 	</cffunction>
 
-	<!--- ministries/show/key --->
+	<!--- ministries/list --->
 	<cffunction name="list">
 
 		<cfif isdefined("params.key")>
@@ -25,6 +25,12 @@
     	<cfset ministry = model("Mainministry").findAll(where=whereString, order="category,name")>
     	<cfset categories = model("Mainministry").findAll(where="category <> 'none'", order="category,name")>
 
+	</cffunction>
+
+	<cffunction name="simpleList">
+	<!---used for insider cover of handbook--->
+		<cfset wherestring = "status='active' AND category in ('Church Planting Ministries','Doing Good', 'Communication', 'Leadership Training Ministries')">
+    	<cfset ministries = model("Mainministry").findAll(where=whereString, order="category,name")>
 	</cffunction>
 
 	<!--- ministries/new --->

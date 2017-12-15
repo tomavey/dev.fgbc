@@ -13,7 +13,7 @@
 							<p>#ministry.summary#</p>
 						
 							<p>
-								#linkTo(href=webaddress, text=replace(webaddress,"http://",""))#
+								#linkTo(href=webaddress, text=replace(webaddress,"http://",""))# - #phone#
 							</p>
 						
 			<cfif gotRights("superadmin,office")>						

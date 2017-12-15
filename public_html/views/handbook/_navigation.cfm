@@ -97,6 +97,9 @@
                         <li>
                             #linkto(text="Districts Report", controller="handbook.districts", action="handbookreport", id="navsearch", title="Report for Handbook", class="tooltip2")#
                         </li>
+                        <li>
+                            #linkto(text="Ministries List (for inside cover)", controller="admin.ministries", action="simplelist", id="navsearch", title="Report for Handbook", class="tooltip2")#
+                        </li>
         				<li>
         					#linkto(text="Church Distribution", controller="handbook.organizations", action="distribution", id="navsearch", title="Download distribution list to churches", class="tooltip2")#
         				</li>

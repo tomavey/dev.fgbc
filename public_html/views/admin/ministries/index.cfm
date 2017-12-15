@@ -14,7 +14,7 @@
 			Name
 		</th>
 		<th>
-			Web
+			Web/Phone
 		</th>
 		<th>
 			Summary
@@ -35,8 +35,12 @@
 			#left(name,30)#<br/>
 			<span style="font-size:.8em">&nbsp;&nbsp;[#status#]</span>
 		</td>
-		<td>	<cfif len(webaddress)>
-			#linktoUrl(webaddress)#
+		<td>	
+			<cfif len(webaddress)>
+				#linktoUrl(webaddress)#<br/>
+			</cfif>
+			<cfif len(phone)>
+				#fixphone(phone)#
 			</cfif>
 		</td>
 		<td>

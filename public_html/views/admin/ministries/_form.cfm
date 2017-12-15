@@ -7,6 +7,8 @@
 
 						#textField(objectName='ministry', property='email', label='Email')#
 
+						#textField(objectName='ministry', property='phone', label='Phone')#
+
 						#textArea(objectName='ministry', property='summary', label='Summary')#
 
 						#select(objectName='ministry', property='status', label='Status', options="active,dropdown,inactive")#
