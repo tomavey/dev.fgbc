@@ -42,7 +42,8 @@
 				#linkto(text=handbookid, controller="handbook.people", action="show", key=handbookid)#
 				</cfif>
 				</td>
-				<td>#linkto(text="Show", route="handbookSubscribe", key=id, method="get")##editTag()##deletetag()#</td>
+				<td>#showTag()##editTag()##deletetag()#</td>
+				
 			</tr>
 			<cfset emailall = emailall & "; " & email>
 		</cfoutput>
