@@ -204,6 +204,7 @@
 			</cfloop>
 		</cfif>
 		<cfif !gotRights("office")>
+			<cfoutput>Sent!</cfoutput>
 			<cfabort>
 		</cfif>
 		<cfset emailall = replace(emailall,";","","one")>
@@ -385,6 +386,9 @@
 		<cfset args.showPeopleDeletes = true>
 		<cfset args.showPeopleCreates = true>
 		<cfset args.showPositionUpdates = true>
+		<cfif isDefined("params.value1")>
+			<cfset params.gow = params.value1>
+		<cfif>
 
 		<!---people updates--->
 
