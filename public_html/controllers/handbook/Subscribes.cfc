@@ -391,6 +391,8 @@
 			<cfset params.go = params.value1>
 		</cfif>
 
+<cfdump var="#params#"><cfabort>		
+
 		<!---people updates--->
 
 		<cfset peopleUpdates = model("Handbookupdate").findPeopleUpdates(args)>
