@@ -188,7 +188,7 @@
 		<cfset emailall = "">
 
 		<cfif isDefined("params.go") && params.go is "test">
-			<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@fgbc.org", subject="TEST - From the Charis Fellowship C Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_naked")>
+			<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@fgbc.org", subject="TEST - From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_naked")>
 		<cfelse>
 			<cfif isDefined("params.sendto") and len(params.sendto)>
 				<cfset subscriptions = listToQuery(list=params.sendto, columnName="email")>
@@ -333,7 +333,7 @@
 
 		<!--- If being sent to tomavey@fgbc.org change to tomavey@comcast.net--->
 		<cfif isDefined("params.key") and params.key is "test">
-			<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@comcast.net", subject="TEST - From the FGBC Online Handbook: #greeting#Prayer Reminders", template="sendprayerreminders", layout="/layout_naked")>
+			<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@comcast.net", subject="TEST - From the Charis Fellowship Online Handbook: #greeting#Prayer Reminders", template="sendprayerreminders", layout="/layout_naked")>
 		<cfelse>
 
 			<cfloop query="subscriptions">
@@ -341,7 +341,7 @@
 				<!--- Check to see if email has been sent to this person today --->
 				<cfif sendToThisPerson(lastSendAt)>
 					<cfset useThisEmail = useHandbookEmail(email,handbookemail)>
-					<cfset sendEMail(from="tomavey@fgbc.org", to=scrubEmail(useThisEmail), subject="From the FGBC Online Handbook: #greeting#Prayer Reminders", template="sendprayerreminders", layout="/layout_naked")>
+					<cfset sendEMail(from="tomavey@fgbc.org", to=scrubEmail(useThisEmail), subject="From the Charis Fellowship Online Handbook: #greeting#Prayer Reminders", template="sendprayerreminders", layout="/layout_naked")>
 
 					<cfset setLastSendAt(id)>
 
