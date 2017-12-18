@@ -175,6 +175,12 @@
 		<cfset updateDateNumbers()>
 	<cfcatch></cfcatch></cftry>
 
+		<cfif isDefined("params.value1")>
+			<cfset params.go = params.value1>
+		</cfif>
+
+<cfdump var="#params#"><cfabort>		
+
 	<cfset var loc=structNew()>
 		<cfset birthdays = model("Handbookperson").findDatesToday("birthday",arguments.now)>
 		<cfset anniversaries = model("Handbookperson").findDatesToday("anniversary",arguments.now)>
@@ -387,11 +393,6 @@
 		<cfset args.showPeopleCreates = true>
 		<cfset args.showPositionUpdates = true>
 
-		<cfif isDefined("params.value1")>
-			<cfset params.go = params.value1>
-		</cfif>
-
-<cfdump var="#params#"><cfabort>		
 
 		<!---people updates--->
 
