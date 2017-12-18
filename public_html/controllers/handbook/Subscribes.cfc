@@ -386,9 +386,10 @@
 		<cfset args.showPeopleDeletes = true>
 		<cfset args.showPeopleCreates = true>
 		<cfset args.showPositionUpdates = true>
+
 		<cfif isDefined("params.value1")>
-			<cfset params.gow = params.value1>
-		<cfif>
+			<cfset params.go = params.value1>
+		</cfif>
 
 		<!---people updates--->
 
