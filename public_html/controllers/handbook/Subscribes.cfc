@@ -176,10 +176,9 @@
 	<cfcatch></cfcatch></cftry>
 
 		<cfif isDefined("params.value1")>
+		<!--- for use by ifttt--->
 			<cfset params.go = params.value1>
 		</cfif>
-
-<cfdump var="#params#"><cfabort>		
 
 	<cfset var loc=structNew()>
 		<cfset birthdays = model("Handbookperson").findDatesToday("birthday",arguments.now)>
