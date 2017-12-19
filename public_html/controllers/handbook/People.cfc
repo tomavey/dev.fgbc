@@ -5,7 +5,7 @@
 		<cfset filters(through="gotBasicHandbookRights,getStates,getPositionTypes,logview", except="focus,sendhandbook,view")>
 		<cfset filters(through="getPositions", only="edit,show,view")>
 		<cfset filters(through="getChurches", only="new,edit,create,update")>
-		<cfset filters(through="setReturn", only="show,bluepages")>
+		<cfset filters(through="setReturn", only="show,bluepages,distribution")>
 		<cfset filters(through="setIsAgbmAdmin")>
 	</cffunction>
 
@@ -673,7 +673,7 @@
 
 <cffunction name="clearSendHandbooks">
 	<cfset clear = model("Handbookperson").clearSendHandbooks()>
-	<cfset redirectTo(action="distribution")>
+	<cfset returnBack()>
 </cffunction>
 
 <cffunction name="findAllStaff">
