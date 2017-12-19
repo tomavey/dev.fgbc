@@ -110,7 +110,7 @@
 			.get(name="datesByAge", pattern="/people/dates/byage/", controller="people", action="datesByYear")
 			.get(name="sendEmailToPeople", pattern="/people/sendemail/", controller="people", action="sendToHandbookPeople")
 			.get(name="peopleReview", pattern="/people/review/", controller="people", action="handbookReviewOptions")
-			.get(name="clearSendHandbook", pattern="/people/clearSendHandbook/", controller="people", action="clearSendHandbook")
+			.get(name="clearSendHandbook", pattern="/people/clearSendHandbook/", controller="people", action="clearSendHandbooks")
 			.resources("people")
 
 			.resources("personUpdates")
