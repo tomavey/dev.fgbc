@@ -291,6 +291,7 @@
 			.get(name="emailSent", pattern="/newchurches/emailsent/", controller="newchurches", action="emailsent")
 			.get(name="newministries", pattern="/newministries/", controller="newministries", action="index")
 			.resources('newchurches')
+			.get(name="nominationsClosed", pattern="nominationsclosed", controller="nominations", action="closed")
 		.end()
 
 		.namespace("forums")
