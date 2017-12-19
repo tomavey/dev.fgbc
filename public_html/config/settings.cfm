@@ -71,9 +71,9 @@
 	<cfset set(handbookRightsRequired = "handbook,office,superadmin,natmin,agbmadmin")>
 	<cfset set(HandbookProfileSecretary="tomavey@fgbc.org")>
 	<cfset set(showLinkToHandbookPageBefore = "11-1-#year(now())#")>
-	<cfset set(sendHandbookDeadline = "November 16, 2016")>
-	<cfset set(HandbookReviewSecretary = "Cassie Harris <harriscj@grace.edu>")>
-	<cfset set(HandbookReviewSecretary2 = "Tom Avey <tomavey@fgbc.org>")>
+	<cfset set(sendHandbookDeadline = "January 5, 2018")>
+	<cfset set(HandbookReviewSecretary = "Cassie Harris <raylcassie@gmail.com>")>
+	<cfset set(HandbookReviewSecretary2 = "Tom Avey <tomavey@charisfellowship.us>")>
 	<cfset set(SendImmediatePersonUpdates = false)>
 
 <!---Used by Focus MVC--->
