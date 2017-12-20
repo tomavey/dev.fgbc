@@ -546,7 +546,7 @@ public function notStaff(){
 	</cffunction>
 
 	<cffunction name="distribution">
-		<cfset distribution = model("Handbookorganization").findall(where="statusid IN (1,4,8,9)", include="Handbookstate", order="state_mail_abbrev,org_city")>
+		<cfset distribution = model("Handbookorganization").findall(where="statusid IN (1,2,4,8,9)", include="Handbookstate", order="state_mail_abbrev,org_city")>
 		<cfif isDefined("params.download")>
 			<cfset renderPage(layout="/layout_download")>
 		<cfelse>
