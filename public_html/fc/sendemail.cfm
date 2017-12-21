@@ -17,7 +17,7 @@
 </head>
 <body>
 Here is your link to the Fellowship Council web site: <br />
-<a href="http://#getDomainName()#/fc?code=fellowshipcouncil&email=#thisstaff.email#">http://#getDomainName()#/fc?code=fellowshipcouncil&email=#thisstaff.email#</a></body>
+<a href="http://charisfellowship.us/fc?code=fellowshipcouncil&email=#thisstaff.email#">http://charisfellowship.us/fc?code=fellowshipcouncil&email=#thisstaff.email#</a></body>
 </html>
 </cfmail>
 
