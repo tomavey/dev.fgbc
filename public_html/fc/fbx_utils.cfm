@@ -82,6 +82,10 @@
 <cfreturn permission>
 </cffunction>
 
+<cffunction name="getDomainName">
+    <cfreturn "charisfellowship.us">
+</cffunction>
+
 
 <!---function to scramble email address--->
 <cffunction name="scramble" access="public" output="false" hint="Scrambles passed email address" returntype="string">
