@@ -79,6 +79,14 @@
       </cfquery>
 </cffunction>
 
+<cffunction name="getAllContentFc">
+      <cfquery datasource="#dsn#" name="data">
+            SELECT *
+            FROM content_fc 
+      </cfquery>
+      <cfreturn data>
+</cffunction>
+
 <cffunction name="get_content_fc">
 <cfargument name="ID" type="numeric">
 <cfargument name="originalID" type="numeric">
@@ -89,8 +97,10 @@
 <cfargument name="SORTORDER" default="sortorder">
 <cfargument name="DATETIME" default="#now()#">
 <cfargument name="desc" default="no">
+<cfargument name="selectString" default="*">
+<cfargument name="asJson" default="no">
       <cfquery datasource="#dsn#" name="data">
-            SELECT *
+            SELECT #selectString#
             FROM content_fc
             WHERE 0=0
 			<cfif isdefined("arguments.originalid")>
@@ -115,6 +125,9 @@
             </cfif>
 			ORDER BY #arguments.sortorder# <cfif arguments.desc>desc</cfif>
       </cfquery>
+      <cfif arguments.asJson>
+            <cfset data = queryToJson(data)>
+      </cfif>
 <cfreturn data>
 </cffunction>
 
@@ -137,14 +150,19 @@
 
 <cffunction name="getstaffinfo">
 <cfargument name="tag" required="Yes">
-	<cfquery datasource="#dsn#" name="tags">
-		SELECT *
+<cfargument name="asJson" default="false">
+<cfargument name="selectString" default='s.id, fname, lname, concat(fname," ",lname) as selectname, email, phone'>
+	<cfquery datasource="#dsn#" name="data">
+		SELECT #selectString#
 		FROM handbooktags t, handbookpeople s
 		WHERE (tag = "#arguments.tag#") and (type = "person") and (t.itemid = s.id)
 		AND t.deletedAt IS NULL
 		ORDER BY lname
 	</cfquery>
-<cfreturn tags>
+      <cfif arguments.asJson>
+            <cfset data = queryToJson(data)>
+      </cfif>
+<cfreturn data>
 </cffunction>
 
 <cffunction name="put_content_documents">
@@ -329,6 +347,38 @@
 	</cfquery>
 <cfreturn tag_staff>
 </cffunction>
+
+<cffunction name="queryToJson">
+<cfargument name="Data" type="query" required="yes" />
+<cfset var loc = structNew()>
+<cfset loc.columnnames = data.columnList>
+<cfset loc.jsonObject = "[">
+      <cftry>
+      <cfoutput query="data">
+            <cfset loc.thisitem = "{">
+            <cfloop list="#loc.columnNames#" index="loc.i">
+                  <cfset loc.thisdata = '"#escapeString(data[loc.i])#"'>
+                  <cfset loc.thisitem = loc.thisitem & '"' & lcase(loc.i) & '"' & ":" & loc.thisdata & ",">
+            </cfloop>
+            <cfset loc.thisitem = left(loc.thisitem,len(loc.thisitem)-1) & "},">
+            <cfset loc.jsonObject = loc.jsonObject & loc.thisitem>
+      </cfoutput>
+      <cfset loc.jsonObject = left(loc.jsonObject,Len(loc.jsonObject)-1)>
+      <cfcatch></cfcatch></cftry>
+      <cfset loc.jsonObject = loc.jsonObject & "]">
+      <cfreturn loc.jsonObject>
+</cffunction>
+
+<cffunction name="escapeString">
+<cfargument name="string" required="true">
+<cfset var loc = structNew()>
+      <cfset loc.return =  arguments.string>
+      <cfset loc.return = replace(loc.return,"&quot;", "'", "ALL")>
+      <cfset loc.return = REReplace(loc.return,chr(34),"'","ALL")>
+      <cfset loc.return = REReplace(loc.return, "\r\n|\n\r|\n|\r", "<br/>", "all")>
+      <cfreturn loc.return>
+</cffunction>
+
 
 <cffunction name="getCaptcha" output="no">
 <cfargument name="text" default="Submit">
