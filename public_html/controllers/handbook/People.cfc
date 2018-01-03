@@ -309,6 +309,9 @@
 		<cfelseif isDefined("params.download")>
 			<cfset allhandbookpeople = bluepagesPeople>
 			<cfset renderpage(template="downloadstaff", layout="/layout_download")>
+		<cfelseif isDefined("params.preview")>
+			<cfset allhandbookpeople = bluepagesPeople>
+			<cfset renderpage(template="downloadstaff", layout="/layout_naked")>
 		<cfelse>
 			<cfset renderPage(layout="/handbook/layout_handbook1")>
 		</cfif>

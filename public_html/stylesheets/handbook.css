@@ -620,3 +620,9 @@ p.lastreviewed {
     background-image: none;
 }
 
+li.preview {
+    text-align: center;
+    font-size: .8em;
+    color: lightgrey;
+    margin-bottom: 5px;
+}

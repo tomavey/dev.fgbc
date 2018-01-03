@@ -5,9 +5,12 @@
 <cfif isdefined("params.download")>
 	<cfset showdownloadbutton = false>
 </cfif>
+<cfif isdefined("params.preview")>
+	<cfset showdownloadbutton = false>
+</cfif>
 
 <cfif showdownloadbutton>
-	<cfoutput>#buttonTo(text="Download as excel", key="excel")#</cfoutput>
+	<cfoutput>#linkTo(text="Download as excel", key="download", class="btn")#</cfoutput>
 </cfif>
 
 <table>
