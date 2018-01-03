@@ -111,6 +111,7 @@
 			.get(name="sendEmailToPeople", pattern="/people/sendemail/", controller="people", action="sendToHandbookPeople")
 			.get(name="peopleReview", pattern="/people/review/", controller="people", action="handbookReviewOptions")
 			.get(name="clearSendHandbook", pattern="/people/clearSendHandbook/", controller="people", action="clearSendHandbooks")
+			.get(name="focusMailingList", pattern="/people/focus/[key]", controller="people", action="focus")
 			.resources("people")
 
 			.resources("personUpdates")
