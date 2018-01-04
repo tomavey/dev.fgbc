@@ -5,7 +5,7 @@
 <head>
 	<cfsetting requestTimeOut="60">
 	<cfoutput>
-		#styleSheetLinkTag("bootstrap,handbook")#
+		#styleSheetLinkTag("bootstrap,handbook,/assets/vendor/icon-awesome/css/font-awesome.min")#
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
 		#javaScriptIncludeTag("bootstrap,jquery_ujs,custom")#
