@@ -1,6 +1,9 @@
 <cfparam name="count" default="0">
 <cfoutput>
-	#linkto(text="<i class='icon-download-alt'></i>", action="list", params="download=1&excel=1", class="tooltipleft btn download", title="Download this list as an excel spreadsheet after review")#
+<cfif !isDefined("params.excel")>
+	<cfset params.excel = true>
+	#linkto(text="Download as Excel", action="list", params=makeDownloadParamsList(), class="tooltipleft btn download", title="Download this list as an excel spreadsheet after review")#
+</cfif>	
 <table class="table table-stripped">
 	<thead>
 		<tr>

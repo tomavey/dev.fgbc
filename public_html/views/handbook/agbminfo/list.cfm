@@ -2,7 +2,6 @@
 <cfset count = 0>
 <cfset previousdistrict = "">
 <cfset previousalpha = "">
-<cfset downloadParamsList = "download=true">
 
 <div class="table table-striped">
 <!---
@@ -25,18 +24,8 @@
 	<cfoutput>#linkto(text="ALL", route="handbookAgbmList", params="type=members&district=all")#</cfoutput>
 </p>
 
-<cfif isDefined("params.district")>
-	<cfset downloadParamsList = downloadParamsList & "&district=#params.district#">
-<cfelseif isDefined("params.alpha")>	
-	<cfset downloadParamsList = downloadParamsList & "&alpha=#params.alpha#">
-</cfif>
-
-<cfif isDefined("params.type")>
-	<cfset downloadParamsList = downloadParamsList & "&type=#params.type#">
-</cfif>
-
 <cfoutput>
-		#linkto(text="<i class='icon-download-alt'></i>", action="list", params=downloadParamsList, class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
+		#linkto(text="<i class='icon-download-alt'></i>", action="list", params=makeDownloadParamsList(), class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
 </cfoutput>     
 
 <table>

@@ -60,3 +60,25 @@
 </cfif>
 <cfreturn loc.return>
 </cffunction>
+
+<cffunction name="makeDownloadParamsList">
+<cfargument name="paramslist" default="#params#">
+<cfset var loc = {}>
+	<cfset loc.downloadParamsList = "download=true">
+	<cfif isDefined("params.district")>
+		<cfset loc.downloadParamsList = loc.downloadParamsList & "&district=#params.district#">
+	<cfelseif isDefined("params.alpha")>	
+		<cfset loc.downloadParamsList = loc.downloadParamsList & "&alpha=#params.alpha#">
+	</cfif>
+
+	<cfif isDefined("params.type")>
+		<cfset loc.downloadParamsList = loc.downloadParamsList & "&type=#params.type#">
+	</cfif>
+
+	<cfif isDefined("params.excel")>
+		<cfset loc.downloadParamsList = loc.downloadParamsList & "&excel=true">
+	</cfif>
+
+<cfreturn loc.downloadParamsList>
+</cffunction>
+
