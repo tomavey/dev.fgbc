@@ -2,6 +2,8 @@
 <cfset count = 0>
 <cfset previousdistrict = "">
 <cfset previousalpha = "">
+<cfset downloadParamsList = "download=true">
+
 <div class="table table-striped">
 <!---
 <h1><cfoutput>#getTitle()#</cfoutput></h1>	
@@ -24,11 +26,9 @@
 </p>
 
 <cfif isDefined("params.district")>
-	<cfset downloadParamsList = "download=true&district=#params.district#">
+	<cfset downloadParamsList = downloadParamsList & "&district=#params.district#">
 <cfelseif isDefined("params.alpha")>	
-	<cfset downloadParamsList = "download=true&alpha=#params.alpha#">
-<cfelse>
-	<cfset downloadParamsList = "download=true">
+	<cfset downloadParamsList = downloadParamsList & "&alpha=#params.alpha#">
 </cfif>
 
 <cfif isDefined("params.type")>
@@ -36,11 +36,7 @@
 </cfif>
 
 <cfoutput>
-	<cfif isDefined("params.key")>
-	#linkto(text="<i class='icon-download-alt'></i>", action="list", key=params.key, params=downloadParamsList, class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
-	<cfelse>	
-	#linkto(text="<i class='icon-download-alt'></i>", action="list", params=downloadParamsList, class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
-	</cfif>
+		#linkto(text="<i class='icon-download-alt'></i>", action="list", params=downloadParamsList, class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
 </cfoutput>     
 
 <table>
