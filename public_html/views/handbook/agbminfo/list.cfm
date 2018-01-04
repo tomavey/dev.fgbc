@@ -2,7 +2,6 @@
 <cfset count = 0>
 <cfset previousdistrict = "">
 <cfset previousalpha = "">
-
 <div class="table table-striped">
 <!---
 <h1><cfoutput>#getTitle()#</cfoutput></h1>	
@@ -30,6 +29,10 @@
 	<cfset downloadParamsList = "download=true&alpha=#params.alpha#">
 <cfelse>
 	<cfset downloadParamsList = "download=true">
+</cfif>
+
+<cfif isDefined("params.type")>
+	<cfset downloadParamsList = downloadParamsList & "&type=#params.type#">
 </cfif>
 
 <cfoutput>
