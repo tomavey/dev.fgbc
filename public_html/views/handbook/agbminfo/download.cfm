@@ -1,9 +1,14 @@
 <cfparam name="count" default="0">
 <cfoutput>
-<cfif !isDefined("params.excel")>
-	<cfset params.excel = true>
-	#linkto(text="Download as Excel", action="list", params=makeDownloadParamsList(), class="tooltipleft btn download", title="Download this list as an excel spreadsheet after review")#
-</cfif>	
+
+	#linkToPlus(
+		text="DOWNLOAD AS EXCEL", 
+		addParams="excel=true", 
+		class="tooltipleft btn download", 
+		title="Download this list as an excel spreadsheet after review",
+		showIf=!isDefined("params.excel")
+		)#
+
 <table class="table table-stripped">
 	<thead>
 		<tr>
@@ -74,5 +79,5 @@
 Count= #count#
 </cfoutput>
 <script>
-alert("Use block-all (ctrl-A) then copy (ctrl-C) then paste (ctrl-V) in your spreadsheet.");
+alert("If DOWNLOAD AS EXCEL does not work properly, use block-all (ctrl-A) then copy (ctrl-C) then paste (ctrl-V) in your spreadsheet.");
 </script>

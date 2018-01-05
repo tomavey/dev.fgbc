@@ -795,4 +795,11 @@ public function getAlphabet(){
 	return application.wheels.alphabet;
 }
 
+public function linkToPlus(required addParams,class="",text="link",oldurl=cgi.request_url,showIf=true){
+	if (!showIf){return ""};
+	var newUrl = oldurl;
+	newurl = oldurl & "&" & addParams;
+	return #linkto(text=text, href=newurl, class=class)#;
+}
+
 </cfscript>
