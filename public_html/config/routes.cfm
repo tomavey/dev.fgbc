@@ -390,7 +390,7 @@
 		.get(name="apiCrudAnswers", pattern="/api/crud/", controller="crud", action="list")
 		.post(name="apiCrudAnswerSubmit", pattern="/api/crud/", controller="crud", action="submit")
 		.delete(name="apiCrudAnswerDelete", pattern="/api/crud/[id]", controller="crud", action="delete")
-		.get(name="fellowshipCouncilPages", pattern="/api/fellowshipcouncil/pages/", controller="fellowshipcouncil.Pages", action="pages")
+		.get(name="fellowshipCouncilPages", pattern="/api/fellowshipcouncil/pages/", controller="fellowshipcouncil.Pages", action="index")
 		.get(name="handbookdistricts", pattern="/handbook-districts/show/[key]", controller="handbook.districts", action="show")
 		.get(name="handbookpages", pattern="/handbookpages/[key]", controller="handbook.organizations", action="show")
 		.get(name="handbook-subscribes", pattern="/handbook-subscribes/subscribeToDates", controller="handbook.subscribes", action="subscribeToDates")
