@@ -5,6 +5,7 @@ component extends="Controller" output="false" {
     }
 
     public function pages(){
+        writeDump("hello controller");abort;
         var whereString = "originalId=0";
         if (isDefined('params.key')) {
             if (val(params.key)) {
