@@ -303,10 +303,6 @@
 			.root(controller="posts", action="login")
 		.end()
 
-		.namespace("fcapi")
-			.get(name="pages", pattern="/pages/", controller="contents", action="pages")
-		.end()
-
 		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
 		.get(name="questions", pattern="/questions", controller="messages", action="cci_new")
@@ -394,6 +390,7 @@
 		.get(name="apiCrudAnswers", pattern="/api/crud/", controller="crud", action="list")
 		.post(name="apiCrudAnswerSubmit", pattern="/api/crud/", controller="crud", action="submit")
 		.delete(name="apiCrudAnswerDelete", pattern="/api/crud/[id]", controller="crud", action="delete")
+		.get(name="fcPages", pattern="/api/fc/pages", controller="fcapi.contents", action="pages")
 		.get(name="handbookdistricts", pattern="/handbook-districts/show/[key]", controller="handbook.districts", action="show")
 		.get(name="handbookpages", pattern="/handbookpages/[key]", controller="handbook.organizations", action="show")
 		.get(name="handbook-subscribes", pattern="/handbook-subscribes/subscribeToDates", controller="handbook.subscribes", action="subscribeToDates")
