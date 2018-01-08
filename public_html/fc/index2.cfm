@@ -70,6 +70,8 @@
         </nav>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" :class="mainClass()">
+        Page: {{ pages }}
+        <p v-html="pages"></p>
           <h2 v-html="contents[0].name"></h2>
           <div v-cloak v-html="contents[0].paragraph"></div>
         </main>
@@ -88,7 +90,7 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
 
-    <script src="/assets/js/vue-resource.js"></script>
+    <script src="/assets/js/axios.min.js"></script>
     <cfoutput>
     <script>
     var vm = new Vue({
@@ -97,6 +99,12 @@
             message: "Working",
             menuItems: #menuIds#,
             contents: #agenda#,
+            testArrayOfObjects: [
+              {fname:"Tom", lname:"Avey", id:1},
+              {fname:"Sandi", lname:"Avey", id:2},
+              {fname:"Sandy", lname:"Barrett", id:3}
+            ],
+            testArray: ['apple','pear', 'orange'],
         },
         methods: {
           mainClass: function(){
@@ -111,9 +119,30 @@
           contentClass: function(){
             return ""
           }
-
-
-        }
+        },
+        computed: {
+          testArrayOfObjectsSorted: function(){
+            return this.testArrayOfObjects.sort( 
+              function(a,b){
+                return a.fname > b.fname;
+              }
+            )
+          },
+          testArrayOfObjectsMapped: function(){
+            return this.testArrayOfObjects.map(function(a){
+              a.fullname = a.fname + ' ' + a.lname;
+              return {fname: a.fname, lname: a.lname, fullname: a.fullname};
+            })
+          },
+          pages: function(){
+            axios.get('http://fgbc:8080/index.cfm?controller=fc.contents&action=page&key=1').then(
+              function(response){ 
+                console.log(response.data);
+                return "hellow";
+              }
+              )
+          }
+        },
     })
     </script>
     </cfoutput>
