@@ -304,7 +304,7 @@
 		.end()
 
 		.namespace("fc")
-			.get(name="pages", pattern="/api/pages", controller="contents", action="pages")
+			.get(name="pages", pattern="/api/pages/", controller="contents", action="pages")
 		.end()
 
 		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
