@@ -4,7 +4,7 @@ component extends="Controller" output="false" {
         writeDump("hello");abort;
     }
 
-    public function page(){
+    public function pages(){
         var whereString = "originalId=0";
         if (isDefined('params.key')) {
             if (val(params.key)) {
