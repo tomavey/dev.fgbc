@@ -141,6 +141,7 @@
 			.get(name="removeFromTag", pattern="/tags/remove/", controller="tags", action="removeFromTag")
 			.get(name="removeTag", pattern="/tag/remove/[key]", controller="tags", action="removeTag")
 			.get(name="downloadTag", pattern="/tag/download/[key]", controller="tags", action="download")
+			.get(name="duplicateTag", pattern="/tag/duplicate/[key]", controller="tags", action="duplicateTag")
 			.post(name="changeTag", pattern="/tag/change/", controller="tags", action="changeTag")
 			.post(name="shareTag", pattern="/tag/share/", controller="tags", action="shareTag")
 			.resources("tags")
