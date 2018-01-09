@@ -70,7 +70,7 @@
         </nav>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" :class="mainClass()">
-        Page: {{ status }}
+          <p v-html="page.paragraph"></p>
           <h2 v-html="contents[0].name"></h2>
           <div v-cloak v-html="contents[0].paragraph"></div>
         </main>
@@ -104,7 +104,8 @@
               {fname:"Sandy", lname:"Barrett", id:3}
             ],
             testArray: ['apple','pear', 'orange'],
-            status: "",
+            pages: "",
+            page: "",
         },
         methods: {
           mainClass: function(){
@@ -120,14 +121,25 @@
             return ""
           },
           loadPages: function(){
-            this.status="Loading...";
+            this.pages="Loading pages...";
             var vm = this;
-            axios.get('http://fgbc:8080/index.cfm?controller=fellowshipcouncil.Pages&action=index&key=1')
+            axios.get('/index.cfm?controller=fellowshipcouncil.Pages&action=index')
             .then(function( response ){
-              vm.status=response.data;
+              vm.pages=response.data;
             })
             .catch(function ( error ){
-              vm.status = "An Error Happenned";
+              vm.pages = "An Error Happened";
+            })
+          },
+          loadPage: function(id){
+            this.page="Loading page...";
+            var vm = this;
+            axios.get('/index.cfm?controller=fellowshipcouncil.Pages&action=index&key=' + id)
+            .then(function( response ){
+              vm.page=response.data[0];
+            })
+            .catch(function ( error ){
+              vm.page = "An Error Happened";
             })
           }
         },
@@ -145,19 +157,10 @@
               return {fname: a.fname, lname: a.lname, fullname: a.fullname};
             })
           },
-          pages: function(){
-            var vm = this;
-            axios.get('http://fgbc:8080/index.cfm?controller=fellowshipcouncil.Pages&action=index&key=1').then(
-              function(response){ 
-                vm.page = response.data;
-                console.log(self.page);
-              }
-              )
-              return vm.page;
-          }
         },
         created: function(){
           this.loadPages();
+          this.loadPage(1);
         }
     })
     </script>

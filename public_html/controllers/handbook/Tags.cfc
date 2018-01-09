@@ -181,9 +181,9 @@
 	<cfargument name="username" default="#params.username#">
 	<cfargument name="newuserId" default="#params.newuserId#">
 	<cfargument name="type" default="person">
-	<cfset var loc=structNew()>
+	<cfset var loc=arguments>
 	<cfset var args=structNew()>
-	<cfset loc = arguments>
+
 	<cfset loc.newusername = model("Handbookperson").findOne(where="id=#loc.newuserId#", select="email").email>
 	<cfif loc.newusername is "">
 		<cfset flashInsert(success="This tag was NOT shared. This person does not have an email address in the handbook.")>
@@ -200,6 +200,32 @@
 	<cfset flashInsert(success="This tag was shared with #loc.newusername#.")>
 
 	<cfset returnBack()>
+	</cffunction>
+
+	<cffunction name="duplicateTag">
+	<cfargument name="tag" default="#params.key#">
+	<cfargument name="username" default="#session.auth.username#">
+	<cfargument name="newuserId" default="#session.auth.userid#">
+	<cfargument name="type" default="person">
+	<cfset var loc=arguments>
+	<cfset var args=structNew()>
+
+	<cfset loc.newtag = loc.tag & "(copy)">
+
+	<cfset loc.tags =model("Handbooktag").findall(where="tag='#loc.tag#' AND username='#loc.username#'")>
+
+		<cfloop query="loc.tags">
+			<cfset args.itemid = itemid>
+			<cfset args.tags = loc.newtag>
+			<cfset args.username = loc.username>
+			<cfset args.type = loc.type>
+			<cfset setTags(argumentcollection=args)>
+		</cfloop>
+
+	<cfset flashInsert(success="This tag was copied")>
+
+	<cfset redirectTo(controller="handbook.tags", action="show", key=loc.newtag)>
+
 	</cffunction>
 
 	<!--- handbook-tags/update --->
