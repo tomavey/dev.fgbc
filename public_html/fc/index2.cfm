@@ -70,8 +70,7 @@
         </nav>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" :class="mainClass()">
-        Page: {{ pages }}
-        <p v-html="pages"></p>
+        Page: {{ status }}
           <h2 v-html="contents[0].name"></h2>
           <div v-cloak v-html="contents[0].paragraph"></div>
         </main>
@@ -105,6 +104,7 @@
               {fname:"Sandy", lname:"Barrett", id:3}
             ],
             testArray: ['apple','pear', 'orange'],
+            status: "",
         },
         methods: {
           mainClass: function(){
@@ -118,6 +118,17 @@
           },
           contentClass: function(){
             return ""
+          },
+          loadPages: function(){
+            this.status="Loading...";
+            var vm = this;
+            axios.get('http://fgbc:8080/index.cfm?controller=fellowshipcouncil.Pages&action=index&key=1')
+            .then(function( response ){
+              vm.status=response.data;
+            })
+            .catch(function ( error ){
+              vm.status = "An Error Happenned";
+            })
           }
         },
         computed: {
@@ -135,14 +146,19 @@
             })
           },
           pages: function(){
-            axios.get('http://fgbc:8080/index.cfm?controller=fc.contents&action=page&key=1').then(
+            var vm = this;
+            axios.get('http://fgbc:8080/index.cfm?controller=fellowshipcouncil.Pages&action=index&key=1').then(
               function(response){ 
-                console.log(response.data);
-                return "hellow";
+                vm.page = response.data;
+                console.log(self.page);
               }
               )
+              return vm.page;
           }
         },
+        created: function(){
+          this.loadPages();
+        }
     })
     </script>
     </cfoutput>
