@@ -103,8 +103,8 @@
         <cfset loc.return =  arguments.string>
         <cfset loc.return = replace(loc.return,"&quot;", "'", "ALL")>
         <cfset loc.return = REReplace(loc.return,chr(34),"'","ALL")>
-        <cfset loc.return = REReplace(loc.return, "\r\n|\n\r|\n|\r", "<br/>", "all")>
-        <cfset loc.return = REReplace(loc.return, "\t", "&nbsp;&nbsp;&nbsp;&nbsp;", "all")>
+        <cfset loc.return = REReplace(loc.return, "\r\n|\n\r|\n|\r", "", "all")>
+        <cfset loc.return = REReplace(loc.return, "\t", "", "all")>
         <cfreturn loc.return>
     </cffunction>
 

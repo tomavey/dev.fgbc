@@ -2,10 +2,12 @@
 <html lang="en">
   <head>
 
+  <cfinclude  template="/events/functions.cfm">
+
     <cfscript>
       members = {};
       fc = createObject("component", "control");
-      agenda = fc.get_content_fc(name="Agenda", asJson = true);
+      agenda = queryToJson(fc.get_content_fc(name="Agenda"));
       menuIds = fc.get_content_fc(selectString="id, name", asJson = true);
       members.all = fc.getstaffinfo(tag="fc", asJson = true);
       members.finance = fc.getstaffinfo(tag="fc_membership", asJson = true);
@@ -70,7 +72,7 @@
         </nav>
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3" :class="mainClass()">
-          <p v-html="page.paragraph"></p>
+          <my-page></my-page>
           <h2 v-html="contents[0].name"></h2>
           <div v-cloak v-html="contents[0].paragraph"></div>
         </main>
@@ -90,8 +92,28 @@
     <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
 
     <script src="/assets/js/axios.min.js"></script>
+    <script src="/assets/js/vue-router.min.js"></script>
     <cfoutput>
     <script>
+
+    var myComponent = {
+      template: "<p>My Component {{greeting}}</p>",
+      data : function(){
+        return {
+          greeting : "Helllllooooo",
+        }
+      }
+    }  
+
+    var myPage = {
+      template: "<p v-html='thisPage'></p>",
+      data: function(){
+        return {
+          thisPage: 'page',
+        };
+      },
+    }
+
     var vm = new Vue({
         el: "##app",
         data: {
@@ -106,6 +128,35 @@
             testArray: ['apple','pear', 'orange'],
             pages: "",
             page: "",
+        },
+        components: {
+          'my-component' : myComponent,
+          'my-page': {
+            props: ['page'],
+            template: "<div><p v-html='componentPage.paragraph'></p><p>{{componentPage.name}}</p></div>",
+            data: function(){
+              return {
+                componentPage: "page",
+              };
+            },
+            methods: {
+              loadComponentPage: function(id=0){
+                this.componentPage="Loading page...";
+                var vm = this;
+                axios.get('/index.cfm?controller=fellowshipcouncil.Pages&action=index&key=' + id)
+                .then(function( response ){
+                  vm.componentPage=response.data[0];
+                  console.log(response.data[0]);
+                })
+                .catch(function ( error ){
+                  vm.componentPage = "An Error Happened";
+                })
+              },
+            },
+            created: function(){
+              this.loadComponentPage(1);
+            },
+          },
         },
         methods: {
           mainClass: function(){
