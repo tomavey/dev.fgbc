@@ -34,6 +34,9 @@
 	<cfset session.auth.handbook.people = "">
 	<cfset session.auth.handbook.organizations = "">
 
+	<!-------------------->
+	<!---AUTHENTICATION--->	
+	<!-------------------->
 
 		<!---Conditions to authorize this user--->
 		<cftry>
@@ -78,6 +81,7 @@
 	   				 <cfset session.auth.rightslist = "basic">
 	   				 <cfset session.auth.handbook.basic = true>
 
+			<!---If this is a reviewer (using a reviewed link) - give basic rights only--->
 			<cfelseif isDefined("params.reviewer") and len(params.reviewer) and isDefined("params.orgid") and val(params.orgid) and allowHandbookUpdate()>
 				<cfset session.auth.passedString = 'isDefined("params.reviewer") and len(params.reviewer) and isDefined("params.orgid") and val(params.orgid) and allowHandbookUpdate()'>
 	   				 <cfset session.auth.email = params.reviewer>
@@ -88,15 +92,20 @@
 	   				 <cfset request.auth.handbook.review = true>
 
 					<cfset redirectTo(controller="handbook.organization", action="show", key=params.orgid)>
+
+			<!---If this is a handbook updater send to handbook review checkin--->
 			<cfelseif isDefined("params.handbookUpdate") and val(params.handbookupdate)>
 				<cfset session.auth.passedString = 'isDefined("params.handbookUpdate") and val(params.handbookupdate)'>
 					<cfset redirectTo(action="handbookReviewCheckin", key=params.handbookupdate)>
-
     		</cfif>
 
     		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in authentication section")#"</cfcatch>
     		</cftry>
 
+
+	<!-------------------->
+	<!---AUTHORIZATION_--->	
+	<!-------------------->
 
 		<!---Set up session variables that connect this person with the people and organizations he or she can edit--->
 
@@ -130,7 +139,7 @@
 	<cfdump var="#params#" label="Auth"><cfabort>
 --->
 
-		<!---If this person is in the handbook, send them to their personal page or else send them to checkin--->
+		<!---If this person is authorized, send them to their personal page or else send them to checkin--->
 		<cfif session.auth.handbook.basic>
 
     		<!---If the params.handbookUpdate is set, go to the handbook update page for this persons organization--->
@@ -153,8 +162,8 @@
 			<cfset redirectTo(action="checkin")>
 		</cfif>
 
-    		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in the redirection section")#"</cfcatch>
-    		</cftry>
+		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in the redirection section")#"</cfcatch>
+		</cftry>
 
 	</cffunction>
 
