@@ -5,6 +5,7 @@
 		<cfset usesLayout(template="/handbook/layout_admin")>
 		<cfset filters(through="isAuthorized", only="new,edit")>
 		<cfset filters(through="paramsKeyRequired", only="sizeByPercent,getSummary")>
+		<cfset filters(through="setReturn", only="index")>
 	</cffunction>
 
 	<cffunction name="isAuthorized">
@@ -120,7 +121,7 @@
     	<!--- Check if the record exists --->
 	    <cfif NOT IsObject(handbookstatistic)>
 	        <cfset flashInsert(error="HandbookStatistic #params.key# was not found")>
-			<cfset redirectTo(action="index")>
+			<cfset returnBack()>
 	    </cfif>
 
 	</cffunction>
@@ -154,7 +155,7 @@
 --->
 	            <cfset redirectTo(action="payonline", params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#")>
 			<cfelse>
-	            <cfset redirectTo(action="index")>
+	            <cfset returnBack()>
 			</cfif>
 		<!--- Otherwise --->
 		<cfelse>
@@ -182,7 +183,7 @@
 		<!--- Verify that the handbookstatistic updates successfully --->
 		<cfif handbookstatistic.update(params.handbookstatistic)>
 			<cfset flashInsert(success="The handbookstatistic was updated successfully.")>
-            <cfset redirectTo(action="index")>
+            <cfset returnBack()>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the handbookstatistic.")>
@@ -197,12 +198,11 @@
 		<!--- Verify that the handbookstatistic deletes successfully --->
 		<cfif handbookstatistic.delete()>
 			<cfset flashInsert(success="The handbookstatistic was deleted successfully.")>
-            <cfset redirectTo(action="index")>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error deleting the handbookstatistic.")>
-			<cfset redirectTo(action="index")>
 		</cfif>
+        <cfset returnBack()>
 	</cffunction>
 
 	<cffunction name="delinquent">
