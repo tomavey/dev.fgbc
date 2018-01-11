@@ -97,6 +97,7 @@
 			.get(name="grouproster", pattern="/grouproster/", controller="organizations", action="groupRoster")
 			.get(name="pages", pattern="/pages/[key]", controller="organizations", action="show")
 			.get(name="organizationsReview", pattern="/organizations/review/", controller="organizations", action="handbookReviewOptions")
+			.get(name="memberList", pattern="/membershipList/", controller="organizations", action="memberChurches")
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
@@ -130,11 +131,16 @@
 			.get(name="allCurrentKey", pattern="/stats/allCurrent/[key]", controller="statistics", action="allCurrent")
 			.get(name="statsSummary", pattern="/statistics/getSummary/[key]", controller="statistics", action="getSummary")
 			.get(name="churchGrowth", pattern="/statistics/churchgrowth/", controller="statistics", action="churchgrowth")
+			.get(name="statsHistory", pattern="/statistics/history/", controller="statistics", action="stathistory")
+			.get(name="statusChanged", pattern="/status/changed/", controller="statistics", action="closedshurches")
+			.get(name="statsProjection", pattern="/stats/projection/", controller="statistics", action="getfee")
+			.get(name="statsSize", pattern="/statistics/size/[key]", controller="statistics", action="sizeByPercent")
 			.get(name="getChurchId", pattern="/statistics/getChurchid/", controller="statistics", action="getChurchid")
 			.post(name="paystatsonline", pattern="/statistics/payonline/", controller="statistics", action="payonline")
 			.get(name="paystatsonline2", pattern="/statistics/payonline/", controller="statistics", action="payonline")
 			.get(name="confirmPayment", pattern="/statistics/confirm/", controller="statistics", action="confirm")
 			.get(name="failedPayment", pattern="/statistics/paymentfailed/", controller="statistics", action="paymentfailed")
+
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
