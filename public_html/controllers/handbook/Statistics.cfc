@@ -611,7 +611,7 @@
 	<cfargument name="medium" default="25">
 	<cfset var loc=structNew()>
 
-		<cfset loc.count = model("Handbookstatistic").findAll(where="year='#params.key#'", select="count(*) as count")>
+		<cfset loc.count = model("Handbookstatistic").findAll(where="year='#params.key#'", select="count(*) AS count")>
 
 		<cfset loc.xxlarge.count = round(loc.count.count*((100-arguments.xxlarge)/100))>
 		<cfset loc.xxlarge.startrow = 1>
