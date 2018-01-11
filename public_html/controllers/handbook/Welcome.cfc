@@ -13,6 +13,8 @@
 	<cffunction name="welcome">
 		<cfif isDefined("params.id")>
 			<cfset redirectTo(action="index", params="unlockcode=#params.id#")>
+		<cfelseif isDefined("params.key")>
+			<cfset redirectTo(action="index", params="unlockcode=#params.key#")>
 		<cfelse>
 			<cfset redirectTo(action="index")>
 		</cfif>
@@ -95,9 +97,6 @@
     		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in authentication section")#"</cfcatch>
     		</cftry>
 
-<!---
-<cfdump var="#params#"><cfabort>
---->
 
 		<!---Set up session variables that connect this person with the people and organizations he or she can edit--->
 
@@ -121,10 +120,15 @@
 			</cfif>
 		</cfif>
 
-    		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in the authorization section")#"</cfcatch>
-    		</cftry>
+   		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in the authorization section")#"</cfcatch>
+   		</cftry>
 
-    		<cftry>
+   		<cftry>
+
+<!---
+	<cfdump var="#session.auth#" label="Params">
+	<cfdump var="#params#" label="Auth"><cfabort>
+--->
 
 		<!---If this person is in the handbook, send them to their personal page or else send them to checkin--->
 		<cfif session.auth.handbook.basic>
