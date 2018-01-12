@@ -38,7 +38,7 @@
                                 <p>User Agent</p>
                                 <p>#cgi.http_user_agent#</p>
                             </cfif>
-                            <p>Reload web site: http://www.charisfellowship.us/?reload=true&password=charis</p>
+                            <p>Reload web site: http://www.charisfellowship.us/?reload=true&password=mack</p>
                  </body>
                  </html>
             </cfmail>

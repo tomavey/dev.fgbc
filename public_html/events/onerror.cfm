@@ -79,7 +79,7 @@
                                 <p>User rightslist</p>
                                 <p>#session.auth.rightslist#</p>
                             </cfif>
-                            <p>Reload web site: http://www.charisfellowship.us/?reload=true&password=charis</p>
+                            <p>Reload web site: http://www.charisfellowship.us/?reload=true&password=mack</p>
                  </body>
                  </html>
             </cfmail>

@@ -59,7 +59,7 @@
 	</cffunction>
 
 	<cffunction name="reloadTrue">
-		<cfhttp url="http://www.fgbc.org?reload=true&password=charis">
+		<cfhttp url="http://charisfellowship.us?reload=true&password=mack">
 		<cfset redirectTo(controller="home", action="index")>
 	</cffunction>
 
