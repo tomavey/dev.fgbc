@@ -69,7 +69,7 @@
             <!-- Navigation -->
             <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
           <cfoutput>
-              <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto">
+              <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto" id="js-scroll-nav">
                 <li class="nav-item g-mx-20--lg">
                   #linkTo(text="HOME", href="/", class="nav-link px-0 #isNavActive("home")#")#
                 </li>
@@ -77,7 +77,7 @@
                   #linkTo(text="Rebranding", href="##rebrand", data_modal_target="##rebrand", data_modal_effect="slide", class="nav-link px-0 #isNavActive("about")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
-                  #linkTo(text="ABOUT", controller="about", action="cci", class="nav-link px-0 #isNavActive("about")#")#
+                  #linkTo(text="ABOUT", href="##about", class="nav-link px-0 #isNavActive("about")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
                     #linkTo(text="CHURCHES", controller="churches", action="index", class="nav-link px-0 #isNavActive("churches")#")#

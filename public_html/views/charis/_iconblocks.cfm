@@ -1,7 +1,11 @@
 	  <!-- Icon Blocks -->
    
-	  <section class="g-py-100">
+	  <section class="g-py-100" id="about">
       <div class="container">
+      <div class="charisIs">
+      <p>Charis Fellowship is a network of churches, campuses and ministries in the USA and Canada.</p>
+      <p>Charis Fellowship is a proud member of the <a href="http://charisalliance.org" target="_new">global Charis Alliance</a> with 3000+ churches in more than 25 countries.</p>   
+      </div>
 		  <header class="text-center g-width-60x--md mx-auto g-mb-50">
           <div class="u-heading-v2-3--bottom g-brd g-mb-20">
             <h1 class="h1 u-heading-v2__title g-font-weight-600 text-uppercase">OUR SHARED
@@ -94,4 +98,5 @@ MISSION</h1>
 		       </div>      
 		      </div>
 	  </section>
+
 <!-- End Icon Blocks -->
