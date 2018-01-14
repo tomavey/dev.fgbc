@@ -1,4 +1,4 @@
-     <section class="g-py-100">
+     <section class="g-py-100" id="news">
       <div class="container">
 		  <header class="text-center g-width-60x--md mx-auto g-mb-50">
           <div class="u-heading-v2-3--bottom g-brd g-mb-20">
