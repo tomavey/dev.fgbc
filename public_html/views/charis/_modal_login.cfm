@@ -8,7 +8,7 @@
             #startFormTag(route="authCheckLogin")#
             #textField(objectName='user', property='username', label='Username:&nbsp;', class="input-block-level")#
             #passwordField(objectName='user', property='password', label='Password:&nbsp;&nbsp;', class="input-block-level")#
-            <button type="submit" name="submit" value="Login" class="btn btn-primary">Login</button>
+            #submitTag(value="Login", class="btn btn-primary")#
             <p>#linkTo(text="Create a new FGBC account", controller="auth.users", action="new")#</p>
             #endFormTag()#
         </cfoutput>
