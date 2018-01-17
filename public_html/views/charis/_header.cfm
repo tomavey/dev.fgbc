@@ -12,7 +12,7 @@
             <div class="col-auto g-px-15">
               <ul class="list-inline g-line-height-1 g-mt-minus-10 g-mx-minus-4 mb-0">
                 <li class="list-inline-item g-mx-4 g-mt-10">
-                    <a href="##rebrand" data-modal-target="##rebrand" data-modal-effect="slide" class="g-color-white g-color-primary--hover g-text-underline--none--hover">Looking for fgbc.org?</a>
+                    <a href="?controller=charis&action=rebranding" class="g-color-white g-color-primary--hover g-text-underline--none--hover">Looking for fgbc.org?</a>
                 </li>
                 <li class="list-inline-item g-mx-4 g-mt-10">|</li>
                 <li class="list-inline-item g-mx-4 g-mt-10">
