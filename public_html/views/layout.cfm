@@ -24,6 +24,16 @@
 
         #includePartial("/charis/jsIncludeTags")#
 
+<cfif application.wheels.environment NEQ "production">
+    <cftry>
+    <cfdump var="#session.auth#">
+    #session.auth.rightslist#
+    #gotrights("handbook")#
+    <cfcatch>
+    </cfcatch>
+    </cftry>
+</cfif>
+
     </body>
 
 </cfoutput>
