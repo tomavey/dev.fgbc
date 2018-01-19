@@ -9,7 +9,7 @@
 
     <div class="span9">
 <h2>
-	<cfif gotRights("Handbook")>
+	<cfif gotRights("Handbook,ministrystaff,natminstaff")>
 		FGBC Ministry Staff Menu:
 	<cfelse>
 		Members Menu: 
