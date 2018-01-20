@@ -112,6 +112,10 @@
     	<cfreturn application.wheels.dataSourceName>
     </cffunction>
 
+	<cffunction name="getMinistryStaffAdmin">
+		<cfreturn application.wheels.canSetMinistryStaff>
+	</cffunction>
+
     <cffunction name="jsonToStruct">
     <cfargument name="jsonString" required="true">
     <cfset var loc=structNew()>

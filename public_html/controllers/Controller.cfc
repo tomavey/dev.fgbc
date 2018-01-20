@@ -532,7 +532,7 @@
 	<cffunction name="isMinistryStaff">
 	<cfargument name="userid" required="false">
 		<cftry>
-			<cfset checkForTag = model("Handbooktag").findOne(where="username IN (#application.wheels.canSetMinistryStaff#) AND itemId= #arguments.userid# AND tag='ministrystaff'")>
+			<cfset checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) AND itemId= #arguments.userid# AND tag='ministrystaff'")>
 			<cfif isObject(checkForTag)>
 				<cfreturn true>
 			<cfelse>
