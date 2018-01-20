@@ -321,7 +321,10 @@
 		<cfloop query="rights">
 			<cfset session.auth.rightslist = name & "," & session.auth.rightslist>
 		</cfloop>
-
+		<cfset groups = model("Authusersgroup").findall(where="auth_usersid = #arguments.userid#", include="Group")>
+		<cfloop query="groups">
+			<cfset session.auth.rightslist = name & "," & session.auth.rightslist>
+		</cfloop>
 		<cfif emailIsInHandbook(arguments.email)>
 			<cfset session.auth.rightslist = session.auth.rightslist & "handbook,">
 		</cfif>
@@ -329,6 +332,10 @@
 		<cfif emailIsInFC(arguments.email)>
 			<cfset session.auth.rightslist = session.auth.rightslist & "fellowshipcouncil,">
 		</cfif>
+
+		<cfset session.auth.rightslist = ListSort(session.auth.rightslist,"text")>
+		<cfset session.auth.rightslist = removeDuplicatesFromList(session.auth.rightslist)>
+		<cfset session.auth.rightslist = replace(session.auth.rightslist,",","","one")>
 
 	</cffunction>
 

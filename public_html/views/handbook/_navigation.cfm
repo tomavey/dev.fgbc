@@ -60,10 +60,10 @@
 
     				</ul>
     			</li>
+				--->
                 <li>
                     #linkto(text="?", controller="handbook.welcome", action="help", title="Help Tutorials", class="tooltip2")#
                 </li>
-				--->
     		</ul>
 
     		<ul class="nav">

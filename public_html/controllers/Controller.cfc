@@ -567,6 +567,27 @@
 		</cfif>
 	</cffunction>
 
+	<cffunction name="GotRights">
+	<cfargument name="rightRequired" required="yes">
+		<cfset var permission = "no">
+			<cfloop list="#rightrequired#" index="i">
+				<cfif isdefined("session.auth.rightslist") and listFindNoCase(session.auth.rightslist,"#i#")>
+					<cfset permission = "yes">
+				</cfif>
+
+				<cfif i is "handbook">
+					<cftry>
+						<cfinvoke component="_model.handbook.staff.cfc_handbook_staff" method="get" email="#session.auth.email#" maxSortOrder="900" returnvariable="handbook" />
+
+						<cfif handbook.recordcount>
+							<cfset permission = "yes">
+						</cfif>
+					<cfcatch></cfcatch></cftry>
+				</cfif>
+			</cfloop>
+	<cfreturn permission>
+	</cffunction>
+
 <cfscript>
 
 	public function isConferenceErrorEmailOn(){

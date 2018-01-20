@@ -15,11 +15,12 @@
 		</cfif>
 	</cffunction>
 
+<!---Moved to main controller
 	<cffunction name="GotRights">
 	<cfargument name="rightRequired" required="yes">
 		<cfset permission = "no">
 	        <cfloop list="#rightrequired#" index="i">
-	            <cfif isdefined("session.auth.rightslist") and listfind(session.auth.rightslist,"#i#")>
+	            <cfif isdefined("session.auth.rightslist") and listFindNoCase(session.auth.rightslist,"#i#")>
 	                <cfset permission = "yes">
 	            </cfif>
 
@@ -37,6 +38,7 @@
 
 	<cfreturn permission>
 	</cffunction>
+--->    
 
     <cffunction name="inAuthGroup">
     

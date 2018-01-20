@@ -103,11 +103,13 @@
 <!---Authorization Methods----------------------------->
 <!----------------------------------------------------->
 
+<!---Moved to main controller.cfc
+
 <cffunction name="GotRights">
 <cfargument name="rightRequired" required="yes">
-	<cfset permission = "no">
+	<cfset var permission = "no">
         <cfloop list="#rightrequired#" index="i">
-            <cfif isdefined("session.auth.rightslist") and listfind(session.auth.rightslist,"#i#")>
+            <cfif isdefined("session.auth.rightslist") and listFindNoCase(session.auth.rightslist,"#i#")>
                 <cfset permission = "yes">
             </cfif>
 
@@ -123,6 +125,8 @@
         </cfloop>
 <cfreturn permission>
 </cffunction>
+
+--->
 
 <cffunction name="gotHandbookPersonRights">
 <cfargument name="id" required="true" type="numeric">

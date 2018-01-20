@@ -170,6 +170,7 @@
 			.get(name="logout", pattern="/logout/", controller="welcome", action="logout")
 			.get(name="login", pattern="/login/", controller="welcome", action="loginForm")
 			.post(name="sendlink", pattern="/sendLink/", controller="welcome", action="sendLink")
+			.get(name="help", pattern="/help/", controller="welcome", action="help")
 			.resources("welcome")
 
 			.get(name="addstaffandposition", pattern="/positions/new/", controller="positions", action="new")

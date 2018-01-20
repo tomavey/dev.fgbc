@@ -38,6 +38,7 @@
 		AND ug.auth_usersid = #arguments.userid#
 		ORDER BY r.name
 	</cfquery>	
+	
 	<cfreturn loc.rights>
 	</cffunction>
 

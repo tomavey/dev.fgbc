@@ -12,7 +12,7 @@
 			</h2>
 		<cfelse>
 			<h2>
-			Members Menu: 
+				Members Menu: 
 			</h2>
 		</cfif>
 
