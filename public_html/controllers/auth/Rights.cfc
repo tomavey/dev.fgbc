@@ -83,6 +83,7 @@
 		<!--- Verify that the right deletes successfully --->
 		<cfif right.delete()>
 			<cfset flashInsert(success="The right was deleted successfully.")>	
+			<cfset groupsright = model("Authgroupsright").deleteAll(where="auth_rightsid=#params.key#")>
             <cfset redirectTo(action="index")>
 		<!--- Otherwise --->
 		<cfelse>

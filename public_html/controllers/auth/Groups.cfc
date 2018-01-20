@@ -86,6 +86,8 @@
 		<!--- Verify that the group deletes successfully --->
 		<cfif group.delete()>
 			<cfset flashInsert(success="The group was deleted successfully.")>	
+			<cfset groupsright = model("Authgroupsright").deleteAll(where="auth_groupsid=#params.key#")>
+			<cfset usergroups = model("Authusersgroup").deleteAll(where="auth_groupsid=#params.key#")>
             <cfset redirectTo(action="index")>
 		<!--- Otherwise --->
 		<cfelse>
