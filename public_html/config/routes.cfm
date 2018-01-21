@@ -301,6 +301,9 @@
 			.post(name="createBlankForm", pattern="/newchurches/createBlankForm/", controller="newchurches", action="createBlankForm")
 			.get(name="emailSent", pattern="/newchurches/emailsent/", controller="newchurches", action="emailsent")
 			.get(name="newministries", pattern="/newministries/", controller="newministries", action="index")
+
+			.resources('resources')
+			
 			.resources('newchurches')
 			.get(name="nominationsClosed", pattern="nominationsclosed", controller="nominations", action="closed")
 		.end()
