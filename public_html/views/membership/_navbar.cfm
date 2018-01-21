@@ -23,7 +23,7 @@
               <li>#linkTo(text="Resources", controller="membership.applications", action="resources")#</li>
               <li>#linkTo(text="About", controller="membership.applications", action="about")#</li>
             <cfif isMembershipApp()>
-              <li>#linkTo(text="Upload", controller="membershipapp-resources", action="new")#</li>
+              <li>#linkTo(text="Upload", controller="membership.resources", action="new")#</li>
             </cfif>  
           </cfif>    
               <cfif gotRights("superadmin,office") OR isFellowshipCouncil()>
