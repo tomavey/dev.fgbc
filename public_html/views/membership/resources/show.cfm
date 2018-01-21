@@ -16,7 +16,7 @@
 						#membershipappresource.applicationUUID#</p>
 				
 					<p><span>Desciption</span> <br />
-						#membershipappresource.desciption#</p>
+						#membershipappresource.description#</p>
 				
 					<p><span>File</span> <br />
 						#membershipappresource.file#</p>

@@ -125,11 +125,11 @@
 		<!--- Verify that the membershipappresource deletes successfully --->
 		<cfif membershipappresource.delete()>
 			<cfset flashInsert(success="The membershipappresource was deleted successfully.")>	
-            <cfset redirectTo(action="index")>
+            <cfset redirectTo(route="membershipListAppResources", key=membershipappresource.applicationUUID)>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error deleting the membershipappresource.")>
-			<cfset redirectTo(action="index")>
+            <cfset redirectTo(route="membershipListAppResources", key=membershipappresource.applicationUUID)>
 		</cfif>
 	</cffunction>
 	
