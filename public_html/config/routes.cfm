@@ -302,7 +302,8 @@
 			.get(name="emailSent", pattern="/newchurches/emailsent/", controller="newchurches", action="emailsent")
 			.get(name="newministries", pattern="/newministries/", controller="newministries", action="index")
 
-			.resources('resources')
+			.get(name="listResource", pattern="/resourcelist/[key]", controller="ministries", action="index")
+			.resources("resources")
 			
 			.resources('newchurches')
 			.get(name="nominationsClosed", pattern="nominationsclosed", controller="nominations", action="closed")
