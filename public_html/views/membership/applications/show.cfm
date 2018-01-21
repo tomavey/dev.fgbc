@@ -7,7 +7,7 @@
 #includePartial("showFlash")#
 
 <cfif not isDefined("params.doc") AND showButtons>
-	#linkTo(text=trim(striptags(getQuestion('uploadedlink'))), controller="membership.resources", action="index", key=params.key, class="btn")#
+	33#linkTo(text=trim(striptags(getQuestion('uploadedlink'))), controller="membership.resources", action="index", key=params.key, class="btn")#
 
 	#linkTo(text=trim(striptags(getQuestion('editlink'))), action="edit", key=getKey(), class="btn")#
 </cfif>
