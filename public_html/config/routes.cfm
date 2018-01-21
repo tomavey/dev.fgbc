@@ -302,7 +302,7 @@
 			.get(name="emailSent", pattern="/newchurches/emailsent/", controller="newchurches", action="emailsent")
 			.get(name="newministries", pattern="/newministries/", controller="newministries", action="index")
 
-			.get(name="listAppResources", pattern="/listappresources/[key]", controller="ministries", action="index")
+			.get(name="listAppResources", pattern="/listappresources/[key]", controller="resources", action="index")
 			.resources("resources")
 			
 			.resources('newchurches')
