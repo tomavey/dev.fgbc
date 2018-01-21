@@ -95,7 +95,7 @@
 		<!--- Verify that the membershipappresource creates successfully --->
 		<cfif membershipappresource.save()>
 			<cfset flashInsert(success="The uploaded resource was created successfully.")>
-            <cfset redirectTo(action="index")>
+            <cfset redirectTo(route="membershipListAppResources", key=membershipappresource.applicationUUID)>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the uploaded resource.")>
