@@ -169,7 +169,7 @@
 	</cfif>
 
 <cfif not isDefined("params.doc") AND showbuttons>
-	#linkTo(text="Show uploaded documents", controller="membership.resources", action="index", key=params.key, class="btn")#
+	#linkTo(text="Show uploaded documents", route="membershipListAppResources", key=params.key, class="btn")#
 
 	#linkTo(text="Edit this membershipapplication", action="edit", key=getKey(), class="btn")#
 </cfif>
