@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/membership/layout")>
-		<cfset filters("isCheckedInOrAuthorized")>
+		<cfset filters(through="isCheckedInOrAuthorized", except="index")>
 	</cffunction>
 
 	<cffunction name="isCheckedInOrAuthorized">
@@ -10,7 +10,7 @@
 		<cfif isDefined("session.membershipapplication.id") OR 
 			isFellowshipCouncil()>
 		<cfelse>
-			<cfset redirectTo(controller="membership-applications", action="checkin")>
+			<cfset redirectTo(controller="membership.applications", action="checkin")>
 		</cfif>
 
 	</cffunction>
