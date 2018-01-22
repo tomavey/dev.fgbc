@@ -598,6 +598,15 @@
 		return application.wheels.sendHandbookEmailOnError;
 	}
 
+	public function isProduction(){
+		if (application.wheels.environment is "production") {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	public function paramsEmailRequired(){
 		if (!isDefined("params.key")){
 			renderText("This page cannot display - wrong parameters");

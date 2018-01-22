@@ -38,8 +38,10 @@
 </div>
 	</div>
 
-<!---<cfdump var="#session.membershipapplication#">
---->
+<cfif !isProduction()>
+	<cfdump var="#session.membershipapplication#">
+</cfif>
+
 </body>
 
 <cfoutput>
