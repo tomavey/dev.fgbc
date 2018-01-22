@@ -1,9 +1,11 @@
-<h1>Documents uploaded...</h1>
-
-<cfoutput>#includePartial("showFlash")#</cfoutput>
-
 <cfoutput>
+<h1>Documents uploaded...</h1>
+<p>For #linkTo(text=getChurchAppName(params.key), controller="membership.applications", action="show", key=applicationuuid)#</p>
+
+#includePartial("showFlash")#
+
 	<p>#linkTo(text="New", action="new")#</p>
+
 </cfoutput>
 
 <div class="table">
