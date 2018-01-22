@@ -185,6 +185,6 @@
 		</cfoutput>
 	</ul>
 
-	<p>#linkTo(text="Upload", controller="membership.resources", action="new")#</p>
+	<p>#linkTo(text="Upload A New Document", controller="membership.resources", action="new")#</p>
 
 </div>
