@@ -22,9 +22,11 @@
             <ul class="nav">
               <li>#linkTo(text="Resources", controller="membership.applications", action="resources")#</li>
               <li>#linkTo(text="About", controller="membership.applications", action="about")#</li>
+       <!---       
             <cfif isMembershipApp()>
               <li>#linkTo(text="Upload", controller="membership.resources", action="new")#</li>
-            </cfif>  
+            </cfif>
+        --->      
           </cfif>    
               <cfif gotRights("superadmin,office") OR isFellowshipCouncil()>
                 <li class="dropdown">
