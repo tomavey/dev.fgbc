@@ -1,6 +1,9 @@
 <cfoutput>
 <h1>Documents uploaded...</h1>
-<p>For #linkTo(text=getChurchAppName(params.key), controller="membership.applications", action="show", key=params.key)#</p>
+
+<cfif len(getChurchAppName(params.key)) EQ 5>
+	<p>For #linkTo(text=getChurchAppName(params.key), controller="membership.applications", action="show", key=params.key)#</p>
+</cfif>
 
 #includePartial("showFlash")#
 
