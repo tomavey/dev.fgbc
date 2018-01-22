@@ -6,6 +6,8 @@
 <cfelse>
 	<cfset loc.whereString = "uuid=#arguments.appid#">
 </cfif>	
+
+<cfdump var="#loc#"><cfabort>
 <cfset loc.return = "">
 	<cfset app = model("Membershipapplication").findOne(where=loc.whereString)>
 	<cfif isObject(app)>
