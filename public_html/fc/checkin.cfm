@@ -8,8 +8,9 @@
 
 <body style="width:500px;margin:0 auto;border:1px solid gray;text-align:center">
 <h2>Please click on your email address and we will send you a link to the Fellowship Council Web Site</h2>
+
 <cfoutput query="staff">
-<a href="captcha.cfm?id=#itemid#">#fname# #lname#</a><br />
+  <a href="captcha.cfm?id=#itemid#">#fname# #lname#</a><br />
 </cfoutput>
 
 <p>If cookies are allowed in your browser, you will not need the special link after the first time you visit the Fellowship Council Web Site</p>

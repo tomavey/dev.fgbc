@@ -151,7 +151,7 @@
 <cffunction name="getstaffinfo">
 <cfargument name="tag" required="Yes">
 <cfargument name="asJson" default="false">
-<cfargument name="selectString" default='s.id, fname, lname, concat(fname," ",lname) as selectname, email, phone'>
+<cfargument name="selectString" default='s.id, fname, lname, concat(fname," ",lname) as selectname, email, phone, itemid'>
 	<cfquery datasource="#dsn#" name="data">
 		SELECT #selectString#
 		FROM handbooktags t, handbookpeople s
@@ -412,10 +412,7 @@
       <cfset strCaptcha = (
             arrValidChars[ 1 ] &
             arrValidChars[ 2 ] &
-            arrValidChars[ 3 ] &
-            arrValidChars[ 4 ] &
-            arrValidChars[ 5 ] &
-            arrValidChars[ 6 ]
+            arrValidChars[ 3 ]
             ) />
 
       <cfsavecontent variable="captchaForm">
