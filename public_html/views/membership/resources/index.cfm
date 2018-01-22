@@ -21,8 +21,10 @@
 			text='<i class="icon-trash"></i>', 
 			action='delete', 
 			key=ID, 
+			method="delete",
 			class="tooltip2",
 			title="Delete this resource!",
 			onclick="return confirm('Are you sure?')")#" />
+
 </cftable>
 </div>
