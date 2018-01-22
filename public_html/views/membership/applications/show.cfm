@@ -184,4 +184,7 @@
 			<li>#linkto(text=file, href="/files/#file#")#
 		</cfoutput>
 	</ul>
+
+	<p>#linkTo(text="Upload", controller="membership.resources", action="new")#</p>
+
 </div>
