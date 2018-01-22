@@ -4,7 +4,7 @@
 <cfif val(params.key)>
 	<cfset loc.whereString = "id=#arguments.appid#">
 <cfelse>
-	<cfset loc.whereString = "uuid=#arguments.appid#">
+	<cfset loc.whereString = "uuid='#arguments.appid#'">
 </cfif>	
 
 <cfdump var="#loc#"><cfabort>
