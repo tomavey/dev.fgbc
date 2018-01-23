@@ -9,14 +9,29 @@
 		<cfset filters(through="reloadLanguage,setReturn", only="checkin,step1,step2,step3,step4,step5,step6,step7,edit,show")>
 		<cfset filters(through="provideChurches", only="new,edit,step7")>
 		<cfset filters(through="setMembershipApplicationSessionFromKey", only="edit,show")>
+		<cfset filters(through="setMembershipApplicationSessionFromUUID", only="edit,show")>
 	</cffunction>
 
 	<cffunction name="setMembershipApplicationSessionFromKey">
+		<cftry>
 		<cfif isDefined("params.key") && len(params.key) LTE 10>
 	    	<cfset var membershipapplication = model("Membershipapplication").findByKey(params.key)>
 			<cfset session.membershipapplication.id = membershipapplication.id>
 			<cfset session.membershipapplication.uuid = membershipapplication.uuid>
 		</cfif>	
+		<cfcatch></cfcatch>
+		</cftry>
+	</cffunction>
+
+	<cffunction name="setMembershipApplicationSessionFromUUID">
+		<cftry>
+		<cfif isDefined("params.key") && len(params.key) GTE 10>
+	    	<cfset var membershipapplication = model("Membershipapplication").findOne(where="uuid='#params.key#'"#)>
+			<cfset session.membershipapplication.id = membershipapplication.id>
+			<cfset session.membershipapplication.uuid = membershipapplication.uuid>
+		</cfif>	
+		<cfcatch></cfcatch>
+		</cftry>
 	</cffunction>
 
 	<cffunction name="getCurrentApplicationYearStart">
