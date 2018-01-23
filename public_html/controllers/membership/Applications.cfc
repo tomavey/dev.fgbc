@@ -26,7 +26,7 @@
 	<cffunction name="setMembershipApplicationSessionFromUUID">
 		<cftry>
 		<cfif isDefined("params.key") && len(params.key) GTE 10>
-	    	<cfset var membershipapplication = model("Membershipapplication").findOne(where="uuid='#params.key#'"#)>
+	    	<cfset var membershipapplication = model("Membershipapplication").findOne(where="uuid='#params.key#'")>
 			<cfset session.membershipapplication.id = membershipapplication.id>
 			<cfset session.membershipapplication.uuid = membershipapplication.uuid>
 		</cfif>	
