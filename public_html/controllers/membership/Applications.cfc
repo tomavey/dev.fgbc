@@ -12,7 +12,7 @@
 	</cffunction>
 
 	<cffunction name="setMembershipApplicationSessionFromKey">
-		<cfif isDefined("params.key") || val(params.key)>
+		<cfif isDefined("params.key") && val(params.key)>
 	    	<cfset var membershipapplication = model("Membershipapplication").findByKey(params.key)>
 			<cfset session.membershipapplication.id = membershipapplication.id>
 			<cfset session.membershipapplication.uuid = membershipapplication.uuid>
