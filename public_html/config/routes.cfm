@@ -140,7 +140,7 @@
 			.get(name="paystatsonline2", pattern="/statistics/payonline/", controller="statistics", action="payonline")
 			.get(name="confirmPayment", pattern="/statistics/confirm/", controller="statistics", action="confirm")
 			.get(name="failedPayment", pattern="/statistics/paymentfailed/", controller="statistics", action="paymentfailed")
-
+			.get(name="feeProjection", pattern="/statistics/projection/", controller="statistics", action="getFeeTotal")
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
