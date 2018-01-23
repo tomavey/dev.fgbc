@@ -12,7 +12,7 @@
 	</cffunction>
 
 	<cffunction name="setMembershipApplicationSessionFromKey">
-		<cfif isDefined("params.key") && len(params.key) GTE 10>
+		<cfif isDefined("params.key") && len(params.key) LTE 10>
 	    	<cfset var membershipapplication = model("Membershipapplication").findByKey(params.key)>
 			<cfset session.membershipapplication.id = membershipapplication.id>
 			<cfset session.membershipapplication.uuid = membershipapplication.uuid>
