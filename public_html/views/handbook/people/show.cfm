@@ -115,7 +115,7 @@
 	</div>
 
 	<div id="tagsinfo" class="well">
-<cfdump var="#tags#">
+<!---cfdump var="#tags#"--->
 					<p><span>Tags:</span>
 						<cfloop query="tags">
 							<cftry>
