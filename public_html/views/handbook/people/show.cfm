@@ -123,7 +123,8 @@
 							#linkTo(
 								text="<span style='color:grey'><sup>x</sup></span>",
 								route="handbookRemoveTag",
-								params="tag=#tag#&itemid=#itemid#&key=#tag#",
+								key=tag,
+								params="tag=#tag#&itemid=#itemid#",
 								class="tooltipside",
 								title="Remove #handbookperson.fname# from #tag#"
 								)#;
