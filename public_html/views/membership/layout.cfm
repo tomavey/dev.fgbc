@@ -39,7 +39,10 @@
 	</div>
 
 <cfif !isProduction()>
-	<cfdump var="#session.membershipapplication#">
+	<cftry>
+		<cfdump var="#session.membershipapplication#">
+	<cfcatch></cfcatch>
+	</cftry>	
 </cfif>
 
 </body>
