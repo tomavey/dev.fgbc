@@ -302,7 +302,7 @@
 			.post(name="createBlankForm", pattern="/newchurches/createBlankForm/", controller="newchurches", action="createBlankForm")
 			.get(name="emailSent", pattern="/newchurches/emailsent/", controller="newchurches", action="emailsent")
 			.get(name="newministries", pattern="/newministries/", controller="newministries", action="index")
-
+			.resources("questions")
 			.resources("resources")
 			.get(name="listAppResources", pattern="/listappresources/[key]", controller="resources", action="index")
 			.delete(name="deleteAppResource", pattern="/deleteAppResource/[key]", controller="resources", action="delete")
