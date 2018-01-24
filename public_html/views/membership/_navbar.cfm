@@ -1,4 +1,4 @@
-<cfparam name="pageTitle" default="FGBC Membership Application">
+<cfparam name="pageTitle" default="Charis Fellowship Membership Application">
 <cfparam name="pageTitleLinkController" default="membership.applications">
 <cfparam name="pageTitleLinkAction" default="index">
 
