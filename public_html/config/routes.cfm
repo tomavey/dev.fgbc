@@ -144,6 +144,7 @@
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
+			.post(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
 			.get(name="removeFromTag", pattern="/tags/remove/", controller="tags", action="removeFromTag")
 			.get(name="removeTag", pattern="/tag/remove/[key]", controller="tags", action="removeTag")
 			.get(name="downloadTag", pattern="/tag/download/[key]", controller="tags", action="download")
