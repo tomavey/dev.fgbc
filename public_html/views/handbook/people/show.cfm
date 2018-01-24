@@ -120,7 +120,6 @@
 </cfif>
 					<p><span>Tags:</span>
 						<cfloop query="tags">
-							<cftry>
 							#linkTo(text=tag, controller="handbook.tags", action="show", key=tag)#
 							#linkTo(
 								text="<span style='color:grey'><sup>x</sup></span>",
@@ -129,8 +128,6 @@
 								class="tooltipside",
 								title="Remove #handbookperson.fname# from #tag#"
 								)#;
-							<cfcatch>?</cfcatch>
-							</cftry>	
 						</cfloop>
 					</p>
 
