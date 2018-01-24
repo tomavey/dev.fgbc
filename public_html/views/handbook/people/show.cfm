@@ -115,9 +115,7 @@
 	</div>
 
 	<div id="tagsinfo" class="well">
-<cfif gotRights("office")>
-	<cfdump var="#tags#">
-</cfif>
+
 					<p><span>Tags:</span>
 						<cfloop query="tags">
 							<cftry>
@@ -129,7 +127,7 @@
 								class="tooltipside",
 								title="Remove #handbookperson.fname# from #tag#"
 								)#;
-							<cfcatch>?</cfcatch>
+							<cfcatch>,</cfcatch>
 							</cftry>	
 						</cfloop>
 					</p>
