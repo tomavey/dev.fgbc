@@ -150,6 +150,7 @@
 			.get(name="duplicateTag", pattern="/tag/duplicate/[key]", controller="tags", action="duplicateTag")
 			.post(name="changeTag", pattern="/tag/change/", controller="tags", action="changeTag")
 			.post(name="shareTag", pattern="/tag/share/", controller="tags", action="shareTag")
+			.post(name="tagSearchResults", pattern="/tagthissearch/", controller="tags", action="search")
 			.resources("tags")
 
 			.get(name="subscribeMe", pattern="/subscribeme/", controller="subscribes", action="updates")
