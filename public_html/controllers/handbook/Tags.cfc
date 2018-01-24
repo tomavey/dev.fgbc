@@ -273,7 +273,7 @@
 		<cfelse>
 			<cfset removeTag = model("handbooktag").deleteAll(where="tag='#params.key#' AND username = '#session.auth.email#'", class="tooltip2", title="Receive notices of updates via email.")>
 		</cfif>
-		<cfset redirectTo(action="index")>
+		<cfset returnBack()>
 	</cffunction>
 
 	<cffunction name="changeTag">
