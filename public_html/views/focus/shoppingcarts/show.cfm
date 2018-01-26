@@ -1,3 +1,5 @@
+<cfparam name = "isReadyForCheckout" default = true>
+
 <h1>Items in your shoppingcart so far...</h1>
 
 <div id="#params.controller#">
@@ -23,6 +25,11 @@
 			<cfif total(params.key) GTE 0>
 				<p class="alert alert-success">
 					Total: #dollarformat(total(id))#
+
+					<cfif total(id) LTE 0>
+						<cfset isReadyForCheckOut = false>						
+					</cfif>
+
 				</p>								
 			<cfelse>
 				<p class="alert alert-error">
@@ -39,12 +46,16 @@
 </div>
 </cfoutput>
 <cfoutput>
-<cfif total(params.key) GTE 0>
+	<cfif total(params.key) LTE 0>
+			<cfset isReadyForCheckOut = false>						
+	</cfif>
+
+<cfif isReadyForCheckOut>
 	<p>#linkTo(text="Checkout", action="agent", key=shoppingcart.id, class="btn btn-large btn-block btn-primary")#</p>
 <cfelse>	
 	<div class="alert alert-error"><h3>ALERT</h3>
-		<p>The total in your shopping cart cannot be a negative amount.</p> Please correct this by #linkTo(text="editing this shoppingcart", action="edit", key=shoppingcart.id)#.
-		</p>
+		<p>The total for each person you are registering cannot be a negative amount.</p> 
+		<h3>Please correct this by editing the appropriate registration.</h3>
 		<p>Sometimes this happens if you selected a discount without selecting a registration option.
 		</p>
 	</div>	
