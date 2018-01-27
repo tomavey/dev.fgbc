@@ -11,6 +11,10 @@
 
 <body style="width:500px;margin:0 auto;border:1px solid gray;text-align:center">
 
+<cfif isDefined("form.id")>
+    <cfset url.id = form.id>
+</cfif>    
+
 <cfinvoke component="control" method="getCaptcha" action="checkcaptcha" id="#url.id#" returnvariable="captcha">	
 
 <cfoutput>#captcha#</cfoutput>

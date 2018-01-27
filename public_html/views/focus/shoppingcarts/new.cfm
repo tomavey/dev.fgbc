@@ -45,6 +45,9 @@
 									<cfset thisclass = "dontalertwhenselected">
 								</cfif>
 
+								<cfif price LT 0>
+									<cfset thisclass = thisclass & ' scholarship'>
+								</cfif>
 
 								<tr>
 									<td>&nbsp;</td>
@@ -71,3 +74,4 @@
 
 </div>
 </cfoutput>
+

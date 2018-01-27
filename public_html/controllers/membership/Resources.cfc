@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/membership/layout")>
-		<cfset filters("isCheckedInOrAuthorized")>
+		<cfset filters(through="isCheckedInOrAuthorized", except="index")>
 	</cffunction>
 
 	<cffunction name="isCheckedInOrAuthorized">
@@ -10,7 +10,7 @@
 		<cfif isDefined("session.membershipapplication.id") OR 
 			isFellowshipCouncil()>
 		<cfelse>
-			<cfset redirectTo(controller="membership-applications", action="checkin")>
+			<cfset redirectTo(controller="membership.applications", action="checkin")>
 		</cfif>
 
 	</cffunction>
@@ -95,7 +95,7 @@
 		<!--- Verify that the membershipappresource creates successfully --->
 		<cfif membershipappresource.save()>
 			<cfset flashInsert(success="The uploaded resource was created successfully.")>
-            <cfset redirectTo(action="index")>
+            <cfset redirectTo(route="membershipListAppResources", key=membershipappresource.applicationUUID)>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the uploaded resource.")>
@@ -125,11 +125,11 @@
 		<!--- Verify that the membershipappresource deletes successfully --->
 		<cfif membershipappresource.delete()>
 			<cfset flashInsert(success="The membershipappresource was deleted successfully.")>	
-            <cfset redirectTo(action="index")>
+            <cfset redirectTo(route="membershipListAppResources", key=membershipappresource.applicationUUID)>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error deleting the membershipappresource.")>
-			<cfset redirectTo(action="index")>
+            <cfset redirectTo(route="membershipListAppResources", key=membershipappresource.applicationUUID)>
 		</cfif>
 	</cffunction>
 	

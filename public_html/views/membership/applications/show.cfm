@@ -7,7 +7,7 @@
 #includePartial("showFlash")#
 
 <cfif not isDefined("params.doc") AND showButtons>
-	#linkTo(text=trim(striptags(getQuestion('uploadedlink'))), controller="membership.resources", action="index", key=params.key, class="btn")#
+	#linkTo(text=trim(striptags(getQuestion('uploadedlink'))), route="membershipListAppResources", key=params.key, class="btn")#
 
 	#linkTo(text=trim(striptags(getQuestion('editlink'))), action="edit", key=getKey(), class="btn")#
 </cfif>
@@ -16,7 +16,7 @@
 
 <cfoutput>
 
-	#linkto(text="<i class='icon-download-alt'></i>", key=params.key, params="doc=true", class="btn download tooltip2", title="Download this application")#
+	#linkto(text="<i class='icon-download-alt'></i>", controller="membership.applications", action="show", key=params.key, params="doc=true", class="btn download tooltip2", title="Download this application")#
 
 
 	<div class="well">
@@ -169,7 +169,7 @@
 	</cfif>
 
 <cfif not isDefined("params.doc") AND showbuttons>
-	#linkTo(text="Show uploaded documents", controller="membership.resources", action="index", key=params.key, class="btn")#
+	#linkTo(text="Show uploaded documents", route="membershipListAppResources", key=params.key, class="btn")#
 
 	#linkTo(text="Edit this membershipapplication", action="edit", key=getKey(), class="btn")#
 </cfif>
@@ -184,4 +184,7 @@
 			<li>#linkto(text=file, href="/files/#file#")#
 		</cfoutput>
 	</ul>
+<cfoutput>
+	<p>#linkTo(text="Upload A New Document", controller="membership.resources", action="new")#</p>
+</cfoutput>
 </div>

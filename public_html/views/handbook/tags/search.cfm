@@ -45,7 +45,7 @@
 			</ul>
 			<cfoutput>
     			<p>Tag this list (separate multiple tags with a comma):
-    						#startFormTag(controller="handbook.tags", action="search")#
+    						#startFormTag(controller="handbook.tags", action="search", method="post")#
     						#hiddenFieldTag(name="search", value=params.search)#
     						#hiddenFieldTag(name="type", value="person")#
     						<cfif isdefined("session.auth.username")>

@@ -1,9 +1,14 @@
+<cfoutput>
 <h1>Documents uploaded...</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfif len(getChurchAppName(params.key)) EQ 5>
+	<p>For #linkTo(text=getChurchAppName(params.key), controller="membership.applications", action="show", key=params.key)#</p>
+</cfif>
 
-<cfoutput>
-	<p>#linkTo(text="New", action="new")#</p>
+#includePartial("showFlash")#
+
+	<p>#linkTo(text="Upload A New Document", controller="membership.resources", action="new")#</p>
+
 </cfoutput>
 
 <div class="table">
@@ -21,8 +26,10 @@
 			text='<i class="icon-trash"></i>', 
 			action='delete', 
 			key=ID, 
+			method="delete",
 			class="tooltip2",
 			title="Delete this resource!",
 			onclick="return confirm('Are you sure?')")#" />
+
 </cftable>
 </div>

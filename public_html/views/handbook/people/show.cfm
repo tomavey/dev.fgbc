@@ -118,17 +118,18 @@
 
 					<p><span>Tags:</span>
 						<cfloop query="tags">
-						<cftry>
+							<cftry>
 							#linkTo(text=tag, controller="handbook.tags", action="show", key=tag)#
 							#linkTo(
 								text="<span style='color:grey'><sup>x</sup></span>",
-								route="handbookRemoveTags",
+								route="handbookRemoveTag",
+								key=tag,
 								params="tag=#tag#&itemid=#itemid#",
 								class="tooltipside",
 								title="Remove #handbookperson.fname# from #tag#"
 								)#;
-						<cfcatch>oops</cfcatch>
-						</cftry>
+							<cfcatch>,</cfcatch>
+							</cftry>	
 						</cfloop>
 					</p>
 

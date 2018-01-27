@@ -33,8 +33,9 @@
 		<cfabort>
 	</cfif>
 
-	<cfif isdefined("url.lock")>
+	<cfif isdefined("url.lock") || isDefined("url.clear")>
 		<cfset structDelete(session,"auth")>
+		<cfcookie name="fellowshipcouncil" expires="now">
 	</cfif>
 
 	<cfif not isdefined("session.auth.fellowshipcouncil") OR not session.auth.fellowshipcouncil>

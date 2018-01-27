@@ -140,16 +140,18 @@
 			.get(name="paystatsonline2", pattern="/statistics/payonline/", controller="statistics", action="payonline")
 			.get(name="confirmPayment", pattern="/statistics/confirm/", controller="statistics", action="confirm")
 			.get(name="failedPayment", pattern="/statistics/paymentfailed/", controller="statistics", action="paymentfailed")
-
+			.post(name="feeProjection", pattern="/statistics/projection/", controller="statistics", action="getFeeTotal")
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
+			.post(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
 			.get(name="removeFromTag", pattern="/tags/remove/", controller="tags", action="removeFromTag")
 			.get(name="removeTag", pattern="/tag/remove/[key]", controller="tags", action="removeTag")
 			.get(name="downloadTag", pattern="/tag/download/[key]", controller="tags", action="download")
 			.get(name="duplicateTag", pattern="/tag/duplicate/[key]", controller="tags", action="duplicateTag")
 			.post(name="changeTag", pattern="/tag/change/", controller="tags", action="changeTag")
 			.post(name="shareTag", pattern="/tag/share/", controller="tags", action="shareTag")
+			.post(name="tagSearchResults", pattern="/tagthissearch/", controller="tags", action="search")
 			.resources("tags")
 
 			.get(name="subscribeMe", pattern="/subscribeme/", controller="subscribes", action="updates")
@@ -197,6 +199,7 @@
 			
 			.get(name="deleteregistration", pattern="/registrations/[key]/delete/", controller="registrations", action="delete")
 			.get(name="whoIsComing", pattern="/registrations/whoiscoming/[key]", controller="registrations", action="whoiscoming")
+			.get(name="summary", pattern="/registrations/summary/", controller="registrations", action="summary")
 			.resources("registrations")
 						
 			.resources("registrants")
@@ -301,6 +304,11 @@
 			.post(name="createBlankForm", pattern="/newchurches/createBlankForm/", controller="newchurches", action="createBlankForm")
 			.get(name="emailSent", pattern="/newchurches/emailsent/", controller="newchurches", action="emailsent")
 			.get(name="newministries", pattern="/newministries/", controller="newministries", action="index")
+			.resources("questions")
+			.resources("resources")
+			.get(name="listAppResources", pattern="/listappresources/[key]", controller="resources", action="index")
+			.delete(name="deleteAppResource", pattern="/deleteAppResource/[key]", controller="resources", action="delete")
+			
 			.resources('newchurches')
 			.get(name="nominationsClosed", pattern="nominationsclosed", controller="nominations", action="closed")
 		.end()
