@@ -39,6 +39,14 @@
 
 	</cffunction>
 
+<cfscript>
+	function indexJson(
+		orderbyString = "createdAt DESC, lname,fname"){
+		var args = arguments;
+		users = queryToJson(model("Authuser").findAll(order = orderbyString));
+	}
+</cfscript>	
+
 	<cffunction name="search">
 		<cfset redirectTo(action="index", params="search=#params.search#")>
 	</cffunction>

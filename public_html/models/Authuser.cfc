@@ -10,7 +10,18 @@
 			name="selectName", 
 			sql="CONCAT_WS(', ',lname,fname,username)"
 			)>
-
+		<cfset property(
+			name="fullName", 
+			sql="CONCAT_WS(', ',lname,fname)"
+			)>
+		<cfset property(
+			name="createdDate",
+			sql="date_format(createdAt,'%Y-%m-%d')"
+			)>	
+		<cfset property(
+			name="lastLoginDate",
+			sql="date_format(lastLoginAt,'%Y-%m-%d')"
+			)>	
 	</cffunction>
 
 	<!---Call Backs--->
