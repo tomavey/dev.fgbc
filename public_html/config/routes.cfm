@@ -239,7 +239,6 @@
 			.resources("locations")
 			.resources("main")
 
-			.get(name"listOptions", pattern="/options/[key]", controller="options", action="index")
 			.resources("options")
 			.resources("people")
 			.resources("announcements")
