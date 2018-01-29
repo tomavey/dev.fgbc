@@ -310,7 +310,7 @@
 			.resources("resources")
 			.get(name="listAppResources", pattern="/listappresources/[key]", controller="resources", action="index")
 			.delete(name="deleteAppResource", pattern="/deleteAppResource/[key]", controller="resources", action="delete")
-			
+			.resources("nominations")
 			.resources('newchurches')
 			.get(name="nominationsClosed", pattern="nominationsclosed", controller="nominations", action="closed")
 		.end()

@@ -34,21 +34,6 @@
 <cfoutput>
 <script>
 
-    function formatDate2(thisdate){
-        var monthNames = [
-            "Jan.", "Feb.", "Mar.",
-            "Apr.", "May", "June", "July",
-            "Aug.", "Sept.", "Oct.",
-            "Nov.", "Dec."
-        ];
-        var date = new Date(thisdate);      
-        var day = date.getDate();
-        var monthIndex = date.getMonth();
-        var year = date.getFullYear();
-        var dateformatted = monthNames[monthIndex] + " " + day + ', ' + year;
-        return dateformatted
-    }
-
     var vm = new Vue({
         el: ".app",
         data: {
@@ -131,15 +116,6 @@
             }
         },
         filters: {
-            dateTimeFormat: function(value) {
-                if (value) {
-                var date = new Date(value);      
-                return date.getDate()
-                }
-            },
-            dateFormat: function(value){
-                return this.formatDate2(value);
-            },
             shorten: function(string){
                 return string.slice(0,this.shortened);
             },
