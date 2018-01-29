@@ -66,7 +66,7 @@
             onkeyup: _.debounce(function(){
                 this.filterString = this.searchString;
                 this.columnsClass = "";
-            },300),
+            },200),
             compareValues: function(key, order=this.sortOrder) {
                 return function(a, b) {
                     if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
