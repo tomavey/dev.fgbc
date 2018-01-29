@@ -11,18 +11,25 @@
 			and (url.code is "fellowshipcouncil")
 			and isdefined("url.email")
 			>
-			<cfset session.auth.email = url.email>
-			<cfset session.auth.rightslist = "fellowshipcouncil">
-			<cfcookie name="fellowshipcouncil" value="#url.email#" expires="NEVER">
-			<cfset session.auth.fellowshipcouncil = "yes">
-			<cfset session.auth.forum = 1>
+
+            <cfinvoke component="control" method="isFCMember" email='#url.email#' returnvariable="isFCMember" />
+            <cfif isFcMember>
+                <cfset session.auth.email = url.email>
+                <cfset session.auth.rightslist = "fellowshipcouncil">
+                <cfcookie name="fellowshipcouncil" value="#url.email#" expires="NEVER">
+                <cfset session.auth.fellowshipcouncil = "yes">
+                <cfset session.auth.forum = 1>
+            </cfif>
 
 		<!---Check for cookie.natminprojemail--->
 	<cfelseif isdefined("cookie.fellowshipcouncil") and cookie.fellowshipcouncil is not "">
-			<cfset session.auth.email = cookie.fellowshipcouncil>
-			<cfset session.auth.rightslist = "fellowshipcouncil">
-			<cfset session.auth.fellowshipcouncil = "yes">
-			<cfset session.auth.forum = 1>
+            <cfinvoke component="control" method="isFCMember" email='#cookie.fellowshipcouncil#' returnvariable="isFCMember" />
+            <cfif isFcMember>
+    			<cfset session.auth.email = cookie.fellowshipcouncil>
+	    		<cfset session.auth.rightslist = "fellowshipcouncil">
+		    	<cfset session.auth.fellowshipcouncil = "yes">
+			    <cfset session.auth.forum = 1>
+            </cfif>
 
 	<cfelseif isdefined("url.fuseaction") and isdefined("url.id") and url.id is 1>
 			<cfset session.auth.fellowshipcouncil = "yes">
