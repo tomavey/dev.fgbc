@@ -8,7 +8,6 @@
 <cfoutput>
 
 	#styleSheetLinkTag("bootstrapfocus,focus,/assets/vendor/icon-awesome/css/font-awesome.min")#
-
 </cfoutput>
     <style>
       body {

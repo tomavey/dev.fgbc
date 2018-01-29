@@ -3,14 +3,13 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Fellowship of Grace Brethren Churches</title>
+		<title>Charis Fellowship</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<LINK REL="SHORTCUT ICON" HREF="/images/favicon.ico">
 
 
-		#styleSheetLinkTag("bootstrap,main,custom")#
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		#styleSheetLinkTag("bootstrap,main,custom,/assets/vendor/icon-awesome/css/font-awesome.min")#
 
 		#javaScriptIncludeTag("jquery.min,bootstrap,responsiveslides.min,iCanHaz.min,application,jquery_ujs,ajaxdelete")#
 

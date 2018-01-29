@@ -6,7 +6,7 @@
 	<head>
 			<cfsetting requestTimeout="60">
 			#javaScriptIncludeTag("jquery.min.js,ajaxdelete,bootstrap,jquery_ujs,tooltips,conference/admin/scripts")#
-			#styleSheetLinkTag("/conference/regreset,/conference/jquery.ui.theme,conference/jquery-ui-timepicker,conference/jquery.ui.core,conference/jquery-ui.custom,conference/data_table,conference/regstyle,bootstrap,bootstrap-responsive.min")#
+			#styleSheetLinkTag("/conference/regreset,/conference/jquery.ui.theme,conference/jquery-ui-timepicker,conference/jquery.ui.core,conference/jquery-ui.custom,conference/data_table,conference/regstyle,bootstrap,bootstrap-responsive.min,/assets/vendor/icon-awesome/css/font-awesome.min")#
 	</head>
 	<body style="padding-top:40px">
 </div>
