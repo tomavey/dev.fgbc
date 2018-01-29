@@ -379,6 +379,17 @@
       <cfreturn loc.return>
 </cffunction>
 
+<cffunction name="isFCMember">
+<cfargument name="email" required="true">
+<cfset var loc = arguments>
+      <cfset staff = getstaffinfo(tag="fc")>
+      <cfloop query="staff">
+            <cfif staff.email is loc.email>
+                  <cfreturn true>
+            </cfif>      
+      </cfloop>
+      <cfreturn false>
+</cffunction>
 
 <cffunction name="getCaptcha" output="no">
 <cfargument name="text" default="Submit">
