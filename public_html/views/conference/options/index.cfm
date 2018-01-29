@@ -8,9 +8,9 @@
 
 	<cfloop list="#application.wheels.typeOfOptions#" index="i">
 		<cfif isDefined("params.event")>
-			#linkTo(text=i, key=i, params="event=#params.event#")# |
+			#linkTo(text=i, params="type=#i#&event=#params.event#")# |
 		<cfelse>
-			#linkTo(text=i, key=i)# |
+			#linkTo(text=i, params="type=#i#")# |
 		</cfif>
 	</cfloop>
 </cfoutput>

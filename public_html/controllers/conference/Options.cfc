@@ -32,6 +32,9 @@
 		<cfif isDefined("params.key")>
 			<cfset whereString = whereString & " AND type = '#params.key#'">
 		</cfif>
+		<cfif isDefined("params.type")>
+			<cfset whereString = whereString & " AND type = '#params.type#'">
+		</cfif>
 
 		<cfset options = model("Conferenceoption").findAll(where=whereString, order="type,sortorder")>
 
