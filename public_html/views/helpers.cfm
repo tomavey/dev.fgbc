@@ -210,6 +210,7 @@
 <cfargument name="controller" default="#params.controller#">
 <cfargument name="class" default="noAjax">
 <cfargument name="method" default="delete">
+<cfargument name="title" default="delete">
 <cfif arguments.class is "Ajax">
 	<cfset arguments.class="ajaxdeleterow">
 </cfif>
@@ -219,7 +220,7 @@
 						controller=arguments.controller,
 						action='delete',
 						key=arguments.id,
-						title="delete",
+						title=arguments.title,
 						class=arguments.class,
 						method=arguments.method,
 						onclick="return confirm('Are you sure?')"
@@ -233,6 +234,7 @@
 <cfargument name="action" default="show">
 <cfargument name="params" default="">
 <cfargument name="route" default="">
+<cfargument name="title" default="show">
 		<cfreturn "#linkTo(
 						text="<i class='fa fa-search'></i>",
 						controller=arguments.controller,
@@ -240,44 +242,47 @@
 						action=arguments.action,
 						key=arguments.ID,
 						params=arguments.params,
-						title="show"
+						title=arguments.title
 						)#">
 </cffunction>
 
 <cffunction name="listTag">
 <cfargument name="controller" default="#params.controller#">
+<cfargument name="title" default="delete">
 <cfset arguments.controller = lCase(arguments.controller)>
 	<cfreturn "#linkTo(
-					text="list",
+					text='<i class="fa fa-list" aria-hidden="true"></i>',
 					controller=arguments.controller,
 					action='index',
-					title="list"
+					title=arguments.title
 					)#">
 </cffunction>
 
 <cffunction name="editTag">
 <cfargument name="id" default='#id#'>
 <cfargument name="controller" default="#params.controller#">
+<cfargument name="title" default="edit">
 <cfset arguments.controller = lCase(arguments.controller)>
 			<cfreturn "#linkTo(
 							text="<i class='fa fa-pencil-square'></i>",
 							controller=arguments.controller,
 							action='edit',
 							key=arguments.id,
-							title='edit'
+							title=arguments.title
 							)#">
 </cffunction>
 
 <cffunction name="copyTag">
 <cfargument name="id" default='#id#'>
 <cfargument name="controller" default="#params.controller#">
+<cfargument name="title" default="copy">
 <cfset arguments.controller = lCase(arguments.controller)>
 			<cfreturn "#linkTo(
 							text="<i class='fa fa-copy'></i>",
 							controller=arguments.controller,
 							action='copy',
 							key=arguments.id,
-							title='Copy'
+							title=arguments.title
 							)#">
 </cffunction>
 

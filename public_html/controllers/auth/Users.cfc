@@ -8,7 +8,7 @@
 <!---Basic CRUD--->
 
 	<!--- users/index --->
-	<cffunction name="index">
+	<cffunction name="indexOld">
 		<cfargument name="orderby" default="createdAt DESC, lname,fname">
 		<cfset var loc = arguments>
 		<cfparam name="params.page" default="1">
@@ -40,10 +40,11 @@
 	</cffunction>
 
 <cfscript>
-	function indexJson(
+	function index(
 		orderbyString = "createdAt DESC, lname,fname"){
 		var args = arguments;
-		users = queryToJson(model("Authuser").findAll(order = orderbyString));
+		users = model("Authuser").findAll(order = orderbyString);
+		users = serializeJSON(users, "struct");
 	}
 </cfscript>	
 

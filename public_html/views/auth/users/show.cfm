@@ -47,9 +47,10 @@
 		</cfloop>
 	</p>
 
-	#buttonTo(text="Return to the listing", action="index")#
-	#buttonTo(text="Edit this user", action="edit", key=user.id)#
-	#buttonTo(text="Login as this user", action="loginAsUser", params="username=#user.username#&userid=#user.id#&email=#user.email#")#
+	#linkTo(text='<i class="fa fa-list" aria-hidden="true"></i>', title="Return to list", action="index")#
+	#editTag(id=user.id, title="Edit #user.fname#")#
+	#deleteTag(title="delete #user.fname#", class="noajax", id=user.id)#
+	#linkTo(text="<i class='fa fa-user-o'></i>", title="login as #user.fname#", action="loginAsUser", params="username=#user.username#&userid=#user.id#&email=#user.email#")#
 
 </div>
 
