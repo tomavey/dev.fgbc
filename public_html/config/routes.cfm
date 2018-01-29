@@ -238,6 +238,8 @@
 			.resources("invoices")
 			.resources("locations")
 			.resources("main")
+
+			.get(name"listOptions", pattern="/options/index/[key]", controller="options", action="index")
 			.resources("options")
 			.resources("people")
 			.resources("announcements")
