@@ -238,7 +238,8 @@
 			.resources("invoices")
 			.resources("locations")
 			.resources("main")
-
+			
+			.get(name="copyOption", pattern="/options/copy/[key]", controller="options", action="copy")
 			.resources("options")
 			.resources("people")
 			.resources("announcements")
