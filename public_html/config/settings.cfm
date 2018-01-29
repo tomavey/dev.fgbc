@@ -49,8 +49,8 @@
 	<cfset set(passwordKey="j316fgsltwj11itbwtwp16hwbagwiy")>
 	<cfset set(oldself = "http://my.fgbc.org")>
 	<cfset set(feedcount=9)>
-	<cfset set(nominateYear = "2017")>
-	<cfset set(nominateTerm = "2017-2022")>
+	<cfset set(nominateYear = "2018")>
+	<cfset set(nominateTerm = "2018-2023")>
 	<cfset set(sortorderoptions = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,18,20,100,900,995,999")>
 	<cfset set(registrarEmail="tomavey@fgbc.org,sandy@fgbc.org")>
     <cfset set(ministryStaffAdmin="'tomavey','hirwin','skoontz'")>
