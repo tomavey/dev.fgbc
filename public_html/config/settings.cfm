@@ -84,11 +84,11 @@
             <cfset set(focusMinistryAreas = "Lead Pastor, Executive Pastor, Worship Arts, Youth, Family, Children, Discipleship, Elder, Small Groups, Pastoral Care, Administration, Associate Pastor, Other")>
 
 <!---Used by Conference Registration--->
-	<cfset set(event="visionconference2017")>
-	<cfset set(previousEvent = "visionconference2016")>
-	<cfset set(nextEvent = "visionconference2017")>
-	<cfset set(eventAsText = "Access2017")>
-	<cfset set(webpage = "http://www.access2017.com")>
+	<cfset set(event="visionconference2018")>
+	<cfset set(previousEvent = "visionconference2017")>
+	<cfset set(nextEvent = "visionconference2019")>
+	<cfset set(eventAsText = "Access2018")>
+	<cfset set(webpage = "http://www.access2018.com")>
 	<cfset set(discountTypes = "dollar,percent,maximum")>
 	<cfset set(dollar = "USD")>
 	<cfset set(nameForCourse = "Cohort/Excursion/Workshop")>	
