@@ -302,6 +302,9 @@
 		<cfif isDefined("params.gender")>
 			<cfset whereString = whereString & " AND fnameGender = '#params.gender#'">
 		</cfif>
+		<cfif isDefined("params.lname")>
+			<cfset whereString = whereString & " AND lname like '#params.lname#%'">
+		</cfif>
 			<cfset bluepagesPeople = model("Handbookperson").findAll(where=whereString, order="lname,fname,id", include="Handbookstate,Handbookpositions(Handbookorganization(District))")>
 
 		<cfif isDefined("params.layout") and params.layout is "naked">

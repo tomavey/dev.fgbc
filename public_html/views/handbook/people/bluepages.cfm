@@ -82,7 +82,7 @@
           <cfset previouslname = "">
           <cfset previousfname = "">
 
-        <cfif lname NEQ "Pastor" && fname NEQ "No" && !isFormerAGBMMember(id)>
+        <cfif (lname NEQ "Pastor" && fname NEQ "No" && !isFormerAGBMMember(id)) || isNatMinOrCoopMin(id)>
           <cfif alert>
             **Possible Duplication**&nbsp;<br/>
           </cfif>
