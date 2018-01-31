@@ -15,7 +15,10 @@
 
 			.resources("blogs")
 			.resources("contents")
-			.get(name="copyEvent", pattern="/copy/[key]", controller="events", action="copy")
+
+			.controller("events")
+				.get(name="copyEvent", pattern="/copy/[key]", action="copy")
+				.end()
 			.resources("events")
 			.resources("jobs")
 			.resources("menus")
