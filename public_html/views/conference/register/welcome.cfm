@@ -1,14 +1,14 @@
 <div id="welcome"  class="container">
 	<cfif isbefore("02/17/2017") AND !regIsOpen()>
-			<h1>Welcome to the Access2017 Registration Center.</h1>
+			<h1>Welcome to the  Registration Center.</h1>
 			<p>The online registration will open on Wednesday, February 1 2017. Check back then to register!</p>
 			<cfoutput>
 				#includePartial("registrationcosts")#
 			</cfoutput>
 
 	<cfelseif regIsOpen()>
-			<h1>Welcome to the Access2017 Registration Center</h1>
 			<cfoutput>
+			<h1>Welcome to the #getEventAsText()# Registration Center</h1>
 			<p style="text-align:center">Your registration covers all plenary sessions, collaboration groups, access to discounted meals, excrusion events, discounted room rate and access to Grace Kids. <!---Check out the <a href="#getConfUrl()###venue" target="_blank">location page for lodging options</a>.---></p>
 			<p style="text-align:center">
 			#linkto(text="My Regs", route="conferencemyreg", class="btn")#

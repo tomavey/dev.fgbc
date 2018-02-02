@@ -1,9 +1,13 @@
+<cfparam name="firstIncreaseDate" default="05/01/2018">
+<cfparam name="secondIncreaseDate" default="06/01/2018">
+<cfparam name="thirdIncreaseDate" default="07/01/2018">
+<cfparam name="lastIncreaseDate" default="07/15/2018">
 <div class="regcosts">
 <cfoutput>
 
 <cfif preRegIsOpen() && !regIsOpen()>
 	<div id="singlecosts" class="well">
-<p class="text-center">Before January 1, 2017 groups of 5 or more can pre-register for just <span class="price">$65 per person.</span>.   Register 5 or more now and add the specific names later (we will contact you for the names after January 1.  We encourage you to bring your church staff and leadership! </p>
+<p class="text-center">Before January 1  groups of 5 or more can pre-register for just <span class="price">$65 per person.</span>.   Register 5 or more now and add the specific names later (we will contact you for the names after January 1.  We encourage you to bring your church staff and leadership! </p>
 	</div>
 <cfelse>
 			<div id="singleregcosts" class="well">
@@ -15,33 +19,33 @@
 							<th>ages 16-24</th>
 							<th>ages 75+</th>
 						</tr>
-					<cfif isBefore("05/01/2017")>
+					<cfif isBefore(firstIncreaseDate)>
 						<tr>
-							<td>Before May 1-</td>
-							<td class="center">$#getDollarType()#85</td>
-							<td class="center">FREE</td>
-							<td class="center">FREE</td>
-						</tr>
-					</cfif>
-					<cfif isBefore("06/01/2017")>
-						<tr>
-							<td>Before June 1-</td>
+							<td>Before #dateFormat(firstIncreaseDate, "mmm d")#</td>
 							<td class="center">$#getDollarType()#95</td>
 							<td class="center">FREE</td>
 							<td class="center">FREE</td>
 						</tr>
 					</cfif>
-					<cfif isBefore("07/01/2017")>
+					<cfif isBefore(secondIncreaseDate)>
 						<tr>
-							<td>Before July 1-</td>
+							<td>Before #dateFormat(secondIncreaseDate, "mmm d")#</td>
 							<td class="center">$#getDollarType()#105</td>
 							<td class="center">FREE</td>
 							<td class="center">FREE</td>
 						</tr>
 					</cfif>
+					<cfif isBefore(thirdIncreaseDate)>
 						<tr>
-							<td>After July 15-</td>
-							<td class="center">$#getDollarType(408)#115</td>
+							<td>Before #dateFormat(thirdIncreaseDate, "mmm d")#</td>
+							<td class="center">$#getDollarType()#115</td>
+							<td class="center">FREE</td>
+							<td class="center">FREE</td>
+						</tr>
+					</cfif>
+						<tr>
+							<td>After #dateFormat(lastIncreaseDate, "mmm d")#</td>
+							<td class="center">$#getDollarType(408)#125</td>
 							<td class="center">FREE</td>
 							<td class="center">FREE</td>
 						</tr>

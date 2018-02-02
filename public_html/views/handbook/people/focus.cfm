@@ -1,7 +1,7 @@
 <cfset previousemail = "">
 <cfif isdefined("params.download") and params.download is "excel">
 <cfelse>	
-	<cfoutput>#linkTo(text="Download as excel", key=params.key, params="download=excel", class="btn")#</cfoutput>
+	<cfoutput>#linkTo(text="Download as excel", controller="handbook.people", action="focus", key=params.key, params="download=excel", class="btn")#</cfoutput>
 </cfif>
 
 <cfset count = 0>
