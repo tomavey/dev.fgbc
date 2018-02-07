@@ -4,9 +4,8 @@
 
 <cfoutput>
 <cfif FileExists(ExpandPath(request.pdfForm))>
-	<p><a href="#request.pdfForm#" target="_new" class="btn btn-info">Download the Form with extra information.</a></p>
-</cfif>	
-</div>
+	<p>#linkTo(text="Download the PDF form with extra information.", href="#request.pdfForm#", class="btn")#</p>
+</cfif>
 
 			#errorMessagesFor("handbookstatistic")#
 
