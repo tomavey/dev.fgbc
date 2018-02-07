@@ -363,7 +363,7 @@
 			<cfset payonline.usethisyear = params.year>
 		</cfif>	
 		<cfset stat = model("handbookstatistics").findOne(where="organizationid=#params.churchid# AND year = #payonline.usethisyear#", order="id DESC")>
-		<cfset payonline.amount = round(val(stat.att) * getOnlineMemFee())>
+		<cfset payonline.amount = (val(stat.att) * getOnlineMemFee())>
 		<cfif payonline.amount GTE getOnlineMemFeeMax()>
 			<cfset payonline.amount = getOnlineMemFeeMax()>
 		</cfif>
