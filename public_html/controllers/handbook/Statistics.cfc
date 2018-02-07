@@ -743,6 +743,7 @@
 
 	<cffunction name="getOnlineMemFeeMax">
 	<cfset var memfee = getMemFeeMax() * 1.03>
+	<cfset memfee = iif(memfee mod 5,memfee+(5-(memfee mod 5)),memfee)>
 	<cfif isAfter(getMemFeeDeadline())>
 		<cfset memfee = getLateMemFeeMax()>
 	</cfif>
