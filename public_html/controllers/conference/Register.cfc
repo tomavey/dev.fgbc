@@ -5,7 +5,7 @@
 <cffunction name="init" access="public" returntype="void" output="false">
 	<cfset createEmptyShoppingCart()>
 	<cfset flashInsert(welcome="???")>
-	<cfset usesLayout("/conference/layout2017")>
+	<cfset usesLayout("/conference/layout2018")>
 	<cfset filters(through="setReturn", only="welcome,selectregtype,selectoptions,person,showregs")>
 	<cfset filters(through="setOpenReg", only="welcome")>
 	<cfset filters(through="checkOpenReg", only="selectregtype,selectoptions")>

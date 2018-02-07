@@ -172,9 +172,9 @@
     </cffunction>
 
 <cfscript>
+
     public function preRegIsOpen(){
-        if (application.wheels.preregistrationIsOpen || gotRights("office") || isDefined(
-        "params.openreg") || isDefined("session.auth.openreg")) {
+        if (application.wheels.preregistrationIsOpen) {
             return true;
         }
         else {
@@ -202,31 +202,49 @@
         }
     }
 
+    public function mealsRegIsOpen(){
+        if (application.wheels.mealsregistrationIsOpen OR gotRights("office") or isDefined("params.openreg") || isDefined("session.auth.openreg")) {
+            return true;            
+        }
+        else {
+            return false;
+        }
+    }    
+
+    public function childRegIsOpen(){
+        if ((application.wheels.ccareregistrationIsOpen && isBefore(application.wheels.ccareregistrationDeadline)) OR gotRights("office") or isDefined("params.openreg") || isDefined("session.auth.openreg")){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public function regAccountIsOpen(){
+        if (application.wheels.regAccountIsOpen OR gotRights("office") or isDefined("params.openreg") || isDefined("session.auth.openreg")){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public function optionsRegIsOpen(){
+        if (application.wheels.optionsregistrationIsOpen || isDefined("params.openreg") || isDefined("session.auth.openreg")){
+            return true;
+        }
+        else {
+            return false;
+        };
+    }
+
+    public function regOpenPromiseDate(){
+        return application.wheels.regOpenPromiseDate;
+    }
+
+
 </cfscript>
 
-    <cffunction name="mealsRegIsOpen">
-    <cfif application.wheels.mealsregistrationIsOpen OR gotRights("office") or isDefined("params.openreg") || isDefined("session.auth.openreg")>
-        <cfreturn true>
-    <cfelse>
-        <cfreturn false>
-    </cfif>
-    </cffunction>
-
-    <cffunction name="childRegIsOpen">
-    <cfif (application.wheels.ccareregistrationIsOpen && isBefore(application.wheels.ccareregistrationDeadline)) OR gotRights("office") or isDefined("params.openreg") || isDefined("session.auth.openreg")>
-        <cfreturn true>
-    <cfelse>
-        <cfreturn false>
-    </cfif>
-    </cffunction>
-
-    <cffunction name="regAccountIsOpen">
-    <cfif application.wheels.regAccountIsOpen OR gotRights("office") or isDefined("params.openreg") || isDefined("session.auth.openreg")>
-        <cfreturn true>
-    <cfelse>
-        <cfreturn false>
-    </cfif>
-    </cffunction>
 
     <cffunction name="urlExists">
     <cfargument name="url" required="true" type="string">
@@ -242,20 +260,6 @@
             <cfreturn false>
         </cfif>    
     </cffunction>
-
-<cfscript>
-
-    public function optionsRegIsOpen(){
-        if (application.wheels.optionsregistrationIsOpen || isDefined("params.openreg") || isDefined("session.auth.openreg")){
-            return true;
-        }
-        else {
-            return false;
-        };
-    }
-
-</cfscript>
-
 
 
 	<cffunction name="hasThisPersonSelectedWorkshops">

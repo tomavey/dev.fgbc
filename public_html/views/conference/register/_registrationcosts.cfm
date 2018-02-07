@@ -2,6 +2,11 @@
 <cfparam name="secondIncreaseDate" default="06/01/2018">
 <cfparam name="thirdIncreaseDate" default="07/01/2018">
 <cfparam name="lastIncreaseDate" default="07/15/2018">
+<cfparam name="singleBaseCost" default="95">
+<cfparam name="coupleBaseCost" default="150">
+<cfparam name="groupBaseCost" default="65">
+<cfparam name="increaseAmount" default="10">
+
 <div class="regcosts">
 <cfoutput>
 
@@ -11,6 +16,7 @@
 	</div>
 <cfelse>
 			<div id="singleregcosts" class="well">
+			<cfset thiscost = singleBaseCost>
 				<h3>SINGLE: Registration costs for a single registration...</h3>
 				<table>
 						<tr>
@@ -19,33 +25,30 @@
 							<th>ages 16-24</th>
 							<th>ages 75+</th>
 						</tr>
-					<cfif isBefore(firstIncreaseDate)>
-						<tr>
-							<td>Before #dateFormat(firstIncreaseDate, "mmm d")#</td>
-							<td class="center">$#getDollarType()#95</td>
-							<td class="center">FREE</td>
-							<td class="center">FREE</td>
-						</tr>
+
+					<cfset increaseStuct = {increaseDate: firstIncreaseDate, cost: thiscost, multiplier=0, increaseAmount: increaseAmount}>	
+
+					<cfif isBefore(increaseStuct.increaseDate)>
+						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
-					<cfif isBefore(secondIncreaseDate)>
-						<tr>
-							<td>Before #dateFormat(secondIncreaseDate, "mmm d")#</td>
-							<td class="center">$#getDollarType()#105</td>
-							<td class="center">FREE</td>
-							<td class="center">FREE</td>
-						</tr>
+
+					<cfset increaseStuct = {increaseDate: secondIncreaseDate, cost: thiscost, multiplier=2, increaseAmount: increaseAmount}>	
+
+					<cfif isBefore(increaseStuct.increaseDate)>
+						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
-					<cfif isBefore(thirdIncreaseDate)>
-						<tr>
-							<td>Before #dateFormat(thirdIncreaseDate, "mmm d")#</td>
-							<td class="center">$#getDollarType()#115</td>
-							<td class="center">FREE</td>
-							<td class="center">FREE</td>
-						</tr>
+
+					<cfset increaseStuct = {increaseDate: thirdIncreaseDate, cost: thiscost, multiplier=3, increaseAmount: increaseAmount}>	
+
+					<cfif isBefore(increaseStuct.increaseDate)>
+						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
+
+					<cfset increaseStuct = {increaseDate: lastIncreaseDate, cost: thiscost, multiplier=4, increaseAmount: increaseAmount}>	
+					<cfset rate = increaseStuct>
 						<tr>
-							<td>After #dateFormat(lastIncreaseDate, "mmm d")#</td>
-							<td class="center">$#getDollarType(408)#125</td>
+							<td>After #dateFormat(rate.increaseDate, "mmm d")#</td>
+							<td class="center">$#getDollarType(408)##rate.cost + (rate.increaseAmount * rate.multiplier)#</td>
 							<td class="center">FREE</td>
 							<td class="center">FREE</td>
 						</tr>
@@ -54,51 +57,35 @@
 			</div>
 
 			<div id="coupleregcosts" class="well">
+			<cfset thiscost = coupleBaseCost>
 				<p><h3>COUPLE: Registration costs for a COUPLE'S registration...</h3>
 				<span style="font-size:.8em">At least one person in the married couple must qualify for the age discount.</span>
 				</p>
 				<table>
-						<tr>
-							<th>&nbsp;</th>
-							<th>ages 25-75</th>
-							<th>ages 16-24</th>
-							<th>ages 75+</th>
-						</tr>
-					<cfif isBefore("05/01/2017")>
-						<tr>
-							<td>Before May 1-</td>
-							<td class="center">$#getDollarType()#120</td>
-							<td class="center">FREE</td>
-							<td class="center">FREE</td>
-						</tr>
+
+					<cfset increaseStuct = {increaseDate: firstIncreaseDate, cost: thiscost, multiplier=0, increaseAmount: increaseAmount}>	
+
+					<cfif isBefore(increaseStuct.increaseDate)>
+						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
-					<cfif isBefore("06/01/2017")>
-						<tr>
-							<td>Before June 1-</td>
-							<td class="center">$#getDollarType()#130</td>
-							<td class="center">FREE</td>
-							<td class="center">FREE</td>
-						</tr>
+
+					<cfset increaseStuct = {increaseDate: secondIncreaseDate, cost: thiscost, multiplier=2, increaseAmount: increaseAmount}>	
+
+					<cfif isBefore(increaseStuct.increaseDate)>
+						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
-					<cfif isBefore("07/01/2017")>
-						<tr>
-							<td>Before July 1-</td>
-							<td class="center">$#getDollarType()#140</td>
-							<td class="center">FREE</td>
-							<td class="center">FREE</td>
-						</tr>
+
+					<cfset increaseStuct = {increaseDate: thirdIncreaseDate, cost: thiscost, multiplier=3, increaseAmount: increaseAmount}>	
+
+					<cfif isBefore(increaseStuct.increaseDate)>
+						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
-					<cfif isBefore("07/15/2017")>
+
+					<cfset increaseStuct = {increaseDate: lastIncreaseDate, cost: thiscost, multiplier=4, increaseAmount: increaseAmount}>	
+					<cfset rate = increaseStuct>
 						<tr>
-							<td>Before July 15-</td>
-							<td class="center">$#getDollarType()#150</td>
-							<td class="center">FREE</td>
-							<td class="center">FREE</td>
-						</tr>
-					</cfif>
-						<tr>
-							<td>After July 15-</td>
-							<td class="center">$#getDollarType()#160</td>
+							<td>After #dateFormat(rate.increaseDate, "mmm d")#</td>
+							<td class="center">$#getDollarType(408)##rate.cost + (rate.increaseAmount * rate.multiplier)#</td>
 							<td class="center">FREE</td>
 							<td class="center">FREE</td>
 						</tr>
@@ -223,25 +210,25 @@
 							<th>ages 16-24</th>
 							<th>ages 75+</th>
 						</tr>
-					<cfif isBefore("07/01/2017")>
+					<cfif isBefore(firstIncreaseDate)>
 						<tr>
-							<td>Before July 1-</td>
-							<td class="center">$#getDollarType()#75</td>
+							<td>Before #dateFormat(firstIncreaseDate, "mmm d")#</td>
+							<td class="center">$#getDollarType()##groupBaseCost#</td>
 							<td class="center">FREE</td>
 							<td class="center">FREE</td>
 						</tr>
 					</cfif>
-					<cfif isBefore("06/01/2017")>
+					<cfif isBefore(secondIncreaseDate)>
 						<tr>
-							<td>Before July 1-</td>
-							<td class="center">$#getDollarType()#65</td>
+							<td>Before #dateFormat(secondIncreaseDate, "mmm d")#</td>
+							<td class="center">$#getDollarType()##groupBaseCost + increaseAmount#</td>
 							<td class="center">FREE</td>
 							<td class="center">FREE</td>
 						</tr>
 					</cfif>
-					<cfif isBefore("07/023/2017")>
+					<cfif isBefore(thirdIncreaseDate)>
 						<tr>
-							<td>After July 1</td>
+							<td>Before #dateFormat(thirdIncreaseDate, "mmm d")#</td>
 							<td class="center" colspan="3">Not available after July 1</td>
 						</tr>
 					</cfif>
