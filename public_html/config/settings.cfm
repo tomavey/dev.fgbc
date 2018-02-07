@@ -61,11 +61,11 @@
 	<cfset set(alphabet = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z")>
 	<cfset set(delegateyear = "2016")>
 	<cfset set(controllerlocation = "devwc.trunk.controllers.Controller")>
-	<cfset set(memFee = 6.25)>
-	<cfset set(lateMemFee = 6.75)>
-	<cfset set(memFeeMax = 8000)>
+	<cfset set(memFee = 6.45)>
+	<cfset set(lateMemFee = 6.95)>
+	<cfset set(memFeeMax = 8300)>
 	<cfset set(lateMemFeeMax = 8500)>
-	<cfset set(memFeeDeadline = "2017-05-26")>
+	<cfset set(memFeeDeadline = "2018-05-15")>
 
 <!---used by handbook--->			 
 	<cfset set(handbookRightsRequired = "handbook,office,superadmin,natmin,agbmadmin")>
