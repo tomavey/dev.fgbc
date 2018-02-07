@@ -20,9 +20,9 @@
 			#endFormTag()#
 
 <cfif isBefore(getMemFeeDeadline())>
-<div class="well"><p>The fellowship fee if paid online is #dollarformat(getOnlineMemFee())# per attender (weekly average).  The maximum fellowship fee for a church paying online is #dollarformat(getOnlineMemFeeMax())#.  After clicking "submit", you will be taken to the FGBC online payment center where you can pay the fellowship fee with Visa or Mastercard.  Questions? Email #mailto('sandy@fgbc.org')#.</p>
+	<div class="well"><p>The fellowship fee if paid online is #dollarformat(getOnlineMemFee())# per attender (weekly average).  The maximum fellowship fee for a church paying online is #dollarformat(getOnlineMemFeeMax())#.  After clicking "submit", you will be taken to the FGBC online payment center where you can pay the fellowship fee with Visa or Mastercard.  Questions? Email #mailto('sandy@charisfellowship.us')#.</p>
 <cfelse>
-<div class="well"><p>The fellowship fee after May 15 is #dollarformat(getLateMemFee())# per attender (weekly average).  The maximum fellowship fee for a church paying after May 15 is #dollarformat(getLateMemFeeMax())#.  After clicking "submit", you will be taken to the FGBC online payment center where you can pay the fellowship fee with Visa or Mastercard.  Questions? Email #mailto('sandy@fgbc.org')#.</p>
+	<div class="well"><p>The fellowship fee after May 15 is #dollarformat(getLateMemFee())# per attender (weekly average).  The maximum fellowship fee for a church paying after May 15 is #dollarformat(getLateMemFeeMax())#.  After clicking "submit", you will be taken to the FGBC online payment center where you can pay the fellowship fee with Visa or Mastercard.  Questions? Email #mailto('sandy@charisfellowship.us')#.</p>
 </cfif>
 </div>
 <cfif FileExists(ExpandPath(request.pdfForm))>
