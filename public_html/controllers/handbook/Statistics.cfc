@@ -734,7 +734,7 @@
 
 	<cffunction name="getOnlineMemFee">
 	<cfset var memfee = getMemFee() * 1.03>
-	<cfset memfee = iif(memfee mod 5,memfee+(5-(memfee mod 5)),mymemfeeval)>
+	<cfset memfee = iif(memfee mod 5,memfee+(5-(memfee mod 5)),memfee)>
 	<cfif isAfter(getMemFeeDeadline())>
 		<cfset memfee = getLateMemFee()>
 	</cfif>
