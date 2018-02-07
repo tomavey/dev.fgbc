@@ -4,7 +4,7 @@
 
 <cfoutput>
 <cfif FileExists(ExpandPath(request.pdfForm))>
-	<div class="well text-center"><p><a href="#request.pdfForm#" target="_new" class="btn btn-info">Download the Form with extra information.</a></p>
+	<p><a href="#request.pdfForm#" target="_new" class="btn btn-info">Download the Form with extra information.</a></p>
 </cfif>	
 </div>
 
