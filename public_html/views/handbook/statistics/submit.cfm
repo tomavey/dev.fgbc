@@ -3,7 +3,9 @@
 <h1>Enter Statistics for <br/><cfoutput>#thisOrg.selectName#</cfoutput></h1>
 
 <cfoutput>
-<p>#linkTo(text="Download the PDF form with extra information.", href="http://www.fgbc.org/files/FGBCStatCard2016-17.pdf", class="btn")#</p>
+<cfif FileExists(ExpandPath(request.pdfForm))>
+	<div class="well text-center"><p>Download the Form with extra information.<a href="#request.pdfForm#" target="_new" class="btn btn-block btn-info">Download the form as a PDF and submit by regular mail.</a></p>
+</div>
 
 			#errorMessagesFor("handbookstatistic")#
 
