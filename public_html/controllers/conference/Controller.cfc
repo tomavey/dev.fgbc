@@ -246,22 +246,6 @@
 </cfscript>
 
 
-    <cffunction name="urlExists">
-    <cfargument name="url" required="true" type="string">
-    <cfset var test = "">
-        <cfif len(arguments.url)>
-        <cfhttp url='#arguments.url#' method="head" result="test">
-        <cfif isDefined("test.responseheader.status_code") && test.responseheader.status_code is 200>
-            <cfreturn true>
-        <cfelse>
-            <cfreturn false>
-        </cfif>        
-        <cfelse>
-            <cfreturn false>
-        </cfif>    
-    </cffunction>
-
-
 	<cffunction name="hasThisPersonSelectedWorkshops">
 	<cfargument name="personid" required="true" type="numeric">
 	<cfargument name="type" default="workshop">
