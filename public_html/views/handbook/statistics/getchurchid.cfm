@@ -1,4 +1,4 @@
-<cfparam name="request.pdfForm" default="/files/FGBCStatCard2016-17.pdf">
+<cfparam name="request.pdfForm" default="/files/FGBCStatCard2017-18.pdf">
 <div class="span9 offset1 text-center">
 <cfoutput>
 
