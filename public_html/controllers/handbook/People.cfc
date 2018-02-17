@@ -833,6 +833,24 @@ public function newposition(){
 	writeDump(form);abort;
 }
 
+public function isInHandbook(){
+	if (
+			(
+				lname NEQ "Pastor" && 
+				fname NEQ "No" && 
+				!isFormerAGBMMember(id)
+			) || 
+			isNatMinOrCoopMin(id) || 
+			(p_sortorder < getNonStaffSortOrder())
+		)
+		{
+		return true;
+		}
+	else {
+		return false;
+	}
+}
+
 </cfscript>
 
 </cfcomponent>
