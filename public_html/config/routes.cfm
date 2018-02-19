@@ -3,6 +3,7 @@
 	The default route is the one that will be called on your application's "home" page.
 <cfset addRoute(name="home", pattern="", controller="home", action="index")>
 	Routes are not cascading, the first pattern that applied is used.
+	So put routes with [key] before the same route without.
 	So put specific routes before "resource()" routes
 --->
 <cfscript>
@@ -132,8 +133,8 @@
 
 			.get(name="liststatistics", pattern="/handbook/stats/", controller="statistics", action="welcome")
 			.get(name="deliquencies", pattern="/stats/deliquent/", controller="statistics", action="delinquent")
-			.get(name="allCurrent", pattern="/stats/allCurrent/", controller="statistics", action="allCurrent")
 			.get(name="allCurrentKey", pattern="/stats/allCurrent/[key]", controller="statistics", action="allCurrent")
+			.get(name="allCurrent", pattern="/stats/allCurrent/", controller="statistics", action="allCurrent")
 			.get(name="statsSummary", pattern="/statistics/getSummary/[key]", controller="statistics", action="getSummary")
 			.get(name="churchGrowth", pattern="/statistics/churchgrowth/", controller="statistics", action="churchgrowth")
 			.get(name="statsHistory", pattern="/statistics/history/", controller="statistics", action="stathistory")
