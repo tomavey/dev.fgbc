@@ -143,8 +143,8 @@
 							#linkto(
 								text="Churches not paid",
 								controller="handbook.statistics",
-								action="allCurrentNotPaid",
-								params="download=1"
+								action="allCurrent",
+								params="download=1&notPaid=1"
 								)#
 						</li>
 					</ul>

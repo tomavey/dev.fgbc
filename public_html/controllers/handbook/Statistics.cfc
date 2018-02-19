@@ -272,7 +272,11 @@
 
 
 	<cffunction name="allCurrent">
-		<cfset churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state_mail_abbrev,org_city,name")>
+		<cfif isDefined("params.notPaid")>
+			<cfset churches = allCurrentNotPaid()>
+		<cfelse>		
+			<cfset churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state_mail_abbrev,org_city,name")>
+		</cfif>	
 		<cfset yearago = model("Handbookstatistic").findMemFeePaidBy()>
 		<cfset twoyearsago = model("Handbookstatistic").findMemFeePaidBy('-2')>
 		<cfif isDefined("params.download")>
