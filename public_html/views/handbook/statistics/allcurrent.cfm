@@ -54,6 +54,7 @@
 			<cfif isDownload>
 				<td>#zip#</td>
 				<td>#email#</td>
+				<td>http://charisfellowship.us/sendstats/#id#</td>
 			</cfif>
 
 			<cfif not isDownload>
@@ -67,12 +68,12 @@
 				</td>
 				<cfif gotRights("superadmin,office")>
 					<cfif isDefined("name")>
-						<cfset subject = "FGBC%20Statistical%20Report%20for%20#name#">
+						<cfset subject = "Charis%20Fellowship%20Statistical%20Report%20for%20#name#">
 					<cfelse>
-						<cfset subject = "FGBC%20Statistical%20Report%20">
+						<cfset subject = "Charis%20Fellowship%20Statistical%20Report%20">
 					</cfif>
 
-					<cfset body = "Reminder! %0D%0A%0D%0AThe deadline for submitting the annual stat report and fellowship fee is May 15.%0D%0A%0D%0AYou can download the form at http://fgbc.org/files/FGBCStatCard2016-17.pdf if needed.%0D%0A%0D%0AOr you can submit stats for #getThisStatYear()# and pay the fellowship fee for #getThisMemYear()# at http://www.fgbc.org/sendstats/#id#">
+					<cfset body = "Reminder! %0D%0A%0D%0AThe deadline for submitting the annual stat report and fellowship fee is May 15.%0D%0A%0D%0AYou can download the form at http://charisfellowship.us/files/FGBCStatCard2017-18.pdf if needed.%0D%0A%0D%0AOr you can submit stats for #getThisStatYear()# and pay the fellowship fee for #getThisMemYear()# at http://charisfellowship.us/sendstats/#id#">
 					<td>
 						<cfif NOT val(thisMemFee)>
 							#mailTo(emailaddress="#getOrgEmails(id)#?subject=#subject#&body=#body#" , name="Send Link Before Deadline")#
@@ -81,10 +82,10 @@
 						</cfif>
 					</td>
 					<cfif isBefore("August 1, #year(now())#") && isAfter("February 1, #year(now())#")>
-						<cfset body = "Greetings!%0D%0A%0D%0AI am working on the membership and stat report for the FGBC annual conference and would like it as complete as possible.%0D%0A%0D%0AWould it be possible for you to use this link to submit that information this week? http://www.fgbc.org/sendstats/#id#.%0D%0A%0D%0A If you believe this has already been cared for, let me know and I will check it out!%0D%0A%0D%0ATom Avey%0D%0A574-527-6061">
+						<cfset body = "Greetings!%0D%0A%0D%0AI am working on the membership and stat report for the Charis Fellowship annual conference and would like it as complete as possible.%0D%0A%0D%0AWould it be possible for you to use this link to submit that information this week? http://charisfellowship.us/sendstats/#id#.%0D%0A%0D%0A If you believe this has already been cared for, let me know and I will check it out!%0D%0A%0D%0ATom Avey%0D%0A574-527-6061">
 					<cfelse>
 						
-						<cfset body = "Greetings! %0D%0A%0D%0AI am working on the FGBC membership report for the upcoming Fellowship Council meeting. According to our records, it appears that your church has not sent in stats for #getThisStatYear()# nor fellowship fees for #getThisMemYear()#. %0D%0A%0D%0APlease use this link to complete the brief statistical report for #getThisStatYear()# and pay your church's fellowship fee for #getThisMemYear()#: http://www.fgbc.org/sendstats/#id#?year=#getThisStatYear()# .%0D%0A%0D%0A If you believe this has already been cared for, have questions, or circumstances make this difficult let me know by email or phone.%0D%0A%0D%0ATom Avey%0D%0A574-527-6061">
+						<cfset body = "Greetings! %0D%0A%0D%0AI am working on the Charis Fellowship membership report for the upcoming Fellowship Council meeting. According to our records, it appears that your church has not sent in stats for #getThisStatYear()# nor fellowship fees for #getThisMemYear()#. %0D%0A%0D%0APlease use this link to complete the brief statistical report for #getThisStatYear()# and pay your church's fellowship fee for #getThisMemYear()#: http://charisfellowship.us/sendstats/#id#?year=#getThisStatYear()# .%0D%0A%0D%0A If you believe this has already been cared for, have questions, or circumstances make this difficult let me know by email or phone.%0D%0A%0D%0ATom Avey%0D%0A574-527-6061">
 					</cfif>
 					<td>
 						<cfif NOT val(thisMemFee)>
