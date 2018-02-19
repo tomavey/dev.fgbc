@@ -281,43 +281,51 @@
 
 	<!---handbookBluepages	GET	/handbook/people/bluepages--->
 	<cffunction name="bluepages">
+		<cfset includeString = "Handbookstate,Handbookpositions(Handbookorganization(District))">
+		<cfset orderString = "lname,fname,id">
 		<cfset whereString = " AND statusid in (1,8,3,4,2,9,10,11)">
-		<cfif NOT isDefined("params.showremoved")>
-			<cfset whereString = whereString & " AND position NOT LIKE '%Removed%'">
-		</cfif>
-		<cfif isDefined("params.nonstaff")>
-			<cfset whereString = "p_sortorder = #getNonStaffSortOrder()#" & whereString>
-		<cfelseif isDefined("params.staffonly")>
-			<cfset whereString = "p_sortorder < #getNonStaffSortOrder()#" & whereString>
-		<cfelseif isDefined("params.pastoralstaffonly")>
-			<cfset whereString = "p_sortorder < #getNonStaffSortOrder()# AND position LIKE '%pastor%'" & whereString>
-		<cfelseif isDefined("params.showremovedstaffonly")>
-			<cfset whereString = "position LIKE '%Removed%'" & whereString>	
-		<cfelse>
-			<cfset whereString = "p_sortorder <= #getNonStaffSortOrder()#" & whereString>
-		</cfif>
-		<cfif isDefined("params.districtid")>
-			<cfset whereString = whereString & " AND districtid = #params.districtid#">
-		</cfif>
-		<cfif isDefined("params.gender")>
-			<cfset whereString = whereString & " AND fnameGender = '#params.gender#'">
-		</cfif>
-		<cfif isDefined("params.lname")>
-			<cfset whereString = whereString & " AND lname like '#params.lname#%'">
-		</cfif>
-			<cfset bluepagesPeople = model("Handbookperson").findAll(where=whereString, order="lname,fname,id", include="Handbookstate,Handbookpositions(Handbookorganization(District))")>
 
-		<cfif isDefined("params.layout") and params.layout is "naked">
-			<cfset renderPage(layout="/layout_naked")>
-		<cfelseif isDefined("params.download")>
-			<cfset allhandbookpeople = bluepagesPeople>
-			<cfset renderpage(template="downloadstaff", layout="/layout_download")>
-		<cfelseif isDefined("params.preview")>
-			<cfset allhandbookpeople = bluepagesPeople>
-			<cfset renderpage(template="downloadstaff", layout="/layout_naked")>
-		<cfelse>
-			<cfset renderPage(layout="/handbook/layout_handbook1")>
-		</cfif>
+		<!---Build WhereString based on params--->
+			<cfif NOT isDefined("params.showremoved")>
+				<cfset whereString = whereString & " AND position NOT LIKE '%Removed%'">
+			</cfif>
+			<cfif isDefined("params.nonstaff")>
+				<cfset whereString = "p_sortorder = #getNonStaffSortOrder()#" & whereString>
+			<cfelseif isDefined("params.staffonly")>
+				<cfset whereString = "p_sortorder < #getNonStaffSortOrder()#" & whereString>
+			<cfelseif isDefined("params.pastoralstaffonly")>
+				<cfset whereString = "p_sortorder < #getNonStaffSortOrder()# AND position LIKE '%pastor%'" & whereString>
+			<cfelseif isDefined("params.showremovedstaffonly")>
+				<cfset whereString = "position LIKE '%Removed%'" & whereString>	
+			<cfelse>
+				<cfset whereString = "p_sortorder <= #getNonStaffSortOrder()#" & whereString>
+			</cfif>
+			<cfif isDefined("params.districtid")>
+				<cfset whereString = whereString & " AND districtid = #params.districtid#">
+			</cfif>
+			<cfif isDefined("params.gender")>
+				<cfset whereString = whereString & " AND fnameGender = '#params.gender#'">
+			</cfif>
+			<cfif isDefined("params.lname")>
+				<cfset whereString = whereString & " AND lname like '#params.lname#%'">
+			</cfif>
+
+		<!--- Run the query then filter out persons that should not be listed in the handbook --->
+			<cfset bluepagesPeople = model("Handbookperson").findAll(where=whereString, order=orderString, include=includeString)>
+			<cfset bluePagesPeople = queryFilter(bluepagesPeople, isInHandbook)>
+
+		<!--- select layout and template based on params --->
+			<cfif isDefined("params.layout") and params.layout is "naked">
+				<cfset renderPage(layout="/layout_naked")>
+			<cfelseif isDefined("params.download")>
+				<cfset allhandbookpeople = bluepagesPeople>
+				<cfset renderpage(template="downloadstaff", layout="/layout_download")>
+			<cfelseif isDefined("params.preview")>
+				<cfset allhandbookpeople = bluepagesPeople>
+				<cfset renderpage(template="downloadstaff", layout="/layout_naked")>
+			<cfelse>
+				<cfset renderPage(layout="/handbook/layout_handbook1")>
+			</cfif>
 	</cffunction>
 
 	<cffunction name="distribution">
@@ -833,15 +841,15 @@ public function newposition(){
 	writeDump(form);abort;
 }
 
-public function isInHandbook(){
+public function isInHandbook(obj){
 	if (
 			(
-				lname NEQ "Pastor" && 
-				fname NEQ "No" && 
-				!isFormerAGBMMember(id)
+				obj.lname NEQ "Pastor" && 
+				obj.fname NEQ "No" && 
+				!isFormerAGBMMember(obj.id)
 			) || 
-			isNatMinOrCoopMin(id) || 
-			(p_sortorder < getNonStaffSortOrder())
+			isNatMinOrCoopMin(obj.id) || 
+			(obj.p_sortorder < getNonStaffSortOrder())
 		)
 		{
 		return true;

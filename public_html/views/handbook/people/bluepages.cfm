@@ -70,6 +70,14 @@
 
 </cfoutput>
 
+<cffunction name="filterAvey">
+  <cfargument name="obj">
+  <cfif obj.lname is "Avey">
+    <cfreturn true>
+  </cfif>
+  <cfreturn false>
+</cffunction>
+
   <cfoutput query="bluepagesPeople" group="alpha">
     <cfoutput group="id">
 
@@ -82,7 +90,6 @@
           <cfset previouslname = "">
           <cfset previousfname = "">
 
-        <cfif isInHandbook()>
           <cfif alert>
             **Possible Duplication**&nbsp;<br/>
           </cfif>
@@ -117,7 +124,6 @@
           <cfset previousfname = fname>
           <cfset alert=0>
         <cfset count = count +1>
-        </cfif>
 
       </cfif>
 
