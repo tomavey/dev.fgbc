@@ -14,7 +14,7 @@
 </cfif>
 
 <cfif not isDownload>
-#linkto(text="<i class='icon-download-alt'></i>", action=params.action, params="type=#params.type#", params="download", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
+	#linkto(text="<i class='icon-download-alt'></i>", action=params.action, params="type=#params.type#&download=1", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
 </cfif>
 
 </cfoutput>

@@ -144,7 +144,7 @@
 								text="Churches not paid",
 								controller="handbook.statistics",
 								action="allCurrent",
-								params="download=1&notPaid=1"
+								params="download=1&type=notPaid"
 								)#
 						</li>
 					</ul>
