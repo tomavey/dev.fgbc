@@ -16,7 +16,7 @@
 <cfif not isDownload>
 	#linkto(text="<i class='icon-download-alt'></i>", action=params.action, params="type=#params.type#&download=1", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
 </cfif>
-
+	#linkTo(text="Send Notifications", action=params.action, params="sendEmail=1")#
 </cfoutput>
 
 <table class="table table-striped">

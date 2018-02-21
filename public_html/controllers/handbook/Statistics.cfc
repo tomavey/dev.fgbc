@@ -191,6 +191,97 @@
 		</cfif>
 	</cffunction>
 
+	<cffunction name="allCurrent">
+		<cfif isDefined("params.notPaid")>
+			<cfset churches = allCurrentNotPaid()>
+		<cfelse>		
+			<cfset churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state_mail_abbrev,org_city,name")>
+		</cfif>	
+		<cfset yearago = model("Handbookstatistic").findMemFeePaidBy()>
+		<cfset twoyearsago = model("Handbookstatistic").findMemFeePaidBy('-2')>
+		<cfif isDefined("params.download")>
+			<cfset isDownload = true>
+			<cfset renderPage(layout="/layout_download")>
+		</cfif>
+		<cfif isDefined("params.sendEmail")>
+			<cfset sendEmailNotification(churches)>
+		</cfif>
+	</cffunction>
+
+	<cffunction name="sizeByPercent">
+	<cfargument name="fieldname" default="att">
+	<cfargument name="xxlarge" default="90">
+	<cfargument name="xlarge" default="80">
+	<cfargument name="large" default="50">
+	<cfargument name="medium" default="25">
+	<cfset var loc=structNew()>
+
+		<cfset loc.count = model("Handbookstatistic").findAll(where="year='#params.key#'", select="count(*) AS count")>
+
+		<cfset loc.xxlarge.count = round(loc.count.count*((100-arguments.xxlarge)/100))>
+		<cfset loc.xxlarge.startrow = 1>
+		<cfset loc.xxlarge.maxrows = loc.xxlarge.count>
+		<cfset loc.xxlarge.endrow = loc.xxlarge.startrow + loc.xxlarge.maxrows>
+
+		<cfset loc.xlarge.count = round(loc.count.count*((100-arguments.xlarge)/100))>
+		<cfset loc.xlarge.startrow = loc.xxlarge.maxrows+1>
+		<cfset loc.xlarge.maxrows = loc.xlarge.count - loc.xlarge.startrow>
+		<cfset loc.xlarge.endrow = loc.xlarge.startrow + loc.xlarge.maxrows>
+
+		<cfset loc.large.count = round(loc.count.count*((100-arguments.large)/100))>
+		<cfset loc.large.startrow = loc.xlarge.endrow+1>
+		<cfset loc.large.maxrows = loc.large.count - loc.large.startrow>
+		<cfset loc.large.endrow = loc.large.startrow + loc.large.maxrows>
+
+		<cfset loc.medium.count = round(loc.count.count*((100-arguments.medium)/100))>
+		<cfset loc.medium.startrow = loc.large.endrow+1>
+		<cfset loc.medium.maxrows = loc.medium.count - loc.medium.startrow>
+		<cfset loc.medium.endrow = loc.medium.startrow + loc.medium.maxrows>
+
+		<cfset loc.small.startrow = loc.medium.endrow+1>
+		<cfset loc.small.maxrows = 10000>
+		<cfset loc.small.endrow = loc.small.startrow + loc.small.maxrows>
+
+		<cfset loc.all = model("Handbookstatistic").findAll(where="year='#params.key#'", include="Handbookorganization(Handbookstate)", order="attInt DESC")>
+		<cfset loc.xxlarge.total = getTotal(
+							fieldname=arguments.fieldname,
+							thisquery=loc.all,
+							startrow=loc.xxlarge.startrow,
+							maxrows=loc.xxlarge.maxrows
+							)>
+		<cfset loc.xlarge.total = getTotal(
+							fieldname=arguments.fieldname,
+							thisquery=loc.all,
+							startrow=loc.xlarge.startrow,
+							maxrows=loc.xlarge.maxrows
+							)>
+		<cfset loc.large.total = getTotal(
+							fieldname=arguments.fieldname,
+							thisquery=loc.all,
+							startrow=loc.large.startrow,
+							maxrows=loc.large.maxrows
+							)>
+		<cfset loc.medium.total = getTotal(
+							fieldname=arguments.fieldname,
+							thisquery=loc.all,
+							startrow=loc.medium.startrow,
+							maxrows=loc.medium.maxrows
+							)>
+		<cfset loc.small.total = getTotal(
+							fieldname=arguments.fieldname,
+							thisquery=loc.all,
+							startrow=loc.small.startrow,
+							maxrows=100000
+							)>
+		<cfset attributes = loc>
+	</cffunction>
+
+	<cffunction name="closedChurches">
+	<cfargument name="since" default="#createDate(year(now())-1,08,01)#">
+		<cfset churches = model("Handbookupdate").findAll(where="modelname='Handbookorganization' AND columnName='statusid' AND olddata = 1 AND newdata in (3,4,5,6,7,8,9) AND createdAt > '#arguments.since#'", include="Handbookorganization(Handbookstate)")>
+	</cffunction>
+
+
 	<!--- handbook-statistics/delete/key --->
 	<cffunction name="delete">
 		<cfset handbookstatistic = model("Handbookstatistic").findByKey(params.key)>
@@ -265,26 +356,6 @@
 		<!---then check for a payment record for this church for this year--->
 	</cffunction>
 
-	<cffunction name="testNoMemfee">
-		<cfset test = noMemFee(churchid=params.key, year=params.key)>
-		<cfdump var="#test#"><cfabort>
-	</cffunction>
-
-
-	<cffunction name="allCurrent">
-		<cfif isDefined("params.notPaid")>
-			<cfset churches = allCurrentNotPaid()>
-		<cfelse>		
-			<cfset churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state_mail_abbrev,org_city,name")>
-		</cfif>	
-		<cfset yearago = model("Handbookstatistic").findMemFeePaidBy()>
-		<cfset twoyearsago = model("Handbookstatistic").findMemFeePaidBy('-2')>
-		<cfif isDefined("params.download")>
-			<cfset isDownload = true>
-			<cfset renderPage(layout="/layout_download")>
-		</cfif>
-	</cffunction>
-
 	<cffunction name="allCurrentNotPaid">
 		<cfset var churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state_mail_abbrev,org_city,name")>
 		<cfset var notpaidchurches = queryNew("id,name,city,emails")>
@@ -308,10 +379,6 @@
 	</cfoutput>
 	</cfloop>
 	<cfabort>
-	</cffunction>
-
-	<cffunction name="testAllCurrentNotPaid">
-		<cfdump var="#allCurrentNotPaid()#"><cfabort>
 	</cffunction>
 
 	<cffunction name="getThisYear">
@@ -506,11 +573,6 @@
 	<cfreturn loc.return>
 	</cffunction>
 
-	<cffunction name="testChurchGrowth">
-		<cfset test = thisChurchesGrowth(churchid=1,year1='2010',year2='2007',delta=5)>
-		<cfdump var="#test#"><cfabort>
-	</cffunction>
-
 	<cffunction name="churchgrowth">
 		<cfset churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state,org_city")>
 		<cfif isDefined("params.download")>
@@ -558,11 +620,6 @@
 		<cfreturn thisstat>
 	</cffunction>
 
-	<cffunction name="testGetStat">
-		<cfset test = getStat(churchid=891,year="2007",fieldname="att")>
-		<cfdump var="#test#"><cfabort>
-	</cffunction>
-
 	<cffunction name="size">
 	<cfargument name="fieldname" default="att">
 	<cfargument name="xxlarge" default="1000">
@@ -607,74 +664,6 @@
 		<cfdump var='#loc#'><cfabort>
 	</cffunction>
 
-	<cffunction name="sizeByPercent">
-	<cfargument name="fieldname" default="att">
-	<cfargument name="xxlarge" default="90">
-	<cfargument name="xlarge" default="80">
-	<cfargument name="large" default="50">
-	<cfargument name="medium" default="25">
-	<cfset var loc=structNew()>
-
-		<cfset loc.count = model("Handbookstatistic").findAll(where="year='#params.key#'", select="count(*) AS count")>
-
-		<cfset loc.xxlarge.count = round(loc.count.count*((100-arguments.xxlarge)/100))>
-		<cfset loc.xxlarge.startrow = 1>
-		<cfset loc.xxlarge.maxrows = loc.xxlarge.count>
-		<cfset loc.xxlarge.endrow = loc.xxlarge.startrow + loc.xxlarge.maxrows>
-
-		<cfset loc.xlarge.count = round(loc.count.count*((100-arguments.xlarge)/100))>
-		<cfset loc.xlarge.startrow = loc.xxlarge.maxrows+1>
-		<cfset loc.xlarge.maxrows = loc.xlarge.count - loc.xlarge.startrow>
-		<cfset loc.xlarge.endrow = loc.xlarge.startrow + loc.xlarge.maxrows>
-
-		<cfset loc.large.count = round(loc.count.count*((100-arguments.large)/100))>
-		<cfset loc.large.startrow = loc.xlarge.endrow+1>
-		<cfset loc.large.maxrows = loc.large.count - loc.large.startrow>
-		<cfset loc.large.endrow = loc.large.startrow + loc.large.maxrows>
-
-		<cfset loc.medium.count = round(loc.count.count*((100-arguments.medium)/100))>
-		<cfset loc.medium.startrow = loc.large.endrow+1>
-		<cfset loc.medium.maxrows = loc.medium.count - loc.medium.startrow>
-		<cfset loc.medium.endrow = loc.medium.startrow + loc.medium.maxrows>
-
-		<cfset loc.small.startrow = loc.medium.endrow+1>
-		<cfset loc.small.maxrows = 10000>
-		<cfset loc.small.endrow = loc.small.startrow + loc.small.maxrows>
-
-		<cfset loc.all = model("Handbookstatistic").findAll(where="year='#params.key#'", include="Handbookorganization(Handbookstate)", order="attInt DESC")>
-		<cfset loc.xxlarge.total = getTotal(
-							fieldname=arguments.fieldname,
-							thisquery=loc.all,
-							startrow=loc.xxlarge.startrow,
-							maxrows=loc.xxlarge.maxrows
-							)>
-		<cfset loc.xlarge.total = getTotal(
-							fieldname=arguments.fieldname,
-							thisquery=loc.all,
-							startrow=loc.xlarge.startrow,
-							maxrows=loc.xlarge.maxrows
-							)>
-		<cfset loc.large.total = getTotal(
-							fieldname=arguments.fieldname,
-							thisquery=loc.all,
-							startrow=loc.large.startrow,
-							maxrows=loc.large.maxrows
-							)>
-		<cfset loc.medium.total = getTotal(
-							fieldname=arguments.fieldname,
-							thisquery=loc.all,
-							startrow=loc.medium.startrow,
-							maxrows=loc.medium.maxrows
-							)>
-		<cfset loc.small.total = getTotal(
-							fieldname=arguments.fieldname,
-							thisquery=loc.all,
-							startrow=loc.small.startrow,
-							maxrows=100000
-							)>
-		<cfset attributes = loc>
-	</cffunction>
-
 	<cffunction name="getTotal" access="private">
 	<cfargument name="fieldname" required="true" type="string">
 	<cfargument name="thisquery" required="true" type="query">
@@ -689,27 +678,6 @@
 
 	</cfoutput>
 	<cfreturn loc.return>
-	</cffunction>
-
-	<cffunction name="closedChurches">
-	<cfargument name="since" default="#createDate(year(now())-1,08,01)#">
-		<cfset churches = model("Handbookupdate").findAll(where="modelname='Handbookorganization' AND columnName='statusid' AND olddata = 1 AND newdata in (3,4,5,6,7,8,9) AND createdAt > '#arguments.since#'", include="Handbookorganization(Handbookstate)")>
-	</cffunction>
-
-	<cffunction name="test">
-		<cfset test=model("Handbookstatistic").findMemFeePaidBy(yearsago='-3')>
-		<cfdump var="#test#"><cfabort>
-	</cffunction>
-
-	<cffunction name="alterTable">
-		<cfquery datasource="fgbc_main_3">
-			ALTER TABLE `fgbc_main_3`.`handbookstatistics`
-			ADD COLUMN `churchplanting` VARCHAR(3) NULL DEFAULT NULL AFTER `more_info_im`
-		</cfquery>
-		<cfquery datasource="fgbc_main_3">
-			ALTER TABLE `fgbc_main_3`.`handbookstatistics`
-			ADD COLUMN `churchplantingcontact` VARCHAR(255) NULL DEFAULT NULL AFTER `churchplanting`
-		</cfquery>
 	</cffunction>
 
 	<cffunction name="getMemFeeDeadline">
@@ -762,6 +730,50 @@
 		<cfelse>
 			<cfreturn "">	
 		</cfif>	
+	</cffunction>
+
+<cfscript>
+	public function sendEmailNotification(arguments){
+		listStruct = arguments[1];
+		renderPage(template="emailNotificationTemplate", layout="/layout_for_email");
+	}
+</cfscript>	
+
+<!---Test Methods--->
+
+	<cffunction name="testNoMemfee">
+		<cfset test = noMemFee(churchid=params.key, year=params.key)>
+		<cfdump var="#test#"><cfabort>
+	</cffunction>
+
+	<cffunction name="test">
+		<cfset test=model("Handbookstatistic").findMemFeePaidBy(yearsago='-3')>
+		<cfdump var="#test#"><cfabort>
+	</cffunction>
+
+	<cffunction name="testAllCurrentNotPaid">
+		<cfdump var="#allCurrentNotPaid()#"><cfabort>
+	</cffunction>
+
+	<cffunction name="alterTable">
+		<cfquery datasource="fgbc_main_3">
+			ALTER TABLE `fgbc_main_3`.`handbookstatistics`
+			ADD COLUMN `churchplanting` VARCHAR(3) NULL DEFAULT NULL AFTER `more_info_im`
+		</cfquery>
+		<cfquery datasource="fgbc_main_3">
+			ALTER TABLE `fgbc_main_3`.`handbookstatistics`
+			ADD COLUMN `churchplantingcontact` VARCHAR(255) NULL DEFAULT NULL AFTER `churchplanting`
+		</cfquery>
+	</cffunction>
+
+	<cffunction name="testChurchGrowth">
+		<cfset test = thisChurchesGrowth(churchid=1,year1='2010',year2='2007',delta=5)>
+		<cfdump var="#test#"><cfabort>
+	</cffunction>
+
+	<cffunction name="testGetStat">
+		<cfset test = getStat(churchid=891,year="2007",fieldname="att")>
+		<cfdump var="#test#"><cfabort>
 	</cffunction>
 
 </cfcomponent>
