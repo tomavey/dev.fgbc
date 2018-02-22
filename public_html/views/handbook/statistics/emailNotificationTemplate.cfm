@@ -343,7 +343,12 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
         <td colspan="2">
         <cfoutput>
             <cfloop query="listStruct">
-                #getOrgEmails(listStruct.id)# -  http://charisfellowship.us/sendstats/#listStruct.id# for #listStruct.name#<br/>
+                <cfif name contains "Test">
+                    <cfset emailList = email>
+                <cfelse>
+                    <cfset emailList = getOrgEmails(listStruct.id)>
+                </cfif>    
+                #emailList# -  http://charisfellowship.us/sendstats/#listStruct.id# for #listStruct.name#<br/>
             </cfloop>
         </cfoutput>    
         </td>

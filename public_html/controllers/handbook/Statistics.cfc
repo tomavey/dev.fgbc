@@ -204,9 +204,25 @@
 			<cfset renderPage(layout="/layout_download")>
 		</cfif>
 		<cfif isDefined("params.sendEmail")>
-			<cfset sendEmailNotification(churches)>
+			<cfif params.sendemail is "go">
+				<cfset sendEmailNotification(churches)>
+			<cfelseif params.sendemail is "test">
+				<cfset sendEmailNotification(makeTestList())>
+			</cfif>	
 		</cfif>
 	</cffunction>
+
+<cfscript>
+	public function makeTestList(){
+		var list = queryNew("id, email, link, name");
+		queryAddRow(list,1);
+		querySetCell(list,"email", "tomavey@fgbc.org");
+		querySetCell(list,"link", "http://charisfellowship.us/sendstats");
+		querySetCell(list,"name", "Tom Avey Test");
+		querySetCell(list,"id", 1);
+		return list;
+	}
+</cfscript>	
 
 	<cffunction name="sizeByPercent">
 	<cfargument name="fieldname" default="att">
@@ -735,6 +751,7 @@
 <cfscript>
 	public function sendEmailNotification(arguments){
 		listStruct = arguments[1];
+		sendEmail(to=listStruct.email, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email");
 		renderPage(template="emailNotificationTemplate", layout="/layout_for_email");
 	}
 </cfscript>	
