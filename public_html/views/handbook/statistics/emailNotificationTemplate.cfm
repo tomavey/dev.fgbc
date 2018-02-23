@@ -285,7 +285,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
                         Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. Look for #linkto(text="this brochure", href="http://charisfellowship.us/files/FGBCStatCard2017-18.pdf")# in your snail-mail requesting your statistics for #year(now())-1# and fellowship fee for #year(now())#.
                     </p>
                     <p class="callout">
-                        If you would prefer to submit this information and pay online you can use this link: #linkto( 'http://charisfellowship.us/sendstats/#args.id#' )# 
+                        If you would prefer to submit this information and pay online you can use this link: #linkto(href='http://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
                     </p>
                     </cfoutput>
 
