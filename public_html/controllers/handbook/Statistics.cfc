@@ -395,7 +395,7 @@
 		<cfset args.city = city>
 		<cfset args.id = id>
 		<cfif !onLocalhost()>
-			<cfset sendEmail(to=arg.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
+			<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
 		</cfif>	
 	</cfloop>
 	</cfoutput>
