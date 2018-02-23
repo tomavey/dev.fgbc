@@ -355,7 +355,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
         <cfif isDefined("params.test") || isDefined("showResults")>
         <cfoutput>
         <cfloop collection=#session.StatsEmailSent# item="org">
-            #org#
+            #org.email#
         </cfloop>
         </cfoutput>
             <cfdump var="#session.statsEmailSent#" label="Sent">
