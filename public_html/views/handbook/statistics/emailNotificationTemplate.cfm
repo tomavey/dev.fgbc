@@ -352,7 +352,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
     </tr>
     <tr>
         <td colspan="2">
-        <cfif isDefined("params.test")>
+        <cfif isDefined("params.test") || isDefined("showResults")>
             <cfdump var="#session.statsEmailSent#" label="Sent">
             <cfdump var="#session.statsEmailFailed#" label="Failed">
         </cfif>    

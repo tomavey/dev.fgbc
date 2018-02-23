@@ -407,7 +407,7 @@
 			</cfif>	
 		</cfloop>
 		</cfoutput>
-	<cfset renderPage(template="emailNotificationTemplate", layout="/layout_for_email")>
+	<cfset renderPage(template="emailNotificationTemplate", layout="/layout_for_email", showResults=true)>
 	</cffunction>
 
 	<cffunction name="getThisYear">
