@@ -389,8 +389,8 @@
 		<cfset churches = allcurrentnotpaid()>
 	</cfif>
 	<cfoutput>
-	<cfloop query="churches">
-		<cfset args.emails = emails>
+	<cfloop query="churches" endRow="10">
+		<cfset args.emails = "tomavey@fgbc.org">
 		<cfset args.name = name>
 		<cfset args.city = city>
 		<cfset args.id = id>
