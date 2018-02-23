@@ -254,9 +254,11 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
             <table bgcolor="#ffffff">
                 <tr>
                     <td colspan="2">
-                        <a href="http://charisfellowship.us/sendstats">
+                        <cfoutput>
+                        <a href="http://charisfellowship.us/sendstats/#args.id#">
                             <img src="http://charisfellowship.us/assets/img/logo/charis-logo-main.png" />
                         </a>
+                        </cfoutput>
                     </td>
                 </tr>
             </table>
