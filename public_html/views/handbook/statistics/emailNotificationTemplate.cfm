@@ -353,14 +353,17 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
     <tr>
         <td colspan="2">
         <cfif isDefined("params.test") || isDefined("showResults")>
-        <cfoutput>
-        <p>Emails were sent to:</p>
-        <cfloop collection=#session.StatsEmailSent# item="org">
-            #session.statsEmailSent[org].emails# for #session.statsEmailSent[org].name# #session.statsEmailSent[org].city#
-        </cfloop>
-        </cfoutput>
-            <cfdump var="#session.statsEmailSent#" label="Sent">
-            <cfdump var="#session.statsEmailFailed#" label="Failed">
+            <cfoutput>
+                <p>Emails were sent to:</p>
+                <cfloop collection=#session.StatsEmailSent# item="org">
+                    #session.statsEmailSent[org].emails# for #session.statsEmailSent[org].name# #session.statsEmailSent[org].city#</br>
+                </cfloop>
+
+                <p>Emails were NOT sent to:</p>
+                <cfloop collection=#session.StatsEmailFailed# item="org">
+                    #session.statsEmailFailed[org].emails# for #session.statsEmailFailed[org].name# #session.statsEmailFailed[org].city#</br>
+                </cfloop>
+            </cfoutput>
         </cfif>    
         <!---
         <cfoutput>
