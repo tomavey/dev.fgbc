@@ -356,6 +356,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
         <cfoutput>
         <cfloop collection=#session.StatsEmailSent# item="org">
             #org#<br/>
+            <cfdump var="#session.statsEmailSent[org]#">
         </cfloop>
         </cfoutput>
             <cfdump var="#session.statsEmailSent#" label="Sent">
