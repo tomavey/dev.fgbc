@@ -243,7 +243,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 <body bgcolor="#FFFFFF">
 <cfif isDefined("params.test")>
     <cfoutput>
-    	#linkTo(text="Send Notifications To all not paid", action="emailAllCurrentNotPaid", class="btn")#
+    	#linkTo(text="Send Notifications To all not paid", action="emailAllCurrentNotPaid", pathOnly="false", class="btn")#
     </cfoutput>
 </cfif>
 <table class="head-wrap" bgcolor="#ffffff">
