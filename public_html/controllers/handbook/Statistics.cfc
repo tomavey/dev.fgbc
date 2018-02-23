@@ -203,23 +203,17 @@
 			<cfset isDownload = true>
 			<cfset renderPage(layout="/layout_download")>
 		</cfif>
-		<cfif isDefined("params.sendEmail")>
-			<cfif params.sendemail is "go">
-				<cfset sendEmailNotification(churches)>
-			<cfelseif params.sendemail is "test">
-				<cfset sendEmailNotification(makeTestList())>
-			</cfif>	
-		</cfif>
 	</cffunction>
 
 <cfscript>
 	public function makeTestList(){
-		var list = queryNew("id, email, link, name");
+		var list = queryNew("id, emails, link, name, city");
 		queryAddRow(list,1);
-		querySetCell(list,"email", "tomavey@fgbc.org");
+		querySetCell(list,"emails", "tomavey@fgbc.org");
 		querySetCell(list,"link", "http://charisfellowship.us/sendstats");
 		querySetCell(list,"name", "Tom Avey Test");
 		querySetCell(list,"id", 1);
+		querySetCell(list,"city", "anytown");
 		return list;
 	}
 </cfscript>	
@@ -388,13 +382,24 @@
 	</cffunction>
 
 	<cffunction name="emailAllCurrentNotPaid">
-	<cfset var churches = allcurrentnotpaid()>
-	<cfloop query="churches">
+	<cfset args = structNew()>
+	<cfif isDefined("params.test")>
+		<cfset churches = makeTestList()>
+	<cfelse>
+		<cfset churches = allcurrentnotpaid()>
+	</cfif>
 	<cfoutput>
-		Email would be send to #emails# of #name# for #id#<br/>
-	</cfoutput>
+	<cfloop query="churches">
+		<cfset args.emails = emails>
+		<cfset args.name = name>
+		<cfset args.city = city>
+		<cfset args.id = id>
+		<cfif !onLocalhost()>
+			<cfset sendEmail(to=arg.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
+		</cfif>	
 	</cfloop>
-	<cfabort>
+	</cfoutput>
+	<cfset renderPage(template="emailNotificationTemplate", layout="/layout_for_email")>
 	</cffunction>
 
 	<cffunction name="getThisYear">
@@ -751,7 +756,20 @@
 <cfscript>
 	public function sendEmailNotification(arguments){
 		listStruct = arguments[1];
-		sendEmail(to=listStruct.email, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email");
+		var i = 1;
+		var eachListStruct = "";
+		writeDump(listStruct);
+		for ( i=1; i <= #listStruct.recordCount#; i=i+1) {
+			writeDump(listStruct.email[i]);
+		};
+
+abort;
+
+		if (!onLocalhost()){
+			for (i=1; i < #listStruct.recordCount#; i=i+1){
+				sendEmail(to=listStruct.email, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email");
+			}	
+		};
 		renderPage(template="emailNotificationTemplate", layout="/layout_for_email");
 	}
 </cfscript>	

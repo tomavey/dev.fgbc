@@ -165,6 +165,13 @@ ul.sidebar li a {
 ul.sidebar li a.last { border-bottom-width:0px;}
 ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.sidebar li a h5,ul.sidebar li a h6,ul.sidebar li a p { margin-bottom:0!important;}
 
+/* --------------------------------------------------- 
+		CUSTOM
+------------------------------------------------------ */
+
+.soc-btn {
+    color:black !important;
+}
 
 
 /* --------------------------------------------------- 
@@ -234,7 +241,11 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 </head>
 
 <body bgcolor="#FFFFFF">
-
+<cfif isDefined("params.test")>
+    <cfoutput>
+    	#linkTo(text="Send Notifications To all not paid", action="emailAllCurrentNotPaid", class="btn")#
+    </cfoutput>
+</cfif>
 <table class="head-wrap" bgcolor="#ffffff">
 <tr>
     <td></td>
@@ -266,7 +277,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
                 <td>
 
                     <cfoutput>
-                    <h3>Subject: #listStruct.name# statistics for 2017 and fellowship fee for 2018. </h3>
+                    <h3>Subject: #args.name# (#args.city#) statistics for 2017 and fellowship fee for 2018. </h3>
                     <p class="lead">
                         GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship (a.k.a. the Fellowship of Grace Brethren Churches). Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
                     </p>
@@ -274,7 +285,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
                         Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. Look for #linkto(text="this brochure", href="http://charisfellowship.us/files/FGBCStatCard2017-18.pdf")# in your snail-mail requesting your statistics for #year(now())-1# and fellowship fee for #year(now())#.
                     </p>
                     <p class="callout">
-                        If you would prefer to submit this information and pay online you can use this link: #linkto("http://charisfellowship.us/sendstats/#listStruct.id#")# 
+                        If you would prefer to submit this information and pay online you can use this link: #linkto( 'http://charisfellowship.us/sendstats/#args.id#' )# 
                     </p>
                     </cfoutput>
 
@@ -326,13 +337,11 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
             <div class="content">
             <table>
                 <tr>
+                    <cfoutput>
                     <td align="center">
-                        <p>
-                        <a href="#">Terms</a> |
-                        <a href="#">Privacy</a> |
-                        <a href="#"><unsubscribe>Unsubscribe</unsubscribe></a>
-                        </p>
+                        Sent to #args.emails#
                     </td>
+                    </cfoutput>
                 </tr>
             </table>
             </div>
@@ -341,16 +350,13 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
     </tr>
     <tr>
         <td colspan="2">
+        <!---
         <cfoutput>
             <cfloop query="listStruct">
-                <cfif name contains "Test">
-                    <cfset emailList = email>
-                <cfelse>
-                    <cfset emailList = getOrgEmails(listStruct.id)>
-                </cfif>    
-                #emailList# -  http://charisfellowship.us/sendstats/#listStruct.id# for #listStruct.name#<br/>
+                #args.emails# -  http://charisfellowship.us/sendstats/#args.id# for #args.name#<br/>
             </cfloop>
         </cfoutput>    
+        --->
         </td>
     </tr>    
 </table>

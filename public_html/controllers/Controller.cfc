@@ -651,6 +651,15 @@
 		return newlist;
 	}
 
+	public function onLocalHost(){
+		if( isDefined("application.wheels.islocalHost") || application.wheels.onLocalHost ){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 </cfscript>		
 
 </cfcomponent>
