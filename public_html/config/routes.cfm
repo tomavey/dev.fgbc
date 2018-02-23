@@ -136,6 +136,7 @@
 			.get(name="allCurrent", pattern="/stats/allCurrent/", controller="statistics", action="allCurrent")
 			.get(name="allCurrentKey", pattern="/stats/allCurrent/[key]", controller="statistics", action="allCurrent")
 			.get(name="allCurrentNotPaid", pattern="/stats/allCurrentNotPaid/", controller="statistics", action="allCurrentNotPaid")
+			.get(name="emailAllCurrentNotPaid", pattern="/stats/emailAllCurrentNotPaid/", controller="statistics", action="emailAllCurrentNotPaid")
 			.get(name="statsSummary", pattern="/statistics/getSummary/[key]", controller="statistics", action="getSummary")
 			.get(name="churchGrowth", pattern="/statistics/churchgrowth/", controller="statistics", action="churchgrowth")
 			.get(name="statsHistory", pattern="/statistics/history/", controller="statistics", action="stathistory")
