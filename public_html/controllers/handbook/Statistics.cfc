@@ -383,22 +383,22 @@
 
 	<cffunction name="emailAllCurrentNotPaid">
 	<cfset args = structNew()>
-	<cfif isDefined("params.test")>
-		<cfset churches = makeTestList()>
-	<cfelse>
-		<cfset churches = allcurrentnotpaid()>
-	</cfif>
-	<cfoutput>
-	<cfloop query="churches" endRow="10">
-		<cfset args.emails = "tomavey@fgbc.org">
-		<cfset args.name = name>
-		<cfset args.city = city>
-		<cfset args.id = id>
-		<cfif !onLocalhost()>
-			<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
-		</cfif>	
-	</cfloop>
-	</cfoutput>
+		<cfif isDefined("params.test")>
+			<cfset churches = makeTestList()>
+		<cfelse>
+			<cfset churches = allcurrentnotpaid()>
+		</cfif>
+		<cfoutput>
+		<cfloop query="churches">
+			<cfset args.emails = "tomavey@fgbc.org">
+			<cfset args.name = name>
+			<cfset args.city = city>
+			<cfset args.id = id>
+			<cfif !onLocalhost()>
+				<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
+			</cfif>	
+		</cfloop>
+		</cfoutput>
 	<cfset renderPage(template="emailNotificationTemplate", layout="/layout_for_email")>
 	</cffunction>
 
