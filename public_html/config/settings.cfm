@@ -85,7 +85,7 @@
     <cfset set(focusMinistryAreas = "Lead Pastor, Executive Pastor, Worship Arts, Youth, Family, Children, Discipleship, Elder, Small Groups, Pastoral Care, Administration, Associate Pastor, Other")>
 
 <!---Used by Conference Registration--->
-	<cfset set(event="visionconference2018")>
+	<cfset set(event="visionconference2017")>
 	<cfset set(previousEvent = "visionconference2017")>
 	<cfset set(nextEvent = "visionconference2019")>
 	<cfset set(eventAsText = "Access2018")>

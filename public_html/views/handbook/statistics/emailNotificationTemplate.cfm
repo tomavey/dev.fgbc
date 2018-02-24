@@ -355,25 +355,18 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
         <cfif isDefined("params.test") || isDefined("showResults")>
             <cfoutput>
                 <p>Emails were sent to:</p>
-                <cfloop collection=#session.StatsEmailSent# item="org">
-                    #session.statsEmailSent[org].emails# for #session.statsEmailSent[org].name# #session.statsEmailSent[org].city#</br>
+                <cfloop collection=#StatsEmail.Sent# item="org">
+                    #statsEmail.Sent[org].emails# for #statsEmail.Sent[org].name# #statsEmail.Sent[org].city#</br>
                 </cfloop>
                 
                 <br/>
 
                 <p>Emails were NOT sent to:</p>
                 <cfloop collection=#session.StatsEmailFailed# item="org">
-                    #session.statsEmailFailed[org].emails# for #session.statsEmailFailed[org].name# #session.statsEmailFailed[org].city#</br>
+                    #statsEmail.Failed[org].emails# for #statsEmail.Failed[org].name# #statsEmail.Failed[org].city#</br>
                 </cfloop>
             </cfoutput>
         </cfif>    
-        <!---
-        <cfoutput>
-            <cfloop query="listStruct">
-                #args.emails# -  http://charisfellowship.us/sendstats/#args.id# for #args.name#<br/>
-            </cfloop>
-        </cfoutput>    
-        --->
         </td>
     </tr>    
 </table>
