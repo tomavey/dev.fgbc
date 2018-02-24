@@ -362,7 +362,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
                 <br/>
 
                 <p>Emails were NOT sent to:</p>
-                <cfloop collection=#session.StatsEmailFailed# item="org">
+                <cfloop collection=#StatsEmail.Failed# item="org">
                     #statsEmail.Failed[org].emails# for #statsEmail.Failed[org].name# #statsEmail.Failed[org].city#</br>
                 </cfloop>
             </cfoutput>
