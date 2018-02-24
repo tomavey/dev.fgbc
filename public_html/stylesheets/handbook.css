@@ -626,3 +626,7 @@ li.preview {
     color: lightgrey;
     margin-bottom: 5px;
 }
+
+.statsInfo {
+    width:90%;
+}    
