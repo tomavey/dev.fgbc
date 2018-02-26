@@ -4,13 +4,12 @@
 	<cfoutput>#includePartial("showFlash")#</cfoutput>
 
 	<cfoutput>
-
-		#putFormTag()#
-
 				
 				#errorMessagesFor("setting")#
 		
 				#startFormTag(action="update", key=params.key)#
+
+				#putFormTag()#
 			
 				#includePartial("form")#
 					
