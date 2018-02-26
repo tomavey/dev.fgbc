@@ -392,6 +392,7 @@
 		</cfif>
 		<cfoutput>
 		<cfloop query="churches">
+			<cfset args.emails = emails>
 			<cfset args.name = name>
 			<cfset args.city = city>
 			<cfset args.id = id>
