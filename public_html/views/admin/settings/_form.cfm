@@ -9,7 +9,7 @@
 					
 						#textArea(objectName='setting', property='description', label='Description')#
 																
-						#textArea(objectName='setting', property='category', label='Category')#
+						#textField(objectName='setting', property='category', label='Category')#
 				
 </cfoutput>																
 				
