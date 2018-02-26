@@ -1,14 +1,21 @@
 component extends="Controller" output="false" {
   
   public void function init(){
+    filters(through="isAuthorized");
   }
   
-  // fgbc_metas/index
+  public void function isAuthorized(){
+    if (!gotRights("office")){
+      rendertext("you do not have permission to view this page");
+    }
+  }
+
+  // settings/index
   public void function index(){
     settings = model("Fgbcsetting").findAll();
   }
   
-  // fgbc_metas/show/key
+  // settings/show/key
   public void function show(){
     setting = model("Fgbcsetting").findByKey(params.key);
     	
@@ -18,7 +25,7 @@ component extends="Controller" output="false" {
     }
   }
   
-  // fgbc_metas/new
+  // settings/new
   public void function new(){
     setting = model("Fgbcsetting").new();
   }
@@ -33,7 +40,7 @@ component extends="Controller" output="false" {
 	  }
   }
   
-  // fgbc_metas/create
+  // settings/create
   public void function create(){
     setting = model("Fgbcsetting").new(params.setting);
 		
@@ -46,7 +53,7 @@ component extends="Controller" output="false" {
 		}
   }
   
-  // fgbc_metas/update
+  // settings/update
   public void function update(){
     setting = model("Fgbcsetting").findByKey(params.key);
 		
@@ -59,7 +66,7 @@ component extends="Controller" output="false" {
 		}
   }
   
-  // fgbc_metas/delete/key
+  // settings/delete/key
   public void function delete(){
     setting = model("Fgbcsetting").findByKey(params.key);
 
