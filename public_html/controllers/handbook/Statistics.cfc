@@ -406,6 +406,16 @@
 				</cftry>	
 			</cfif>	
 		</cfloop>
+
+		<!----Copy last email to me--->	
+			<cfset args.emails = "tomavey@fgbc.org">
+			<cfset args.name = churches.name>
+			<cfset args.city = churches.city>
+			<cfset args.id = churches.id>
+			<cfif !onLocalhost()>
+					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
+			</cfif>	
+
 		</cfoutput>
 	<cfset renderPage(template="emailNotificationTemplate", layout="/layout_for_email", showResults=true)>
 	</cffunction>
