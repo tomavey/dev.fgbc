@@ -17,6 +17,8 @@
 						
 							<cfcol header="Description" text="#description#" />
 						
+							<cfcol header="Category" text="#Category#" />
+
 							<cfcol header="Created" text="#dateFormat(createdAt)#" />
 						
 							<cfcol header="Updated" text="#dateFormat(updatedAt)#" />
@@ -26,5 +28,19 @@
 			<cfcol header="&nbsp;" text="#linkTo(text='Edit', action='edit', key=id)#" />
 			<cfcol header="&nbsp;" text="#linkTo(text='Delete', action='delete', key=id, confirm='Are you sure?')#" />
 		</cftable>
+	</div>
+	<div>
+	<cfoutput>
+	<p>Actual Application settings:</p>
+		<cfoutput query="settings">
+		<ul>
+			<cftry>
+				<li>#name# - #application.wheels[name]#</li>
+			<cfcatch>
+			</cfcatch>
+			</cftry>
+		</ul>	
+		</cfoutput>
+	</cfoutput>	
 	</div>
 </div>

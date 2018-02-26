@@ -13,9 +13,12 @@
 					<p><span>Setting Value: </span>
 						#setting.value#</p>
 				
+					<p><span>Category:</span>
+						#setting.category#</p>
+				
 					<p><span>Description</span> <br />
 						#setting.description#</p>
-				
+
 					<p><span>Created: </span> 
 						#dateFormat(setting.createdAt)#</p>
 				
