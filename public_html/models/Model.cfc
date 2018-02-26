@@ -143,7 +143,13 @@
 	</cffunction>
 
 	<cffunction name="getEvent">
-		<cfreturn application.wheels.event>
+		<cfif isDefined("url.event")>
+			<cfreturn url.event>
+		<cfelseif isDefined("session.wheels.event")>
+			<cfreturn session.wheels.event>    
+		<cfelse>
+			<cfreturn application.wheels.event>
+		</cfif>
 	</cffunction>
 
 <cfscript>

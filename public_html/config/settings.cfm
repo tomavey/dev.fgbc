@@ -85,7 +85,7 @@
     <cfset set(focusMinistryAreas = "Lead Pastor, Executive Pastor, Worship Arts, Youth, Family, Children, Discipleship, Elder, Small Groups, Pastoral Care, Administration, Associate Pastor, Other")>
 
 <!---Used by Conference Registration--->
-	<cfset set(event="visionconference2018")>
+	<cfset set(event=getSetting("event"))>
 	<cfset set(previousEvent = "visionconference2017")>
 	<cfset set(nextEvent = "visionconference2019")>
 	<cfset set(eventAsText = "Access2018")>
@@ -98,6 +98,7 @@
 	<cfset set(subTypesOfCourses = "A,B,C")>
 	<cfset set(regOpenPromiseDate = "2018-02-20")>	
 	<cfset set(tracksOfCourses = listSort("Leadership Training,Church Planting,Integrated Ministry,Identity Initiative, Business Integration, Contemporary Theological Issues, Worship, Missional Living, Multi-site, France, Womens Studies, Prayer, Creativity,Other", "text"))>
+	<cfset set(testSettings = getSetting("test"))>
 
 <!---options used in dropdowns and menus--->
 	<cfset set(typeOfOptions=listsort("Registration-Couple,Registration-Single,Registration-Group,Registration-Staff,Workshop,Meal,TouristOption,GraceKids-Nursery,GraceKids-Preschool,GraceKids-Elementary,GraceKidsSegments,GraceKidsExcursions,Other,Discount,AutoDiscount,InActive,preRegistration","text"))>
