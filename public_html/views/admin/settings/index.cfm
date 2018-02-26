@@ -17,17 +17,17 @@
 		<cftable query="settings" colHeaders="true" HTMLTable="true">
 			
 						
-							<cfcol header="Variable" text="#name#" />
+							<cfcol header="#linkto(text='Name', params="orderby=name")#" text="#name#" />
 						
-							<cfcol header="Value" text="#value#" />
+							<cfcol header="#linkto(text='Value', params="orderby=value")#" text="#value#" />
 						
-							<cfcol header="Description" text="#description#" />
+							<cfcol header="#linkto(text='Description', params="orderby=description")#" text="#description#" />
 						
-							<cfcol header="Category" text="#Category#" />
+							<cfcol header="#linkto(text='Category', params="orderby=category")#" text="#Category#" />
 
-							<cfcol header="Created" text="#dateFormat(createdAt)#" />
+							<cfcol header="#linkto(text='Created', params="orderby=createdat")#" text="#dateFormat(createdAt)#" />
 						
-							<cfcol header="Updated" text="#dateFormat(updatedAt)#" />
+							<cfcol header="#linkto(text='Updated', params="orderby=updatedat")#" text="#dateFormat(updatedAt)#" />
 						
 				
 			<cfcol header="&nbsp;" text="#showTag()#" />

@@ -252,6 +252,8 @@
 			.get(name="copyOption", pattern="/options/copy/[key]", controller="options", action="copy")
 			.resources("options")
 			.resources("people")
+
+			.get(name="sendAnnouncement", pattern="/announcements/send/[key]", controller="announcements", action="sendAnnouncement")
 			.resources("announcements")
 
 			.get(name="listcoursequestions", pattern="/coursequestions/list/", controller="coursequestions", action="list")
