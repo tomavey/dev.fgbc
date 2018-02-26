@@ -5,6 +5,8 @@
 
 	<cfoutput>
 
+		#putFormTag()#
+
 				
 				#errorMessagesFor("setting")#
 		
