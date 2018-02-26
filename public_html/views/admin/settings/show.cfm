@@ -27,5 +27,5 @@
 				
 		
 
-#linkTo(text="Return to the listing", action="index")# | #linkTo(text="Edit this fgbc_metas", action="edit", key=fgbc_metas.id)#
+#linkTo(text="Return to the listing", action="index")# | #linkTo(text="Edit this settings", action="edit", key=setting.id)#
 </cfoutput>
