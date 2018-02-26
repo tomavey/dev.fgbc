@@ -12,7 +12,11 @@ component extends="Controller" output="false" {
 
   // settings/index
   public void function index(){
-    settings = model("Fgbcsetting").findAll();
+    whereString = "";
+    if (isDefined("params.category")){
+      whereString = "category = '#params.category#'";
+    }
+    settings = model("Fgbcsetting").findAll(where=whereString);
   }
   
   // settings/show/key
