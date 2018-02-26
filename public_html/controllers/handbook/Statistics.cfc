@@ -407,7 +407,6 @@
 			</cfif>	
 		</cfloop>
 		</cfoutput>
-		<cfdump var="#statsEmail#"><cfabort>
 	<cfset renderPage(template="emailNotificationTemplate", layout="/layout_for_email", showResults=true)>
 	</cffunction>
 

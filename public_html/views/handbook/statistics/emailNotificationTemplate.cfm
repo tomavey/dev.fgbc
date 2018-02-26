@@ -142,5 +142,7 @@
         </td>
     </tr>    
 </table>
+<cfdump var="#statsEmail#"><cfabort>
+
 </body>
 </html>
