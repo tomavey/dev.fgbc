@@ -2,7 +2,7 @@ component extends="Controller" output="false" {
   
   public void function init(){
     filters(through="isAuthorized");
-    filters(through="getCategories");
+    filters(through="getCategories", only="index");
   }
   
   public void function isAuthorized(){
@@ -20,10 +20,14 @@ component extends="Controller" output="false" {
   // settings/index
   public void function index(){
     whereString = "";
+    orderString = 'name';
     if (isDefined("params.category")){
       whereString = "category = '#params.category#'";
     }
-    settings = model("Fgbcsetting").findAll(where=whereString, order="name");
+    if (isDefined("params.orderby")){
+      orderString = params.orderby;
+    }
+    settings = model("Fgbcsetting").findAll(where=whereString, order=orderString);
   }
   
   // settings/show/key
