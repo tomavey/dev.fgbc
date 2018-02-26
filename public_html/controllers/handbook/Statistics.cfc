@@ -383,8 +383,8 @@
 
 	<cffunction name="emailAllCurrentNotPaid">
 	<cfset args = structNew()>
-	<cfset statsEmail.Sent = structNew()>
-	<cfset statsEmail.Failed = structNew()>
+	<cfset statsEmail.Sent = []>
+	<cfset statsEmail.Failed = []>
 		<cfif isDefined("params.test")>
 			<cfset churches = makeTestList()>
 		<cfelse>
@@ -396,12 +396,12 @@
 			<cfset args.name = name>
 			<cfset args.city = city>
 			<cfset args.id = id>
-			<cfif !onLocalhost()>
+			<cfif onLocalhost()>
 				<cftry>
 					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
-					<cfset statsEmail.Sent[args.id] = args>
+					<cfset arrayAppend(statsEmail.failed, args)>
 				<cfcatch>
-					<cfset statsEmail.Failed[args.id] = args>
+					<cfset arrayAppend(statsEmail.failed, args)>
 				</cfcatch>
 				</cftry>	
 			</cfif>	

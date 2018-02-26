@@ -126,23 +126,23 @@
         <cfif isDefined("params.test") || isDefined("showResults")>
             <cfoutput>
                 <p>Emails were NOT sent to:</p>
-                <cfloop collection=#StatsEmail.Failed# item="org">
-                    #statsEmail.Failed[org].emails# for #statsEmail.Failed[org].name# #statsEmail.Failed[org].city#</br>
+                <cfloop from="1" to='#arrayLen(statsEmail.Failed)#' index="i">
+                   #i#- #statsEmail.Failed[i].emails# for #statsEmail.Failed[i].name# #statsEmail.Failed[i].city#</br>
                 </cfloop>
                 <br/>
 
                 <p>Emails were sent to:</p>
-                <cfloop collection=#StatsEmail.Sent# item="org">
-                    #statsEmail.Sent[org].emails# for #statsEmail.Sent[org].name# #statsEmail.Sent[org].city#</br>
+                <cfloop from="1" to='#arrayLen(statsEmail.Sent)#' index="org">
+                    #org#- #statsEmail.Sent[org].emails# for #statsEmail.Sent[org].name# #statsEmail.Sent[org].city#</br>
                 </cfloop>
                 
 
             </cfoutput>
         </cfif>    
+        <cfdump var="#statsEmail#">
         </td>
     </tr>    
 </table>
-<cfdump var="#statsEmail#"><cfabort>
 
 </body>
 </html>
