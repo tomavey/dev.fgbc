@@ -13,6 +13,8 @@
 
 			#errorMessagesFor("announcement")#
 
+			#putFormTag()#
+
 			#startFormTag(action="update", key=params.key)#
 
 			#includePartial("form")#
