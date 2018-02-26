@@ -23,7 +23,7 @@
 						#dateFormat(setting.createdAt)#</p>
 				
 					<p><span>Updated: </span>
-						#dateFormate(setting.updatedAt)#</p>
+						#dateFormat(setting.updatedAt)#</p>
 				
 		
 
