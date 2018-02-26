@@ -180,8 +180,3 @@
 	</cffunction>
 
 
-<cfscript>
-	public function getSetting(name){
-		return model("Fgbcsetting").findOne(where="name='#name#'").value;
-	}
-</cfscript>
