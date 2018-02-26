@@ -1,10 +1,16 @@
+<cfparam name="params.category" default="">
 <div class="container">
-	<h1>Listing settings</h1>
-
-	<cfoutput>#includePartial("showFlash")#</cfoutput>
-
 	<cfoutput>
+	<h1>Listing #params.category# settings</h1>
+
+	#includePartial("showFlash")#
+
 		<p>#linkTo(text="New setting", action="new")#</p>
+		<p>Categories: <cfloop list="#categories#" index="i">
+		#linkto(text=i, controller="admin.settings", action="index", params="category=#i#")# 
+		</cfloop>
+		#linkto(text="All", controller="admin.settings", action="index")#
+		</p>
 	</cfoutput>
 
 	<div class="table table-striped">

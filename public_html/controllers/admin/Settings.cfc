@@ -2,6 +2,7 @@ component extends="Controller" output="false" {
   
   public void function init(){
     filters(through="isAuthorized");
+    filters(through="getCategories");
   }
   
   public void function isAuthorized(){
@@ -10,13 +11,19 @@ component extends="Controller" output="false" {
     }
   }
 
+  public function getCategories(){
+    categories =  model("Fgbcsetting").findAll(where="category IS NOT NULL");
+    categories = ValueList(categories.category);
+    categores = listRemoveDuplicates(categories);
+  }
+
   // settings/index
   public void function index(){
     whereString = "";
     if (isDefined("params.category")){
       whereString = "category = '#params.category#'";
     }
-    settings = model("Fgbcsetting").findAll(where=whereString);
+    settings = model("Fgbcsetting").findAll(where=whereString, order="name");
   }
   
   // settings/show/key
