@@ -14,7 +14,6 @@
 <cfif isDefined("params.test")>
     <cfoutput>
         <p>This email was only sent to tomavey@fgbc.org. Click this link when you are ready to send to the complete unpaid list.</p>
-    	#linkTo(text="Send Notifications To ALL not paid", action="emailAllCurrentNotPaid", onlyPath="false", class="btn")#
     </cfoutput>
 </cfif>
 <table class="head-wrap" bgcolor="#ffffff">

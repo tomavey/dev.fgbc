@@ -11,12 +11,6 @@
 </head>
 
 <body bgcolor="#FFFFFF">
-<cfif isDefined("params.test")>
-    <cfoutput>
-        <p>This email was only sent to tomavey@fgbc.org. Click this link when you are ready to send to the complete unpaid list.</p>
-    	#linkTo(text="Send Notifications To ALL not paid", action="emailAllCurrentNotPaid", onlyPath="false", class="btn")#
-    </cfoutput>
-</cfif>
 <table class="head-wrap" bgcolor="#ffffff">
 <tr>
     <td></td>
@@ -68,7 +62,7 @@
                     <table class="social" width="100%">
                         <tr>
                             <td>
-
+<!---
                                 <table align="left" class="column">
                                     <tr>
                                         <td>
@@ -81,7 +75,7 @@
                                         </td>
                                     </tr>
                                 </table>
-
+--->
                                 <table align="left" class="column">
                                     <tr>
                                         <td>
