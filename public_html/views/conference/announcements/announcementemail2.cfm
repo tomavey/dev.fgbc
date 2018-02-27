@@ -55,7 +55,7 @@
                         #announcement.subject#
                     </p>
                     <p>
-                        Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. Look for #linkto(text="this brochure", href="http://charisfellowship.us/files/FGBCStatCard2017-18.pdf")# in your snail-mail requesting your statistics for #year(now())-1# and fellowship fee for #year(now())#.
+                        #paragraphFormat(announcement.content)#
                     </p>
                     <cfif len(announcement.link)>
                         <p>#announcement.link#</p>
