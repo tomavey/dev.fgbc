@@ -183,13 +183,15 @@
 <cfscript>
 	public function getSetting(name){
 		var value = "";
-		var setting = "";
-		setting = model("Fgbcsetting").findOne(where="name='#name#'");
-		if (isObject(setting)){
-			value = setting.value;
-		}
-		else {
-			value = false;
+		var setting = model("Fgbcsetting").findOne(where="name='#name#'").value;
+		if (isDefined("params[name]")){
+			value = params[name];
+		} elseif (isDefined("session.settings[name]")){	
+			value = session.settings[name];	
+		} elseif (isDefined("setting")){
+			value = setting;	
+		} elseif (isDefined("application.wheels[name]")){
+			value = application.wheels[name];
 		};
 		return value;
 	}
