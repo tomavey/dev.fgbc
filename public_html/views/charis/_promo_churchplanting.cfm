@@ -12,11 +12,12 @@
           <span class="d-block g-color-white g-font-size-20 g-pos-rel g-top-minus-30--md g-line-height-1_2 ml-md-0"></span>
             </div>
             <div class="col-lg-6">
-              <!-- Vimeo Example -->
+              <p class="g-color-white g-font-weight-700 g-font-size-20 text-right">Charis Fellowship churches plant new churches! The Charis Fellowship ministries listed below help Charis Fellowship churches plant healthy reproducing churches...</p>
+              <!-- Vimeo Example 
               <div class="embed-responsive embed-responsive-16by9">
                 <iframe src="https://player.vimeo.com/video/242131178" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe><p><a href="https://vimeo.com/242131178">Mark Artrip about Planting Churches</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>
               </div>
-              <!-- End Vimeo Example -->
+              End Vimeo Example -->
             </div>
           </div>
         </div>
