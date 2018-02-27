@@ -169,6 +169,7 @@
         <cfelse>
             <cfset thissubject="#getEventAsTextA()# Announcement: #announcement.subject#">
         </cfif>
+        <cfdump var="#thissubject#"><cfabort>
         <cfif isDefined("announcement.dontsendto")>
             <cfset args.dontsendto = announcement.dontsendto>
         </cfif>    
