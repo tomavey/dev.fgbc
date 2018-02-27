@@ -14,13 +14,13 @@
 </cffunction>
 
 <cffunction name="getEvent">
-                    <cfif isDefined("params.event")>
-                        <cfreturn params.event>
-                    <cfelseif preRegIsOpen()>
-                        <cfreturn super.getNextEvent()>
-                    <cfelse>
-                        <cfreturn super.getEvent()>
-                     </cfif>
+		<cfif isDefined("params.event")>
+			<cfreturn params.event>
+		<cfelseif preRegIsOpen()>
+			<cfreturn super.getNextEvent()>
+		<cfelse>
+			<cfreturn super.getEvent()>
+		</cfif>
 </cffunction>
 
 <cffunction name="clearSession">

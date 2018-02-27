@@ -35,6 +35,8 @@
 			<cfcol header="&nbsp;" text="#deleteTag(class="noajax")#" />
 		</cftable>
 	</div>
+
+<!---
 	<div>
 	<cfoutput>
 	<p>Actual Application settings:</p>
@@ -49,4 +51,6 @@
 		</cfoutput>
 	</cfoutput>	
 	</div>
+--->	
+
 </div>

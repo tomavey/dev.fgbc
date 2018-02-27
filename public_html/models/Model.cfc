@@ -143,10 +143,13 @@
 	</cffunction>
 
 	<cffunction name="getEvent">
+        <cfset var setting = getSetting("event")>
 		<cfif isDefined("url.event")>
 			<cfreturn url.event>
 		<cfelseif isDefined("session.wheels.event")>
 			<cfreturn session.wheels.event>    
+		<cfelseif setting NEQ false>
+			<cfreturn setting>     
 		<cfelse>
 			<cfreturn application.wheels.event>
 		</cfif>

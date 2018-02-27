@@ -3,6 +3,7 @@ component extends="Controller" output="false" {
   public void function init(){
     filters(through="isAuthorized");
     filters(through="getCategories", only="index");
+    filters(through="setReturn", only="index,show");
   }
   
   public void function isAuthorized(){
@@ -61,7 +62,7 @@ component extends="Controller" output="false" {
 		
 		if (setting.save()){
 			flashInsert(success="The setting was created successfully.");
-      redirectTo(action="index");
+      returnBack();
 		} else {
 		  flashInsert(error="There was an error creating the setting.");
 		  renderPage(action="new");
@@ -74,7 +75,7 @@ component extends="Controller" output="false" {
 		
 		if (setting.update(params.setting)){
 		  flashInsert(success="The segtting was updated successfully.");
-      redirectTo(action="index");
+      returnBack();
 		} else {
 		  flashInsert(error="There was an error updating the setting.");
 			renderPage(action="edit");

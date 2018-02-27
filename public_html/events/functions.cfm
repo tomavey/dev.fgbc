@@ -182,6 +182,15 @@
 
 <cfscript>
 	public function getSetting(name){
-		return model("Fgbcsetting").findOne(where="name='#name#'").value;
+		var value = "";
+		var setting = "";
+		setting = model("Fgbcsetting").findOne(where="name='#name#'");
+		if (isObject(setting)){
+			value = setting.value;
+		}
+		else {
+			value = false;
+		};
+		return value;
 	}
 </cfscript>

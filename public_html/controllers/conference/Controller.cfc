@@ -59,18 +59,24 @@
 	</cffunction>
 
 	<cffunction name="getEvent">
-                    <cfif isDefined("url.event")>
-                        <cfreturn url.event>
-                    <cfelseif isDefined("session.wheels.event")>
-                        <cfreturn session.wheels.event>    
-                    <cfelse>
-                        <cfreturn application.wheels.event>
-                    </cfif>
+            <cfset var setting = getSetting("event")>
+            <cfif isDefined("url.event")>
+                <cfreturn url.event>
+            <cfelseif isDefined("session.wheels.event")>
+                <cfreturn session.wheels.event>  
+            <cfelseif setting NEQ false>
+                <cfreturn setting>     
+            <cfelse>
+                <cfreturn application.wheels.event>
+            </cfif>
 	</cffunction>
 
 	<cffunction name="getEventAsText">
+            <cfset var setting = getSetting("eventAsText")>
             <cfif isDefined("params.eventAsText")>
                 <cfreturn params.eventAsText>
+            <cfelseif setting NEQ false>
+                <cfreturn setting>     
             <cfelse>
                 <cfreturn application.wheels.eventAsText>
             </cfif>
