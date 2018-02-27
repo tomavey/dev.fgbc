@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
+	<meta name="viewport" content="width=device-width">
 	<cfoutput>
 		#styleSheetLinkTag("bootstrap,handbook,/assets/vendor/icon-awesome/css/font-awesome.min")#
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>

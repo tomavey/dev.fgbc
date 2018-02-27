@@ -15,6 +15,8 @@
 
 			#startFormTag(action="update", key=params.key)#
 
+			#putFormTag()#
+
 			#includePartial("form")#
 
 			#submitTag()#

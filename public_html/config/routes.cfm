@@ -3,6 +3,7 @@
 	The default route is the one that will be called on your application's "home" page.
 <cfset addRoute(name="home", pattern="", controller="home", action="index")>
 	Routes are not cascading, the first pattern that applied is used.
+	So put routes with [key] before the same route without.
 	So put specific routes before "resource()" routes
 --->
 <cfscript>
@@ -23,6 +24,7 @@
 			.resources("jobs")
 			.resources("menus")
 			.resources("messages")
+			.resources("settings")
 
 			.get(name="listMinistries", pattern="/ministries/list/", controller="ministries", action="list")
 			.get(name="simpleListMinistries", pattern="/ministries/simplelist/", controller="ministries", action="simplelist")
@@ -57,6 +59,7 @@
 		.end()
 
 		.namespace("handbook")
+			.get(name="downloadmemberchurchesadmin", pattern="/admin/downloadmemberchurches/[key]", controller="admin", action="downloadMemberChurches")
 			.get(name="downloadmemberchurchesadmin", pattern="/admin/downloadmemberchurches/", controller="admin", action="downloadMemberChurches")
 			.resources("admin")
 			.resources("agbm")
@@ -133,6 +136,8 @@
 			.get(name="deliquencies", pattern="/stats/deliquent/", controller="statistics", action="delinquent")
 			.get(name="allCurrent", pattern="/stats/allCurrent/", controller="statistics", action="allCurrent")
 			.get(name="allCurrentKey", pattern="/stats/allCurrent/[key]", controller="statistics", action="allCurrent")
+			.get(name="allCurrentNotPaid", pattern="/stats/allCurrentNotPaid/", controller="statistics", action="allCurrentNotPaid")
+			.get(name="emailAllCurrentNotPaid", pattern="/stats/emailAllCurrentNotPaid/", controller="statistics", action="emailAllCurrentNotPaid")
 			.get(name="statsSummary", pattern="/statistics/getSummary/[key]", controller="statistics", action="getSummary")
 			.get(name="churchGrowth", pattern="/statistics/churchgrowth/", controller="statistics", action="churchgrowth")
 			.get(name="statsHistory", pattern="/statistics/history/", controller="statistics", action="stathistory")
@@ -204,6 +209,7 @@
 			.get(name="deleteregistration", pattern="/registrations/[key]/delete/", controller="registrations", action="delete")
 			.get(name="whoIsComing", pattern="/registrations/whoiscoming/[key]", controller="registrations", action="whoiscoming")
 			.get(name="summary", pattern="/registrations/summary/", controller="registrations", action="summary")
+			.get(name="list", pattern="/registrations/list/", controller="registrations", action="list")
 			.resources("registrations")
 						
 			.resources("registrants")
@@ -246,6 +252,8 @@
 			.get(name="copyOption", pattern="/options/copy/[key]", controller="options", action="copy")
 			.resources("options")
 			.resources("people")
+
+			.get(name="sendAnnouncement", pattern="/announcements/send/[key]", controller="announcements", action="sendAnnouncement")
 			.resources("announcements")
 
 			.get(name="listcoursequestions", pattern="/coursequestions/list/", controller="coursequestions", action="list")

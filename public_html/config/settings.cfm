@@ -4,6 +4,7 @@
 	if (cgi.http_host is "localhost:8080" || cgi.http_host is "localhost:8888" || cgi.http_host is "fgbc:8080" || cgi.http_host is "fgbc:8888") {
 		set(dataSourceUserName="root");
 		set(dataSourcePassword="j11itbwtw"); 
+		set(OnLocalhost = "true");
 	}
 	else {
 		set(dataSourceUserName="tomavey.fgbc");
@@ -81,7 +82,7 @@
 	<cfset set(testAgents = "tomavey@fgbc.org,sandy@fgbc.org")>
 	<cfset set(optionTypes = "Public,Discount,Office")>
 	<cfset set(focusIsOpen = true)>
-            <cfset set(focusMinistryAreas = "Lead Pastor, Executive Pastor, Worship Arts, Youth, Family, Children, Discipleship, Elder, Small Groups, Pastoral Care, Administration, Associate Pastor, Other")>
+    <cfset set(focusMinistryAreas = "Lead Pastor, Executive Pastor, Worship Arts, Youth, Family, Children, Discipleship, Elder, Small Groups, Pastoral Care, Administration, Associate Pastor, Other")>
 
 <!---Used by Conference Registration--->
 	<cfset set(event="visionconference2018")>

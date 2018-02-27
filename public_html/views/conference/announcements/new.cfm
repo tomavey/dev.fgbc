@@ -21,6 +21,6 @@
 #linkTo(text="Return to the listing", action="list")# |
 #linkTo(text="HTML for Button", action="button", target="_new")#
 <br/><br/>
-<p> Email list: #regEmailLessNotList()#</p>
+<p> Email list: #$regEmailLessNotList()#</p>
 </cfoutput>
 </div>

@@ -17,7 +17,7 @@
 					
 	#select(objectName="handbookstatistic", property="churchplanting", label="Are you planning to start a new church?", options="NA,No,Yes", class="input-small")#
 
-	#textField(objectName="handbookstatistic", property="churchplantingcontact", label="Who (name and email) can we contact about information about this new church?", class="tooltipside", title="Who can we call?")#
+	#textField(objectName="handbookstatistic", property="churchplantingcontact", label="Who (name and email) can we contact for information about this new church?", class="tooltipside", title="Who can we call?")#
 
 	<cfif params.action is "submit">
 		#hiddenField(objectName='handbookstatistic', property='year')#

@@ -6,8 +6,8 @@
 					<p>#paragraphFormat(announcement.content)#</p>
 
 Announcement was sent to: 
-<cfloop list="#regEmails()#" index="i">
-	<cfif not listFind(emailnotList(),i)>
+<cfloop list="#$regEmails()#" index="i">
+	<cfif not listFind($emailnotList(),i)>
 		#i#; 
 	</cfif>
 </cfloop>

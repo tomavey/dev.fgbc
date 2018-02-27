@@ -77,6 +77,7 @@
 						<li>#linkto(text="Workshop Email List", controller="conference.families", action="badges", params="forWorkshops")#</li>
 						<li>#linkto(text="User Accounts", controller="conference.users", action="index")#</li>
 						<li>#linkto(text="Group Rate for 1", controller="conference.register", action="selectOptions", params="group=1&useoptionscount")#</li>
+						<li>#linkto(text="Settings", controller="admin.settings", action="index", params="category=conference")#</li>
 						<li>
 							#linkto(
 								text="Mail List for Posters",
