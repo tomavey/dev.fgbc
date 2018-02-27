@@ -80,7 +80,7 @@
                                     <tr>
                                         <td>
                                             <h5 class="">Contact Info:</h5>
-                                            <p>Phone: <strong>574.269.1269</strong><br />
+                                            <p>Phone: <strong>574.574.6061</strong><br />
                                             Email: <strong><a href="emailto:tomavey@charisfellowship.us">tomavey@charisfellowship.us</a></strong></p>
                                         </td>
                                     </tr>
