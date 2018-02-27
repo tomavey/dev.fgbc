@@ -176,13 +176,13 @@
         <cfloop list="#args.useThisEmailList#" index="i">
             <cfif isValid("email",trim(i))>
                 <cfif application.wheels.environment is "Production">
-                    <cfset sendEmail(template="announcementemail", from=announcement.author, to=trim(i), subject=thissubject, layout="/conference/layout_for_announcements")>
+                    <cfset sendEmail(template="announcementemail2", from=announcement.author, to=trim(i), subject=thissubject, layout="/conference/layout_for_announcements")>
                 </cfif>
             </cfif>
         </cfloop>
         <cfset showThisEmailList = args.useThisEmailList>
         <cfif application.wheels.environment is "Development">
-            <cfset renderpage(layout="/conference/layout_for_announcements", template="announcementemail")>
+            <cfset renderpage(layout="/conference/layout_for_announcements", template="announcementemail2")>
         </cfif>
     </cffunction>
 
