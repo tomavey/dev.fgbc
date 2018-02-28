@@ -15,13 +15,18 @@ component extends="Controller" output="false" {
   public function getCategories(){
     categories =  model("Fgbcsetting").findAll(where="category IS NOT NULL");
     categories = ValueList(categories.category);
-    categores = listRemoveDuplicates(categories);
+    categories = listRemoveDuplicates(categories,",",true);
+    categories = listSort(categories,"TextNoCase");
   }
 
   // settings/index
   public void function index(){
     whereString = "";
     orderString = 'name';
+    if (isDefined("params.clearSessionSettings")){
+        structDelete(session, "settings");
+        structDelete(session, "settings");
+    }
     if (isDefined("params.category")){
       whereString = "category = '#params.category#'";
     }
@@ -29,6 +34,9 @@ component extends="Controller" output="false" {
       orderString = params.orderby;
     }
     settings = model("Fgbcsetting").findAll(where=whereString, order=orderString);
+    if(isDefined("params.category") && params.category is "conference"){
+      renderPage(layout="/conference/adminlayout");
+    }
   }
   
   // settings/show/key
@@ -74,25 +82,36 @@ component extends="Controller" output="false" {
     setting = model("Fgbcsetting").findByKey(params.key);
 		
 		if (setting.update(params.setting)){
-		  flashInsert(success="The segtting was updated successfully.");
+		  flashInsert(success="The setting was updated successfully.");
       returnBack();
 		} else {
 		  flashInsert(error="There was an error updating the setting.");
 			renderPage(action="edit");
 		}
   }
-  
+
+  // settings/copy
+  public void function copy(){
+    setting = model("Fgbcsetting").findByKey(params.key);
+		
+		if (!isObject(setting)){
+		  flashInsert(error="Setting #paraams.key# was not found.");
+      returnBack();
+		}
+			renderPage(action="new");
+		}
+  }
+
   // settings/delete/key
   public void function delete(){
     setting = model("Fgbcsetting").findByKey(params.key);
 
 		if (setting.delete()){
 			flashInsert(success="The setting was deleted successfully.");
-      redirectTo(action="index");
+      returnBack();
     } else {
       flashInsert(error="There was an error deleting the setting.");
 			redirectTo(action="index");
-    }
   }
   
 }

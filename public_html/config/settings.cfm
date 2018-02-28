@@ -89,6 +89,7 @@
 	<cfset set(previousEvent = "visionconference2017")>
 	<cfset set(nextEvent = "visionconference2019")>
 	<cfset set(eventAsText = "Access2018")>
+	<cfset set(previouseventAsText = "Access2017")>
 	<cfset set(webpage = "http://www.access2018.com")>
 	<cfset set(discountTypes = "dollar,percent,maximum")>
 	<cfset set(dollar = "USD")>

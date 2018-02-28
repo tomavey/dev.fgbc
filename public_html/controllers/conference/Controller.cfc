@@ -502,6 +502,18 @@
     }
         }
 
+    public function changeSessionSettingsToPreviousConference(){
+            session.settings.event = application.wheels.previousevent;
+            session.settings.eventastext = application.wheels.previouseventastext;
+            redirectTo(controller="conference.registrations", action="index");
+    }
+
+    public function clearSessionSettingsForEvent(){
+            structDelete(session.settings, "event");
+            structDelete(session.settings, "eventAsText");
+            redirectTo(controller="conference.registrations", action="index");
+   }
+
 </cfscript>
 
 </cfcomponent>

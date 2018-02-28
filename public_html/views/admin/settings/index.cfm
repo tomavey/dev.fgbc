@@ -32,9 +32,18 @@
 				
 			<cfcol header="&nbsp;" text="#showTag()#" />
 			<cfcol header="&nbsp;" text="#editTag()#" />
+			<cfcol header="&nbsp;" text="#copyTag()#" />
 			<cfcol header="&nbsp;" text="#deleteTag(class="noajax")#" />
 		</cftable>
 	</div>
+	<cftry>
+	<cfdump var="#session.settings#" label="Session Settings">
+	<cfoutput>
+		#linkTo(text="Clear Session Settings", params="clearSessionSettings=1")#
+	</cfoutput>
+	<cfcatch>
+	</cfcatch>
+	</cftry>
 
 <!---
 	<div>
