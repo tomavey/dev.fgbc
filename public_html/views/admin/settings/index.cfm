@@ -32,7 +32,7 @@
 				
 			<cfcol header="&nbsp;" text="#showTag()#" />
 			<cfcol header="&nbsp;" text="#editTag()#" />
-			<cfcol header="&nbsp;" text="#copyTag(controller="settings")#" />
+			<cfcol header="&nbsp;" text="#copyTag()#" />
 			<cfcol header="&nbsp;" text="#deleteTag(class="noajax")#" />
 		</cftable>
 	</div>
