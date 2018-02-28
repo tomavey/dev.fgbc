@@ -1,7 +1,7 @@
 <cfparam name="params.category" default="">
 <div class="container">
 	<cfoutput>
-	<h1>Listing #params.category# settings</h1>
+	<h1>Listing #params.category# settings:</h1>
 
 	#includePartial("showFlash")#
 
@@ -32,7 +32,7 @@
 				
 			<cfcol header="&nbsp;" text="#showTag()#" />
 			<cfcol header="&nbsp;" text="#editTag()#" />
-			<cfcol header="&nbsp;" text="#copyTag()#" />
+			<cfcol header="&nbsp;" text="#copyTag(controller="settings")#" />
 			<cfcol header="&nbsp;" text="#deleteTag(class="noajax")#" />
 		</cftable>
 	</div>
