@@ -17,7 +17,7 @@
 			.resources("blogs")
 			.resources("contents")
 
-			.get(name="copySettings", pattern="/settings/[key]/delete/", controller="settings", action="copy")
+			.get(name="copySettings", pattern="/settings/[key]/copy/", controller="settings", action="copy")
 			.resources("settings")
 
 			.controller("events")
