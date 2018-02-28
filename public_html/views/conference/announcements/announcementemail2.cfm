@@ -44,7 +44,7 @@
                 <td>
 
                     <cfoutput>
-                    <h3>Attention #getEventAsText()# registerees...</h3>
+                    <h3>To: #getEventAsText()# people...</h3>
                     <p class="lead">
                         #announcement.subject#
                     </p>
