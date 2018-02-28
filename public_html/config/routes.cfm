@@ -267,6 +267,7 @@
 			
 			.get(name="registration", pattern="/registration/", controller="register", action="welcome")
 			.get(name="register", pattern="/register/", controller="register", action="welcome")
+			.get(name="changeSessionSettingsToPreviousConference", pattern="/changeSessionSettingsToPreviousConference", controller="registrations", action="changeSessionSettingsToPreviousConference")
 			.get(name="deleteregistration", pattern="/registrations/[key]/delete", controller="registrations", action="delete")
 			.get(name="showregistration", pattern="/registrations/[key]", controller="registrations", action="show")
 			.resources("registrations")
