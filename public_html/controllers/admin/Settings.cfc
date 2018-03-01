@@ -23,6 +23,9 @@ component extends="Controller" output="false" {
   public void function index(){
     whereString = "";
     orderString = 'name';
+    if (isDefined("params.category") && params.category is "conference"){
+      showGetSettingFor = "registrationIsOpen,groupregistrationIsOpen,convertGroupRegistrationIsOpen, monitoring,mealsregistrationIsOpen,optionsregistrationIsOpen,preregistrationIsOpen,ccareregistrationIsOpen,exhibitorsIsOpen,regAccountIsOpen,workshopsRegIsOpen,workshopsEventsAreSet,workshopNotificationsOpen,showFacilitatorsWithCourse,showSubTypesOfCourses,delegatesSubmitIsOpen";
+    }
     if (isDefined("params.clearSessionSettings")){
         structDelete(session, "settings");
         structDelete(session, "settings");

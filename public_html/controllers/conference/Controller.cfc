@@ -147,26 +147,31 @@
 		<cfreturn application.wheels.webpage>
 	</cffunction>
 
-	<cffunction name="workshopsRegOpen">
-	<cfif application.wheels.workshopsRegIsOpen OR gotRights("office") or isDefined("params.openreg") || (isDefined("session.auth.openWorkshops") && session.auth.openWorkshops)>
-		<cfreturn true>
-	<cfelse>
-		<cfreturn false>
-	</cfif>
-	</cffunction>
 
-    <cffunction name="regIsOpen">
-    <cfif application.wheels.registrationIsOpen OR gotRights("office") || isDefined("params.openreg") || isDefined("session.auth.openreg")>
-        <cfreturn true>
-    <cfelse>
-        <cfreturn false>
-    </cfif>
-    </cffunction>
+<!---------------------------------------------->
+<!---Getters for what is open and what is not--->
+<!---------------------------------------------->
 
 <cfscript>
 
+    public function regIsOpen(){
+        if (getSetting("registrationIsOpen") OR gotRights("office") || isDefined("params.openreg") || isDefined("session.auth.openreg")){
+            return true;
+        } else {
+            return false;
+        }
+    }    
+
+	public function workshopsRegOpen(){
+    	if (getSetting("workshopsRegIsOpen") OR gotRights("office") or isDefined("params.openreg") || (isDefined("session.auth.openWorkshops") && session.auth.openWorkshops)){
+            return true;
+        } else {
+            return false;
+        }
+    }    
+
     public function preRegIsOpen(){
-        if (application.wheels.preregistrationIsOpen) {
+        if (getSetting("preregistrationIsOpen")) {
             return true;
         }
         else {
@@ -175,7 +180,7 @@
     }
 
     public function groupRegIsOpen(){
-        if (application.wheels.groupregistrationIsOpen || gotRights("office") || isDefined(
+        if (getSetting("groupregistrationIsOpen") || gotRights("office") || isDefined(
         "params.opengroupsreg") || isDefined("session.auth.opengroupsreg")) {
             return true;
         }
@@ -185,7 +190,7 @@
     }
 
     public function convertGroupRegIsOpen(){
-        if (application.wheels.convertGroupRegistrationIsOpen || gotRights("office") || isDefined(
+        if (getSetting("convertGroupRegistrationIsOpen") || gotRights("office") || isDefined(
         "params.convertGroupRegistrationIsOpen") || isDefined("session.auth.convertGroupRegistrationIsOpen")) {
             return true;
         }
@@ -195,7 +200,7 @@
     }
 
     public function mealsRegIsOpen(){
-        if (application.wheels.mealsregistrationIsOpen OR gotRights("office") or isDefined("params.openreg") || isDefined("session.auth.openreg")) {
+        if (getSetting("mealsregistrationIsOpen") || gotRights("office") || isDefined("params.openreg") || isDefined("session.auth.openreg")) {
             return true;            
         }
         else {
@@ -204,7 +209,7 @@
     }    
 
     public function childRegIsOpen(){
-        if ((application.wheels.ccareregistrationIsOpen && isBefore(application.wheels.ccareregistrationDeadline)) OR gotRights("office") or isDefined("params.openreg") || isDefined("session.auth.openreg")){
+        if ((getSetting("ccareregistrationIsOpen") && isBefore(getSetting("ccareregistrationDeadline"))) OR gotRights("office") or isDefined("params.openreg") || isDefined("session.auth.openreg")){
             return true;
         }
         else {
@@ -213,7 +218,7 @@
     }
 
     public function regAccountIsOpen(){
-        if (application.wheels.regAccountIsOpen OR gotRights("office") or isDefined("params.openreg") || isDefined("session.auth.openreg")){
+        if (getSetting("regAccountIsOpen") OR gotRights("office") or isDefined("params.openreg") || isDefined("session.auth.openreg")){
             return true;
         }
         else {
@@ -222,7 +227,7 @@
     }
 
     public function optionsRegIsOpen(){
-        if (application.wheels.optionsregistrationIsOpen || isDefined("params.openreg") || isDefined("session.auth.openreg")){
+        if (getSetting("optionsregistrationIsOpen") || isDefined("params.openreg") || isDefined("session.auth.openreg")){
             return true;
         }
         else {
@@ -231,7 +236,7 @@
     }
 
     public function regOpenPromiseDate(){
-        return application.wheels.regOpenPromiseDate;
+        return getSetting("regOpenPromiseDate");
     }
 
 

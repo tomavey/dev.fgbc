@@ -37,13 +37,26 @@
 		</cftable>
 	</div>
 	<cftry>
-	<cfdump var="#session.settings#" label="Session Settings">
-	<cfoutput>
-		#linkTo(text="Clear Session Settings", params="clearSessionSettings=1")#
-	</cfoutput>
-	<cfcatch>
-	</cfcatch>
+	<div>
+		<cfdump var="#session.settings#" label="Session Settings">
+		<cfoutput>
+			#linkTo(text="Clear Session Settings", params="clearSessionSettings=1")#
+		</cfoutput>
+		<cfcatch>
+		</cfcatch>
+	</div>
 	</cftry>
+
+	<cfif isDefined("params.category") && params.category is "Conference">
+		<div>
+		<p>These are conference settings for someone without elevated rights:</p>
+			<cfoutput>
+			<cfloop list="#showGetSettingFor#" index="i">
+			#i# - #getSetting(trim(i))#<br/>
+			</cfloop>
+			</cfoutput>
+		</div>
+	</cfif>
 
 <!---
 	<div>
