@@ -45,9 +45,9 @@
 			<h1>... however, you can still purchase discounted registrations for #getEvent()# here...</h1>
 			<p>&nbsp;</p>
 
-				#linkTo(text="Pre Register for Access2017 Now", action="selectoptions", params="options=1&openreg=1", class="btn btn-large btn-block btn-info")#
+				#linkTo(text="Pre Register for #getSettings("eventAsText")# Now", action="selectoptions", params="options=1&openreg=1", class="btn btn-large btn-block btn-info")#
 	<cfelse>
-			<p>We are preparing registration envelopes for #getEvent()#.  If you still need to register or purchase meal tickets, go directly to the Welcome Center when you arrive to register and purchase meal ticket if they are still available.</p>
+			<p>We are preparing registration envelopes for #getSettings("eventAsText")#.  If you still need to register or purchase meal tickets, go directly to the Welcome Center when you arrive to register and purchase meal ticket if they are still available.</p>
 	</cfif>
 
 </cfoutput>
