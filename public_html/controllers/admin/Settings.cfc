@@ -24,7 +24,7 @@ component extends="Controller" output="false" {
     whereString = "";
     orderString = 'name';
     if (isDefined("params.category") && params.category is "conference"){
-      showGetSettingFor = "registrationIsOpen,groupregistrationIsOpen,convertGroupRegistrationIsOpen, monitoring,mealsregistrationIsOpen,optionsregistrationIsOpen,preregistrationIsOpen,ccareregistrationIsOpen,exhibitorsIsOpen,regAccountIsOpen,workshopsRegIsOpen,workshopsEventsAreSet,workshopNotificationsOpen,showFacilitatorsWithCourse,showSubTypesOfCourses,delegatesSubmitIsOpen";
+      showGetSettingFor = "registrationIsOpen,groupregistrationIsOpen,convertGroupRegistrationIsOpen, monitoring,mealsregistrationIsOpen,optionsregistrationIsOpen,preregistrationIsOpen,ccareregistrationIsOpen,exhibitorsIsOpen,regAccountIsOpen,workshopsRegIsOpen,workshopsEventsAreSet,workshopNotificationsOpen,showFacilitatorsWithCourse,showSubTypesOfCourses,delegatesSubmitIsOpen,regOpenPromiseDate";
     }
     if (isDefined("params.clearSessionSettings")){
         structDelete(session, "settings");

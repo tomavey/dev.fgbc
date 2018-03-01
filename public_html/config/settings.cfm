@@ -97,7 +97,6 @@
 	<cfset set(nameForCourses = "Cohorts/Excursions/Workshops")>
 	<cfset set(typesOfCourses = "Cohorts, Excursions, Workshops, Celebration")>	
 	<cfset set(subTypesOfCourses = "A,B,C")>
-	<cfset set(regOpenPromiseDate = "2018-02-20")>	
 	<cfset set(tracksOfCourses = listSort("Leadership Training,Church Planting,Integrated Ministry,Identity Initiative, Business Integration, Contemporary Theological Issues, Worship, Missional Living, Multi-site, France, Womens Studies, Prayer, Creativity,Other", "text"))>
 
 <!---options used in dropdowns and menus--->
@@ -124,6 +123,7 @@
 
 <!---What is open and what is not--->
 	<cfset set(registrationIsOpen = false)>
+	<cfset set(regOpenPromiseDate = "2018-02-20")>	
 	<cfset set(groupregistrationIsOpen = false)>
 	<cfset set(convertGroupRegistrationIsOpen = false)>
 	<cfset set(monitoring = false)>
