@@ -1002,7 +1002,7 @@
 	<cfif CGI.http_host CONTAINS "localhost:8888">
 		<cfset payonline.url = "http://localhost:8888/index.cfm?controller=conference.register&action=confirm">
 	<cfelse>
-		<cfset payonline.url = "http://fgbc.org/index.cfm?controller=conference.register&action=confirm">
+		<cfset payonline.url = "http://#CGI.http_host#/index.cfm?controller=conference.register&action=confirm">
 	</cfif>
 
 	<cfset renderPage(template="payonline")>
@@ -1020,7 +1020,7 @@
 	<cfif CGI.http_host CONTAINS "localhost:8888">
 		<cfset payonline.url = "http://localhost:8888/index.cfm?controller=conference.register&action=confirm">
 	<cfelse>
-		<cfset payonline.url = "http://fgbc.org/index.cfm?controller=conference.register&action=confirm">
+		<cfset payonline.url = "http://#CGI.http_host#/index.cfm?controller=conference.register&action=confirm">
 	</cfif>
 	<cfif val(payonline.amount) is 0>
 		<cfset redirectTo(action="confirm", params="email=tomavey@fgbc.org&nameoncard=Tom Avey&total=1&status=1&key=#session.registrationcart.invoiceid#")>
