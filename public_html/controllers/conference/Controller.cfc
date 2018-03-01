@@ -189,6 +189,16 @@
         }
     }
 
+    public function myRegsIsOpen(){
+        if (getSetting("regAccountIsOpen") || gotRights("office") || isDefined(
+        "params.openmyregs") || isDefined("session.auth.openmyregs")) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public function convertGroupRegIsOpen(){
         if (getSetting("convertGroupRegistrationIsOpen") || gotRights("office") || isDefined(
         "params.convertGroupRegistrationIsOpen") || isDefined("session.auth.convertGroupRegistrationIsOpen")) {

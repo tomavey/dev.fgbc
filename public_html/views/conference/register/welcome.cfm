@@ -14,9 +14,11 @@
 			<p style="text-align:center">
 				Your registration covers all plenary sessions, collaboration groups, access to discounted meals, excrusion events, discounted room rate and access to Grace Kids. 
 			</p>
-			<p style="text-align:center">
-				#linkto(text="My Regs", route="conferencemyreg", class="btn")#
-			</p>	
+			<cfif myRegsIsOpen()>
+				<p style="text-align:center">
+					#linkto(text="My Regs", route="conferencemyreg", class="btn")#
+				</p>	
+			</cfif>
 
 			<cfif preRegIsOpen() && !regIsOpen()>
 				#linkTo(text="Pre Register Now", action="selectoptions", params="single=", class="btn btn-large btn-block btn-info")#
