@@ -343,6 +343,7 @@
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
 		.get(name="questions", pattern="/questions", controller="messages", action="cci_new")
 		.get(name="conferencereg", pattern="/conference", controller="conference.register", action="welcome")
+		.get(name="conferencereg2", pattern="/conference", controller="conference.-register", action="welcome")
         .get(name="conferencemyreg", pattern="/conference/myregs/", controller="conference.users", action="my-regs")
 		.get(name="conferenceregsummary", pattern="/conference/summary/", controller="conference.registrations", action="summary")
 		.get(name="handbook", pattern="/handbook", controller="handbook.welcome", action="index")
