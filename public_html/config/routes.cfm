@@ -243,6 +243,7 @@
 
 			.get(name="newexhibitform", pattern="/exhibit/", controller="exhibits", action="new")
 			.get(name="deleteexhibits", pattern="/exhibits/[key]/delete", controller="exhibits", action="delete")
+			.get(name="exhibitsinfo", pattern="/exhibits/info/", controller="exhibits", action="info")
 			.resources("exhibits")
 			
 			.resources("families")
