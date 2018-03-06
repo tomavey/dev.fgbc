@@ -63,7 +63,7 @@
 	<cffunction name="new">
 		<cfset exhibit = model("Conferenceexhibit").new()>
 		<cfset introTitle = "Exhibitors Request Form">
-		<cfset renderPage(layout="/conference/layout2017")>
+		<cfset renderPage(layout="/conference/layout2018")>
 	</cffunction>
 
 	<!--- exhibits/edit/key --->
@@ -97,7 +97,7 @@
 	<cffunction name="thankyou">
 		<cfset exhibit = Model("Conferenceexhibit").findByKey(params.key)>
 		<cfset introTitle = "Thank you!">
-		<cfset renderPage(layout="/conference/layout")>
+		<cfset renderPage(layout="/conference/layout2018")>
 	</cffunction>
 
 	<cffunction name="info">

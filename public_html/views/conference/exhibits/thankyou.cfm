@@ -1,5 +1,5 @@
 <div id="exhibitorthankyou" class="container">
-<h1>Thank you for requesting exhibit space at the Vision Conference. <br/>We will contact you soon!</h1>
+<h1>Thank you for requesting exhibit space at the #getEventASText()#. <br/>We will contact you soon!</h1>
 <cfoutput>
 <div class="well">
 					<p><span>Organization:</span>
