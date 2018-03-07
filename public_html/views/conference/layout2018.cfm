@@ -22,6 +22,18 @@
 
     <link rel="stylesheet" href="/stylesheets/conference/bootstrap.css" type="text/css">
 
+    <link rel="stylesheet" href="/stylesheets/conference/regstyle.css" type="text/css">
+
+    <link rel="stylesheet" href="/stylesheets/conference/custom2017.css" type="text/css">
+
+    <style>
+        @media only screen and (max-width: 500px) {
+            body {
+                width: 300px;
+            }
+        }
+    </style>
+
 
     <title>Access2018 Conference</title>
     <cfparam name="headerSubTitle" default="">
