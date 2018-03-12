@@ -261,6 +261,8 @@
 			.get(name="sendAnnouncement", pattern="/announcements/send/[key]", controller="announcements", action="sendAnnouncement")
 			.resources("announcements")
 
+			.resources("courses")
+
 			.get(name="listcoursequestions", pattern="/coursequestions/list/", controller="coursequestions", action="list")
 			.resources("coursequestions")
 
