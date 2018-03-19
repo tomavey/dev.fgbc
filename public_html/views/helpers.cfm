@@ -811,4 +811,12 @@ public function linkToPlus(required addParams,class="",text="link",oldurl=cgi.re
 	return #linkto(text=text, href=newurl, class=class)#;
 }
 
+public function phoneTo(required phonenumber){
+	if (isMobile()){
+		return "<a href='tel:#phonenumber#'>#phonenumber#</a>";
+	} else {
+		return phonenumber;
+	}
+}
+
 </cfscript>

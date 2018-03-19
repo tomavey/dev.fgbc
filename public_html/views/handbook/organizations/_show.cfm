@@ -18,7 +18,7 @@
 		<cfif isDefined('handbookorganization.meetingplace') && len(handbookorganization.meetingplace)>
 			Meeting at: #handbookorganization.meetingplace#<br/>
 		</cfif>
-		#handbookorganization.phone#<br/>
+		#phoneTo(handbookorganization.phone)#<br/>
 		#mailto(handbookorganization.email)#<br/>
 		<cfif gotrights("office") and len(handbookorganization.email2)>
 		GTD Email: #mailto(handbookorganization.email2)#<br/>
