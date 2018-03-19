@@ -312,7 +312,7 @@
 
 		<!--- Run the query then filter out persons that should not be listed in the handbook --->
 			<cfset bluepagesPeople = model("Handbookperson").findAll(where=whereString, order=orderString, include=includeString)>
-			<cfset bluePagesPeople = queryFilter(bluepagesPeople, isInHandbook)>
+			<cfset bluePagesPeople = queryFilter(bluepagesPeople, isInHandbookMap)>
 
 		<!--- select layout and template based on params --->
 			<cfif isDefined("params.layout") and params.layout is "naked">
@@ -841,7 +841,7 @@ public function newposition(){
 	writeDump(form);abort;
 }
 
-public function isInHandbook(obj){
+public function isInHandbookMap(obj){
 	if (
 			(
 				obj.lname NEQ "Pastor" && 
