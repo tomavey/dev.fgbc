@@ -43,6 +43,15 @@
 						<p><span>Year Joined: </span>#handbookorganization.joinedAt#</p>
 					</cfif>
 
+				<cfif gotRights("office")>
+					<cfif len(handbookorganization.fein)>
+						<p><span>FEIN: </span>#handbookorganization.fein#</p>
+					</cfif>
+					<cfif len(handbookorganization.inGroupRoster)>
+						<p><span>In Group Roster?: </span>#handbookorganization.inGroupRoster#</p>
+					</cfif>
+				</cfif>	
+
         		<cfif (isdefined("session.auth.handbook.people") AND gotHandbookOrganizationRights(handbookorganization.id)) OR gotRights("superadmin,office,agbmadmin")>
                   <div class="btn-group">
                     <button class="btn dropdown-toggle btn-large" data-toggle="dropdown">
