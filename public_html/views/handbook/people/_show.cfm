@@ -32,15 +32,19 @@
 
 				<p>
 					<cfif len(handbookperson.phone)>
-						H: #handbookperson.phone#<br/>
+						H: #phoneTo(handbookperson.phone)#<br/>
 					</cfif>
 
 					<cfif len(handbookperson.phone2)>
-						M: #handbookperson.phone2#<br/>
+						M: #phoneTo(handbookperson.phone2)#<br/>
+						<cfif gotRights("office")>
+							#telCoQueryLink(handbookperson.phone2)#
+							#linkto(text="?", href="http://charisfellowship.us/admin/settings/17", target="_new")#<br/>
+						</cfif>
 					</cfif>
 
 					<cfif len(handbookperson.phone3)>
-						W: #handbookperson.phone3#<br/>
+						W: #phoneTo(handbookperson.phone3)#<br/>
 					</cfif>
 
 					<cfif len(handbookperson.skype)>

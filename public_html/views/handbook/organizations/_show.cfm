@@ -19,6 +19,10 @@
 			Meeting at: #handbookorganization.meetingplace#<br/>
 		</cfif>
 		#phoneTo(handbookorganization.phone)#<br/>
+		<cfif gotRights("office")>
+			#telCoQueryLink(handbookorganization.phone)#
+			#linkto(text="?", href="http://charisfellowship.us/admin/settings/17", target="_new")#<br/>
+		</cfif>
 		#mailto(handbookorganization.email)#<br/>
 		<cfif gotrights("office") and len(handbookorganization.email2)>
 		GTD Email: #mailto(handbookorganization.email2)#<br/>

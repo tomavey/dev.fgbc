@@ -819,4 +819,18 @@ public function phoneTo(required phonenumber){
 	}
 }
 
+public function telCoQueryLink(phonenumber){
+	if (isDefined("phonenumber") && len(phonenumber)){
+		var newphonenumber = fixPhone(phonenumber);
+		var npa = left(newphonenumber,3);
+		var exchange = mid(newphonenumber,5,3);
+		var queryString = 'npa=#npa#&exchange=#exchange#';
+		var planephonenumber = replace(newphonenumber,"-","","all");
+		var telCoQueryLink = '<a href="https://www.telcodata.us/search-area-code-exchange-detail?#queryString#" target="_new">telcodata for #planephonenumber#</a>'
+		return telCoQueryLink;
+	} else {
+		return "NA";
+	}
+}
+
 </cfscript>

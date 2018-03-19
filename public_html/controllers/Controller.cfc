@@ -494,10 +494,8 @@
 	</cffunction>
 
 	<cffunction name="isMobile">
-		<cfif isDefined("session.auth.noMobile") AND session.auth.noMobile>
-			<cfreturn false>
-		<cfelseif isDefined("session.auth.noMobile") AND session.auth.noMobile is false>
-			<cfreturn true>
+		<cfif isDefined("params.isMobile")>
+			<cfreturn true>	
 		</cfif>
 		<cfreturn super.isMobile()>
 	</cffunction>
