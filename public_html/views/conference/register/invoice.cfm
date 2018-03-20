@@ -38,10 +38,8 @@
 	<div id="invoice" class="container">
 	<cfif isPublic()>
 		<p>
-			Thank you for registering for the Access2017. Please print this out for your records. When you arrive at conference, proceed to the registration table and pick up your registration packet including all items in this receipt. No refunds after July 15.
+			Thank you for registering for the #getEventAsText()#. Please print this out for your records. When you arrive at conference, proceed to the registration table and pick up your registration packet including all items in this receipt. No refunds after July 15.
 		</p>
-	<cfelseif getevent() is "Visionconference2017">
-		<h3 class="text-center">This is your registration for Access2017 in Ohio.  July 25-27	.  </h3>
 	</cfif>
 		<div id="invoicePayment">
 			<ul>
