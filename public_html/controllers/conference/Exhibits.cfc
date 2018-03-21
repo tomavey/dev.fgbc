@@ -8,7 +8,7 @@
 	</cffunction>
 
 	<cffunction name="isExhibitsOpen">
-		<cfif getSettings('exhibitorsIsOpen') || gotrights("office")>
+		<cfif getSetting('exhibitorsIsOpen') || gotrights("office")>
 			<cfreturn true>
 		<cfelse>
 			<cfset renderText("<h2 style='text-align:center'>#getEventAsText()# is just around the corner! Exhibits are all set.  Check back next year.</h2>")>
