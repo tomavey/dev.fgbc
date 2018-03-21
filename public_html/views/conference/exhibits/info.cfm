@@ -9,7 +9,7 @@
     <h1>EXHIBIT INFORMATION for organizations <cfif not natmin>NOT </cfif>affiliated with the Charis Fellowship</h1>
     <cfif not isDefined("params.key") OR params.key NEQ "natmin">
     <p style="font-size:.8em;color:gray">
-    #linkto(text="Charis Fellowship Ministries should use this link", key="natmin")#
+    #linkto(text="Official Charis Fellowship Ministries should use this link", key="natmin")#
     </cfif>
     <p>#getEventAsText()# is at <a href="http://ohiograce.com/">the Grace Community Church in Fremont, Ohio</a>.</p>
     </p>
