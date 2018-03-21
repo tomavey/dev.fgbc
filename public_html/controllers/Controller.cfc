@@ -650,7 +650,7 @@
 	}
 
 	public function onLocalHost(){
-		if( isDefined("application.wheels.onlocalHost") && application.wheels.onLocalHost ){
+		if( getSetting('onLocalHost')){
 			return true;
 		}
 		else {
