@@ -10,10 +10,10 @@
     <p style="font-size:.8em;color:gray">
     <cfoutput>
     #linkto(text="Charis Fellowship Ministries should use this link", key="natmin")#
-    </cfoutput>
     </cfif>
     <p>#getEventAsText()# is at <a href="http://ohiograce.com/">the Grace Community Church in Fremont, Ohio</a>.</p>
     </p>
+    </cfoutput>
     <p>TABLES with floor length cover will be provided as requested.</p>
     <p>SPACE ONLY can be requested for stand alone displays.  Exhibitors may not provide their own tables.</p>
     <p>WE ARE EXPECTING 600+ conference attenders. Most (80%+) attenders are pastors, staff and leaders from more than 250 churches in the USA and Canada. Exhibits will be accessible from Tuesday morning (7/25) through Thurday evening (7/27). All exhibits must be removed by 11:00 Thursday evening. Prime times will be before and after meals and celebrations. </p>
