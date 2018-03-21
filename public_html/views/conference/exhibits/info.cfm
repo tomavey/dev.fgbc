@@ -9,7 +9,7 @@
     <h1>EXHIBIT INFORMATION for organizations <cfif !natmin>NOT </cfif>affiliated with the Charis Fellowship</h1>
     <cfif !natmin>
     <p style="font-size:.8em;color:gray">
-    #linkto(text="Official Charis Fellowship Ministries should use this link", params="natmin=1")#
+    #linkto(text="Official Charis Fellowship Ministries should use this link", action="info", params="natmin=1")#
     </cfif>
     <p>#getEventAsText()# is at <a href="http://ohiograce.com/">the Grace Community Church in Fremont, Ohio</a>.</p>
     </p>
