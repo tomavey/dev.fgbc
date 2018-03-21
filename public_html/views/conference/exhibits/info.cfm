@@ -9,7 +9,7 @@
     <cfif not isDefined("params.key") OR params.key NEQ "natmin">
     <p style="font-size:.8em;color:gray">
     <cfoutput>
-    #linkto(text="National or Cooperating Ministries of the FGBC should use this link", key="natmin")#
+    #linkto(text="Charis Fellowship Ministries should use this link", key="natmin")#
     </cfoutput>
     </cfif>
     <p>#getEventAsText()# is at <a href="http://ohiograce.com/">the Grace Community Church in Fremont, Ohio</a>.</p>
