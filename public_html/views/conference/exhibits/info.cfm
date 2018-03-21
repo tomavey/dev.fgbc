@@ -7,7 +7,7 @@
 <div id="exhibitorguidelines" class="container">
     <cfoutput>
     <h1>EXHIBIT INFORMATION for organizations <cfif !natmin>NOT </cfif>affiliated with the Charis Fellowship</h1>
-    <cfif natmin>
+    <cfif !natmin>
     <p style="font-size:.8em;color:gray">
     #linkto(text="Official Charis Fellowship Ministries should use this link", params="natmin=1")#
     </cfif>
