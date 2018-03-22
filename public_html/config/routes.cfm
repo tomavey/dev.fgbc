@@ -276,6 +276,7 @@
 			.get(name="register", pattern="/register/", controller="register", action="welcome")
 			.get(name="changeSessionSettingsToPreviousConference", pattern="/changeSessionSettingsToPreviousConference/", controller="register", action="changeSessionSettingsToPreviousConference")
 			.get(name="clearSessionSettingsForEvent", pattern="/clearSessionSettingsForEvent/", controller="register", action="clearSessionSettingsForEvent")
+
 			.get(name="deleteregistration", pattern="/registrations/[key]/delete", controller="registrations", action="delete")
 			.get(name="showregistration", pattern="/registrations/[key]", controller="registrations", action="show")
 			.resources("registrations")
@@ -351,6 +352,7 @@
 		.get(name="questions", pattern="/questions", controller="messages", action="cci_new")
 		.get(name="conferencereg", pattern="/conference", controller="conference.register", action="welcome")
 		.get(name="conferencereg2", pattern="/conference", controller="conference.-register", action="welcome")
+		.get(name="conferencereg3", pattern="/conference.register/", controller="conference.register", action="welcome")
         .get(name="conferencemyreg", pattern="/conference/myregs/", controller="conference.users", action="my-regs")
 		.get(name="conferenceregsummary", pattern="/conference/summary/", controller="conference.registrations", action="summary")
 		.get(name="handbook", pattern="/handbook", controller="handbook.welcome", action="index")
