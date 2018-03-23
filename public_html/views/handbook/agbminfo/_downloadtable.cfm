@@ -53,7 +53,7 @@
 			<td>
 				#ministrystartat#	
 			</td>
-			<cfif showAge>
+			<cfif showAge && birthdayyear NEQ 1900>
 				<td>
 					#BirthdayYear#
 				</td>

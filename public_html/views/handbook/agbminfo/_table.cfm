@@ -4,7 +4,7 @@
 			<tr>	
 				<td>
 					#linkTo(text="#fname# #lname#", controller="handbook.people", action="show", key=personid)#
-					<cfif showAge>
+					<cfif showAge && birthdayyear NEQ 1900>
 						<br/>#birthdayyear#
 					</cfif>
 				</td>	
