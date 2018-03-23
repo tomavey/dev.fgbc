@@ -63,6 +63,11 @@
 			<th>
 				Started in Ministry
 			</th>
+			<cfif showAge>
+			<th>
+				BirthYear
+			</th>
+			</cfif>
 			<th>
 				For certificate
 			</th>

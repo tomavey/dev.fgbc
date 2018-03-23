@@ -53,6 +53,11 @@
 			<td>
 				#ministrystartat#	
 			</td>
+			<cfif showAge>
+				<td>
+					#BirthdayYear#
+				</td>
+			</cfif>
 			<td>
 				<cfif REQUEST.lastpayment contains "ordained">
 					an ordained

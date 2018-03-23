@@ -75,6 +75,10 @@
 		<cfset loc.downloadParamsList = loc.downloadParamsList & "&type=#params.type#">
 	</cfif>
 
+	<cfif isDefined("params.byage")>
+		<cfset loc.downloadParamsList = loc.downloadParamsList & "&byage=#params.byage#">
+	</cfif>
+
 	<cfif isDefined("params.excel")>
 		<cfset loc.downloadParamsList = loc.downloadParamsList & "&excel=true">
 	</cfif>

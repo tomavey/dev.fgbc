@@ -14,6 +14,9 @@
 			#linkto(text=i, route="handbookAgbmList", params="type=members&alpha=#i#")#
 		</cfloop>
 		#linkto(text="ALL", route="handbookAgbmList")#
+		<cfif !showAge>
+			#linkTo(text="Show Year Born", action="list", params="byage=DESC")#
+		</cfif>
 	</p>
 </cfoutput>
 
@@ -32,7 +35,11 @@
 	<thead>
 		<tr>
 			<th>
-				Name
+				<cfif showAge>
+					Name/Birthyear
+				<cfelse>
+					Name
+				</cfif>
 			</th>
 			<th>
 				Organization
