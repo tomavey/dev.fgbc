@@ -25,6 +25,6 @@
     <p>Shipping information will be sent about June 1st to each exhibitor upon receipt of an official request with payment. Please send your request on the form below as soon as possible.</p>
     <p>Please address questions to Sandy Barrett at: <a href="mailto:sandy@charisfellowship.us">sandy@charisfellowship.us</a> or (574) 269-1269</p>
     <p>Use the following form to submit your request for exhibit space. <cfif natmin>You <cfelse>If approved, you </cfif>will be given instructions for how to pay for your exhibit space by email. Exhibit space must be paid for in advance of July 1, 2016.</p>
-    #linkTo(controller="conference/exhibits", action="new", text="Go to the Exhibitors Request Form", class="btn")#
+    <p class="well">#linkTo(controller="conference/exhibits", action="new", text="Go to the Exhibitors Request Form", class="btn btn-block btn-primary btn-lg")#</p>
     </cfoutput>
 </div>
