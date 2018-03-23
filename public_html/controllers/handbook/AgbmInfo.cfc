@@ -21,6 +21,7 @@
 
 	<cffunction name="list">
 		<cfset setReturn()>
+		<cfset orderString = "lname,fname">
 		<cfset districts=model("Handbookdistrict").findAll(where="district NOT IN ('Empty','National Ministry','Cooperating Ministry')")>
 		<cfif isDefined("params.search")>
 			  <cfset people = model("Handbookagbminfo").findAllMembers(search=params.search,currentMembershipYear=currentmembershipyear)>

@@ -15,7 +15,10 @@
 <th>address2</th>
 <th>city</th>
 <th>state_mail_abbrev</th>
-<th>zip#</th>
+<th>zip</th>
+<cfif isDefined("params.byage")>
+<th>Birth Year</th>
+</cfif>
 </tr>
 </thead>
 <tbody>
@@ -28,11 +31,17 @@
 <td>#city#</td>
 <td>#state_mail_abbrev#</td>
 <td>#zip#</td>
+<cfif isDefined("params.byage") && birthdayyear NEQ 1900>
+<th>#birthdayyear#</th>
+</cfif>
 </tr>
 <cfset count = count +1>
 </cfoutput>
 </tbody>
 </table>
 <cfoutput>
-Count = #count#
+<p>Count = #count#</p>
+<cfif !isDefined("params.byage") && gotRights("office,agbmadmin")>
+	<p>#linkto(text="Add Birthyear", action="downloadagbm", params="byAge=DESC")#</p>
+</cfif>
 </cfoutput>

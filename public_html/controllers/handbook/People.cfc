@@ -531,8 +531,14 @@
 
   <cffunction name="downloadAGBM">
   <cfset var loc=structNew()>
+	<cfset loc.orderString = "lname,fname">
+	<cfif isDefined("params.byAge")>
+		<cfset loc.orderString = "birthdayyear #params.byAge#,lname,fname">
+	</cfif>
   	<cfset loc.currentmembershipyear = model("Handbookagbminfo").currentMembershipYear(params)>
-  	<cfset agbmmembers = model("Handbookperson").findAll(where="membershipfeeyear = #loc.currentmembershipyear# AND p_sortorder <= 500", include="Handbookstate,Handbookagbminfo,Handbookpositions", order="lname,fname")>
+  	<cfset agbmmembers = model("Handbookperson").findAll(where="membershipfeeyear = #loc.currentmembershipyear# AND p_sortorder <= 500", include="Handbookstate,Handbookagbminfo,Handbookpositions,Handbookprofile", order=loc.orderString)>
+
+	<!---cfdump var="#agbmmembers.columnlist#"><cfabort--->  
 	<cfset setDownloadLayout()>
   </cffunction>
 
