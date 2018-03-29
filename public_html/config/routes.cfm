@@ -463,6 +463,7 @@
 		.get(name="forAttendifyJson", pattern="/conference.attendify/schema", controller="conference.attendify", action="json")
 		.get(name="constitution", pattern="/constitution", controller="contents", action="constitution")
 		.get(name="churches", pattern="/churches", controller="churches", action="index")
+		.get(name="newName", pattern="newname", controller="charis", action="rebranding")
 		.root(controller="Home", action="index")
 		.wildcard()
 
