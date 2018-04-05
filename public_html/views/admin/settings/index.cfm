@@ -21,7 +21,7 @@
 						
 							<cfcol header="#linkto(text='Value', params="orderby=value")#" text="#value#" />
 						
-							<cfcol header="#linkto(text='Description', params="orderby=description")#" text="#description#" />
+							<cfcol header="#linkto(text='Description', params="orderby=description")#" text="#left(description,20)#" />
 						
 							<cfcol header="#linkto(text='Category', params="orderby=category")#" text="#Category#" />
 
@@ -30,10 +30,7 @@
 							<cfcol header="#linkto(text='Updated', params="orderby=updatedat")#" text="#dateFormat(updatedAt)#" />
 						
 				
-			<cfcol header="&nbsp;" text="#showTag()#" />
-			<cfcol header="&nbsp;" text="#editTag()#" />
-			<cfcol header="&nbsp;" text="#copyTag(controller='admin.settings')#" />
-			<cfcol header="&nbsp;" text="#deleteTag(class="noajax")#" />
+			<cfcol header="&nbsp;" text="#showTag()#&nbsp;#editTag()#&nbsp;#copyTag(controller='admin.settings')#&nbsp;#deleteTag(class="noajax")#" />
 		</cftable>
 	</div>
 	<cftry>
