@@ -194,7 +194,8 @@
 			value = setting;	
 		} elseif (isDefined("application.wheels[name]")){
 			value = application.wheels[name];
-		};
+		} else (value = false)
+		;
 		return value;
 	}
 </cfscript>

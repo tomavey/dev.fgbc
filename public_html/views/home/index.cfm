@@ -26,7 +26,9 @@
 
     #includePartial("/charis/news")#
 
+    <cfif getSetting("videoStoriesIsOpen")>
     #includePartial("/charis/videostories")#
+    </cfif>
 
 </cfoutput>
 

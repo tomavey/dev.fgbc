@@ -139,6 +139,8 @@
 	<cfset set(showFacilitatorsWithCourse = false)>
 	<cfset set(showSubTypesOfCourses = false)>
 	<cfset set(delegatesSubmitIsOpen = false)>
+	<cfset set(videoStoriesIsOpen = false)>
+	
 
 <!---For Facebook OAuth--->
 	<cfif cgi.http_host is "localhost:8080" OR cgi.http_host is "localhost:8888">
@@ -157,3 +159,5 @@
 	<cfset set(useTestEmailList = false)>
 	<cfset set(testEmailList = "tomavey@fgbc.org,tomavey9173@gmail.com,tomavey@comcast.net,sandy@fgbc.org")>
 	<cfset set(emailNotList = "tomavey@test.net,caesar.die2self@gmail.com,graham.cochrane@td.com")>
+
+
