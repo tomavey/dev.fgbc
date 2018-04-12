@@ -64,9 +64,9 @@
 				<li class="dropdown">
     				#linkToData(href="##", class="dropdown-toggle", data_toggle="dropdown", text="API's<b class='caret'></b>")#
 					<ul class="dropdown-menu">
-						<li>#linkto(text="Meals As Json", route="apiMeals")#</li>
-						<li>#linkto(text="Schedule As Json", route="apiSchedule")#</li>
-						<li>#linkto(text="Speakers As Json", route="apiSpeakers")#</li>
+						<li>#linkto(text="Meals As Json", route="apiMeals", target="_new")#</li>
+						<li>#linkto(text="Schedule As Json", route="apiSchedule", target="_new")#</li>
+						<li>#linkto(text="Speakers As Json", route="apiSpeakers", target="_new")#</li>
 					</ul>
 				</li>
 				<li class="dropdown">
