@@ -50,6 +50,7 @@
 	</cffunction>
 
 	<cffunction name="list">
+	<cfdump var="#params#"><cfabort>
 		<cfif isdefined("params.key")>
 			<cfset options = model("Conferenceoption").findAll(where="type = '#params.key#' AND event = '#application.wheels.event#'", order="type,sortorder")>
 		<cfelse>
