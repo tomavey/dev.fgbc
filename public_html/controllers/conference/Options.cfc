@@ -50,11 +50,10 @@
 	</cffunction>
 
 	<cffunction name="list">
-	<cfdump var="#params#"><cfabort>
 		<cfif isdefined("params.key")>
-			<cfset options = model("Conferenceoption").findAll(where="type = '#params.key#' AND event = '#application.wheels.event#'", order="type,sortorder")>
+			<cfset options = model("Conferenceoption").findAll(where="type = '#params.key#' AND event = '#getEvent()#'", order="type,sortorder")>
 		<cfelse>
-			<cfset options = model("Conferenceoption").findAll(where="event = '#application.wheels.event#'", order="type,sortorder")>
+			<cfset options = model("Conferenceoption").findAll(where="event = '#getEvent()#'", order="type,sortorder")>
 		</cfif>
 		<cfset renderPage(layout="/layout_naked")>
 	</cffunction>
