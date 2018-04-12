@@ -57,5 +57,8 @@
 	<cfif isDefined("params.key")>
 	<p>#linkTo(text="List name and description", controller="conference.options", action="list", key=params.key)#</p>
 	</cfif>
+	<cfif isDefined("params.type") && params.type is "meal">
+		#linkto(text="show meals as a list", route="conferenceListOptionsBy", key="meal")#
+	</cfif>
 </cfoutput>
 </div>
