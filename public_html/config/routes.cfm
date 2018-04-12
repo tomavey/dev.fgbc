@@ -255,6 +255,7 @@
 			.resources("main")
 			
 			.get(name="copyOption", pattern="/options/copy/[key]", controller="options", action="copy")
+			.get(name="listOptionsBy", pattern="options/list/[key]", controller="options", action="list")
 			.resources("options")
 			.resources("people")
 
@@ -412,6 +413,7 @@
 		 action="agbmrep")
 		.get(name="apiAgbmMembers", pattern="/api/agbmmembers/", controller="handbook.agbm-info",
 		 action="json")
+
 		.get(name="apiStaff", pattern="/api/staff/[key]", controller="handbook.people", action="findStaff")
 		.get(name="apiAllStaff", pattern="/api/staff/", controller="handbook.people", action="findAllStaff")
 		.get(name="apiMinistries", pattern="/api/ministries/", controller="handbook.organizations", action="findMinistries")
@@ -436,6 +438,7 @@
 		.get(name="apiCrudAnswers", pattern="/api/crud/", controller="crud", action="list")
 		.post(name="apiCrudAnswerSubmit", pattern="/api/crud/", controller="crud", action="submit")
 		.delete(name="apiCrudAnswerDelete", pattern="/api/crud/[id]", controller="crud", action="delete")
+
 		.get(name="fellowshipCouncilPages", pattern="/api/fellowshipcouncil/pages/", controller="fellowshipcouncil.Pages", action="index")
 		.get(name="fellowshipCouncilPage", pattern="/api/fellowshipcouncil/page/[key]", controller="fellowshipcouncil.Pages", action="index")
 		.get(name="handbookdistricts", pattern="/handbook-districts/show/[key]", controller="handbook.districts", action="show")
