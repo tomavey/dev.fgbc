@@ -264,6 +264,7 @@
 
 			.controller("courses")
 				.get(name="showAllSelected", pattern="showallselectedcohorts", controller="courses", action="showallselectedcohorts")
+				.get(name="list", pattern="list", action="list")
 			.end()	
 			.resources("courses")
 
