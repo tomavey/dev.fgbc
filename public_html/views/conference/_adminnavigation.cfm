@@ -62,6 +62,14 @@
 					</ul>
 				</li>
 				<li class="dropdown">
+    				#linkToData(href="##", class="dropdown-toggle", data_toggle="dropdown", text="API's<b class='caret'></b>")#
+					<ul class="dropdown-menu">
+						<li>#linkto(text="Meals As Json", route="apiMeals")#</li>
+						<li>#linkto(text="Schedule As Json", route="apiSchedule")#</li>
+						<li>#linkto(text="Speakers As Json", route="apiSpeakers")#</li>
+					</ul>
+				</li>
+				<li class="dropdown">
     				#linkToData(href="##", class="dropdown-toggle", data_toggle="dropdown", text="Misc<b class='caret'></b>")#
 					<ul class="dropdown-menu">
 						<li>#linkto(text="Conference Announcements", controller="conference.announcements", action="index")#</li>
