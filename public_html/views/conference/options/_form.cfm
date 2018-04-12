@@ -1,11 +1,11 @@
 <cfoutput>
-						#textField(objectName='option', label="", property='name', append="<br/>", placeholder="Option Name")#
+						#textField(objectName='option', label="Option Name", property='name', append="<br/>", placeholder="Option Name")#
 
-						#textField(objectName='option', label="", property='cost', class="input-small", Placeholder='Amount', append="<br/>")#
+						#textField(objectName='option', label="Cost", property='cost', class="input-small", Placeholder='Amount', append="<br/>")#
 
-						#textField(objectName='option', label="", property='buttondescription', placeholder='Short Description (used in list of options and invoice):', append="<br/>", class="input input-xxlarge")#
+						#textField(objectName='option', label="Button Description", property='buttondescription', placeholder='Short Description (used in list of options and invoice):', append="<br/>", class="input input-xxlarge")#
 
-						#textField(objectName='option', label="", property='sortorder', placeholder='Sort Order', append="<br/><br/>", class="input input-small")#
+						#textField(objectName='option', label="SortOrder", property='sortorder', placeholder='Sort Order', append="<br/><br/>", class="input input-small")#
 
 						#textField(objectName='option', label="Event (most of the time, don't change this)", property='event', placeholder='Event: ', append="<br/>")#
 
