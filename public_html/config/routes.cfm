@@ -25,7 +25,10 @@
 				.end()
 			.resources("events")
 
-			.get(name="sendNotice", pattern="/jobs/sendnotice/[key]", controller="jobs", action="sendnotice")
+			.controller("jobs")
+				.get(name="sendNotice", pattern="/sendnotice/[key]", action="sendnotice")
+				.get(name="thankYou", pattern="/thankyou/[key]", action="thankyou")
+				.end()
 			.resources("jobs")
 			.resources("menus")
 			.resources("messages")
