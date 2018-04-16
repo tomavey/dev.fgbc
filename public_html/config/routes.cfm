@@ -24,6 +24,8 @@
 				.get(name="copyEvent", pattern="/copy/[key]", action="copy")
 				.end()
 			.resources("events")
+
+			.get(name="sendNotice", pattern="/sendnotice/[key]", controller="jobs", action="sendnotice")
 			.resources("jobs")
 			.resources("menus")
 			.resources("messages")
