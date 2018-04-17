@@ -19,7 +19,7 @@
 		#linkto(text="json", controller="conference.courses", action="json")#
 	</cfif>
 
-	| #linkto(text="Cohorts", route="conferenceCoursesListType", key="cohort", target="_new")# | #linkto(text="Workshops", route="conferenceCoursesListType", key="workshop", target="_new")# | #linkto(text="Excursions", route="conferenceCoursesListType", key="excursion", target="_new")#
+	| #linkto(text="Cohorts", route="conferenceCoursesList",params="type=cohort", target="_new")# | #linkto(text="Workshops", route="conferenceCoursesList", params="type=workshop", target="_new")# | #linkto(text="Excursions", route="conferenceCoursesList", params="type=excursion", target="_new")#
 </p>
 
 <p>
