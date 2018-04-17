@@ -12,15 +12,15 @@
 <!-------------->
 
 	<cffunction name="getEvents">
-		<cfset events = model("Conferenceoption").findall(where="event='#getEvent()#'", order="type DESC")>
+		<cfset events = model("Conferenceoption").findall(where="event='#serialize(getEvent())#'", order="type DESC")>
 	</cffunction>
 
 	<cffunction name="getLocations">
-		<cfset locations = model("Conferencelocation").findall(where="event='#getEvent()#'", order="roomnumber")>
+		<cfset locations = model("Conferencelocation").findall(where="event='#serialize(getEvent())#'", order="roomnumber")>
 	</cffunction>
 
 	<cffunction name="getCourses">
-		<cfset courses = model("Conferencecourse").findall(where="event='#getEvent()#'", order="title")>
+		<cfset courses = model("Conferencecourse").findall(where="event='#serialize(getEvent())#'", order="title")>
 	</cffunction>
 <!-------------->
 
