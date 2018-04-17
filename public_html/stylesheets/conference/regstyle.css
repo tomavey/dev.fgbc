@@ -292,7 +292,7 @@ a#checkOut button {width:300px}
 .new fieldset span {display:block;width:75px}
 .new legend {border:1px solid gray;padding:3px}
 .new textarea {height:50px}
-.new fieldset input.timepicker {width:100px}
+.new fieldset input.timepicker {width:200px}
 
 #flasherror {color:red;font-size:1.3em;padding:3px}
 .dataTable {width:100%;float:left}
@@ -428,7 +428,7 @@ div#reginstructions {display: hide}
 form#addOptionsButton {width:100%;}
 form#addPersonToFamily {width:100%;}
 
-select.timepicker {width:60px;}
+select.timepicker {width:100px;}
 
 div#instructors span.popup,
 div.courses table tr td span.popup,
