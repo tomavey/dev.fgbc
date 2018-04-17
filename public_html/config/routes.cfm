@@ -243,7 +243,12 @@
 			.resources("backups")
 			.resources("contents")
 			.resources("errors")
+
+			.controller("events")
+				.get(name="copyAllToCurrentEvent", pattern="CopyAllToCurrentEvent", action="CopyAllToCurrentEvent")
+			.end()	
 			.resources("events")
+
 			.resources("age_ranges")
 
 			.get(name="newexhibitform", pattern="/exhibit/", controller="exhibits", action="new")
@@ -256,6 +261,10 @@
 			
 			.get(name="showinvoice", pattern="/invoice/[key]", controller="invoices", action="show")
 			.resources("invoices")
+
+			.controller("locations")
+				.get(name="copyAllToCurrentEvent", pattern="CopyAllToCurrentEvent", action="CopyAllToCurrentEvent")
+			.end()	
 			.resources("locations")
 			.resources("main")
 			
