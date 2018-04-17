@@ -271,6 +271,7 @@
 				.get(name="showAllSelected", pattern="showallselectedcohorts", controller="courses", action="showallselectedcohorts")
 				.get(name="list", pattern="list", action="list")
 				.get(name="listType", pattern="list/[key]", action="list")
+				.get(name="copyAllToCurrentEvent", pattern="CopyAllToCurrentEvent", action="CopyAllToCurrentEvent")
 			.end()	
 			.resources("courses")
 
