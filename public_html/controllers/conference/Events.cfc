@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/conference/adminlayout")>
-		<cfset filters(through="getEvents,getLocations,getCourses")>
+		<cfset filters(through="getEvents,getLocations,getCourses", except="update,create,delete")>
 		<cfset filters(through="officeOnly", except="index,summary,show,listScheduleAsJson,listMealsAsJson,generalInfo,testCopy,copyCategoryToNextDay")>
 		<cfset filters(through="setreturn", only="index,show")>
 	</cffunction>
@@ -12,15 +12,16 @@
 <!-------------->
 
 	<cffunction name="getEvents">
-		<cfset events = model("Conferenceoption").findall(where="event='#serialize(getEvent())#'", order="type DESC")>
+		<cfset var thisEvent = getSetting("event")>
+		<cfset events = model("Conferenceoption").findall(where="event='#thisEvent#'", order="type DESC")>
 	</cffunction>
 
 	<cffunction name="getLocations">
-		<cfset locations = model("Conferencelocation").findall(where="event='#serialize(getEvent())#'", order="roomnumber")>
+		<cfset locations = model("Conferencelocation").findall(where="event='#getEvent()#'", order="roomnumber")>
 	</cffunction>
 
 	<cffunction name="getCourses">
-		<cfset courses = model("Conferencecourse").findall(where="event='#serialize(getEvent())#'", order="title")>
+		<cfset courses = model("Conferencecourse").findall(where="event='#getEvent()#'", order="title")>
 	</cffunction>
 <!-------------->
 
