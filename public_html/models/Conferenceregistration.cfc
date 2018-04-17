@@ -240,7 +240,7 @@
 	</cffunction>
 
 	<cffunction name="getAvgAgeToDate">
-	<cfargument name="event" default="#application.wheels.event#">
+	<cfargument name="event" default="#getEvent()#">
 	<cfargument name="todaydate" default="#now()#">
 		<cfset var loc=structNew()>
 

@@ -201,7 +201,7 @@
 	<cfset var listOfAutoDiscountIds = "">
 	<cfset var loc=structNew()>
 
-	<cfset discountoptions = model("Conferenceoption").findAll(where="type='AutoDiscount' AND event = '#application.wheels.event#'")>
+	<cfset discountoptions = model("Conferenceoption").findAll(where="type='AutoDiscount' AND event = '#getEvent()#'")>
 	<cfloop query="discountoptions">
 		<cfset listOfAutoDiscountIds = listOfAutoDiscountIds & "," & id>
 	</cfloop>
@@ -221,7 +221,7 @@
 	<!---Count full childcare and full kids konference regs--->
 	<cfset shoppingCartLen = arraylen(session.shoppingcart)>
 	<cfloop from="1" to="#shoppingCartLen#" index="key">
-		<cfset loc.qualifiesfordiscount = model("Conferenceoption").findOne(where="id=#session.shoppingcart[key].item# AND event='#application.wheels.event#'").qualifiesforfamilydiscount>
+		<cfset loc.qualifiesfordiscount = model("Conferenceoption").findOne(where="id=#session.shoppingcart[key].item# AND event='#getEvent()#'").qualifiesforfamilydiscount>
 		<cfif loc.qualifiesfordiscount is "yes">
 			<cfset count = count+1>
 			<cfset thisperson = session.shoppingcart[key].person>
@@ -231,7 +231,7 @@
 	<!---Put discounts in shopping cart for 2nd or more children--->
 	<cfif count GTE 2>
 		<cfset discountName = count&"children">
-		<cfset option = model("Conferenceoption").findOne(where="name='#discountName#' AND event= '#application.wheels.event#'")>
+		<cfset option = model("Conferenceoption").findOne(where="name='#discountName#' AND event= '#getEvent()#'")>
 		<cfset arrayAppend(session.shoppingcart, structNew())>
 		<cfset session.shoppingcart[shoppingCartLen+1].item = option.id>	
 		<cfset session.shoppingcart[shoppingCartLen+1].quantity = 1>

@@ -16,7 +16,7 @@
 
 <cfoutput>
 
-			#hiddenFieldTag(name='exhibit[event]', value="#application.wheels.event#")#
+			#hiddenFieldTag(name='exhibit[event]', value="#getEvent()#")#
 
 	<fieldset>
 		<legend>Contact Information</legend>

@@ -12,15 +12,15 @@
 <!-------------->
 
 	<cffunction name="getEvents">
-		<cfset events = model("Conferenceoption").findall(where="event='#application.wheels.event#'", order="type DESC")>
+		<cfset events = model("Conferenceoption").findall(where="event='#getEvent()#'", order="type DESC")>
 	</cffunction>
 
 	<cffunction name="getLocations">
-		<cfset locations = model("Conferencelocation").findall(where="event='#application.wheels.event#'", order="roomnumber")>
+		<cfset locations = model("Conferencelocation").findall(where="event='#getEvent()#'", order="roomnumber")>
 	</cffunction>
 
 	<cffunction name="getCourses">
-		<cfset courses = model("Conferencecourse").findall(where="event='#application.wheels.event#'", order="title")>
+		<cfset courses = model("Conferencecourse").findall(where="event='#getEvent()#'", order="title")>
 	</cffunction>
 <!-------------->
 
@@ -282,7 +282,7 @@
 	</cffunction>
 
 	<cffunction name="excel">
-		<cfset events = model("Conferenceevent").findAll(where="event='#application.wheels.event#'", include="location", order="date,timebegin")>
+		<cfset events = model("Conferenceevent").findAll(where="event='#getEvent()#'", include="location", order="date,timebegin")>
 		<cfset renderPage(layout="/conference/layoutdownload")>
 	</cffunction>
 

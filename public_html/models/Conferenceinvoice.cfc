@@ -3,7 +3,7 @@
 	<cffunction name="init">
 		<cfset table("equip_invoices")>
 		<cfset hasMany(name="registrations", modelName="Conferenceregistration",foreignKey="equip_invoicesID")>
-		<cfset property(name="event", defaultValue=application.wheels.event)>
+		<cfset property(name="event", defaultValue=getEvent())>
 	</cffunction>
 
             <cffunction name="findInvoicesForEmail">

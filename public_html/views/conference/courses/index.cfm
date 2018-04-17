@@ -67,5 +67,6 @@
 </cftable>
 <cfoutput>
 <p>Count = #courses.recordcount#</p>
+<p>#linkto(text="Duplicate #getPreviousEvent()# courses into #getEvent()#.", action="conference.courses", action="copyAllToCurrentEvent", class="btn pull-right")#</p>
 </cfoutput>
 </div>

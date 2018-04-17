@@ -15,7 +15,7 @@
 	<cfargument name="type" default="all">
 	<cfargument name="recorded" default="no">
 	<cfargument name="courseid" default=0>
-	<cfargument name="event" default="#application.wheels.event#">
+	<cfargument name="event" default="#getEvent()#">
 	<cfset var loc = structNew()>
 	<cfset loc = arguments>
 
@@ -124,7 +124,7 @@
 	<cfargument name="params" required="true" type="struct">
 	<cfset var loc= structNew()>
 	<cfset loc = arguments.params>
-	<cfset loc.event = application.wheels.event>
+	<cfset loc.event = getEvent()>
 		<cfif isDefined("loc.orderby")>
 			<cfset loc.orderbyString = params.orderby>
 		<cfelse>
@@ -178,7 +178,7 @@
 
 	<cffunction name="getCourseDates">
 	<cfargument name="type" default="workshop">
-	<cfargument name="event"  default="#application.wheels.event#">
+	<cfargument name="event"  default="#getEvent()#">
 	<cfset var loc = structNew()>
 	<cfset loc = arguments>
 	<cfset loc.courses = findall(where="event='#arguments.event#' AND type='#arguments.type#'", include="Agenda")>

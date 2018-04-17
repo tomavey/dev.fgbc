@@ -8,7 +8,7 @@
 	
 	<!--- locations/index --->
 	<cffunction name="index">
-		<cfset locations = model("Conferencelocation").findAll(where="event='#application.wheels.event#'", order="roomnumber")>
+		<cfset locations = model("Conferencelocation").findAll(where="event='#getEvent()#'", order="roomnumber")>
 	</cffunction>
 	
 	<!--- locations/show/key --->

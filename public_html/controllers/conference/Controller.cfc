@@ -62,6 +62,10 @@
         <cfreturn getSetting("event")>
 	</cffunction>
 
+	<cffunction name="getPreviousEvent">
+        <cfreturn getSetting("previousEvent")>
+	</cffunction>
+
 	<cffunction name="getEventAsText">
         <cfreturn getSetting("eventAsText")>
 	</cffunction>
@@ -528,6 +532,22 @@
             structDelete(session.settings, "eventAsText");
             redirectTo(controller="conference.registrations", action="index");
    }
+
+    public function copyAllToCurrentEvent( tableName = "Conferencecourse" ){
+        var neweventname = getEvent();
+        var oldeventname =  getPreviousEvent();
+        var oldItems = model(tableName).findAll(where="event='#oldeventname#'");
+        var newItems = model(tableName).new();
+        var thisItem = {};
+        for ( var i=1; i lte oldItems.recordcount; i=i+1 ){
+            thisItem = queryGetRow(oldItems, i);
+            thisItem.event = neweventname;
+            structDelete(thisItem, 'id');
+            newItems.create(thisItem);
+        }
+        newItems = model(tableName).findAll(where="event='#neweventname#'");
+        return true;
+    }
 
 </cfscript>
 

@@ -8,7 +8,7 @@
 
 	<!--- families/index --->
 	<cffunction name="index">
-		<cfset families = model("Conferencefamily").findAll(where="event = '#application.wheels.event#'", include="state,person(registration(option))", order="lname,id")>
+		<cfset families = model("Conferencefamily").findAll(where="event = '#getEvent()#'", include="state,person(registration(option))", order="lname,id")>
 	</cffunction>
 
 	<!--- families/show/key --->
@@ -214,7 +214,7 @@
 
    		<cfset envelopes = model("Conferencefamily").findAll(where=whereString, order="lname")>
 
-		<cfset options = model("Conferenceoption").findAll(where="event='#application.wheels.event#'", order="name")>
+		<cfset options = model("Conferenceoption").findAll(where="event='#getEvent()#'", order="name")>
 		<cfset listcounts = QuotedValueList("options.name")>
 		<cfset listcounts = replace(listcounts,"'","","all")>
 		<!--- <cfdump var="#badges#"><cfabort> --->
@@ -263,20 +263,20 @@
 			<cfif isDefined("params.showFnameId")>
 				<cfset EnvelopeInfo.name = "<a href='/index.cfm/conference.registrations/consolidateregs/?temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
 			</cfif>
-			<cfset wherestring = "event='#application.wheels.event#' AND (equip_peopleid = #him.id# OR equip_peopleid = #her.id#)">
+			<cfset wherestring = "event='#getEvent()#' AND (equip_peopleid = #him.id# OR equip_peopleid = #her.id#)">
 
 		<cfelseif him.recordcount>
 			<cfset EnvelopeInfo.name = him.fname>
 			<cfif isDefined("params.showFnameId")>
 				<cfset EnvelopeInfo.name = "<a href='/index.cfm/conference.registrations/consolidateregs/?temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
 			</cfif>
-			<cfset wherestring = "event='#application.wheels.event#' AND equip_peopleid = #him.id#">
+			<cfset wherestring = "event='#getEvent()#' AND equip_peopleid = #him.id#">
 		<cfelseif her.recordcount>
 			<cfset EnvelopeInfo.name = her.fname>
 			<cfif isDefined("params.showFnameId")>
 				<cfset EnvelopeInfo.name = "<a href='/index.cfm/conference.registrations/consolidateregs/?temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
 			</cfif>
-			<cfset wherestring = "event='#application.wheels.event#' AND equip_peopleid = #her.id#">
+			<cfset wherestring = "event='#getEvent()#' AND equip_peopleid = #her.id#">
 		<cfelse>
 			<cfset EnvelopeInfo.name = "NA">
 		</cfif>

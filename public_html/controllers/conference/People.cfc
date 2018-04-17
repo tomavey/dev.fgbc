@@ -55,7 +55,7 @@
 		</cfif>
 		<cfif isdefined("params.invoiceid")>
 			<cfset people.equip_invoicesid = params.invoiceid>
-			<cfset options = model("Conferenceoption").findAll(where="event = '#application.wheels.event#'", order="type,name")>
+			<cfset options = model("Conferenceoption").findAll(where="event = '#getEvent()#'", order="type,name")>
 		</cfif>
 
 	</cffunction>

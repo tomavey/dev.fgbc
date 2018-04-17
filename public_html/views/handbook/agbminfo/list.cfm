@@ -15,7 +15,7 @@
 		</cfloop>
 		#linkto(text="ALL", route="handbookAgbmList")#
 		<cfif !showAge>
-			#linkTo(text="Show Year Born", action="list", params="byage=DESC")#
+			#linkTo(text="Show Year Born", action="list", params="byage=DESC", class="btn pull-right")#
 		</cfif>
 	</p>
 </cfoutput>

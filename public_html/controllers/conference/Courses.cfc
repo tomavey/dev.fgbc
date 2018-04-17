@@ -35,6 +35,7 @@
 	<cfargument name="recorded" default="no">
 	<cfargument name="courseid" default=0>
 
+
 		<!---Overwrite argument defaults based on params--->
 		<cfif isDefined("params.key")>
 			<cfset arguments.type = params.key>
@@ -64,7 +65,9 @@
 
 		<cfset introTitle = "Cohorts">
 
+
 		<cfset courses = model("Conferencecourse").findList(order=arguments.orderby, type="#arguments.type#", recorded="#arguments.recorded#", event=arguments.event, courseid=arguments.courseid)>
+	<!---cfdump var="#courses#"><cfabort--->
 	</cffunction>
 
 	<cffunction name="getCourseResources">
@@ -282,6 +285,15 @@
 
 	</cffunction>
 	
+
+	<!--- Courses/copyAllToCurrentEvent --->
+
+	<cfscript>
+		public function copyAllToCurrentEvent(){
+			super.copyAllToCurrentEvent( tableName = "Conferencecourse" );
+			returnBack();
+		}
+	</cfscript>
 
 	<!--- Courses/create --->
 	<cffunction name="create">
@@ -632,7 +644,7 @@
 	</cffunction>
 
 	<cffunction name="showAllSelectedExcursions">
-		<cfset whereString = "event='#application.wheels.event#' AND type='excursion'">
+		<cfset whereString = "event='#getEvent()#' AND type='excursion'">
 		<cfif isDefined("params.key")>
 			<cfset whereString = whereString & " AND equip_coursesid = #params.key#">
 		</cfif>

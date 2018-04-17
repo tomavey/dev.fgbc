@@ -51,7 +51,7 @@
 	</cffunction>
 
 	<cffunction name="getFamilies">
-	<cfargument name="event" default=application.wheels.event>
+	<cfargument name="event" default=getEvent()>
 	<cfset var loc = structNew()>
 	<cfset loc= arguments>
 		<cfset loc.families = findAll(where="event = '#loc.event#'", include="state,person(registration(option))", order="lname,id")>

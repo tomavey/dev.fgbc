@@ -10,7 +10,7 @@
 		<cfif isDefined("params.event")>
 			 <cfset request.event = params.event>
 		<cfelse>
-			 <cfset request.event = application.wheels.event>
+			 <cfset request.event = getEvent()>
 		</cfif>
 	</cffunction>
 

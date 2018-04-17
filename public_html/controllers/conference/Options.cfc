@@ -24,7 +24,7 @@
 
 	<!--- options/index --->
 	<cffunction name="index">
-		<cfset var whereString = "event = '#application.wheels.event#'">
+		<cfset var whereString = "event = '#getEvent()#'">
 
 		<cfif isdefined("params.event")>
 			<cfset whereString = "event = '#params.event#'">
@@ -45,7 +45,7 @@
 		<cfif isdefined("params.key")>
 			<cfset option = model("Conferenceoption").findAll(where="id=#params.key#", parameterize=true)>
 		<cfelse>
-			<cfset option = model("Conferenceoption").findAll(where="event = '#application.wheels.event#'", order="type,sortorder")>
+			<cfset option = model("Conferenceoption").findAll(where="event = '#getEvent()#'", order="type,sortorder")>
 		</cfif>
 	</cffunction>
 
@@ -72,7 +72,7 @@
 	<!--- options/add --->
 	<cffunction name="new">
 		<cfset option = model("Conferenceoption").new()>
-		<cfset option.event = application.wheels.event>
+		<cfset option.event = getEvent()>
 	</cffunction>
 
 	<!--- options/edit/key --->
@@ -137,7 +137,7 @@
 	<cffunction name="copy">
 				<!--- Find the record --->
     	<cfset option = model("Conferenceoption").findByKey(params.key)>
-		<cfset option.event = application.wheels.event>
+		<cfset option.event = getEvent()>
 
     	<!--- Check if the record exists --->
 	    <cfif NOT IsObject(option)>
@@ -153,7 +153,7 @@
 <!---RSS Creations actions--->
 
 	<cffunction name="rssmeals">
-		<cfset options = model("Conferenceoption").findAll(where="type='meal' AND event = '#application.wheels.event#'", order="sortorder")>
+		<cfset options = model("Conferenceoption").findAll(where="type='meal' AND event = '#getEvent()#'", order="sortorder")>
 
 		<cfset title = "#getEventAsText()# Meal Options">
 
@@ -173,7 +173,7 @@
 	</cffunction>
 
 	<cffunction name="rssccare">
-		<cfset options = model("Conferenceoption").findAll(where="event = '#application.wheels.event#' AND (type = 'childcare' OR type like 'kidskonference%')", order="sortorder")>
+		<cfset options = model("Conferenceoption").findAll(where="event = '#getEvent()#' AND (type = 'childcare' OR type like 'kidskonference%')", order="sortorder")>
 		<cfset title = "Vision2020 Leadership Child Care and Kids Konference Options">
 		<cfset description= '<p><h1>Global Kingdom Kids</h1>This is an exciting year for the Kids Konference and Child-care programs!  We will be "visiting" countries around the world by means of our missionaries.  Each day we will meet at least one missionary supported by Encompass World Partners. We will learn about the culture, the climate, the people, the kids, the food, and much more about each country.  We will also discuss ways that we as kids can help support our missionaries and world evangelism.</p>
 		</p>Prices include meals (where noted below), supplies, snacks and staff. Kids Konference excursions cost extra to cover part of the cost of the entry fee and tranportation.</p>
@@ -256,7 +256,7 @@
 	</cffunction>
 
 	<cffunction name="rssregs">
-		<cfset options = model("Conferenceoption").findAll(where="event = '#application.wheels.event#' AND (type='registration' OR type = 'preconference')", order="type desc,sortorder")>
+		<cfset options = model("Conferenceoption").findAll(where="event = '#getEvent()#' AND (type='registration' OR type = 'preconference')", order="type desc,sortorder")>
 		<cfset title = "Vision2020 South Leadership Registration Options">
 		<cfset dlink = "http://fgbc.org/vision2020/index.cfm?controller=register&action=welcome">
 
@@ -326,7 +326,7 @@
 	</cffunction>
 
 	<cffunction name="resetSortOrder">
-		<cfset options = model("Conferenceoption").findAll(where="event = '#application.wheels.event#'", order="type,sortorder")>
+		<cfset options = model("Conferenceoption").findAll(where="event = '#getEvent()#'", order="type,sortorder")>
 		<cfloop query = "options">
 			<cfquery datasource = "fgbc_main_3">
 				UPDATE equip_options

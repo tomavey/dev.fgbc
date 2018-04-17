@@ -18,7 +18,7 @@
 	<cffunction name="findAllOptions">
 	<cfargument name="type" default="meal">
 	<cfargument name="listOfMealIds" required="false">
-	<cfargument name="event" default="#application.wheels.event#">
+	<cfargument name="event" default="#getEvent()#">
 	<cfset var loc = structNew()>
 	<cfset loc = arguments>
 
