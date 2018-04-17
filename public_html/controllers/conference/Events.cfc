@@ -147,6 +147,16 @@
 	    <cfset renderPage(action="new")>
 	</cffunction>
 
+<!--- conference/events/copyAllToCurrentEvent --->
+
+	<cfscript>
+		public function copyAllToCurrentEvent(){
+			super.copyAllToCurrentEvent( tableName = "Conferenceevent" );
+			returnBack();
+		}
+	</cfscript>
+
+
 <!--- conference/events/update --->
 	<cffunction name="update">
 

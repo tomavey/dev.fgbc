@@ -58,7 +58,18 @@
 	    </cfif>
 		
 	</cffunction>
-	
+
+	<!--- Courses/copyAllToCurrentEvent --->
+
+	<cfscript>
+		public function copyAllToCurrentEvent(){
+			super.copyAllToCurrentEvent( tableName = "Conferencelocation" );
+			returnBack();
+		}
+	</cfscript>
+
+
+
 	<!--- locations/create --->
 	<cffunction name="create">
 		<cfset location = model("Conferencelocation").new(params.location)>

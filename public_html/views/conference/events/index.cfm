@@ -129,5 +129,5 @@ See only:
 			#linkTo(text="Delete this category on this day", controller="conference.events", action="deleteCategoryOnDay", params="category=#params.category#&date=#params.date#", confirm="Are you sure!!?", class="btn")#
 		</cfif>
 		<p>Count: #events.recordcount#</p>
-		<p>#linkto(text="Duplicate #getPreviousEvent()# events into #getEvent()#.", action="conference.courses", action="copyAllToCurrentEvent", class="btn pull-right")#</p>
+		<p>#linkto(text="Duplicate #getPreviousEvent()# events into #getEvent()#.", action="conference.events", action="copyAllToCurrentEvent", class="btn pull-right")#</p>
 	</cfoutput>

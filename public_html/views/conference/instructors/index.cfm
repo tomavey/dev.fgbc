@@ -50,6 +50,8 @@
 <p>
 #linkto(text="Last Year's Instructors", params="event=#application.wheels.previousEvent#")#
 </p>
+<p>Count: #instructors.recordcount#</p>
+<p>#linkto(text="Duplicate #getPreviousEvent()# instructors into #getEvent()#.", action="conference.instructors", action="copyAllToCurrentEvent", class="btn pull-right")#</p>
 </cfoutput>
 </div>
 

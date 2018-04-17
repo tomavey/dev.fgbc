@@ -65,7 +65,6 @@
 
 		<cfset introTitle = "Cohorts">
 
-
 		<cfset courses = model("Conferencecourse").findList(order=arguments.orderby, type="#arguments.type#", recorded="#arguments.recorded#", event=arguments.event, courseid=arguments.courseid)>
 	<!---cfdump var="#courses#"><cfabort--->
 	</cffunction>

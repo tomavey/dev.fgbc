@@ -533,7 +533,7 @@
             redirectTo(controller="conference.registrations", action="index");
    }
 
-    public function copyAllToCurrentEvent( tableName = "Conferencecourse" ){
+    public function copyAllToCurrentEvent(required tableName){
         var neweventname = getEvent();
         var oldeventname =  getPreviousEvent();
         var oldItems = model(tableName).findAll(where="event='#oldeventname#'");

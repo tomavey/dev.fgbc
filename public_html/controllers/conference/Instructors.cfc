@@ -71,6 +71,16 @@
 	    </cfif>
 
 	</cffunction>
+	
+	<!--- Instructors/copyAllToCurrentEvent --->
+
+	<cfscript>
+		public function copyAllToCurrentEvent(){
+			super.copyAllToCurrentEvent( tableName = "Conferenceinstructor" );
+			returnBack();
+		}
+	</cfscript>
+
 
 	<!--- -instructors/create --->
 	<cffunction name="create">

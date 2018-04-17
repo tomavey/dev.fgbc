@@ -47,5 +47,13 @@
 
 	</cffunction>
 
+	<!--- Courses/copyAllToCurrentEvent --->
+
+	<cfscript>
+		public function copyAllToCurrentEvent(){
+			super.copyAllToCurrentEvent( tableName = "Conferenceinstructor" );
+			returnBack();
+		}
+	</cfscript>
 
 </cfcomponent>

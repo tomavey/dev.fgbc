@@ -32,7 +32,7 @@
 				ON e.locationid = l.id
 			LEFT JOIN equip_coursequestions q
 				on q.courseid = c.id	
-			WHERE e.event = '#arguments.event#'
+			WHERE c.event = '#arguments.event#'
 				AND c.deletedAt IS NULL
 				AND i.deletedAt IS NULL
 				AND e.deletedAt IS NULL
@@ -44,12 +44,12 @@
 				<cfif arguments.recorded EQ "yes">
 					and recordinglink IS NOT NULL
 				</cfif>
-				<cfif arguments.courseid>
+				<cfif arguments.courseid && arguments.courseid NEQ 0>
 					and c.id = #arguments.courseid#
 				</cfif>
 			ORDER BY #arguments.order#
 		</cfquery>
-		<cfset loc.data = insertEmptyCourses(loc.data,loc.order)>
+		<!---cfset loc.data = insertEmptyCourses(loc.data,loc.order)--->
 	<cfreturn loc.data>
 	</cffunction>
 
