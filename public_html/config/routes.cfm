@@ -299,7 +299,7 @@
 
 			.get(name="deleteregistration", pattern="/registrations/[key]/delete", controller="registrations", action="delete")
 			.get(name="showregistration", pattern="/registrations/[key]", controller="registrations", action="show")
-			.post(name="update1", pattern="/registrations/update/[key]", controller="registrations", action="update")
+			.put(name="update1", pattern="/registrations/[key]", controller="registrations", action="update")
 			.resources("registrations")
 			
 			.resources("resources")
