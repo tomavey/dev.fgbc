@@ -10,7 +10,7 @@
 	</cffunction>
 
 	<cffunction name="sendMonitoringEmail">
-		<cfif application.wheels.Monitoring>
+		<cfif getSetting('Monitoring')>
 			<cfset sendemail(from="tomavey@fgbc.org", to="tomavey@fgbc.org", template="emailparams", subject="V2020 Params", layout="layout_for_email")>
 		</cfif>
 	</cffunction>
@@ -86,14 +86,14 @@
             <cfif isDefined("params.eventAsText")>
                 <cfset event = params.eventAsText>
             <cfelse>
-                <cfset event = application.wheels.eventAsText>
+                <cfset event = getSetting('eventAsText')>
             </cfif>
             <cfset event = replace(event," ","%20","all")>
             <cfreturn trim(event)>
     </cffunction>
 
     <cffunction name="getNextEvent">
-           <cfreturn application.wheels.nextEvent>
+           <cfreturn getSetting('nextEvent')>
     </cffunction>
 
 	<cffunction name="getSpouse" access="private" >
@@ -148,7 +148,7 @@
 	</cffunction>
 
 	<cffunction name="getConfUrl">
-		<cfreturn application.wheels.webpage>
+		<cfreturn getSetting('webpage')>
 	</cffunction>
 
 
@@ -293,7 +293,7 @@
 <cfscript>
 
     function typeOfAddRegOptions(){
-        return application.wheels.typeOfAddRegOptions;
+        return getSetting('typeOfAddRegOptions');
     }
 
     function showschedule(){
@@ -358,47 +358,47 @@
     }
 
     function nameForCourse(){
-        return application.wheels.nameForCourse;
+        return getSetting('nameForCourse');
     }
 
     function typesOfCourses(){
-        return application.wheels.typesOfCourses;
+        return getSetting('typesOfCourses');
     }
 
     function subTypesOfCourses(){
-        return application.wheels.subTypesOfCourses;
+        return getSetting('subTypesOfCourses');
     }
 
     function showSubTypesOfCourses(){
         var show = false;
-        if (gotRights("office") || application.wheels.showSubTypesOfCourses){
+        if (gotRights("office") || getSetting('showSubTypesOfCourses')){
             show = true;
         }
         return show;
     }
 
     function tracksOfCourses(){
-        return application.wheels.tracksOfCourses;
+        return getSetting('tracksOfCourses');
     }
 
     function eventDaysOptions(){
-        return application.wheels.eventDaysOptions;
+        return getSetting('eventDaysOptions');
     }
 
     function eventFirstDaysOptionsDate(){
-        return application.wheels.eventFirstDaysOptionsDate;
+        return getSetting('eventFirstDaysOptionsDate');
     }
 
     function workshopnotifications(){
-        return application.wheels.workshopnotifications;
+        return getSetting('workshopnotifications');
     }
 
     function showFacilitatorsWithCourse(){
-        return application.wheels.showFacilitatorsWithCourse;
+        return getSetting('showFacilitatorsWithCourse');
     }
 
     function workshopsEventsAreSet(){
-        if (application.wheels.workshopsEventsAreSet){
+        if (getSetting('workshopsEventsAreSet')){
             return true;}
         else {
             return false;
@@ -406,7 +406,7 @@
     }
 
     function workshopNotificationsOpen(){
-        if (application.wheels.workshopNotificationsOpen || gotrights("office")){
+        if (getSetting('workshopNotificationsOpen') || gotrights("office")){
             return true;}
         else {
             return false;
@@ -414,12 +414,12 @@
     }
 
     function eventCategories(){
-        return listSort(application.wheels.eventCategories,"text");
+        return listSort(getSetting('eventCategories'),"text");
     }
 
     //turns the types of courses into a comma delimited list of types as singular terms//
     function typesOfCoursesForDropdown(){
-        var list = replace(application.wheels.typesOfCourses," ","","all");
+        var list = replace(getSetting('typesOfCourses')," ","","all");
         var i = 0;
         var newlist = "";
         for (i=1; i lte listLen(list); i++){
@@ -430,7 +430,7 @@
     }
 
     function nameForCourses(){
-        return application.wheels.nameForCourses;
+        return getSetting('nameForCourses');
     }
 
     function registrationOpen(){
@@ -438,15 +438,15 @@
     }
 
     function getDiscountTypes(){
-        return application.wheels.discountTypes;
+        return getSetting('discountTypes');
     }
 
     function getDollarType(){
-        return application.wheels.dollar;
+        return getSetting('dollar');
     }
 
     function getChildcareRegistrationDeadline() {
-        return application.wheels.ccareregistrationDeadline;
+        return getSetting('ccareregistrationDeadline');
     }
 
     function clearSession(){
@@ -483,16 +483,16 @@
     function getGroupCountAvailable(){
         var counts = "";
         if (isDefined("params.useoptionscount")){
-            counts = application.wheels.optionsCountAvailable;
+            counts = getSetting('optionsCountAvailable');
         }
         else {
-            counts = application.wheels.groupCountAvailable;
+            counts = getSetting('groupCountAvailable');
         }
         return counts;
     }
 
     function getOptionsCountAvailable(){
-        return application.wheels.optionsCountAvailable;
+        return getSetting('optionsCountAvailable');
     }
 
     function getRegStatus(status){
@@ -522,8 +522,8 @@
         }
 
     public function changeSessionSettingsToPreviousConference(){
-            session.settings.event = application.wheels.previousevent;
-            session.settings.eventastext = application.wheels.previouseventastext;
+            session.settings.event = getSetting('previousevent');
+            session.settings.eventastext = getSetting('previouseventastext');
             redirectTo(controller="conference.registrations", action="index");
     }
 

@@ -109,7 +109,7 @@
 	<cfset set(preRegCountAvailable = "0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30")>
 	<cfset set(groupCountAvailable = "5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30")>
 	<cfset set(eventDaysOptions="Monday,Tuesday,Wednesday,Thursday")>
-	<cfset set(eventFirstDaysOptionsDate="2017-07-24")>
+	<cfset set(eventFirstDaysOptionsDate="2018-07-23")>
 	<cfset set(eventCategories="Celebration,Workshop,Excursion,Roundtable,Network,Meal,ChildCare,Kids Konference,Reception,Board Meeting,Other,Office,Rehearsal,Exhibits,Prayer,Other-Public,Cohort")>
 	<cfset set(ministryCategories=listSort("Church Planting Ministries, Communication, Districts, Doing Good, Leadership Training Ministries, none","text"))>
 

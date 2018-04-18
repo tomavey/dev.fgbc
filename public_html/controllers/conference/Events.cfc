@@ -242,6 +242,11 @@
 	<cfreturn loc.dates[loc.day]>
 
 	</cffunction>
+
+	<cffunction name="testDayToDate">
+		<cfset return = dayToDate("Tuesday")>
+		<cfdump var="#return#"><cfabort>
+	</cffunction>
 <!-------------------------------->
 
 <!-------------->
