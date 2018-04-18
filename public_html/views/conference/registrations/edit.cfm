@@ -9,6 +9,8 @@
 
 			<form action="#formaction#" method="post">
 
+			#putFormTag()#
+
 			#includePartial("form")#
 
 			#submitTag()#
