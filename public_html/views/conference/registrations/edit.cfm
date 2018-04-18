@@ -7,7 +7,7 @@
 
 			#errorMessagesFor("registration")#
 
-			<form action="#formaction#">
+			#startFormTag(action="#formaction#", key=params.key)#
 
 			#putFormTag()#
 
