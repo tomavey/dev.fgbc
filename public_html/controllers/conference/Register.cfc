@@ -973,8 +973,6 @@
 		<cfset thisinvoice = model("Conferenceinvoice").findOne(where="id=#session.registrationcart.invoiceid#")>
 		<cfif gotRights("office")>
 
-			<cfdump var="#thisinvoice#"><cfabort>
-
 			<cfset sendemail(from=getRegistrar(), to=thisinvoice.agent, cc=getSetting('registrarBackupEmail'), template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email")>
 
 		</cfif>
