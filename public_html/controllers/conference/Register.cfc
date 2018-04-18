@@ -970,7 +970,7 @@
 	<cfif isvalid("email", params.agent) OR params.agent is "comp" OR params.agent is "manual" OR params.agent is "prepaid" OR params.agent is "test">
 		<cfset session.registrationcart.agent = params.agent>
 		<cfset model("Conferenceinvoice").updateByKey(key=session.registrationcart.invoiceid, agent=session.registrationcart.agent)>
-		<cfset thisinvoice = model("Conferenceinvoice").findOne(where="id=session.registrationcart.invoiceid")>
+		<cfset thisinvoice = model("Conferenceinvoice").findOne(where="id=#session.registrationcart.invoiceid#")>
 		<cfif gotRights("office")>
 
 			<cfdump var="#thisinvoice#"><cfabort>
