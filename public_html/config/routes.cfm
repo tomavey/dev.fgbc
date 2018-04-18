@@ -299,6 +299,9 @@
 
 			.get(name="deleteregistration", pattern="/registrations/[key]/delete", controller="registrations", action="delete")
 			.get(name="showregistration", pattern="/registrations/[key]", controller="registrations", action="show")
+			.controller("registrations")
+				.put(name="update", pattern="/update/[key]", action="update")
+			.end()
 			.resources("registrations")
 			
 			.resources("resources")
