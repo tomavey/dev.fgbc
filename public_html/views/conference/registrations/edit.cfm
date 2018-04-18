@@ -7,7 +7,7 @@
 
 			#errorMessagesFor("registration")#
 
-			#startFormTag(action="#formaction#")#
+			<form action="#formaction#" method="post">
 
 			#putFormTag()#
 
