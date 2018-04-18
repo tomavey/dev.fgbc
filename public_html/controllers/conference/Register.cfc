@@ -838,7 +838,7 @@
 		<cfset emptyinvoice.ccamount = 0>
 		<cfset emptyinvoice.ccname = "NA">
 		<cfset emptyinvoice.ccemail = "NA">
-		<cfset emptyinvoice.ccstatus = "temp">
+		<cfset emptyinvoice.ccstatus = "Pending">
 		<cfset emptyinvoice.agent = "temp">
 		<cfset orderidlname = getlname()>
 		<cfset thisinvoice = model("Conferenceinvoice").create(emptyinvoice)>
@@ -969,7 +969,16 @@
 <cffunction name="saveAgent">
 	<cfif isvalid("email", params.agent) OR params.agent is "comp" OR params.agent is "manual" OR params.agent is "prepaid" OR params.agent is "test">
 		<cfset session.registrationcart.agent = params.agent>
-		<cfset model("Conferenceinvoice").updateByKey(key=session.registrationcart.invoiceid, agent=session.registrationcart.agent)>
+		<cfset thisinvoice = model("Conferenceinvoice").updateByKey(key=session.registrationcart.invoiceid, agent=session.registrationcart.agent)>
+
+		<cfif gotRights("office")>
+
+			<cfdump var="#thisinvoice#"><cfabort>
+
+			<cfset sendemail(from=getRegistrar(), to=thisinvoice.agent, cc=getSetting('registrarBackupEmail'), template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email")>
+
+		</cfif>
+
 	<cfelse>
 		<cfset flashInsert(agent="Please enter a valid email address")>
 		<cfset redirectTo(action="getAgent")>
@@ -1079,7 +1088,7 @@
 		<cfset thisInvoice = model("Conferenceinvoice").findOne(where="id=#thistransaction.key#")>
 		<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #thistransaction.key#", include="option,person(family)", order="equip_people.id")>
 
-		<cfset sendemail(from=getRegistrar(), to=thisinvoice.agent, cc=application.wheels.registrarBackupEmail, template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email")>
+		<cfset sendemail(from=getRegistrar(), to=thisinvoice.agent, cc=getSetting('registrarBackupEmail'), template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email")>
 
 		<cfset sendemail(from=thisinvoice.agent, to=getRegistrar(), template="invoice", subject="#getEventAsTextA()# Registration from #thisinvoice.agent#", cc=application.wheels.errorEmailAddress, layout="layout_for_email")>
 
@@ -1530,7 +1539,7 @@
 	<cfset session.registrationcart.invoiceid = thisinvoiceid>
 	<cfset postShoppingCart()>
 
-	<cfset sendemail(from="tomavey@fgbc.org", to=application.wheels.registraremail, cc=application.wheels.errorEmailAddress, template="emailbeforepayment", subject="#getEventAsTextA()# Registration has been started", layout="layout_for_email")>
+	<cfset sendemail(from="tomavey@fgbc.org", to=getSetting('registraremail'), cc=getSetting('errorEmailAddress'), template="emailbeforepayment", subject="#getEventAsTextA()# Registration has been started", layout="layout_for_email")>
 
 	<cfset redirectTo(action="getAgent")>
 
