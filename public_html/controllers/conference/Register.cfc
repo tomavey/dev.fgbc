@@ -971,6 +971,8 @@
 		<cfset session.registrationcart.agent = params.agent>
 		<cfset model("Conferenceinvoice").updateByKey(key=session.registrationcart.invoiceid, agent=session.registrationcart.agent)>
 		<cfset thisinvoice = model("Conferenceinvoice").findOne(where="id=#session.registrationcart.invoiceid#")>
+		<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #session.registrationcart.invoiceid#", include="option,person(family)", order="equip_people.id")>
+
 		<cfif gotRights("office")>
 
 			<cfset sendemail(from=getRegistrar(), to=thisinvoice.agent, cc=getSetting('registrarBackupEmail'), template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email")>
