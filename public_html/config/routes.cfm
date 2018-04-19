@@ -286,6 +286,7 @@
 				.get(name="listType", pattern="list/[key]", action="list")
 				.get(name="view", pattern="view/[key]", action="view")
 				.get(name="copyAllToCurrentEvent", pattern="CopyAllToCurrentEvent", action="CopyAllToCurrentEvent")
+				.get(name="copy", pattern="/copy/[key]", action="copy")
 			.end()	
 			.resources("courses")
 
