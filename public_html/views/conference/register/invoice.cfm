@@ -47,7 +47,7 @@
 				<li><span class="invoiceItem">Amount:</span> #dollarformat(thisinvoice.ccamount)#</li>
 				<li>
 					<span class="invoiceItem">Status:</span> #payStatus(thisinvoice.ccstatus)# 
-					<cfif gotRights("office") && (payStatus(thisinvoice.ccstatus) is "Pending" || payStatus(thisinvoice.ccstatus) is "temp")>
+					<cfif gotRights("office") && isDefined("params.key") && (payStatus(thisinvoice.ccstatus) is "Pending" || payStatus(thisinvoice.ccstatus) is "temp")>
 						#linkto(text="Mark Paid", route="conferenceInvoicesMarkPaid", params="id=#params.key#", onlyPath=false, class="pull-right")#
 					</cfif>	
 				</li>
