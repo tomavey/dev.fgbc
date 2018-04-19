@@ -39,9 +39,10 @@
     <cfparam name="headerSubTitle" default="">
 </head>
 
-<body data-spy="scroll" data-target="#main-navbar">
+<body>
 
-<div class="navigation">
+<!---div class="navigation">
+<body data-spy="scroll" data-target="#main-navbar">
     <div class="navbar navbar-fixed-top" role="navigation">
         <div class="navbar-inner">
             <div class="container">
@@ -74,7 +75,8 @@
             </div><!-- /.container -->
           </div><!-- /.navbar-inner -->
     </div><!-- /.main-navigation -->
-</div><!-- /.navigation -->
+</div>
+.navigation --->
 
 
 <div class="main">
