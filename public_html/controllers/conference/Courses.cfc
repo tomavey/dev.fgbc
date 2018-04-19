@@ -141,7 +141,7 @@
 			<cfset renderPage(layout="/conference/layout_naked", template="listprint")>
 		<cfelse>
 			<cfset setreturn()>
-			<cfset renderPage(layout="/conference/layout2017")>
+			<cfset renderPage(layout="/conference/layout2018")>
 		</cfif>
 
 	</cffunction>
