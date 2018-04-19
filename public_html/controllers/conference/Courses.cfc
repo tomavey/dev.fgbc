@@ -77,8 +77,8 @@
 
 	<cffunction name="getSubtypes">
 		<cfset subtypes = structNew()>
-		<cfset subtypes.A = "A-Cohorts: Tuesday">
-		<cfset subtypes.B = "B-Cohorts: Wednesday">
+		<cfset subtypes.A = "Tuesday, July 24">
+		<cfset subtypes.B = "Wednesday, July 25">
 		<cfset subtypes.C = "A&B-Cohorts: Repeated Tue/WedAM & WedPM/Thu">
 	</cffunction>	
 
