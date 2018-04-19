@@ -3,9 +3,9 @@
 <cfif NOT isDefined("params.download")>
 	<cfoutput>
 		<cfif isDefined("params.key")>
-			#linkto(text="<i class='icon-download-alt'></i>", action="pastorsnotagbm", params="type=#params.key#", params="download=true", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
+			#linkto(text="<i class='icon-download-alt'></i>", action="pastorsnotagbm", params="type=#params.key#", params=makeDownloadParamsList(), class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
 		<cfelse>
-			#linkto(text="<i class='icon-download-alt'></i>", action="pastorsnotagbm", params="download=true", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
+			#linkto(text="<i class='icon-download-alt'></i>", action="pastorsnotagbm", params=makeDownloadParamsList(), class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
 		</cfif>
 	</cfoutput>
 </cfif>
