@@ -77,18 +77,18 @@
 
 	<cffunction name="getSubtypes">
 		<cfset subtypes = structNew()>
-		<cfset subtypes.A = "A-Cohorts: Tuesday and Wednesday AM">
-		<cfset subtypes.B = "B-Cohorts: Wednesday PM and Thursday">
+		<cfset subtypes.A = "A-Cohorts: Tuesday">
+		<cfset subtypes.B = "B-Cohorts: Wednesday">
 		<cfset subtypes.C = "A&B-Cohorts: Repeated Tue/WedAM & WedPM/Thu">
 	</cffunction>	
 
 	<cffunction name="getSubtypeDesc">
 	<cfargument name="subtype" required="true" type="string">
 		<cfif subtype is "A">
-			<cfreturn "This cohort meets on Tuesday and Wednesday: Tuesday morning from 11:15 - 12:15, afternoon from 3:00 - 5:00 and Wednesday morning from 9:30 - 11:30">
+			<cfreturn "This cohort meets on Tuesday, July 24 from 11:00 am - 12:15 pm and 2:00 pm - 3:30 pm.">
 		</cfif>
 		<cfif subtype is "B">
-			<cfreturn "This cohort meets on Wednesday and Thursday: Wednesday from 2:00 - 4:00, Thursday from 9:30 - 11:30 and 2:00 - 4:00">
+			<cfreturn "This cohort meets on Wednesday, July 25 from 11:00 am - 12:15 pm and 2:00 pm - 3:30 pm.">
 		</cfif>
 		<cfif subtype is "C">
 			<cfreturn "Signup for this cohort is very high so we are offering it twice.<br/><br/>You can choose either the Tuesday/Wednesday (A) or the Wednesday/Thursday (B).<br/><br/>Specific times are (choose A or B):<br/>A = Tuesday from 11:15-12:15 and 3:00 - 5:00 and Wednesday from 9:30 - 11:30;<br/>B = Wednesday from 3:00 - 5:00, Thursday from 9:30 - 11:30 and 3:00 - 5:00.">
@@ -97,7 +97,7 @@
 	</cffunction>
 
 	<cffunction name="getCohortsDescription">
-	<cfset var description = '<p>Cohorts are peer learning groups focused around various areas of ministries. Participants will have lots of time to talk about what is working, what is not, ask questions, discuss best practices and even work through issues together. Each cohort will be guided by trained facilitators.<br/> People who are registered for Access2017 should select two cohorts. </p>Each Cohort meets twice on either Tuesday or Wednesday. They meet on Tuesday or Wednesdau from 11:00 am - 12:15 pm AND from 2:00 pm - 3:30 pm. Cohorts will not meet on Thursday.  
+	<cfset var description = '<p>Cohorts are peer learning groups focused around various areas of ministries. Participants will have lots of time to talk about what is working, what is not, ask questions, discuss best practices and even work through issues together. Each cohort will be guided by trained facilitators.<br/> People who are registered for Access2017 should select two cohorts. </p>Each Cohort meets twice on either Tuesday or Wednesday. They meet on Tuesday or Wednesday from 11:00 am - 12:15 pm AND from 2:00 pm - 3:30 pm. Cohorts will not meet on Thursday.  
       </p>
       <p>
 			We are also offering a few workshops this year during the same times as cohorts.
