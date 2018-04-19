@@ -189,10 +189,10 @@ div#shoppingcart {
     border-radius: 20px;
     float: right;
     font-size: x-large;
-    margin: 50px 10px;
+    margin: 50px -5px;
     padding: 20px;
     text-align: center;
-    width: 40%;
+    width: 35%;
 }
 
 table.shoppingCart {border-radius: 20px;font-size: .6em; float:inherit; font-weight:normal}

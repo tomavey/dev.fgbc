@@ -37,23 +37,23 @@
 	<cfset set(sendEmailOnError=false)>
 	<cfset set(sendConferenceEmailOnError=false)>
 	<cfset set(sendHandbookEmailOnError=false)>
-	<cfset set(errorEmailAddress="tomavey@fgbc.org")>
-	<cfset set(errorEmailSubject="fgbc.org error")>
+	<cfset set(errorEmailAddress="tomavey@charisfellowship.us")>
+	<cfset set(errorEmailSubject="charisfellowship.us error")>
 	<cfset set(sendConferenceEmailOnError=true)>
 	<cfset set(sendHandbookEmailOnError=true)>
-	<cfset set(userAdminEmailAddress="tomavey@fgbc.org")>
+	<cfset set(userAdminEmailAddress="tomavey@charisfellowship.us")>
 	<cfset set(fileRef = "http://" & cgi.http_host & replace(cgi.script_name,"index.cfm","") & "files/")>
 	<cfset addFormat(extension="js", mimeType="text/javascript")>
 	<!---cfset set(obfuscateURLs=true)--->
 
 <!---application.wheels Variables--->
 	<cfset set(passwordKey="j316fgsltwj11itbwtwp16hwbagwiy")>
-	<cfset set(oldself = "http://my.fgbc.org")>
+	<cfset set(oldself = "http://my.charisfellowship.us")>
 	<cfset set(feedcount=9)>
 	<cfset set(nominateYear = "2018")>
 	<cfset set(nominateTerm = "2018-2023")>
 	<cfset set(sortorderoptions = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,18,20,100,900,995,999")>
-	<cfset set(registrarEmail="tomavey@fgbc.org,sandy@fgbc.org")>
+	<cfset set(registrarEmail="tomavey@charisfellowship.us,sandy@charisfellowship.us")>
     <cfset set(ministryStaffAdmin="'tomavey','hirwin','skoontz'")>
 	<cfset set(agbmDeadlineDate = "07-1-#year(now())#")>
 	<cfset set(nonStaffSortOrder = 500)>
@@ -70,7 +70,7 @@
 
 <!---used by handbook--->			 
 	<cfset set(handbookRightsRequired = "handbook,office,superadmin,natmin,agbmadmin")>
-	<cfset set(HandbookProfileSecretary="tomavey@fgbc.org")>
+	<cfset set(HandbookProfileSecretary="tomavey@charisfellowship.us")>
 	<cfset set(showLinkToHandbookPageBefore = "11-1-#year(now())#")>
 	<cfset set(sendHandbookDeadline = "January 5, 2018")>
 	<cfset set(HandbookReviewSecretary = "Cassie Harris <raylcassie@gmail.com>")>
@@ -78,8 +78,8 @@
 	<cfset set(SendImmediatePersonUpdates = false)>
 
 <!---Used by Focus MVC--->
-	<cfset set(registrant="tomavey@fgbc.org,sandy@fgbc.org")>
-	<cfset set(testAgents = "tomavey@fgbc.org,sandy@fgbc.org")>
+	<cfset set(registrant="tomavey@charisfellowship.us,sandy@charisfellowship.us")>
+	<cfset set(testAgents = "tomavey@charisfellowship.us,sandy@charisfellowship.us")>
 	<cfset set(optionTypes = "Public,Discount,Office")>
 	<cfset set(focusIsOpen = true)>
     <cfset set(focusMinistryAreas = "Lead Pastor, Executive Pastor, Worship Arts, Youth, Family, Children, Discipleship, Elder, Small Groups, Pastoral Care, Administration, Associate Pastor, Other")>
@@ -114,12 +114,12 @@
 	<cfset set(ministryCategories=listSort("Church Planting Ministries, Communication, Districts, Doing Good, Leadership Training Ministries, none","text"))>
 
 <!---email addresses used--->
-	<cfset set(registrarEmail="tomavey@fgbc.org,sandy@fgbc.org")>
-	<cfset set(requestInvoiceReceiptFrom = "sandy@fgbc.org")>
-	<cfset set(registrarBackupEmail="tomavey9173@gmail.com")>
-	<cfset set(housingCoordinatorEmail = "sandy@fgbc.org")>
-	<cfset set(childcarenotifications = "tomavey@fgbc.org,sandy@fgbc.org")>
-	<cfset set(workshopnotifications = "tomavey@fgbc.org")>
+	<cfset set(registrarEmail="tomavey@charisfellowship.us,sandy@charisfellowship.us")>
+	<cfset set(requestInvoiceReceiptFrom = "sandy@charisfellowship.us")>
+	<cfset set(registrarBackupEmail="sandy@charisfellowship.us")>
+	<cfset set(housingCoordinatorEmail = "sandy@charisfellowship.us")>
+	<cfset set(childcarenotifications = "tomavey@charisfellowship.us,sandy@charisfellowship.us")>
+	<cfset set(workshopnotifications = "tomavey@charisfellowship.us")>
 
 <!---What is open and what is not--->
 	<cfset set(registrationIsOpen = false)>
@@ -157,7 +157,7 @@
 <!---For Vision Conference Announcements--->
 
 	<cfset set(useTestEmailList = false)>
-	<cfset set(testEmailList = "tomavey@fgbc.org,tomavey9173@gmail.com,tomavey@comcast.net,sandy@fgbc.org")>
+	<cfset set(testEmailList = "tomavey@charisfellowship.us,tomavey9173@gmail.com,tomavey@comcast.net,sandy@charisfellowship.us")>
 	<cfset set(emailNotList = "tomavey@test.net,caesar.die2self@gmail.com,graham.cochrane@td.com")>
 
 

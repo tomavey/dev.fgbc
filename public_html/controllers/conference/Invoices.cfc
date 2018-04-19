@@ -199,4 +199,19 @@
 
 	</cffunction>
 
+	<cfscript>
+		public function markpaid(){
+			if (isDefined("params.ccorderid")){
+				var invoice = model("Conferenceinvoice").findOne(where="ccorderid='#params.ccorderid#'");
+			}
+			if (isDefined("params.id")){
+				var invoice = model("Conferenceinvoice").findOne(where="id='#params.id#'");
+			}
+			invoice.ccstatus = "Paid";
+			invoice.update();
+			redirectTo(route="showinvoice", key=invoice.id);
+			writeDump(invoice);abort;
+		}
+	</cfscript>
+
 </cfcomponent>

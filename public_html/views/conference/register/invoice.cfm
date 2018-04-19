@@ -45,17 +45,28 @@
 			<ul>
 				<li><span class="invoiceItem">Order Id:</span> #thisinvoice.ccorderid#</li>
 				<li><span class="invoiceItem">Amount:</span> #dollarformat(thisinvoice.ccamount)#</li>
-				<li><span class="invoiceItem">Status:</span> #payStatus(thisinvoice.ccstatus)#
-					</li>
-				<li><span class="invoiceItem">Name on card:</span> #thisinvoice.ccname#</li>
+				<li>
+					<span class="invoiceItem">Status:</span> #payStatus(thisinvoice.ccstatus)# 
+					<cfif gotRights("office") && (payStatus(thisinvoice.ccstatus) is "Pending" || payStatus(thisinvoice.ccstatus) is "temp")>
+						#linkto(text="Mark Paid", route="conferenceInvoicesMarkPaid", params="id=#params.key#", onlyPath=false, class="pull-right")#
+					</cfif>	
+				</li>
+				<cfif thisinvoice.ccname NEQ "NA">	
+					<li><span class="invoiceItem">Name on card:</span> #thisinvoice.ccname#</li>
+				</cfif>
 				<li><span class="invoiceItem">Date:</span> #dateformat(thisinvoice.updatedat,"medium")#</li>
-				<li><span class="invoiceItem">Email on card:</span> #thisinvoice.ccemail#</li>
+				<cfif thisinvoice.ccemail NEQ "NA">
+					<li><span class="invoiceItem">Email on card:</span> #thisinvoice.ccemail#</li>
+				</cfif>
 			</ul>
 				<cfif !isPublic()>
 					#editTag(controller="conference.invoices", id=params.key)#
 					#deleteTag(controller="conference.invoices", id=params.key, class="noajax")#
 				</cfif>
 		</div>
+		<cfif payStatus(thisinvoice.ccstatus) is "Pending">
+			This invoice is marked with a status of "Pending" because we are waiting on confirmation from our payment center that payment was successfully processed.  We will contact you if we need additional information to complete payment. In other words... "No news is good news!".
+		</cfif>
 </cfoutput>
 		<!---
 
@@ -194,8 +205,8 @@
 								</cftry>
 
 								</p>
-							</div>
-						</cfif>
+							</cfif>	
+						</div>
 						<p>&nbsp;</p>
 					</cfif>	
 				</cfoutput>

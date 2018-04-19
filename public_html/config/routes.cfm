@@ -260,7 +260,10 @@
 			
 			.resources("families")
 			
-			.get(name="showinvoice", pattern="/invoice/[key]", controller="invoices", action="show")
+			.controller("invoices")
+				.get(name="showinvoice", pattern="/invoice/[key]", action="show")
+				.get(name="markPaid", pattern="/markpaid/", action="markpaid")
+			.end()	
 			.resources("invoices")
 
 			.controller("locations")
