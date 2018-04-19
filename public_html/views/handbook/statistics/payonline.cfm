@@ -1,7 +1,7 @@
-	<cfform name="form1" method="POST" action="https://secure.goemerchant.com/secure/gateway/process.aspx">
-	<cfinput type="hidden" name="Merchant" value="#payonline.merchant#">
-	<cfinput type="hidden" name="OrderID" value="#payonline.orderid#">
-	<cfinput type="hidden" name="total" value="#payonline.amount#">
+	<cfform name="form1" method="POST" action="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5835/default.aspx">
+	<cfinput type="hidden" name="order_id" value="#payonline.orderid#">
+	<cfinput type="hidden" name="email" value="#payonline.email#">
+	<cfinput type="hidden" name="amount" value="#payonline.amount#">
 	<cfinput type="hidden" name="URL" value="#payonline.url#">
 	</cfform>
 
