@@ -975,7 +975,7 @@
 
 		<cfif gotRights("office")>
 
-			<cfset sendemail(from=getRegistrar(), to=thisinvoice.agent, cc=getSetting('registrarBackupEmail'), template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email")>
+			<cfset sendemail(from=getRegistrar(), to=thisinvoice.agent, cc=getSetting('registrarEmail'), template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email")>
 
 		</cfif>
 
