@@ -47,6 +47,8 @@
 
 					<cfcol header="Description" text="#left(descriptionlong,50)#<span class='popup'>#descriptionlong#</span>" />
 
+					<cfcol header="#linkto(text='Type', params='orderby=subtype')#" text="#subtype#" />
+
 					<cfcol header="Instructors" text="#getInstructorNamesAsString(id)# #linkto(text='+', controller='conference.courseinstructors', action='new', params='courseid=#id#')#" />
 
 					<cfcol header="Count" text="#countsold#" />
