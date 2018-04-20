@@ -10,9 +10,13 @@
 </cfif>
 
 <cfoutput>
+
+<cfif isDefined("meals")>
+passed
+</cfif>
+
 <cfif isDefined("meals") && meals.recordcount && mealsRegIsOpen() && !isRegType("options") && !isRegType("children")>
 
-<cfdump var="#meals#"><cfabort>
 	<fieldset id="meals" class="selectoptions">
 
 		<legend>
