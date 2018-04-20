@@ -417,6 +417,7 @@
 		.get(name="sendstats", pattern="/sendstats/[key]", controller="handbook.statistics", action="submit")
 		.get(name="selectpersonselectworkshops", pattern="/selectworkshops/", controller="conference.courses", action="selectworkshops")
 		.get(name="selectpersonselectcohorts", pattern="/selectcohorts/", controller="conference.courses", action="selectworkshops")
+		.get(name="selectcohorts", pattern="/selectcohorts/", controller="conference.courses", action="selectworkshops")
 		.get(name="selectworkshops", pattern="/selectworkshops/[personid]", controller="conference.courses", action="selectWorkshops")
 		.get(name="mycohorts", pattern="/mycohorts/", controller="conference.courses", action="showSelectedWorkshops")
 		.get(name="accesscohorts", pattern="/accesscohorts/", controller="conference.courses", action="listCohorts")
