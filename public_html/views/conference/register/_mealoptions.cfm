@@ -11,8 +11,8 @@
 
 <cfoutput>
 
-<cfif meals.recordcount>
-passed meals.recordcount
+<cfif !isRegType("options")>
+passed !isRegType("options")
 <cfelse>
 failed
 </cfif>
