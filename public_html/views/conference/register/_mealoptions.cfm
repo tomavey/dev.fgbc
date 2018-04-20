@@ -8,10 +8,11 @@
 <cfelseif regType() is "children">
 	<cfset params.mealsTitle = "Select meals:">
 </cfif>
-<cfdump var="#meals#"><cfabort>
 
 <cfoutput>
 <cfif isDefined("meals") && meals.recordcount && mealsRegIsOpen() && !isRegType("options") && !isRegType("children")>
+
+<cfdump var="#meals#"><cfabort>
 	<fieldset id="meals" class="selectoptions">
 
 		<legend>
