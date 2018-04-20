@@ -41,6 +41,8 @@
 						#textField(objectName='instructor', property='picThumb', label='Pic Thumb')#
 
 
+						#textField(objectName='instructor', property='tags', label='Tags')#
+
 
 						#textField(objectName='instructor', property='pic120x120', label='Pic 120x120 (for attendify)')#
 

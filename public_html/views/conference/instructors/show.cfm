@@ -56,6 +56,8 @@
 					<p><span>Comment: </span> <br />
 						#instructor.comment#</p>
 				
+					<p><span>Tags: </span>#instructor.tags#</p>
+
 					<p><span>Created: </span> 
 						#dateFormat(instructor.createdAt)#</p>
 
