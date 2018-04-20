@@ -11,8 +11,10 @@
 
 <cfoutput>
 
-<cfif meals.recordcount>
+<cfif mealsRegIsOpen()>
 passed
+<cfelse>
+failed
 </cfif>
 
 <cfif isDefined("meals") && meals.recordcount && mealsRegIsOpen() && !isRegType("options") && !isRegType("children")>
