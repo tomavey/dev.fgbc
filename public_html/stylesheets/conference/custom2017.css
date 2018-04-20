@@ -448,3 +448,9 @@ a.courseresourcenewlink {
     display:block;
     text-align: center;
 }
+
+.cohortisfor {
+    font-style: italic;
+    font-size: .9em;
+    color: grey;
+}
