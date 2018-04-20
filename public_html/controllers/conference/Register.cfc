@@ -1558,7 +1558,6 @@
 	<cfset formaction = "cartAddedOptions">
 	<cfset submitvalue = "Add these options">
 	<cfset meals = model("Conferenceoption").findAllOptions("meal")>
-	<cfdump var="#meals#"><cfabort>
 	<cfset registrations = model("Conferenceoption").findall(where="type in (#typeOfAddRegOptions()#) AND event='#getevent()#'", order="sortorder")>
 	<cfset options = model("Conferenceoption").findall(where="type in ('other','excursion') AND event='#getevent()#'", order="sortorder")>
 	<cfset childCare = model("Conferenceoption").findall(where="type='ChildCareOptions' AND event='#getevent()#'", order="sortorder")>
