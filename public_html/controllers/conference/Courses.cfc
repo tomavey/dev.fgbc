@@ -1,7 +1,8 @@
 <cfcomponent extends="Controller" output="false">
 
 	<cffunction name="init">
-		<cfset usesLayout(template="/conference/adminlayout", except="selectworkshops")>
+		<cfset usesLayout(template="/conference/adminlayout", except="selectworkshops,selectCohorts,selectPersonToSelectCohorts,selectPersonToShowCohortslist,showselectedcohorts,listCohorts,view,table")>
+		<cfset usesLayout(template="/conference/layout2018", only="selectworkshops,selectCohorts,selectPersonToSelectCohorts,selectPersonToShowCohortslist,showselectedcohorts,listCohorts,list,view,table")>
 		<cfset filters(through="getevents", only="edit,new,copy")>
 		<cfset filters(through="setreturn", only="index,show,showallselectedworkshops,showallselectedcohorts,list")>
 		<cfset filters(through="openWorkshops")>
@@ -141,7 +142,6 @@
 			<cfset renderPage(layout="/conference/layout_naked", template="listprint")>
 		<cfelse>
 			<cfset setreturn()>
-			<cfset renderPage(layout="/conference/layout2018")>
 		</cfif>
 
 	</cffunction>
@@ -170,7 +170,6 @@
 		</cfif>
 
 		<cfset courses = model("Conferencecourse").findList(order=arguments.orderby, type="#arguments.type#")>
-		<cfset renderPage(layout="/conference/layout")>
 	</cffunction>
 
 	<!--- Courses/rss --->
@@ -219,7 +218,6 @@
 	        <cfset flashInsert(error="Course/Workshop #params.key# was not found")>
 	        <cfset redirectTo(action="index")>
 	    </cfif>
-		<cfset renderPage(layout="/conference/layout2017")>
 	</cffunction>
 
 	<cffunction name="getInstructors">
@@ -363,7 +361,6 @@
 		<!---Set action to be used in the form--->
 		<cfset formaction = "saveSelectedWorkshops">
 
-		<cfset renderPage(layout="/conference/layout2017")>
 	</cffunction>
 
 	<cffunction name="selectCohorts">
@@ -389,7 +386,6 @@
 
 		
 		<cfset formaction = "saveSelectedCohorts">
-		<cfset renderPage(layout="/conference/layout2017")>
 	</cffunction>
 
 	<cffunction name="getPersonFromId">
@@ -410,7 +406,7 @@
 		<cfset registrations = model("Conferenceperson").findAllPeopleRegistered()>
 		<cfset formaction = "selectCohorts">
 		<cfset headerSubTitle = "Sign up for a Cohort">
-		<cfset renderPage(template="selectPersonToSelectWorkshops", layout="/conference/layout2017")>
+		<cfset renderPage(template="selectPersonToSelectWorkshops")>
 	</cffunction>
 
 	<!---Courses/select-person-to-select-cohorts/--->
@@ -421,7 +417,7 @@
 		<cfset formaction = "showSelectedWorkshops">
 		<cfset headerSubTitle = "Show My Cohorts">
 		<cfset instructions = "">
-		<cfset renderPage(template="selectPersonToSelectWorkshops", layout="/conference/layout2017")>
+		<cfset renderPage(template="selectPersonToSelectWorkshops")>
 	</cffunction>
 
 	<cffunction name="saveSelectedCohorts">
@@ -554,7 +550,6 @@
 
 		<cfset headerSubTitle = "Selected Cohorts">
 
-		<cfset renderPage(layout="/conference/layout2017")>
 	</cffunction>
 
 	<cffunction name="sendSelectedWorkshops">
@@ -669,7 +664,7 @@
 			<cfset renderPage(action="list", key="cohort", layout="/conference/layout_naked", template="listprint")>
 		<cfelse>
 			<cfset setreturn()>
-			<cfset renderPage(action="list", key="cohort", layout="/conference/layout2017")>
+			<cfset renderPage(action="list", key="cohort")>
 		</cfif>
 	</cffunction>
 
