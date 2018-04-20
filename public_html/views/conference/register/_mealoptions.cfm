@@ -11,7 +11,7 @@
 
 <cfoutput>
 
-<cfif isDefined("meals")>
+<cfif meals.recordcount>
 passed
 </cfif>
 
