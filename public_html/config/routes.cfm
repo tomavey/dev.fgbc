@@ -322,7 +322,7 @@
 			.get(name="selectworkshopperson", pattern="/select/[type]/", controller="courses", action="selectworkshops")
 			.get(name="selectworkshop", pattern="/select/[type]/[personid]", controller="courses", action="selectworkshops")
 
-			.get(name="addOptions", pattern="/register/addOptions/[key]", controller="register", action="startFamilyRegs")
+			.get(name="addOptions", pattern="/register/addOptions/[key]", controller="register", action="addOptions")
 			.get(name="showFamilyRegs", pattern="/register/showFamilyRegs/[key]", controller="register", action="showFamilyRegs")
 			.get(name="payinvoice", pattern="/payinvoice", controller="register", action="payExistingInvoiceOnline")
 			.get(name="selectregtype", pattern="/register/selectregtype/", controller="register", action="selectregtype")
