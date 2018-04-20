@@ -8,6 +8,7 @@
 <cfelseif regType() is "children">
 	<cfset params.mealsTitle = "Select meals:">
 </cfif>
+<cfdump var="#meals#"><cfabort>
 
 <cfoutput>
 <cfif isDefined("meals") && meals.recordcount && mealsRegIsOpen() && !isRegType("options") && !isRegType("children")>
@@ -25,7 +26,6 @@
 			<hr/>
 --->
 
-<cfdump var="#meals#"><cfabort>
 		<cfloop query="meals">
 			<div class="#name#">
 
