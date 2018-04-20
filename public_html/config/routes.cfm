@@ -263,6 +263,7 @@
 			.controller("invoices")
 				.get(name="showinvoice", pattern="/invoice/[key]", action="show")
 				.get(name="markPaid", pattern="/markpaid/", action="markpaid")
+				.get(name="showByEmail", pattern="/showByEmail/", action="showByEmail")
 			.end()	
 			.resources("invoices")
 
@@ -342,7 +343,6 @@
 			.controller("users")
 				.post(name="getInvoices", pattern="/getInvoices", action="getInvoices")
 				.get(name="getInvoices", pattern="/getInvoices", action="getInvoices")
-				.get(name="showByEmail", pattern="/showByEmail", action="showByEmail")
 			.end()
 			.resources("users")
 
