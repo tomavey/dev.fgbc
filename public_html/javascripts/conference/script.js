@@ -141,38 +141,38 @@ function $selectcohortchecked(){
 			$('.cohortsubmit').removeAttr('disabled').attr('value',"Submit"); 
 		};
 
-		// If 1 A-Cohort is selected, disables checkboxes for other A-Cohorts	
+		// If 1 Tuesday Cohort is selected, disables checkboxes for other Tuesday Cohorts	
 		if ($numberOfACohortsSelected === 1){
-			 $aCohortsCheckboxUnchecked.next().attr({class:'alert'}).text("You have already selected one A-Cohort");
+			 $aCohortsCheckboxUnchecked.next().attr({class:'alert'}).text("You have already selected one Tuesday Cohort");
 		}
 		else {
 			$aCohortsCheckboxUnchecked.removeAttr('disabled')
 			.not($this).next().removeAttr('class').text("");
 		};
 
-		// If 1 B-Cohort is selected, disables checkboxes for all A-Cohorts	
+		// If 1 Wednesday Cohort is selected, disables checkboxes for all Tuesday Cohorts	
 		if ($numberOfBCohortsSelected === 1){
-			 $bCohortsCheckbox.not($this).not($this).next().attr({class:'alert'}).text("You have already selected one B-Cohort");
+			 $bCohortsCheckbox.not($this).not($this).next().attr({class:'alert'}).text("You have already selected one Wednesday Cohort");
 		}
 		else {
 			$bCohortsCheckbox.not($this).removeAttr('disabled')
 			.not($this).next().removeAttr('class').text("");
 		};
-		// If 2 B-Cohort are selected, disables submit button (failsafe)	
+		// If 2 Wednesday Cohort are selected, disables submit button (failsafe)	
 		if ($numberOfBCohortsSelected > 1){
-			newMessage = "Oops, two B-Cohorts have been selected. Please check one A-Cohort and one B-Cohort";
+			newMessage = "Oops, two Wednesday Cohorts have been selected. Please check one Tuesday Cohort and one Wednesday Cohort";
 			alert(newMessage);
-			$('.cohortsubmit').attr({disabled:'disabled',value:'Oops, select only 1 B-Cohort'}); 
+			$('.cohortsubmit').attr({disabled:'disabled',value:'Oops, select only 1 Wednesday Cohort'}); 
 		}
 		else {
 			$('.cohortsubmit').removeAttr('disabled').attr('value',"Submit"); 
 		};
 
-		// If 2 A-Cohort are selected, disables submit button (failsafe)	
+		// If 2 Tuesday Cohort are selected, disables submit button (failsafe)	
 		if ($numberOfACohortsSelected > 1){
-			newMessage = "Oops, two A-Cohorts have been selected. Please check one A-Cohort and one B-Cohort";
+			newMessage = "Oops, two Tuesday Cohorts have been selected. Please check one Tuesday Cohort and one Wednesday Cohort";
 			alert(newMessage);
-			$('.cohortsubmit').attr({disabled:'disabled',value:'Oops, select only 1 A-Cohort'}); 
+			$('.cohortsubmit').attr({disabled:'disabled',value:'Oops, select only 1 Tuesday Cohort'}); 
 		}
 		else {
 			$('.cohortsubmit').removeAttr('disabled').attr('value',"Submit"); 

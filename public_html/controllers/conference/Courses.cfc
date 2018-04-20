@@ -98,7 +98,7 @@
 	</cffunction>
 
 	<cffunction name="getCohortsDescription">
-	<cfset var description = '<p>Cohorts are peer learning groups focused around various areas of ministries. Participants will have lots of time to talk about what is working, what is not, ask questions, discuss best practices and even work through issues together. Each cohort will be guided by trained facilitators.<br/> People who are registered for Access2017 should select two cohorts. </p>Each Cohort meets twice on either Tuesday or Wednesday. They meet on Tuesday or Wednesday from 11:00 am - 12:15 pm AND from 2:00 pm - 3:30 pm. Cohorts will not meet on Thursday.  
+	<cfset var description = '<p>Cohorts are peer learning groups focused around various areas of ministries. Participants will have lots of time to talk about what is working, what is not, ask questions, discuss best practices and even work through issues together. Each cohort will be guided by trained facilitators.<br/> People who are registered for #getEventAsText()# should select two cohorts. </p>Each Cohort meets twice on either Tuesday or Wednesday. They meet on Tuesday or Wednesday from 11:00 am - 12:15 pm AND from 2:00 pm - 3:30 pm. Cohorts will not meet on Thursday.  
       </p>
       <p>
 			We are also offering a few workshops this year during the same times as cohorts.
