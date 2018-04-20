@@ -1510,6 +1510,7 @@
 <cffunction name="startFamilyRegs">
 	<cftry>
 	<cfset arrayclear(session.shoppingcart)>
+	<cfset clearRegtype()>
 	<cfcatch></cfcatch></cftry>
 	<cftry>
 	<cfset structDelete(session,"registrationcart")>
@@ -1760,6 +1761,10 @@
 	<cfset session.registration.regtype = loc.return>
 
 <cfreturn loc.return>
+</cffunction>
+
+<cffunction name="clearRegType">
+	<cfset structDelete(session.registration, "regtype")>
 </cffunction>
 
 <cffunction name="isRegType">
