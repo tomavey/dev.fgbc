@@ -9,6 +9,11 @@
 
 			#includePartial("registrationcosts")#
 
+	<cfelseif getSetting("regTemporarilyClosed")>		
+			<h1>Welcome to the #getEventAsText()# Registration Center</h1>
+			<p style="text-align:center">
+				The registration center is closed for maintenance. But we promise it will not take long! Check back tomorrow. 
+			</p>
 	<cfelseif regIsOpen()>
 			<h1>Welcome to the #getEventAsText()# Registration Center</h1>
 			<p style="text-align:center">
