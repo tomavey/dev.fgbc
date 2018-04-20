@@ -54,9 +54,9 @@
 		<cfset sendemail(from=get("requestInvoiceReceiptFrom"), to=params.email, template="showByEmail", subject=subjectString, layout="/layout_for_email")>
 
 		<cfif gotRights("office")>
-			<cfset renderPage(template="showByEmail", layout="/conference/layout2017")>
+			<cfset renderPage(template="showByEmail", layout="/conference/layout2018")>
 		<cfelse>	
-			<cfset renderPage(action="regsSent", layout="/conference/layout2017")>
+			<cfset renderPage(action="regsSent", layout="/conference/layout2018")>
 		</cfif>
 
 	</cffunction>
@@ -105,7 +105,7 @@
 	    <cfif gotRights("superadmin,office")>
 	    	<cfset renderPage(controller="conference.register", action="invoice", layout="/conference/adminlayout")>
 	    <cfelse>
-	    	<cfset renderPage(controller="conference.register", action="invoice", layout="/conference/layout2017")>
+	    	<cfset renderPage(controller="conference.register", action="invoice", layout="/conference/layout2018")>
 	    </cfif>
 
 	</cffunction>
