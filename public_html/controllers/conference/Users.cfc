@@ -4,6 +4,7 @@ where=""
 	<cffunction name="init">
 		<cfset provides("json,xml,xls")>
 		<cfset filters(through="paramsEmailRequired", only="getInvoices")>
+		<cfset usesLayout(template="/conference/layout2018")>
 	</cffunction>
 
 	<cfscript>
