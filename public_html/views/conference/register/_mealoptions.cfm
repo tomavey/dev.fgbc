@@ -11,8 +11,8 @@
 
 <cfoutput>
 
-<cfif !isRegType("options")>
-passed !isRegType("options")
+<cfif !isRegType("children")>
+passed !isRegType("children")
 <cfelse>
 failed
 </cfif>
