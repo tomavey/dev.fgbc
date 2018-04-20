@@ -967,7 +967,7 @@
 	<cfelse>	
 		<cfset remove1RegFromGroup(session.shoppingCart[1].groupRegId)>
 	</cfif>
-	<cfset formaction2="saveAgent">
+	<cfset formaction2="conferenceSaveAgent">
 </cffunction>
 
 <cffunction name="saveAgent">
