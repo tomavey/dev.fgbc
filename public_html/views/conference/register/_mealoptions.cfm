@@ -10,7 +10,7 @@
 </cfif>
 
 <cfoutput>
-<cfif isDefined("meals") && meals.recordcount && mealsRegIsOpen() && !isRegType("options") && !isRegType("children")>
+<cfif meals.recordcount && mealsRegIsOpen() && !isRegType("options") && !isRegType("children")>
 	<fieldset id="meals" class="selectoptions">
 
 		<legend>
