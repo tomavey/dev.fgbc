@@ -9,7 +9,7 @@
 
 			#includePartial("registrationcosts")#
 
-	<cfelseif getSetting("regTemporarilyClosed")>		
+	<cfelseif getSetting("regTemporarilyClosed") && !gotRights("office")>		
 			<h1>Welcome to the #getEventAsText()# Registration Center</h1>
 			<p style="text-align:center">
 				The registration center is closed for maintenance. But we promise it will not take long! Check back tomorrow. 
