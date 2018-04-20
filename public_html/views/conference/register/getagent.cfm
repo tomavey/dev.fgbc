@@ -9,7 +9,7 @@
     <cfset agentFieldLabel = "Email address to send confirmation:">
 </cfif>
 <p><h2 class="alert">#flash("agent")#</h2></p>
-#startFormTag(action="#formaction#", id="getagent")#
+#startFormTag(action=formaction2, id="getagent")#
 #textfieldtag(label=agentFieldLabel, name="agent", value="#params.agent#")#
 #submitTag(value="Submit", class="btn")#
 #endFormTag()#

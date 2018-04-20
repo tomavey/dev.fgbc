@@ -916,7 +916,11 @@
 <cffunction name="emailbeforepayment">
 <cfargument name="thisinvoiceid" default="1">
 
+	<cftry>
 	<cfset sendemail(from="tomavey@fgbc.org", to=getRegistrar(), template="emailbeforepayment", subject="#getEventAsTextA()# Registration has been started", layout="layout_for_email", thisinvoiceid=arguments.thisinvoiceid)>
+	<cfcatch></cfcatch>
+	</cftry>
+
 
 </cffunction>
 
@@ -963,7 +967,7 @@
 	<cfelse>	
 		<cfset remove1RegFromGroup(session.shoppingCart[1].groupRegId)>
 	</cfif>
-	<cfset formaction="saveAgent">
+	<cfset formaction2="saveAgent">
 </cffunction>
 
 <cffunction name="saveAgent">
