@@ -345,7 +345,7 @@
 
 		<!---if a personid is not provide go to the select person page--->
 		<cfif not isDefined("params.personid") or not len(params.personid)>
-			<cfset redirectTo(action="selectPersonToSelectCohorts", params="type=#arguments.type#")>
+			<cfset redirectTo(route="conferenceCoursesSelectPersonToSelectCohorts", params="type=#arguments.type#")>
 		</cfif>
 
 		<!--- Do a simple encode of the personid--->
