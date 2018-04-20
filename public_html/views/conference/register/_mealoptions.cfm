@@ -11,8 +11,8 @@
 
 <cfoutput>
 
-<cfif mealsRegIsOpen()>
-passed meals reg is open
+<cfif isDefined("meals")>
+passed isDefined("meals")
 <cfelse>
 failed
 </cfif>
