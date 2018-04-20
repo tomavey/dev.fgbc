@@ -1,8 +1,8 @@
 <cfcomponent extends="Controller" output="false">
 
 	<cffunction name="init">
-		<cfset usesLayout("/conference/adminlayout" except="invoices")>
-		<cfset usesLayout("/conference/layout2018" only="invoices")>
+		<cfset usesLayout("/conference/adminlayout", except="invoices")>
+		<cfset usesLayout("/conference/layout2018", only="invoices")>
 		<cfset filters(through="officeOnly,setEvent", except="show,showByEmail")>
 		<cfset filters(through="setReturn", only="index,show,list")>
 	</cffunction>
