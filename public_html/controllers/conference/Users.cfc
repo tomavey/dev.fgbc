@@ -56,7 +56,7 @@ where=""
 		</cfif>
 
 		<cfset regs = model("Conferenceregistration").RegsByUseridAndFBid(loc)>
-		<cfset renderWith(data = regs, layout = "/conference/layout2017")>
+		<cfset renderWith(data = regs)>
 	</cffunction>
 
 	<cffunction name="connectFamilyToUser">
