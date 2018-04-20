@@ -288,6 +288,8 @@
 				.get(name="copyAllToCurrentEvent", pattern="CopyAllToCurrentEvent", action="CopyAllToCurrentEvent")
 				.get(name="copy", pattern="/copy/[key]", action="copy")
 				.get(name="selectPersonToSelectCohorts", pattern="/selectPersonToSelectCohorts/", action="selectPersonToSelectCohorts")
+				.get(name="selectCohorts", pattern="/selectcohorts/", action="selectCohorts")
+				.post(name="selectCohorts", pattern="/selectcohorts/", action="selectCohorts")
 			.end()	
 			.resources("courses")
 
@@ -412,7 +414,6 @@
 		.get(name="selectpersonselectworkshops", pattern="/selectworkshops/", controller="conference.courses", action="selectworkshops")
 		.get(name="selectpersonselectcohorts", pattern="/selectcohorts/", controller="conference.courses", action="selectworkshops")
 		.get(name="selectworkshops", pattern="/selectworkshops/[personid]", controller="conference.courses", action="selectWorkshops")
-		.post(name="selectcohorts", pattern="/selectcohorts/[personid]", controller="conference.courses", action="selectCohorts")
 		.get(name="mycohorts", pattern="/mycohorts/", controller="conference.courses", action="showSelectedWorkshops")
 		.get(name="accesscohorts", pattern="/accesscohorts/", controller="conference.courses", action="listCohorts")
 		.get(name="listcohorts", pattern="/listcohorts/", controller="conference.courses", action="listCohorts")

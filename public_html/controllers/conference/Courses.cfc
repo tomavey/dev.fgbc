@@ -404,7 +404,7 @@
 	<cfset var loc=structNew()>
 		<cfset loc.datelimit = createDateTime(year(now())-1,10,01,01,01,01)>
 		<cfset registrations = model("Conferenceperson").findAllPeopleRegistered()>
-		<cfset formaction = "selectCohorts">
+		<cfset formaction = "ConferenceCoursesSelectCohorts">
 		<cfset headerSubTitle = "Sign up for a Cohort">
 		<cfset renderPage(template="selectPersonToSelectWorkshops")>
 	</cffunction>

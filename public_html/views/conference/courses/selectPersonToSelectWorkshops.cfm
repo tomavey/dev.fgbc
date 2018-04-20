@@ -25,7 +25,11 @@
 </p>
 <p>Please select your name from the list of folks registered for #geteventAsText()#</p>
 <div class="well">
+<!---
 <form action='#formaction#' method="get" class="selectname">
+--->
+	#startFormTag(route=formaction)#
+
 	#hiddenFieldTag(name="type", value=params.type)#
 
 	<select name="personid" class="selectname">
@@ -39,8 +43,10 @@
 	</cfoutput>
 	</select>
 
-	<input type="submit" value="Submit">
-</form>
+	#submitTag()#
+				
+	#endFormTag()#
+
 </div>
 </cfoutput>
 </div>
