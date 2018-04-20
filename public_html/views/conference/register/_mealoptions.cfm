@@ -11,8 +11,8 @@
 
 <cfoutput>
 
-<cfif isDefined("meals")>
-passed isDefined("meals")
+<cfif meals.recordcount>
+passed meals.recordcount
 <cfelse>
 failed
 </cfif>
