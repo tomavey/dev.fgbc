@@ -339,6 +339,12 @@
 			.get(name="payonline", pattern="/register/payonline/", controller="register", action="payonline")
 			.put(name="convertGroupRegToSingle", pattern="/register/groupRegConvertToSingle/", controller="register", action="groupRegConvertToSingle")
 
+			.controller("users")
+				.post(name="getInvoices", pattern="/getInvoices", action="getInvoices")
+				.get(name="getInvoices", pattern="/getInvoices", action="getInvoices")
+			.end()
+			.resources("users")
+
 			.get(name="survey", pattern="/survey/", controller="surveys", action="new")
 			.get(name="surveyresults", pattern="/surveyresults/", controller="surveys", action="report")
 			.get(name="comments", pattern="/comments/", controller="surveys", action="comments")
