@@ -1,5 +1,5 @@
 <div class="container">
-<cfif application.wheels.registrationIsOpen>
+<cfif getSetting("registrationIsOpen">
 <div id="selectoptions" class="span6 showfamilyregs">
 <cfoutput query="family" group="id">
 <h3>Current registrations for the #lname# family:</h3>
