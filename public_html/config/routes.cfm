@@ -266,6 +266,8 @@
 			.end()	
 			.resources("invoices")
 
+			.resources("instructors")
+
 			.controller("locations")
 				.get(name="copyAllToCurrentEvent", pattern="CopyAllToCurrentEvent", action="CopyAllToCurrentEvent")
 			.end()	
