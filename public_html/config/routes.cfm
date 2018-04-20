@@ -342,6 +342,7 @@
 			.controller("users")
 				.post(name="getInvoices", pattern="/getInvoices", action="getInvoices")
 				.get(name="getInvoices", pattern="/getInvoices", action="getInvoices")
+				.get(name="showByEmail", pattern="/showByEmail", action="showByEmail")
 			.end()
 			.resources("users")
 
