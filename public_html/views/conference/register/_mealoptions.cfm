@@ -12,7 +12,7 @@
 <cfoutput>
 
 <cfif mealsRegIsOpen()>
-passed
+passed meals reg is open
 <cfelse>
 failed
 </cfif>
