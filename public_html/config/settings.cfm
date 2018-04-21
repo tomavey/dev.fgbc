@@ -124,15 +124,15 @@
 <!---What is open and what is not--->
 	<cfset set(registrationIsOpen = false)>
 	<cfset set(regOpenPromiseDate = "2018-02-20")>	
-	<cfset set(groupregistrationIsOpen = false)>
-	<cfset set(convertGroupRegistrationIsOpen = false)>
+	<cfset set(groupregistrationIsOpen = true)>
+	<cfset set(convertGroupRegistrationIsOpen = true)>
 	<cfset set(monitoring = false)>
 	<cfset set(mealsregistrationIsOpen = false)>
 	<cfset set(optionsregistrationIsOpen = false)>
 	<cfset set(preregistrationIsOpen = false)>
 	<cfset set(ccareregistrationIsOpen = false)>
 	<cfset set(exhibitorsIsOpen = false)>
-	<cfset set(regAccountIsOpen = false)>
+	<cfset set(regAccountIsOpen = true)>
 	<cfset set(workshopsRegIsOpen = false)>
 	<cfset set(workshopsEventsAreSet = false)>
 	<cfset set(workshopNotificationsOpen = false)>

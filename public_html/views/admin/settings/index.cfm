@@ -1,4 +1,5 @@
 <cfparam name="params.category" default="">
+<cfparam name="rowclass" default = "equalsetting">
 <div class="container">
 	<cfoutput>
 	<h1>Listing #params.category# settings:</h1>
@@ -53,6 +54,30 @@
 			</cfloop>
 			</cfoutput>
 		</div>
+	</cfif>
+
+	<cfif gotRights("superadmin")>
+		<cfoutput>
+		<table>
+			<tr>
+				<th>Variable</th>
+				<th>Application.wheels</th>
+				<th>getSetting()</th>
+			</tr>	
+		<cfloop list="#applicationSettingsList#" index="i">
+			<cfif application.wheels[i] NEQ getSetting(i)>
+				<cfset rowclass = "notequalsetting">
+			<cfelse>	
+				<cfset rowclass = "equalsetting">
+			</cfif>
+			<tr class="#rowclass#">
+				<td>#linkto(text=i, controller="admin.settings", action="new", params="name=#i#")#</td>
+				<td>#application.wheels[i]#
+				<td>#getSetting(i)#</td>
+			</tr>
+		</cfloop>
+		</table>
+		</cfoutput>
 	</cfif>
 
 <!---

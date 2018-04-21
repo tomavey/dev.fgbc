@@ -37,9 +37,23 @@ component extends="Controller" output="false" {
       orderString = params.orderby;
     }
     settings = model("Fgbcsetting").findAll(where=whereString, order=orderString);
+    applicationSettingsList = getApplicationSettingsList();
     if(isDefined("params.category") && params.category is "conference"){
       renderPage(layout="/conference/adminlayout");
     }
+  }
+
+  private function getApplicationSettingsList(){
+    var newlist = "";
+    var oldlist = structKeyList(application.wheels);
+    oldlist = listSort(oldlist, "textNoCase");
+    for (var i = 1; i LTE listLen(oldlist); i=i+1){
+      var listItem = listGetAt(oldlist,#i#);
+      if (listItem NEQ "password" && asc(mid(listItem,2,1)) GTE 97){
+        newlist = newlist & #listItem# & ",";
+      }
+    };
+    return newlist;
   }
   
   // settings/show/key
@@ -55,6 +69,7 @@ component extends="Controller" output="false" {
   // settings/new
   public void function new(){
     setting = model("Fgbcsetting").new();
+    if (isDefined("params.name")){setting.name = params.name};
   }
   
   //fgbc_metas/edit/key
