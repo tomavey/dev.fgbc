@@ -62,7 +62,7 @@
 
 <cfoutput>
 
-    <div id="sendworkshopsemail">
+    <div id="sendworkshopsemail" class="text-center">
     <p>Check your inbox.  You may have already received email confirmation of these choices.</p>
         #StartFormTag(action="sendSelectedWorkshops", class="form-inline")#
         <fieldset>
