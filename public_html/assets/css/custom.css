@@ -65,6 +65,6 @@
     background-color: greenyellow;
 }
 
-#selectworkshops .btn {
-    border-color: black;
+#selectworkshops a.btn {
+    border-color: black !important;
 }
