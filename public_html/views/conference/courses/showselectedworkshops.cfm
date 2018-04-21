@@ -2,7 +2,7 @@
 <div id='selectworkshops' class="container">
 <cfif isObject(person)>
     <cfoutput>
-        #getEventAsText()# #capitalize(pluralize(params.type))# selected for #person.fullname#
+        <h2>#getEventAsText()# #capitalize(pluralize(params.type))# selected for #person.fullname#</h2>
     </cfoutput>
 </cfif>
 
