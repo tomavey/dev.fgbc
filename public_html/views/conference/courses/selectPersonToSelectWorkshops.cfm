@@ -21,10 +21,10 @@
 <h2 class="center">#instructions#</h2>
 </cfif>
 <p class="text-right">
-<a href="http://www.fgbc.org/conference" class="btn">Not registered yet?? <br/>Register For #getEventAsText()# Now</a>
+<a href="http://www.fgbc.org/conference" class="btn">Not registered yet? <br/>Register For #getEventAsText()# Now</a>
 </p>
-<p>Please select your name from the list of folks registered for #geteventAsText()#</p>
-<div class="well">
+<h2 class="text-center">Please select your name from the list of folks registered for #geteventAsText()#</h2>
+<div class="well text-center">
 <!---
 <form action='#formaction#' method="get" class="selectname">
 --->
