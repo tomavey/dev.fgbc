@@ -45,7 +45,7 @@
 <cfoutput>
 
     <cfif isDefined("params.personid")>
-    #linkTo(text="Edit this list", controller="conference.courses", action="selectCohorts", params="type=cohort&personid=#simpleEncode(params.personid,13)#", class="btn btn-block", onlyPath="false")#
+    #linkTo(text="Edit this list", controller="conference.courses", action="selectCohorts", params="type=cohort&personid=#params.personid#", class="btn btn-block", onlyPath="false")#
     </cfif>
 
 </cfoutput>
@@ -56,7 +56,7 @@
         <p class="alert text-center">
             No cohorts have been selected for #person.fname#.
         </p>
-        #linkTo(text="Select Cohorts for #person.fname#", controller="conference.courses", action="selectCohorts", personid=#simpleEncode(params.personid,13)#, params="type=cohort&personid=#person.id#", class="btn btn-block", onlyPath="false")#
+        #linkTo(text="Select Cohorts for #person.fname#", controller="conference.courses", action="selectCohorts", personid=#params.personid#, params="type=cohort&personid=#person.id#", class="btn btn-block", onlyPath="false")#
     </cfoutput>
 </cfif>
 
