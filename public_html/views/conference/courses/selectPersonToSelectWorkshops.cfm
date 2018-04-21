@@ -44,7 +44,7 @@
 	</cfoutput>
 	</select>
 
-	#submitTag()#
+	#submitTag("Get My Cohorts")#
 				
 	#endFormTag()#
 
