@@ -180,7 +180,7 @@
 					<cfif !findNoCase("group",buttondescription)>
 						<cfset thisEmail = structNew()>
 						<cfset thisEmail.subject = urlEncodedFormat("Your #getEventAsText()# Registration")> 
-						<cfset thisEmail.body = "Greetings!%20%20%0D%0DThank%20you%20for%20registering%20for%20#getEventAsTExt()#.%0D%0DHere%20are%20a%20links%20to%20purchase%20meal%20tickets%20and%20signup%20for%20cohorts:%0D%0DAdd%20Options:%20http://charisfellowship.us/conference/register/addOptions/#conferencefamilyid#%0D%0DSign%20for%20cohorts:%20http://charisfellowship.us/selectCohorts/#simpleEncode(equip_peopleid,13)#?type=cohorts">						
+						<cfset thisEmail.body = "Greetings!%20%20%0D%0DThank%20you%20for%20registering%20for%20#getEventAsTExt()#.%0D%0DHere%20are%20a%20links%20to%20purchase%20meal%20tickets%20and%20signup%20for%20cohorts:%0D%0DAdd%20Options:%20http://charisfellowship.us/conference/register/addOptions/#conferencefamilyid#%0D%0DSign%20for%20cohorts:%20http://charisfellowship.us/selectCohorts/#equip_peopleid#?type=cohorts">						
 						<div class="well">
 							<p>#fname# #lname#  
 							</p>
@@ -189,12 +189,12 @@
 							</p>
 							<cfif workshopsRegOpen()>
 								<p>
-									#linkTo(text="Use this button to view, add or edit COHORTS for #fname#", route="selectcohorts", personid=#simpleEncode(equip_peopleid,13)#, params="type=cohort", onlyPath=false, class="btn  btn-large btn-inverse")#
+									#linkTo(text="Use this button to view, add or edit COHORTS for #fname#", route="selectcohorts", params="type=cohort&personid="equip_peopleid#, onlyPath=false, class="btn  btn-large btn-inverse")#
 								</p>
 								<cfset spouse = getSpouse(equip_peopleid)>
 								<cfif val(spouse.id)>
 									<p>
-										#linkTo(text="Use this button to view, add or edit COHORTS for #spouse.fname#", route="selectcohorts", personid=#simpleEncode(spouse.id,13)#, params="type=cohort", onlyPath=false, class="btn  btn-large")#
+										#linkTo(text="Use this button to view, add or edit COHORTS for #spouse.fname#", route="selectcohorts", params="type=cohort&personid=#spouse.id#", onlyPath=false, class="btn  btn-large")#
 									</p>
 								</cfif>
 								<cftry>
