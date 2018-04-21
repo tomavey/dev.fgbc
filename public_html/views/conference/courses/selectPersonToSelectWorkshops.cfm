@@ -28,7 +28,8 @@
 <!---
 <form action='#formaction#' method="get" class="selectname">
 --->
-	#startFormTag(route="mycohorts", method="get")#
+
+	#startFormTag(route="mycohorts", method="post")#
 
 	#hiddenFieldTag(name="type", value=params.type)#
 

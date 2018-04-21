@@ -434,6 +434,7 @@
 		.get(name="selectcohorts", pattern="/selectcohorts/", controller="conference.courses", action="selectworkshops")
 		.get(name="selectworkshops", pattern="/selectworkshops/[personid]", controller="conference.courses", action="selectWorkshops")
 		.get(name="mycohorts", pattern="/mycohorts/", controller="conference.courses", action="showSelectedWorkshops")
+		.post(name="mycohorts", pattern="/mycohorts/", controller="conference.courses", action="showSelectedWorkshops")
 		.get(name="accesscohorts", pattern="/accesscohorts/", controller="conference.courses", action="listCohorts")
 		.get(name="listcohorts", pattern="/listcohorts/", controller="conference.courses", action="listCohorts")
 		.get(name="cohorts", pattern="/cohorts/", controller="conference.courses", action="listCohorts")
