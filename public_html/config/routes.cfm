@@ -293,6 +293,8 @@
 				.get(name="selectPersonToSelectCohorts", pattern="/selectPersonToSelectCohorts/", action="selectPersonToSelectCohorts")
 				.get(name="selectCohorts", pattern="/selectcohorts/", action="selectCohorts")
 				.post(name="selectCohorts", pattern="/selectcohorts/", action="selectCohorts")
+				.get(name="saveSelectedCohorts", pattern="/saveSelectedCohorts", action="saveSelectedCohorts")
+				.post(name="saveSelectedCohorts", pattern="/saveSelectedCohorts", action="saveSelectedCohorts")
 			.end()	
 			.resources("courses")
 
