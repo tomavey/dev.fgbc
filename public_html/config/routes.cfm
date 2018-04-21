@@ -295,8 +295,8 @@
 				.post(name="selectCohorts", pattern="/selectcohorts/", action="selectCohorts")
 				.get(name="saveSelectedCohorts", pattern="/saveSelectedCohorts/", action="saveSelectedCohorts")
 				.post(name="saveSelectedCohorts", pattern="/saveSelectedCohorts/", action="saveSelectedCohorts")
-				.get(name="sendSelectedCohorts", pattern="/sendSelectedCohorts/", action="sendSelectedWorkshops")
-				.post(name="sendSelectedCohorts", pattern="/sendSelectedCohorts/", action="sendSelectedWorkshops")
+				.get(name="sendSelectedCohorts", pattern="/sendSelectedworkshops/", action="sendSelectedWorkshops")
+				.post(name="sendSelectedCohorts", pattern="/sendSelectedWorkshops/", action="sendSelectedWorkshops")
 			.end()	
 			.resources("courses")
 
