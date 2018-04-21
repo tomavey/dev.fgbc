@@ -33,7 +33,7 @@
 
 	#hiddenFieldTag(name="type", value=params.type)#
 
-	<select name="personid" class="selectname">
+	<select name="personid" class="selectname input-large">
 			<option value="">---Select your name---</option>
 	<cfoutput query="registrations" group="fullNameLastFirstID">
 		<cfset thisperson = '#lname#, #fname#'>
@@ -44,7 +44,7 @@
 	</cfoutput>
 	</select>
 
-	#submitTag("Get My Cohorts")#
+	#submitTag(value="Get My Cohorts", class="btn btn-block")#
 				
 	#endFormTag()#
 
