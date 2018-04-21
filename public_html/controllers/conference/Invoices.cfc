@@ -51,7 +51,9 @@
 			<cfset subjectString = "Your Conference Registrations(s)">
 		</cfcatch>
 		</cftry>
-		<cfset sendemail(from=get("requestInvoiceReceiptFrom"), to=params.email, template="showByEmail", subject=subjectString, layout="/layout_for_email")>
+		<cfif !isLocalMachine()>
+			<cfset sendemail(from=get("requestInvoiceReceiptFrom"), to=params.email, template="showByEmail", subject=subjectString, layout="/layout_for_email")>
+		</cfif>
 
 		<cfif gotRights("office")>
 			<cfset renderPage(template="showByEmail", layout="/conference/layout2018")>

@@ -7,7 +7,7 @@
 	</cffunction>
 
 	<cffunction name="isLocalMachine">
-		<cfif cgi.http_host is "localhost:8080" OR cgi.http_host is "localhost:8888">
+		<cfif cgi.http_host contains ":8080" || cgi.http_host contains ":8888">
 			<cfreturn true>
 		<cfelse>
 			<cfreturn false>
