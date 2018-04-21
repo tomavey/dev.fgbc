@@ -38,7 +38,7 @@
 	<cfoutput query="registrations" group="fullNameLastFirstID">
 		<cfset thisperson = '#lname#, #fname#'>
 			<cfif thisperson NEQ lastperson>
-				<option value=#convertPersonid(id)#>#thisperson#</option>
+				<option value=#id#>#thisperson#</option>
 			</cfif>
 		<cfset lastperson = '#lname#, #fname#'>
 	</cfoutput>
