@@ -79,6 +79,7 @@
         #endFormTag()#
     </div>
     </div>
+    <div>&nbsp;</div>
 
 </cfoutput>
 </div>
