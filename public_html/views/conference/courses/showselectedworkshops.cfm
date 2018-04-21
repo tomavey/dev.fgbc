@@ -44,7 +44,9 @@
 
 <cfoutput>
 
-    #linkTo(text="Edit this list", controller="conference.courses", action="selectCohorts", personid=#simpleEncode(params.personid,13)#, params="type=cohort", class="btn btn-block", onlyPath="false")#
+    <cfif isDefined("params.personid")>
+    #linkTo(text="Edit this list", controller="conference.courses", action="selectCohorts", params="type=cohort&personid=#simpleEncode(params.personid,13)#", class="btn btn-block", onlyPath="false")#
+    </cfif>
 
 </cfoutput>
 
