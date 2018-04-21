@@ -189,7 +189,7 @@
 							</p>
 							<cfif workshopsRegOpen()>
 								<p>
-									#linkTo(text="Use this button to view, add or edit COHORTS for #fname#", route="selectcohorts", params="type=cohort&personid="equip_peopleid#, onlyPath=false, class="btn  btn-large btn-inverse")#
+									#linkTo(text="Use this button to view, add or edit COHORTS for #fname#", route="selectcohorts", params="type=cohort&personid=#equip_peopleid#", onlyPath=false, class="btn  btn-large btn-inverse")#
 								</p>
 								<cfset spouse = getSpouse(equip_peopleid)>
 								<cfif val(spouse.id)>
