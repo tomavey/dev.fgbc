@@ -348,9 +348,6 @@
 			<cfset redirectTo(route="conferenceCoursesSelectPersonToSelectCohorts", params="type=#arguments.type#")>
 		</cfif>
 
-		<!--- Do a simple encode of the personid--->
-		<cfset params.personid = simpleDecode(params.personid,13)>
-
 		<!---Get Workshops--->
 		<cfset workshops = model("Conferencecourse").findAll(where="event='#getEvent()#' AND category = '#translateType(arguments.type)#'", include="Agenda", order="radioButtonGroup,eventDate,title")>
 
@@ -369,14 +366,14 @@
 		<cfset cohorts = model("Conferencecourse").findAll(where="event='#getEvent()#' AND type = 'cohort'", order="title")>
 
 		<cfif isDefined("params.personid")>
-			<cfset selectedcohorts = model("Conferenceregistration").findAll(where="equip_peopleid=#simpleDecode(params.personid,13)# AND equip_optionsid = #getOptionIdFromName(translatetype(arguments.type))#")>
+			<cfset selectedcohorts = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# AND equip_optionsid = #getOptionIdFromName(translatetype(arguments.type))#")>
 			<cfset coursesIdList = "">
 			<cfloop query="selectedCohorts">
 				<cfset coursesIdList = coursesIdList & "," & equip_coursesid>
 			</cfloop>
 			<cfset coursesIdList = replace(coursesIdList,",","")>
 
-			<cfset headerSubTitle = "Select Cohorts for #getPersonFromId(simpleDecode(params.personid,13))# Here">
+			<cfset headerSubTitle = "Select Cohorts for #getPersonFromId(params.personid)# Here">
 
 		<cfelse>	
 
@@ -428,20 +425,20 @@
 		</cfif>
 
 		<cfif listlen(params.cohorts) LTE 2>
-			<cfset deletedSelectedWorshopsForPersonid(simpleDecode(params.personid,13),params.type)>
+			<cfset deletedSelectedWorshopsForPersonid(params.personid,params.type)>
 			<cfloop list="#params.cohorts#" index="i">
 				<cfset registration = model("Conferenceregistration").new()>
-				<cfset registration.equip_peopleid = simpleDecode(params.personid,13)>
+				<cfset registration.equip_peopleid = params.personid>
 				<cfset registration.equip_coursesid = i>
 				<cfset registration.equip_optionsid = getOptionIdFromName(translatetype(arguments.type))>
 				<cfset registration.equip_invoicesid = 1115>
 				<cfset registration.quantity = 1>
 				<cfset check = registration.save()>
 			</cfloop>
-			<cfset redirectTo(action="showSelectedWorkshops", params="type=#params.type#&personid=#simpleDecode(personid,13)#")>
+			<cfset redirectTo(action="showSelectedWorkshops", params="type=#params.type#&personid=#personid#")>
 		<cfelse>
 			<cfset flashInsert(toomany="Too many cohorts were selected. Please pick 2.")>
-			<cfset redirectTo(action="selectCohorts", personid=params.personid, params="type=#params.type#&personid=#simpleDecode(personid,13)#")>
+			<cfset redirectTo(action="selectCohorts", personid=params.personid, params="type=#params.type#&personid=#personid#")>
 		</cfif>
 	</cffunction>
 
