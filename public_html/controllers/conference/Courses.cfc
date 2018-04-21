@@ -516,8 +516,8 @@
 		<cfif isDefined("params.personid")>
 			<cfset workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# AND type='#arguments.type#'", include="Workshop(Agenda)", order="eventDate")>
 
-			<cfset person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family")>
-	<cfdump var="#person#"><cfabort>
+			<cfset person = model("Conferenceperson").findOne(where="id=#simpleDecode(params.personid,13)#", include="family")>
+	<cfdump var="#params#"><cfabort>
 		<cfelse>
 			<cfset redirectTo(action="selectPersonToShowCohorts", params="type=#arguments.type#&encodePersonId=false")>
 			Need to get personid<cfabort>	
