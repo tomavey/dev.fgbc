@@ -6,7 +6,7 @@
 <cfif isObject(person)>
 <cfoutput>
 <h1>Select #pluralize(translateType(params.type))# for #person.fullname#</h1>
-#linkto(text="<span style='font-size:.6em'>Not #person.fullname#?</span>", route="conferenceCoursesSelectPersonToSelectWorkshops")#
+#linkto(text="<span style='font-size:.6em'>Not #person.fullname#?</span>", route="conferenceCoursesSelectPersonToSelectCohorts")#
 </cfoutput>
 </cfif>
 
