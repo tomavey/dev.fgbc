@@ -1,13 +1,21 @@
 <cfcomponent extends="Controller" output="false">
 
 	<cffunction name="init">
-		<cfset usesLayout(template="/conference/adminlayout", except="selectworkshops,selectCohorts,selectPersonToSelectCohorts,selectPersonToShowCohortslist,showselectedcohorts,listCohorts,view,table")>
-		<cfset usesLayout(template="/conference/layout2018", only="selectworkshops,selectCohorts,selectPersonToSelectCohorts,selectPersonToShowCohortslist,showselectedcohorts,listCohorts,list,view,table")>
+		<cfset usesLayout(template="/conference/layout2018/")>
 		<cfset filters(through="getevents", only="edit,new,copy")>
 		<cfset filters(through="setreturn", only="index,show,showallselectedworkshops,showallselectedcohorts,list")>
 		<cfset filters(through="openWorkshops")>
 		<cfset filters(through="getCourses", only="list,listCohorts")>
 		<cfset filters(through="getSubtypes", only="list,listCohorts,selectcohorts,showSelectedWorkshops,sendSelectedWorkshops")>
+		<cfset filters(through="setPublicLayout")>
+	</cffunction>
+
+<!------------->
+<!---Filters--->
+<!------------->
+
+	<cffunction name="setPublicLayout">
+		<cfset publicLayout = "/conference/layout2018">
 	</cffunction>
 
 	<cffunction name="getEvents">
@@ -70,12 +78,6 @@
 	<!---cfdump var="#courses#"><cfabort--->
 	</cffunction>
 
-	<cffunction name="getCourseResources">
-	<cfargument name="courseId" required="true" type="numeric">
-		<cfset var resources = model("Conferencecourseresource").findall(where="id=#arguments.courseId#", order="createdAt DESC")>
-	<cfreturn resources>
-	</cffunction>
-
 	<cffunction name="getSubtypes">
 		<cfset subtypes = structNew()>
 		<cfset subtypes.A = "Tuesday, July 24">
@@ -83,110 +85,18 @@
 		<cfset subtypes.C = "A&B-Cohorts: Repeated Tue/WedAM & WedPM/Thu">
 	</cffunction>	
 
-	<cffunction name="getSubtypeDesc">
-	<cfargument name="subtype" required="true" type="string">
-		<cfif subtype is "A">
-			<cfreturn "This cohort meets on Tuesday, July 24 from 11:00 am - 12:15 pm and 2:00 pm - 3:30 pm.">
-		</cfif>
-		<cfif subtype is "B">
-			<cfreturn "This cohort meets on Wednesday, July 25 from 11:00 am - 12:15 pm and 2:00 pm - 3:30 pm.">
-		</cfif>
-		<cfif subtype is "C">
-			<cfreturn "Signup for this cohort is very high so we are offering it twice.<br/><br/>You can choose either the Tuesday/Wednesday (A) or the Wednesday/Thursday (B).<br/><br/>Specific times are (choose A or B):<br/>A = Tuesday from 11:15-12:15 and 3:00 - 5:00 and Wednesday from 9:30 - 11:30;<br/>B = Wednesday from 3:00 - 5:00, Thursday from 9:30 - 11:30 and 3:00 - 5:00.">
-		</cfif>
-	<cfreturn "NA">
-	</cffunction>
+<!---End of Filters--->
 
-	<cffunction name="getCohortsDescription">
-	<cfset var description = '<p>Cohorts are peer learning groups focused around various areas of ministries. Participants will have lots of time to talk about what is working, what is not, ask questions, discuss best practices and even work through issues together. Each cohort will be guided by trained facilitators.<br/> People who are registered for #getEventAsText()# should select two cohorts. </p>Each Cohort meets twice on either Tuesday or Wednesday. They meet on Tuesday or Wednesday from 11:00 am - 12:15 pm AND from 2:00 pm - 3:30 pm. Cohorts will not meet on Thursday.  
-      </p>
-      <p>
-			We are also offering a few workshops this year during the same times as cohorts.
-      </p>'>
-		<cfreturn description>
-	</cffunction>
+
+<!--------------->
+<!--- C.R.U.D.--->
+<!--------------->
 
 	<!--- Courses/index --->
 	<cffunction name="index">
 		<cfset courses = model("Conferencecourse").findAllCourses(params)>
+		<cfset renderPage(layout="/conference/adminlayout")>
 	</cffunction>
-
-	<cffunction name="json">
-		<cfset data = model("Conferencecourse").findAllAsJson(params)>
-		<cfset renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)>
-	</cffunction>
-
-<!---Redirections--->
-
-	<!--Courses/workshops--->
-	<cffunction name="workshops">
-		<cfset redirectTo(controller="conference.courses", action="list", params="type=workshop")>
-	</cffunction>
-
-	<!--- Courses/workshopstable .get(name="conferenceworkshopstable", pattern="/workshops/table/", controller="courses", action="workshopstable") --->
-	<cffunction name="workshopstable">
-		<cfset redirectTo(controller="conference.courses", action="table", params="type=workshop")>
-	</cffunction>
-
-	<!--Courses/riskursions--->
-	<cffunction name="riskursions">
-		<cfset redirectTo(controller="conference.courses", action="list", params="type=excursion")>
-	</cffunction>
-
-<!--------------------------->
-
-	<!--- Courses/list --->
-	<cffunction name="list">
-
-		<cfif isDefined("params.print")>
-			<cfset renderPage(layout="/conference/layout_naked", template="listprint")>
-		<cfelse>
-			<cfset setreturn()>
-		</cfif>
-
-	</cffunction>
-
-	<!--- Courses/table --->
-	<cffunction name="table">
-	<cfargument name="type" default="all">
-	<cfargument name="orderBy" default="room,date">
-
-		<cfset introTitle = "Workshops">
-
-		<!---Overwrite argument defaults based on params--->
-		<cfif isDefined("params.key")>
-			<cfset arguments.type = params.key>
-		</cfif>
-		<cfif isDefined("params.type")>
-			<cfset arguments.type = params.type>
-		</cfif>
-		<cfif isDefined("params.orderby")>
-			<cfset arguments.orderby = params.orderby>
-			<cfif params.orderby is "track">
-				<cfset arguments.orderBy = "track,date">
-			</cfif>
-			<cfset firstcolumnname = "Track">
-			<cfset firstlevelgroup = "track">
-		</cfif>
-
-		<cfset courses = model("Conferencecourse").findList(order=arguments.orderby, type="#arguments.type#")>
-	</cffunction>
-
-	<!--- Courses/rss --->
-	<cffunction name="rss">
-		<cfset courses = model("Conferencecourse").findList()>
-
-		<cfset title = "Vision Conference 2014 Workshops">
-
-		<cfset description= "Vision Conference 2014 will include a number of workshops.">
-
-		<cfif application.wheels.environment is not "production">
-			<cfset set(environment="production")>
-		</cfif>
-
-		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
-	</cffunction>
-
 
 	<!--- Courses/show/key --->
 	<cffunction name="show">
@@ -201,91 +111,9 @@
 		        <cfset redirectTo(action="index")>
 		    </cfif>
 
-	</cffunction>
-
-	<!--- Courses/view/key --->
-	<cffunction name="view">
-
-		<!--- Find the record --->
-    	<cfset course = model("Conferencecourse").findOne(where="id=#params.key#", include="Agenda")>
-    	<cfset instructors = model("Conferencecourseinstructor").findAll(where="courseId = #params.key#", include="InstructorInfo")>
-		<cfset questions = model("Conferencecoursequestion").findAll(where="courseid=#params.key#", order="createdAt DESC", include="person(family)")>
-
-		<cfset introTitle = "Workshop...">
-
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(course)>
-	        <cfset flashInsert(error="Course/Workshop #params.key# was not found")>
-	        <cfset redirectTo(action="index")>
-	    </cfif>
-	</cffunction>
-
-	<cffunction name="getInstructors">
-	<cfargument name="courseid" required="true" type="numeric">
-	<cfset var loc=structNew()>
-	<cfset loc = arguments>
-    	<cfset loc.instructors = model("Conferencecourseinstructor").findAll(where="courseId = #loc.courseid#", include="Instructor")>
-	<cfreturn loc.instructors>
-	</cffunction>
-
-	<cffunction name="getInstructorNamesAsString">
-	<cfargument name="courseid" required="true" type="numeric">
-	<cfset var loc=structNew()>
-	<cfset loc = arguments>
-		<cfset loc.instructors = getInstructors(loc.courseid)>
-		<cfset loc.names = "">
-		<cfloop query="loc.instructors">
-			<cfset loc.names = loc.names & ", " & "#linkto(text=selectName, controller='conference.instructors', action='show', key=id)#">
-		</cfloop>
-		<cfset loc.names = replace(loc.names,", ","","one")>
-	<cfreturn loc.names>
-	</cffunction>
-
-	<!--- Courses/new --->
-	<cffunction name="new">
-		<cfset course = model("Conferencecourse").new()>
-		<cfset course.event = getEvent()>
-	</cffunction>
-
-	<!--- Courses/edit/key --->
-	<cffunction name="edit">
-
-		<!--- Find the record --->
-    		<cfset course = model("Conferencecourse").findByKey(params.key)>
-
-    		<!--- Check if the record exists --->
-	    	<cfif NOT IsObject(course)>
-	        		<cfset flashInsert(error="Course #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    	</cfif>
+		<cfset renderPage(layout="/conference/adminlayout")>
 
 	</cffunction>
-
-	<!--- Courses/edit/key --->
-	<cffunction name="copy">
-
-		<!--- Find the record --->
-    		<cfset course = model("Conferencecourse").findByKey(params.key)>
-
-    		<!--- Check if the record exists --->
-	    	<cfif NOT IsObject(course)>
-	        		<cfset flashInsert(error="Course #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    	</cfif>
-
-	    <cfset renderPage(controller="conference.courses", action="new")>
-
-	</cffunction>
-	
-
-	<!--- Courses/copyAllToCurrentEvent --->
-
-	<cfscript>
-		public function copyAllToCurrentEvent(){
-			super.copyAllToCurrentEvent( tableName = "Conferencecourse" );
-			returnBack();
-		}
-	</cfscript>
 
 	<!--- Courses/create --->
 	<cffunction name="create">
@@ -332,10 +160,91 @@
 		</cfif>
 	</cffunction>
 
+	<!--- Courses/new --->
+	<cffunction name="new">
+		<cfset course = model("Conferencecourse").new()>
+		<cfset course.event = getEvent()>
+		<cfset renderPage(layout="/conference/adminlayout")>
+	</cffunction>
 
-<!---Methods that select workshops for registrants--->
+	<!--- Courses/edit/key --->
+	<cffunction name="edit">
 
-	<!---Courses/select-workshops/[personid]--->
+		<!--- Find the record --->
+		<cfset course = model("Conferencecourse").findByKey(params.key)>
+
+		<!--- Check if the record exists --->
+		<cfif NOT IsObject(course)>
+				<cfset flashInsert(error="Course #params.key# was not found")>
+		<cfset redirectTo(action="index")>
+		</cfif>
+
+		<cfset renderPage(layout="/conference/adminlayout")>
+
+	</cffunction>
+
+	<!--- Courses/copy/key --->
+	<cffunction name="copy">
+
+		<!--- Find the record --->
+    		<cfset course = model("Conferencecourse").findByKey(params.key)>
+
+    		<!--- Check if the record exists --->
+	    	<cfif NOT IsObject(course)>
+	        		<cfset flashInsert(error="Course #params.key# was not found")>
+			<cfset redirectTo(action="index")>
+	    	</cfif>
+
+	    <cfset renderPage(controller="conference.courses", action="new")>
+
+	</cffunction>
+	
+
+	<!--- Courses/copyAllToCurrentEvent --->
+
+	<cfscript>
+		public function copyAllToCurrentEvent(){
+			super.copyAllToCurrentEvent( tableName = "Conferencecourse" );
+			returnBack();
+		}
+	</cfscript>
+
+<!---END OF CRUD--->
+
+
+<!------------------>
+<!---Public Pages--->
+<!------------------>
+
+	<!--- Courses/view/key route="conferenceCoursesView"--->
+	<cffunction name="view">
+
+		<!--- Find the record --->
+    	<cfset course = model("Conferencecourse").findOne(where="id=#params.key# AND event='#getEvent()#'", include="Agenda")>
+    	<cfset instructors = model("Conferencecourseinstructor").findAll(where="courseId = #params.key#", include="InstructorInfo")>
+		<cfset questions = model("Conferencecoursequestion").findAll(where="courseid=#params.key#", order="createdAt DESC", include="person(family)")>
+
+		<cfset introTitle = "Workshop...">
+
+    	<!--- Check if the record exists --->
+	    <cfif NOT IsObject(course)>
+	        <cfset flashInsert(error="Course/Workshop #params.key# was not found")>
+	        <cfset redirectTo(action="index")>
+	    </cfif>
+	</cffunction>
+
+	<!--- Courses/list route="conferenceCoursesList"--->
+	<cffunction name="list">
+
+		<cfif isDefined("params.print")>
+			<cfset renderPage(layout="/conference/layout_naked", template="listprint")>
+		<cfelse>
+			<cfset setreturn()>
+		</cfif>
+
+	</cffunction>
+
+	<!---Courses/select-workshops route="conferenceCoursesSelectWorkshops"--->
 	<cffunction name="selectWorkshops">
 	<cfargument name="type" default="cohort">
 		<!---over write default arguments based on params--->
@@ -360,9 +269,11 @@
 
 	</cffunction>
 
+	<!---Courses/select-cohorts route="conferenceCoursesSelectCohorts"--->
 	<cffunction name="selectCohorts">
 	<cfargument name="type" default="cohort">
 	<cfset var loc=arguments>
+
 		<cfset cohorts = model("Conferencecourse").findAll(where="event='#getEvent()#' AND type = 'cohort'", order="title")>
 
 		<cfif isDefined("params.personid")>
@@ -375,30 +286,54 @@
 
 			<cfset headerSubTitle = "Select Cohorts for #getPersonFromId(params.personid)# Here">
 
+		<cfset formaction = "saveSelectedCohorts">
+
 		<cfelse>	
 
-			<cfset headerSubTitle = "Select Your Cohorts Here">
+			<cfset redirectTo(route="conferenceCoursesSelectPersonToSelectCohorts", params="type=#arguments.type#")>
 
 		</cfif>
-
 		
-		<cfset formaction = "saveSelectedCohorts">
 	</cffunction>
 
-	<cffunction name="getPersonFromId">
-	<cfargument name="id" required="true" type="numeric">
-		<cfset personName = model("Conferenceperson").findAll(where="id=#arguments.id#", include="family").fullname>
-	<cfreturn personName>
+	<cffunction name="listCohorts">
+		<cfif isDefined("params.print")>
+			<cfset renderPage(action="list", key="cohort", layout="/conference/layout_naked", template="listprint")>
+		<cfelse>
+			<cfset setreturn()>
+			<cfset renderPage(action="list", key="cohort")>
+		</cfif>
 	</cffunction>
 
-	<cffunction name="showSelectedCohorts">
+	<cffunction name="showAllSelectedWorkshops">
+		<cfset whereString = "event='#getEvent()#' AND type='workshop'">
+		<cfif isDefined("params.key")>
+			<cfset whereString = whereString & " AND equip_coursesid = #params.key#">
+		</cfif>
+		<cfset workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order="eventDate")>
+		<cfset countpeopleregistered = countPeopleRegistered()>
+	</cffunction>
 
-	<cfoutput>showSelectedCohorts</cfoutput><cfabort>
+	<cffunction name="showAllSelectedCohorts">
+		<cfset var orderby = "title">
+		<cfif isDefined("params.orderby")>
+			<cfset orderBy = params.orderby>
+		</cfif>
+		<cfset whereString = "event='#getEvent()#' AND type='cohort'">
+		<cfif isDefined("params.key")>
+			<cfset whereString = whereString & " AND equip_coursesid = #params.key#">
+		</cfif>
+		<cfset workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order=orderby)>
+		<cfset countpeopleregistered = countPeopleRegistered()>
+		<cfset renderPage(action="showAllSelectedWorkshops")>
 	</cffunction>
 
 	<!---Courses/select-person-to-select-cohorts/--->
 	<cffunction name="selectPersonToSelectCohorts">
 	<cfset var loc=structNew()>
+		<cfif !isDefined("params.type")>
+			<cfset params.type = 'cohort'>
+		</cfif>	
 		<cfset loc.datelimit = createDateTime(year(now())-1,10,01,01,01,01)>
 		<cfset registrations = model("Conferenceperson").findAllPeopleRegistered()>
 		<cfset formaction = "ConferenceCoursesSelectCohorts">
@@ -415,6 +350,138 @@
 		<cfset headerSubTitle = "Show My Cohorts">
 		<cfset instructions = "">
 		<cfset renderPage(template="selectPersonToSelectWorkshops")>
+	</cffunction>
+
+	<cffunction name="showAllSelectedExcursions">
+		<cfset whereString = "event='#getEvent()#' AND type='excursion'">
+		<cfif isDefined("params.key")>
+			<cfset whereString = whereString & " AND equip_coursesid = #params.key#">
+		</cfif>
+		<cfset workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order="eventDate")>
+		<cfset renderPage(action="showAllSelectedWorkshops")>
+	</cffunction>
+
+	<!--- Courses/table --->
+	<cffunction name="table">
+	<cfargument name="type" default="all">
+	<cfargument name="orderBy" default="room,date">
+
+		<cfset introTitle = "Workshops">
+
+		<!---Overwrite argument defaults based on params--->
+		<cfif isDefined("params.key")>
+			<cfset arguments.type = params.key>
+		</cfif>
+		<cfif isDefined("params.type")>
+			<cfset arguments.type = params.type>
+		</cfif>
+		<cfif isDefined("params.orderby")>
+			<cfset arguments.orderby = params.orderby>
+			<cfif params.orderby is "track">
+				<cfset arguments.orderBy = "track,date">
+			</cfif>
+			<cfset firstcolumnname = "Track">
+			<cfset firstlevelgroup = "track">
+		</cfif>
+
+		<cfset courses = model("Conferencecourse").findList(order=arguments.orderby, type="#arguments.type#")>
+	</cffunction>
+
+
+<!---End of Public Pages--->
+
+
+<!-------------------------->
+<!---Get Text for Content--->
+<!-------------------------->
+
+	<cffunction name="getSubtypeDesc">
+	<cfargument name="subtype" required="true" type="string">
+		<cfif subtype is "A">
+			<cfreturn "This cohort meets on Tuesday, July 24 from 11:00 am - 12:15 pm and 2:00 pm - 3:30 pm.">
+		</cfif>
+		<cfif subtype is "B">
+			<cfreturn "This cohort meets on Wednesday, July 25 from 11:00 am - 12:15 pm and 2:00 pm - 3:30 pm.">
+		</cfif>
+		<cfif subtype is "C">
+			<cfreturn "Signup for this cohort is very high so we are offering it twice.<br/><br/>You can choose either the Tuesday/Wednesday (A) or the Wednesday/Thursday (B).<br/><br/>Specific times are (choose A or B):<br/>A = Tuesday from 11:15-12:15 and 3:00 - 5:00 and Wednesday from 9:30 - 11:30;<br/>B = Wednesday from 3:00 - 5:00, Thursday from 9:30 - 11:30 and 3:00 - 5:00.">
+		</cfif>
+	<cfreturn "NA">
+	</cffunction>
+
+	<cffunction name="getCohortsDescription">
+	<cfset var description = '<p>Cohorts are peer learning groups focused around various areas of ministries. Participants will have lots of time to talk about what is working, what is not, ask questions, discuss best practices and even work through issues together. Each cohort will be guided by trained facilitators.<br/> People who are registered for #getEventAsText()# should select two cohorts. </p>Each Cohort meets twice on either Tuesday or Wednesday. They meet on Tuesday or Wednesday from 11:00 am - 12:15 pm AND from 2:00 pm - 3:30 pm. Cohorts will not meet on Thursday.  
+      </p>
+      <p>
+			We are also offering a few workshops this year during the same times as cohorts.
+      </p>'>
+		<cfreturn description>
+	</cffunction>
+
+
+<!------------------>
+<!---Redirections--->
+<!------------------>
+
+	<!---Courses/workshops--->
+	<cffunction name="workshops">
+		<cfset redirectTo(controller="conference.courses", action="list", params="type=workshop")>
+	</cffunction>
+
+	<!--- Courses/workshopstable .get(name="conferenceworkshopstable", pattern="/workshops/table/", controller="courses", action="workshopstable") --->
+	<cffunction name="workshopstable">
+		<cfset redirectTo(controller="conference.courses", action="table", params="type=workshop")>
+	</cffunction>
+
+	<!---Courses/riskursions--->
+	<cffunction name="riskursions">
+		<cfset redirectTo(controller="conference.courses", action="list", params="type=excursion")>
+	</cffunction>
+
+<!----------End of Redirections----------------->
+
+
+
+	<!--- Courses/rss --->
+	<cffunction name="rss">
+		<cfset courses = model("Conferencecourse").findList()>
+
+		<cfset title = "#getEventAsText()# Workshops">
+
+		<cfset description= "#getEventAsText()# will include a number of workshops.">
+
+		<cfif application.wheels.environment is not "production">
+			<cfset set(environment="production")>
+		</cfif>
+
+		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
+	</cffunction>
+
+	<cffunction name="getInstructors">
+	<cfargument name="courseid" required="true" type="numeric">
+	<cfset var loc=structNew()>
+	<cfset loc = arguments>
+    	<cfset loc.instructors = model("Conferencecourseinstructor").findAll(where="courseId = #loc.courseid#", include="Instructor")>
+	<cfreturn loc.instructors>
+	</cffunction>
+
+	<cffunction name="getInstructorNamesAsString">
+	<cfargument name="courseid" required="true" type="numeric">
+	<cfset var loc=structNew()>
+	<cfset loc = arguments>
+		<cfset loc.instructors = getInstructors(loc.courseid)>
+		<cfset loc.names = "">
+		<cfloop query="loc.instructors">
+			<cfset loc.names = loc.names & ", " & "#linkto(text=selectName, controller='conference.instructors', action='show', key=id)#">
+		</cfloop>
+		<cfset loc.names = replace(loc.names,", ","","one")>
+	<cfreturn loc.names>
+	</cffunction>
+
+	<cffunction name="getPersonFromId">
+	<cfargument name="id" required="true" type="numeric">
+		<cfset personName = model("Conferenceperson").findAll(where="id=#arguments.id#", include="family").fullname>
+	<cfreturn personName>
 	</cffunction>
 
 	<cffunction name="saveSelectedCohorts">
@@ -441,7 +508,6 @@
 			<cfset redirectTo(action="selectCohorts", personid=params.personid, params="type=#params.type#&personid=#personid#")>
 		</cfif>
 	</cffunction>
-
 
 	<cffunction name="translateType" hint="allows variable in type that is called for">
 	<cfargument name="type" required="true" type="string">
@@ -562,32 +628,13 @@
 	</cfif>
 		<cfset workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#arguments.personid# AND type='#arguments.type#'", include="Workshop(Agenda)", order="eventDate")>
 		<cfset person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family")>
-			<cfset sendEMail(to=arguments.sendToEmail, from="tomavey@fgbc.org", layout="/conference/layout_for_email", template="showSelectedWorkshops", subject="Access2017 #params.type# selections")>
-			<cfset flashInsert(success="The email was sent to #arguments.sendToEmail#")>
+			<cfif !isLocalMachine()>
+				<cfset sendEMail(to=arguments.sendToEmail, from="tomavey@fgbc.org", layout="/conference/layout_for_email", template="showSelectedWorkshops", subject="Access2017 #params.type# selections")>
+				<cfset flashInsert(success="The email was sent to #arguments.sendToEmail#")>
+			<cfelse>
+				<cfset flashInsert(success="The email was NOT sent to #arguments.sendToEmail# from this local server")>
+			</cfif>	
 		<cfset redirectTo(action="showSelectedWorkshops", params="personid=#params.personid#&type=#params.type#")>
-	</cffunction>
-
-	<cffunction name="showAllSelectedWorkshops">
-		<cfset whereString = "event='#getEvent()#' AND type='workshop'">
-		<cfif isDefined("params.key")>
-			<cfset whereString = whereString & " AND equip_coursesid = #params.key#">
-		</cfif>
-		<cfset workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order="eventDate")>
-		<cfset countpeopleregistered = countPeopleRegistered()>
-	</cffunction>
-
-	<cffunction name="showAllSelectedCohorts">
-		<cfset var orderby = "title">
-		<cfif isDefined("params.orderby")>
-			<cfset orderBy = params.orderby>
-		</cfif>
-		<cfset whereString = "event='#getEvent()#' AND type='cohort'">
-		<cfif isDefined("params.key")>
-			<cfset whereString = whereString & " AND equip_coursesid = #params.key#">
-		</cfif>
-		<cfset workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order=orderby)>
-		<cfset countpeopleregistered = countPeopleRegistered()>
-		<cfset renderPage(action="showAllSelectedWorkshops")>
 	</cffunction>
 
 	<cffunction name="downloadAllSelectedCohorts">
@@ -629,15 +676,6 @@
 		<cfreturn loc.eventinfo>
 	</cffunction>
 
-	<cffunction name="showAllSelectedExcursions">
-		<cfset whereString = "event='#getEvent()#' AND type='excursion'">
-		<cfif isDefined("params.key")>
-			<cfset whereString = whereString & " AND equip_coursesid = #params.key#">
-		</cfif>
-		<cfset workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order="eventDate")>
-		<cfset renderPage(action="showAllSelectedWorkshops")>
-	</cffunction>
-
 	<cffunction name="deletedSelectedWorshopsForPersonid">
 	<cfargument name="personid" required="true" type="numeric">
 	<cfargument name="type" required="true" type="string">
@@ -656,20 +694,23 @@
 	<cffunction name="isSignedUpForCourse">
 	</cffunction>
 
-	<cffunction name="listCohorts">
-		<cfif isDefined("params.print")>
-			<cfset renderPage(action="list", key="cohort", layout="/conference/layout_naked", template="listprint")>
-		<cfelse>
-			<cfset setreturn()>
-			<cfset renderPage(action="list", key="cohort")>
-		</cfif>
-	</cffunction>
-
 	<cffunction name="alsoSignedUpFor">
 	<cfargument name="courseId" required="true" type="numeric">
 	<cfset var loc = arguments>
 		<cfset loc.alsoSignedUpFor = model("Conferencecourse").alsoSignedUpFor(courseId)>
 		<cfreturn loc.alsoSignedUpFor>
 	</cffunction>
+
+	<cffunction name="getCourseResources">
+	<cfargument name="courseId" required="true" type="numeric">
+		<cfset var resources = model("Conferencecourseresource").findall(where="id=#arguments.courseId#", order="createdAt DESC")>
+	<cfreturn resources>
+	</cffunction>
+
+	<cffunction name="json">
+		<cfset data = model("Conferencecourse").findAllAsJson(params)>
+		<cfset renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)>
+	</cffunction>
+
 
 </cfcomponent>

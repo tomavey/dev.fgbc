@@ -82,7 +82,7 @@
 						#linkTo(text="Post a question", controller="conference.coursequestions", action="new", params="courseid=#id#", class="btn")# 
 					</cfif>	
 					#linkTo(text="View all the questions", href="##", class="btn showQuestions")#
-					#linkto(text="Sign Up", route="selectpersonselectcohorts", class="btn")#
+					#linkto(text="Sign Up", route="conferenceCoursesSelectpersonToSelectcohorts", params="type=cohort", class="btn")#
 				</p>
 				</cfif>
 

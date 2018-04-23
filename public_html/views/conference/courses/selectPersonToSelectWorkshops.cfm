@@ -25,6 +25,7 @@
 </p>
 <h2 class="text-center">Please select your name from the list of folks registered for #geteventAsText()#</h2>
 <div class="well text-center">
+
 <!---
 <form action='#formaction#' method="get" class="selectname">
 --->

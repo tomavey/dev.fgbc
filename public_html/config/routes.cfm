@@ -293,6 +293,8 @@
 				.get(name="selectPersonToSelectCohorts", pattern="/selectPersonToSelectCohorts/", action="selectPersonToSelectCohorts")
 				.get(name="selectCohorts", pattern="/selectcohorts/", action="selectCohorts")
 				.post(name="selectCohorts", pattern="/selectcohorts/", action="selectCohorts")
+				.get(name="selectWorkshohps", pattern="/selectcohorts/", action="selectWorkshops")
+				.post(name="selectWorkshohps", pattern="/selectcohorts/", action="selectWorkshops")
 				.get(name="saveSelectedCohorts", pattern="/saveSelectedCohorts/", action="saveSelectedCohorts")
 				.post(name="saveSelectedCohorts", pattern="/saveSelectedCohorts/", action="saveSelectedCohorts")
 				.get(name="sendSelectedCohorts", pattern="/sendSelectedworkshops/", action="sendSelectedWorkshops")
@@ -429,8 +431,10 @@
 		.get(name="coopministry", pattern="/coopministry/", controller="membership.newministries", action="new")
 		.get(name="sendstatspick", pattern="/sendstats/", controller="handbook.statistics", action="submit")
 		.get(name="sendstats", pattern="/sendstats/[key]", controller="handbook.statistics", action="submit")
-		.get(name="selectpersonselectworkshops", pattern="/selectworkshops/", controller="conference.courses", action="selectworkshops")
-		.get(name="selectpersonselectcohorts", pattern="/selectcohorts/", controller="conference.courses", action="selectworkshops")
+
+		.get(name="Xselectpersonselectworkshops", pattern="/selectworkshops/", controller="conference.courses", action="selectworkshops")
+		.get(name="Xselectpersonselectcohorts", pattern="/selectcohorts/", controller="conference.courses", action="selectworkshops")
+
 		.get(name="selectcohorts", pattern="/selectcohorts/", controller="conference.courses", action="selectcohorts")
 		.get(name="selectworkshops", pattern="/selectworkshops/[personid]", controller="conference.courses", action="selectWorkshops")
 		.get(name="mycohorts", pattern="/mycohorts/", controller="conference.courses", action="showSelectedWorkshops")
@@ -438,6 +442,7 @@
 		.get(name="accesscohorts", pattern="/accesscohorts/", controller="conference.courses", action="listCohorts")
 		.get(name="listcohorts", pattern="/listcohorts/", controller="conference.courses", action="listCohorts")
 		.get(name="cohorts", pattern="/cohorts/", controller="conference.courses", action="listCohorts")
+
 		.get(name="flinchconference", pattern="/flinchconference/", controller="conference.flinch", action="index")
 		.get(name="agbmrss", pattern="/agbm/rss/", controller="handbook.agbm-info", action="rss")
 		.get(name="agbmjson", pattern="/agbm/json/", controller="handbook.agbm-info", action="json")

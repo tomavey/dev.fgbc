@@ -1,7 +1,8 @@
 <cfcomponent extends="Controller" output="false"><cfscript>
   
   function init(){
-    usesLayout("/conference/adminlayout");
+    usesLayout(template="/conference/adminlayout", only="index");
+		usesLayout(template="/conference/layout2018", only="list,new,edit")
     filters(through="getCourses", include="new,edit");
     filters(through="getRegisteredPeople", include="new,edit");
   }
@@ -17,7 +18,7 @@
 
   // Coursequestions/index
   function index(){
-    Coursequestions = model("Conferencecoursequestion").findAll(include="person(family),course");
+    Coursequestions = model("Conferencecoursequestion").findAll(where="event='getEvent()'", include="person(family),course");
   }
   
 //---------------------------------------
@@ -50,7 +51,6 @@
       course = model("Conferencecourse").findByKey(key=Coursequestion.courseid);
     } else {
     }
-    renderPage(layout="/conference/layout2017");
   }
   
   //Coursequestions/edit/key
@@ -61,7 +61,6 @@
 	    flashInsert(error="Coursequestion #params.key# was not found");
 			redirectTo(action="index");
 	  }
-    renderPage(layout="/conference/layout2017");
   }
   
   // Coursequestions/create
@@ -114,7 +113,6 @@
     }
     Coursequestions = model("Conferencecoursequestion").findAll(where=whereString, include="person(family),course", order="createdAt DESC");
     headerSubTitle = "Cohort Questions";
-    renderPage(layout="/conference/layout2017");
   }
 
 </cfscript></cfcomponent>
