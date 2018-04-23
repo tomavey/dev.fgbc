@@ -296,15 +296,6 @@
 		
 	</cffunction>
 
-	<cffunction name="listCohorts">
-		<cfif isDefined("params.print")>
-			<cfset renderPage(action="list", key="cohort", layout="/conference/layout_naked", template="listprint")>
-		<cfelse>
-			<cfset setreturn()>
-			<cfset renderPage(action="list", key="cohort")>
-		</cfif>
-	</cffunction>
-
 	<cffunction name="showAllSelectedWorkshops">
 		<cfset whereString = "event='#getEvent()#' AND type='workshop'">
 		<cfif isDefined("params.key")>
@@ -558,14 +549,6 @@
 		<cfset redirectTo(action="showSelectedWorkshops", params="personid=#params.personid#&type=#arguments.type#")>
 	</cffunction>
 
-	<cffunction name="getRadioButtonGroups">
-	<cfset radioButtonTypes = "">
-	<cfloop collection="#params#" item="i">
-
-	</cfloop>
-
-	</cffunction>
-
 	<cffunction name="showSelectedWorkshops">
 	<cfargument name="type"  default="cohorts">
 		<cfif isDefined("params.type")>
@@ -711,6 +694,26 @@
 		<cfset data = model("Conferencecourse").findAllAsJson(params)>
 		<cfset renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)>
 	</cffunction>
+
+<!--- MArked for Deletion--->
+
+	<cffunction name="xlistCohorts">
+		<cfif isDefined("params.print")>
+			<cfset renderPage(action="list", key="cohort", layout="/conference/layout_naked", template="listprint")>
+		<cfelse>
+			<cfset setreturn()>
+			<cfset renderPage(action="list", key="cohort")>
+		</cfif>
+	</cffunction>
+
+	<cffunction name="XgetRadioButtonGroups">
+	<cfset radioButtonTypes = "">
+	<cfloop collection="#params#" item="i">
+
+	</cfloop>
+
+	</cffunction>
+
 
 
 </cfcomponent>
