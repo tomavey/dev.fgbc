@@ -61,7 +61,7 @@
 				#cost#
 			</td>
 			<td>
-				#dateformat(createdat, "mm-dd")#
+				#dateformat(createdat, "mm-dd-yy")#
 			</td>
 			<td>
 				#showTag(controller="conference.registrations")#
