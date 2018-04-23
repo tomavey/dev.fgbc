@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Aviators - byaviators.com">
 
-    <link rel="stylesheet" href="http://www.access2018.com/assets/js/rs-plugin/css/settings.css" type="text/css">
-    <link rel="stylesheet" href="http://www.access2018.com/assets/js/rs-plugin/css/fullwidth.css" type="text/css">
+    <link rel="stylesheet" href="https://www.access2018.com/assets/js/rs-plugin/css/settings.css" type="text/css">
+    <link rel="stylesheet" href="https://www.access2018.com/assets/js/rs-plugin/css/fullwidth.css" type="text/css">
 
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,300,700" rel="stylesheet" type="text/css">
-    <link href="http://www.access2018.com/assets/icons/pictopro-normal/style.css" rel="stylesheet" type="text/css">
-    <link href="http://www.access2018.com/assets/icons/pictopro-outline/style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,300,700" rel="stylesheet" type="text/css">
+    <link href="https://www.access2018.com/assets/icons/pictopro-normal/style.css" rel="stylesheet" type="text/css">
+    <link href="https://www.access2018.com/assets/icons/pictopro-outline/style.css" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" href="http://www.access2018.com/assets/fancybox/jquery.fancybox.css" type="text/css">
-    <link rel="stylesheet" href="http://www.access2018.com/assets/css/infine.css" type="text/css">
+    <link rel="stylesheet" href="https://www.access2018.com/assets/fancybox/jquery.fancybox.css" type="text/css">
+    <link rel="stylesheet" href="https://www.access2018.com/assets/css/infine.css" type="text/css">
 
     <!--[if lt IE 9]>
-        <link rel="stylesheet" id="ie8-css"  href="http://www.access2018.com/assets/css/ie8.css" type="text/css" media="all">
+        <link rel="stylesheet" id="ie8-css"  href="https://www.access2018.com/assets/css/ie8.css" type="text/css" media="all">
     <![endif]-->
 
     <link rel="stylesheet" href="/stylesheets/conference/bootstrap.css" type="text/css">
@@ -61,14 +61,14 @@
                 <div class="navbar-collapse collapse" id="main-navbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#nav-header">Home</a></li>
-                            <li><a href="http://www.access2018.com/#nav-schedule">Schedule</a></li>
-                            <li><a href="http://www.access2018.com/#nav-subscribe" target="_blank">Subscribe</a></li>
-                            <li><a href="http://www.access2018.com/#nav-lodging">Lodging</a></li>
-                            <li><a href="http://www.access2018.com/#nav-childcare">Childcare</a></li>
+                            <li><a href="https://www.access2018.com/#nav-schedule">Schedule</a></li>
+                            <li><a href="https://www.access2018.com/#nav-subscribe" target="_blank">Subscribe</a></li>
+                            <li><a href="https://www.access2018.com/#nav-lodging">Lodging</a></li>
+                            <li><a href="https://www.access2018.com/#nav-childcare">Childcare</a></li>
                             <cfif workshopsRegOpen()>
                                 <li><a href="/index.cfm/conference.courses/list/cohort">Cohorts</a></li>
                             </cfif>
-                            <li><a href="http://www.access2018.com/#nav-contact" target="_blank">Contact</a></li>
+                            <li><a href="https://www.access2018.com/#nav-contact" target="_blank">Contact</a></li>
 
                     </ul>
                 </div><!-- /.main-navigation -->
@@ -200,9 +200,9 @@
                 </div><!-- /.copyright -->
 
                 <div class="icons right">
-                    <a href="#" class="social-icon"><img src="http://www.access2018.com/assets/icons/icon-twitter.png" alt=""></a>
-                    <a href="#" class="social-icon"><img src="http://www.access2018.com/assets/icons/icon-facebook.png" alt=""></a>
-                    <a href="#" class="social-icon"><img src="http://www.access2018.com/assets/icons/icon-youtube.png" alt=""></a>
+                    <a href="#" class="social-icon"><img src="https://www.access2018.com/assets/icons/icon-twitter.png" alt=""></a>
+                    <a href="#" class="social-icon"><img src="https://www.access2018.com/assets/icons/icon-facebook.png" alt=""></a>
+                    <a href="#" class="social-icon"><img src="https://www.access2018.com/assets/icons/icon-youtube.png" alt=""></a>
                 </div><!-- /.icons -->
             </div><!-- /.row -->
         </div><!-- /.container -->
