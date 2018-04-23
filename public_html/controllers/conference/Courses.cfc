@@ -429,6 +429,15 @@
 		<cfset redirectTo(controller="conference.courses", action="list", params="type=excursion")>
 	</cffunction>
 
+	<cffunction name="listCohorts">
+		<cfif isDefined("params.print")>
+			<cfset renderPage(action="list", key="cohort", layout="/conference/layout_naked", template="listprint")>
+		<cfelse>
+			<cfset setreturn()>
+			<cfset renderPage(action="list", key="cohort")>
+		</cfif>
+	</cffunction>
+
 <!----------End of Redirections----------------->
 
 
@@ -697,14 +706,6 @@
 
 <!--- MArked for Deletion--->
 
-	<cffunction name="xlistCohorts">
-		<cfif isDefined("params.print")>
-			<cfset renderPage(action="list", key="cohort", layout="/conference/layout_naked", template="listprint")>
-		<cfelse>
-			<cfset setreturn()>
-			<cfset renderPage(action="list", key="cohort")>
-		</cfif>
-	</cffunction>
 
 	<cffunction name="XgetRadioButtonGroups">
 	<cfset radioButtonTypes = "">
