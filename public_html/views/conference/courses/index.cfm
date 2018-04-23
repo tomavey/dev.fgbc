@@ -45,7 +45,7 @@
 
 					<cfcol header="Comment/Audio file" text="#left(comment,50)# #getRecordingLink(recordinglink)#<span class='popup'>#comment#</span>" />
 
-					<cfcol header="Description" text="#left(descriptionlong,50)#<span class='popup'>#descriptionlong#</span>" />
+					<cfcol header="Description" text="#descriptionlong#" />
 
 					<cfcol header="#linkto(text='Type', params='orderby=subtype')#" text="#subtype#" />
 
