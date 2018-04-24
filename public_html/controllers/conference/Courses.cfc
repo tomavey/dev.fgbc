@@ -559,7 +559,6 @@
 	</cffunction>
 
 	<cffunction name="showSelectedWorkshops">
-	<cfdump var="#params#"><cfabort>
 	<cfargument name="type"  default="cohorts">
 		<cfif isDefined("params.type")>
 			<cfset arguments.type = params.type>
