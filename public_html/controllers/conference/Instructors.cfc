@@ -19,7 +19,7 @@
 	<cfargument name="event" default="#getevent()#">
 		<cfset instructors = model("Conferenceinstructor").findAll(order="lname, fname", where="event='#arguments.event#'")>
 		<cfset headerSubTitle = "Speakers">
-		<cfset renderPage(layout="/conference/layout2017")>
+		<cfset renderPage(layout="/conference/layout2018")>
 	</cffunction>
 
 	<!--- -instructors/show/key --->
