@@ -268,8 +268,6 @@
 			.resources("invoices")
 
 			.controller("instructors")
-				get(name="list", pattern="/list/", action="list")
-				get(name="list", pattern="/list/[key]", action="list")
 			.end()	
 			.resources("instructors")
 
