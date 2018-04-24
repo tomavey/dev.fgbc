@@ -12,11 +12,11 @@
     <cfelse>
         #bioPrint#
     </cfif>
+    <cfif gotRights("superadmin,office,pageEditor")>
+        #editTag()#
+    </cfif>	
 </p>
 
-<cfif gotRights("superadmin,office,pageEditor")>
-    <p class="pull-right">#editTag()#</p>
-</cfif>	
 
 
 </div>
