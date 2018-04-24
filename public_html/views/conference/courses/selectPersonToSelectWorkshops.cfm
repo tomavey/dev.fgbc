@@ -21,7 +21,7 @@
 <h2 class="center">#instructions#</h2>
 </cfif>
 <p class="text-right">
-<a href="http://www.fgbc.org/conference" class="btn">Not registered yet? <br/>Register For #getEventAsText()# Now</a>
+<a href="http://www.fgbc.org/conference" class="btn btn-warning">Not registered yet? <br/>Register For #getEventAsText()# Now</a>
 </p>
 <h2 class="text-center">Please select your name from the list of folks registered for #geteventAsText()#</h2>
 <div class="well text-center">
