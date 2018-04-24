@@ -45,7 +45,7 @@
 	</cfoutput>
 	</select>
 
-	#submitTag(value="Get My Cohorts", class="btn btn-block")#
+	#submitTag(value="My Cohorts", class="btn btn-block btn-primary")#
 				
 	#endFormTag()#
 
