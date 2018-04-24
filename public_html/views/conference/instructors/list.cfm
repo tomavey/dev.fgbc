@@ -13,9 +13,7 @@
         #bioPrint#
     </cfif>
 </p>
-<cfif gotRights("superadmin,office,pageEditor")>
 	#editTag()#
-</cfif>	
 
 
 </div>
