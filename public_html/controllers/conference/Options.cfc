@@ -4,7 +4,7 @@
 		<cfset usesLayout("/conference/adminlayout")>
 		<cfset filters(through="officeOnly", except="rssmeals,rssregs,rssccare,rssexcursions,rsspreconference,rsslabs,showoption,testisbefore,testiframe,jsonmeals,jsonregs,jsonexcursions,list")>
 		<cfset filters(through="setRssEnvironment", only="rssregs,rssmeals,rssccare,rsspreconference")>
-		<cfset filters(through="setreturn", only="index,show")>
+		<cfset filters(through="setreturn", only="index,show,list")>
 	</cffunction>
 
 	<cffunction name="testmodel">
