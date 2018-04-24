@@ -4,7 +4,7 @@
 <h3>#fname# #lname#</h3>
 
     <cfif gotRights("superadmin,office,pageEditor")>
-        #editTag()#
+        #linkto(text="edit", controlled="conference/instructors", action="edit", key=id)#
     </cfif>	
 
 <cfif FileExists(ExpandPath("/images/conference/instructors/#picThumb#"))>
