@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/conference/adminlayout")>
-		<cfset filters(through="setreturn", only="index,show")>
+		<cfset filters(through="setreturn", only="index,show,list")>
 	</cffunction>
 
 	<!--- -instructors/index --->
