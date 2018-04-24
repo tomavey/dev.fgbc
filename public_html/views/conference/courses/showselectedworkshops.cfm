@@ -56,7 +56,7 @@
         <p class="alert text-center">
             No cohorts have been selected for #person.fname#.
         </p>
-        #linkTo(text="Select Cohorts for #person.fname#", controller="conference.courses", action="selectCohorts", personid=#params.personid#, params="type=cohort&personid=#person.id#", class="btn btn-block btn-primary", onlyPath="false")#
+        #linkTo(text="Select Cohorts for #person.fname#", controller="conference.courses", action="selectCohorts", personid=#params.personid#, params="type=cohort&personid=#person.id#", class="btn btn-block btn-primary btn-large", onlyPath="false")#
     </cfoutput>
 </cfif>
 
