@@ -13,7 +13,7 @@
 	</cfif>
 </cffunction>
 
-<div id='selectworkshops' class="container">
+<div id='xselectworkshops' class="container">
 <cfoutput>
 <cfif !isDefined("instructions")>
 <h2 class="center">You must be registered for #geteventAsText()# in order to sign up for a cohort.</h2>
