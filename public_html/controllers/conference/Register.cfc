@@ -991,7 +991,9 @@
 
 	<cfif usingStaffReg()>	
 		<cfset redirectTo(controller="conference.invoices", action="show", key=session.registrationcart.invoiceid, params="ccstatus=Comp")>
-	<cfelseif params.agent is "manual@fgbc.org" OR params.agent is "comp" OR params.agent is "manual" OR params.agent is "prepaid" OR params.agent is "test" OR register.totalInShoppingCart() LTE 0>
+	<cfelseif params.agent is "prepaid">
+		<cfset redirectTo(controller="conference.invoices", action="show", key=session.registrationcart.invoiceid, params="ccstatus=paid")>
+	<cfelseif params.agent is "manual@fgbc.org" OR params.agent is "comp" OR params.agent is "manual" OR params.agent is "test" OR register.totalInShoppingCart() LTE 0>
 		<cfset redirectTo(controller="conference.invoices", action="show", key=session.registrationcart.invoiceid, params="ccstatus=TBD")>
 	<cfelseif usingGroupReg()>
 		<cfset redirectTo(controller="conference.invoices", action="show", key=session.registrationcart.invoiceid)>
