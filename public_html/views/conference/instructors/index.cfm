@@ -35,8 +35,10 @@
 
 
 	<cfcol header="" text="#showTag()#" />
-<cfif gotRights("superadmin,office")>
+<cfif gotRights("superadmin,office,pageEditor")>
 	<cfcol header="" text="#editTag()#" />
+</cfif>	
+<cfif gotRights("superadmin,office")>
 	<cfcol header="" text="#deleteTag()#" />
 	<cfcol header="" text="#copyTag()#" />
 </cfif>
