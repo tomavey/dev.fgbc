@@ -3,7 +3,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout(template="/handbook/layout_admin")>
-		<cfset filters(through="isAuthorized", only="new,edit")>
+		<cfset filters(through="isAuthorized", only="new,edit,allCurrentNotPaid")>
 		<cfset filters(through="paramsKeyRequired", only="sizeByPercent,getSummary")>
 		<cfset filters(through="setReturn", only="index")>
 	</cffunction>
@@ -21,6 +21,8 @@
 	</cffunction>
 
 	<cffunction name="nopermission">
+		<cfset renderText("You do not have permission to view this page")>
+		<cfabort>
 	</cffunction>
 
 	<!---fgbcdelegates/getChurchId--->
