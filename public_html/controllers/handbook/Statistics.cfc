@@ -384,7 +384,7 @@
 	</cffunction>
 
 	<cffunction name="emailAllCurrentNotPaid">
-	<cfset args = structNew()>
+	<cfset var args = structNew()>
 	<cfset statsEmail.Sent = []>
 	<cfset statsEmail.Failed = []>
 		<cfif isDefined("params.test")>
