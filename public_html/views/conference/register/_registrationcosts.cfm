@@ -1,6 +1,6 @@
-<cfparam name="firstIncreaseDate" default="05/01/2018">
-<cfparam name="secondIncreaseDate" default="06/01/2018">
-<cfparam name="thirdIncreaseDate" default="07/01/2018">
+<cfparam name="firstIncreaseDate" default="06/01/2018">
+<cfparam name="secondIncreaseDate" default="07/01/2018">
+<cfparam name="thirdIncreaseDate" default="skip">
 <cfparam name="lastIncreaseDate" default="07/15/2018">
 <cfparam name="singleBaseCost" default="95">
 <cfparam name="coupleBaseCost" default="150">
@@ -38,11 +38,13 @@
 						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
 
+				<cfif thirdIncreaseDate NEQ "skip">
 					<cfset increaseStuct = {increaseDate: thirdIncreaseDate, cost: thiscost, multiplier=3, increaseAmount: increaseAmount}>	
 
 					<cfif isBefore(increaseStuct.increaseDate)>
 						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
+				</cfif>
 
 					<cfset increaseStuct = {increaseDate: lastIncreaseDate, cost: thiscost, multiplier=4, increaseAmount: increaseAmount}>	
 					<cfset rate = increaseStuct>
@@ -75,11 +77,14 @@
 						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
 
+				<cfif thirdIncreaseDate NEQ "skip">
+
 					<cfset increaseStuct = {increaseDate: thirdIncreaseDate, cost: thiscost, multiplier=3, increaseAmount: increaseAmount}>	
 
 					<cfif isBefore(increaseStuct.increaseDate)>
 						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
+				</cfif>
 
 					<cfset increaseStuct = {increaseDate: lastIncreaseDate, cost: thiscost, multiplier=4, increaseAmount: increaseAmount}>	
 					<cfset rate = increaseStuct>
@@ -226,12 +231,14 @@
 							<td class="center">FREE</td>
 						</tr>
 					</cfif>
+				<cfif thirdIncreaseDate NEQ "skip">
 					<cfif isBefore(thirdIncreaseDate)>
 						<tr>
 							<td>Before #dateFormat(thirdIncreaseDate, "mmm d")#</td>
 							<td class="center" colspan="3">Not available after July 1</td>
 						</tr>
 					</cfif>
+				</cfif>
 				</table>
 				<p style="text-align:center">Not Refundable<br/>
 				</p>
