@@ -281,6 +281,10 @@
 			.get(name="copyOption", pattern="/options/copy/[key]", controller="options", action="copy")
 			.get(name="listOptionsBy", pattern="options/list/[key]", controller="options", action="list")
 			.resources("options")
+
+			.controller("people")
+				.get(name="emailList", pattern="/emaillist/", action="emailList")
+			.end()
 			.resources("people")
 
 			.get(name="sendAnnouncement", pattern="/announcements/send/[key]", controller="announcements", action="sendAnnouncement")
