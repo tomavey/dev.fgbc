@@ -49,7 +49,7 @@
                 <td>
 
                     <cfoutput>
-                    <h3>Subject: #args.name# (#args.city#) statistics for 2017 and fellowship fee for 2018. </h3>
+                    <h3>Subject: #args.name# (#args.city#) statistics for 2017 and fellowship fee for 2018 are due May 15. </h3>
                     <p class="lead">
                         GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship (a.k.a. the Fellowship of Grace Brethren Churches). Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
                     </p>

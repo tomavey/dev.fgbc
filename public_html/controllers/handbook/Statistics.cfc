@@ -398,7 +398,7 @@
 			<cfset args.id = id>
 			<cfif onLocalhost()>
 				<cftry>
-					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
+					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fee are due May 15.", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
 					<cfset arrayAppend(statsEmail.failed, args)>
 				<cfcatch>
 					<cfset arrayAppend(statsEmail.failed, args)>
