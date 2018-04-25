@@ -395,8 +395,8 @@
 		<cfif onlocalhost()>
 		<cfelse>
 		</cfif>
-		<cfloop query="churches" maxRows="5">
-			<cfset args.emails = "tomavey@fgbc.org">
+		<cfloop query="churches">
+			<cfset args.emails = emails>
 			<cfset args.name = name>
 			<cfset args.city = city>
 			<cfset args.id = id>
