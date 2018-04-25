@@ -138,7 +138,6 @@
 
             </cfoutput>
         </cfif>    
-        <cfdump var="#statsEmail#">
         </td>
     </tr>    
 </table>

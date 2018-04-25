@@ -425,6 +425,7 @@
 			<cfset args.city = churches.city>
 			<cfset args.id = churches.id>
 			<cfif !onLocalhost()>
+					<cfset showResults = true>
 					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
 			</cfif>	
 
