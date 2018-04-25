@@ -392,7 +392,8 @@
 		<cfelse>
 			<cfset churches = allcurrentnotpaid()>
 		</cfif>
-		<cfoutput>
+		<cfif onlocalhost()>
+		</cfif>
 		<cfloop query="churches" maxRows="5">
 			<cfset args.emails = "tomavey@fgbc.org">
 			<cfset args.name = name>
@@ -405,9 +406,16 @@
 				<cfcatch>
 					<cfset arrayAppend(statsEmail.failed, args)>
 				</cfcatch>
-				</cftry>	
+				</cftry>
+			<cfelse>
+				<cfdump var="#args#">		
 			</cfif>	
+
 		</cfloop>
+		
+		<cfif onlocalhost()>
+			<cfabort>
+		</cfif>
 
 		<!----Copy last email to me--->	
 			<cfset args.emails = "tomavey@fgbc.org">
@@ -418,7 +426,6 @@
 					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
 			</cfif>	
 
-		</cfoutput>
 	<cfset renderPage(template="emailNotificationTemplate", layout="/layout_for_email", showResults=true)>
 	</cffunction>
 
