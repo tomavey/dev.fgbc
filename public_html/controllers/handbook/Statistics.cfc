@@ -415,7 +415,6 @@
 		</cfloop>
 
 		<cfif onlocalhost()>
-			<cfabort>
 		</cfif>
 
 		<!----Copy last email to me--->	
