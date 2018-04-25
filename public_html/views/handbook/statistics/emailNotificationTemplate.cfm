@@ -13,7 +13,7 @@
 <body bgcolor="#FFFFFF">
 <cfif isDefined("params.test")>
     <cfoutput>
-        <p>This email was only sent to tomavey@fgbc.org. Click this link when you are ready to send to the complete unpaid list.</p>
+        <p>This email was only sent to tomavey@fgbc.org. Click #linkto(text="this link", action="emailAllCurrentNotPaid")# when you are ready to send to the complete unpaid list.</p>
     </cfoutput>
 </cfif>
 <table class="head-wrap" bgcolor="#ffffff">
