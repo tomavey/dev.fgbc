@@ -394,7 +394,6 @@
 		</cfif>
 		<cfif onlocalhost()>
 		<cfelse>
-			<cfdump var="#churches#"><cfabort>
 		</cfif>
 		<cfloop query="churches" maxRows="5">
 			<cfset args.emails = "tomavey@fgbc.org">
