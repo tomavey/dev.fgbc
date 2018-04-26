@@ -240,6 +240,10 @@
 		.end()
 
 		.namespace("conference")
+			.controller("backups")
+				.get(name="list", pattern="/list/", action="list")
+				.get(name="all", pattern="/all/", action="backupall")
+			.end()
 			.resources("backups")
 			.resources("contents")
 			.resources("errors")

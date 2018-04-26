@@ -275,7 +275,11 @@
 	<cfargument name="type" default="cohort">
 	<cfset var loc=arguments>
 
-		<cfset cohorts = model("Conferencecourse").findAll(where="event='#getEvent()#' AND type = 'cohort'", order="title")>
+	<cfif isDefined("params.type")>
+		<cfset loc.type = params.type>
+	</cfif>	 
+
+		<cfset cohorts = model("Conferencecourse").findAll(where="event='#getEvent()#' AND type IN ('#loc.type#')", order="title")>
 
 		<cfif isDefined("params.personid")>
 			<cfset selectedcohorts = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# AND equip_optionsid = #getOptionIdFromName(translatetype(arguments.type))#")>
