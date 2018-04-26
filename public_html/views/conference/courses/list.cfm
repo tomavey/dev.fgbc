@@ -11,7 +11,6 @@
 <div id="courseslist" class="container">
 
 <div id="tabletabs">
-
 	<cfoutput>
 	<!---
 		<cfif !isdefined("params.recorded")>
@@ -23,9 +22,10 @@
 			#includePartial("riscursions")#
 		<cfelseif (isDefined("params.type") and params.type is "workshop") or (isDefined("params.key") and params.key is "workshop")>
 			#includePartial("workshops")#
+		<cfelseif (isDefined("params.type") && params.type is "cohort")	or (isDefined("params.key") and params.key is "cohort")>
+			#includePartial("cohorts")#
 		</cfif>
 	</cfoutput>
-
 </div>	
 
 <cfoutput query="courses" group="date">
@@ -33,11 +33,6 @@
 		<p>&nbsp;</p>
 		<h2 class="well">#dayOfWeekasString(dayOfWeek(date))# (#dateFormat(date,"mmmm/dd")#)</h2>
 	<cfelse>
-		<div class="well alert text-center">
-			#getCohortsDescription()#
-			<p>Use the links below to sign-up for a cohort and post questions for discussion.</p>
-
-		</div>	
 	</cfif>
 
 	<cfoutput group="title">
