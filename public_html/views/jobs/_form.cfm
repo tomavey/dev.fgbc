@@ -19,7 +19,7 @@
 
 						#hiddenFieldTag(name="captcha_check", value=encrypt(strCaptcha,application.wheels.passwordkey,'CFMX_COMPAT','HEX'))#
 					
-					<cfif gotRights("superadmin,office")>
+					<cfif gotRights("superadmin,office") || isDefined('params.id')>
 						<p>
 
 							Expiration Date: #dateSelect(objectName='job', property='expirationdate', dateOrder='year,month,day', monthDisplay='abbreviations', label="")#

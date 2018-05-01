@@ -42,7 +42,13 @@
 	<cffunction name="edit">
 	
 		<!--- Find the record --->
-    	<cfset job = model("Mainjob").findByKey(params.key)>
+		<cfif isDefined("params.id")>
+			<cfset job = model("Mainjob").findOne(where="uuid='#params.id#'")>
+			<cfset params.key = job.id>
+		<cfelse>
+	    	<cfset job = model("Mainjob").findByKey(params.key)>
+		</cfif>
+
 		<cfset strCaptcha = getcaptcha()>
 
     	<!--- Check if the record exists --->
@@ -57,7 +63,11 @@
 	<cffunction name="create">
 		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
 
+			<cfset params.job.uuid = CreateUUID()>
+			<cfset params.job.uuid = replace(params.job.uuid,"-","","all")>
+
 			<cfset job = model("Mainjob").new(params.job)>
+			
 			
 			<!--- Verify that the message creates successfully --->
 			<cfif job.save()>
@@ -97,8 +107,14 @@
 	<cffunction name="sendnotice">
 		<!--- Find the record --->
     	<cfset job = model("Mainjob").findByKey(params.key)>
-		<cfset sendEmail(template="emailjob", from=job.email, to="tomavey@comcast.net", subject="New Jobs Post", key=params.key, description=job.description)>
-		<cfset redirectTo(action="thankyou", key=params.key)>
+		<cfif !isLocalMachine()>
+			<cfset sendEmail(template="emailjob", from=job.email, to="tomavey@comcast.net", subject="New Jobs Post", key=params.key, description=job.description)>
+		</cfif>
+		<cfif isDefined("job.uuid")>
+			<cfset redirectTo(action="thankyou", key=job.uuid)>
+		<cfelse>
+			<cfset redirectTo(action="thankyou")>
+		</cfif>
 	</cffunction>
 	
 	<cffunction name="approve">
