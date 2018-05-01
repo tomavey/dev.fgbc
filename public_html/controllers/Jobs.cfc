@@ -96,7 +96,11 @@
 		<!--- Verify that the job updates successfully --->
 		<cfif job.update(params.job)>
 			<cfset flashInsert(success="The job was updated successfully.")>	
-            <cfset redirectTo(action="index")>
+			<cfif isDefined("job.uuid")>
+				<cfset redirectTo(action="thankyou", key=job.uuid)>
+			<cfelse>
+				<cfset redirectTo(action="thankyou")>
+			</cfif>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the job.")>
