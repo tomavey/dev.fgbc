@@ -93,7 +93,7 @@
 	<cffunction name="sendnotice">
 		<!--- Find the record --->
     	<cfset job = model("Mainjob").findByKey(params.key)>
-		<cfif !isLocalhost()>
+		<cfif !isLocalMachine()>
 			<cfset sendEmail(template="emailjob", from=job.email, to="tomavey@comcast.net", subject="New Jobs Post", key=params.key, description=job.description)>
 		</cfif>
 		<cfset redirectTo(action="thankyou", key=params.key)>
