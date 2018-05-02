@@ -7,6 +7,7 @@
 	<!--- jobs/index --->
 	<cffunction name="index">
 		<cfset jobs = model("Mainjob").findAll(order="createdAt DESC")>
+		<cfset jobs = addUUids(jobs)>
 	</cffunction>
 	
 	<!--- jobs/show/key --->
@@ -15,8 +16,6 @@
 		<cfif isdefined("params.key")>
 			<!--- Find the record --->
 	    	<cfset job = model("Mainjob").findAll(where="id=#params.key#")>
-
-			<cfset job = addUUids(job)>
 
 		<cfelseif gotrights("superadmin,office")>
 		
