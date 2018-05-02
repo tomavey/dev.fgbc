@@ -139,6 +139,7 @@
 	<cffunction name="addUuids">
 	<cfargument name="jobs" required="true" type="query">
 	<cfset var loc = arguments>
+	<cfdump var="#loc#"><cfabort>
 		<cfloop query="loc.jobs">
 			<cfif !len(uuid)>
 				<cfset loc.job = model("Mainjob").findOne(where="id=#id#")>
