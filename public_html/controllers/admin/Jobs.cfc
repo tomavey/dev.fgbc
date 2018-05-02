@@ -148,6 +148,7 @@
 			</cfif>
 		</cfloop>
 		<cfset loc.newjobs = model("Mainjob").findAll()>
+		<cfdump var="#loc.newjobs#"><cfabort>
 		<cfreturn loc.newjobs>
 	</cffunction>
 	
