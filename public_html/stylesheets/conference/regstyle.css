@@ -584,3 +584,11 @@ input#captcha {height: 30px}
     overflow-x: auto;
 }
 
+.cohortIntro {
+  font-size: 1.5em;
+}
+
+.cohortdescription {
+  font-size: .8em;
+}
+

@@ -5,7 +5,7 @@
 
     <cfif showSubTypesOfCourses()>
         <div class="row">
-            <div class="alert text-center">
+            <div class="alert text-center cohortIntro">
                 #getCohortsDescription()#
             </div>
         </div>
@@ -35,7 +35,7 @@
 						<p class="subtype">#subtypes[subtype]#</p>
 						</cfif>
 					</cfif>
-            <p class="description">#descriptionlong#</p>
+            <div class="cohortdescription">#descriptionlong#</div>
             <p class="description">#getSubtypeDesc(subtype)#</p>
         </div>
     </cfoutput>

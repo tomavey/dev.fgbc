@@ -289,7 +289,7 @@
 			</cfloop>
 			<cfset coursesIdList = replace(coursesIdList,",","")>
 
-			<cfset headerSubTitle = "Select Cohorts for #getPersonFromId(params.personid)# Here">
+			<cfset headerSubTitle = "Select Cohorts or Workshops for #getPersonFromId(params.personid)# Here">
 
 		<cfset formaction = "saveSelectedCohorts">
 
