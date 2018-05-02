@@ -43,6 +43,11 @@
                 <div class="card-text text-right">
                   Listing Expires: #dateFormat(expirationdate)#
                 </div>
+                <cfif gotRights("office") && len(uuid)>
+                  <div class="card-text text-right">
+                  #linkto(text="Public Edit Link", controller="jobs", action="edit", params="id=#uuid#")#
+                  </div>
+                </cfif>
               </div>
               </cfoutput>
               <!-- End Heading -->

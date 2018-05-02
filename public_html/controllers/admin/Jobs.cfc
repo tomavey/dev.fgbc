@@ -15,7 +15,9 @@
 		<cfif isdefined("params.key")>
 			<!--- Find the record --->
 	    	<cfset job = model("Mainjob").findAll(where="id=#params.key#")>
-	    	
+
+			<cfset job = addUUids(job)>
+
 		<cfelseif gotrights("superadmin,office")>
 		
 			<cfset job = model("Mainjob").findAll(order="id DESC")>
@@ -52,6 +54,9 @@
 	<!--- jobs/create --->
 	<cffunction name="create">
 		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
+
+			<cfset params.job.uuid = CreateUUID()>
+			<cfset params.job.uuid = replace(params.job.uuid,"-","","all")>
 
 			<cfset job = model("Mainjob").new(params.job)>
 			
@@ -131,5 +136,19 @@
 		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
 	</cffunction>
 
+	<cffunction name="addUuids">
+	<cfargument name="jobs" required="true" type="query">
+	<cfset var loc = arguments>
+		<cfloop query="loc.jobs">
+			<cfif !len(uuid)>
+				<cfset loc.job = model("Mainjob").findOne(where="id=#id#")>
+				<cfset loc.job.uuid = CreateUUID()>
+				<cfset loc.job.uuid = replace(loc.job.uuid,"-","","all")>
+				<cfset loc.job.update(loc.job)>
+			</cfif>
+		</cfloop>
+		<cfset loc.newjobs = model("Mainjob").findAll()>
+		<cfreturn loc.newjobs>
+	</cffunction>
 	
 </cfcomponent>

@@ -21,7 +21,8 @@
 							<p><label>Expiration date: </label>#dateformat(job.expirationdate)#</p>
 						
 		<cfif gotRights("superadmin,office")>
-				#listTag()# | #editTag()#
+				#listTag()# | #editTag()#<br/>
+				#linkto(text="Public Edit Link", controller="jobs", action="edit", params="id='#uuid#'")#
 		</cfif>
 		</div>
 		
