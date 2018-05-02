@@ -19,10 +19,10 @@
 							</cfif>
 											
 							<p><label>Expiration date: </label>#dateformat(job.expirationdate)#</p>
-						
+#uuid#						
 		<cfif gotRights("superadmin,office")>
 				#listTag()# | #editTag()#<br/>
-				#linkto(text="Public Edit Link", controller="jobs", action="edit", params="id='#uuid#'")#
+				#linkto(text="Public Edit Link", controller="jobs", action="edit", params="id=#uuid#")#
 		</cfif>
 		</div>
 		
