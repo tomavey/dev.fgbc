@@ -7,7 +7,6 @@
 	<!--- jobs/index --->
 	<cffunction name="index">
 		<cfset jobs = model("Mainjob").findAll(order="createdAt DESC")>
-		<cfset jobs = addUUids(jobs)>
 	</cffunction>
 	
 	<!--- jobs/show/key --->
@@ -147,7 +146,6 @@
 			</cfif>
 		</cfloop>
 		<cfset loc.newjobs = model("Mainjob").findAll()>
-		<cfdump var="#loc.newjobs#"><cfabort>
 		<cfreturn loc.newjobs>
 	</cffunction>
 	
