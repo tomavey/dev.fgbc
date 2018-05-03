@@ -1223,7 +1223,7 @@
 	<cfset thisInvoice = model("Conferenceinvoice").findOne(where="id=#arguments.invoiceid#")>
 	<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #arguments.invoiceid#", include="option,person(family)", order="equip_people.id")>
 	<cfif !isLocalMachine()>
-		<cfset sendemail(from=application.wheels.registraremail, to=thisinvoice.email, template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email", type="html")>
+		<cfset sendemail(from=application.wheels.registraremail, to=thisinvoice.agent, template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email", type="html")>
 	</cfif>
 </cffunction>
 
