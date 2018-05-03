@@ -213,7 +213,6 @@
 			invoice.ccstatus = "Paid";
 			invoice.update();
 			redirectTo(route="showinvoice", key=invoice.id);
-			writeDump(invoice);abort;
 		}
 	</cfscript>
 

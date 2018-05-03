@@ -1119,6 +1119,7 @@
 	<cfif paidInvoiceId>
 		<cfset showLinkToinvoice = true>
 		<cfset sendInvoiceByEmail(paidinvoiceid)>
+		<cfset markInvoicePaid(paidinvoiceid)>
 	<cfelse>	 
 		<cfset showLinkToinvoice = false>
 	</cfif>
@@ -1954,6 +1955,18 @@
 	</cfif>
 	<cfreturn false>
 </cffunction>
+
+<cfscript>
+
+    public function markInvoicePaid(id){
+        var args = arguments;
+        var invoice = model("Conferenceinvoice").findOne(where="id='#args.id#'");
+        invoice.ccstatus = "Paid";
+        invoice.update();
+    }
+
+</cfscript>
+
 
 </cfcomponent>
 
