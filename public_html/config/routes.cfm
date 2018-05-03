@@ -325,7 +325,7 @@
 			.get(name="changeSessionSettingsToPreviousConference", pattern="/changeSessionSettingsToPreviousConference/", controller="register", action="changeSessionSettingsToPreviousConference")
 			.get(name="clearSessionSettingsForEvent", pattern="/clearSessionSettingsForEvent/", controller="register", action="clearSessionSettingsForEvent")
 			.get(name="emptyCart", pattern="/emptycart/", controller="register", action="emptyCart")
-			.get(name="thankyou", pattern="/conference/register/thankyou", controller="register", action="thankyou")
+			.get(name="thankyou", pattern="/register/thankyou/", controller="register", action="thankyou")
 
 			.delete(name="deleteregistration", pattern="/registrations/[key]", controller="registrations", action="delete")
 			.get(name="showregistration", pattern="/registrations/[key]", controller="registrations", action="show")
