@@ -1539,6 +1539,7 @@
 
 <!---Methods used to add options to an existing Reg--->
 <cffunction name="startFamilyRegs">
+<cfdump var="#params#"><cfabort>
 	<cftry>
 	<cfset arrayclear(session.shoppingcart)>
 	<cfset clearRegtype()>
@@ -1546,7 +1547,7 @@
 	<cftry>
 	<cfset structDelete(session,"registrationcart")>
 	<cfcatch></cfcatch></cftry>
-	<cfset redirectTo(action="showFamilyRegs", key=params.key)>
+	<cfset redirectTo(controller="conference.register", action="showFamilyRegs", key=params.key)>
 </cffunction>
 
 
