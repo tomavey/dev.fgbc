@@ -549,18 +549,6 @@
         return true;
     }
 
-    public function markInvoicePaid(id,ccorderid){
-        var args = arguments;
-        if (isDefined("args.ccorderid")){
-            var invoice = model("Conferenceinvoice").findOne(where="ccorderid='#args.ccorderid#'");
-        }
-        if (isDefined("args.id")){
-            var invoice = model("Conferenceinvoice").findOne(where="id='#args.id#'");
-        }
-        invoice.ccstatus = "Paid";
-        invoice.update();
-    }
-
 </cfscript>
 
 </cfcomponent>
