@@ -956,10 +956,14 @@
 		<cfset params.agent = "">
 	</cfif>
 
-	<cfcatch><cfset params.agent = ""></cfcatch></cftry>
+	<cfcatch><cfset params.agent = ""></cfcatch>
+	</cftry>
 
 	<cfset session.payonline = structnew()>
 	<cfset session.payonline.invoiceid = session.registrationcart.invoiceid>
+
+	<!---set cookie with invoiceid for use when thankyou--->
+	<cfcookie name="invoiceid" value="#session.payonline.invoiceid#" expires="1">
 
 	<!---Set the invoice amount to the total in cart--->
 	<cfif !usingGroupReg()>
@@ -977,7 +981,7 @@
 		<cfset thisinvoice = model("Conferenceinvoice").findOne(where="id=#session.registrationcart.invoiceid#")>
 		<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #session.registrationcart.invoiceid#", include="option,person(family)", order="equip_people.id")>
 
-		<cfif gotRights("office")>
+		<cfif gotRights("office") && !isLocalMachine()>
 
 			<cfset sendemail(from=getRegistrar(), to=thisinvoice.agent, cc=getSetting('registrarEmail'), template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email")>
 
@@ -1114,8 +1118,39 @@
 
 </cffunction>
 
-<cffunction name="thankyou">
+<cffunction name="sendInvoice">
+<cfargument name="invoiceid" require="true" type="numeric">
+		<cfset thisInvoice = model("Conferenceinvoice").findOne(where="id=#arguments.invoiceid#")>
+		<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #arguments.invoiceid#", include="option,person(family)", order="equip_people.id")>
 
+		<cfif !isLocalMachine()>
+			<cfset sendemail(from=getRegistrar(), to=thisinvoice.agent, cc=getSetting('registrarBackupEmail'), template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email")>
+		</cfif>
+</cffunction>
+
+<cffunction name="thankyou">
+	<cfset paidInvoiceId = getPaidInvoiceId()> 
+	<cfif paidInvoiceId>
+		<cfset showLinkToinvoice = true>
+	<cfelse>	 
+		<cfset showLinkToinvoice = false>
+	</cfif>
+	<cftry>
+		<cfset sendInvoice(paidinvoiceid)>
+	<cfcatch></cfcatch>
+	</cftry>	
+</cffunction>
+
+<cffunction name="getPaidInvoiceId">
+	<cfif isDefined("session.registrationcart.invoiceid")>
+		<cfreturn session.registrationcart.invoiceid>
+	<cfelseif isDefined("session.conference.invoiceid")>
+		<cfreturn session.conference.invoiceid>
+	<cfelseif isDefined("cookie.invoiceid")>
+		<cfreturn cookie.invoiceid>
+	<cfelse>
+		<cfreturn false>	
+	</cfif>	
 </cffunction>
 
 <cffunction name="deleteCarts">
@@ -1182,7 +1217,9 @@
 	<cfset thisInvoice = model("Conferenceinvoice").findOne(where="id=#thiskey#")>
 	<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #thiskey#", include="option,person(family)", order="equip_people.id")>
 <cfcatch>
-	<cfset sendEmail(subject="Conference Invoice Error", to=application.wheels.registrarEmail, from=application.wheels.requestInvoiceReceiptFrom, template="confirmationerror")>
+	<cfif !isLocalMachine()>
+		<cfset sendEmail(subject="Conference Invoice Error", to=application.wheels.registrarEmail, from=application.wheels.requestInvoiceReceiptFrom, template="confirmationerror")>
+	</cfif>
 	<cfset redirectTo(action="thankyou")>
 </cfcatch>
 </cftry>
