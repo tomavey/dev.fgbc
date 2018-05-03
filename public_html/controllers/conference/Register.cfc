@@ -1539,7 +1539,6 @@
 
 <!---Methods used to add options to an existing Reg--->
 <cffunction name="startFamilyRegs">
-<cfdump var="#params#"><cfabort>
 	<cftry>
 	<cfset arrayclear(session.shoppingcart)>
 	<cfset clearRegtype()>
