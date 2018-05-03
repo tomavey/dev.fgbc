@@ -981,11 +981,7 @@
 		<cfset thisinvoice = model("Conferenceinvoice").findOne(where="id=#session.registrationcart.invoiceid#")>
 		<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #session.registrationcart.invoiceid#", include="option,person(family)", order="equip_people.id")>
 
-		<cfif gotRights("office") && !isLocalMachine()>
-
-			<cfset sendemail(from=getRegistrar(), to=thisinvoice.agent, cc=getSetting('registrarEmail'), template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email")>
-
-		</cfif>
+		<cfset sendInvoiceByEmail(session.registrationcart.invoiceid)>
 
 	<cfelse>
 		<cfset flashInsert(agent="Please enter a valid email address")>
