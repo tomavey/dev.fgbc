@@ -359,7 +359,7 @@
 			.get(name="payonline", pattern="/register/payonline/", controller="register", action="payonline")
 			.put(name="convertGroupRegToSingle", pattern="/register/groupRegConvertToSingle/", controller="register", action="groupRegConvertToSingle")
 			.post(name="cartAddedOptions", pattern="/register/cartAddedOptions", controller="register", action="cartAddedOptions")
-			.post(name="checkOutAddedOptions", pattern="/register/checkOutAddedOptions", controller="register", action="checkOutAddedOptions")
+			.get(name="checkOutAddedOptions", pattern="/register/checkOutAddedOptions", controller="register", action="checkOutAddedOptions")
 
 			.controller("users")
 				.post(name="getInvoices", pattern="/getInvoices", action="getInvoices")
