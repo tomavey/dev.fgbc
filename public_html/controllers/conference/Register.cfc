@@ -1118,27 +1118,14 @@
 
 </cffunction>
 
-<cffunction name="sendInvoice">
-<cfargument name="invoiceid" require="true" type="numeric">
-		<cfset thisInvoice = model("Conferenceinvoice").findOne(where="id=#arguments.invoiceid#")>
-		<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #arguments.invoiceid#", include="option,person(family)", order="equip_people.id")>
-
-		<cfif !isLocalMachine()>
-			<cfset sendemail(from=getRegistrar(), to=thisinvoice.agent, cc=getSetting('registrarBackupEmail'), template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email")>
-		</cfif>
-</cffunction>
-
 <cffunction name="thankyou">
 	<cfset paidInvoiceId = getPaidInvoiceId()> 
 	<cfif paidInvoiceId>
 		<cfset showLinkToinvoice = true>
+		<cfset sendInvoiceByEmail(paidinvoiceid)>
 	<cfelse>	 
 		<cfset showLinkToinvoice = false>
 	</cfif>
-	<cftry>
-		<cfset sendInvoice(paidinvoiceid)>
-	<cfcatch></cfcatch>
-	</cftry>	
 </cffunction>
 
 <cffunction name="getPaidInvoiceId">
@@ -1235,7 +1222,9 @@
 
 	<cfset thisInvoice = model("Conferenceinvoice").findOne(where="id=#arguments.invoiceid#")>
 	<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #arguments.invoiceid#", include="option,person(family)", order="equip_people.id")>
-	<cfset sendemail(from=application.wheels.registraremail, to=thisinvoice.email, template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email", type="html")>
+	<cfif !isLocalMachine()>
+		<cfset sendemail(from=application.wheels.registraremail, to=thisinvoice.email, template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email", type="html")>
+	</cfif>
 </cffunction>
 
 
