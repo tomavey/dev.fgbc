@@ -1118,8 +1118,8 @@
 	<cfset paidInvoiceId = getPaidInvoiceId()> 
 	<cfif paidInvoiceId>
 		<cfset showLinkToinvoice = true>
-		<cfset sendInvoiceByEmail(paidinvoiceid)>
 		<cfset markInvoicePaid(paidinvoiceid)>
+		<cfset sendInvoiceByEmail(paidinvoiceid)>
 	<cfelse>	 
 		<cfset showLinkToinvoice = false>
 	</cfif>
