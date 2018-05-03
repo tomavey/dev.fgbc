@@ -1032,6 +1032,7 @@
 	<cfset payonline.orderid = model("Conferenceinvoice").findOne(where="id=#session.registrationcart.invoiceid#").ccorderid>
 	<cfset payonline.email = session.registrationcart.agent>
 	<cfset payonline.amount = register.totalInShoppingCart()>
+	<cfset session.payonline = payonline>
 	<cfif CGI.http_host CONTAINS "localhost:8888">
 		<cfset payonline.url = "http://localhost:8888/index.cfm?controller=conference.register&action=confirm">
 	<cfelse>
@@ -1110,6 +1111,10 @@
  		<cfset redirectTo(action="thankyou")>
  	</cfcatch>
       </cftry>
+
+</cffunction>
+
+<cffunction name="thankyou">
 
 </cffunction>
 
