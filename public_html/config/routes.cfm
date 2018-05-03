@@ -358,6 +358,7 @@
 			.get(name="saveAgent", pattern="/register/saveAgent/", controller="register", action="saveAgent")
 			.get(name="payonline", pattern="/register/payonline/", controller="register", action="payonline")
 			.put(name="convertGroupRegToSingle", pattern="/register/groupRegConvertToSingle/", controller="register", action="groupRegConvertToSingle")
+			.post(name="cartAddedOptions", pattern="/register/cartAddedOptions", controller="register", action="cartAddedOptions")
 
 			.controller("users")
 				.post(name="getInvoices", pattern="/getInvoices", action="getInvoices")
