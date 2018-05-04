@@ -1128,13 +1128,7 @@
 <cffunction name="getPaidInvoiceId">
 	<cfif isDefined("url.order_id") && url.auth_response is "APPROVED">
 		<cfreturn val(url.order_id)>
-	<cfelseif isDefined("session.registrationcart.invoiceid")>
-		<cfreturn session.registrationcart.invoiceid>
-	<cfelseif isDefined("session.conference.invoiceid")>
-		<cfreturn session.conference.invoiceid>
-	<cfelseif isDefined("cookie.invoiceid")>
-		<cfreturn cookie.invoiceid>
-	<cfelse>
+	<cfelse>	
 		<cfreturn false>	
 	</cfif>	
 </cffunction>

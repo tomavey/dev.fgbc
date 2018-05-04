@@ -468,7 +468,7 @@
 		<cfif len(arguments.id) gte 2>
 			<cfset status = arguments.id>
 		<cfelseif status is 0>
-			<cfset status = "Not Paid">
+			<cfset status = "Pending">
 		<cfelseif status is 1>
 			<cfset status = "Paid">
 		<cfelseif status is 2>

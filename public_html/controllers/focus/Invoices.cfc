@@ -43,7 +43,7 @@
 	<cffunction name="edit">
 
 		<!--- Find the invoice --->
-	    	<cfset invoice = model("Focusinvoice").findByKey(params.key)>
+    	<cfset invoice = model("Focusinvoice").findByKey(params.key)>
 		<cfset invoice.ccstatus = getstatus(invoice.ccstatus)><!---in controllers/Controller.cfc--->
 
     	<!--- Check if the record exists --->
