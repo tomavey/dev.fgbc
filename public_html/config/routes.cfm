@@ -271,6 +271,8 @@
 			.end()	
 			.resources("invoices")
 
+			.get(name="invoice", pattern="/invoice/[key]", controller="invoices", action="show")
+
 			.controller("instructors")
 				.get(name="list", pattern="/list/", action="list")
 			.end()	
