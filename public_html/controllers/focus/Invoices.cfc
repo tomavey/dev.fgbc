@@ -148,10 +148,33 @@
 	</cffunction>
 
 	<cffunction name="thankyou">
+		<cfif !isDefined("params.key") && isDefined("url.order_id")>
+			<cfset params.key = val(url.order_id)>
+		</cfif>	
+		<cfif isDefined("url.auth_response") && url.auth_response is "APPROVED">
+			<cfset markInvoicePaid(params.key)>
+		</cfif>
+		<cftry>
 		<cfset invoice = model("Focusinvoice").findByKey(params.key)>
 		<cfset items = model("Focusregistration").findAll(where="invoiceId = '#params.key#'", include="item,registrant")>
 		<cfset renderPage(layout="/focus/layout2")>
+		<cfcatch>
+			<cfset noinvoice = true>
+		</cfcatch>
+		</cftry>	
+		<cfset renderPage(layout='/focus/layout2')>
 	</cffunction>
+
+<cfscript>
+
+    public function markInvoicePaid(id){
+        var args = arguments;
+        var invoice = model("Focusinvoice").findOne(where="id='#args.id#'");
+        invoice.ccstatus = "Paid";
+        invoice.update();
+    }
+
+</cfscript>
 
 	<cffunction name="testConfirm">
 		<cflocation url="http://dev.fgbc.org/focus/invoices/confirm?OrderID=16Aeast11&total=10.00&Status=1&approval_code=064435&authresponse=APPROVED&avs=Y&cvv2=M&Cardname=visa&NameonCard=Thomas%20D%20Avey&Cardstreet=PO%20Box%20386&Cardcity=Winona%20Lake&Cardstate=IN&Cardzip=46590&Cardcountry=US&email=tomavey@fgbc.org&phone=574-527-6061">

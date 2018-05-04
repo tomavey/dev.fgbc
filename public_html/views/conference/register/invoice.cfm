@@ -65,7 +65,7 @@
 				</cfif>
 		</div>
 		<cfif payStatus(thisinvoice.ccstatus) is "Pending">
-			This invoice is marked with a status of "Pending" because we are waiting on confirmation from our payment center that payment was successfully processed.  We will contact you if we need additional information to complete payment. In other words... "No news is good news!".
+			This invoice is marked with a status of "Pending" because we are waiting on confirmation from our payment center that payment was successfully processed.  We will contact you if we need additional information to complete payment. 
 		</cfif>
 </cfoutput>
 		<!---

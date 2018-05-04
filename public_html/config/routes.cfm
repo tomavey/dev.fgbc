@@ -207,7 +207,8 @@
 			.get(name="payonline", pattern="/payonline/[key]", controller="invoices", action="payonline")
 			.get(name="agent", pattern="/agent/", controller="invoices", action="agent")
 			.get(name="confirm", pattern="/confirm/", controller="invoices", action="confirm")
-			.get(name="thankyou", pattern="/thankyou/[key]", controller="invoices", action="thankyou")
+			.get(name="thankyoukey", pattern="/thankyou/[key]", controller="invoices", action="thankyou")
+			.get(name="thankyou", pattern="/thankyou/", controller="invoices", action="thankyou")
 			.resources("invoices")
 			
 			.get(name="deleteitem", pattern="/items/[key]/delete/", controller="items", action="delete")

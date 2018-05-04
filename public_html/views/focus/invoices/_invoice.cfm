@@ -8,9 +8,6 @@
 			<li>
 				Amount: #dollarformat(invoice.ccamount)#
 			</li>
-			<li>
-				Name on card: #invoice.ccname#
-			</li>
 			<cfif getStatus(invoice.ccstatus) is "Not Paid">
 				<cfset statusclass="notpaid">
 			<cfelse>
