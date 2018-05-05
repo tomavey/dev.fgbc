@@ -328,6 +328,8 @@
 			.get(name="clearSessionSettingsForEvent", pattern="/clearSessionSettingsForEvent/", controller="register", action="clearSessionSettingsForEvent")
 			.get(name="emptyCart", pattern="/emptycart/", controller="register", action="emptyCart")
 			.get(name="thankyou", pattern="/register/thankyou/", controller="register", action="thankyou")
+			.get(name="confirm", pattern="/register/confirm/", controller="register", action="confirm")
+			.get(name="declined", pattern="/register/declined/", controller="register", action="declined")
 
 			.delete(name="deleteregistration", pattern="/registrations/[key]", controller="registrations", action="delete")
 			.get(name="showregistration", pattern="/registrations/[key]", controller="registrations", action="show")

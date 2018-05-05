@@ -1039,7 +1039,7 @@
 		<cfset payonline.url = "http://#CGI.http_host#/index.cfm?controller=conference.register&action=confirm">
 	</cfif>
 	<cfif val(payonline.amount) is 0>
-		<cfset redirectTo(action="confirm", params="email=tomavey@fgbc.org&nameoncard=Tom Avey&total=1&status=1&key=#session.registrationcart.invoiceid#")>
+		<cfset redirectTo(action="confirm", params="amount=0&status=true&key=#session.registrationcart.invoiceid#")>
 	</cfif>
 
 </cffunction>
@@ -1061,13 +1061,11 @@
 
 <cffunction name="confirm">
 <cfset var thistransaction = structNew()>
-<cfset var thisagent = structNew()>
 
 	<cftry>
 	<cfset deletecarts()>
 	<cfcatch></cfcatch></cftry>
 
-     <cftry>
 	<cfset thistransaction = getTransactionFromParamsForConfirmation(params)>
 
 	<!--- I use this for force the catch block to test the redirect and sendemail--->
@@ -1076,42 +1074,39 @@
 	</cfif>
 	<!--------------->
 
-	<cfif params.status>
+	<cfif thistransaction.status>
 
 
-		<cfset test = model("Conferenceinvoice").findByKey(thistransaction.key).update(thistransaction)>
-
-<!---
-		<cfset extendorderid(ccorderid = thistransaction.key, extension=thistransaction.ccname)>
---->
-
-		<cfset thisagent = model("Conferenceinvoice").findByKey(thistransaction.key)>
-
-		<cfif thisagent.agent is "">
-			<cfset thisagent.agent = thistransaction.ccemail>
-			<cfset model("Conferenceinvoice").updateByKey(key=thistransaction.key,agent=thisagent.agent)>
-		</cfif>
-
-		<cfset thisInvoice = model("Conferenceinvoice").findOne(where="id=#thistransaction.key#")>
+		<cfset thisinvoice = model("Conferenceinvoice").findOne(where="id=#thistransaction.key#")>
+		
+		<cfif isObject(thisinvoice)>
+			<cfset thisinvoice.update(thistransaction)>
+		<cfelse>
+			<cfset renderText("Something is wrong, this invoice does not exist")>
+		</cfif>	
+	
 		<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #thistransaction.key#", include="option,person(family)", order="equip_people.id")>
 
-		<cfset sendemail(from=getRegistrar(), to=thisinvoice.agent, cc=getSetting('registrarBackupEmail'), template="invoice", subject="Your #getEventAsText()# Registration", layout="layout_for_email")>
+		<cfif !isLocalMachine()>
+			<cfset sendInvoiceByEmail(paidinvoiceid)>
+		</cfif>
 
-		<cfset sendemail(from=thisinvoice.agent, to=getRegistrar(), template="invoice", subject="#getEventAsTextA()# Registration from #thisinvoice.agent#", cc=application.wheels.errorEmailAddress, layout="layout_for_email")>
-
-		<cfset redirectTo(controller="conference.register", action="invoice", params="NameOnCard=#params.NameOnCard#&email=#params.email#&status=#params.status#&amount=1&orderid=#params.orderid#&key=#val(params.orderid)#")>
+		<cfset redirectTo(controller="conference.register", action="invoice", key=#thistransaction.key#)>
 
 	<cfelse>
 
 		<cfset redirectTo(action="declined", params="key=#thistransaction.key#")>
 
 	</cfif>
+<!---	
  	<cfcatch>
- 		<cfset sendEmail(subject="Conference Registration Confirmation Error", to=application.wheels.registrarEmail, from=application.wheels.requestInvoiceReceiptFrom, template="confirmationerror")>
+	 	<cfif !isLocalMachine()>
+	 		<cfset sendEmail(subject="Conference Registration Confirmation Error", to=application.wheels.registrarEmail, from=application.wheels.requestInvoiceReceiptFrom, template="confirmationerror")>
+		</cfif>
  		<cfset redirectTo(action="thankyou")>
  	</cfcatch>
       </cftry>
-
+--->
 </cffunction>
 
 <cffunction name="thankyou">
@@ -1165,12 +1160,14 @@
 <cfargument name="params" type="struct">
 <cfset var thistransaction  = structNew()>
 	<cfscript>
-		if (isdefined("params.key")) {params.orderid = params.key;};
-		thistransaction.ccname = params.NameonCard;
-		thistransaction.ccemail = params.email;
-		thistransaction.ccstatus = params.Status;
-		thistransaction.containerid = val(params.Orderid);
-		thistransaction.key = val(params.OrderId);
+		if (isdefined("params.key")) {params.order_id = params.key;};
+		if ( params.status ) {thistransaction.ccstatus = "paid"};
+		if ( !params.status ) {thistransaction.ccstatus = "failed"};
+		thistransaction.status = params.status;
+		thistransaction.containerid = val(params.order_id);
+		thistransaction.key = val(params.order_id);
+		thistransaction.ccorderid = params.order_id;
+		thistransaction.ccamount = params.amount;
 	</cfscript>
 <cfreturn thistransaction>
 </cffunction>
@@ -1179,30 +1176,36 @@
 <!---/conference.register/invoice--->
 <cffunction name="invoice">
 <cfset var thiskey = "">
-<cftry>
-	<!--- I use this for force the catch block to test the redirect and sendemail--->
-	<cfif isDefined("params.forceInvoiceCatchBlock")>
-		<cfset  forceCatchBlock = params.doesnotexist>
-	</cfif>
-	<!--------------->
+	<cftry>
+		<!--- I use this for force the catch block to test the redirect and sendemail--->
+		<cfif isDefined("params.forceInvoiceCatchBlock")>
+			<cfset  forceCatchBlock = params.doesnotexist>
+		</cfif>
+		<!--------------->
 
-<cfset thisinvoice = structNew()>
-<cfset optionsInThisInvoice = structNew()>
-	<cfif isdefined("params.key")>
-		<cfset thiskey = val(params.key)>
-	<cfelse>
-		<cfset thiskey = val(params.orderid)>
-	</cfif>
+		<cfset thisinvoice = structNew()>
+		<cfset optionsInThisInvoice = structNew()>
+			<cfif isdefined("params.key")>
+				<cfset thiskey = val(params.key)>
+			<cfelse>
+				<cfset thiskey = val(params.orderid)>
+			</cfif>
 
-	<cfset thisInvoice = model("Conferenceinvoice").findOne(where="id=#thiskey#")>
-	<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #thiskey#", include="option,person(family)", order="equip_people.id")>
-<cfcatch>
-	<cfif !isLocalMachine()>
-		<cfset sendEmail(subject="Conference Invoice Error", to=application.wheels.registrarEmail, from=application.wheels.requestInvoiceReceiptFrom, template="confirmationerror")>
-	</cfif>
-	<cfset redirectTo(action="thankyou")>
-</cfcatch>
-</cftry>
+			<cfset thisInvoice = model("Conferenceinvoice").findOne(where="id=#thiskey#")>
+
+			<cfif !isObject(thisInvoice)>
+				<cfset renderText("this invoice does not exist")>
+			</cfif>	
+
+
+			<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #thiskey#", include="option,person(family)", order="equip_people.id")>
+		<cfcatch>
+			<cfif !isLocalMachine()>
+				<cfset sendEmail(subject="Conference Invoice Error", to=application.wheels.registrarEmail, from=application.wheels.requestInvoiceReceiptFrom, template="confirmationerror")>
+			</cfif>
+			<cfset redirectTo(action="thankyou")>
+		</cfcatch>
+	</cftry>
 </cffunction>
 
 <!---Called from a link on the invoice--->
@@ -1218,7 +1221,14 @@
 	</cfif>
 </cffunction>
 
+<!---
+GoEMerchant Response codes:
+http://[MERCHANT_DEFINED_URL]?status={True/False}&auth_code={number}&auth_response={string}&avs_code={string}&cvv2_code={string}&order_id={string}&reference_number={number}&amount={money}&storename={string}&processor={string}&mid={string}&tid={string}
 
+use for a fail test: (May need to make sure the orderid exists)
+https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=&auth_response=Transaction+Declined+Due+to+Security+Reasons&avs_code=&cvv2_code=&order_id=3090visionconference2018Avey&reference_number=&amount=95&storename=fellowshipofgracen&processor=fifththird&mid=020004948386&tid=001
+
+--->
 
 <!---/conference.register/declined--->
 <cffunction name="declined">
@@ -1229,16 +1239,14 @@
 <cfset thiskey = val(params.key)>
 
 	<cfset thisInvoice = model("Conferenceinvoice").findOne(where="id=#thiskey#")>
-
-	<cfset payonline.merchant = "fellowshipofgracen">
-	<cfset payonline.orderid = thisinvoice.ccorderid>
-	<cfset payonline.email = thisinvoice.agent>
-	<cfset payonline.amount = thisinvoice.ccamount>
-	<cfif CGI.http_host CONTAINS "localhost:8888">
-		<cfset payonline.url = "http://localhost:8888/index.cfm?controller=conference.register&action=confirm">
+	<cfif isObject(thisInvoice)>
+		<cfset payonline.merchant = "fellowshipofgracen">
+		<cfset payonline.orderid = thisinvoice.ccorderid>
+		<cfset payonline.email = thisinvoice.agent>
+		<cfset payonline.amount = thisinvoice.ccamount>
 	<cfelse>
-		<cfset payonline.url = "http://fgbc.org/index.cfm?controller=conference.register&action=confirm">
-	</cfif>
+		<cfset renderText("this invoice does not exist")>
+	</cfif>	
 
 </cffunction>
 
@@ -1958,6 +1966,11 @@
         invoice.ccstatus = "Paid";
         invoice.update();
     }
+
+	public function alertObjectNotExists(obj){
+		if ( !isObject(obj) ){ renderText("Object does not exist"); abort; }
+		else { return; }
+	}
 
 </cfscript>
 
