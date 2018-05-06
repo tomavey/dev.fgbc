@@ -1102,7 +1102,7 @@
 		<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #thistransaction.key#", include="option,person(family)", order="equip_people.id")>
 
 		<cfif !isLocalMachine()>
-			<cfset sendInvoiceByEmail(paidinvoiceid)>
+			<cfset sendInvoiceByEmail(val(params.order_id))>
 		</cfif>
 
 		<cfset redirectTo(controller="conference.register", action="invoice", key=#thistransaction.key#)>
