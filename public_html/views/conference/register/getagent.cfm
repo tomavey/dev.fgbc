@@ -10,7 +10,7 @@
 </cfif>
 <p><h2 class="alert">#flash("agent")#</h2></p>
 
-#startFormTag(route=formaction2, id="getagent")#
+#startFormTag(route=formactionRoute, id="getagent")#
     #textfieldtag(label=agentFieldLabel, name="agent", value="#params.agent#")#
 #submitTag(value="Submit", class="btn")#
 #endFormTag()#

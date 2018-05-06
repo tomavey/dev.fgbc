@@ -349,7 +349,7 @@
 			.get(name="addOptions", pattern="/register/addOptions/[key]", controller="register", action="addOptions")
 			.get(name="showFamilyRegs", pattern="/register/showFamilyRegs/[key]", controller="register", action="showFamilyRegs")
 			.get(name="startFamilyRegs", pattern="/register/startFamilyRegs/[key]", controller="register", action="startFamilyRegs")
-			.get(name="payinvoice", pattern="/payinvoice", controller="register", action="payExistingInvoiceOnline")
+			.get(name="payinvoice", pattern="/payinvoice", controller="register", action="payonline")
 			.get(name="selectregtype", pattern="/register/selectregtype/", controller="register", action="selectregtype")
 			.get(name="selectoptions", pattern="/register/selectoptions/", controller="register", action="selectoptions")
 			.post(name="createCartItemsFromForm", pattern="/register/createCartItemsFromForm/", controller="register", action="createCartItemsFromForm")

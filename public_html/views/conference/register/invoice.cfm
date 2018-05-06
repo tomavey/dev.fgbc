@@ -284,7 +284,7 @@
 					</div>
 				<cfif gotRights("superadmin,office")>
 						<cfset payEmailSubject = "Pay%20Your%20#trim(getEventAsUrlEncodedText())#%20Registration">
-						<a href="mailto:#thisinvoice.agent#?body=http://charisfellowship.us/conference/payinvoice/?ccorderid=#thisinvoice.ccorderid#&subject=#payEmailSubject#" class="btn">Email a link to pay for this invoice</a><br/>
+						<a href="mailto:#thisinvoice.agent#?body=http://charisfellowship.us/conference/payonline/?ccorderid=#thisinvoice.ccorderid#&subject=#payEmailSubject#" class="btn">Email a link to pay for this invoice</a><br/>
 					#linkToList(text="return to list", controller="conference.invoices", action="list")#
 				</cfif>	
 

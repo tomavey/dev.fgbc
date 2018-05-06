@@ -32,10 +32,10 @@
 </cffunction>
 
 <cffunction name="setOpenReg">
-	<cfif isDefined("params.openreg") and !application.wheels.registrationIsOpen>
+	<cfif isDefined("params.openreg") and getSetting("registrationIsOpen")>
 		<cfset session.auth.openreg = true>
 	</cfif>
-	<cfif isDefined("params.closereg") and !application.wheels.registrationIsOpen>
+	<cfif isDefined("params.closereg") and getSetting("registrationIsOpen")>
 		<cfset structDelete(session.auth,"openreg")>
 	</cfif>
 </cffunction>
@@ -48,7 +48,7 @@
 </cffunction>
 
 <cffunction name="getRegistrar">
-	<cfreturn application.wheels.registrarEmail>
+	<cfreturn getSetting("registrarEmail")>
 </cffunction>
 
 <!---Creates Empty Shopping Cart is needed--->
@@ -133,7 +133,7 @@
 
 <cffunction name="checkCaptcha" hint="processes the welcome screen captcha form">
 
-	<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
+	<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
 		<cfset flashInsert(message="Type one adult (ie: 'John''), couple (ie:'John and Jane') or child (ie:'Johnny') on the left then select the appropriate registration options below before click 'Add To Cart'")>
 		<cfset redirectTo(controller="conference.register", action="selectregtype")>
 	<cfelse>
@@ -942,6 +942,8 @@
 
 <cffunction name="getAgent">
 
+	<!---Get a default agent email address from current registration--->
+
 	<cftry>
 	<cfset keysInRegCart = structKeyList(session.registrationcart)>
 
@@ -962,7 +964,7 @@
 	<cfset session.payonline = structnew()>
 	<cfset session.payonline.invoiceid = session.registrationcart.invoiceid>
 
-	<!---set cookie with invoiceid for use when thankyou--->
+	<!---set cookie with invoiceid for possible (unlikely) use when thankyou--->
 	<cfcookie name="invoiceid" value="#session.payonline.invoiceid#" expires="1">
 
 	<!---Set the invoice amount to the total in cart--->
@@ -971,42 +973,42 @@
 	<cfelse>	
 		<cfset remove1RegFromGroup(session.shoppingCart[1].groupRegId)>
 	</cfif>
-	<cfset formaction2="conferenceSaveAgent">
+	<cfset formactionRoute="conferenceSaveAgent">
 </cffunction>
 
-<cffunction name="saveAgent">
-	<cfif isvalid("email", params.agent) OR params.agent is "comp" OR params.agent is "manual" OR params.agent is "prepaid" OR params.agent is "test">
-		<cfset session.registrationcart.agent = params.agent>
-		<cfset model("Conferenceinvoice").updateByKey(key=session.registrationcart.invoiceid, agent=session.registrationcart.agent)>
-		<cfset thisinvoice = model("Conferenceinvoice").findOne(where="id=#session.registrationcart.invoiceid#")>
-		<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #session.registrationcart.invoiceid#", include="option,person(family)", order="equip_people.id")>
+<cfscript>
 
-		<cfset sendInvoiceByEmail(session.registrationcart.invoiceid)>
+	public function saveAgent() {
 
-	<cfelse>
-		<cfset flashInsert(agent="Please enter a valid email address")>
-		<cfset redirectTo(action="getAgent")>
-	</cfif>
-	<!---Set conditions where no online payment is needed--->
+		if ( isvalid("email", params.agent) || listContainsNoCase(#getSetting("possibleAgentCodes")#,params.agent) ) {
+			session.registrationcart.agent = params.agent;
+			model("Conferenceinvoice").updateByKey(key=session.registrationcart.invoiceid, agent=session.registrationcart.agent);
 
-	<cfif usingStaffReg()>	
-		<cfset redirectTo(controller="conference.invoices", action="show", key=session.registrationcart.invoiceid, params="ccstatus=Comp")>
-	<cfelseif params.agent is "prepaid">
-		<cfset redirectTo(controller="conference.invoices", action="show", key=session.registrationcart.invoiceid, params="ccstatus=paid")>
-	<cfelseif params.agent is "manual@fgbc.org" OR params.agent is "comp" OR params.agent is "manual" OR params.agent is "test" OR register.totalInShoppingCart() LTE 0>
-		<cfset redirectTo(controller="conference.invoices", action="show", key=session.registrationcart.invoiceid, params="ccstatus=TBD")>
-	<cfelseif usingGroupReg()>
-		<cfset redirectTo(controller="conference.invoices", action="show", key=session.registrationcart.invoiceid)>
-	</cfif>
+			sendInvoiceByEmail(session.registrationcart.invoiceid);
+			}
+		else {
+			flashInsert(agent="Please enter a valid email address");
+			redirectTo(action="getAgent");
+			}
 
-	<cfif params.agent is "tomavey@fgbc.org" AND application.wheels.environment is "development">
-		<cfset redirectTo(action="confirm", params="email=tomavey@fgbc.org&nameoncard=Tom Avey&total=1&status=1&key=#session.registrationcart.invoiceid#")>
-	<cfelse>
-		<cfset redirectTo(action="payonline")>
-	</cfif>
-</cffunction>
+		<!---Set conditions - reDirectTo - where no online payment is needed--->
 
-<cffunction name="payExistingInvoiceOnline">
+		if ( usingStaffReg() ) { redirectToThisInvoice("comp"); };
+		if ( usingGroupReg() ) { redirectToThisInvoice("paid"); };
+		if ( params.agent is "prepaid" ) { redirectToThisInvoice("paid"); };
+		if ( params.agent is "manual@fgbc.org" OR params.agent is "manual" OR params.agent is "test" ) { redirectToThisInvoice("TBD"); };
+		if ( params.agent is "comp" ) { redirectToThisInvoice("comp"); };
+		if ( register.totalInShoppingCart() LTE 0 ) { redirectToThisInvoice("TBD"); };
+		if ( params.agent is "tomavey@fgbc.org" AND application.wheels.environment is "development" ) {
+			redirectTo(action="confirm", params="email=tomavey@fgbc.org&nameoncard=Tom Avey&amount=#register.totalInShoppingCart()#&status=1&key=#session.registrationcart.invoiceid#");
+		}
+
+		redirectTo(action="payonline");
+	}	
+
+</cfscript>
+
+<cffunction name="XpayExistingInvoiceOnline">
 	<cfset payonline = structnew()>
 	<cfset payonline.merchant = "fellowshipofgracen">
 	<cfset payonline.orderid = params.ccorderid>
@@ -1025,33 +1027,45 @@
 
 
 <!---/conference.register/payonline ---- autosubmited by javascript ---->
-<cffunction name="payonline">
+<cfscript>
 
-	<cfset payonline = structnew()>
-	<cfset payonline.merchant = "fellowshipofgracen">
-	<cfset payonline.orderid = model("Conferenceinvoice").findOne(where="id=#session.registrationcart.invoiceid#").ccorderid>
-	<cfset payonline.email = session.registrationcart.agent>
-	<cfset payonline.amount = register.totalInShoppingCart()>
-	<cfset session.payonline = payonline>
-	<cfif CGI.http_host CONTAINS "localhost:8888">
-		<cfset payonline.url = "http://localhost:8888/index.cfm?controller=conference.register&action=confirm">
-	<cfelse>
-		<cfset payonline.url = "http://#CGI.http_host#/index.cfm?controller=conference.register&action=confirm">
-	</cfif>
-	<cfif val(payonline.amount) is 0>
-		<cfset redirectTo(action="confirm", params="amount=0&status=true&key=#session.registrationcart.invoiceid#")>
-	</cfif>
+	public function payonline(){
 
-</cffunction>
+		var thisOrderId = "";
 
+		<!---Is params.ccorderid then session.registrationcart.invoiceid--->
+		if ( 
+			isDefined("params.ccorderid") 
+			) { 
+				thisOrderId = val(params.ccorderid); 
+				}
+		elseif ( 
+			isDefined("session.registrationcart.invoiceid") 
+			) { 
+				thisOrderId = session.registrationcart.invoiceid; 
+				}
+		else { 
+			rendertext("invoiceid not found - error code:1032"); 
+			};
 
+		var thisInvoice = model("Conferenceinvoice").findOne(where="id=#thisOrderId#");
 
+		if ( !isObject(thisInvoice) ) { rendertext("invoice not found - error code:1035"); };
 
+		payonline = structNew();
+		payonline.merchant = getSetting("goEMerchantId");
+		payonline.orderid = thisInvoice.ccorderid;
+		payonline.email = thisInvoice.agent;
+		payonline.amount = thisInvoice.ccamount;
 
+		session.payonline = payonline;
 
+		if ( val(payonline.amount) is 0 ){
+			redirectTo(action="confirm", params="amount=0&status=true&key=#session.registrationcart.invoiceid#");			
+		}
+	}
 
-
-
+</cfscript>
 
 
 
@@ -1306,7 +1320,10 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 
 <cffunction name="emptyCart" access="public" returntype="void" output="false">
 <cfargument name="returnto" default="selectoptions">
+	<cftry>
 	<cfset arrayclear(session.shoppingcart)>
+	<cfcatch></cfcatch>
+	</cftry>
 	<cftry>
 	<cfset structDelete(session,"registrationcart")>
 	<cfcatch></cfcatch></cftry>
@@ -1970,6 +1987,15 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 	public function alertObjectNotExists(obj){
 		if ( !isObject(obj) ){ renderText("Object does not exist"); abort; }
 		else { return; }
+	}
+
+	public function redirectToThisInvoice(required status){
+		redirectTo(
+			controller="conference.invoices", 
+			action="show", 
+			key=session.registrationcart.invoiceid, 
+			params="ccstatus=#status#"
+			);		
 	}
 
 </cfscript>
