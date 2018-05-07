@@ -1,5 +1,5 @@
 <cfparam name="params.personid" default=0>
-<cfparam name="type" default="cohort">
+<cfparam name="params.type" default="cohort">
 
 <div id='selectworkshops' class="container">
 <!---
