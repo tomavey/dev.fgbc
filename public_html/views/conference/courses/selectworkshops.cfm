@@ -1,4 +1,6 @@
 <cfparam name="params.personid" default=0>
+<cfparam name="type" default="cohort">
+
 <div id='selectworkshops' class="container">
 <!---
 <h1>We are busy lining up workshops for Flinch Conference however they are not online yet.  We will send out notifications when they are ready.</h1>
