@@ -5,7 +5,7 @@
 
 if ( lcase(cgi.http_host) is 'fgbc.org' ){
     var newlocation = 'https://charisfellowship.us' & cgi.script_name & "/?" & cgi.query_string; 
-    location(url = newlocation, addtoken=false);
+    location(url = newlocation);
 }
 
 </cfscript>
