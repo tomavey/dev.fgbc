@@ -5,10 +5,7 @@
     if ( oldlocation.includes('fgbc.org') ) {
         var newlocation = oldlocation.replace("fgbc.org","charisfellowship.us");
         console.log(newlocation);
-        setTimeout(function () {
         window.location.href = newlocation; 
-        }, 1000); 
-        abort;
     }
 
 </script>
