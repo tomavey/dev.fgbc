@@ -15,3 +15,5 @@
 </script>
 
     <cfinclude template="wheels/index.cfm">
+
+    <cfdump var="#cgi.SERVER_Name#">
