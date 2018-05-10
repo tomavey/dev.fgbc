@@ -2,7 +2,7 @@
 <script type="text/JavaScript">
 
     var oldlocation = toLowerCase(location.href);
-    if ( !oldlocation.search('fgbc.org') == -1 ) {
+    if ( oldlocation.indexOf('fgbc.org') != -1 ) {
         alert("hi");
         var newlocation = oldlocation.replace("fgbc.org","charisfellowship.us");
         console.log(newlocation);
