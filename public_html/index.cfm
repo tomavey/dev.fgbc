@@ -1,9 +1,6 @@
 <!---Javascript Redirect--->
 <script type="text/JavaScript">
 
-        alert("Redirecting to charisfellowship.us");
-
-(function(){
     var oldlocation = location.href;
     if ( oldlocation.search('fgbc.org') === 1 ) {
 
@@ -15,7 +12,6 @@
         }, 2000); 
         abort;
     }
-} )();
 
 </script>
 
