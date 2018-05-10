@@ -2,14 +2,15 @@
 <script type="text/JavaScript">
 
     var oldlocation = toLowerCase(location.href);
-    if ( oldlocation.includes('fgbc.org') ) {
+    if ( !oldlocation.search('fgbc.org') == -1 ) {
         var newlocation = oldlocation.replace("fgbc.org","charisfellowship.us");
         console.log(newlocation);
+        setTimeout(function () {
         window.location.href = newlocation; 
+        }, 1000); 
+        abort;
     }
 
 </script>
 
-<cfif !findNoCase('fgbc.org',cgi.SERVER_NAME) >
     <cfinclude template="wheels/index.cfm">
-</cfif>
