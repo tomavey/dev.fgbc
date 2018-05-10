@@ -1,6 +1,7 @@
 
 <!--- Place code here that should be executed on the "onRequestStart" event. --->
 
+<!---Redirect fgbc.org to charisfellowship.us with path and query string--->
 <cfscript>
 
 if ( lcase(cgi.http_host) is 'fgbc.org' ){
