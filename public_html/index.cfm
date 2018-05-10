@@ -5,7 +5,6 @@
     if ( oldlocation.includes('fgbc.org') ) {
         var newlocation = oldlocation.replace("fgbc.org","charisfellowship.us");
         console.log(newlocation);
-        alert("Redirecting to charisfellowship.us");
         setTimeout(function () {
         window.location.href = newlocation; 
         }, 1000); 
