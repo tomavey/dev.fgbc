@@ -1,8 +1,10 @@
 <!---Javascript Redirect--->
 <script type="text/JavaScript">
 
-    var oldlocation = toLowerCase(location.href);
-    if ( oldlocation.indexOf('fgbc.org') != -1 ) {
+    var oldlocation = location.href.toLowerCase();
+    var oldlocationindex = oldlocation.indexOf('fgbc.org');
+    alert(oldlocationindex);
+    if ( oldlocation.indexOf('fgbc.org') !== -1 ) {
         alert("hi");
         var newlocation = oldlocation.replace("fgbc.org","charisfellowship.us");
         console.log(newlocation);
