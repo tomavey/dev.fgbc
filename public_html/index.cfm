@@ -14,6 +14,7 @@
 
 </script>
 
+<cfif lcase(cgi.SERVER_NAME) NEQ 'fgbc.org'>
     <cfinclude template="wheels/index.cfm">
+</cfif>
 
-    <cfdump var="#cgi.SERVER_Name#">
