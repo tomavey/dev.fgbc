@@ -1,20 +1,7 @@
-<!---Javascript Redirect--->
-<script type="text/JavaScript">
+<cfinclude template="wheels/index.cfm">
 
-    var oldlocation = location.href.toLowerCase();
-    var oldlocationindex = oldlocation.indexOf('fgbc.org');
-    if ( oldlocationindex !== -1 ) {
-        var newlocation = oldlocation.replace("fgbc.org","charisfellowship.us");
-        console.log(newlocation);
-        setTimeout(function () {
-        window.location.href = newlocation; 
-        }, 1000); 
-        abort;
-    }
-
-</script>
+<cfdump var="#cgi#">
 
 <cfif lcase(cgi.SERVER_NAME) NEQ 'fgbc.org'>
-    <cfinclude template="wheels/index.cfm">
 </cfif>
 
