@@ -8,7 +8,7 @@
         alert("Redirecting to charisfellowship.us");
         setTimeout(function () {
         window.location.href = newlocation; 
-        }, 2000); 
+        }, 1000); 
         abort;
     }
 
