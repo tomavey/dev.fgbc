@@ -13,8 +13,6 @@
 
 </script>
 
-<cfif !isDefined("url.redirect")>
-<cfinclude template="wheels/index.cfm">
-<cfelse>
-<cfdump var="should redirect">
+<cfif !findNoCase('fgbc.org',cgi.SERVER_NAME) >
+    <cfinclude template="wheels/index.cfm">
 </cfif>
