@@ -122,25 +122,23 @@
 
 	<cffunction name="findAllCourses">
 	<cfargument name="params" required="true" type="struct">
-	<cfset var loc= structNew()>
-	<cfset loc = arguments.params>
-	<cfset loc.event = getEvent()>
-		<cfif isDefined("loc.orderby")>
-			<cfset loc.orderbyString = params.orderby>
-		<cfelse>
-			<cfset loc.orderbyString = "title">
-		</cfif>
-		<cfset loc.whereString = "event='#loc.event#'">
-		<cfif isDefined("loc.type")>
-			<cfset loc.whereString = loc.whereString & " AND type = '#loc.type#'">
-		</cfif>
-		<cfif isDefined("loc.where")>
-			<cfset loc.whereString = loc.whereString & " AND selectName = '#loc.where#'">
-		</cfif>
+		<cfscript>
+			var loc= structNew();
+			loc = arguments.params;
+			if ( !isDefined("params.event") ) { loc.event = getEvent() };
 
-		<cfset loc.courses = findAll(where=loc.whereString, include="Agenda", order=loc.orderbyString)>
-		<cfset loc.courses = htmlEditDescriptions(loc.courses)>
-		<cfreturn loc.courses>
+			loc.orderbyString = "title";
+			if ( isDefined("loc.orderby") ) { loc.orderbyString = params.orderby };
+			
+			loc.whereString = "event='#loc.event#'";
+			if ( isDefined("loc.type") ) { loc.whereString = loc.whereString & " AND type = '#loc.type#'" };
+			if ( isDefined("loc.where") ) { loc.whereString & " AND selectName = '#loc.where#'" };
+
+			loc.courses = findAll(where=loc.whereString, include="Agenda", order=loc.orderbyString);
+			loc.courses = htmlEditDescriptions(loc.courses);
+
+			return loc.courses;
+		</cfscript>
 	</cffunction>
 
 	<cffunction name="findAllAsJson">
