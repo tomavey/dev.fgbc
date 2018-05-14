@@ -11,20 +11,21 @@
 <table>
 <tr>
 <th>&nbsp;</th>
+<th class="col1">2018 Regs<br/> before #dateformat(regs.todayDate,"mmmm-dd")#</th>
 <th class="col1">2017 Regs<br/> before #dateformat(regs.todayDate,"mmmm-dd")#</th>
 <th class="col1">2016 Regs<br/> before #dateformat(regs.todayDate,"mmmm-dd")#</th>
 <th class="col1">2015 Regs<br/> before #dateformat(regs.todayDate,"mmmm-dd")#</th>
-<th class="col1">2014 Regs<br/> before #dateformat(regs.todayDate,"mmmm-dd")#</th>
 <th>Budget<br/> before April 1</th>
 <th>Budget<br/> before May 1</th>
 <th>Budget<br/> before June 1</th>
 <th>Budget<br/> before July 15</th>
 <th>Budget<br/> Total</th>
 </tr>
+<!---
 <tr>
 <td>#linkto(text="PreRegs", controller="conference.registrations", action="list", params="type=preregistration")#*</td>
-<td align="right" class="col1">#val(regs.Access2017.prepaid)#</td>
 <td align="right" class="col1">&nbsp;</td>
+<td align="right" class="col1">#val(regs.Access2017.prepaid)#</td>
 <td align="right" class="col1">&nbsp;</td>
 <td align="right" class="col1">&nbsp;</td>
 <td>&nbsp;</td>
@@ -33,10 +34,11 @@
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 </tr>
+--->
 <tr>
 <td>#linkto(text="GroupRegs", controller="conference.registrations", action="list", params="type=Registration-Group")#**</td>
+<td align="right" class="col1">#val(regs.Access2018.group)#</td>
 <td align="right" class="col1">#val(regs.Access2017.group)#</td>
-<td align="right" class="col1">&nbsp;</td>
 <td align="right" class="col1">&nbsp;</td>
 <td align="right" class="col1">&nbsp;</td>
 <td>&nbsp;</td>
@@ -47,10 +49,10 @@
 </tr>
 <tr>
 <td>#linkto(text="Singles", controller="conference.registrations", action="list", params="type=Registration-Single")#**</td>
+<td align="right" class="col1">#val(regs.Access2018.singles)#</td>
 <td align="right" class="col1">#val(regs.Access2017.singles)#</td>
 <td align="right" class="col1">#val(regs.vTOR.singles)#</td>
 <td align="right" class="col1">#val(regs.vNY.singles)#</td>
-<td align="right" class="col1">#val(regs.vDC.singles)#</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
@@ -59,10 +61,10 @@
 </tr>
 <tr>
 <td>#linkto(text="Couples", controller="conference.registrations", action="list", params="type=Registration-Couple")#**</td>
+<td align="right" class="col1">#val(regs.Access2018.couples)#</td>
 <td align="right" class="col1">#val(regs.Access2017.couples)#</td>
 <td align="right" class="col1">#val(regs.vTOR.couples)#</td>
 <td align="right" class="col1">#val(regs.vNY.couples)#</td>
-<td align="right" class="col1">#val(regs.vDC.couples)#</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
@@ -71,10 +73,10 @@
 </tr>
 <tr>
 <td>Total</td>
+<td align="right" class="col1"><cftry>#regs.Access2018.singles+regs.Access2018.group+(regs.Access2018.couples*2)#<cfcatch>!</cfcatch></cftry></td>
 <td align="right" class="col1"><cftry>#regs.Access2017.singles+regs.Access2017.prepaid+regs.Access2017.group+(regs.Access2017.couples*2)#<cfcatch>!</cfcatch></cftry></td>
 <td align="right" class="col1"><cftry>#regs.vTOR.singles+(regs.vTOR.couples*2)#<cfcatch>!</cfcatch></cftry></td>
 <td align="right" class="col1"><cftry>#regs.vNY.singles+(regs.vNY.couples*2)#<cfcatch>!</cfcatch></cftry></td>
-<td align="right" class="col1"><cftry>#regs.vDC.singles+(regs.vDC.couples*2)#<cfcatch>!</cfcatch></cftry></td>
 <td align="right">310</td>
 <td align="right">335</td>
 <td align="right">355</td>
@@ -158,17 +160,17 @@
 			</ul>	
 		<li>Comments:
 			<ul>
-				<li>* PreRegistrations were sold at Margins2016. They were like group registrations in cost and in that one person could purchase multiple regs without providing names at registration. Preregs will eventually be converted to single or couple regs sometime before conference.
+				<li>* PreRegistrations were sold at Access2017. All these preregistrations were registered as a discounted single or couple registration= singles: #regs.Access2018.prepaiddiscountssgl#, couples: #regs.Access2018.prepaiddiscountsdbl#. 
 				</li>
 				<li>
 					** GroupRegistrations were sold online so that one person could purchase multiple regs without providing names at registration The minimum number for a group is 5. Groupreg convert to single regs when the church provides a list of names.
 				</li>
 				<li>
-					#regs.Access2017.Free# free (16-24 yr old or 70+ yr olds) registrations for Access2017 are not included in these numbers.
+					#regs.Access2018.Free# free (16-24 yr old or 70+ yr olds) registrations for Access2018 are not included in these numbers.
 				</li>
-				<cfif regs.Access2017.staff>
+				<cfif regs.Access2018.staff>
 					<li>
-						#regs.Access2017.staff# staff registrations for Access2017 are not included in these numbers.
+						#regs.Access2018.staff# staff registrations for Access2018 are not included in these numbers.
 					</li>
 				</cfif>
 			</ul>

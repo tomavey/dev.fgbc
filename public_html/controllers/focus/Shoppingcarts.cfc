@@ -287,7 +287,7 @@
 		<cfset lname = replace(lname," ","","all")>
 		<cfset lname = replace(lname,",","","all")>
 		<cfset lname = replace(lname,".","","all")>
-		<cfset orderid = "#id##lname##retreat#">
+		<cfset orderid = "#id##lname#_#retreat#">
 		<cfset orderid = trim(orderid)>
 
 		<cfreturn orderid>
