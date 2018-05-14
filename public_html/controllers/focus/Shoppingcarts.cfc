@@ -218,13 +218,19 @@
 		<!---Retrieve Shopping Cart--->
 		<cfset carts = model("Focusshoppingcart").findAll(where="shoppingcartid=#params.key#", returnAs="objects")>
 
+		<!---Get retreat name (RegId) for Cart and use regId for OrderId if possible--->
+		<cfset carts[1].regId = model("Focusretreat").findOne(where="id=#carts[1].retreatid#").regId>
+			<cfif !isDefined("carts[1].regId")>
+				<cfset carts[1].regId = carts[1].retreatid>
+			</cfif>	
+
 		<!---Create an empty invoice--->
 		<cfset params.orderid = "0">
 		<cfset params.ccamount = 0>
 		<cfset thisInvoice = model("Focusinvoice").create(params)>
 
 		<!---Create a orderid--->
-		<cfset thisInvoice.orderid = createOrderId(thisInvoice.id,carts[1].lname,carts[1].retreatid)>
+		<cfset thisInvoice.orderid = createOrderId(thisInvoice.id,carts[1].lname,carts[1].regId)>
 		<cfset thisInvoice.save()>
 
 		<cfloop from="1" to="#arraylen(carts)#" index="i">
