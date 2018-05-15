@@ -35,6 +35,17 @@
 <cfreturn answer />
 </cffunction>
 
+<cffunction name="isOnDate">
+<cfargument name="date">
+	<cfif datecompare(parseDateTime(now()),parseDateTime(date),"d") is "0">
+		<cfset answer = "1">
+	<cfelse>
+		<cfset answer = "0">
+	</cfif>
+<cfreturn answer />
+</cffunction>
+
+
 <cffunction name="getcontent">
 <cfargument name="identifier">
 <cfset var data = "">

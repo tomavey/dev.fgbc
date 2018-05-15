@@ -73,7 +73,11 @@
 						<cfset subject = "Charis%20Fellowship%20Statistical%20Report%20">
 					</cfif>
 
-					<cfset body = "Reminder! %0D%0A%0D%0AThe deadline for submitting the annual stat report and fellowship fee is May 15.%0D%0A%0D%0AYou can download the form at http://charisfellowship.us/files/FGBCStatCard2017-18.pdf if needed.%0D%0A%0D%0AOr you can submit stats for #getThisStatYear()# and pay the fellowship fee for #getThisMemYear()# at http://charisfellowship.us/sendstats/#id#">
+					<cfif isOnDate(getSetting('memFeeDeadline'))>
+						<cfset body = "Just a friendly reminder! %0D%0A%0D%0AToday is the deadline for submitting the annual stat report and fellowship fee.%0D%0A%0D%0AYou can submit stats for #getThisStatYear()# and pay the fellowship fee for #getThisMemYear()# at http://charisfellowship.us/sendstats/#id#%0D%0A%0D%0AIf you need help, you can call 574-269-1269">
+					<cfelse>	
+						<cfset body = "Reminder! %0D%0A%0D%0AThe deadline for submitting the annual stat report and fellowship fee is May 15.%0D%0A%0D%0AYou can download the form at http://charisfellowship.us/files/FGBCStatCard2017-18.pdf if needed.%0D%0A%0D%0AOr you can submit stats for #getThisStatYear()# and pay the fellowship fee for #getThisMemYear()# at http://charisfellowship.us/sendstats/#id#">
+					</cfif>
 					<td>
 						<cfif NOT val(thisMemFee)>
 							#mailTo(emailaddress="#getOrgEmails(id)#?subject=#subject#&body=#body#" , name="Send Link Before Deadline")#
