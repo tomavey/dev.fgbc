@@ -10,7 +10,7 @@
     					<cfif isdefined('session.auth.email')>
     						Welcome #session.auth.email#
     						&nbsp;&nbsp;
-    						#linkTo(text="logout", controller="handbook.welcome", action="logout")#
+    						#linkTo(text="Logout", route="authLogoutUser")#
     					<cfelse>
 							#linkTo(text="Login", action="loginForm")#
     					</cfif>

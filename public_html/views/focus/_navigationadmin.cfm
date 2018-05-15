@@ -67,7 +67,7 @@
 				  	#startFormTag(class="navbar-search")#
 					#textFieldTag(name="search", class="search-query input-small", placeholder="Search")#
 					#endFormTag()#
-    			<p class="navbar-text pull-right">#linkTo(controller="focus.main", action="logout", text="Logout")#</p>
+    			<p class="navbar-text pull-right">#linkTo(text="Logout", route="authLogoutUser")#</p>
 		</div>
 
 </cfoutput>

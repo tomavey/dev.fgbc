@@ -43,7 +43,7 @@
 
 		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-24">#linkto(text="My Account", controller="conference.users", action="myRegs")#
 		<ul class="sub-menu">
-		  <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26">#linkto(text="Logout", controller="auth.users", action="logout")#</li>
+		  <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26">#linkto(text="Logout", route="authLogoutUser", )#</li>
 		  <li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-23">#linkto(text="My Registrations", controller="conference.users", action="myRegs")#
 		</ul>
 		</li>

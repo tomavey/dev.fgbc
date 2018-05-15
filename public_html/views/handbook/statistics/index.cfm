@@ -25,18 +25,14 @@
 
 					<cfcol header="Ck##" text="#checkno#" />
 
-					<cfcol header="Date: " text="#dateformat(date)#" />
+					<cfcol header="Date: " text="#dateformat(date,'mm-dd-yy')#" />
 
 					<cfcol header="Submitted By: " text="#submittedBy#" />
 
 					<cfcol header="Entered By: " text="#enteredBy#" />
 
-					<cfcol header="Created: " text="#dateFormat(createdAt)#" />
-
 					<cfif gotRights("superadmin,office")>
-						<cfcol header="" text="#showTag(organizationid)#" />
-						<cfcol header="" text="#editTag()#" />
-						<cfcol header="" text="#deleteTag(class="notajax")#" />
+						<cfcol header="&nbsp;" text="#showTag(organizationid)#&nbsp;#editTag()#&nbsp;#deleteTag(class="notajax")#" />
 					</cfif>
 </cftable>
 </div>
