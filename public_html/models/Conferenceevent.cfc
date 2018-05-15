@@ -38,56 +38,61 @@
 			sql="DAYNAME(date)"
 			)>
 
-	              <cfset property(
-	              	name="starttime",
-	              	sql="DATE_FORMAT(equip_events.timebegin,'%h:%i %p')"
-	              	)>
+		<cfset property(
+			name="starttime",
+			sql="DATE_FORMAT(equip_events.timebegin,'%h:%i %p')"
+			)>
 
-	              <cfset property(
-	              	name="dateOn",
-	              	sql="DATE_FORMAT(equip_events.timebegin,'%a, %b %d, %Y')"
-	              	)>
+		<cfset property(
+			name="endtime",
+			sql="DATE_FORMAT(equip_events.timeend,'%h:%i %p')"
+			)>
 
-	              <cfset property(
-	              	name="dayOn",
-	              	sql="DATE_FORMAT(equip_events.date,'%W')"
-	              	)>
+		<cfset property(
+			name="dateOn",
+			sql="DATE_FORMAT(equip_events.timebegin,'%a, %b %d, %Y')"
+			)>
 
-	              <cfset property(
-	              	name="dayOfYear",
-	              	sql="DATE_FORMAT(equip_events.date,'%j')"
-	              	)>
+		<cfset property(
+			name="dayOn",
+			sql="DATE_FORMAT(equip_events.date,'%W')"
+			)>
 
-	              <cfset property(
-	              	name="dayOfWeek",
-	              	sql="DATE_FORMAT(equip_events.date,'%w')"
-	              	)>
+		<cfset property(
+			name="dayOfYear",
+			sql="DATE_FORMAT(equip_events.date,'%j')"
+			)>
+
+		<cfset property(
+			name="dayOfWeek",
+			sql="DATE_FORMAT(equip_events.date,'%w')"
+			)>
 
 
-	              <cfset property(
-	              	name="optiondescription",
-	              	sql="select description from equip_options o where o.id = equip_events.eventid"
-	              	)>
+		<cfset property(
+			name="optiondescription",
+			sql="select description from equip_options o where o.id = equip_events.eventid"
+			)>
 
-	              <cfset property(
-	              	name="buttondescription",
-	              	sql="select buttondescription from equip_options o where o.id = equip_events.eventid"
-	              	)>
+		<cfset property(
+			name="buttondescription",
+			sql="select buttondescription from equip_options o where o.id = equip_events.eventid"
+			)>
 
-	              <cfset property(
-	              	name="coursedescription",
-	              	sql="select descriptionlong from equip_courses c where c.eventid = equip_events.id AND deletedAt IS NULL  LIMIT 1"
-	              	)>
+		<cfset property(
+			name="coursedescription",
+			sql="select descriptionlong from equip_courses c where c.eventid = equip_events.id AND deletedAt IS NULL  LIMIT 1"
+			)>
 
-	              <cfset property(
-	              	name="coursetitle",
-	              	sql="select title from equip_courses c where c.eventid = equip_events.id  AND deletedAt IS NULL LIMIT 1"
-	              	)>
+		<cfset property(
+			name="coursetitle",
+			sql="select title from equip_courses c where c.eventid = equip_events.id  AND deletedAt IS NULL LIMIT 1"
+			)>
 
-	              <cfset property(
-	              	name="commentpublic",
-	              	sql="select commentpublic from equip_courses c where c.eventid = equip_events.id  AND deletedAt IS NULL LIMIT 1"
-	              	)>
+		<cfset property(
+			name="commentpublic",
+			sql="select commentpublic from equip_courses c where c.eventid = equip_events.id  AND deletedAt IS NULL LIMIT 1"
+			)>
 
 		<cfset afterUpdate("logUpdates")>
 		<cfset afterCreate("logCreates")>
@@ -168,7 +173,7 @@
 	<cfset loc = arguments.params>
 		<cfset loc.whereString = "category in ('meal','celebration','workshop','excursion','reception','prayer','other-public') AND event = '#getEvent()#'">
 		<cfset loc.orderString = "dayofyear,timebegin">
-		<cfset loc.selectString = "id,starttime,timebegin,eventroom,description,descriptionschedule,descriptionprogram,dateOn,dayOn,dayofyear,dayOfWeek,coursetitle,category,cost">
+		<cfset loc.selectString = "id,starttime,timebegin,endtime,timeend,eventroom,description,descriptionschedule,descriptionprogram,dateOn,dayOn,dayofyear,dayOfWeek,coursetitle,category,cost">
 		<cfset loc.selectString = loc.selectString & ",buttondescription,descriptionlong,descriptionshort,optiondescription,coursedescription,commentpublic">
 
 		<cfif isDefined("loc.id")>

@@ -315,7 +315,7 @@
 
 	<cffunction name="listScheduleAsJson">
 		<cfset data = model("Conferenceevent").findScheduleAsJson(params)>
-	        	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+       	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="listMealsAsJson">

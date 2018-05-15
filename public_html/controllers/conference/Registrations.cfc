@@ -315,7 +315,7 @@
 		<cfset regs.Access2017.Free = regs.Access2017.FreeYoung + regs.Access2017.FreeOld>
 		<cfset regs.Access2017.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2017",regs.todayDate)>
 
-
+	
 		<!---Access2018 - Fremont --->
 		<cfset regs.Access2018.event = "visionconference2018">
 		<cfset regs.Access2018.couples = countRegs(516,params)>
