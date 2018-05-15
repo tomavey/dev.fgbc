@@ -163,7 +163,7 @@
 
             </ul>
 			<cfif isdefined("session.auth.email")>
-           	 	<p class="navbar-text pull-right">#session.auth.email#&nbsp;#linkto(text="logout", action="logout")#</p>
+           	 	<p class="navbar-text pull-right">#session.auth.email#&nbsp;#linkto(text="logout", controller="auth.users", action="logout")#</p>
 			</cfif>
           </div><!--/.nav-collapse -->
 			</cfoutput>
