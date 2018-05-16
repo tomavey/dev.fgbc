@@ -330,10 +330,10 @@
 			.get(name="thankyou", pattern="/register/thankyou/", controller="register", action="thankyou")
 			.get(name="confirm", pattern="/register/confirm/", controller="register", action="confirm")
 			.get(name="declined", pattern="/register/declined/", controller="register", action="declined")
-			.get(name="getSummaryByDate", pattern="/registrations/summary/[key]", action="summary")
 
 			.delete(name="deleteregistration", pattern="/registrations/[key]", controller="registrations", action="delete")
 			.get(name="showregistration", pattern="/registrations/[key]", controller="registrations", action="show")
+			.get(name="getSummaryByDate", pattern="/registrations/summary/[key]", controller="registrations", action="summary")
 			.put(name="update1", pattern="/registrations/[key]", controller="registrations", action="update")
 			.resources("registrations")
 			
