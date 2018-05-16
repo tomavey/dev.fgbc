@@ -182,9 +182,9 @@
 		<cfset thisyear = year(now())>
 		Change Date:
 		<cfloop list="#thisyear#-04-01,#thisyear#-05-01,#thisyear#-05-15,#thisyear#-06-01,#thisyear#-06-15,#thisyear#-07-01,#thisyear#-07-15" index="i">
-		#linkTo(text=i, key=i, route='getSummaryByDate')#&nbsp;
+		#linkTo(text=i, key=i, route='conferenceGetSummaryByDate')#&nbsp;
 		</cfloop>
-		#linkTo(text="today", key="")#
+		#linkTo(text="today", key="", route='conferenceGetSummaryByDate')#
 	</p>
 	<p>
 	<cfif showunpaid>
