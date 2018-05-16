@@ -32,6 +32,8 @@
 
 						<p><span>Updated: </span>#dateformat(handbookorganization.updatedAt)# by #handbookorganization.updatedBy#</p>
 
+						<p>GTD Emails: #mailto(getOrgEmails(params.key))#</p>
+
 					<cfif len(handbookorganization.reviewedAt)>
 						<p><span>Reviewed: </span>#dateformat(handbookorganization.reviewedAt)# by #handbookorganization.reviewedBy#</p>
 					</cfif>

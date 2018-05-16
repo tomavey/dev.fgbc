@@ -385,43 +385,42 @@
 <cfargument name="id" required="true" type="numeric">
 <cfset var loc=structNew()>
 
-	<cfset loc.email = "">
-	<cfset loc.return = "">
+	<cfset loc.emailList = "">
+	<cfset loc.newEmailList = "">
 
 	<!---get email from #1 staff person and emails from organization--->
 	<cfset loc.org = model("Handbookorganization").findOne(where="id=#arguments.id#", include="Handbookstate")>
-	<cfset loc.leader = model("Handbookperson").findOne(where='organizationid=#arguments.id# AND p_sortorder = 1', include="Handbookstate,Handbookpositions")>
+	<cfset loc.leader = model("Handbookperson").findAll(where="organizationid=#arguments.id# AND (p_sortorder = 1 OR gtd = 'Yes')", include="Handbookstate,Handbookpositions")>
 
 
-	<!---add each valid email to a list--->
+	<!---add each valid main church email to a list--->
 	<cfif isDefined("loc.org.email") AND isValid("email",loc.org.email)>
-		<cfset loc.email = loc.email & "," & loc.org.email>
+		<cfset loc.emailList = loc.emailList & "," & loc.org.email>
 	</cfif>
 
+	<!---add each valid GTD church email to a list--->
 	<cfif isDefined("loc.org.email2") AND isValid("email",loc.org.email2)>
-		<cfset loc.email = loc.email & "," & loc.org.email2>
+		<cfset loc.emailList = loc.emailList & "," & loc.org.email2>
 	</cfif>
 
-	<cfif isDefined("loc.leader.email") AND isValid("email",loc.leader.email)>
-		<cfset loc.email = loc.email & "," & loc.leader.email>
-	</cfif>
+	<!---add each valid lead and gtd staff email to a list--->
+	<cfloop query='loc.leader'>
+		<cfif isDefined("email") AND isValid("email",email)>
+			<cfset loc.emailList = loc.emailList & "," & email>
+		</cfif>
 
-	<cfif isDefined("loc.leader.email2") AND isValid("email",loc.leader.email2)>
-		<cfset loc.email = loc.email & "," & loc.leader.email2>
-	</cfif>
-
-	<!---clean up the list--->
-	<cfset loc.email = replace(loc.email,",","","one")>
-
-	<!---create a new list of unique email addresses--->
-	<cfset loc.return= listfirst(loc.email)>
-	<cfloop list="#loc.email#" index="loc.i">
-		<cfif NOT listfind(loc.return,loc.i)>
-			<cfset loc.return = loc.return & ";" & loc.i>
+		<cfif isDefined("email2") AND isValid("email",email2)>
+			<cfset loc.emailList = loc.emailList & "," & email2>
 		</cfif>
 	</cfloop>
 
-<cfreturn loc.return>
+	<!---clean up the list--->
+	<cfset loc.emailList = replace(loc.emailList,",","","one")>
+
+	<!---one more pass to remove duplicates--->
+	<cfset loc.newEmailList = listRemoveDuplicates(loc.emailList)>
+
+<cfreturn loc.newEmailList>
 
 </cffunction>
 

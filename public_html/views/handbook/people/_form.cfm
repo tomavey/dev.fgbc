@@ -65,6 +65,8 @@
 						#textArea(objectName='handbookperson', property='comment', label='Comment: ')#
 
 						#select(objectName='handbookperson', property='sendHandbook', options="Yes,No", label='Send Handbook: ')#
+
+						#select(objectName='handbookperson', property='gtd', options="No,Yes", label='GTD Person? ')#
 					</fieldset>
 					</cfif>
 </cfoutput>
