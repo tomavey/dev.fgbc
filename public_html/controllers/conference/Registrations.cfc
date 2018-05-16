@@ -234,6 +234,8 @@
 
 		<cfif isdefined("params.key")>
 			<cfset regs.todayDate = params.key>
+		<cfelseif isDefined("bydate")>
+			<cfset regs.todayDate = params.bydate>
 		<cfelse>
 			<cfset regs.todayDate= now()>
 		</cfif>
