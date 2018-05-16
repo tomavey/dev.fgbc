@@ -236,6 +236,7 @@
 			<cfset regs.todayDate = params.key>
 		<cfelseif isDefined("params.bydate")>
 			<cfset regs.todayDate = params.bydate>
+			<cfset params.key = params.bydate>
 		<cfelse>
 			<cfset regs.todayDate= now()>
 		</cfif>
@@ -276,13 +277,14 @@
 		<cfset regs.v2020Savgage = model("Conferenceregistration").getAvgAgeToDate("celebrate2013",regs.todayDate)>
 		--->
 
-		<!---Fellowshift2014 - Washington D.C.--->
+		<!---Fellowshift2014 - Washington D.C.
 		<cfset regs.vDC.couples = countRegs(220,params) + countRegs(238,params)>
 		<cfset regs.vDC.singles = countRegs(221,params) + countRegs(237,params)>
 		<cfset regs.vDC.daysingle = countRegs(255,params)>
 		<cfset regs.vDC.prepaidDiscount = countRegs(263,params)*2 + countRegs(264,params)>
 		<cfset regs.vDC.Free = countRegs(235,params) + countRegs(236,params) * 2>
 		<cfset regs.vDC.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2014",regs.todayDate)>
+		--->
 
 		<!---Flinch2015 - NYC --->
 		<cfset regs.vNY.couples = countRegs(285,params) + countRegs(329,params)>
@@ -290,7 +292,7 @@
 		<cfset regs.vNY.daysingle = countRegs(309,params)>
 		<cfset regs.vNY.prepaidDiscount = countRegs(299,params)*2 + countRegs(298,params)>
 		<cfset regs.vNY.Free = countRegs(289,params) + (countRegs(290,params) * 2)>
-		<cfset regs.vNY.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2015",regs.todayDate)>
+		<cfset regs.vNY.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2015",regs.threeYearsAgo)>
 
 		<!---Margins2016 - Toronto --->
 		<cfset regs.vTOR.couples = countRegs(348,params) + countRegs(354,params)>
@@ -300,7 +302,7 @@
 		<cfset regs.vTOR.FreeYoung = countRegs(352,params) + countRegs(355,params) * 2>
 		<cfset regs.vTOR.FreeOld = countRegs(356,params) + countRegs(359,params) * 2>
 		<cfset regs.vTOR.Free = regs.vTOR.FreeYoung + regs.vTOR.FreeOld>
-		<cfset regs.vTOR.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2016",regs.todayDate)>
+		<cfset regs.vTOR.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2016",regs.twoYearsAgo)>
 
 		<!---Access2017 - Fremont --->
 		<cfset regs.Access2017.event = "visionconference2017">
@@ -315,7 +317,7 @@
 		<cfset regs.Access2017.FreeYoung = countRegs(441,params) + (countRegs(443,params) * 2)>
 		<cfset regs.Access2017.FreeOld = countRegs(442,params) + (countRegs(444,params) * 2)>
 		<cfset regs.Access2017.Free = regs.Access2017.FreeYoung + regs.Access2017.FreeOld>
-		<cfset regs.Access2017.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2017",regs.todayDate)>
+		<cfset regs.Access2017.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2017",regs.oneYearAgo)>
 
 	
 		<!---Access2018 - Fremont --->
