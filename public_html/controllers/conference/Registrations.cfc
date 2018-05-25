@@ -35,7 +35,6 @@
 	<cffunction name="list">
 	<cfset var loc=structNew()>
 	<cfset loc.whereString = "">
-	<cfdump var="#params#"><cfabort>
 	<cfset loc.includeString = "person(family,age_ranges),option,invoice">
 		<cfif isDefined("params.byage") AND params.byage is "true">
 			<cfset loc.orderString = "age,lname">
