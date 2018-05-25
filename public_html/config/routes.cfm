@@ -333,9 +333,7 @@
 			.delete(name="deleteregistration", pattern="/registrations/[key]", controller="registrations", action="delete")
 			.get(name="showregistration", pattern="/registrations/[key]", controller="registrations", action="show")
 			.put(name="update1", pattern="/registrations/[key]", controller="registrations", action="update")
-			.controller("registrations")
-				.get(name='list', pattern='list', action='list')
-			.end()
+			.get(name="listRegistrations", pattern="/registration/list", controller="registrations", action="list")
 			.resources("registrations")
 			
 			.resources("resources")
