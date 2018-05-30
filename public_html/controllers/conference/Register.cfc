@@ -702,7 +702,10 @@
 	</cfif>
 	<cfset rc.invoiceid = thisinvoiceid>
 	<cfset postShoppingCart()>
-	<cfset emailbeforepayment(thisinvoiceid)>
+
+	<cfif getSetting('sendEmailBeforePayment')>
+		<cfset emailbeforepayment(thisinvoiceid)>
+	</cfif>
 
 	<cfset redirectTo(action="GetAgent")>
 </cffunction>
@@ -921,7 +924,6 @@
 	<cfcatch></cfcatch>
 	</cftry>
 
-
 </cffunction>
 
 
@@ -984,7 +986,10 @@
 			session.registrationcart.agent = params.agent;
 			model("Conferenceinvoice").updateByKey(key=session.registrationcart.invoiceid, agent=session.registrationcart.agent);
 
-			sendInvoiceByEmail(session.registrationcart.invoiceid);
+			if (getSetting('sendEmailBeforePayment')) {
+				sendInvoiceByEmail(session.registrationcart.invoiceid)
+				};
+
 			}
 		else {
 			flashInsert(agent="Please enter a valid email address");
@@ -1231,7 +1236,7 @@
 	<cfset thisInvoice = model("Conferenceinvoice").findOne(where="id=#arguments.invoiceid#")>
 	<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #arguments.invoiceid#", include="option,person(family)", order="equip_people.id")>
 	<cfif !isLocalMachine()>
-		<cfset sendemail(from=application.wheels.registraremail, to=thisinvoice.agent, template="invoice", cc=application.wheels.registraremail, subject="Your #getEventAsText()# Registration", layout="layout_for_email", type="html")>
+		<cfset sendemail(from=getSetting('registraremail'), to=thisinvoice.agent, template="invoice", cc="#getSetting('registraremail')#;#getSetting('registrarEmailBackup')#", subject="Your #getEventAsText()# Registration", layout="layout_for_email", type="html")>
 	</cfif>
 </cffunction>
 
@@ -1595,7 +1600,9 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 	<cfset session.registrationcart.invoiceid = thisinvoiceid>
 	<cfset postShoppingCart()>
 
-	<cfset sendemail(from="tomavey@fgbc.org", to=getSetting('registraremail'), cc=getSetting('errorEmailAddress'), template="emailbeforepayment", subject="#getEventAsTextA()# Registration has been started", layout="layout_for_email")>
+	<cfif getSetting('sendEmailBeforePayment')>
+		<cfset sendemail(from="tomavey@fgbc.org", to=getSetting('registraremail'), cc=getSetting('errorEmailAddress'), template="emailbeforepayment", subject="#getEventAsTextA()# Registration has been started", layout="layout_for_email")>
+	</cfif>
 
 	<cfset redirectTo(action="getAgent")>
 

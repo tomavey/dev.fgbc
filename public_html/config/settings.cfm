@@ -101,6 +101,7 @@
 	<cfset set(subTypesOfCourses = "A,B,C,D")>
 	<cfset set(tracksOfCourses = listSort("Leadership Training,Church Planting,Integrated Ministry,Identity Initiative, Business Integration, Contemporary Theological Issues, Worship, Missional Living, Multi-site, France, Womens Studies, Prayer, Creativity,Other", "text"))>
 	<cfset set(possibleAgentCodes = listSort("Comp,Manual,Prepaid,Test","text"))>
+	<cfset set(sendEmailBeforePayment = false)>
 
 <!---options used in dropdowns and menus--->
 	<cfset set(typeOfOptions=listsort("Registration-Couple,Registration-Single,Registration-Group,Registration-Staff,Workshop,Meal,TouristOption,GraceKids-Nursery,GraceKids-Preschool,GraceKids-Elementary,GraceKidsSegments,GraceKidsExcursions,Other,Discount,AutoDiscount,InActive,preRegistration","text"))>
@@ -117,7 +118,8 @@
 	<cfset set(ministryCategories=listSort("Church Planting Ministries, Communication, Districts, Doing Good, Leadership Training Ministries, none","text"))>
 
 <!---email addresses used--->
-	<cfset set(registrarEmail="tomavey@charisfellowship.us,sandy@charisfellowship.us")>
+	<cfset set(registrarEmail="sandy@charisfellowship.us")>
+	<cfset set(registrarEmailBackup="tomavey@charisfellowship.us")>
 	<cfset set(requestInvoiceReceiptFrom = "sandy@charisfellowship.us")>
 	<cfset set(registrarBackupEmail="sandy@charisfellowship.us")>
 	<cfset set(housingCoordinatorEmail = "sandy@charisfellowship.us")>
