@@ -1872,7 +1872,7 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 <cffunction name="GroupRegConvertToSingle">
 <cfargument name="singleOptionid" default="#getSingleRegOptionId()#">
 <cfargument name="quantity" default="1">
-<cfargument name="cost" default="75">
+<cfargument name="cost" default="65>
 <cfset var loc = arguments>
 
 	<cfif isDefined("params.fname")>
