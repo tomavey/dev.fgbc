@@ -334,6 +334,7 @@
 			.get(name="showregistration", pattern="/registrations/[key]", controller="registrations", action="show")
 			.put(name="update1", pattern="/registrations/[key]", controller="registrations", action="update")
 			.get(name="listRegistrations", pattern="/registration/list", controller="registrations", action="list")
+			.get(name="addNew", pattern="/registrations/addnew/[key]", controller="registrations", action="addnew")
 			.resources("registrations")
 			
 			.resources("resources")
