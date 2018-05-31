@@ -19,7 +19,10 @@
 
               <li>#linkTo(text="Delinquent", controller="membership.delegates", action="delinquent")#</li>
               <li>#linkTo(text="PDF Form", href="http://www.fgbc.org/files/credential_form.pdf")#</li>
-              <li>#linkTo(text="Settings", controller="admin.settings", action="index", params="category=delegates")#</li>
+
+              <cfif gotRights("superadmin")>
+                <li>#linkTo(text="Settings", controller="admin.settings", action="index", params="category=delegates")#</li>
+              </cfif>
 
       			  <!---li>	
       				  	#startFormTag(action="search", class="navbar-search")#
