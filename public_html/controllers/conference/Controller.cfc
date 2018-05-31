@@ -482,7 +482,7 @@
 
     function getGroupCountAvailable(){
         var counts = "";
-        if (isDefined("params.useoptionscount")){
+        if (isDefined("params.useoptionscount") || gotRights('office')){
             counts = getSetting('optionsCountAvailable');
         }
         else {
