@@ -7,9 +7,9 @@
 </cfif>
 
 <cfif not params.repeat>
-  #linkTo(text="Include copy to the pastors email", params="repeat=false", class="btn")#
+  #linkTo(text="Include copy to the pastors email", action="delinquent", params="repeat=false", class="btn")#
 <cfelse>  
-  #linkTo(text="Don't Include copy to the pastors email", params="repeat=true", class="btn")#
+  #linkTo(text="Don't Include copy to the pastors email", action="delinquent", params="repeat=true", class="btn")#
 </cfif> 
   </cfoutput>
 
