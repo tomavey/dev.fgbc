@@ -3,7 +3,7 @@
 <h3>Member Churches that have not yet submitted their delegate form.</h3>
   <cfoutput>
 <cfif NOT isDefined("params.download")>
-  #linkTo(text="Download as excel", params="download=1", class="btn")#
+  #linkTo(text="Download as excel", action="delinquent", params="download=1", class="btn")#
 </cfif>
 
 <cfif not params.repeat>
