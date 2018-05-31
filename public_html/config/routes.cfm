@@ -392,7 +392,6 @@
 			.get(name="about", pattern="/about/", controller="applications", action="about")
 			.resources("applications")
 
-			.get(name="delinquent", pattern="/delinquent/[key]", controller="delegates", action="delinquent")
 			.get(name="delinquent", pattern="/delinquent/", controller="delegates", action="delinquent")
 			.resources("delegates")
 

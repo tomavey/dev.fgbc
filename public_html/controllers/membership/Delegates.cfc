@@ -393,7 +393,7 @@
 	</cffunction>
 
 	<cffunction name="delinquent">
-		<cfif isDefined("params.key") AND params.key is "download">
+		<cfif isDefined("params.download")>
 		  <cfset renderPage(layout="/layout_download")>
 		</cfif>
 	</cffunction>
