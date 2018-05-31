@@ -999,7 +999,7 @@
 		<!---Set conditions - reDirectTo - where no online payment is needed--->
 
 		if ( usingStaffReg() ) { redirectToThisInvoice("comp"); };
-		if ( usingGroupReg() ) { redirectToThisInvoice("paid"); };
+		if ( usingGroupReg() ) { redirectToThisInvoice(); };
 		if ( params.agent is "prepaid" ) { redirectToThisInvoice("paid"); };
 		if ( params.agent is "manual@fgbc.org" OR params.agent is "manual" OR params.agent is "test" ) { redirectToThisInvoice("TBD"); };
 		if ( params.agent is "comp" ) { redirectToThisInvoice("comp"); };
@@ -1996,13 +1996,14 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 		else { return; }
 	}
 
-	public function redirectToThisInvoice(required status){
-		redirectTo(
-			controller="conference.invoices", 
-			action="show", 
-			key=session.registrationcart.invoiceid, 
-			params="ccstatus=#status#"
-			);		
+	public function redirectToThisInvoice(status){
+		var args = {
+			controller:"conference.invoices",
+			action: "show", 
+			key: session.registrationcart.invoiceid
+			};
+		if (isDefined('status')) { args.params = "ccstatus=#status#" };
+		redirectTo(argumentCollection = args);		
 	}
 
 </cfscript>
