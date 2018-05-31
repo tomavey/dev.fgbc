@@ -391,7 +391,11 @@
 			.get(name="step7", pattern="/step7/", controller="applications", action="step7")
 			.get(name="about", pattern="/about/", controller="applications", action="about")
 			.resources("applications")
+
+			.get(name="delinquent", pattern="/delinquent/", controller="delegates", action="delinquent")
+			.get(name="delinquent", pattern="/delinquent/[key]", controller="delegates", action="delinquent")
 			.resources("delegates")
+
 			.get(name="newchurches", pattern="/newchurches/", controller="newchurches", action="index")
 			.get(name="shownewchurch", pattern="/newchurch/[key]", controller="newchurches", action="show")
 			.get(name="editnewchurch", pattern="/newchurch/[key]/edit", controller="newchurches", action="edit")

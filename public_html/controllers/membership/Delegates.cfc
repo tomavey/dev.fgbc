@@ -45,7 +45,7 @@
 	</cffunction>
 
 	<cffunction name="getDelegateYear">
-		<cfreturn application.wheels.delegateyear>
+		<cfreturn getSetting("delegateYear")>
 	</cffunction>
 
 	<cffunction name="churchHasSubmittedDelegates">
