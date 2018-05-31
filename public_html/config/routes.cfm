@@ -392,7 +392,10 @@
 			.get(name="about", pattern="/about/", controller="applications", action="about")
 			.resources("applications")
 
-			.get(name="delinquent", pattern="/delinquent/", controller="delegates", action="delinquent")
+			.controller("delegates")
+				.get(name="delinquent", pattern="/delinquent/", action="delinquent")
+				.get(name="downloaddelegates", pattern="/downloaddelegates/", action="downloaddelegates")
+			.end()
 			.resources("delegates")
 
 			.get(name="newchurches", pattern="/newchurches/", controller="newchurches", action="index")
