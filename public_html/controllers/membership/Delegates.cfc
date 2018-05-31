@@ -5,9 +5,18 @@
 		<cfset filters(through="getChurch", only="show,create,new,email")>
 		<cfset filters(through="getChurches", only="getChurchId,delinquent")>
 		<cfset filters(through="setReturn", only="show")>
+		<cfset filters(through="setDelegateYear")>
 	</cffunction>
 
 <!---Filters--->
+
+<cfscript>
+
+	private function setDelegateYear () {
+		delegateYear = getDelegateYear();
+	}
+
+</cfscript>
 
 	<cffunction name="getChurch" access="private">
 
@@ -51,7 +60,7 @@
 	<cffunction name="churchHasSubmittedDelegates">
 	<cfargument name="churchid" required="true" type="numeric">
 
-    	<cfset church = model("Fgbcdelegate").findOne(where="churchid=#arguments.churchid# AND year ='#application.wheels.delegateyear#'")>
+    	<cfset church = model("Fgbcdelegate").findOne(where="churchid=#arguments.churchid# AND year ='#delegateYear#'")>
 
     	<cfif isObject(church)>
     	    <cfreturn true>
@@ -75,13 +84,13 @@
 		<cfif isDefined("params.year")>
 			<cfset whereString = "year = '#params.year#'">
 		<cfelse>
-			<cfset whereString = "year = '#getdelegateyear()#'">
+			<cfset whereString = "year = '#delegateYear#'">
 		</cfif>
 		<cfset fgbcdelegates = model("Fgbcdelegate").findAll(where=whereString, include="Handbookorganization(Handbookstate)", order="selectnamecity")>
 	</cffunction>
 
 	<cffunction name="downloadDelegates">
-		<cfset fgbcdelegates = model("Fgbcdelegate").findAll(where="year = '#getdelegateyear()#'", include="Handbookorganization(Handbookstate)", order="name")>
+		<cfset fgbcdelegates = model("Fgbcdelegate").findAll(where="year = '#delegateYear#'", include="Handbookorganization(Handbookstate)", order="name")>
 		<cfset renderPage(layout="/layout_download")>
 	</cffunction>
 
@@ -89,7 +98,7 @@
 	<cffunction name="show">
 
 		<!--- Find the record --->
-    	<cfset delegates = model("Fgbcdelegate").findAll(where="churchId=#session.delegate.churchid# AND year = '#application.wheels.delegateyear#'")>
+    	<cfset delegates = model("Fgbcdelegate").findAll(where="churchId=#session.delegate.churchid# AND year = '#delegateYear#'")>
 
     	<!--- Check if the record exists --->
 	    <cfif NOT delegates.recordcount>
@@ -103,7 +112,7 @@
 	<cffunction name="email">
 
 		<!--- Find the record --->
-    	<cfset delegates = model("Fgbcdelegate").findAll(where="churchId=#session.delegate.churchid# AND year = '#application.wheels.delegateyear#'")>
+    	<cfset delegates = model("Fgbcdelegate").findAll(where="churchId=#session.delegate.churchid# AND year = '#delegateYear#'")>
 
     	<!--- Check if the record exists --->
 	    <cfif NOT delegates.recordcount>
@@ -133,7 +142,7 @@
 		<cfset church.wereStatSubmitted = getDelegatesStatus(params.key).statsReturned>
 		<cfset fgbcdelegate = model("Fgbcdelegate").new()>
 		<cfset fgbcdelegate.status = "active">
-		<cfset fgbcdelegate.year = application.wheels.delegateyear>
+		<cfset fgbcdelegate.year = delegateYear>
 
 		<cfloop from="1" to="#church.delegatecount#" index="i">
 			<cfset fgbcdelegate.name[i] = "">
@@ -166,7 +175,7 @@
     	<cfset fgbcdelegate = model("Fgbcdelegate").new()>
 		<cfset fgbcdelegate.churchid = session.delegate.churchid>
 		<cfset fgbcdelegate.status = "active">
-		<cfset fgbcdelegate.year = application.wheels.delegateyear>
+		<cfset fgbcdelegate.year = delegateYear>
 
 		<cfset submitter = model("Fgbcdelegate").findOne(where="churchid=#session.delegate.churchid#")>
 		<cfif isObject(submitter)>
@@ -191,7 +200,7 @@
     	<cfset fgbcdelegate = model("Fgbcdelegate").new()>
 		<cfset fgbcdelegate.churchid = session.delegate.churchid>
 		<cfset fgbcdelegate.status = "active">
-		<cfset fgbcdelegate.year = application.wheels.delegateyear>
+		<cfset fgbcdelegate.year = delegateYear>
 
 		<cfset submitter = model("Fgbcdelegate").findOne(where="churchid=#session.delegate.churchid#")>
 		<cfif isObject(submitter)>
@@ -309,7 +318,7 @@
 	<!--- fgbcdelegates/getDelegatesAllowed --->
 	<cffunction name="getDelegatesStatus">
 	<cfargument name="churchid" required="true" type="numeric">
-	<cfset var thisyear = val(application.wheels.delegateyear)-1>
+	<cfset var thisyear = val(delegateYear)-1>
 	<cfset var loc = structNew()>
 	<cfset loc.delegates = 0>
 	<cfset loc.statsReturned = "False">
