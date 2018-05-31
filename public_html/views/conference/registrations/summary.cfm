@@ -160,8 +160,6 @@
 			</ul>	
 		<li>Comments:
 			<ul>
-				<li>* PreRegistrations were sold at Access2017. All these preregistrations were registered as a discounted single or couple registration= singles: #regs.Access2018.prepaiddiscountssgl#, couples: #regs.Access2018.prepaiddiscountsdbl#. 
-				</li>
 				<li>
 					** GroupRegistrations were sold online so that one person could purchase multiple regs without providing names at registration The minimum number for a group is 5. Groupreg convert to single regs when the church provides a list of names.
 				</li>
