@@ -56,7 +56,7 @@
 		</div>
 	</cfif>
 
-	<cfif gotRights("superadmin")>
+	<cfif gotRights("superadmin") && !len(params.category)>
 		<cfoutput>
 		<table>
 			<tr>
