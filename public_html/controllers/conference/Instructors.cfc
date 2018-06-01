@@ -137,6 +137,17 @@
 	        	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
+	<cffunction name="listStaffAsJson">
+		<cfset data = model("Conferenceinstructor").findStaffAsJson(params)>
+	        	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+	</cffunction>
+
+<cfscript>
+	public function testListToList () {
+		var result = model("Conferenceinstructor").commaListToQuoteList("1,2,3");
+		writeDump(result);abort;
+	}
+</cfscript>
 
 
 </cfcomponent>

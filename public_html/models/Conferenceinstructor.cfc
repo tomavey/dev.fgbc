@@ -12,33 +12,54 @@
 
 	</cffunction>
 
-            <cffunction name="findInstructorsAsJson">
-            <cfargument name="params" required="true" type="struct">
-            <cfset var loc = structNew()>
-            <cfset loc = arguments.params>
-            <cfset loc.whereString = "event='#getevent()#'">
-            <cfif isDefined("loc.courseid")>
-                <cfset loc.whereString = loc.whereString & " AND courseid = #loc.courseid#">
-            </cfif>
-            <cfset loc.instructors = findAll(where=loc.whereString, include="Courses")>
-            <cfset loc.instructors = queryToJson(loc.instructors)>
-            <cfreturn loc.instructors>
-            </cffunction>
+    <cffunction name="findInstructorsAsJson">
+    <cfargument name="params" required="true" type="struct">
+        <cfset var loc = structNew()>
+        <cfset loc = arguments.params>
+        <cfset loc.whereString = "event='#getevent()#'">
+        <cfif isDefined('tags')>
+        </cfif>
+        <cfif isDefined("loc.courseid")>
+            <cfset loc.whereString = loc.whereString & " AND courseid = #loc.courseid#">
+        </cfif>
+        <cfset loc.instructors = findAll(where=loc.whereString, include="Courses")>
+    <cfset loc.instructors = queryToJson(loc.instructors)>
+    <cfreturn loc.instructors>
+    </cffunction>
 
-            <cffunction name="findSpeakersAsJson">
-            <cfargument name="params" required="true" type="struct">
-            <cfset var loc=structNew()>
-            <cfset loc = arguments.params>
-            <cfset loc.selectString = "ID, lname, fname, bioWeb,picBig,picThumb">
-            <cfset loc.whereString = 'id > 0'>
-            <cfif isDefined("loc.id")>
-                  <cfset loc.whereString = loc.whereString & " AND ID = #loc.id#">
-            </cfif>
+    <cffunction name="findSpeakersAsJson">
+    <cfargument name="params" required="false" type="struct">
+    <cfargument name="tags" default = "Speaker">
+        <cfset var loc=structNew()>
+        <cfset loc = arguments.params>
+        <cfset loc.selectString = "ID, lname, fname, bioWeb,picBig,picThumb,event">
+        <cfset loc.whereString = 'id > 0 AND tags IN (#commaListToQuoteList(arguments.tags)#)'>
 
-                <cfset loc.speakers = findall(where=loc.whereString, select=loc.selectString)>
-               <cfset loc.speakers = queryToJson(loc.speakers)>
+        <cfif isDefined("loc.id")>
+                <cfset loc.whereString = loc.whereString & " AND ID = #loc.id# AND event='#getEvent()#'">
+        </cfif>
 
-           <cfreturn loc.speakers>
-            </cffunction>
+        <cfset loc.speakers = findall(where=loc.whereString, select=loc.selectString)>
+        <cfset loc.speakers = queryToJson(loc.speakers)>
+
+    <cfreturn loc.speakers>
+    </cffunction>
+
+
+<cfscript>
+
+    function findStaffAsJson () {
+        var staff = findSpeakersAsJson(tags='Staff');
+        return staff;
+    }
+
+    function commaListToQuoteList (list) {
+        var newList = "";
+        newlist = listMap(list, function (e) {
+            return '"'&e&'"';
+        })
+        return newList;
+    }
+</cfscript>    
 
 </cfcomponent>
