@@ -1,4 +1,5 @@
 <cfparam name="firstIncreaseDate" default="06/01/2018">
+<cfparam name="firstIncreaseDateGroups" default="06/15/2018">
 <cfparam name="secondIncreaseDate" default="07/01/2018">
 <cfparam name="thirdIncreaseDate" default="skip">
 <cfparam name="lastIncreaseDate" default="07/15/2018">
@@ -215,9 +216,9 @@
 							<th>ages 16-24</th>
 							<th>ages 75+</th>
 						</tr>
-					<cfif isBefore(firstIncreaseDate)>
+					<cfif isBefore(firstIncreaseDateGroups)>
 						<tr>
-							<td>Before #dateFormat(firstIncreaseDate, "mmm d")#</td>
+							<td>Before #dateFormat(firstIncreaseDateGroups, "mmm d")#</td>
 							<td class="center">$#getDollarType()##groupBaseCost#</td>
 							<td class="center">FREE</td>
 							<td class="center">FREE</td>
