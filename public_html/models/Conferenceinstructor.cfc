@@ -39,7 +39,7 @@
                 <cfset loc.whereString = loc.whereString & " AND ID = #loc.id# AND event='#getEvent()#'">
         </cfif>
 
-        <cfset loc.speakers = findall(where=loc.whereString, select=loc.selectString)>
+        <cfset loc.speakers = findall(where=loc.whereString, select=loc.selectString, order="lname,fname")>
         <cfset loc.speakers = queryToJson(loc.speakers)>
 
     <cfreturn loc.speakers>
