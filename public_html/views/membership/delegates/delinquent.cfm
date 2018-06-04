@@ -52,7 +52,26 @@ Email
     </tr>  
     </cfif>
 	
+  <!---Repeats the row if there is a GTD emailfor the church (in the Organization field Email2--->
+    <cfif len(email2) and params.repeat>
+    <tr>
+      <td>#linkto(text=selectname, controller="handbook-statistics", action="show", key=id)#</td>
+      <td>#getDelegatesAllowed(id)#</td>
+	    <td>#mailto(email2)#</td>
+      <td>#linkTo(route="sendmydelegates", key=id, onlyPath=false, protocol="https")#<td>
+    </tr>  
+    </cfif>
 
+  <!---Repeats the row if there is a GTD indicator for church staff (in the Person field GTD - yes or no--->
+  	<cfset gtdEmail = getGtdEmail(id)>
+    <cfif gtdEmail NEQ email and gtdEmail NEQ false and params.repeat>
+    <tr>
+      <td>#linkto(text=selectname, controller="handbook-statistics", action="show", key=id)#</td>
+      <td>#getDelegatesAllowed(id)#</td>
+	    <td>#mailto(gtdEmail)#</td>
+      <td>#linkTo(route="sendmydelegates", key=id, onlyPath=false, protocol="https")#<td>
+    </tr>  
+    </cfif>
   </cfif>
 
 </cfoutput>

@@ -53,6 +53,16 @@
 		</cfif>
 	</cffunction>
 
+	<cffunction name="getGtdEmail">
+	<cfargument name="churchid" required="true" type="numeric">
+		<cfset leader = model("Handbookposition").findAll(where="organizationid = #arguments.churchid# AND gtd = 'Yes'", include="Handbookperson(Handbookstate)")>
+		<cfif leader.recordcount and len(leader.email)>
+		    <cfreturn leader.email>
+		<cfelse>
+     		<cfreturn false>
+		</cfif>
+	</cffunction>
+
 	<cffunction name="getDelegateYear">
 		<cfreturn getSetting("delegateYear")>
 	</cffunction>
