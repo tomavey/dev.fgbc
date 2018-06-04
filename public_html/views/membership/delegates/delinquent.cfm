@@ -37,9 +37,10 @@ Email
     <td>#linkto(text=selectname, controller="handbook-statistics", action="show", key=id)#</td>
 	  <td>#getDelegatesAllowed(id)#</td>
 	   <td>#mailto(email)#</td>
-      <td>#linkTo(route="sendmydelegates", key=id, onlyPath=false)#<td>
+      <td>#linkTo(route="sendmydelegates", key=id, onlyPath=false, protocol="https")#<td>
 	  <cfset count = count +1>
   </tr>  
+
   <!---Repeats the row if the church email NEQ leaders email--->
   	<cfset leaderEmail = getleaderEmail(id)>
     <cfif leaderEmail NEQ email and leaderEmail NEQ false and params.repeat>
