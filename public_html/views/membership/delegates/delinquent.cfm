@@ -47,7 +47,7 @@ Email
       <td>#linkto(text=selectname, controller="handbook-statistics", action="show", key=id)#</td>
       <td>#getDelegatesAllowed(id)#</td>
 	    <td>#mailto(LeaderEmail)#</td>
-      <td>#linkTo(route="sendmydelegates", key=id, onlyPath=false)#<td>
+      <td>#linkTo(route="sendmydelegates", key=id, onlyPath=false, protocol="https")#<td>
     </tr>  
     </cfif>
 	
