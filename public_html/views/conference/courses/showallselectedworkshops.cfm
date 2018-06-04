@@ -6,6 +6,7 @@
 <cfparam name="request.emailallall" default="">
 <cfset accumulatedEmailList = "">
 <cfset summary = structNew()>
+<div id="showallselectedcohorts">
 <p>&nbsp;</p>
 <p><a href="#summaryOfCounts" class="btn">Go to summary of totals</a>
 <cfoutput>
@@ -121,4 +122,5 @@ Total of these registered people that have signed up = #listlen(emaillistall,";"
 </cfloop>
 </table>
 </cfoutput>
+</div>
 

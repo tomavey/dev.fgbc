@@ -454,3 +454,7 @@ a.courseresourcenewlink {
     font-size: .9em;
     color: grey;
 }
+
+div#showallselectedcohorts .eachItemShown {
+    background-color: white;
+}

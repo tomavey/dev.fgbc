@@ -125,7 +125,7 @@
 	</cffunction>
 
 	<cffunction name="countRegsByType">
-	<cfargument name="event" required="true" type="string">
+	<cfargument name="event" default="#getEvent()#">
 	<cfargument name="type" default="All">
 	<cfargument name="ccstatus" default="1">
 	<cfargument name="includeFree" default="false">
