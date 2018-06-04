@@ -297,6 +297,7 @@
 			.resources("announcements")
 
 			.controller("courses")
+				.get(name="showAllSelected", pattern="showallselectedcohorts/[key]", controller="courses", action="showallselectedcohorts")
 				.get(name="showAllSelected", pattern="showallselectedcohorts", controller="courses", action="showallselectedcohorts")
 				.get(name="list", pattern="list", action="list")
 				.get(name="listType", pattern="list/[key]", action="list")
