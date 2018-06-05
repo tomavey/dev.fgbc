@@ -19,7 +19,7 @@
 </cfscript>
 
 	<cffunction name="getChurch" access="private">
-
+<cfdump var="#params#"><cfabort>
 		<cfif isDefined("params.key")>
 			<cfset session.delegate.churchid = params.key>
 		</cfif>
