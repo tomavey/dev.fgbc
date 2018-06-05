@@ -331,7 +331,7 @@
 	<!--- fgbcdelegates/getDelegatesAllowed --->
 	<cffunction name="getDelegatesStatus">
 	<cfargument name="churchid" required="true" type="numeric">
-	<cfset var thisyear = val(delegateYear)-1>
+	<cfset var thisyear = val(getDelegateYear())-1>
 	<cfset var loc = structNew()>
 	<cfset loc.delegates = 0>
 	<cfset loc.statsReturned = "False">
