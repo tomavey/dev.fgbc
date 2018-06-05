@@ -19,12 +19,10 @@
 </cfscript>
 
 	<cffunction name="getChurch" access="private">
-<cfdump var="#params#"><cfabort>
 		<cfif isDefined("params.key")>
 			<cfset session.delegate.churchid = params.key>
 		</cfif>
 
-		<cftry>
 		<cfset church = model("Handbookorganization").findOne(where="id=#session.delegate.churchid#", include="Handbookstate")>
 
 		<cfset church.delegatecount = getDelegatesStatus(session.delegate.churchid).delegates>
@@ -33,10 +31,6 @@
 		<cfif NOT church.delegatecount>
 			<cfset redirectTo(action="needStats", key=session.delegate.churchid)>
 		</cfif>
-		<cfcatch>
-			<cfset redirectTo(action="getChurchId")>
-		</cfcatch>
-		</cftry>
 	</cffunction>
 
 	<cffunction name="getChurches" access="private">
