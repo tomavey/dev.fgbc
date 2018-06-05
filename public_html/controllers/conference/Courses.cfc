@@ -209,9 +209,9 @@
 	
 
 	<!--- Courses/copyAllToCurrentEvent --->
-
+	<!--- Turned off for now - 6/5/18 --->
 	<cfscript>
-		public function copyAllToCurrentEvent(){
+		public function copyAllToCurrentEventX(){
 			super.copyAllToCurrentEvent( tableName = "Conferencecourse" );
 			returnBack();
 		}
