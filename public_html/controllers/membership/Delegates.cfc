@@ -400,7 +400,7 @@
 	<!--- fgbcdelegates/deleteAll --->
 	<cffunction name="deleteAll">
 		<cfset model("Fgbcdelegate").deleteAll(where="churchid=#params.key# AND status='active'")>
-		<cfset redirectTo(action="submit")>
+		<cfset redirectTo(action="submit", key=params.key)>
 	</cffunction>
 
 	<!--- fgbcdelegates/clearChurchId --->
