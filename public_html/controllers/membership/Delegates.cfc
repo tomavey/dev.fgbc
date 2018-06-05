@@ -233,7 +233,7 @@
 
 	<!--- fgbcdelegates/updateSubmitter --->
 	<cffunction name="updateSubmitter">
-		<cfset submitter = model("Fgbcdelegate").findAll(where="churchid=#val(val()# AND status = 'Active'")>
+		<cfset submitter = model("Fgbcdelegate").findAll(where="churchid=#val(session.delegate.churchid)# AND status = 'Active'")>
 		<cfloop query="submitter">
 			<cfset thissubmitter = model("Fgbcdelegate").findOne(where="id=#id#")>
 			<cfset thissubmitter.update(params)>
