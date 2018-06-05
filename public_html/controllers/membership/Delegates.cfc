@@ -27,17 +27,17 @@
 
 	<cffunction name="getChurch" access="private">
 		<cfif isDefined("params.key")>
-			<cfset session.delegate.churchid = params.key>
+			<cfset val(session.delegate.churchid) = params.key>
 		</cfif>
 
 		<cfset church = model("Handbookorganization").findOne(where='id=#val(session.delegate.churchid)#', include='Handbookstate')>
 
-		<cfset church.delegatecount = getDelegatesStatus(session.delegate.churchid).delegates>
-		<cfset church.wereStatSubmitted = getDelegatesStatus(session.delegate.churchid).statsReturned>
+		<cfset church.delegatecount = getDelegatesStatus(val(session.delegate.churchid)).delegates>
+		<cfset church.wereStatSubmitted = getDelegatesStatus(val(session.delegate.churchid)).statsReturned>
 
 
 		<cfif NOT church.delegatecount>
-			<cfset redirectTo(action="needStats", key=session.delegate.churchid)>
+			<cfset redirectTo(action="needStats", key=val(session.delegate.churchid))>
 		</cfif>
 	</cffunction>
 
@@ -110,7 +110,7 @@
 	<cffunction name="show">
 
 		<!--- Find the record --->
-    	<cfset delegates = model("Fgbcdelegate").findAll(where="churchId=#session.delegate.churchid# AND year = '#delegateYear#'")>
+    	<cfset delegates = model("Fgbcdelegate").findAll(where="churchId=#val(session.delegate.churchid)# AND year = '#delegateYear#'")>
 
     	<!--- Check if the record exists --->
 	    <cfif NOT delegates.recordcount>
@@ -124,7 +124,7 @@
 	<cffunction name="email">
 
 		<!--- Find the record --->
-    	<cfset delegates = model("Fgbcdelegate").findAll(where="churchId=#session.delegate.churchid# AND year = '#delegateYear#'")>
+    	<cfset delegates = model("Fgbcdelegate").findAll(where="churchId=#val(session.delegate.churchid)# AND year = '#delegateYear#'")>
 
     	<!--- Check if the record exists --->
 	    <cfif NOT delegates.recordcount>
@@ -163,7 +163,7 @@
 		<cfif isdefined("params.key") and val(params.key)>
 			<cfset session.delegate.churchid = params.key>
 		</cfif>
-		<cfset fgbcdelegate.churchid = session.delegate.churchid>
+		<cfset fgbcdelegate.churchid = val(session.delegate.churchid)>
 
 	</cffunction>
 
@@ -186,11 +186,11 @@
 
 		<!--- Find the record --->
     	<cfset fgbcdelegate = model("Fgbcdelegate").new()>
-		<cfset fgbcdelegate.churchid = session.delegate.churchid>
+		<cfset fgbcdelegate.churchid = val(session.delegate.churchid)>
 		<cfset fgbcdelegate.status = "active">
 		<cfset fgbcdelegate.year = delegateYear>
 
-		<cfset submitter = model("Fgbcdelegate").findOne(where="churchid=#session.delegate.churchid#")>
+		<cfset submitter = model("Fgbcdelegate").findOne(where="churchid=#val(session.delegate.churchid)#")>
 		<cfif isObject(submitter)>
 			<cfset fgbcdelegate.submitter = submitter.submitter>
 			<cfset fgbcdelegate.submitteremail = submitter.submitteremail>
@@ -211,11 +211,11 @@
 
 		<!--- Find the record --->
     	<cfset fgbcdelegate = model("Fgbcdelegate").new()>
-		<cfset fgbcdelegate.churchid = session.delegate.churchid>
+		<cfset fgbcdelegate.churchid = val(session.delegate.churchid)>
 		<cfset fgbcdelegate.status = "active">
 		<cfset fgbcdelegate.year = delegateYear>
 
-		<cfset submitter = model("Fgbcdelegate").findOne(where="churchid=#session.delegate.churchid#")>
+		<cfset submitter = model("Fgbcdelegate").findOne(where="churchid=#val(session.delegate.churchid)#")>
 		<cfif isObject(submitter)>
 			<cfset fgbcdelegate.submitter = submitter.submitter>
 			<cfset fgbcdelegate.submitteremail = submitter.submitteremail>
@@ -233,7 +233,7 @@
 
 	<!--- fgbcdelegates/updateSubmitter --->
 	<cffunction name="updateSubmitter">
-		<cfset submitter = model("Fgbcdelegate").findAll(where="churchid=#session.delegate.churchid# AND status = 'Active'")>
+		<cfset submitter = model("Fgbcdelegate").findAll(where="churchid=#val(val()# AND status = 'Active'")>
 		<cfloop query="submitter">
 			<cfset thissubmitter = model("Fgbcdelegate").findOne(where="id=#id#")>
 			<cfset thissubmitter.update(params)>
