@@ -404,7 +404,7 @@
 				.get(name="addNew", pattern="/addnewdelegate/[key]", action="addnewdelegate")
 				.get(name="deleteAll", pattern="/deleteAll/[key]", action="deleteAll")
 				.post(name="updateSubmitter", pattern="/updatesubmitter/", action="updatesubmitter")
-
+				.post(name="createOne", pattern="/createOne/", action="createOne")
 			.end()
 			.resources("delegates")
 
