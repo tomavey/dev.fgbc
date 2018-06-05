@@ -397,6 +397,7 @@
 			.controller("delegates")
 				.get(name="delinquent", pattern="/delinquent/", action="delinquent")
 				.get(name="downloaddelegates", pattern="/downloaddelegates/", action="downloaddelegates")
+				.post(name="create", pattern="/create/", action="create")
 			.end()
 			.resources("delegates")
 
