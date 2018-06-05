@@ -29,7 +29,7 @@
 		<cfif isDefined("params.key")>
 			<cfset session.delegate.churchid = params.key>
 		</cfif>
-
+<cfdump var="#params#"><cfabort>
 		<cfset church = model("Handbookorganization").findOne(where="id=#session.delegate.churchid#", include="Handbookstate")>
 
 		<cfset church.delegatecount = getDelegatesStatus(session.delegate.churchid).delegates>
