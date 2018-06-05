@@ -17,7 +17,7 @@
 <div class-"well">
 <p>Submitter: #delegates.submitter#</p>
 <p>Submitter Email: #mailTo(delegates.submitteremail)#</p>
-[#linkTo(text="Change submitter info", controller="membership.delegates", action="newsubmitter")#]
+<!--- [#linkTo(text="Change submitter info", controller="membership.delegates", action="newsubmitter")#] --->
 </div>
 <p>&nbsp;</p>
 <cfif flashKeyExists("success")>

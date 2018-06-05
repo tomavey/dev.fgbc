@@ -401,7 +401,10 @@
 				.get(name="getChurchId", pattern="/getChurchId/", action="getChurchId")
 				.get(name="email", pattern="/email/[key]", action="email")
 				.get(name="newSubmitter", pattern="/newsubmitter/", action="newsubmitter")
+				.get(name="addNew", pattern="/addnewdelegate/[key]", action="addnewdelegate")
+				.get(name="deleteAll", pattern="/deleteAll/[key]", action="deleteAll")
 				.post(name="updateSubmitter", pattern="/updatesubmitter/", action="updatesubmitter")
+
 			.end()
 			.resources("delegates")
 
