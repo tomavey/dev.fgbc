@@ -162,6 +162,7 @@
 			<cfset session.delegate.churchid = params.key>
 		</cfif>
 		<cfset fgbcdelegate.churchid = session.delegate.churchid>
+
 	</cffunction>
 
 	<!--- fgbcdelegates/edit/key --->
@@ -242,6 +243,7 @@
 	<!--- fgbcdelegates/create --->
 	<cffunction name="create">
 	<cfset var atLeastOneDelegate = 0>
+	<cfdump var="#params#"><cfabort>
 
 		<cfif not len(params.fgbcdelegate.submitter) or not len(params.fgbcdelegate.submitteremail)>
 			<cfset flashInsert(success="Please provide your name and email.")>
