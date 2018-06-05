@@ -6,6 +6,7 @@
 		<cfset filters(through="getChurches", only="getChurchId,delinquent")>
 		<cfset filters(through="setReturn", only="show")>
 		<cfset filters(through="setDelegateYear")>
+		<cfset filters(through="oops")>
 	</cffunction>
 
 <!---Filters--->
@@ -14,6 +15,12 @@
 
 	private function setDelegateYear () {
 		delegateYear = getDelegateYear();
+	}
+
+	private function oops () {
+		if (!gotRights('office')) {
+			renderText("Oops - Something is wrong check back soon - working on it!")
+		}
 	}
 
 </cfscript>
