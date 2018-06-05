@@ -398,6 +398,7 @@
 				.get(name="delinquent", pattern="/delinquent/", action="delinquent")
 				.get(name="downloaddelegates", pattern="/downloaddelegates/", action="downloaddelegates")
 				.post(name="create", pattern="/create/", action="create")
+				.get(name="getChurchId", pattern="getChurchId", action="getChurchId")
 			.end()
 			.resources("delegates")
 
