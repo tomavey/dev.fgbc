@@ -19,7 +19,7 @@
 
 
 <div class="well">
-<p>#linkTo(text="Access2018", href="http://www.access2018.com")# is a leadership conference sponsored by the #linkTo(text="Charis Fellowship", href="https://charisfellowship.us")# .  This conference includes dynamic speakers, a great location and meal gatherings focusing on ministry around the globe.  It also includes one official business meeting of FGBC, inc.</p>
+<p>#linkTo(text="Access2018", href="http://www.access2018.com")# is a leadership conference sponsored by the #linkTo(text="Charis Fellowship", href="https://charisfellowship.us")# .  This conference includes dynamic speakers, a great location and meal gatherings focusing on ministry around the globe.  It also includes one official business meeting of Charis Fellowship (a.k.a. the Fellowship of Grace Brethren Churches, Inc).</p>
 
 <p>
 Member churches are eligible to send delegates to these business meetings to participate in the discussion and vote for things like:
