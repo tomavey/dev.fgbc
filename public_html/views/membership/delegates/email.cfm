@@ -44,6 +44,6 @@
 	Save use this link to edit your delegate information:
 	#linkTo(action="show", key=params.key, onlyPath=false)#
 </cfoutput>
- <h2 class="well">Delegate instructions and reports will be available at<br/> <a href="http://www.fgbc.org/page/delegates2017">www.fgbc.org/page/delegates2017</a>.<br/>  Please share this link with all your delegates</a></h2>
+ <h2 class="well">Delegate instructions and reports will be available at<br/> <a href="http://www.fgbc.org/page/delegates2018">www.fgbc.org/page/delegates2018</a>.<br/>  Please share this link with all your delegates</a></h2>
 </div>
 
