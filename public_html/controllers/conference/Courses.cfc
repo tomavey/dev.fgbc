@@ -8,6 +8,7 @@
 		<cfset filters(through="getCourses", only="list,listCohorts")>
 		<cfset filters(through="getSubtypes", only="list,listCohorts,selectcohorts,showSelectedWorkshops,sendSelectedWorkshops")>
 		<cfset filters(through="setPublicLayout")>
+		<cfset filters(through="isAuthorized", only="copy,create,update,copyAllToCurrentEvent")>
 	</cffunction>
 
 <!------------->
@@ -16,6 +17,12 @@
 
 	<cffunction name="setPublicLayout">
 		<cfset publicLayout = "/conference/layout2018">
+	</cffunction>
+
+	<cffunction name="isAuthorized">
+		<cfif !gotRights('office')>
+			<cfset renderText("You do have permission to view this page")>
+		</cfif>
 	</cffunction>
 
 	<cffunction name="getEvents">
