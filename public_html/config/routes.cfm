@@ -400,7 +400,7 @@
 				.post(name="create", pattern="/create/", action="create")
 				.get(name="getChurchId", pattern="/getChurchId/", action="getChurchId")
 				.get(name="email", pattern="/email/[key]", action="email")
-				.get(name="newSubmitter", pattern="/newsubmitter/[key]", action="newsubmitter")
+				.get(name="newSubmitter", pattern="/newsubmitter/", action="newsubmitter")
 			.end()
 			.resources("delegates")
 
