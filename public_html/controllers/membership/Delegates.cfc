@@ -31,10 +31,11 @@
 		</cfif>
 		<cfset church = model("Handbookorganization").findOne(where='id=#session.delegate.churchid#', include='Handbookstate')>
 
+<cfdump var="#session.delegate.churchid#"><cfabort>
+
 		<cfset church.delegatecount = getDelegatesStatus(session.delegate.churchid).delegates>
 		<cfset church.wereStatSubmitted = getDelegatesStatus(session.delegate.churchid).statsReturned>
 
-<cfdump var="#session.delegate.churchid#"><cfabort>
 
 		<cfif NOT church.delegatecount>
 			<cfset redirectTo(action="needStats", key=session.delegate.churchid)>
