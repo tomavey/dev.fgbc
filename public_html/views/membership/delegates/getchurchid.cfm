@@ -5,7 +5,7 @@
 		#flash("error")#
 	</p>
 	</cfif>
-		#startFormTag(route="sendmydelegates")#
+		#startFormTag(controller="membership.delegates", action="submit")#
 			#selectTag(name='churchid', options=churches, textField='selectname', includeBlank='Select your church')#
 			#textfieldTag(name='captcha', placeholder='to avoid webbots', label='How many letters are in the word "grace"?')#
 			#submitTag(value='Go to the delegate form for this church', class="btn btn-primary")#
