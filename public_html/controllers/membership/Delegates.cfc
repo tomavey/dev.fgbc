@@ -20,7 +20,6 @@
 
 	<cffunction name="getChurch" access="private">
 
-<cfdump var="#params#"><cfabort>
 		<cfif isDefined("params.churchid")>
 			<cfset params.key = params.churchid>
 		</cfif>
@@ -28,6 +27,8 @@
 		<cfif isDefined("params.key")>
 			<cfset session.delegate.churchid = params.key>
 		</cfif>
+
+<cfdump var="#params#"><cfabort>
 
 		<cfset church = model("Handbookorganization").findOne(where='id=#val(session.delegate.churchid)#', include='Handbookstate')>
 
