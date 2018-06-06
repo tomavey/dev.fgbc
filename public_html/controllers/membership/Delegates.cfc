@@ -28,9 +28,10 @@
 			<cfset session.delegate.churchid = params.key>
 		</cfif>
 
-<cfdump var="#session.delegate.churchid#"><cfabort>
 
 		<cfset church = model("Handbookorganization").findOne(where='id=#val(session.delegate.churchid)#', include='Handbookstate')>
+
+<cfdump var="#church#"><cfabort>
 
 		<cfset church.delegatecount = getDelegatesStatus(val(session.delegate.churchid)).delegates>
 		<cfset church.wereStatSubmitted = getDelegatesStatus(val(session.delegate.churchid)).statsReturned>
