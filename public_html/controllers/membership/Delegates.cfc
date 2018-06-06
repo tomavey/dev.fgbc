@@ -31,8 +31,6 @@
 
 		<cfset church = model("Handbookorganization").findOne(where='id=#val(session.delegate.churchid)#', include='Handbookstate')>
 
-<cfdump var="#church#"><cfabort>
-
 		<cfset church.delegatecount = getDelegatesStatus(val(session.delegate.churchid)).delegates>
 		<cfset church.wereStatSubmitted = getDelegatesStatus(val(session.delegate.churchid)).statsReturned>
 
@@ -154,6 +152,7 @@
 			  <cfset flashInsert(error="Please select your church from the drop-down list")>
 			  <cfset redirectTo(action="getChurchid")>
 		</cfif>
+
 		<cfset church = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
 		<cfset church.delegatecount = getDelegatesAllowed(params.key)>
 		<cfset church.wereStatSubmitted = getDelegatesStatus(params.key).statsReturned>
