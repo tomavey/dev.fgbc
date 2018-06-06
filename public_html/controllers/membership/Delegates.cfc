@@ -19,6 +19,8 @@
 </cfscript>
 
 	<cffunction name="getChurch" access="private">
+
+<cfdump var="#params#"><cfabort>
 		<cfif isDefined("params.churchid")>
 			<cfset params.key = params.churchid>
 		</cfif>
