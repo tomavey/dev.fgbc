@@ -28,7 +28,7 @@
 			<cfset session.delegate.churchid = params.key>
 		</cfif>
 
-<cfdump var="#params#"><cfabort>
+<cfdump var="#session.delegate.churchid#"><cfabort>
 
 		<cfset church = model("Handbookorganization").findOne(where='id=#val(session.delegate.churchid)#', include='Handbookstate')>
 
