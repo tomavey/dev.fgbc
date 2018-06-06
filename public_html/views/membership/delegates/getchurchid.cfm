@@ -6,7 +6,7 @@
 </cfif>
 
 	<form action="submit">
-	<select name="key" class="span5">
+	<select name="churchid" class="span5">
 		<option value='0'>---Select your church---</option>
 		<cfoutput query="churches">
 			<option value='#id#'>#selectNameCity#</option>

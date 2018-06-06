@@ -138,6 +138,10 @@
 	<!--- fgbcdelegates/new --->
 	<cffunction name="submit">
 
+		<cfif isDefined("params.churchid")>
+			<cfset params.key = params.churchid>
+		</cfif>	
+
 		<cfif not isDefined("params.key") or params.key is "0">
 			  <cfset flashInsert(error="Please select your church from the drop-down list")>
 			  <cfset redirectTo(action="getChurchid")>
