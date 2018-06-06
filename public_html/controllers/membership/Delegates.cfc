@@ -19,6 +19,10 @@
 </cfscript>
 
 	<cffunction name="getChurch" access="private">
+		<cfif isDefined("params.churchid")>
+			<cfset params.key = params.churchid>
+		</cfif>
+
 		<cfif isDefined("params.key")>
 			<cfset session.delegate.churchid = params.key>
 		</cfif>
