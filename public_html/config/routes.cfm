@@ -449,6 +449,7 @@
 		.get(name="delegate", pattern="/delegate", controller="membership.delegates", action="new")
 		.get(name="delegates", pattern="/delegates", controller="membership.delegates", action="index")
 		.get(name="senddelegates", pattern="/senddelegates/", controller="membership.delegates", action="submit")
+		.post(name="senddelegates", pattern="/senddelegates/", controller="membership.delegates", action="submit")
 		.get(name="sendmydelegates", pattern="/senddelegates/[key]", controller="membership.delegates", action="submit")
 		.post(name="sendmydelegates", pattern="/senddelegates/[key]", controller="membership.delegates", action="submit")
 		.get(name="nominate", pattern="/nominate", controller="membership.nominations", action="new")
