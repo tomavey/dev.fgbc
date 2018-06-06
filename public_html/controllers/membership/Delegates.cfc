@@ -144,6 +144,11 @@
 	<!--- fgbcdelegates/new --->
 	<cffunction name="submit">
 
+		<cfif isDefined("params.captcha") && params.captcha NEQ "5">
+			  <cfset flashInsert(error='Please input the number of characters in the word "Grace"')>
+			  <cfset redirectTo(action="getChurchid")>
+		</cfif>
+
 		<cfif isDefined("params.churchid")>
 			<cfset params.key = params.churchid>
 		</cfif>	

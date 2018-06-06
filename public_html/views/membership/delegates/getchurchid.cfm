@@ -5,8 +5,13 @@
 		#flash("error")#
 	</p>
 	</cfif>
-{{ message }}
-		<form action="submit">
+		#startFormTag(route="senddelegates")#
+			#selectTag(name='churchid', options=churches, textField='selectname', includeBlank='Select your church')#
+			#textfieldTag(name='captcha', placeholder='to avoid webbots', label='How many letters are in the word "grace"?')#
+			#submitTag(value='Go to the delegate form for this church', class="btn btn-primary")#
+		#endFormTag()#
+
+<!--- 		<form action="submit">
 		<select name="churchid" class="span5">
 			<option value='0'>---Select your church---</option>
 			<cfoutput query="churches">
@@ -17,6 +22,7 @@
 		<br/>
 		<input type="submit" value="Go to the delegate form for this church" class="btn btn-primary">
 		</form>
+--->
 
 
 	<div class="well">
@@ -41,17 +47,10 @@
 </div>
 </cfoutput>
 
-<script src="/assets/js/vue.js"></script>
-
 <script>
 
-var app = new Vue({
-  el: '#getchurchid',
-  data () {
-	  return {
-		  message: "Hello Vue"
-	  }
-  }
-})
+$(document).ready(function () {
 
+
+});
 </script>
