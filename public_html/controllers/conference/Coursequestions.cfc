@@ -18,7 +18,7 @@
 
   // Coursequestions/index
   function index(){
-    Coursequestions = model("Conferencecoursequestion").findAll(where="event='getEvent()'", include="person(family),course");
+    Coursequestions = model("Conferencecoursequestion").findAll(where="event='#getEvent()#'", include="person(family),course", order="title");
   }
   
 //---------------------------------------
@@ -105,13 +105,13 @@
 //-------------Other View Controllers-------------------
 
   // Coursequestions/list
-  function list(){
-    var whereString = "id > 0";
+  function list(orderBy='title'){
+    var whereString = "id > 0 AND event='#getEvent()#'";
     if (isDefined("params.courseid")){
       whereString = whereString & " AND courseid = #params.courseid#";
       courseTitle = model("Conferencecourse").findOne(where="id=#params.courseid#").title;
     }
-    Coursequestions = model("Conferencecoursequestion").findAll(where=whereString, include="person(family),course", order="createdAt DESC");
+    Coursequestions = model("Conferencecoursequestion").findAll(where=whereString, include="person(family),course", order=orderBy);
     headerSubTitle = "Cohort Questions";
   }
 
