@@ -19,6 +19,7 @@
   // Coursequestions/index
   function index(){
     Coursequestions = model("Conferencecoursequestion").findAll(where="event='#getEvent()#'", include="person(family),course", order="title");
+    renderPage(layout="/conference/adminlayout")
   }
   
 //---------------------------------------
