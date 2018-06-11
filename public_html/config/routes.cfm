@@ -70,6 +70,7 @@
 			.get(name="downloadmemberchurchesadmin", pattern="/admin/downloadmemberchurches/[key]", controller="admin", action="downloadMemberChurches")
 			.get(name="downloadmemberchurchesadmin", pattern="/admin/downloadmemberchurches/", controller="admin", action="downloadMemberChurches")
 			.resources("admin")
+
 			.resources("agbm")
 
 			.get(name="addAGBMPayment", pattern="/agbminfo/add/[key]", controller="AgbmInfo", action="add")
@@ -85,6 +86,7 @@
 			.post(name="searchAgbm", pattern="/agbminfo/list/", controller="agbmInfo", action="list")
 			.get(name="agbmLogout", pattern="/agbmInfo/logout/",controller="agbmInfo", action="logout")
 			.get(name="publicList", pattern="/agbm/", controller="agbmInfo", action="publicList")
+			.post(name="addAgbm", pattern="/agbmAdd/[key]", controller="agbmInfo", action="add")
 			.resources("agbmInfo")
 
 			.resources("agbmregions")
