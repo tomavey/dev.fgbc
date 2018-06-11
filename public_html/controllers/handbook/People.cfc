@@ -184,7 +184,7 @@
 		<cfif handbookperson.save()>
 			<cfset flashInsert(success="The handbookperson was created successfully.")>
 			<cfif isAgbmAdmin>
-				<cfset redirectTo(route="handbookAddAGBMPayment" key=handbookperson.id)>
+				<cfset redirectTo(route="handbookAddAGBMPayment", key=handbookperson.id)>
 			<cfelse>
 				<cfset returnBack("show")>
 			</cfif>
