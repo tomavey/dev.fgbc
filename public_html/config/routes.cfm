@@ -86,7 +86,7 @@
 			.post(name="searchAgbm", pattern="/agbminfo/list/", controller="agbmInfo", action="list")
 			.get(name="agbmLogout", pattern="/agbmInfo/logout/",controller="agbmInfo", action="logout")
 			.get(name="publicList", pattern="/agbm/", controller="agbmInfo", action="publicList")
-			.get(name="addAgbm", pattern="/agbmInfo/[key]/add/", controller="agbmInfo", action="add")
+			.get(name="addAgbm", pattern="/agbminfo/[key]/add/", controller="agbminfo", action="add")
 			.resources("agbmInfo")
 
 			.resources("agbmregions")
