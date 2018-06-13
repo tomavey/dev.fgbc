@@ -11,12 +11,6 @@
 
 <cfoutput>
 
-<cfif !isRegType("children")>
-passed !isRegType("children")
-<cfelse>
-failed
-</cfif>
-
 <cfif isDefined("meals") && meals.recordcount && mealsRegIsOpen() && !isRegType("options") && !isRegType("children")>
 
 	<fieldset id="meals" class="selectoptions">
