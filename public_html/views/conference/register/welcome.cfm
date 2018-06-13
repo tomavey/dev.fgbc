@@ -17,7 +17,7 @@
 	<cfelseif regIsOpen()>
 			<h1>Welcome to the #getEventAsText()# Registration Center</h1>
 			<p style="text-align:center">
-				Your registration covers all plenary sessions, collaboration groups, access to discounted meals, excrusion events, discounted room rate and access to Grace Kids. 
+				Your registration covers all plenary sessions, cohorts, workshops, exhibits, access to discounted meals, and access to Grace Kids. 
 			</p>
 			<cfif myRegsIsOpen()>
 				<p style="text-align:center">
