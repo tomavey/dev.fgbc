@@ -1580,7 +1580,7 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 <!---/conference.register/showFamilyRegs--->
 <cffunction name="showFamilyRegs">
 
-	<cfif application.wheels.registrationIsOpen is false and gotrights("office") is false>
+	<cfif !getSetting('registrationIsOpen') && !gotrights("office")>
 		<cfset redirectTo(action="welcome")>
 	</cfif>
 
