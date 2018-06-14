@@ -1632,7 +1632,6 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 
 <!---Process addoptions form--->
 <cffunction name="cartAddedOptions">
-<cfdump var="#params#"><cfabort>
 
 	<cfset checkForSelections = putFormIntoShoppingCart()>
 
