@@ -333,8 +333,7 @@
 			.get(name="thankyou", pattern="/register/thankyou/", controller="register", action="thankyou")
 			.get(name="confirm", pattern="/register/confirm/", controller="register", action="confirm")
 			.get(name="declined", pattern="/register/declined/", controller="register", action="declined")
-			.post(name="cartAddedOptions", pattern="/register/cartAddedOptions/", action="cartAddedOptions")
-			.get(name="cartAddedOptions", pattern="/register/cartAddedOptions/", action="cartAddedOptions")
+			.post(name="cartAddedOptions", pattern="/register/cartAddedOptions/", controller="register", action="cartAddedOptions")
 
 			.delete(name="deleteregistration", pattern="/registrations/[key]", controller="registrations", action="delete")
 			.get(name="showregistration", pattern="/registrations/[key]", controller="registrations", action="show")
