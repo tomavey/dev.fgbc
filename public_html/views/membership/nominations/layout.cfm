@@ -3,7 +3,7 @@
 <title>Nominations For Fellowship Council</title>
 <head>
 <cfoutput>
-		#styleSheetLinkTag("bootstrap,nominations")#
+		#styleSheetLinkTag("bootstrap,nominations,,/assets/vendor/icon-awesome/css/font-awesome.min")#
 </cfoutput>
 </head>	
 	<body>
