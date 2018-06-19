@@ -1,16 +1,25 @@
 <cfparam name="params.repeat" default="yes">
+<cfparam name="params.showall" default="no">
+
 <cfset count = 0>
 <h3>Member Churches that have not yet submitted their delegate form.</h3>
   <cfoutput>
 <cfif NOT isDefined("params.download")>
-  #linkTo(text="Download as excel", action="delinquent", params="download=1", class="btn")#
+  <cfif isDefined('params.showall')>
+    #linkTo(text="Download as excel", action="delinquent", params="download=1&showall=1", class="btn")#
+  <cfelse>
+    #linkTo(text="Download as excel", action="delinquent", params="download=1", class="btn")#
+  </cfif>
 </cfif>
 
-<cfif not params.repeat>
-  #linkTo(text="Include copy to the pastors email", action="delinquent", params="repeat=false", class="btn")#
+<cfif !params.repeat>
+  #linkTo(text="Include copy to the pastors email", controller="membership.delegates", action="delinquent", params="repeat=false", class="btn")#
 <cfelse>  
-  #linkTo(text="Don't Include copy to the pastors email", action="delinquent", params="repeat=true", class="btn")#
+  #linkTo(text="Don't Include copy to the pastors email",  controller="membership.delegates", action="delinquent", params="repeat=true", class="btn")#
 </cfif> 
+<cfif !params.showall>
+  #linkTo(text="Show All Churches", controller="membership.delegates", action="delinquent", params="showall=true", class="btn")#
+</cfif>
   </cfoutput>
 
 <table class="table table-striped">
@@ -32,7 +41,7 @@ Email
 </thead>
 <tbody>
 <cfoutput query="churches">
-  <cfif NOT churchHasSubmittedDelegates(id)>
+  <cfif !churchHasSubmittedDelegates(id) || params.showall>
   <tr>
     <td>#linkto(text=selectname, controller="handbook-statistics", action="show", key=id)#</td>
 	  <td>#getDelegatesAllowed(id)#</td>
