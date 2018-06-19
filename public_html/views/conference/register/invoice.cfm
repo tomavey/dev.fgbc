@@ -110,7 +110,7 @@
 				<cfoutput>
 					<tr class="optionItem">
 						<td class="buttondescription">#buttondescription#</td>
-						<cfif findNoCase("group",buttondescription) && (quantity GT 0 || gotRights("office")>
+						<cfif findNoCase("group",buttondescription) && (quantity GT 0 || gotRights("office"))>
 							<cfset containsGroupReg = true>
 							<cfset groupRegId = id>
 						</cfif>
