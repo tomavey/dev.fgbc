@@ -26,7 +26,7 @@
 
 					<cfcol header="Pic Thumb" text="#picThumb#" />
 
-					<cfcol header="Pic Attendify" text="#pic120x120#" />
+					<cfcol header="Tags" text="#tags#" />
 
 					<cfcol header="Comment" text="#comment#" />
 
