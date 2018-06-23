@@ -115,6 +115,7 @@
 	<cfset set(eventDaysOptions="Monday,Tuesday,Wednesday,Thursday")>
 	<cfset set(eventFirstDaysOptionsDate="2018-07-23")>
 	<cfset set(eventCategories="Celebration,Workshop,Excursion,Roundtable,Network,Meal,ChildCare,Kids Konference,Reception,Board Meeting,Other,Office,Rehearsal,Exhibits,Prayer,Other-Public,Cohort")>
+	<cfset set(eventCategoriesForJson="'meal','celebration','workshop','excursion','reception','prayer','other-public'")>
 	<cfset set(ministryCategories=listSort("Church Planting Ministries, Communication, Districts, Doing Good, Leadership Training Ministries, none","text"))>
 
 <!---email addresses used--->
