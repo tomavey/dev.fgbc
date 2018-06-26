@@ -17,7 +17,11 @@
 
 	<!--- invoices/index --->
 	<cffunction name="index">
-		<cfset invoices = model("Conferenceinvoice").findAll(include="registrations", where="event='#request.event#'")>
+		<cfset var whereString = "event='#request.event#'">
+		<cfif isDefined("params.status")>
+			<cfset whereString = whereString & " AND ccstatus='#params.status#'">
+		</cfif>	
+		<cfset invoices = model("Conferenceinvoice").findAll(include="registrations", where=whereString)>
 	</cffunction>
 
 	<cffunction name="showByEmail">

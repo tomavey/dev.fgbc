@@ -4,6 +4,13 @@
 <h1>Invoices: </h1>
 <cfoutput>
 	#addTag()#	
+	<p>
+	Filter by status:  
+		#linkto(text="Pending", controller="conference.invoices", action="index", params="status=pending")# | 
+		#linkto(text="Comp", controller="conference.invoices", action="index", params="status=comp")# | 
+		#linkto(text="Temp", controller="conference.invoices", action="index", params="status=temp")# | 
+		#linkto(text="Paid", controller="conference.invoices", action="index", params="status=Paid")#
+	</p>	
 </cfoutput>
 <table class="dataTable">
 	<thead>
