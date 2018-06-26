@@ -487,6 +487,7 @@
 		.get(name="agbmjson", pattern="/agbm/json/", controller="handbook.agbm-info", action="json")
 		.get(name="jsonmeals", pattern="/api/conference/meals/", controller="conference.options", action="jsonmeals")
 		.get(name="jsonmeal", pattern="/api/conference/meals/[id]", controller="conference.options", action="jsonmeals")
+		.get(name="jsonexhibits", pattern="/api/conference/exhibits/", controller="conference.exhibits", action="json")
 		.get(name="generalinfo", pattern="/api/conference/info/", controller="conference.events", action="generalInfo")
 		.get(name="childcareworkers", pattern="/gracekidshelper/", controller="conference.childcareworkers", action="new")
 		.get(name="agbmmembership", pattern="/agbm/membership/", controller="handbook.agbm-info", action="publiclist")

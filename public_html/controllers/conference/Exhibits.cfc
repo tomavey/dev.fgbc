@@ -45,6 +45,17 @@
 	<cfset renderPage(layout="/conference/layout2017")>
 	</cffunction>
 
+	<!--- Exhibits/json--->
+	<cfscript>
+		public function json () {
+			var orderBy = "organization";
+			var whereString = "event='#getEvent()#' AND approved = 'Yes'";
+			data = model("Conferenceexhibit").findAll(where=whereString, order=orderby);
+			data = queryToJson(data);
+			renderJson();
+		}
+	</cfscript>
+
 	<!--- exhibits/show/key --->
 	<cffunction name="show">
 
