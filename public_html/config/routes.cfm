@@ -261,6 +261,7 @@
 			.get(name="deleteexhibits", pattern="/exhibits/[key]/delete", controller="exhibits", action="delete")
 			.get(name="exhibitsinfo", pattern="/exhibits/info/", controller="exhibits", action="info")
 			.get(name="exhibitsthankyou", pattern="/exhibits/thankyou/[key]", controller="exhibits", action="thankyou")
+			.get(name="list", pattern="/exhibits/list/", controller="exhibits", action="list")
 			.delete(name="exhibitDelete", pattern="/exhibits/[key]/delete", controller="exhibits", action="delete")
 			.resources("exhibits")
 			
