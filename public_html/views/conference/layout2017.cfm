@@ -32,21 +32,21 @@
 </head>
 
 <body data-spy="scroll" data-target="#main-navbar">
-
+<!---
 <div class="navigation">
     <div class="navbar navbar-fixed-top" role="navigation">
         <div class="navbar-inner">
             <div class="container">
 
 
-<!---
+
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
---->
+
                 <div class="logo">
                     <a href="#nav-header" class="roll"><span class="icon-normal-infinitive logo-icon"></span><span></span></a>
                 </div><!-- /.logo -->
@@ -69,7 +69,7 @@
           </div><!-- /.navbar-inner -->
     </div><!-- /.main-navigation -->
 </div><!-- /.navigation -->
-
+--->
 
 <div class="main">
 
