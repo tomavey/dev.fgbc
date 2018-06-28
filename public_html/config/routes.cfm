@@ -234,8 +234,8 @@
 			.resources("testmonies")
 
 			.get(name="thisRetreat", pattern="/[key]", controller="main", action="retreat")
-			.get(name="welcome", pattern="", controller="main", action="welcome")
 			.get(name="about", pattern="/about/", controller="main", action="about")
+			.get(name="welcome", pattern="", controller="main", action="welcome")
 			.resources("main")
 
 		.end()

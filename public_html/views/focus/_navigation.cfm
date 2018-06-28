@@ -12,7 +12,7 @@
           <div class="nav-collapse">
             <ul class="nav">
               	<li class="#getActive('home')#">#linkTo(text="Home", controller="focus.main", action="welcome")#</li>
-              	<li class="#getActive('about')#">#linkTo(text="About", controller="focus.main", action="about")#</li>
+              	<li class="#getActive('about')#">#linkTo(text="About", route="focusAbout")#</li>
               	<li class="#getActive('testimonies')#">#linkTo(text="Stories", controller="focus.testimonies", action="list")#</li>
 				<cfif isOffice()>
               	<li class="#getActive('admin')#">#linkTo(text="Admin", route="focusRegistrations", params="unlock=charis")#</li>
