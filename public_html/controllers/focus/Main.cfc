@@ -1,7 +1,5 @@
 <cfcomponent extends="Controller" output="false">
 
-<cfdump var="#params#"><cfabort>
-
 	<cffunction name="init">
 		<cfset useslayout(template='/focus/layout', only="welcome")>
 		<cfset useslayout(template='/focus/layout2', only="retreat,about")>
