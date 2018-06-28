@@ -512,6 +512,7 @@
 		.get(name="apiMinistries", pattern="/api/ministries/", controller="handbook.organizations", action="findMinistries")
 		.get(name="apiMinistry", pattern="/api/ministry/[key]", controller="handbook.organizations", action="findChurchWithStaff")
 		.get(name="apiCourses", pattern="/api/courses/", controller="conference.courses", action="json")
+		.get(name="apiCourseQuestions", pattern="/api/coursequestions/", controller="conference.coursequestions", action="json")
 		.get(name="apiAnnouncements", pattern="/api/announcements/", controller="conference.announcements", action="list")
 		.get(name="apiAnnouncement", pattern="/api/announcements/[key]", controller="conference.announcements", action="list")
 		.post(name="apiAnnouncementPost", pattern="/api/announcement/post", controller="conference.announcements", action="submit")

@@ -16,15 +16,16 @@
   		registrations = model("Conferenceperson").findAllPeopleRegistered();
   }
 
+//---------------------------------------
+//-----------CRUD------------------------
+//---------------------------------------
+
   // Coursequestions/index
   function index(){
     Coursequestions = model("Conferencecoursequestion").findAll(where="event='#getEvent()#'", include="person(family),course", order="title");
     renderPage(layout="/conference/adminlayout")
   }
   
-//---------------------------------------
-//-----------CRUD------------------------
-//---------------------------------------
 
   // Coursequestions/show/key
   function show(){
@@ -115,5 +116,12 @@
     Coursequestions = model("Conferencecoursequestion").findAll(where=whereString, include="person(family),course", order=orderBy);
     headerSubTitle = "Cohort Questions";
   }
-
+  
+  // Coursequestions/json
+  function json(){
+    Coursequestions = model("Conferencecoursequestion").findAll(where="event='#getEvent()#'", include="person(family),course", order="title");
+    data = queryToJson(Coursequestions);
+		renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)
+  }
+  
 </cfscript></cfcomponent>
