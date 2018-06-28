@@ -104,6 +104,7 @@
 Total signups = #totalAllQuantity#<br/>
 Total number of registered people eligible to sign up = #countpeopleregistered#</br>
 Total of these registered people that have signed up = #listlen(emaillistall,";")#<br/>
+Cohorts with no signups: #emptyWorkshops#
 </div>
 
 

@@ -319,6 +319,7 @@
 
 	<cffunction name="showAllSelectedCohorts">
 		<cfset var orderby = "title">
+		<cfset var loc = StructNew()>
 		<cfif isDefined("params.orderby")>
 			<cfset orderBy = params.orderby>
 		</cfif>
@@ -327,6 +328,15 @@
 			<cfset whereString = whereString & " AND equip_coursesid = #params.key#">
 		</cfif>
 		<cfset workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order=orderby)>
+		<cfset loc.workshopsSignedUPFor = ValueList(workshops.title)>
+		<cfset allWorkshops = model("Conferencecourse").findAll(where=whereString)>
+		<cfset emptyWorkshops = "">
+		<cfloop query="allWorkshops">
+			<cfif !listFind(loc.workshopsSignedUPFor,title)>
+				<cfset emptyWorkshops = emptyWorkshops & "," & title>
+			</cfif>
+		</cfloop>
+		<cfset emptyWorkshops = replace(emptyWorkshops,",","","one")>
 		<cfset countpeopleregistered = countPeopleRegistered()>
 		<cfset renderPage(action="showAllSelectedWorkshops")>
 	</cffunction>
