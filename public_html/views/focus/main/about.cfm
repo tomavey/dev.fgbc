@@ -1,5 +1,6 @@
 <cfoutput>
 <div class="well">
-#getContent("about")#
+ABOUT
+<!--- #getContent("about")# --->
 </div>
 </cfoutput>
