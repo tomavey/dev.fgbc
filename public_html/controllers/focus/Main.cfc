@@ -70,6 +70,7 @@
 	</cffunction>
 
 	<cffunction name="about">
+	<cfdump var="#params#"><cfabort>
 	</cffunction>
 
 </cfcomponent>
