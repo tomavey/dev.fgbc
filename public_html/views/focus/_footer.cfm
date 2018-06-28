@@ -6,6 +6,7 @@
 		<cfif isdefined("session.reg")>Reg:<cfdump var="#session.reg#"></cfif>
 		<cfif isdefined("session.cart")>Cart:<cfdump var="#session.cart#"></cfif>
 		<cfif isdefined("session.return")>Return:<cfdump var="#session.return#"></cfif>
+		<cfdump var="#params#">
 		<cfdump var="#cgi#">
 	</div>
 </cfif>

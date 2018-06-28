@@ -5,7 +5,6 @@
 		<cfset useslayout(template='/focus/layout2', only="retreat,about")>
 		<cfset filters(through="getRetreats")>
 		<cfset filters(through="getRetreatRegions")>
-		<cfset filters(through="pause", only="about")>
 	</cffunction>
 
 <!----Filters---->
