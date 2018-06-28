@@ -37,9 +37,11 @@
 
 		<cfset retreat = model("Focusretreat").findOne(where=whereString)>
 
+		<cftry>
 		<cfif !len(retreat.notopenmessage)>
 			<cfset retreat.notopenmessage = "Registration for this retreat is closed.">
 		</cfif>
+		<cfcatch></cfcatch></cftry>
 
 		<cfif isobject(retreat)>
 			<cfset options = model("Focusitem").findall(where="retreatId='#retreat.id#' AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'public'", order="price DESC")>
@@ -70,7 +72,6 @@
 	</cffunction>
 
 	<cffunction name="about">
-		<cfdump var="#params#"><cfabort>
 	</cffunction>
 
 </cfcomponent>
