@@ -5,9 +5,14 @@
 		<cfset useslayout(template='/focus/layout2', only="retreat,about")>
 		<cfset filters(through="getRetreats")>
 		<cfset filters(through="getRetreatRegions")>
+		<cfset filters(through="pause", only="about")>
 	</cffunction>
 
 <!----Filters---->
+
+	<cffunction  name="pause">
+		<cfdump  var="#params#"><cfabort>
+	</cffunction>
 
 	<cffunction name="getRetreats">
 		<cfset retreats = model("Focusretreat").findAll(where="active='yes' and endAt > now()", order="startAt")>
