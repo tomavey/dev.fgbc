@@ -67,6 +67,7 @@
 						<li>#linkto(text="Meals As Json", route="apiMeals", target="_new")#</li>
 						<li>#linkto(text="Schedule As Json", route="apiSchedule", target="_new")#</li>
 						<li>#linkto(text="Speakers As Json", route="apiSpeakers", target="_new")#</li>
+						<li>#linkto(text="Course Questions As Json", route="apiSpeakers", target="_new")#</li>
 					</ul>
 				</li>
 				<li class="dropdown">
