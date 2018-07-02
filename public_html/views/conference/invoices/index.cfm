@@ -68,8 +68,10 @@
 			</td>
 			<td>
 				#showTag()# 
-				#editTag()#
-				#deleteTag(class="notajax")#
+				<cfif gotRights("office")>
+					#editTag()#
+					#deleteTag(class="notajax")#
+				</cfif>
 			</td>
 		</tr>
 		</cfoutput>
