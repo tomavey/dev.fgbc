@@ -481,6 +481,7 @@
 		.get(name="accesscohorts", pattern="/accesscohorts/", controller="conference.courses", action="listCohorts")
 		.get(name="listcohorts", pattern="/listcohorts/", controller="conference.courses", action="listCohorts")
 		.get(name="cohorts", pattern="/cohorts/", controller="conference.courses", action="listCohorts")
+		.get(name="cohortssignups", pattern="/cohort/signups", controller="conference.courses", action="showallselectedcohorts")
 
 		.get(name="flinchconference", pattern="/flinchconference/", controller="conference.flinch", action="index")
 		.get(name="agbmrss", pattern="/agbm/rss/", controller="handbook.agbm-info", action="rss")
