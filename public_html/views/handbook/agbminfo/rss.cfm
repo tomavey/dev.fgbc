@@ -13,8 +13,8 @@
 		           <item>
 		              <title>#lname#, #fname#</title>
 		              <description>   <![CDATA[#Desc#]]> </description>
-		              <link>https://charisfellowship.us/handbook.people/show/#personid#</link>
-		              <guid>https://charisfellowship.us/handbook.people/show/#personid#</guid>
+		              <link>https://charisfellowship.us/handbook/people/#personid#</link>
+		              <guid>https://charisfellowship.us/handbook/people/#personid#</guid>
 		           </item>
 		        </cfoutput>
 		           <item>
