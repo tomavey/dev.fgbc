@@ -86,7 +86,10 @@
     		<cfset thisinvoice.save()>
     	</cfif>
 
-	<cfset whereString = "equip_invoicesid = #params.key# AND quantity <> 0"> 
+	<cfset whereString = "equip_invoicesid = #params.key#">
+	<cfif !gotRights("office")>
+		<cfset whereString = whereString & " AND quantity <> 0"> 
+	</cfif>
 		<cfif isDefined("params.showall")>
 			<cfset whereString = "equip_invoicesid = #params.key#"> 
 		</cfif>	
