@@ -4,7 +4,7 @@
 <!---Redirect fgbc.org to charisfellowship.us with path and query string--->
 <cfscript>
 
-if ( lcase(cgi.http_host) is 'fgbc.org' ){
+if ( lcase(cgi.http_host) is 'fgbc.org' || lcase(cgi.http_host) is 'charisfellowship.com'){
     var newlocation = '//charisfellowship.us' & cgi.path_info & "?" & cgi.query_string; 
     location(url=newlocation, addToken="no");
 }
