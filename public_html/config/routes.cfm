@@ -297,6 +297,8 @@
 			.resources("people")
 
 			.get(name="sendAnnouncement", pattern="/announcements/send/[key]", controller="announcements", action="sendAnnouncement")
+			.get(name="approveAnnouncement", pattern="/announcement/approve/[key]", controller="announcements", action="approve")
+			.get(name="notifyAnnouncement", pattern="/announcement/notification/[key]", controller="announcements", action="notification")
 			.resources("announcements")
 
 			.controller("courses")
