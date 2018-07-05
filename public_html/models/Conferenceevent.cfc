@@ -19,6 +19,11 @@
 			)>
 
 		<cfset property(
+			name="map",
+			sql="select map FROM equip_locations WHERE id = locationid"
+			)>
+
+		<cfset property(
 			name="selectName",
 			sql="CONCAT(equip_events.description,': ',DATE_FORMAT(date,'%m-%d'),' @ ',DATE_FORMAT(timebegin,'%H:%i'),' in ',(select roomnumber FROM equip_locations WHERE id = locationid))"
 			)>
