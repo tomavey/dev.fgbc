@@ -20,6 +20,9 @@
 					<p><span>Default Setup: </span> 
 						#location.defaultsetup#</p>
 				
+					<p><span>Map: </span> 
+						#location.map#</p>
+
 					<p><span>Manager: </span> 
 						#location.manager#</p>
 				

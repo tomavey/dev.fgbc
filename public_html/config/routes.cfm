@@ -489,6 +489,7 @@
 		.get(name="jsonmeals", pattern="/api/conference/meals/", controller="conference.options", action="jsonmeals")
 		.get(name="jsonmeal", pattern="/api/conference/meals/[id]", controller="conference.options", action="jsonmeals")
 		.get(name="jsonexhibits", pattern="/api/conference/exhibits/", controller="conference.exhibits", action="json")
+		.get(name="jsonlocations", pattern="/api/conference/locations/", controller="conference.locations", action="json")
 		.get(name="jsonpartners", pattern="/api/partners/", controller="conference.exhibits", action="json")
 		.get(name="generalinfo", pattern="/api/conference/info/", controller="conference.events", action="generalInfo")
 		.get(name="childcareworkers", pattern="/gracekidshelper/", controller="conference.childcareworkers", action="new")

@@ -2,7 +2,7 @@
 	
 	<cffunction name="init">
 		<cfset usesLayout("/conference/adminlayout")>
-		<cfset filters(through="officeOnly", except="index,list,summary,show,excel")>
+		<cfset filters(through="officeOnly", except="index,list,summary,show,excel,json")>
 		<cfset filters(through="setReturn", only="index,show,list")>
 	</cffunction>
 	
@@ -11,6 +11,13 @@
 		<cfset locations = model("Conferencelocation").findAll(where="event='#getEvent()#'", order="roomnumber")>
 	</cffunction>
 	
+	<!--- locations/json --->
+	<cffunction name="json">
+		<cfset locations = model("Conferencelocation").findAll(where="event='#getEvent()#'", order="roomnumber")>
+		<cfset data = queryToJson(locations)>
+		<cfset renderJson()>
+	</cffunction>
+
 	<!--- locations/show/key --->
 	<cffunction name="show">
 		

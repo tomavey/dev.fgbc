@@ -9,5 +9,7 @@
 					
 						#textField(objectName='location', property='defaultsetup', label='Default Setup')#
 
+						#textField(objectName='location', property='map', label='Map')#
+
 						#textField(objectName='location', property='manager', label='Manager')#
 </cfoutput>					
