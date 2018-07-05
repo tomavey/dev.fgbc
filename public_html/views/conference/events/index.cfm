@@ -89,7 +89,7 @@ See only:
         			</cfif>
 
 					<tr style="background-color:#alertcolor#">
-						<td>#linkTo(text='#left(getWorshipTitleForEvent(id,description,titlePreference),30)#', action='index', params="desc=#left(getWorshipTitleForEvent(id,description,titlePreference),30)#")# <cfif len(beo)>[#beo#]</cfif></td>
+						<td>#linkTo(text='#left(getWorshipTitleForEvent(id,description,titlePreference),50)#', action='index', params="desc=#left(getWorshipTitleForEvent(id,description,titlePreference),30)#")# <cfif len(beo)>[#beo#]</cfif></td>
 						<td>#left(category,15)#</td>
 						<td>
 							<cfif len(setup)>
