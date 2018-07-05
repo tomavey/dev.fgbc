@@ -4,7 +4,7 @@
 		  <rss version="2.0">
 		     <channel>
 		        <title>Association of Grace Brethren Ministers Membership List</title>
-		        <link>http://www.fgbc.org/handbook</link>
+		        <link>https://charisfellowship.us/handbook</link>
 		        <description>Association of Grace Brethren Ministers Membership List <cfoutput>(#ministerium.recordcount# members)</cfoutput></description>
 		        <pubDate><cfoutput>#GetHttpTimeString(now())#</cfoutput></pubDate>
 		        <cfoutput query="ministerium" group="personid">
@@ -13,15 +13,15 @@
 		           <item>
 		              <title>#lname#, #fname#</title>
 		              <description>   <![CDATA[#Desc#]]> </description>
-		              <link>http://www.fgbc.org/handbook.people/show/#personid#</link>
-		              <guid>http://www.fgbc.org/handbook.people/show/#personid#</guid>
+		              <link>https://charisfellowship.us/handbook.people/show/#personid#</link>
+		              <guid>https://charisfellowship.us/handbook.people/show/#personid#</guid>
 		           </item>
 		        </cfoutput>
 		           <item>
 		              <title>Member Count:</title>
 		              <description><cfoutput>#ministerium.recordcount# members</cfoutput></description>
-		              <link>http://www.fgbc.org</link>
-		              <guid>http://www.fgbc.org</guid>
+		              <link>https://charisfellowship.us</link>
+		              <guid>https://charisfellowship.us</guid>
 		           </item>
 		     </channel>
 		  </rss>
