@@ -9,7 +9,8 @@
 	
 			#startFormTag(action="create")#
 		
-						#select(objectName='people', property="equip_familiesid", options=families, textField="lnameIdDate", label="Family (if already in the database)", includeBlank="---Select Existing Family---")#
+						<br/>
+						#select(objectName='people', property="equip_familiesid", options=families, textField="lnameIdDate", label="Family (if already in the database for this conference - note the family creation date.). Used to add people (ie: children) to existing families.", includeBlank="---Select Existing Family---")#
 
 						#textField(objectName='people', property='lname', label='Last Name (if this is a new Family)')#			
 
