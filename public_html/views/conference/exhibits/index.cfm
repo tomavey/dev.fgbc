@@ -13,6 +13,7 @@
 <cfset emailall = "">
 
 
+
 <div class="eachItemShown">
 
 	<table class="dataTable">
@@ -189,5 +190,6 @@
 
 <cfoutput>
 	<p>#linkTo(text="#imageTag("add-icon.png")#", action="new")#</p>
+	<p>#linkto(text="Video: How to pay for exhibits online!", href="https://vimeo.com/278698859/d04eb70ee8", target="_new", class="btn pull-right")#</p>
 </cfoutput>
 </div>
