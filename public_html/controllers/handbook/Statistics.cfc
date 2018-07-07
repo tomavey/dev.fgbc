@@ -541,16 +541,16 @@
 	<cffunction name="getSummary">
 		<cfset summary1 = model("Handbookstatistic").findStatsSummary(params.key)>
 		<cfif isdefined("params.compYear")>
-			<cfset summaryCompYear = model("Handbookstatistic").findStatsSummary(params.key)>
+			<cfset summaryCompYear = model("Handbookstatistic").findStatsSummary(params.compYear)>
 		</cfif>
 		<cfif isdefined("params.compYear2")>
-			<cfset summaryCompYear2 = model("Handbookstatistic").findStatsSummary(params.key)>
+			<cfset summaryCompYear2 = model("Handbookstatistic").findStatsSummary(params.compYear2)>
 		</cfif>
 		<cfif isdefined("params.compYear3")>
-			<cfset summaryCompYear3 = model("Handbookstatistic").findStatsSummary(params.key)>
+			<cfset summaryCompYear3 = model("Handbookstatistic").findStatsSummary(params.compYear3)>
 		</cfif>
 		<cfif isdefined("params.compYear4")>
-			<cfset summaryCompYear4 = model("Handbookstatistic").findStatsSummary(params.key)>
+			<cfset summaryCompYear4 = model("Handbookstatistic").findStatsSummary(params.compYear4)>
 		</cfif>
 		<cfset ewp = ewpSummary()>
 	</cffunction>
