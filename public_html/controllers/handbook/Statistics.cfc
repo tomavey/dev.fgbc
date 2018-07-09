@@ -53,10 +53,16 @@
 		</cfif>
 
 		<cfif isdefined("params.year")>
-			<cfset handbookstatistics = model("Handbookstatistic").findAll(where="year=#params.year#",include="Handbookorganization(Handbookstate)", order=params.key)>
+			<cfset whereString="year=#params.year#">
 		<cfelse>
-			<cfset handbookstatistics = model("Handbookstatistic").findAll(where="year=#statYear#", include="Handbookorganization(Handbookstate)", order=params.key)>
+			<cfset whereString="year=#statYear#">
 		</cfif>
+
+		<cfif isDefined("params.temp")>
+			<cfset whereString=whereString & " AND enteredBy='temp'">
+		</cfif>
+
+		<cfset handbookstatistics = model("Handbookstatistic").findAll(where=whereString,include="Handbookorganization(Handbookstate)", order=params.key)>
 
 		<cfif isDefined("params.summary") and params.summary>
 			<cfset renderPage(controller="handbook-statistics", action="summary")>

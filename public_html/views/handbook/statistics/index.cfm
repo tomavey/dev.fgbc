@@ -1,8 +1,20 @@
 <cfoutput>
 <h1>Listing Statistics for #statYear# and Memfee for #statyear+1#</h1>
 
+<div>
+
 <p>#linkTo(text="<i class='icon-plus'></i>", action="new", title="Add new Stat")#</p>
+
+<p>
+	<cfif !isDefined("params.temp")>
+		#linkTo(text="Show Temp Only", controller="handbook.statistics", action="index", params="temp=1", class="btn")#
+	<cfelse>
+		#linkTo(text="Show All", controller="handbook.statistics", action="index", class="btn")#
+	</cfif>
+</p>
 </cfoutput>
+
+</div>
 
 <div class="table table-striped">
 <cftable query="handbookstatistics" colHeaders="true" HTMLTable="true">
