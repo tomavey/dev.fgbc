@@ -567,6 +567,7 @@
 		.get(name="constitution", pattern="/constitution", controller="contents", action="constitution")
 		.get(name="churches", pattern="/churches", controller="churches", action="index")
 		.get(name="newName", pattern="newname", controller="charis", action="rebranding")
+		.get(name="badRoute", pattern="handbook-statistics/show/[key]", controller="home", action="index")
 		.root(controller="Home", action="index")
 		.wildcard()
 
