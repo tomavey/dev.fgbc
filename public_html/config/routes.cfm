@@ -337,7 +337,7 @@
 			.get(name="listRegistrations", pattern="/registration/list", controller="registrations", action="list")
 			.get(name="addNew", pattern="/registrations/addnew/[key]", controller="registrations", action="addnew")
 			.post(name="showsearch", pattern="/registrations/showsearch/", controller="registrations", action="showsearch")
-			.get(name="consolidate", pattern="/registrations/consolidateregs/", controller="registrations", action="consolidateregs")
+			.post(name="consolidateRegsGo", pattern="/registrations/consolidateRegsGo/", controller="registrations", action="consolidateRegsGo")
 			.resources("registrations")
 			
 			.resources("resources")
