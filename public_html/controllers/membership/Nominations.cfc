@@ -151,11 +151,11 @@
 	private function nominateMessage(year){
 		var nominateYear = year;
 		var message = "";
-		if (nominateYear is 2016) {
-			message = "Why only one name from Region C? Districts have the privilege of nominating names to the Fellowship Council.  This year, only the Mid-Atlantic District nominated (Doug Courter). The FGBC nominating committee can add names but they felt that there was sufficient representation from other districts in region C.";
+		if (nominateYear is 2018) {
+			message = "Why only one name from Region C? Districts have the privilege of nominating names to the Fellowship Council.  This year, only the Florida District nominated (Rich Schnieders). The Charis Fellowship nominating committee can add names but they felt that there was sufficient representation from other districts in region C.";
 		}
 		else {
-			message = "FGBC Cooperating Districts have the privilege of nominating names to the Fellowship Council.  The FGBC nominating committee can add names if needed to complete the ballot.";
+			message = "Charis Fellowship Cooperating Districts have the privilege of nominating names to the Fellowship Council.  The Charis Fellowship nominating committee can add names if needed to complete the ballot.";
 		};
 		return message;
 	}
