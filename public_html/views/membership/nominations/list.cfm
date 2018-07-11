@@ -37,7 +37,7 @@
 		<p>Church: #nomineechurch#</p>
 		<p>	<cftry>
 				<cfset piclink2 = replace(piclink,".jpg","_web.jpg","all")>
-				#linkTo(text='#imageTag("/fellowshipcouncil/nominated/#piclink2#")#', href="/fellowshipcouncil/nominated/#piclink#")#
+				#linkTo(text='#imageTag("/fellowshipcouncil/nominated/#piclink2#")#', href="/images/fellowshipcouncil/nominated/#piclink#")#
 			<cfcatch>#piclink#</cfcatch>
 			</cftry>
 			<cfif isDefined("bioShort") && len(bioShort) && ! isDefined("params.biolong")>
