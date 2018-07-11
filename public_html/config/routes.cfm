@@ -266,6 +266,7 @@
 			.delete(name="exhibitDelete", pattern="/exhibits/[key]/delete", controller="exhibits", action="delete")
 			.resources("exhibits")
 			
+			.get(name="envelopes", pattern="/envelopes/", controller="families", action="envelopes")
 			.get(name="badges", pattern="/badges/", controller="families", action="badges")
 			.resources("families")
 			
