@@ -268,13 +268,13 @@
 		<cfelseif him.recordcount>
 			<cfset EnvelopeInfo.name = him.fname>
 			<cfif isDefined("params.showFnameId")>
-				<cfset EnvelopeInfo.name = "<a href='/index.cfm/conference.registrations/consolidateregs/?temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
+				<cfset EnvelopeInfo.name = "<a href='/conference/registrations/consolidateregs/?temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
 			</cfif>
 			<cfset wherestring = "event='#getEvent()#' AND equip_peopleid = #him.id#">
 		<cfelseif her.recordcount>
 			<cfset EnvelopeInfo.name = her.fname>
 			<cfif isDefined("params.showFnameId")>
-				<cfset EnvelopeInfo.name = "<a href='/index.cfm/conference.registrations/consolidateregs/?temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
+				<cfset EnvelopeInfo.name = "<a href='/conference/registrations/consolidateregs/?temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
 			</cfif>
 			<cfset wherestring = "event='#getEvent()#' AND equip_peopleid = #her.id#">
 		<cfelse>
