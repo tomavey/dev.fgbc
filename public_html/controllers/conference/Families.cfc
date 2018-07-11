@@ -253,6 +253,7 @@
 	<cfset EnvelopeInfo.invoice = "">
 	<cfset EnvelopeInfo.status = "">
 	<cfset itemOrder="FIELD(type, 'Meal', 'Other', 'Workshop', 'Registration')">
+	<cfset consolidateLinkString = '/index.cfm/?controller=conference.registrations&action=consolidateregs/'>
 
 		<cfset him = Model("Conferenceperson").findAll(where="Equip_familiesid = #arguments.familyid# AND type='adult'", include="family")>
 		<cfset her = Model("Conferenceperson").findAll(where="equip_familiesid=#arguments.familyid# AND type='Spouse'", include="family")>
@@ -261,20 +262,20 @@
 		<cfif him.recordcount and her.recordcount>
 			<cfset EnvelopeInfo.name = him.fname & " & " & her.fname>
 			<cfif isDefined("params.showFnameId")>
-				<cfset EnvelopeInfo.name = "<a href='/index.cfm/conference.registrations/consolidateregs/?temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
+				<cfset EnvelopeInfo.name = "<a href='#consolidateLinkString#?temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
 			</cfif>
 			<cfset wherestring = "event='#getEvent()#' AND (equip_peopleid = #him.id# OR equip_peopleid = #her.id#)">
 
 		<cfelseif him.recordcount>
 			<cfset EnvelopeInfo.name = him.fname>
 			<cfif isDefined("params.showFnameId")>
-				<cfset EnvelopeInfo.name = "<a href='/conference/registrations/consolidateregs/?temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
+				<cfset EnvelopeInfo.name = "<a href='#consolidateLinkString#?temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
 			</cfif>
 			<cfset wherestring = "event='#getEvent()#' AND equip_peopleid = #him.id#">
 		<cfelseif her.recordcount>
 			<cfset EnvelopeInfo.name = her.fname>
 			<cfif isDefined("params.showFnameId")>
-				<cfset EnvelopeInfo.name = "<a href='/conference/registrations/consolidateregs/?temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
+				<cfset EnvelopeInfo.name = "<a href='#consolidateLinkString#?temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
 			</cfif>
 			<cfset wherestring = "event='#getEvent()#' AND equip_peopleid = #her.id#">
 		<cfelse>
