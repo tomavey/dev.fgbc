@@ -44,7 +44,7 @@
 		};
 	</cfscript>
 	<cfloop query = "invoicesByEmail">
-		<cfset invoices[invoicesByEmail.invoiceid] = model("Conferenceinvoice").findAll(where="id = #invoicesByEmail.invoiceid# AND event='#getEvent()#'")>
+		<cfset invoices[invoicesByEmail.invoiceid] = model("Conferenceinvoice").findAll(where="id = #val(invoicesByEmail.invoiceid)# AND event='#getEvent()#'")>
 	</cfloop>
 	<cfloop query = "invoicesByEmail">
 		<cfset registrations[invoicesByEmail.invoiceid] = model("Conferenceregistration").findAll(where="equip_invoicesid = #invoicesByEmail.invoiceid# AND event='#getEvent()#'", include="option")>
