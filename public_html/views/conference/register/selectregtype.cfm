@@ -48,8 +48,8 @@
 	</div>
 <cfelse>	
 	<div class="#span#">
-		#linkto(text=imageTag("/conference/groupreg.png"), action="selectoptions", params="group")#
-		#linkto(text="Registration for Group <br/> is not available yet", onclick="alert('Not available yet'); return false", class="btn btn-large btn-block btn-info")#
+		#linkto(text=imageTag("/conference/groupreg.png"), onclick="alert('Not available'); return false")#
+		#linkto(text="Registration for Group <br/> is not available", onclick="alert('Not available'); return false", class="btn btn-large btn-block btn-info")#
 	</div>
 </cfif>
 
