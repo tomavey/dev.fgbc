@@ -76,7 +76,7 @@
 						<li>#linkto(text="Conference Announcements", controller="conference.announcements", action="index")#</li>
 						<li>#linkto(text="Exhibitors", action="info", controller="conference.exhibits")#</li>
 						<li>#linkto(text="Child Care Worker Apps", action="index", controller="conference.childcareworkers")#</li>
-						<li>#linkto(text="Speaker Pics", action="speakers", controller="conference.promo")#</li>
+						<li>#linkto(text="Slides", action="preSessionSlidePics", controller="conference.promo")#</li>
 						<li>#linkto(text="www.flinchconference.com", href="http://www.flinchconference.com")#</li>
 						<li>#linkto(text="Backup Tables", controller="conference.backups", action="list")#</li>
 						<li>#linkto(text="Clear Session", controller="conference.options", action="clearsession")#</li>
