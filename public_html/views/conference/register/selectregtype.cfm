@@ -71,7 +71,7 @@
 
 	<div class="#span#">
 		#imageTag("/conference/childrenreg.png")#
-		#linkto(text="Registration for Grace Kids<br/> is not available yet", onclick="alert('Not available yet'); return false", class="btn btn-large btn-block btn-info")#
+		#linkto(text="Registration for Grace Kids<br/> is not currently available online", onclick="alert('Not available yet'); return false", class="btn btn-large btn-block btn-info")#
 	</div>
 </cfif>
 
