@@ -65,7 +65,7 @@
 			</td>
           </tr>
 
-		  	<cfif hasdelegates>
+	  	<cfif hasdelegates>
 	  		  <cfset delegatecount = delegatecount + 1>
 			<cfelse>
 	  		  <cfset nodelegatecount = nodelegatecount + 1>
