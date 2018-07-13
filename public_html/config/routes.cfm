@@ -250,6 +250,11 @@
 			.resources("contents")
 			.resources("errors")
 
+			.controller("promo")
+				.get(name="speakerPics", pattern="/speakers/", action="speakers")
+				.get(name="preSessionSlidePics", pattern="/preSessionSlidePics/", action="preSessionSlidePics")
+			.end()
+
 			.controller("events")
 				.get(name="copyAllToCurrentEvent", pattern="CopyAllToCurrentEvent", action="CopyAllToCurrentEvent")
 				.get(name="copy", pattern="/copy/[key]", action="copy")
