@@ -82,7 +82,7 @@
 						#linkto(text=imageTag("/conference/meals50.png"), action="selectoptions", action="selectoptions",params="meals", title="Purchase meal tickets", class="tooltiplink")#
 					</cfif>
 					<cfif optionsRegIsOpen() && !isRegType("options")>
-						#linkto(text=imageTag("/conference/coaster50.png"), action="selectoptions", action="selectoptions",params="options", title="Local Option", class="tooltiplink")#
+						#linkto(text=imageTag("/conference/excursion50.png"), action="selectoptions", action="selectoptions",params="options", title="Local Option", class="tooltiplink")#
 					</cfif>
 				<cfcatch>
 					#linkTo(text="Change type of registration", action="selectregtype", class="btn btn-block")#
