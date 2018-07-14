@@ -8,11 +8,11 @@
         <cfset senderror = false>
         <cfset subject = "FGBC Website Error">
         <cfif cgi.path_info CONTAINS "conference">
-            <cfset senderror = true>
+            <cfset senderror = false>
             <cfset subject = "Conference Reg Error - page not found">
         </cfif>
         <cfif cgi.path_info CONTAINS "handbook">
-            <cfset senderror = true>
+            <cfset senderror = false>
             <cfset subject = "Handbook Error - page not found">
         </cfif>
 

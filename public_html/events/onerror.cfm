@@ -23,12 +23,12 @@
         <cfset subject = "FGBC Website Error">
 
         <cfif cgi.path_info CONTAINS "conference" && isConferenceErrorEmailOn()>
-            <cfset senderror = true>
+            <cfset senderror = false>
             <cfset subject = "Conference Reg Error">
         </cfif>
 
         <cfif cgi.path_info CONTAINS "handbook" && isHandbookErrorEmailOn()>
-            <cfset senderror = true>
+            <cfset senderror = false>
             <cfset subject = "Handbook Error">
         </cfif>
 
