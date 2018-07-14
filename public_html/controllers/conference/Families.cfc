@@ -252,7 +252,7 @@
 	<cfset EnvelopeInfo.items = "">
 	<cfset EnvelopeInfo.invoice = "">
 	<cfset EnvelopeInfo.status = "">
-	<cfset itemOrder="FIELD(type, 'Meal', 'Other', 'Workshop', 'Registration')">
+	<cfset itemOrder="FIELD(type, 'Meal', 'Other', 'Workshop', 'Registration'), sortorder">
 	<cfset consolidateLinkString = '/index.cfm/?controller=conference.registrations&action=consolidateregs&'>
 
 		<cfset him = Model("Conferenceperson").findAll(where="Equip_familiesid = #arguments.familyid# AND type='adult'", include="family")>
