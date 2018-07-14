@@ -7,6 +7,10 @@
 <cfparam name="coupleBaseCost" default="150">
 <cfparam name="groupBaseCost" default="65">
 <cfparam name="increaseAmount" default="10">
+<cfparam name="showAll" default="false">
+<cfif isDefined("params.showAll") && params.showAll>
+	<cfset showAll = "true">
+</cfif>	
 
 <div class="regcosts">
 <cfoutput>
@@ -29,22 +33,31 @@
 
 					<cfset increaseStuct = {increaseDate: firstIncreaseDate, cost: thiscost, multiplier=0, increaseAmount: increaseAmount}>	
 
-					<cfif isBefore(increaseStuct.increaseDate)>
+					<cfif isBefore(increaseStuct.increaseDate) || showAll>
 						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
 
 					<cfset increaseStuct = {increaseDate: secondIncreaseDate, cost: thiscost, multiplier=2, increaseAmount: increaseAmount}>	
 
-					<cfif isBefore(increaseStuct.increaseDate)>
+					<cfif isBefore(increaseStuct.increaseDate) || showAll>
 						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
 
 				<cfif thirdIncreaseDate NEQ "skip">
 					<cfset increaseStuct = {increaseDate: thirdIncreaseDate, cost: thiscost, multiplier=3, increaseAmount: increaseAmount}>	
 
-					<cfif isBefore(increaseStuct.increaseDate)>
+					<cfif isBefore(increaseStuct.increaseDate) || showAll>
 						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
+				<cfelse>	
+					<cfset increaseStuct = {increaseDate: lastIncreaseDate, cost: thiscost, multiplier=3, increaseAmount: increaseAmount}>	
+					<cfset rate = increaseStuct>
+						<tr>
+							<td>Before #dateFormat(rate.increaseDate, "mmm d")#</td>
+							<td class="center">$#getDollarType(408)##rate.cost + (rate.increaseAmount * rate.multiplier)#</td>
+							<td class="center">FREE</td>
+							<td class="center">FREE</td>
+						</tr>
 				</cfif>
 
 					<cfset increaseStuct = {increaseDate: lastIncreaseDate, cost: thiscost, multiplier=4, increaseAmount: increaseAmount}>	
@@ -68,13 +81,13 @@
 
 					<cfset increaseStuct = {increaseDate: firstIncreaseDate, cost: thiscost, multiplier=0, increaseAmount: increaseAmount}>	
 
-					<cfif isBefore(increaseStuct.increaseDate)>
+					<cfif isBefore(increaseStuct.increaseDate) || showAll>
 						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
 
 					<cfset increaseStuct = {increaseDate: secondIncreaseDate, cost: thiscost, multiplier=2, increaseAmount: increaseAmount}>	
 
-					<cfif isBefore(increaseStuct.increaseDate)>
+					<cfif isBefore(increaseStuct.increaseDate) || showAll>
 						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
 
@@ -82,9 +95,18 @@
 
 					<cfset increaseStuct = {increaseDate: thirdIncreaseDate, cost: thiscost, multiplier=3, increaseAmount: increaseAmount}>	
 
-					<cfif isBefore(increaseStuct.increaseDate)>
+					<cfif isBefore(increaseStuct.increaseDate) || showAll>
 						#includePartial(partial = 'priceRow', rate=increaseStuct)#
 					</cfif>
+				<cfelse>	
+					<cfset increaseStuct = {increaseDate: lastIncreaseDate, cost: thiscost, multiplier=3, increaseAmount: increaseAmount}>	
+					<cfset rate = increaseStuct>
+						<tr>
+							<td>Before #dateFormat(rate.increaseDate, "mmm d")#</td>
+							<td class="center">$#getDollarType(408)##rate.cost + (rate.increaseAmount * rate.multiplier)#</td>
+							<td class="center">FREE</td>
+							<td class="center">FREE</td>
+						</tr>
 				</cfif>
 
 					<cfset increaseStuct = {increaseDate: lastIncreaseDate, cost: thiscost, multiplier=4, increaseAmount: increaseAmount}>	
