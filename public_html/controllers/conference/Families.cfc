@@ -171,7 +171,13 @@
 	</cffunction>
 
 	<cffunction name="badgesAsJson">
-		<cfset renderPage(action="badges", params="json", layout="/layout_json", template="/json", hideDebugInformation=true)>
+		<cfset dateStart = createDate(year(now())-1,09,01)>
+		<cfset whereString = "(type = 'Adult' OR type = 'spouse') AND createdat > '#datestart#'">
+		<cfset selectString = "id,fullname,fname,lname,fullnamelastfirst">
+		<cfset badges = model("Conferenceperson").findall(select=selectString, where=whereString, include="family", order="lname,fname")>
+		<cfset badges = getDistinctColumnValuesFromQuery(badges, 'fullnamelastfirst')>
+		<cfset data=queryToJson(badges)>
+		<cfset renderJson()>
 	</cffunction>
 
 	<cffunction name="testIsRegistered">
