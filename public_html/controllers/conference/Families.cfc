@@ -158,6 +158,10 @@
 		<cfif isdefined("params.download")>
 			  <cfset renderPage(layout="/conference/layoutdownload")>
 		</cfif>
+		<cfif isdefined("params.json")>
+				<cfset data=queryToJson(badges)>
+			  <cfset renderPage(layout="/conference/json")>
+		</cfif>
 	</cffunction>
 
 	<cffunction name="testIsRegistered">
