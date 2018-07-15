@@ -166,7 +166,7 @@
 		<cfif isdefined("params.json")>
 				<cfset badges = getDistinctColumnValuesFromQuery(badges, 'fullnamelastfirst')>
 				<cfset data=queryToJson(badges)>
-			  <cfset renderPage(layout="/layout_json", template="/json")>
+				<cfset renderJson()>
 		</cfif>
 	</cffunction>
 
