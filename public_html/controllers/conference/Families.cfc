@@ -140,7 +140,12 @@
 			<cfset whereString = "(type = 'Adult' OR type = 'spouse') AND createdat > '#datestart#' AND createdAt < '#dateend#'">
 		</cfif>
 
-		<cfset badges = model("Conferenceperson").findall(where=whereString, include="family", order="lname,fname")>
+		<cfset selectString = "">
+		<cfif isDefined("params.json")>
+			<cfset selectString = "id,fullname,fname,lname,fullnamelastfirst">
+		</cfif>	
+
+		<cfset badges = model("Conferenceperson").findall(select=selectString, where=whereString, include="family", order="lname,fname")>
 
 		<cfset count = QueryAddColumn(badges,"registered")>
 
