@@ -14,7 +14,11 @@
         <div class="col-lg-6">
           <!-- Vimeo Example -->
           <div class="embed-responsive embed-responsive-16by9">
-            <iframe src="https://player.vimeo.com/video/243298287" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe><p><a href="https://vimeo.com/243298287">Who are we?</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>
+            <cfif isBefore('7/25/2018') && !isDefined("params.preview")>
+              <iframe src="https://player.vimeo.com/video/243298287" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe><p><a href="https://vimeo.com/243298287">Who are we?</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>
+            <cfelse>
+              <iframe src="https://player.vimeo.com/video/280010591" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe><p><a href="https://vimeo.com/243298287">Who are we?</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>
+            </cfif>
           </div>
           <!-- End Vimeo Example -->
         </div>
