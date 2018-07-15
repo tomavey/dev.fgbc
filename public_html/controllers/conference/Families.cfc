@@ -170,6 +170,10 @@
 		</cfif>
 	</cffunction>
 
+	<cffunction name="badgesAsJson">
+		<cfset redirectTo(action="badges", params="json")>
+	</cffunction>
+
 	<cffunction name="testIsRegistered">
 		<cfset check = isRegistered(params.key)>
 		<cfdump var="#check#"><cfabort>

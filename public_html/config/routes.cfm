@@ -521,6 +521,7 @@
 		 action="json")
 
 		.get(name="apiStaff", pattern="/api/staff/[key]", controller="handbook.people", action="findStaff")
+		.get(name="apiBadges", pattern="/api/badges/", controller="handbook.families", action="badgesAsJson")
 		.get(name="apiAllStaff", pattern="/api/staff/", controller="handbook.people", action="findAllStaff")
 		.get(name="apiMinistries", pattern="/api/ministries/", controller="handbook.organizations", action="findMinistries")
 		.get(name="apiMinistry", pattern="/api/ministry/[key]", controller="handbook.organizations", action="findChurchWithStaff")
