@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/conference/adminlayout")>
-		<cfset filters(through="officeOnly", except="showregs,show,badges")>
+		<cfset filters(through="officeOnly", except="showregs,show,badges,badgesAsJson")>
 		<cfset filters(through="setReturn", only="index,show,list,envelopes")>
 	</cffunction>
 
