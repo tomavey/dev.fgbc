@@ -286,7 +286,7 @@
 	</cffunction>
 
 	<cffunction name="renderJson">
-		<cfset renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)>
+		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
 	</cffunction>
 
 
