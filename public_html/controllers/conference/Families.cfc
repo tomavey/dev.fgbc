@@ -164,8 +164,9 @@
 			  <cfset renderPage(layout="/conference/layoutdownload")>
 		</cfif>
 		<cfif isdefined("params.json")>
+				<cfset badges = getDistinctColumnValuesFromQuery(badges, 'fullnamelastfirst')>
 				<cfset data=queryToJson(badges)>
-			  <cfset renderPage(layout="/conference/json")>
+			  <cfset renderPage(layout="/conference/json", template="/json")>
 		</cfif>
 	</cffunction>
 
