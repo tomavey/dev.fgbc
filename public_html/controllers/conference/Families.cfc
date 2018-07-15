@@ -171,7 +171,7 @@
 	</cffunction>
 
 	<cffunction name="badgesAsJson">
-		<cfset renderPage(action="badges", layout="/layout_json", template="/json", hideDebugInformation=true)>
+		<cfset renderPage(action="badges", params="json", layout="/layout_json", template="/json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="testIsRegistered">
