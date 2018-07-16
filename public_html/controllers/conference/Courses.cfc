@@ -311,7 +311,7 @@
 	<cffunction name="showAllSelectedWorkshops">
 		<cfset whereString = "event='#getEvent()#' AND type='workshop'">
 		<cfif isDefined("params.key")>
-			<cfset whereString = whereString & " AND equip_coursesid = #params.key#">
+			<cfset whereString = whereString & " AND id = #params.key#">
 		</cfif>
 		<cfset workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order="eventDate")>
 		<cfset countpeopleregistered = countPeopleRegistered()>

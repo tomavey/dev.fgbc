@@ -26,7 +26,8 @@
 					<p>
 						#radioButton(objectName='announcement', property='invoiceLink', tagValue="yes", label="Include link to Invoice")#
 					</p><br/>
-						#dateSelect(objectName='announcement', property='postAt', label='Post At')#
+					<p>When to post?</p>
+						#dateTimeSelect(objectName='announcement', property='postAt', timeOrder="hour,minute")#
 <!---
 					<p>When would you like your announcement to post?</p>
 

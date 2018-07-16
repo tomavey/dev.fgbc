@@ -52,6 +52,16 @@
 
     </cffunction>
 
+    <!---announcements/copy/key--->
+    <cffunction name="copy">
+        <cfset announcement = model("Conferenceannouncement").findByKey(params.key)>
+        <!--- Check if the record exists --->
+        <cfif NOT IsObject(announcement)>
+            <cfset flashInsert(error="announcement #params.key# was not found")>
+            <cfset redirectTo(action="index")>
+        </cfif>
+    </cffunction>
+
     <!--- announcements/create --->
     <cffunction name="create">
         <cfset announcement = model("Conferenceannouncement").new(params.announcement)>
