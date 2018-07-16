@@ -26,7 +26,7 @@
 
     <cfcol header="" text="#linkTo(text='Show', action='show', key=id, params="admin=true", data_icon="search", data_role="button", data_iconpos="notext", data_theme="b", data_inline="true")#" />
     <cfcol header="" text="#linkTo(text='Edit', action='edit', key=id, params="admin=true", data_icon="edit", data_role="button", data_iconpos="notext", data_theme="b", data_inline="true")#" />
-    <cfcol header="" text="#linkTo(text='Delete', action='delete', key=id, confirm='Are you sure?',params="admin=true", data_icon="delete", data_role="button", data_iconpos="notext", data_theme="b", data_inline="true")#" />
+    <cfcol header="" text="#linkTo(text='Delete', controller="conference.announcements", action='delete', key=id, confirm='Are you sure?',params="admin=true", data_icon="delete", data_role="button", data_iconpos="notext", data_theme="b", data_inline="true")#" />
     <cfcol header="" text="#linkTo(text='Approve', action='approve', key=id, params="admin=true", data_icon="check", data_role="button", data_iconpos="notext", data_theme="b", data_inline="true")#" />
     <cfcol header="" text="#linkTo(text='Notify', action='notification', key=id, params="id=#id#&admin=true", data_icon="check", data_role="button", data_iconpos="notext", data_theme="b", data_inline="true")#" />
     <cfif len(sentAt)>
