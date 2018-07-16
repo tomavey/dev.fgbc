@@ -27,7 +27,7 @@
 						#radioButton(objectName='announcement', property='invoiceLink', tagValue="yes", label="Include link to Invoice")#
 					</p><br/>
 						#dateSelect(objectName='announcement', property='postAt', label='Post At')#
-
+<!---
 					<p>When would you like your announcement to post?</p>
 
 					<cfif isBefore("2016-07-21")>
@@ -64,7 +64,7 @@
 						#radioButton(objectName='announcement', property='postAt', tagValue="2016-07-25", label="Monday")#
 
 					</cfif>
-<!---
+
 						#radioButton(objectName='announcement', property='postAt', tagValue="2016-07-26", label="After conference")#
 --->
 
