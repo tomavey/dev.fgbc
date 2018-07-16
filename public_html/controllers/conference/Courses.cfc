@@ -323,13 +323,15 @@
 		<cfif isDefined("params.orderby")>
 			<cfset orderBy = params.orderby>
 		</cfif>
-		<cfset whereString = "event='#getEvent()#' AND type='cohort'">
+		<cfset whereStringAll = "event='#getEvent()#' AND type='cohort'">
 		<cfif isDefined("params.key")>
-			<cfset whereString = whereString & " AND equip_coursesid = #params.key#">
+			<cfset whereString = whereStringAll & " AND equip_coursesid = #params.key#">
+		<cfelse>
+			<cfset whereString = whereStringAll>	
 		</cfif>
 		<cfset workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order=orderby)>
 		<cfset loc.workshopsSignedUPFor = ValueList(workshops.title)>
-		<cfset allWorkshops = model("Conferencecourse").findAll(where=whereString)>
+		<cfset allWorkshops = model("Conferencecourse").findAll(where=whereStringAll)>
 		<cfset emptyWorkshops = "">
 		<cfloop query="allWorkshops">
 			<cfif !listFind(loc.workshopsSignedUPFor,title)>

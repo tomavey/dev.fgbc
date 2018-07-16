@@ -49,7 +49,7 @@
 			<cfif gotRights("superadmin,office")>
 				<td>
 					#showTag(controller="conference.courses", action="showselectedworkshops", personid="#equip_peopleid#", params="personid=#equip_peopleid#")#
-					#linkTo(text="<i class='icon-envelope'></i>", href="mailto:#email#&body=http://www.fgbc.org/invoice/#equip_invoicesid#", title="Email this invoice", class="tooltipside")#
+					#linkTo(text="<i class='icon-envelope'></i>", href="mailto:#email#&body=https://charisfellowship.us/invoice/#equip_invoicesid#", title="Email this invoice", class="tooltipside")#
 					#linkTo(text="<i class='icon-trash'></i>", action="deletedSelectedWorshopsForRegId", key=id, title="Delete this selection", class="tooltipside")#
 				</td>
 			</cfif>
