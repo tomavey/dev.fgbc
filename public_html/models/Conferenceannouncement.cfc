@@ -2,7 +2,7 @@
 
     <cffunction name="init">
         <cfset table("equipannouncements")>
-        <cfset property(name="datePosted", sql="DATE_FORMAT(equipannouncements.createdAt,'%b %d %Y %h:%i %p')")>
+        <cfset property(name="datePosted", sql="DATE_FORMAT(equipannouncements.postAt,'%b %d %Y %h:%i %p')")>
         <cfset property(name="uuid", defaultValue="#createUUID()#")>
     </cffunction>
 
