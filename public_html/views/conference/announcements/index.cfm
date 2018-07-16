@@ -36,3 +36,4 @@
         <cfcol header="" text="#linkTo(text='Send Test', action='sendAnnouncement', key=id, params="admin=true&test=true", data_icon="forward", data_role="button", data_iconpos="notext", data_theme="b", data_inline="true", onClick="confirm('Are you sure?')")#" /></cftable>
 </div>
 </div>
+<cfdump var="#announcments#">
