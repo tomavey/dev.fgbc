@@ -2,7 +2,7 @@
 
     <cffunction name="init">
         <cfset usesLayout("/conference/adminlayout")>
-        <cfset filters(through="officeOnly", except="list,newestAnnouncement")>
+        <cfset filters(through="officeOnly", except="list,newest")>
     </cffunction>
 
 <!------------------------------------->
