@@ -64,7 +64,8 @@
 						#radioButton(objectName='announcement', property='postAt', tagValue="2016-07-25", label="Monday")#
 
 					</cfif>
-
+<!---
 						#radioButton(objectName='announcement', property='postAt', tagValue="2016-07-26", label="After conference")#
+--->
 
 </cfoutput>
