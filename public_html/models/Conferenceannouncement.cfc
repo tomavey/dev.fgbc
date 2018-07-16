@@ -40,9 +40,9 @@
             <cfset loc.announcements = findAllAnnouncements(params)>
                 <cfset loc.announcements = queryToJson(loc.announcements )>
                 <cfreturn loc.announcements >
-        </cffunction>
+      </cffunction>
 
-            <cffunction name="findOneAnnouncementAsJson">
+     <cffunction name="findOneAnnouncementAsJson">
             <cfargument name="id" required="true" type="numeric">
             <cfset var loc=structNew()>
             <cfset loc = arguments>

@@ -133,6 +133,14 @@
         <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
     </cffunction>
 
+    <cffunction name="newest">
+        <cfset loc.postAt = now()>
+        <cfset var whereString = "event='#getEvent()#' AND approved = 'yes' AND postAt < '#loc.postAt#'">
+        <cfset data = model("Conferenceannouncement").findOne(where=whereString, order="id DESC", returnAs="query")>
+        <cfset data = queryToJson(data)>
+        <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+    </cffunction>
+
     <cffunction name="submit">
         <cfif isDefined("params.test")>
             <cfset requestBody =  '{ "author":"tomavey@fgbc.org", "content":"Workshops will be Friday, Saturday and Sunday during Flinch: Conference. Sign up before they fill up!", "subject":"test subject", "postAt":"Jul 1 2015", "link":"www.charisfellowship.us", "approved":"yes"}'>
