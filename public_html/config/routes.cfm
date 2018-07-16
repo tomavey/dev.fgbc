@@ -307,6 +307,7 @@
 			.get(name="sendAnnouncement", pattern="/announcements/send/[key]", controller="announcements", action="sendAnnouncement")
 			.get(name="approveAnnouncement", pattern="/announcement/approve/[key]", controller="announcements", action="approve")
 			.get(name="notifyAnnouncement", pattern="/announcement/notification/[key]", controller="announcements", action="notification")
+			.delete(name="deleteAnnouncement", pattern="/announcement/[key]/delete", controller="announcements", action="delete")
 			.resources("announcements")
 
 			.controller("courses")
