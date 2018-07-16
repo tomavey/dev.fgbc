@@ -180,7 +180,7 @@
 					<cfif !findNoCase("group",buttondescription)>
 						<cfset thisEmail = structNew()>
 						<cfset thisEmail.subject = urlEncodedFormat("Your #getEventAsText()# Registration")> 
-						<cfset thisEmail.body = "Greetings!%20%20%0D%0DThank%20you%20for%20registering%20for%20#getEventAsTExt()#.%0D%0DHere%20are%20a%20links%20to%20purchase%20meal%20tickets%20and%20signup%20for%20cohorts:%0D%0DAdd%20Options:%20http://charisfellowship.us/conference/register/addOptions/#conferencefamilyid#%0D%0DSign%20for%20cohorts:%20http://charisfellowship.us/myCohorts/?personid=#equip_peopleid#&type=cohorts">						
+						<cfset thisEmail.body = "Greetings!%20%20%0D%0DThank%20you%20for%20registering%20for%20#getEventAsTExt()#.%0D%0DHere%20are%20a%20links%20to%20purchase%20meal%20tickets%20and%20signup%20for%20cohorts:%0D%0DAdd%20Options:%20https://charisfellowship.us/conference/register/addOptions/#conferencefamilyid#%0D%0DSign%20up%20for%20cohorts:%20https://charisfellowship.us/myCohorts/">						
 						<div class="well">
 							<p>#fname# #lname#  
 							</p>
@@ -280,11 +280,11 @@
 				<cfoutput>
 					<div id="emailThisInvoice">
 						<cfset emailSubject = "Your%20#trim(getEventAsUrlEncodedText())#%20Registration">
-						<a href="mailto:#getEmailsForInvoice(thisinvoice.id)#?body=http://charisfellowship.us/invoice/#thisinvoice.id#&subject=#emailSubject#">Email a link to this invoice#getEventAsUrlEncodedText()#</a>
+						<a href="mailto:#getEmailsForInvoice(thisinvoice.id)#?body=https://charisfellowship.us/invoice/#thisinvoice.id#&subject=#emailSubject#">Email a link to this invoice#getEventAsUrlEncodedText()#</a>
 					</div>
 				<cfif gotRights("office")>
 						<cfset payEmailSubject = "Pay%20Your%20#trim(getEventAsUrlEncodedText())#%20Registration">
-						<a href="mailto:#thisinvoice.agent#?body=http://charisfellowship.us/conference/register/payonline/?ccorderid=#thisinvoice.ccorderid#&subject=#payEmailSubject#" class="btn">Email a link to pay for this invoice</a><br/>
+						<a href="mailto:#thisinvoice.agent#?body=https://charisfellowship.us/conference/register/payonline/?ccorderid=#thisinvoice.ccorderid#&subject=#payEmailSubject#" class="btn">Email a link to pay for this invoice</a><br/>
 					#linkToList(text="return to list", controller="conference.invoices", action="list")#
 				</cfif>	
 
