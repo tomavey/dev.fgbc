@@ -530,6 +530,7 @@
 		.get(name="apiCourseQuestions", pattern="/api/coursequestions/", controller="conference.coursequestions", action="json")
 		.get(name="apiAnnouncements", pattern="/api/announcements/", controller="conference.announcements", action="list")
 		.get(name="apiNewestAnnouncements", pattern="/api/newestannouncement/", controller="conference.announcements", action="newest")
+		.get(name="apiAnnouncementCount", pattern="/api/announcementcount/", controller="conference.announcements", action="announcementcount")
 		.get(name="apiAnnouncement", pattern="/api/announcements/[key]", controller="conference.announcements", action="list")
 		.post(name="apiAnnouncementPost", pattern="/api/announcement/post", controller="conference.announcements", action="submit")
 		.get(name="apiSchedule", pattern="/api/schedule/", controller="conference.events", action="listScheduleAsJson")
