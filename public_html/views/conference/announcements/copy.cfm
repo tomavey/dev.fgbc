@@ -15,8 +15,6 @@
 
 			#startFormTag(action="create", key=params.key)#
 
-			#putFormTag()#
-
 			#includePartial("form")#
 
 			#submitTag()#
