@@ -33,7 +33,7 @@
           </td>
 		  <td>
 		  	<cfif gotRights("office")>
-		  	  #linkTo(text="<i class='icon-ok'></i>", action="markchurchpickedup", key=churchid, class="tooltipside", title="Toggle check marks for all #selectname# delegates")#&nbsp;#showtag(handbookorganizationid)#
+		  	  #linkTo(text="<i class='icon-search'></i>", controller="membership.delegates", action="show", key=churchid, class="tooltipside", title="show #selectname# delegates")#&nbsp;#showtag(handbookorganizationid)#
 		  	<cfelse>
 		  		&nbsp;
 		  	</cfif>
@@ -55,13 +55,6 @@
 						</cfif>
             <td>#dateformat(createdAt)#</td>
             <td>
-				<cfif gotrights("office")>
-					  #editTag()#
-					  #deleteTag()#
-					  #linkTo(text="<i class='icon-ok'></i>", action="markpickedup", key=id, class="tooltipside", title="Toggle check mark for #name#")#
-				<cfelse>
-						&nbsp;
-				</cfif>
 			</td>
           </tr>
 
