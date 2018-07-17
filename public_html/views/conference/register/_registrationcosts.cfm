@@ -78,7 +78,12 @@
 				<span style="font-size:.8em">At least one person in the married couple must qualify for the age discount.</span>
 				</p>
 				<table>
-
+						<tr>
+							<th>&nbsp;</th>
+							<th>ages 25-75</th>
+							<th>ages 16-24</th>
+							<th>ages 75+</th>
+						</tr>
 					<cfset increaseStuct = {increaseDate: firstIncreaseDate, cost: thiscost, multiplier=0, increaseAmount: increaseAmount}>	
 
 					<cfif isBefore(increaseStuct.increaseDate) || showAll>
