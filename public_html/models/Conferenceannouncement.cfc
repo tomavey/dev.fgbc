@@ -3,6 +3,7 @@
     <cffunction name="init">
         <cfset table("equipannouncements")>
         <cfset property(name="datePosted", sql="DATE_FORMAT(equipannouncements.postAt,'%b %d %Y %h:%i %p')")>
+        <cfset property(name="searchable", sql='CONCAT(subject,content)')>
         <cfset property(name="uuid", defaultValue="#createUUID()#")>
     </cffunction>
 
@@ -19,7 +20,7 @@
             <cfif not isDefined("loc.perPage")>
                 <cfset loc.perPage = 10000000>
             </cfif>
-            <cfset loc.selectString = "id,subject,author,content,createdAt,datePosted,postAt,link">
+            <cfset loc.selectString = "id,subject,author,content,searchable,createdAt,datePosted,postAt,link">
             <cfset loc.event = getEvent()>
             <cfset loc.whereString = "event='#getEvent()#' AND approved = 'yes' AND postAt < '#loc.postAt#'">
             <cfif isDefined("loc.id")>
