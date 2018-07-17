@@ -55,6 +55,7 @@
     <!---announcements/copy/key--->
     <cffunction name="copy">
         <cfset announcement = model("Conferenceannouncement").findByKey(params.key)>
+        <cfset announcement.postAt = now()>
         <!--- Check if the record exists --->
         <cfif NOT IsObject(announcement)>
             <cfset flashInsert(error="announcement #params.key# was not found")>
