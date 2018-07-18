@@ -97,8 +97,6 @@
 	<cffunction name="create">
 	<cfset var newlocation="">
 
-<cfdump var="#params#"><cfabort>
-
 		<cfset event = model("Conferenceevent").new(params.event)>
 
 		<cfif isdefined("params.event.day")>
