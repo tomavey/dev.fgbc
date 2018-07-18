@@ -231,6 +231,9 @@
 	<cfif isDefined("params.familyid")>
 		<cfset whereString = whereString & " AND id=#params.familyid#">
 	</cfif>
+	<cfif isDefined("params.alpha")>
+		<cfset whereString = whereString & " AND alpha='#params.alpha#'">
+	</cfif>
 
    		<cfset envelopes = model("Conferencefamily").findAll(where=whereString, order="lname")>
 

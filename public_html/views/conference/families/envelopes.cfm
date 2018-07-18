@@ -23,16 +23,36 @@
 
 <cfif isDefined("params.date")>
 	#linkTo(text="Download as Excel", action="envelopes", params="download=true&date=#dateformat(params.date,'yyyy-mm-dd')#")#
-<cfelseif>
+<cfelse>
 	#linkTo(text="Download as Excel", action="envelopes", params="download=true")#
 </cfif>
 
-<cfif !isDefined("params.showFnameId")>
-	| #linkTo(text="Show Merge Icon", action="envelopes", params="showFnameId=true")#
-<cfelse>
+<cfif isDefined("params.showFnameId") && isDefined("params.alpha")>
+	| #linkTo(text="Don't Show Merge Icon", action="envelopes", params="alpha=#params.alpha#")#
+<cfelseif isDefined("params.showFnameId")>
 	| #linkTo(text="Don't Show Merge Icon", action="envelopes", params="")#
+<cfelseif !isDefined("params.showFnameId") && !isDefined("params.alpha")>	
+	| #linkTo(text="Show Merge Icon", action="envelopes", params="alpha=#params.alpha#&showFnameId=true")#
+<cfelseif !isDefined("params.showFnameId") && isDefined("params.alpha")>	
+	| #linkTo(text="Show Merge Icon", action="envelopes", params="alpha=#params.alpha#&showFnameId=true")#
 </cfif>
+
+<p>
+	<cfif isDefined('params.showFnameId')>
+		<cfloop list="#getSetting('alphabet')#" index="i">
+			#linkTo(text=i, action="envelopes", params="showFnameId=#params.showFnameId#&alpha=#i#")#
+		</cfloop>	
+			#linkTo(text="all", action="envelopes", params="showFnameId=#params.showFnameId#")#
+	<cfelse>
+		<cfloop list="#getSetting('alphabet')#" index="i">
+			#linkTo(text=i, action="envelopes", params="alpha=#i#")#
+		</cfloop>	
+			#linkTo(text="all", action="envelopes", params="")#
+	</cfif>	
+</p>
+
 </cfoutput>
+
 <table border="1">
 	<tr>
 
@@ -46,7 +66,6 @@
 <cfoutput query="envelopes">
 
 	<cfset thisenvelopeinfo = thisFamilyEnvelopeInfo(id)>
-
 
 
 	<cfif showThisEnvelope(thisFamilyEnvelopeInfo(id),previousinvoice)>

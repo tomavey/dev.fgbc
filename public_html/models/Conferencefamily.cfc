@@ -18,6 +18,7 @@
 				sql="Concat(lname,': ID',equip_families.ID,'; Created: ',DATE_FORMAT(equip_families.createdAt, '%M %d %Y'))"
 					)
 		>
+		<cfset property(name="alpha", sql="left(lname,1)")>
 		<cfset hasMany(name="user", modelName="Conferenceuser", foreignKey="familyid")>
 		<cfset afterSave("saveUser_Family")>
 

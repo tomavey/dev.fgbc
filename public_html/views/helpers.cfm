@@ -821,6 +821,23 @@ public function linkToPlus(required addParams,class="",text="link",oldurl=cgi.re
 	return #linkto(text=text, href=newurl, class=class)#;
 }
 
+public function testremoveDuplicateParamsInUrl() {
+	removeDuplicateParamsInUrl('http://fgbc:8080/index.cfm?controller=conference.-families&action=envelopes&alpha=R&alpha=N')
+}
+
+public function removeDuplicateParamsInUrl(required oldurl) {
+	var item = '';
+	var count = find('?',oldurl);
+	var leftq = left(oldurl,count);
+	var newUrl = replace(oldUrl,leftq,"");
+	var newUrlList = listChangeDelims(newUrl, ',', '&');
+	for (var i=1;i LTE ListLen(newUrlList); i=i+1){
+			item = listGetAt(newUrlList,i)
+			writeDump(item);
+		}
+	writeDump(len(newUrlList));abort;
+}
+
 public function phoneTo(required phonenumber){
 	if (isMobile()){
 		return "<a href='tel:#phonenumber#'>#phonenumber#</a>";
