@@ -5,11 +5,14 @@
 
 <cfoutput>
 
-	<cfif isdefined("params.status")>
-		#buttonTo(text="Show All", params="")#
-	<cfelse>
-		#buttonTo(text="Show temp only", params="status=temp")#
-	</cfif>
+	<p>
+	Filter by status:  
+		#linkto(text="Pending", controller="conference.registrations", action="index", params="status=pending")# | 
+		#linkto(text="Comp", controller="conference.registrations", action="index", params="status=comp")# | 
+		#linkto(text="Temp", controller="conference.registrations", action="index", params="status=temp")# | 
+		#linkto(text="TBD", controller="conference.registrations", action="index", params="status=tbd")# | 
+		#linkto(text="Paid", controller="conference.registrations", action="index", params="status=Paid")#
+	</p>	
 
 	<p>#addTag()#</p>
 

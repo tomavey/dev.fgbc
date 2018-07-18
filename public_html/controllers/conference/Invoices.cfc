@@ -22,6 +22,7 @@
 			<cfset whereString = whereString & " AND ccstatus='#params.status#'">
 		</cfif>	
 		<cfset invoices = model("Conferenceinvoice").findAll(include="registrations", where=whereString)>
+		<cfset renderPage(layout="/conference/adminlayout")>
 	</cffunction>
 
 	<cffunction name="showByEmail">
