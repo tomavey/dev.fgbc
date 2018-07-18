@@ -103,8 +103,8 @@ See only:
 						<td><cftry>
 							#linkto(text=roomnumber, controller="conference.locations", action="show", key=locationid)#<cfcatch>-</cfcatch></cftry>
 						</td>
-						<td>#timeformat(timebegin)#</td>
-						<td>#timeformat(timeend)#</td>
+						<td>#timeformat(starttime)#</td>
+						<td>#timeformat(endtime)#</td>
 						<td>#attending#</td>
 						<td>
 								#showTag()# &nbsp;
