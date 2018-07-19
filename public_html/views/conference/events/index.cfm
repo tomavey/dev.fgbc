@@ -97,7 +97,11 @@ See only:
 							<cfelse>
 								#left(defaultsetup,40)#*
 							</cfif>
+							<cfif len(equipment)>
 							  #left(equipment,40)#
+							<cfelse>
+							  #left(Conferencelocationequipment,40)#
+							</cfif>	
 							</td>
 						<td class="more">#dateformat(updatedAt)#</td>
 						<td><cftry>
