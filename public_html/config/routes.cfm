@@ -258,6 +258,7 @@
 			.controller("events")
 				.get(name="copyAllToCurrentEvent", pattern="CopyAllToCurrentEvent", action="CopyAllToCurrentEvent")
 				.get(name="copy", pattern="/copy/[key]", action="copy")
+				.get(name="download", pattern="/download/", controller="events", action="excel")
 			.end()	
 			.resources("events")
 
