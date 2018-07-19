@@ -53,6 +53,9 @@
       course = model("Conferencecourse").findByKey(key=Coursequestion.courseid);
     } else {
     }
+    if (isDefined('params.mobile')){
+      renderPage(layout="/conference/layout_mobile")
+    }
   }
   
   //Coursequestions/edit/key
