@@ -47,7 +47,7 @@
 						<li>#linkTo(text="People", action="index", controller="conference.people")#</li>
 						<li>#linkTo(text="Families", action="index", controller="conference.families")#</li>
 						<li>#linkTo(text="Invoices", action="index", controller="conference.invoices")#</li>
-						<li>#linkto(text="Envelope Info", action="envelopes", controller="conference.families")#</li>
+						<li>#linkto(text="Envelope Info", action="envelopes", controller="conference.families", params="alpha=a")#</li>
 						<li>#linkto(text="Badge Info", action="badges", controller="conference.families")#</li>
 					</ul>
 				</li>
