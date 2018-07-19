@@ -100,7 +100,7 @@ See only:
 							<cfif len(equipment)>
 							  #left(equipment,40)#
 							<cfelse>
-							  #left(Conferencelocationequipment,40)#
+							  #left(Conferencelocationequipment,40)#*
 							</cfif>	
 							</td>
 						<td class="more">#dateformat(updatedAt)#</td>
@@ -123,7 +123,7 @@ See only:
 			</cfoutput>
 		</tbody>
 	</table>
-	<p>* = using default setup for this room</p>
+	<p>* = using default setup or equipment for this room</p>
 
 	</div>
 	<cfoutput>
