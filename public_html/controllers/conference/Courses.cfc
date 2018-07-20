@@ -632,6 +632,10 @@
 			</cfif>
 		<cfcatch></cfcatch></cftry>
 
+		<cfif isMobile()>
+			<cfset renderPage(layout="/conference/layout_mobile")>
+		</cfif>
+
 		<cfset setreturn()>
 
 		<cfset headerSubTitle = "Selected Cohorts">
