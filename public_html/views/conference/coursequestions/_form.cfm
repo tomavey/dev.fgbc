@@ -10,7 +10,7 @@
         #hiddenField(objectName="Coursequestion", property="personid")#
         <h2>#person.fname# #person.family.lname#</h2>
     <cfelse>
-        <select name="Coursequestion.personid" class="selectname">
+        <select name="Coursequestion.personid" class="selectname input-large">
                 <option value="">---Select your name---</option>
                 <cfoutput query="registrations" group="fullNameLastFirstID">
                     <cfset thisperson = '#lname#, #fname#'>

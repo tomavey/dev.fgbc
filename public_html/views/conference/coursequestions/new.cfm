@@ -12,7 +12,7 @@
 		
 			#includePartial("form")#				
 
-			#submitTag()#
+			#submitTag(value="Post your question", class="btn btn-block btn-primary btn-large")#
 				
 			#endFormTag()#
 			
