@@ -5,6 +5,7 @@
 		usesLayout(template="/conference/layout2018", only="list,new,edit")
     filters(through="getCourses", include="new,edit");
     filters(through="getRegisteredPeople", include="new,edit");
+    filters(through="isAuthorized", only="index");
   }
 
   //Filters//
@@ -14,6 +15,10 @@
 
   function getRegisteredPeople(){
   		registrations = model("Conferenceperson").findAllPeopleRegistered();
+  }
+
+  function isAuthorized() {
+    if (!gotRights('office')) { renderText("Please close this browser window! Thanks so much")}
   }
 
 //---------------------------------------
