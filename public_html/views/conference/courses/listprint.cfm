@@ -32,7 +32,7 @@
     #linkto(text="Hide these choices", action="list", params="type=#params.type#&print&hideAddoptions&addquestions")#<br/>
     #linkto(text="Hide descriptions", action="list", params="type=#params.type#&print&hidedescription")#<br/>
     <cfif !isdefined("params.hidedescription")>
-    <hr/>
+        <hr/>
     </cfif>
 </p>
 </cfoutput>
@@ -42,7 +42,9 @@
 <cfoutput query="courses" group="date">
     <cfif workshopsEventsAreSet()>
         <h1>#dayOfWeekasString(dayOfWeek(date))# (#dateFormat(date,"mmmm/dd")#)</h2>
+    <cfif !isdefined("params.hidedescription")>
         <hr/>
+    </cfif>    
         <br/><br/>
     </cfif>
     <cfoutput group="title">
@@ -116,7 +118,9 @@
             </cfif>
             </div>
             </cfif>
+            <cfif !isDefined("params.hidedescription")>
             <hr/>
+            </cfif>
         </cfif>
     </cfoutput>
 </cfoutput>
