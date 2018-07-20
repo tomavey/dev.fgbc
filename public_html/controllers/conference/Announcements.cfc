@@ -27,6 +27,7 @@
         <cfelse>
             <cfset announcements = model("Conferenceannouncement").findAll(where="event = '#getevent()#'", order="postAt DESC, createdAt DESC")>
         </cfif>
+        <cfset setReturn()>
     </cffunction>
 
     <!--- announcments/show/key --->
