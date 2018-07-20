@@ -12,6 +12,8 @@
 
 <cfoutput>
 #styleSheetLinkTag(source="print", media="all")#
+<link rel="stylesheet" href="/stylesheets/conference/bootstrap.css" type="text/css">
+<link rel="stylesheet" href="/stylesheets/conference/mobile.css" type="text/css">
 <title>#pagetitle#</title>
 </head>
 <body>

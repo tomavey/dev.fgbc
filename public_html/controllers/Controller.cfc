@@ -494,7 +494,8 @@
 	</cffunction>
 
 	<cffunction name="isMobile">
-		<cfif isDefined("params.isMobile")>
+		<cfif isDefined("params.isMobile") || isDefined("session.isMobile")>
+			<cfset session.isMobile = true>
 			<cfreturn true>	
 		</cfif>
 		<cfreturn super.isMobile()>
