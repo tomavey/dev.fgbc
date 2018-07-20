@@ -31,7 +31,9 @@
     #linkto(text="Remove extra's", action="list", params="type=#params.type#&print")#<br/>
     #linkto(text="Hide these choices", action="list", params="type=#params.type#&print&hideAddoptions&addquestions")#<br/>
     #linkto(text="Hide descriptions", action="list", params="type=#params.type#&print&hidedescription")#<br/>
+    <cfif !isdefined("params.hidedescription")>
     <hr/>
+    </cfif>
 </p>
 </cfoutput>
 </cfif>
