@@ -2,7 +2,7 @@
   <cfoutput query="announcements">
     <div class="well">
       <p>#subject#</p>
-      <p>#dateTimeFormat(postAt)#</p>
+      <p>Will show on: #dateTimeFormat(postAt)#</p>
       <p>#content#</p>
       <cfif gotRights("office")>
         #editTag()#
