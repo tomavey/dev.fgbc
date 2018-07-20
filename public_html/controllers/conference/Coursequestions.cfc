@@ -53,7 +53,7 @@
       course = model("Conferencecourse").findByKey(key=Coursequestion.courseid);
     } else {
     }
-    if (isDefined('params.mobile')){
+    if (isMobile()){
       renderPage(layout="/conference/layout_mobile")
     }
   }
@@ -74,6 +74,7 @@
 		
 		if (Coursequestion.save()){
 			flashInsert(success="The Coursequestion was created successfully.");
+      if (isMobile()) { redirectTo(url="https://access2018.app/cohorts") };
       returnBack();
 		} else {
 		  flashInsert(error="There was an error creating the Coursequestion.");
