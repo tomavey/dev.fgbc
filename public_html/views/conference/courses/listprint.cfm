@@ -30,6 +30,7 @@
     #linkto(text="Add Questions", action="list", params="type=#params.type#&addquestions=true&print")#<br/>
     #linkto(text="Remove extra's", action="list", params="type=#params.type#&print")#<br/>
     #linkto(text="Hide these choices", action="list", params="type=#params.type#&print&hideAddoptions&addquestions")#<br/>
+    #linkto(text="Hide descriptions", action="list", params="type=#params.type#&print&hidedescription")#<br/>
     <hr/>
 </p>
 </cfoutput>
@@ -79,7 +80,10 @@
             <cfelse>
                 <cfset description = descriptionlong>
             </cfif>
-                    #description#<br/>
+
+            <cfif !isDefined("params.hidedescription")>
+                #description#<br/>
+            </cfif>        
 
             <cfif addComments>
             <br/>

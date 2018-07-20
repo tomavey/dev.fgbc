@@ -9,7 +9,6 @@
 </cfif>	
 
 <div id="courseslist" class="container">
-
 <div id="tabletabs">
 	<cfoutput>
 	<!---
@@ -44,7 +43,6 @@
 						<p class="subtype">#subtypes[subtype]#</p>
 						</cfif>
 					</cfif>
-					<cfif len(descriptionlong)>
 						<cfset description = descriptionlong>
 					<cfelse>
 						<cfset description = descriptionshort>
@@ -53,6 +51,7 @@
 				<p class="workshopdescription">
 					#description#
 				</p>
+			</cftry>	
 				<cftry>
 				<p class="subtypedesc alert">
 					#getSubtypeDesc(subtype)#
