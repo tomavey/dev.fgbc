@@ -74,7 +74,7 @@
 		
 		if (Coursequestion.save()){
 			flashInsert(success="The Coursequestion was created successfully.");
-      if (isMobile()) { redirectTo(url="https://access2018.app/cohorts") };
+      if (isMobile()) { renderText('Thank you for posting your cohort question.  Closed this browser window and return to access2018.app') };
       returnBack();
 		} else {
 		  flashInsert(error="There was an error creating the Coursequestion.");
