@@ -1,7 +1,9 @@
 <div data-role="content">
 <h1>Listing announcements</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial("showFlash")#
+#linkto(text="View", action="view")#
+</cfoutput>
 
 <cfoutput>
     <p>#linkTo(text="New equip_announcement", action="new")#</p>

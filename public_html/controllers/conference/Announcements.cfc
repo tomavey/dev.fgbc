@@ -2,7 +2,7 @@
 
     <cffunction name="init">
         <cfset usesLayout("/conference/adminlayout")>
-        <cfset filters(through="officeOnly", except="list,newest,announcementcount")>
+        <cfset filters(through="officeOnly", except="list,newest,announcementcount,view")>
     </cffunction>
 
 <!------------------------------------->
@@ -15,7 +15,17 @@
         <cfif isDefined("params.showNotApproved")>
             <cfset announcements = model("Conferenceannouncement").findAll(where="event = '#getevent()#' AND approved='no'", order="postAt DESC, createdAt DESC")>
         <cfelse>
-            <cfset announcements = model("Conferenceannouncement").findAll(where="event = '#getevent()#'", order="createdAt DESC")>
+            <cfset announcements = model("Conferenceannouncement").findAll(where="event = '#getevent()#'", order="postAt DESC, createdAt DESC")>
+        </cfif>
+    </cffunction>
+
+    <!--- announcements/list --->
+    <cffunction name="view">
+        <cfset setReturn()>
+        <cfif isDefined("params.showNotApproved")>
+            <cfset announcements = model("Conferenceannouncement").findAll(where="event = '#getevent()#' AND approved='no'", order="postAt DESC, createdAt DESC")>
+        <cfelse>
+            <cfset announcements = model("Conferenceannouncement").findAll(where="event = '#getevent()#'", order="postAt DESC, createdAt DESC")>
         </cfif>
     </cffunction>
 
