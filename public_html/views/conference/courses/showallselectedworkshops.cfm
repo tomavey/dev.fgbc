@@ -80,7 +80,7 @@
 		</cfif>
 		<cfcatch></cfcatch>
 		</cftry>
-		<p>These people also signed up for: #alsoSignedUpFor(equip_coursesid)#</p>
+<!--- 		<p>These people also signed up for: #alsoSignedUpFor(equip_coursesid)#</p> --->
 </div>
 
 <cfset totalAllQuantity = totalAllQuantity + totalThisQuantity>
