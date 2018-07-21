@@ -16,7 +16,7 @@
               <p class="g-color-white g-font-weight-700 g-font-size-20 text-right">Charis Fellowship churches train leaders who train leaders! The Charis Fellowship ministries listed below help Charis Fellowship churches train leaders...</p>
               <!-- Vimeo Example -->
               <div class="embed-responsive embed-responsive-16by9">
-                <iframe src="https://player.vimeo.com/video/281065980" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe><p><a href="https://vimeo.com/242130368">Keith Minier about Training Leaders</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>
+                <iframe src="https://player.vimeo.com/video/281065980" width="530" height="300" autoplay=1 frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe><p><a href="https://vimeo.com/242130368">Keith Minier about Training Leaders</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>
               </div>
               <!-- End Vimeo Example -->
             </div>
