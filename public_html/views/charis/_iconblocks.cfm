@@ -26,7 +26,7 @@ COMMITMENTS</h1>
           <div class="col-lg-6 g-brd-left--lg g-px-40 g-mb-50 g-mb-0--lg">
             <!-- Icon Blocks -->
             <div class="text-center">
-              <img class="u-image-icon-size-charis g-mb-25" src="assets/img/logo/PNGs/CHARIS-Relationship.png" alt="Relationship">
+              <a href="https://vimeo.com/281066333"><img class="u-image-icon-size-charis g-mb-25" src="assets/img/logo/PNGs/CHARIS-Relationship.png" alt="Relationship"></a>
             </div>
             <!-- End Icon Blocks -->
           </div>
@@ -34,7 +34,7 @@ COMMITMENTS</h1>
           <div class="col-lg-3 g-brd-left--lg g-px-40">
             <!-- Icon Blocks -->
             <div class="text-center">
-              <img class="u-image-icon-size-charis g-mb-25" src="assets/img/logo/PNGs/CHARIS-Mission.png" alt="Mission">
+              <a href="https://vimeo.com/281065658"><img class="u-image-icon-size-charis g-mb-25" src="assets/img/logo/PNGs/CHARIS-Mission.png" alt="Mission"></a>
             </div>
             <!-- End Icon Blocks -->
           </div>
