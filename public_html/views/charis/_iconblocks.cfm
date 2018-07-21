@@ -17,7 +17,7 @@ COMMITMENTS</h1>
             <!-- Icon Blocks -->
             <div class="text-center">
               <img class="u-image-icon-size-charis g-mb-25" src="assets/img/logo/PNGs/CHARIS-Truth.png" alt="Truth">
-              <iframe src="https://player.vimeo.com/video/281065422" width="300" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              <iframe src="https://player.vimeo.com/video/281065422" width="300" frameborder="0"></iframe>
               <a href="https://vimeo.com/281065422" style="text-align:center">Charis Fellowship: Biblical Truth</a>
             </div>
             <!-- End Icon Blocks -->
