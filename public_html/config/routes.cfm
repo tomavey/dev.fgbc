@@ -335,6 +335,7 @@
 			.resources("courses")
 
 			.get(name="listcoursequestions", pattern="/coursequestions/list/", controller="coursequestions", action="list")
+			.get(name="thankyou", pattern="/coursequestions/thankyou/", controller="coursequestions", action="thankyou")
 			.resources("coursequestions")
 
 			.get(name="sendEditEmail", pattern="/courseresources/sendEditEmail", controller="courseresources", action="sendEditEmail")
