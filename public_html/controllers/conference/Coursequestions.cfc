@@ -10,7 +10,7 @@
 
   //Filters//
   function getCourses(){
-      courses = model("Conferencecourse").findAll(where="event='#getEvent()#'");
+      courses = model("Conferencecourse").findAll(where="event='#getEvent()#'", order="title");
   }
 
   function getRegisteredPeople(){
@@ -79,12 +79,17 @@
 		
 		if (Coursequestion.save()){
 			flashInsert(success="The Coursequestion was created successfully.");
-      if (isMobile()) { renderText('Thank you for posting your cohort question.  Closed this browser window and return to access2018.app') };
+      if (isMobile()) { redirectTo(action="thankyou") };
       returnBack();
 		} else {
 		  flashInsert(error="There was an error creating the Coursequestion.");
 		  renderPage(action="new");
 		};
+  }
+
+  // mobile Thank you
+  function thankyou() {
+    renderPage(layout="/conference/layout_mobile")
   }
   
   // Coursequestions/update
