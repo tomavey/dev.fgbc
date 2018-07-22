@@ -71,6 +71,9 @@
 	    flashInsert(error="Coursequestion #params.key# was not found");
 			redirectTo(action="index");
 	  }
+    if (isMobile()){
+      renderPage(layout="/conference/layout_mobile")
+    }
   }
   
   // Coursequestions/create
