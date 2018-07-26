@@ -144,8 +144,9 @@
 	<!--- fgbcdelegates/new --->
 	<cffunction name="submit">
 
-		<cfif !isBefore('07-15-2018')>
-			<cfset renderText("The Deadline for submiting delegates was July 15")>
+		<cfif !isBefore('07-20-2018')>
+			<cfset renderText("The Deadline for submiting delegates has passed.")>
+			<cfabort>
 		</cfif>
 
 		<cfif isDefined("params.captcha") && params.captcha NEQ "5">
