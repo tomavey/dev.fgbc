@@ -141,6 +141,10 @@
 
 	</cffunction>
 
+	<cffunction name="closed">
+		<cfset renderPage(layout="closed")>
+	</cffunction>
+
 	<!--- fgbcdelegates/new --->
 	<cffunction name="submit">
 
