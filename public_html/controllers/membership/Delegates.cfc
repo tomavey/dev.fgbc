@@ -144,7 +144,7 @@
 	<!--- fgbcdelegates/new --->
 	<cffunction name="submit">
 
-		<cfif !isBefore('07-15-2017')>
+		<cfif !isBefore('07-15-2018')>
 			<cfset renderText("The Deadline for submiting delegates was July 15")>
 		</cfif>
 
