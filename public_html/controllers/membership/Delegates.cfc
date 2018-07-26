@@ -145,7 +145,7 @@
 	<cffunction name="submit">
 
 		<cfif !isBefore('07-20-2018')>
-			<cfset renderText("The Deadline for submiting delegates has passed.")>
+			<cfset redirectTo(action="closed")>
 			<cfabort>
 		</cfif>
 
