@@ -322,7 +322,7 @@
         cfhttp(url="http://fgbc:8080/index.cfm?controller=conference.announcements&action=httpTest", method="post", result="result") {
 
         }
-        writeOutput(result);
+        writeDump(result);
     abort;    
     }
 
