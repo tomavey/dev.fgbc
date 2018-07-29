@@ -283,6 +283,10 @@
 <!--- These methods are being used to test post from another site --->
 
     <cffunction name="httpHeaders">
+        <cfheader name="Access-Control-Allow-Origin" value="*" />
+        <cfheader name="Access-Control-Allow-Methods" value="GET,PUT,POST,DELETE" />
+        <cfheader name="Access-Control-Allow-Headers" value="Content-Type" />
+        <cfheader name="Access-Control-Allow-Credentials" value="true" />
         <cfset x = GetHttpRequestData()> 
         <cfoutput> 
         <table cellpadding = "2" cellspacing = "2"> 
@@ -318,7 +322,7 @@
         cfhttp(url="http://fgbc:8080/index.cfm?controller=conference.announcements&action=httpTest", method="post", result="result") {
 
         }
-        writeOutput(result.statuscode);
+        writeOutput(result);
     abort;    
     }
 
