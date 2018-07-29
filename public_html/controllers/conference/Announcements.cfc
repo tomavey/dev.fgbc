@@ -283,11 +283,11 @@
 <!--- These methods are being used to test post from another site --->
 
     <cffunction name="httpHeaders">
-<!---        <cfheader name="Access-Control-Allow-Origin" value="*" />
+        <cfheader name="Access-Control-Allow-Origin" value="*" />
         <cfheader name="Access-Control-Allow-Methods" value="GET,PUT,POST,DELETE" />
         <cfheader name="Access-Control-Allow-Headers" value="Content-Type" />
         <cfheader name="Access-Control-Allow-Credentials" value="true" />
---->
+
         <cfset x = GetHttpRequestData()> 
         <cfoutput> 
         <table cellpadding = "2" cellspacing = "2"> 
@@ -310,6 +310,19 @@
         </cfoutput><cfabort>
     </cffunction>
 
+    <cffunction name="postToJson">
+        <cfheader name="Access-Control-Allow-Origin" value="*" />
+        <cfheader name="Access-Control-Allow-Methods" value="GET,PUT,POST,DELETE" />
+        <cfheader name="Access-Control-Allow-Headers" value="Content-Type" />
+        <cfheader name="Access-Control-Allow-Credentials" value="true" />
+        <cfhttp 
+            url="https://charisfellowship.us/index.cfm?controller=conference.announcements&action=httpTest"
+            method="post"
+            result="result">
+        <cfoutput>#result.statuscode#</cfoutput>
+        <cfabort>
+    </cffunction>
+
 <cfscript>
 
     function postFromJson () {
@@ -319,7 +332,7 @@
         }
     }
 
-    function postToJson () {
+    function XpostToJson () {
         cfhttp(url="https://charisfellowship.us/index.cfm?controller=conference.announcements&action=httpTest", method="post", result="result") {
 
         }
