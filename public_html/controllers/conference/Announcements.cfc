@@ -319,7 +319,7 @@
     }
 
     function postToJson () {
-        cfhttp(url="http://fgbc:8080/index.cfm?controller=conference.announcements&action=httpTest", method="post", result="result") {
+        cfhttp(url="https://charisfellowship.us/index.cfm?controller=conference.announcements&action=httpTest", method="post", result="result") {
 
         }
         writeDump(result);
