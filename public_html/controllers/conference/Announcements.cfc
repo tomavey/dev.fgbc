@@ -323,7 +323,7 @@
         cfhttp(url="https://charisfellowship.us/index.cfm?controller=conference.announcements&action=httpTest", method="post", result="result") {
 
         }
-        writeDump(result);
+        writeOutput(result.statuscode);
     abort;    
     }
 
