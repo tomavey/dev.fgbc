@@ -2,7 +2,7 @@
 
     <cffunction name="init">
         <cfset usesLayout("/conference/adminlayout")>
-        <cfset filters(through="officeOnly", except="list,newest,announcementcount,view")>
+        <cfset filters(through="officeOnly", except="list,newest,announcementcount,view,posttojson,httpTest")>
     </cffunction>
 
 <!------------------------------------->
@@ -279,5 +279,51 @@
             <cfreturn false>
         </cfif>
     </cffunction>
+
+<!--- These methods are being used to test post from another site --->
+
+    <cffunction name="httpHeaders">
+        <cfset x = GetHttpRequestData()> 
+        <cfoutput> 
+        <table cellpadding = "2" cellspacing = "2"> 
+        <tr> 
+        <td><b>HTTP Request item</b></td> 
+        <td><b>Value</b></td> </tr> 
+        <cfloop collection = #x.headers# item = "http_item"> 
+        <tr> 
+        <td>#http_item#</td> 
+        <td>#StructFind(x.headers, http_item)#</td> </tr> 
+        </cfloop> 
+        <tr> 
+        <td>request_method</td> 
+        <td>#x.method#</td></tr> 
+        <tr> 
+        <td>server_protocol</td> 
+        <td>#x.protocol#</td></tr> 
+        </table> 
+        <b>http_content --- #x.content#</b> 
+        </cfoutput><cfabort>
+    </cffunction>
+
+<cfscript>
+
+    function postFromJson () {
+        requestBody = toString( getHTTPRequestData().copy() );
+        if (isJSON( requestBody )) {
+            writeDump(requestBody.statuscode)
+        }
+    }
+
+    function postToJson () {
+        cfhttp(url="http://fgbc:8080/index.cfm?controller=conference.announcements&action=httpTest", method="post", result="result") {
+
+        }
+        writeOutput(result.statuscode);
+    abort;    
+    }
+
+</cfscript>
+<!--- End of cross site testing methods--->
+
 
 </cfcomponent>
