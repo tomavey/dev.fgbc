@@ -2,7 +2,7 @@
 
     <cffunction name="init">
         <cfset usesLayout("/conference/adminlayout")>
-        <cfset filters(through="officeOnly", except="list,newest,announcementcount,view,posttojson,httpTest")>
+        <cfset filters(through="officeOnly", except="list,newest,announcementcount,view,posttojson,httpTest,httpHeaders")>
     </cffunction>
 
 <!------------------------------------->
@@ -311,16 +311,36 @@
     </cffunction>
 
     <cffunction name="postToJson">
-        <cfheader name="Access-Control-Allow-Origin" value="*" />
-        <cfheader name="Access-Control-Allow-Methods" value="GET,PUT,POST,DELETE" />
-        <cfheader name="Access-Control-Allow-Headers" value="Content-Type" />
-        <cfheader name="Access-Control-Allow-Credentials" value="true" />
-        <cfhttp 
-            url="https://charisfellowship.us/index.cfm?controller=conference.announcements&action=httpTest"
-            method="post"
-            result="result">
-        <cfoutput>#result.statuscode#</cfoutput>
-        <cfabort>
+        <cfscript>
+        if (isDefined('params.test')) {
+            requestBody = {
+                subject: 'test subject',
+                content: 'test content',
+                author: 'test author',
+                postAt: '2017-07-18 20:00',
+                approved: 'yes'
+            };
+        } else {
+            requestBody = toString(getHttpRequestData().content)
+        }
+        </cfscript>
+        <cfset announcement = model("Conferenceannouncement").new(requestBody)>
+        <cfset announcement.event = getEvent()>
+
+        <cfif announcement.author is "tomavey@fgbc.org">
+            <cfset announcement.approved = "yes">
+        </cfif>
+
+
+
+        <!--- Verify that the announcement creates successfully --->
+        <cfif announcement.save()>
+            <cfset data = model("Conferenceannouncement").findAll(where="id=#announcement.id#")>
+            <cfset data = queryToJson(data)>
+        <cfelse>
+            <cfset data = {'false'}> 
+        </cfif>
+        <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
     </cffunction>
 
 <cfscript>
