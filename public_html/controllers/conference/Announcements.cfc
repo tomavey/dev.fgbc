@@ -333,18 +333,14 @@
         <cfset announcement = model("Conferenceannouncement").new(requestBody)>
         <cfset announcement.event = getEvent()>
 
-        <cfif announcement.author is "tomavey@fgbc.org">
             <cfset announcement.approved = "yes">
-        </cfif>
-
-
 
         <!--- Verify that the announcement creates successfully --->
         <cfif announcement.save()>
             <cfset data = model("Conferenceannouncement").findAll(where="id=#announcement.id#")>
             <cfset data = queryToJson(data)>
         <cfelse>
-            <cfset data = {'false'}> 
+            <cfset data = 'false'> 
         </cfif>
         <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
     </cffunction>
