@@ -342,7 +342,7 @@
         <cfelse>
             <cfset data = 'false'> 
         </cfif>
-        <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+        <cfset renderPage(template="/json", layout="/layout_naked", hideDebugInformation=true)>
     </cffunction>
 
 <cfscript>
