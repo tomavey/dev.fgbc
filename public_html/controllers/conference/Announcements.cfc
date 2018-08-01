@@ -311,6 +311,11 @@
     </cffunction>
 
     <cffunction name="postToJson">
+        <cfheader name="Access-Control-Allow-Origin" value="*" />
+        <cfheader name="Access-Control-Allow-Methods" value="GET,PUT,POST,DELETE" />
+        <cfheader name="Access-Control-Allow-Headers" value="Content-Type" />
+        <cfheader name="Access-Control-Allow-Credentials" value="true" />
+
         <cfscript>
         if (isDefined('params.test')) {
             requestBody = {
