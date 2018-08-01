@@ -316,6 +316,7 @@
         <cfheader name="Access-Control-Allow-Headers" value="Content-Type" />
         <cfheader name="Access-Control-Allow-Credentials" value="true" />
 
+
         <cfscript>
         if (isDefined('params.test')) {
             requestBody = {
@@ -327,10 +328,10 @@
             };
         } else {
             requestBody = toString(getHttpRequestData().content)
-            requestBody = jsonToStruct(requestBody)
+            requestBody.status = "worked"
         }
         </cfscript>
-        <cfset announcement = model("Conferenceannouncement").new(requestBody)>
+<!---        <cfset announcement = model("Conferenceannouncement").new(requestBody)>
         <cfset announcement.event = getEvent()>
 
             <cfset announcement.approved = "yes">
@@ -342,6 +343,8 @@
         <cfelse>
             <cfset data = 'false'> 
         </cfif>
+--->
+        <cfset data = 'false'>        
         <cfset renderPage(template="/json", layout="/layout_naked", hideDebugInformation=true)>
     </cffunction>
 
