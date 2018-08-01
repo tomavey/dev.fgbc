@@ -327,6 +327,7 @@
             };
         } else {
             requestBody = toString(getHttpRequestData().content)
+            requestBody = jsonToStruct(requestBody)
         }
         </cfscript>
         <cfset announcement = model("Conferenceannouncement").new(requestBody)>
