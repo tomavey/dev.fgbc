@@ -2,7 +2,8 @@
 
     <cffunction name="init">
         <cfset usesLayout("/conference/adminlayout")>
-        <cfset filters(through="officeOnly", except="list,newest,announcementcount,view,postToJson,httpTest,httpHeaders")>
+        <cfset filters(through="officeOnly", except="list,newest,announcementcount,view,postFromJson,httpTest,httpHeaders")>
+        <cfset filters(through="setAccessControlHeaders", only="postFromJson")>
     </cffunction>
 
 <!------------------------------------->
@@ -307,75 +308,32 @@
     </cffunction>
 
 <cfscript>
-    function testJsonToStruct(){
-        var obj = '{
-           "fname": "Tom",
-           "lname": "Avey",
-           "email": "tomavey@fgbc.org",
-           "phone": "574-527-6061"    
-        }';
-        writeDump(jsonToStruct(obj));abort;
-    }
-</cfscript>
-
-    <cffunction name="postToJson">
-        <cfset setAccessControlHeaders()>
-        <cftry>
-        <cfscript>
-        if (isDefined('params.test')) {
-            requestBody = {
-                subject: 'test subject',
-                content: 'test content',
-                author: 'test author',
-                postAt: '2017-07-18 20:00',
-                approved: 'no'
-            };
-        } else {
-            fileOutput = getHttpHeaders();
-            try {
-                requestBody = getHttpRequestData().content;
-                requestBodyParams = deserializeJSON(requestBody);
-                requestBodyParamsString = toString(requestBodyParams);
-             } catch (any e) {}
-        }
-
-<!---         <cfset requestBodyNew = jsonToStruct(requestBody)> --->
-
-<!--- <cffile action="write" file="c:/Users/Tom Avey/Desktop/test.txt" output='#requestBodyParams.subject#'> --->
-
-        announcement = model("Conferenceannouncement").new();
-        announcement.subject = requestBodyParams.subject;
-        announcement.author = requestBodyParams.author;
-        announcement.content = requestBodyParams.content;
-        announcement.postAt = requestBodyParams.postAt;
-        announcement.save();
-        data = #announcement.id#;
-        renderPage(template="/json", layout="/layout_json_no_headers", hideDebugInformation=true);
-        </cfscript>
-        <cfcatch>
-        </cfcatch>
-            <cffile action="write" file="c:/Users/Tom Avey/Desktop/test.txt" output='#cfcatch.message#'>
-        </cftry>
-    </cffunction>
-
-<cfscript>
 
     function postFromJson () {
-        requestBody = toString( getHTTPRequestData().copy() );
-        if (isJSON( requestBody )) {
-            writeDump(requestBody.statuscode)
-        }
+        try {
+            if (isDefined('params.test')) {
+                requestBodyParams = {
+                    subject: 'test subject',
+                    content: 'test content',
+                    author: 'test author',
+                    postAt: '2017-07-18 20:00',
+                    approved: 'no'
+                };
+            } else {
+                requestBodyParams = deserializeJSON(getHttpRequestData().content);
+            };
+
+            announcement = model("Conferenceannouncement").new(requestBodyParams);
+            if (announcement.save()) {
+                data = serializeJson(announcement);
+            } else {
+                data = 0
+            }
+            renderPage(template="/json", layout="/layout_json_no_headers", hideDebugInformation=true);
+        } catch (any e) {}
     }
-
-    function XpostToJson () {
-        cfhttp(url="https://charisfellowship.us/index.cfm?controller=conference.announcements&action=httpTest", method="post", result="result") {
-
-        }
-        writeOutput(result.statuscode);
-    abort;    
-    }
-
 </cfscript>
+
 <!--- End of cross site testing methods--->
 
 
