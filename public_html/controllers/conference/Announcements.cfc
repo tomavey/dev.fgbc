@@ -3,7 +3,7 @@
     <cffunction name="init">
         <cfset usesLayout("/conference/adminlayout")>
         <cfset filters(through="officeOnly", except="list,newest,announcementcount,view,postFromJson,httpTest,httpHeaders")>
-        <cfset filters(through="setAccessControlHeaders", only="postFromJson")>
+        <cfset filters(through="setAccessControlHeaders", only="postFromJsonX")>
     </cffunction>
 
 <!------------------------------------->
@@ -311,6 +311,7 @@
 
     function postFromJson () {
         try {
+            setAccessControlHeaders();
             if (isDefined('params.test')) {
                 requestBodyParams = {
                     subject: 'test subject',
