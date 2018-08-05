@@ -120,8 +120,7 @@
     <cfargument name="jsonString" required="true">
     <cfset var loc=structNew()>
     <cfset loc = arguments>
-    <cfset loc.return = structNew()>
-<!---<cfdump var="#loc.jsonString#">--->
+<!---     <cfset loc.return = structNew()> --->
         <cfset loc.return2 = DeserializeJSON(loc.jsonString)>
         <cfset loc.jsonString = replace(jsonString,'", "','"%%"','all')>
         <cfset loc.jsonString = replace(jsonString,'","','"%%"','all')>
@@ -148,7 +147,7 @@
                 <cfset loc.return[loc.keyy] = loc.value>
        </cfloop>
 <!---<cfdump var="#loc.return#"><cfabort>--->
-       <cfreturn loc.return>
+       <cfreturn loc.return2>
     </cffunction>
 
     <cffunction name="listToQuery">

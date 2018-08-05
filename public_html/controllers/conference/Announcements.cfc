@@ -282,41 +282,45 @@
 
 <!--- These methods are being used to test post from another site --->
 
-    <cffunction name="httpHeaders">
-        <cfheader name="Access-Control-Allow-Origin" value="*" />
-        <cfheader name="Access-Control-Allow-Methods" value="GET,PUT,POST,DELETE" />
-        <cfheader name="Access-Control-Allow-Headers" value="Content-Type" />
-        <cfheader name="Access-Control-Allow-Credentials" value="true" />
-
+    <cffunction name="getHttpHeaders">
+        <cfsavecontent  variable="results">
         <cfset x = GetHttpRequestData()> 
         <cfoutput> 
-        <table cellpadding = "2" cellspacing = "2"> 
-        <tr> 
-        <td><b>HTTP Request item</b></td> 
-        <td><b>Value</b></td> </tr> 
         <cfloop collection = #x.headers# item = "http_item"> 
-        <tr> 
-        <td>#http_item#</td> 
-        <td>#StructFind(x.headers, http_item)#</td> </tr> 
+        #http_item#: #StructFind(x.headers, http_item)# <br/> 
         </cfloop> 
-        <tr> 
-        <td>request_method</td> 
-        <td>#x.method#</td></tr> 
-        <tr> 
-        <td>server_protocol</td> 
-        <td>#x.protocol#</td></tr> 
-        </table> 
-        <b>http_content --- #x.content#</b> 
-        </cfoutput><cfabort>
+        request_method: #x.method#<br/> 
+        server_protocol: #x.protocol#<br/> 
+        http_content --- #x.content#<br/>
+        #isStruct(x.content)#<br/>
+        <cfset testJson = '{"subject":"Foundeo","name":"Pete Freitag"}'>
+        #testJson#
+        #deserializeJSON( testJson ).subject#<br/>
+        </cfoutput>
+        </cfsavecontent>
+        <cfreturn results>
     </cffunction>
 
+    <cffunction name="httpHeaders">
+        <cfoutput>#getHttpHeaders()#</cfoutput>
+        <cfabort>
+    </cffunction>
+
+<cfscript>
+    function testJsonToStruct(){
+        var obj = '{
+           "fname": "Tom",
+           "lname": "Avey",
+           "email": "tomavey@fgbc.org",
+           "phone": "574-527-6061"    
+        }';
+        writeDump(jsonToStruct(obj));abort;
+    }
+</cfscript>
+
     <cffunction name="postToJson">
-        <cfheader name="Access-Control-Allow-Origin" value="*" />
-        <cfheader name="Access-Control-Allow-Methods" value="GET,PUT,POST,DELETE" />
-        <cfheader name="Access-Control-Allow-Headers" value="Content-Type" />
-        <cfheader name="Access-Control-Allow-Credentials" value="true" />
-
-
+        <cfset setAccessControlHeaders()>
+        <cftry>
         <cfscript>
         if (isDefined('params.test')) {
             requestBody = {
@@ -324,28 +328,34 @@
                 content: 'test content',
                 author: 'test author',
                 postAt: '2017-07-18 20:00',
-                approved: 'yes'
+                approved: 'no'
             };
         } else {
-            requestBody = toString(getHttpRequestData().content)
-            requestBody.status = "worked"
+            fileOutput = getHttpHeaders();
+            try {
+                requestBody = getHttpRequestData().content;
+                requestBodyParams = deserializeJSON(requestBody);
+                requestBodyParamsString = toString(requestBodyParams);
+             } catch (any e) {}
         }
+
+<!---         <cfset requestBodyNew = jsonToStruct(requestBody)> --->
+
+<!--- <cffile action="write" file="c:/Users/Tom Avey/Desktop/test.txt" output='#requestBodyParams.subject#'> --->
+
+        announcement = model("Conferenceannouncement").new();
+        announcement.subject = requestBodyParams.subject;
+        announcement.author = requestBodyParams.author;
+        announcement.content = requestBodyParams.content;
+        announcement.postAt = requestBodyParams.postAt;
+        announcement.save();
+        data = #announcement.id#;
+        renderPage(template="/json", layout="/layout_json_no_headers", hideDebugInformation=true);
         </cfscript>
-<!---        <cfset announcement = model("Conferenceannouncement").new(requestBody)>
-        <cfset announcement.event = getEvent()>
-
-            <cfset announcement.approved = "yes">
-
-        <!--- Verify that the announcement creates successfully --->
-        <cfif announcement.save()>
-            <cfset data = model("Conferenceannouncement").findAll(where="id=#announcement.id#")>
-            <cfset data = queryToJson(data)>
-        <cfelse>
-            <cfset data = 'false'> 
-        </cfif>
---->
-        <cfset data = 'false'>        
-        <cfset renderPage(template="/json", layout="/layout_naked", hideDebugInformation=true)>
+        <cfcatch>
+        </cfcatch>
+            <cffile action="write" file="c:/Users/Tom Avey/Desktop/test.txt" output='#cfcatch.message#'>
+        </cftry>
     </cffunction>
 
 <cfscript>
