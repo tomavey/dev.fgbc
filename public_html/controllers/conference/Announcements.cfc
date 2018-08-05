@@ -310,8 +310,8 @@
 <cfscript>
 
     function postFromJson () {
+        setAccessControlHeaders();
         try {
-            setAccessControlHeaders();
             if (isDefined('params.test')) {
                 requestBodyParams = {
                     subject: 'test subject',
