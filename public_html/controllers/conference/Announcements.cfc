@@ -332,6 +332,7 @@
             }
             renderPage(template="/json", layout="/layout_json_no_headers", hideDebugInformation=true);
         } catch (any e) {}
+        message = "Wrong";
     }
 
 </cfscript>
