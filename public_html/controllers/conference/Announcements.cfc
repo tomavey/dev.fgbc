@@ -332,7 +332,6 @@
             }
             renderPage(template="/json", layout="/layout_json_no_headers", hideDebugInformation=true);
         } catch (any e) {}
-            renderPage(template="/json", layout="/layout_json_no_headers", hideDebugInformation=true);
     }
 
 </cfscript>
