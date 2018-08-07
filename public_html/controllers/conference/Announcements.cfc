@@ -310,7 +310,7 @@
 <cfscript>
 
     function postFromJson () {
-        // setAccessControlHeaders();
+        setAccessControlHeaders();
         try {
             if (isDefined('params.test')) {
                 requestBodyParams = {
@@ -331,7 +331,7 @@
                 data = 'false'
             }
         } catch (any e) { data = cfcatch.message }
-            renderPage(template="/json", layout="/layout_json", hideDebugInformation=true);
+            renderPage(template="/json", layout="/layout_json_no_headers", hideDebugInformation=true);
     }
 
 </cfscript>

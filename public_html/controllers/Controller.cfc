@@ -673,7 +673,7 @@
 </cffunction>
 
 <cffunction name="setAccessControlHeaders">
-	<cfheader name="Access-Control-Allow-Origin" value="*" />
+	<cfheader name="Access-Control-Allow-Origin" value="https://access2018.app" />
 	<cfheader name="Access-Control-Allow-Methods" value="GET,PUT,POST,DELETE" />
 	<cfheader name="Access-Control-Allow-Headers" value="Content-Type" />
 	<cfheader name="Access-Control-Allow-Credentials" value="true" />
