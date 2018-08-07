@@ -331,7 +331,8 @@
                 data = 0
             }
             renderPage(template="/json", layout="/layout_json_no_headers", hideDebugInformation=true);
-        } catch (any e) {}
+        } catch (any e) { writeDump(cfcatch) }
+        abort;
         message = "Wrong";
     }
 
