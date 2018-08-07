@@ -328,12 +328,10 @@
             if (announcement.save()) {
                 data = serializeJson(announcement);
             } else {
-                data = 0
+                data = 'false'
             }
+        } catch (any e) { data = cfcatch.message }
             renderPage(template="/json", layout="/layout_json_no_headers", hideDebugInformation=true);
-        } catch (any e) { writeDump(cfcatch) }
-        abort;
-        message = "Wrong";
     }
 
 </cfscript>
