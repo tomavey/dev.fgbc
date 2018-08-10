@@ -315,6 +315,7 @@
         response.setHeader("Access-Control-Allow-Origin","*");
         response.setHeader("Access-Control-Allow-Headers","Content-Type");
         response.setHeader("Content-Type","application/json");
+
         try {
             if (isDefined('params.test')) {
                 requestBodyParams = {
