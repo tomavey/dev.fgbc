@@ -2,7 +2,7 @@
 <div class="row">
 
 <div class="span4 well">
-#imageTag("/focus/apprentice2017b.jpg")#
+#imageTag("/focus/forward.jpg")#
 </div>
 <div class="span7 well">
 		<h1 id="logoheader">#getFocusContent("MainTitle")#</h1>
