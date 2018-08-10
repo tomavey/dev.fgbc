@@ -226,6 +226,7 @@
 			
 			.get(name="showRetreat", pattern="/retreat/[key]", controller="main", action="retreat")
 			.get(name="deleteretreat", pattern="/retreat/[key]/delete/", controller="retreats", action="delete")
+			.get(name="copy", pattern="/retreat/[key]/copy/", controller="retreats", action="copy")
 			.resources("retreats")
 			
 			.get(name="shoppingcartagent", pattern="/shoppingcarts/agent/[key]", controller="shoppingcarts", action="agent")
