@@ -54,7 +54,7 @@
 	<cfset set(nominateYear = "2018")>
 	<cfset set(nominateTerm = "2018-2023")>
 	<cfset set(sortorderoptions = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,18,20,100,900,995,999")>
-	<cfset set(registrarEmail="tomavey@charisfellowship.us,sandy@charisfellowship.us")>
+	<cfset set(registrarEmail="tomavey@charisfellowship.us,sharmion@charisfellowship.us")>
     <cfset set(ministryStaffAdmin="'tomavey','hirwin','skoontz'")>
 	<cfset set(agbmDeadlineDate = "07-1-#year(now())#")>
 	<cfset set(nonStaffSortOrder = 500)>
@@ -79,9 +79,9 @@
 	<cfset set(SendImmediatePersonUpdates = false)>
 
 <!---Used by Focus MVC--->
-	<cfset set(registrant = "tomavey@charisfellowship.us,sandy@charisfellowship.us")>
-	<cfset set(testAgents = "tomavey@charisfellowship.us,sandy@charisfellowship.us")>
-	<cfset set(mainregistrar = "sandy@charisfellowship.us")>
+	<cfset set(registrant = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")>
+	<cfset set(testAgents = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")>
+	<cfset set(mainregistrar = "sharmion@charisfellowship.us")>
 	<cfset set(optionTypes = "Public,Discount,Office")>
 	<cfset set(focusIsOpen = true)>
     <cfset set(focusMinistryAreas = "Lead Pastor, Executive Pastor, Worship Arts, Youth, Family, Children, Discipleship, Elder, Small Groups, Pastoral Care, Administration, Associate Pastor, Other")>
@@ -119,12 +119,12 @@
 	<cfset set(ministryCategories=listSort("Church Planting Ministries, Communication, Districts, Doing Good, Leadership Training Ministries, none","text"))>
 
 <!---email addresses used--->
-	<cfset set(registrarEmail="sandy@charisfellowship.us")>
+	<cfset set(registrarEmail="sharmion@charisfellowship.us")>
 	<cfset set(registrarEmailBackup="tomavey@charisfellowship.us")>
-	<cfset set(requestInvoiceReceiptFrom = "sandy@charisfellowship.us")>
-	<cfset set(registrarBackupEmail="sandy@charisfellowship.us")>
-	<cfset set(housingCoordinatorEmail = "sandy@charisfellowship.us")>
-	<cfset set(childcarenotifications = "tomavey@charisfellowship.us,sandy@charisfellowship.us")>
+	<cfset set(requestInvoiceReceiptFrom = "sharmion@charisfellowship.us")>
+	<cfset set(registrarBackupEmail="sharmion@charisfellowship.us")>
+	<cfset set(housingCoordinatorEmail = "sharmion@charisfellowship.us")>
+	<cfset set(childcarenotifications = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")>
 	<cfset set(workshopnotifications = "tomavey@charisfellowship.us")>
 
 <!---What is open and what is not--->
@@ -163,7 +163,7 @@
 <!---For Vision Conference Announcements--->
 
 	<cfset set(useTestEmailList = false)>
-	<cfset set(testEmailList = "tomavey@charisfellowship.us,tomavey9173@gmail.com,tomavey@comcast.net,sandy@charisfellowship.us")>
+	<cfset set(testEmailList = "tomavey@charisfellowship.us,tomavey9173@gmail.com,tomavey@comcast.net,sharmion@charisfellowship.us")>
 	<cfset set(emailNotList = "tomavey@test.net,caesar.die2self@gmail.com,graham.cochrane@td.com")>
 
 

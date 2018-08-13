@@ -6,7 +6,7 @@
 		<p>Your church has not yet turned in it's statistical report for #year(now())-1# and fellowship fee for #year(now())#.  Please use this link to complete this step and then you can submit delegates.#church.wereStatSubmitted#
 		</p>
 	<cfelse>
-		<p>Your church has turned in it's statistical report for #year(now())-1# and fellowship fee for #year(now())#.  However, delegates are based on your churches membership and the membership is set to zero of empty. Please email #mailto(emailAddress = "sandy@fgbc.org")# for assistance.
+		<p>Your church has turned in it's statistical report for #year(now())-1# and fellowship fee for #year(now())#.  However, delegates are based on your churches membership and the membership is set to zero of empty. Please email #mailto(emailAddress = "sharmion@charisfellowship.us")# for assistance.
 		</p>
 	</cfif>
 	<cfoutput>#linkTo(text="Go to Stat Form", route="sendstats", key=params.key, class="btn btn-primary")#</cfoutput>

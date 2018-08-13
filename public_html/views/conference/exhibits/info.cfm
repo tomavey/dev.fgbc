@@ -23,7 +23,7 @@
     <p>As a courtesy to our conference planners, all exhibitors must leave their exhibit and join the main celebrations before each celebration's scheduled time.</p>
     <p>Electric Hook-up: <cfif natmin>$25 <cfelse>$50 </cfif> per exhibitor if requested prior to conference.</p>
     <p>Shipping information will be sent about June 1st to each exhibitor upon receipt of an official request with payment. Please send your request on the form below as soon as possible.</p>
-    <p>Please address questions to Sandy Barrett at: <a href="mailto:sandy@charisfellowship.us">sandy@charisfellowship.us</a> or (574) 269-1269</p>
+    <p>Please address questions to Sharmion Bowell at: <a href="mailto:sharmion@charisfellowship.us">sharmion@charisfellowship.us</a> or (574) 269-1269</p>
     <p>Your fee for exhibit space and or tables does not include registration for your staff.  Each staff member should register for the conference.</p>
     <p>Use the following form to submit your request for exhibit space. <cfif natmin>You <cfelse>If approved, you </cfif>will be given instructions for how to pay for your exhibit space by email. Exhibit space must be paid for in advance of July 1, 2016.</p>
     <p class="well">#linkTo(controller="conference/exhibits", action="new", text="Go to the Exhibitors Request Form", class="btn btn-block btn-primary btn-lg")#</p>
