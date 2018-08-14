@@ -26,6 +26,10 @@
 		</cfif>
 
    		<cfset content = model("Maincontent").findOne(where=whereString)>
+
+		<cfif findNoCase('http', content.reDirectTo)>
+			<cflocation  url="#content.reDirectTo#">
+		</cfif>		 
 		
 
     	<!--- Check if the record exists --->

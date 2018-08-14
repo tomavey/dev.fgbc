@@ -11,6 +11,8 @@
 
 						#textField(objectName='content', property='author', label='Author: ')#
 
+						#textField(objectName='content', property='redirectTo', label='Redirect to this url: ')#
+
 						#select(objectName='content', property='rightsRequired', label='Rights Required (if you want to restrict access: ', options=rights, valueField="name", includeBlank="----Select if needed----")#
 
 						#textArea(objectName='content', property='comment', label='Comment: ')#

@@ -7,6 +7,8 @@
 					
 						#textField(objectName='content', property='author', label='Author: ')#
 					
+						#textField(objectName='content', property='redirectTo', label='Redirect to this url: ')#
+
 						#textField(objectName='content', property='shortlink', label='Short Link: ')#
 
 						#textArea(objectName='content', property='comment', label='Comment: ')#
