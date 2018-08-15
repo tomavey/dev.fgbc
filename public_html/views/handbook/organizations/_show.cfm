@@ -21,7 +21,7 @@
 		#phoneTo(handbookorganization.phone)#<br/>
 		<cfif gotRights("office")>
 			#telCoQueryLink(handbookorganization.phone)#
-			#linkto(text="?", href="http://charisfellowship.us/admin/settings/17", target="_new")#<br/>
+			#linkto(text="?", href="https://charisfellowship.us/admin/settings/17", target="_new")#<br/>
 		</cfif>
 		#mailto(handbookorganization.email)#<br/>
 		<cfif gotrights("office") and len(handbookorganization.email2)>

@@ -218,7 +218,7 @@
 		var list = queryNew("id, emails, link, name, city");
 		queryAddRow(list,1);
 		querySetCell(list,"emails", "tomavey@fgbc.org");
-		querySetCell(list,"link", "http://charisfellowship.us/sendstats");
+		querySetCell(list,"link", "https://charisfellowship.us/sendstats");
 		querySetCell(list,"name", "Tom Avey Test");
 		querySetCell(list,"id", 1);
 		querySetCell(list,"city", "anytown");

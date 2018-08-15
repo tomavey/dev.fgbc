@@ -153,9 +153,9 @@
 <cfsavecontent variable="createEmailLink">
 <cfoutput>
             <cfif isBefore(changeMessageDate)>
-                 <cfset message = URLEncodedFormat("#name# - We are starting production of the the #year(now())+1# FGBC handbook.  Can you review this for me?  By September 15?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much http://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
+                 <cfset message = URLEncodedFormat("#name# - We are starting production of the the #year(now())+1# FGBC handbook.  Can you review this for me?  By September 15?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
             <cfelse>
-                 <cfset message = URLEncodedFormat("#name# - I'm finishing up the #year(now())+1# FGBC handbook.  Can you review this for me?  Today?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much http://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
+                 <cfset message = URLEncodedFormat("#name# - I'm finishing up the #year(now())+1# FGBC handbook.  Can you review this for me?  Today?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
             </cfif>     
 
 			  #mailTo(name='<i class="icon-envelope"></i>', emailaddress="#email#?subject=#subject#&body=#message#")#

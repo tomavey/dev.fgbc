@@ -54,7 +54,7 @@
 			<cfif isDownload>
 				<td>#zip#</td>
 				<td>#email#</td>
-				<td>http://charisfellowship.us/sendstats/#id#</td>
+				<td>https://charisfellowship.us/sendstats/#id#</td>
 			</cfif>
 
 			<cfif not isDownload>
@@ -74,9 +74,9 @@
 					</cfif>
 
 					<cfif isOnDate(getSetting('memFeeDeadline'))>
-						<cfset body = "Just a friendly reminder! %0D%0A%0D%0AToday is the deadline for submitting the annual stat report and fellowship fee.%0D%0A%0D%0AYou can submit stats for #getThisStatYear()# and pay the fellowship fee for #getThisMemYear()# at http://charisfellowship.us/sendstats/#id#%0D%0A%0D%0AIf you need help, you can call 574-269-1269">
+						<cfset body = "Just a friendly reminder! %0D%0A%0D%0AToday is the deadline for submitting the annual stat report and fellowship fee.%0D%0A%0D%0AYou can submit stats for #getThisStatYear()# and pay the fellowship fee for #getThisMemYear()# at https://charisfellowship.us/sendstats/#id#%0D%0A%0D%0AIf you need help, you can call 574-269-1269">
 					<cfelse>	
-						<cfset body = "Reminder! %0D%0A%0D%0AThe deadline for submitting the annual stat report and fellowship fee is May 15.%0D%0A%0D%0AYou can download the form at http://charisfellowship.us/files/FGBCStatCard2017-18.pdf if needed.%0D%0A%0D%0AOr you can submit stats for #getThisStatYear()# and pay the fellowship fee for #getThisMemYear()# at http://charisfellowship.us/sendstats/#id#">
+						<cfset body = "Reminder! %0D%0A%0D%0AThe deadline for submitting the annual stat report and fellowship fee is May 15.%0D%0A%0D%0AYou can download the form at https://charisfellowship.us/files/FGBCStatCard2017-18.pdf if needed.%0D%0A%0D%0AOr you can submit stats for #getThisStatYear()# and pay the fellowship fee for #getThisMemYear()# at https://charisfellowship.us/sendstats/#id#">
 					</cfif>
 					<td>
 						<cfif NOT val(thisMemFee)>
@@ -86,10 +86,10 @@
 						</cfif>
 					</td>
 					<cfif isBefore("August 1, #year(now())#") && isAfter("February 1, #year(now())#")>
-						<cfset body = "Greetings!%0D%0A%0D%0AI am working on the membership and stat report for the Charis Fellowship annual conference and would like it as complete as possible.%0D%0A%0D%0AWould it be possible for you to use this link to submit that information this week? http://charisfellowship.us/sendstats/#id#.%0D%0A%0D%0A If you believe this has already been cared for, let me know and I will check it out!%0D%0A%0D%0ATom Avey%0D%0A574-527-6061">
+						<cfset body = "Greetings!%0D%0A%0D%0AI am working on the membership and stat report for the Charis Fellowship annual conference and would like it as complete as possible.%0D%0A%0D%0AWould it be possible for you to use this link to submit that information this week? https://charisfellowship.us/sendstats/#id#.%0D%0A%0D%0A If you believe this has already been cared for, let me know and I will check it out!%0D%0A%0D%0ATom Avey%0D%0A574-527-6061">
 					<cfelse>
 						
-						<cfset body = "Greetings! %0D%0A%0D%0AI am working on the Charis Fellowship membership report for the upcoming Fellowship Council meeting. According to our records, it appears that your church has not sent in stats for #getThisStatYear()# nor fellowship fees for #getThisMemYear()#. %0D%0A%0D%0APlease use this link to complete the brief statistical report for #getThisStatYear()# and pay your church's fellowship fee for #getThisMemYear()#: http://charisfellowship.us/sendstats/#id#?year=#getThisStatYear()# .%0D%0A%0D%0A If you believe this has already been cared for, have questions, or circumstances make this difficult let me know by email or phone.%0D%0A%0D%0ATom Avey%0D%0A574-527-6061">
+						<cfset body = "Greetings! %0D%0A%0D%0AI am working on the Charis Fellowship membership report for the upcoming Fellowship Council meeting. According to our records, it appears that your church has not sent in stats for #getThisStatYear()# nor fellowship fees for #getThisMemYear()#. %0D%0A%0D%0APlease use this link to complete the brief statistical report for #getThisStatYear()# and pay your church's fellowship fee for #getThisMemYear()#: https://charisfellowship.us/sendstats/#id#?year=#getThisStatYear()# .%0D%0A%0D%0A If you believe this has already been cared for, have questions, or circumstances make this difficult let me know by email or phone.%0D%0A%0D%0ATom Avey%0D%0A574-527-6061">
 					</cfif>
 					<td>
 						<cfif NOT val(thisMemFee)>

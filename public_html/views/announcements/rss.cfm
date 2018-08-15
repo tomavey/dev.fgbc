@@ -5,14 +5,14 @@
 <cfparam name="link" default="http://www.charisfellowship.us">
 <cfparam name="date" default="#dateformat(now())#">
 <cfparam name="showIfZero" default="included">
-<cfparam name="imageUrl" default="http://charisfellowship.us/assets/img/logo/charis-logo-main.png">
+<cfparam name="imageUrl" default="https://charisfellowship.us/assets/img/logo/charis-logo-main.png">
 <cfparam name="imageLink" default="http://www.charisfellowship.us">
 <cfparam name="imageTitle" default="Charis Fellowship">
 
 <cfxml variable="rssFeed">
   <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
      <channel>
-	 <atom:link href="http://charisfellowship.us/announcements/rss" rel="self" type="application/rss+xml" />
+	 <atom:link href="https://charisfellowship.us/announcements/rss" rel="self" type="application/rss+xml" />
 		<cfoutput>
         	<title>#title#</title>
         	<link>#link#</link>
@@ -30,7 +30,7 @@
 			  			<![CDATA[#title#]]>
 						</title>
 						<link>
-			  			http://charisfellowship.us/announcements/show/#id#
+			  			https://charisfellowship.us/announcements/show/#id#
 						</link>
       			<description>
 			  			<![CDATA[#content#]]>
@@ -39,7 +39,7 @@
 			  				#GetHttpTimeString(startAt)#
 						</pubDate>
             <guid>
-			  			http://charisfellowship.us/announcements/show/#id#
+			  			https://charisfellowship.us/announcements/show/#id#
 						</guid>
           </item>
         </cfoutput>

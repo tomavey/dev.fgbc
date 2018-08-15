@@ -11,7 +11,7 @@
                           <ul class="list-unstyled g-mt-minus-10 mb-0">
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/files/Charis_Fellowship_Press_Release.docx">Press Release</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/files/Charis_Fellowship_Press_Release.docx">Press Release</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
@@ -23,61 +23,61 @@
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/cci">Our Common Identity</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/cci">Our Common Identity</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/page/ccm-en">Our Common Mission</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/ccm-en">Our Common Mission</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/page/resolutions2018">Resolutions 2018</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/resolutions2018">Resolutions 2018</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/page/charisgraphics">Graphical Resources</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/charisgraphics">Graphical Resources</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/resources">Other Resources</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/resources">Other Resources</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/page/fellowshipcouncil">the Fellowship Council</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/fellowshipcouncil">the Fellowship Council</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/handbook">Online Handbook</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/handbook">Online Handbook</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/page/constitution">Constitution</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/constitution">Constitution</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/page/manualofprocedure">Manual of Procedure</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/manualofprocedure">Manual of Procedure</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
                             <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/messages/new/">Contact Us</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/messages/new/">Contact Us</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
@@ -154,7 +154,7 @@
                             </li>
 							  <li class="g-pos-rel g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://charisfellowship.us/page/equippingnetwork" target="_new">the Equipping Church Nework</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/equippingnetwork" target="_new">the Equipping Church Nework</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>

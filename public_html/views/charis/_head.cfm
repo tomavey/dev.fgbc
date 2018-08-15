@@ -18,8 +18,8 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta property="fb:app_id" content="1771808052863201"/>
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="http://charisfellowship.us/assets/img/logo/PNGs/facebookog.png" />
-  <meta property="og:url" content="http://charisfellowship.us" />
+  <meta property="og:image" content="https://charisfellowship.us/assets/img/logo/PNGs/facebookog.png" />
+  <meta property="og:url" content="https://charisfellowship.us" />
   <meta property="og:title" content="Charis Fellowship | Planting Churches - Training Leaders - Doing Good" />
   <meta property="og:description" content="Churches who value Truth, Relationship and Mission... Churches who start more churches, train leaders, and do good in their communities." />
   

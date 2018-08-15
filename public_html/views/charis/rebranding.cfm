@@ -5,15 +5,15 @@
         <p class="g-mb-20 text-center" style="font-size:1.4em;font-weight:bold;text-align:center">The Fellowship of Grace Brethren Churches is now doing business as Charis Fellowship!</p>
         <cfoutput>
         <div class="card text-center" style="font-size:1.2em">
-          Our web site is now at <a href="http://charisfellowship.us/">charisfellowship.us</a>
+          Our web site is now at <a href="https://charisfellowship.us/">charisfellowship.us</a>
         </div>
         <div class="card text-center" style="font-size:1.2em">
-            <a href="http://charisfellowship.us/files/Charis_Fellowship_Press_Release.docx">Press Release</a>
+            <a href="https://charisfellowship.us/files/Charis_Fellowship_Press_Release.docx">Press Release</a>
         </div>
         <div class="card card-charis card-charis-square">
           <h4 class="text-center">Where can I download graphics for my web site?</h4>
           <h2 class="text-center">
-              <a href="http://charisfellowship.us/page/charisgraphics">charisfellowship.us/page/charisgraphics</a>            
+              <a href="https://charisfellowship.us/page/charisgraphics">charisfellowship.us/page/charisgraphics</a>            
           </h2>
         </div> 
         <div class="card text-center">
@@ -30,7 +30,7 @@
         </div>
         <div class="card card-charis card-charis-square">
           <h4 class="text-center">What went into the rebranding process?</h4>
-          <p>in 2013, our Executive Director Bartley Sawatsky recommended we begin a process to rebrand our movement. A rebranding team was formed by the Fellowship Council and they began a long, prayerful process. Hundreds of leaders from our church shared ideas and perspectives during Focus Retreats in 2016. And the team was able to seek the advice of some young professional marketers who also happen to love our fellowship. This past summer (2017), the Fellowship Council approved the name "Charis Fellowship". For more information go <a href="http://charisfellowship.us/page/charisfellowship">here</a>.</p> 
+          <p>in 2013, our Executive Director Bartley Sawatsky recommended we begin a process to rebrand our movement. A rebranding team was formed by the Fellowship Council and they began a long, prayerful process. Hundreds of leaders from our church shared ideas and perspectives during Focus Retreats in 2016. And the team was able to seek the advice of some young professional marketers who also happen to love our fellowship. This past summer (2017), the Fellowship Council approved the name "Charis Fellowship". For more information go <a href="https://charisfellowship.us/page/charisfellowship">here</a>.</p> 
          
         </div>
         <div class="card card-charis card-charis-square">
@@ -51,14 +51,14 @@
             New churches &middot; New resources for planting even more churches &middot; New tools for local churches to training leaders &middot; Better tools to mentor and qualify pastors &middot; Access2018 where leaders access leaders &middot; More cohorts of leaders &middot; Churches who are committed to helping other churches &middot; Expansion of larger churches through campusing &middot; A new Crisis Coalition &middot; All these are in-the-works. Stay tuned!
           </p>
           <p class="text-center">
-            <a href="http://charisfellowship.us/page/charisgraphics">Download graphics for your church's printed or electronic media here.</a>
+            <a href="https://charisfellowship.us/page/charisgraphics">Download graphics for your church's printed or electronic media here.</a>
           </p>
           <p class="text-center">
-            <a href="http://charisfellowship.us/files/Charis_Fellowship_Press_Release.docx">Press Release</a>
+            <a href="https://charisfellowship.us/files/Charis_Fellowship_Press_Release.docx">Press Release</a>
           </p>
         </div> 
         <div class="card card-charis card-charis-square text-center">
-          <a href="http://charisfellowship.us/page/charisfellowship">Frequently Asked Questions</a>
+          <a href="https://charisfellowship.us/page/charisfellowship">Frequently Asked Questions</a>
         </div>
         <div class="card text-center">
           Watch the big announcement as it happened live on November 7! Link coming soon!
