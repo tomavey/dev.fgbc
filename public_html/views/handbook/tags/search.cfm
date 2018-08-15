@@ -76,6 +76,7 @@
 							controller="handbook.organizations",
 							action="show", 
 							key=id, 
+							protocol="https",
 							class="ajaxclickable tooltip2", 
 							title="Click to show #name# in the center panel.", 
 							onlyPath=false
