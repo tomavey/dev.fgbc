@@ -39,7 +39,7 @@
 						M: #phoneTo(handbookperson.phone2)#<br/>
 						<cfif gotRights("office")>
 							#telCoQueryLink(handbookperson.phone2)#
-							#linkto(text="?", href="http://charisfellowship.us/admin/settings/17", target="_new")#<br/>
+							#linkto(text="?", href="https://charisfellowship.us/admin/settings/17", target="_new")#<br/>
 						</cfif>
 					</cfif>
 

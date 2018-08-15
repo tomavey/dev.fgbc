@@ -6,7 +6,7 @@
 <cfoutput>
 <h2 class="center">You must be registered for #geteventAsText()# in order to sign up for a cohort.</h2>
 <p class="text-right">
-<a href="http://charisfellowship.us/conference" class="btn">Not registered yet? <br/>Register For #getEventAsText()# Now</a>
+<a href="https://charisfellowship.us/conference" class="btn">Not registered yet? <br/>Register For #getEventAsText()# Now</a>
 </p>
 <h2 class="text-center">Please select your name from the list of folks registered for #geteventAsText()#</h2>
 <div class="well text-center">

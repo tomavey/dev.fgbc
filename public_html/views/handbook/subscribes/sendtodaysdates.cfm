@@ -68,7 +68,7 @@
 <div style="font-size:1.2em;font-weight:bold;color:red;border:solid 3px gray;padding:10px">
 <cfoutput>
 <p>Forward this email to a friend and invite them to subscribe to these updates using this link:</p>
-<p>#linkto(href="http://charisfellowship.us/handbook/subscribemedates/")#</p>
+<p>#linkto(href="https://charisfellowship.us/handbook/subscribemedates/")#</p>
 </cfoutput>
 </div>  
 </ul>

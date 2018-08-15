@@ -14,7 +14,7 @@
       <cfif fileExists(Expandpath("documents/" & filename))>
             <tr>
                   <td>
-                  <a href="http://charisfellowship.us/fc/documents/#FILENAME#" id="doclink">http://charisfellowship.us/fc/documents/#FILENAME#</a><br/> 
+                  <a href="https://charisfellowship.us/fc/documents/#FILENAME#" id="doclink">https://charisfellowship.us/fc/documents/#FILENAME#</a><br/> 
                   </td>
                   <td> #DESCRIPTION# </td>
                   <td> #dateformat(DATETIME)# </td>

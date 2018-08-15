@@ -25,8 +25,8 @@
                 <tr>
                     <td colspan="2">
                         <cfoutput>
-                        <a href="http://charisfellowship.us/sendstats/#args.id#">
-                            <img src="http://charisfellowship.us/assets/img/logo/charis-logo-main.png" />
+                        <a href="https://charisfellowship.us/sendstats/#args.id#">
+                            <img src="https://charisfellowship.us/assets/img/logo/charis-logo-main.png" />
                         </a>
                         </cfoutput>
                     </td>
@@ -54,10 +54,10 @@
                         GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship (a.k.a. the Fellowship of Grace Brethren Churches). Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
                     </p>
                     <p>
-                        Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# are due May 15.  After that date, the fee increases. Your office should have received #linkto(text="this brochure", href="http://charisfellowship.us/files/FGBCStatCard2017-18.pdf")# by regular post requesting your statistics and fellowship fee.
+                        Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# are due May 15.  After that date, the fee increases. Your office should have received #linkto(text="this brochure", href="https://charisfellowship.us/files/FGBCStatCard2017-18.pdf")# by regular post requesting your statistics and fellowship fee.
                     </p>
                     <p class="callout">
-                        If you would prefer to submit this information and pay online you can use this link: #linkto(href='http://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
+                        If you would prefer to submit this information and pay online you can use this link: #linkto(href='https://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
                     </p>
                     </cfoutput>
 
@@ -72,7 +72,7 @@
                                             <p class="">
                                                 <a href="http://facebook.com/gracechurches" class="soc-btn fb">Facebook</a> 
                                                 <a href="http://twitter.com/gracechurches" class="soc-btn tw">Twitter</a> 
-                                                <a href="http://charisfellowship.us" class="soc-btn gp">CharisFellowship.us</a>
+                                                <a href="https://charisfellowship.us" class="soc-btn gp">CharisFellowship.us</a>
                                             </p>
                                         </td>
                                     </tr>

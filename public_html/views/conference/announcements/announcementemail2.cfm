@@ -21,7 +21,7 @@
                     <td colspan="2">
                         <cfoutput>
                         <a href="http://access2018.com">
-                            <img src="http://charisfellowship.us/images/conference/Access_Final_2-d.jpg" />
+                            <img src="https://charisfellowship.us/images/conference/Access_Final_2-d.jpg" />
                         </a>
                         </cfoutput>
                     </td>
