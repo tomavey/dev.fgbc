@@ -7,7 +7,7 @@
     >
       <v-list class="pa-1">
         <v-list-tile>
-            <img src="https://charisfellowship.us/images/focus/forward60x.png">
+            <img src="https://charisfellowship.us/images/focus/forward40x.png">
         </v-list-tile>
       </v-list>
 
