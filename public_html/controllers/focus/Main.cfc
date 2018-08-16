@@ -3,6 +3,7 @@
 	<cffunction name="init">
 		<cfset useslayout(template='/focus/layout', only="welcome")>
 		<cfset useslayout(template='/focus/layout2', only="retreat,about")>
+		<cfset useslayout(template='/focus/layout_vue', only='index')>
 		<cfset filters(through="getRetreats")>
 		<cfset filters(through="getRetreatRegions")>
 	</cffunction>
@@ -21,12 +22,18 @@
 <!---------VIEW CONTROLLERS------->
 <!-------------------------------->
 
+<cfscript>
+	public function index() {
+		retreats = queryToJson(retreats);
+	}
+</cfscript>	
+
 	<cffunction name="welcome">
 		<cfset content = getFocusContent("introContent")>
-		<cfif application.wheels.focusisopen>
-		<cfset title="Welcome">
+		<cfif getSetting('focusisopen')>
+			<cfset title="Welcome">
 		<cfelse>
-		<cfset rendertext="Focus Retreat Web site is being updated.  Check back soon.">
+			<cfset rendertext="Focus Retreat Web site is being updated.  Check back soon.">
 		</cfif>
 		<cfset renderPage(layout="/focus/layout")>
 	</cffunction>

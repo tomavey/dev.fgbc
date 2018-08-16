@@ -269,7 +269,7 @@
 <!-------------------------------------->
 
     <cffunction name="testemailNotList">
-        <cfdump var="#emailNotList('tomavey@fgbc.org,sandy@fgbc.org,sandiavey@gmail.com')#">
+        <cfdump var="#emailNotList('tomavey@fgbc.org,sharmion@charisfellowship.us,sandiavey@gmail.com')#">
         <cfabort>
     </cffunction>
 
