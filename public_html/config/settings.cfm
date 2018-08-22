@@ -3,12 +3,12 @@
 	set(dataSourceName="fgbc_main_3")
 	if (cgi.http_host is "localhost:8080" || cgi.http_host is "localhost:8888" || cgi.http_host is "fgbc:8080" || cgi.http_host is "fgbc:8888") {
 		set(dataSourceUserName="root");
-		set(dataSourcePassword="Nd0pqKnihX6vhtw"); 
+		set(dataSourcePassword="j11itbwtw"); 
 		set(OnLocalhost = "true");
 	}
 	else {
 		set(dataSourceUserName="tomavey.fgbc");
-		set(dataSourcePassword="J316fgsltw!"); 
+		set(dataSourcePassword="Nd0pqKnihX6vhtw"); 
 	}
 </cfscript>
 
