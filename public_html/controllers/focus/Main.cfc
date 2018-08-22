@@ -3,7 +3,7 @@
 	<cffunction name="init">
 		<cfset useslayout(template='/focus/layout', only="welcome")>
 		<cfset useslayout(template='/focus/layout2', only="retreat,about")>
-		<cfset useslayout(template='/focus/layout_vue', only='index')>
+<!--- 		<cfset useslayout(template='/focus/layout_vue', only='index')> --->
 		<cfset filters(through="getRetreats")>
 		<cfset filters(through="getRetreatRegions")>
 	</cffunction>
@@ -39,7 +39,6 @@
 	</cffunction>
 
 	<cffunction name="retreat">
-<cfdump var="#params#"><cfabort>
 		<cfif val(params.key)>
 			<cfset whereString = "id='#params.key#'">
 		<cfelse>
