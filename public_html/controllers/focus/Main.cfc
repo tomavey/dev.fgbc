@@ -39,7 +39,7 @@
 	</cffunction>
 
 	<cffunction name="retreat">
-
+<cfdump var="#params#"><cfabort>
 		<cfif val(params.key)>
 			<cfset whereString = "id='#params.key#'">
 		<cfelse>
