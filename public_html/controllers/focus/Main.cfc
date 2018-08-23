@@ -39,6 +39,9 @@
 	</cffunction>
 
 	<cffunction name="retreat">
+		<cfif isDefined("params.key") && params.key IS 'northwest18'>
+			<cfset params.key = 'central'>
+		</cfif>	
 		<cfif val(params.key)>
 			<cfset whereString = "id='#params.key#'">
 		<cfelse>
