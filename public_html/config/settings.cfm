@@ -25,7 +25,7 @@
 	<cfset set(functionName="timeSelect", labelPlacement="before", prependToLabel="<p>", append="</p>")>
 
 <!---Settings for rewriting, reloading and errors--->
-	<cfif cgi.http_host contains ":8080">
+	<cfif cgi.http_host contains ":8080" || cgi.http_host contains ":8888">
         	<cfset set(URLRewriting="Off")>
 	<cfelse>
 	       <cfset set(URLRewriting="On")>
@@ -80,7 +80,7 @@
 
 <!---Used by Focus MVC--->
 	<cfset set(registrant = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")>
-	<cfset set(testAgents = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")>
+	<cfset set(testAgents = "tomavey@charisfellowship.us,sharmion@charisfellowship.us,tomavey@fgbc.org")>
 	<cfset set(mainregistrar = "sharmion@charisfellowship.us")>
 	<cfset set(optionTypes = "Public,Discount,Office")>
 	<cfset set(focusIsOpen = true)>

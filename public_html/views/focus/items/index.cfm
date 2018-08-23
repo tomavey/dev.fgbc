@@ -22,6 +22,9 @@
 			Category
 		</th>
 		<th>
+			Sort Order
+		</th>
+		<th>
 			&nbsp;
 		</th>
 	</tr>
@@ -44,6 +47,9 @@
 			</td>
 			<td>
 				#category#
+			</td>
+			<td>
+				#sortOrder#
 			</td>
 			<td>
 				#editTag()# #deleteTag()# #showTag()# #copyTag()# #linkTo(text="<i class='icon-list'></i>", controller="focus", action="registrations", params="itemid=#id#")#				

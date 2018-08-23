@@ -16,6 +16,8 @@
 
 						#select(objectName='item', property='category', label='Category: ', options=application.wheels.optiontypes)#
 
+						#textField(objectName='item', property='sortOrder', label='Sort Order (optional): ')#
+
 						<p>Expires:
 							#dateSelect(objectName='item', property='expiresAt', dateOrder='year,month,day', monthDisplay='abbreviations')#
 						</p>

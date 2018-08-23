@@ -115,7 +115,7 @@
 		<cfset payonline.amount = payonline.ccamount>
 		<cfset payonline.url = "http://#CGI.http_host#/?controller=focus.invoices&action=confirm">
 		<cfif isdefined("session.auth.office") and session.auth.office>
-			<cfif listfind(application.wheels.testagents,payonline.email)>
+			<cfif listfind(getSetting('testagents'),payonline.email)>
 				<cflocation url="http://#CGI.http_host#/?controller=focus.invoices&action=confirm&OrderID=#payonline.orderid#&total=#payonline.amount#&Status=1&approval_code=064435&authresponse=APPROVED&avs=Y&cvv2=M&Cardname=visa&NameonCard=Thomas%20D%20Avey&Cardstreet=PO%20Box%20386&Cardcity=Winona%20Lake&Cardstate=IN&Cardzip=46590&Cardcountry=US&email=tomavey@fgbc.org&phone=574-527-6061">
 			</cfif>
 		<cfelseif payonline.amount is 0>

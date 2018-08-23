@@ -14,6 +14,9 @@
 					<p><span>Price: </span> 
 						#dollarformat(item.price)#</p>
 				
+					<p><span>Sort Order: </span> 
+						#item.sortOrder#</p>
+
 					<p><span>Expires: </span> 
 						#dateformat(item.expiresAt)#</p>
 
