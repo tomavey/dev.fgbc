@@ -34,6 +34,11 @@
 
 	<cffunction name="agent">
     	<cfset agentemail = trim(model("Focusshoppingcart").findByKey(params.key).email)>
+		<cfif isOffice()>
+			<cfset message = "Bypass options = #getSetting('byPassWords')#">
+		<cfelse>
+			<cfset message = "">
+		</cfif>
 		<cfset setReturn()>
 		<cfset renderPage(layout="/focus/layout2")>
 	</cffunction>

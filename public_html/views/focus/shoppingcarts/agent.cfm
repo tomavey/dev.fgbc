@@ -26,9 +26,9 @@ You are logged in! Entering one of these two email addresses will result in a re
 			#startFormTag(action="checkout", key=params.key)#
 
 			#textFieldTag(name="agent", label="Who do you want a receipt sent to? ", value='#agentemail#')#
-			
 			#submitTag('Submit')#
 				
 			#endFormTag()#
+			<p><sup>#message#</sup><p>			
 </div>
 </cfoutput>
