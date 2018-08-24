@@ -21,8 +21,12 @@
 	<cffunction name="show">
 
 		<!--- Find the invoice --->
-	    	<cfset invoice = model("Focusinvoice").findByKey(params.key)>
-	    	<!---Find the items connected to this invoice in a registration record--->
+	   	<cfset invoice = model("Focusinvoice").findByKey(params.key)>
+			<cfif isDefined("params.ccstatus")>
+				<cfset invoice.ccstatus = params.ccstatus>
+				<cfset invoice.update()>
+			</cfif>
+	   	<!---Find the items connected to this invoice in a registration record--->
 		<cfset items = model("Focusregistration").findAll(where="invoiceId = '#params.key#'", include="item,registrant")>
 
 	<!--- Check if the record exists --->

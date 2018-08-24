@@ -209,7 +209,7 @@
 	<cfset var totalcost = 0>
 	<cfset params.agent = trim(params.agent)>
 
-		<cfif not isValid("email",params.agent)>
+		<cfif !isValid("email",params.agent) && !find(params.agent, getSetting('byPassWords'))>
 			<cfset flashInsert(error="Please provide a valid email address")>
 			<cfset returnBack()>
 			<cfset renderText("Please press your browsers back button and enter a valid email address. Thanks!")><cfabort>
@@ -274,6 +274,11 @@
 		<!---Put Total Cost of items into the invoice--->
 		<cfset thisInvoice.ccamount = totalcost>
 		<cfset thisInvoice.save()>
+
+		<cfscript>
+			if (find(params.agent, getSetting('byPassWords'))) 
+				{ redirectTo(controller='focus.invoices', action='show', key=params.invoiceid, params='ccstatus=#params.agent#') };
+		</cfscript>
 
 		<cfset redirectTo(controller="focus.invoices", action="payonline", key=params.invoiceid)>
 
