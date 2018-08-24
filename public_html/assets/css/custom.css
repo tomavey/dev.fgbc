@@ -48,6 +48,7 @@
 
 .announcementContent {
     text-align: center;
+    margin-top:20px;
 }
 
 #socialIcons {
@@ -74,3 +75,4 @@
 h4.announcmentHeader {
     line-height: 1;
 }
+
