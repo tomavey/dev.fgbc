@@ -25,6 +25,7 @@
 <cfscript>
 	public function index() {
 		retreats = queryToJson(retreats);
+		renderPage(layout="/focus/layout_vue")
 	}
 </cfscript>	
 

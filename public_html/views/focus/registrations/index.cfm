@@ -3,6 +3,8 @@
 <cfset countPaid = 0>
 <cfset amountUnPaid = 0>
 <cfset amountPaid = 0>
+<cfset counts = {}>
+<cfset amounts = {}>
 
 <cfif !isDefined("params.retreatid")>
 	<cftry>
@@ -76,6 +78,17 @@ public function countRegItems(ccstatus,cost){
 		<cfset emailall = emailall & ";" & email>
 		<cfoutput>
 			<tr>
+				<cfif getStatus(ccstatus) is "Paid">
+					<cfif !isDefined('amounts[description]')>
+						<cfset amounts[description] = 0>
+					</cfif>	
+					<cfset amounts[description] = amounts[description] + cost>
+					<cfif !isDefined('counts[description]')>
+						<cfset counts[description] = 0>
+					</cfif>
+					<cfset counts[description] = counts[description] + 1>
+				</cfif>	
+
 				<td>
 					&nbsp;
 				</td>
@@ -114,27 +127,45 @@ public function countRegItems(ccstatus,cost){
 	<p>#linkTo(text="New registration", controller="main", action="welcome")#</p>
 </cfoutput>
 <cfif showsummary>
-	<p>Quantities:</p>
-	<table>
-	<cfoutput query="registrationCounts" group="itemid">
-		<tr>
-			<td>#description#</td><td>#getCount(itemid)#</td>
-		</tr>
-	</cfoutput>
-	</table>
-	<cfoutput>
-	<p>
-	Paid = <!---#countPaid# for--->#dollarformat(amountPaid)#<br/>
-	UnPaid = <!---#countUnPaid# for--->#dollarFormat(amountUnPaid)# <br/>
-	</p>
-	</cfoutput>
+	<div id="focusRegSummary">
+		<p>Quantities All:</p>
+		<table>
+		<cfoutput query="registrationCounts" group="itemid">
+			<tr>
+				<td>#description#</td><td class="text-right">#getCount(itemid)#</td>
+			</tr>
+		</cfoutput>
+		</table>
+		<cfoutput>
+		<p>
+		Paid = <!---#countPaid# for--->#dollarformat(amountPaid)#<br/>
+		Pending = <!---#countUnPaid# for--->#dollarFormat(amountUnPaid)# <br/>
+		</p>
+		<p>For invoicing:</p>
+		<table>
+			<cfloop collection="#counts#" item="key">
+				<cfif amounts[key] LT '0'>
+				<tr>
+					<td>#key#</td><td class="text-right">#counts[key]#</td><td class="text-right">#dollarFormat(-amounts[key])#</td>
+				</tr>
+				</cfif>
+			</cfloop>
+		</table>
+		</cfoutput>
+	</div>	
 </cfif>
 <cfset emailall = replace(emailall,";","","one")>
 <cfoutput>
-#mailto(emailaddress=emailall, name="Email Everyone")#
+<p style="margin-top:20px">
+#mailto(emailaddress=emailall, name="Email Everyone", class="btn")#
+</p>
 </cfoutput>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <cfoutput query="registrations" group="registrantid">
 #fname# #lname#</br>
 </cfoutput>
+
+
+<cfdump var="#counts#">
+<cfdump var="#amounts#">

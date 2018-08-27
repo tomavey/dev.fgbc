@@ -44,3 +44,10 @@ li.notpaid {
     color:red;
     font-weight: bold;
 }
+#focusRegSummary td {
+    padding-left:10px;
+}
+
+#focusRegSummary td.text-right {
+    text-align: right
+}
