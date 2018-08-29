@@ -115,7 +115,7 @@ public function countRegItems(ccstatus,cost){
 				<td colspan="5">&nbsp;
 				</td>
 				<td>
-					#linkTo(text="#imageTag('/add-icon.png')#", action="addTo", key=registrantid, title="Add a new registration item for #fname#", class="tooltip2")#
+					#linkTo(text="<i class='icon-plus'></i>", action="addTo", key=registrantid, title="Add a new registration item for #fname#", class="tooltip2")#
 				</td>
 			</tr>
 
