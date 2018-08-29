@@ -221,7 +221,8 @@
 			.get(name="whoIsComing", pattern="/registrations/whoiscoming/[key]", controller="registrations", action="whoiscoming")
 			.get(name="list", pattern="/registrations/list/", controller="registrations", action="list")
 			.get(name="addRegItem", pattern="/registration/additem/[key]", controller="registrations", action="addTo")
-			.post(name="postAddedItem", pattern="/registration/add/[key]", controller="registratrions", action="add")
+			.get(name="addRegItem", pattern="/registration/additem/[key]", controller="registrations", action="addTo")
+			.post(name="postAddedItem", pattern="/registration/add/[key]", controller="registrations", action="add")
 			.resources("registrations")
 						
 			.resources("registrants")
