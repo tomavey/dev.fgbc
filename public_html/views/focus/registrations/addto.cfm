@@ -5,7 +5,7 @@
 </cfoutput>
 <cfoutput>
 
-			#startFormTag(action="add", key=params.key)#
+			#startFormTag(action="add")#
 		
 			#hiddenField(objectName='registration', property='registrantId')#
 			
