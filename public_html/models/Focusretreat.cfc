@@ -10,6 +10,7 @@
 		<cfset uploadableFile(property="image", destination="/home/fgbcalur/public_html/focus/images/")>
 --->
 		<cfset validatesUniquenessOf(property="regid")>
+
 	</cffunction>
 
 </cfcomponent>

@@ -30,6 +30,7 @@
 </cfscript>	
 
 	<cffunction name="welcome">
+	<cfdump var="#retreats#"><cfabort>
 		<cfset content = getFocusContent("introContent")>
 		<cfif getSetting('focusisopen')>
 			<cfset title="Welcome">

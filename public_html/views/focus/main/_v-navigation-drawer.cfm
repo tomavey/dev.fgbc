@@ -17,7 +17,8 @@
         <v-list-tile
           v-for="retreat in retreats"
           :key="retreat.id"
-          @click=""
+          @click="goTo(retreat.menuname)"
+          style="cursor:pointer"
         >
 
           <v-list-tile-content>

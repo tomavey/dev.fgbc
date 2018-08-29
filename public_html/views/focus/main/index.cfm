@@ -6,12 +6,18 @@
 
 #includePartial('v-toolbar')#
 
+<router-view></router-view>
+
 </div>
 
 <script>
 
+const retreats = #retreats#
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 var vm = new Vue({
   el:'.app',
+  router,
   data () {
     return {
       message: 'Welcome to Vue',
@@ -25,7 +31,7 @@ var vm = new Vue({
           title: "Whichever"
         }
       ],
-      retreats: #retreats#
+      retreats: retreats
     }
   },
   methods: {
@@ -34,6 +40,9 @@ var vm = new Vue({
     },
     returnHome () {
       alert('return home')
+    },
+    goTo (menuName) {
+      this.$router.push('/' + menuName)
     }
   }
 })
