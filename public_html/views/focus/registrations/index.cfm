@@ -112,10 +112,11 @@ public function countRegItems(ccstatus,cost){
 			<cfset countRegItems(ccstatus,cost)>
 		</cfoutput>
 			<tr>
-				<td colspan="5">&nbsp;
-				</td>
+				<td>&nbsp;</td>
 				<td>
 					#linkTo(text="<i class='icon-plus'></i>", action="addTo", key=registrantid, title="Add a new registration item for #fname#", class="tooltip2")#
+				</td>
+				<td colspan="4">&nbsp;
 				</td>
 			</tr>
 
