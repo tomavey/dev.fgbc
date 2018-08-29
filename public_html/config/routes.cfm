@@ -220,6 +220,7 @@
 			.get(name="deleteregistration", pattern="/registrations/[key]/delete/", controller="registrations", action="delete")
 			.get(name="whoIsComing", pattern="/registrations/whoiscoming/[key]", controller="registrations", action="whoiscoming")
 			.get(name="list", pattern="/registrations/list/", controller="registrations", action="list")
+			.get(name="addRegItem", pattern="/registration/additem", controller="registrations", action="addTo")
 			.resources("registrations")
 						
 			.resources("registrants")

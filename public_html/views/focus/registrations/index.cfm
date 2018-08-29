@@ -166,6 +166,7 @@ public function countRegItems(ccstatus,cost){
 #fname# #lname#</br>
 </cfoutput>
 
-
+<!---
 <cfdump var="#counts#">
 <cfdump var="#amounts#">
+--->
