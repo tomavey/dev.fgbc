@@ -1,10 +1,23 @@
 const Southwest = {
   data () {
     return {
-      message: 'Southwest Retreat'
+      message: 'Southwest Retreat...',
+      retreats: retreats,
+      menuname: 'Southwest'
     }
   },
+  computed: {
+    retreat: function () {
+      return this.retreats.filter(el => {
+        if (el.menuname === this.menuname) {return true}
+      })[0]
+    }
+  },
+  methods: {
+    formatDate,
+    formatDateSpan,
+  },
   template: `<div>
-    <h1>{{message}}</h1>
+    <retreat-info :retreat=retreat :message=message></retreat-info>
     </div>`
-}
+  }
