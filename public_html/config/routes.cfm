@@ -590,7 +590,7 @@
 		.get(name="churches", pattern="/churches", controller="churches", action="index")
 		.get(name="newName", pattern="newname", controller="charis", action="rebranding")
 		.get(name="badRoute", pattern="handbook-statistics/show/[key]", controller="home", action="index")
-		.get(name="focusMobile", pattern="/focusmobile/", controller="focus.main", action="mobile")
+		.get(name="focusMobile", pattern="/focus/mobile/", controller="focus.main", action="mobile")
 		.root(controller="Home", action="index")
 		.wildcard()
 

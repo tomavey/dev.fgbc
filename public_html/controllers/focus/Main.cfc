@@ -24,7 +24,6 @@
 
 <cfscript>
 	public function mobile() {
-		writeDump(params);abort;
 		retreats = queryToJson(retreats);
 		renderPage(layout="/focus/layout_vue")
 	}
