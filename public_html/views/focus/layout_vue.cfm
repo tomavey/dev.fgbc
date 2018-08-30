@@ -11,8 +11,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.1.12/vuetify.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.min.js"></script>
 
-<!---   <script src="/views/focus/main/javascript/settings.js"></script> --->
-<!---   <script src="/views/focus/main/javascript/mixins.js"></script> --->
+  <script src="/views/focus/main/javascript/settings.js"></script>
+  <script src="/views/focus/main/javascript/mixins.js"></script>
+  <script src="/views/focus/main/javascript/components.js"></script>
   <script src="/views/focus/main/javascript/central.js"></script>
   <script src="/views/focus/main/javascript/east.js"></script>
   <script src="/views/focus/main/javascript/southwest.js"></script>
