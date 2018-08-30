@@ -239,6 +239,7 @@
 
 			.get(name="thisRetreat", pattern="/[key]", controller="main", action="retreat")
 			.get(name="about", pattern="/about/", controller="main", action="about")
+			.get(name="mobile", pattern="/mobile/", controller="main", action="index")
 			.get(name="welcome", pattern="", controller="main", action="welcome")
 			.resources("main")
 
