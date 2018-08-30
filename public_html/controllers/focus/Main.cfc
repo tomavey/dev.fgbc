@@ -23,7 +23,7 @@
 <!-------------------------------->
 
 <cfscript>
-	public function index() {
+	public function mobile() {
 		retreats = queryToJson(retreats);
 		renderPage(layout="/focus/layout_vue")
 	}
