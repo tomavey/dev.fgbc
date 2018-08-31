@@ -9,6 +9,7 @@
   <script src="/javascripts/focus/east.js"></script>
   <script src="/javascripts/focus/southwest.js"></script>
   <script src="/javascripts/focus/south.js"></script>
+  <script src="/javascripts/focus/alaska.js"></script>
   <script src="/javascripts/focus/northwest.js"></script>
   <script src="/javascripts/focus/routes.js"></script>
   <script src="/javascripts/focus/app.js"></script>
