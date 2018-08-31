@@ -1,4 +1,5 @@
 const Central = {
+  props: ['cardcolors'],
   data () {
     return {
       message: 'Central Retreat...',
@@ -18,6 +19,6 @@ const Central = {
     formatDateSpan,
   },
   template: `<div>
-    <retreat-info :retreat=retreat :message=message></retreat-info>
+    <retreat-info :retreat=retreat :message=message :cardcolors=cardcolors></retreat-info>
     </div>`
   }
