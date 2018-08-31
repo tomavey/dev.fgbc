@@ -26,3 +26,7 @@ const formatDateSpan = function(start,end) {
   return md1 + ', ' + y
 }
 
+const goTo = function(menuName) {
+  this.$router.push('/' + menuName)
+}
+

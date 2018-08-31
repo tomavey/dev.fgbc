@@ -7,7 +7,7 @@ Vue.component('retreat-info', {
   <div>
   <v-container>
   <v-layout row wrap>
-    <v-flex xs8> 
+    <v-flex xs12> 
       <v-card>
         <v-card-title primary-title>
           <h2>{{message}}</h2>

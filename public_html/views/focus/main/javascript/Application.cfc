@@ -1,1 +1,0 @@
-<!---Keeps the server from reading the application.cfc file in the root of app--->

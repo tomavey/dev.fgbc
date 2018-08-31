@@ -11,38 +11,6 @@
 </div>
 
 <script>
-const retreats = #retreats#
-
-var vm = new Vue({
-  el:'.app',
-  router,
-  data () {
-    return {
-      message: 'Welcome to Vue',
-      sideNav: false,
-      userIsAuthenticated: false,
-      additionalDrawerItems: [
-        {
-          title: "Whatever"
-        },
-        {
-          title: "Whichever"
-        }
-      ],
-      retreats: retreats
-    }
-  },
-  methods: {
-    onLogout() {
-      alert("logout")
-    },
-    returnHome () {
-      alert('return home')
-    },
-    goTo (menuName) {
-      this.$router.push('/' + menuName)
-    }
-  }
-})
+  const retreats = #retreats#
 </script> 
 </cfoutput>

@@ -6,7 +6,7 @@
       class="white"
     >
       <v-list class="pa-1">
-        <v-list-tile>
+        <v-list-tile @click="goTo('welcome')" style="cursor:pointer">
             <img src="https://charisfellowship.us/images/focus/forward40x.png">
         </v-list-tile>
       </v-list>
