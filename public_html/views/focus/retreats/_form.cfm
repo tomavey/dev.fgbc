@@ -1,3 +1,7 @@
+<style>
+	p span {margin-left:10px}
+	p {margin-bottom:20px}
+</style>
 <cfoutput>
 
 #ckeditor()#
@@ -8,11 +12,11 @@
 
 						#textField(objectName='retreat', property='menuname', label='Menu name: ')#
 
-						#fileField(objectName='retreat', property='image', label='Image: ')#
+<!--- 						#fileField(objectName='retreat', property='image', label='Image: ')# --->
 
 						#select(objectName='retreat', property='active', label='Active? ', options="Yes,No", values = "1,0")#
 
-						#select(objectName='retreat', property='showregs', label='Showregs? ', options="Yes,No", values = "1,0")#
+						#select(objectName='retreat', property='showregs', label='Show these registrations in admin? ', options="Yes,No", values = "1,0")#
 
 						#select(objectName='retreat', property='regisopen', label='Registration is open? ', options="Yes,No", values = "1,0")#
 
@@ -29,12 +33,13 @@
 						</p>
 
 						<p>Registration Deadline:
-							#dateSelect(objectName='retreat', property='deadline', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#
+							#dateSelect(objectName='retreat', property='deadline', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#</br>
 							<span>After this date the registration will be closed.</span>
 						</p>
 
 						<p>Stop showing who is coming:
-							#dateSelect(objectName='retreat', property='whoiscomingdeadline', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#
+							#dateSelect(objectName='retreat', property='whoiscomingdeadline', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#</br>
+							<span>After this date the "Who is coming link on the retreat page will not show, unless the viewer is logged in as an admin.</span>
 						</p>
 
 						<p>Comments for Registration: <br/>
@@ -43,6 +48,7 @@
 
 						<p>Not Open Message: <br/>
 						#textArea(objectName='retreat', property='notopenmessage', label='', editor="ckeditor", rows=10, cols=100, class="ckeditor")#
+						<span>This is what will show in place of the registration info when the retreat is marked 'No' in the 'Registration is open" field (above).</span>
 						</p>
 
 						<p>Schedule: <br/>
@@ -57,6 +63,6 @@
 						#textArea(objectName='retreat', property='comments', label='', editor='ckeditor', rows=10, cols=100, class="ckeditor")#
 						</p>
 
-						#textField(objectName='retreat', property='facebooklink', label='Facebook Link ')#
+<!--- 						#textField(objectName='retreat', property='facebooklink', label='Facebook Link ')# --->
 
 </cfoutput>

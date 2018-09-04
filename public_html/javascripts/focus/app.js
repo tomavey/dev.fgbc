@@ -1,6 +1,7 @@
 var vm = new Vue({
   el:'.app',
   router,
+  store,
   data () {
     return {
       message: 'Welcome to Focus Retreats App',
@@ -15,7 +16,17 @@ var vm = new Vue({
     },
     returnHome () {
       alert('return home')
-    },
-    goTo
+    }
+  },
+  mixins: [mixins],
+  created () {
+    firebase.initializeApp({
+      apiKey: "AIzaSyDLJT6DHPgRK89NKPyd1FSjUqMn44XhGC4",
+      authDomain: "focus-retreats.firebaseapp.com",
+      databaseURL: "https://focus-retreats.firebaseio.com",
+      projectId: "focus-retreats",
+      storageBucket: "focus-retreats.appspot.com",
+      messagingSenderId: "134917343853"
+    })
   }
 })

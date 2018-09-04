@@ -2,27 +2,27 @@ const Welcome = {
   data () {
     return {
       message: 'Welcome to the Focus Retreats App',
-      retreats: retreats,
+      retreats: retreats
     }
   },
   computed: {
-    showMenuItem: function () {return true}
+    showMenuItem: function () {return true},
+    storeMessage: function () {return this.$store.getters.storeMessage}
+
   },
+  mixins: [mixins],
   methods: {
-    formatDate,
-    formatDateSpan,
-    goTo
   },
   template: `<div>
   <v-layout column>
   <v-flex xs12 sm6>
+  {{ storeMessage }}
    
     <v-card>
       <v-container fluid grid-list-lg>
         <v-layout row wrap>
           <v-flex
             v-for="retreat in retreats"
-            v-bind="xs12"
             :key="retreat.menuname"
             @click='goTo(retreat.menuname)' 
             style='cursor:pointer'

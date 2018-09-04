@@ -1,7 +1,7 @@
 Vue.component('retreat-info', {
   props: ['retreat','message', 'cardcolors'],
+  mixins: [mixins],
   methods: {
-    formatDateSpan
   },
   template: `
   <div>

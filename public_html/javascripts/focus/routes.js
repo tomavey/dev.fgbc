@@ -7,10 +7,12 @@ const routes = [
   { path: '/south', component: South },
   { path: '/alaska', component: Alaska },
   { path: '/northwest', component: Northwest },
+  { path: '/announcements', component: Announcements },
   { path: '*', component: Welcome}
 ] 
   
 const router = new VueRouter({
   routes
+  // mode: 'history'
 })
   
