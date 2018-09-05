@@ -116,7 +116,7 @@
 			.get(name="organizationsReview", pattern="/organizations/review/", controller="organizations", action="handbookReviewOptions")
 			.get(name="memberList", pattern="/membershipList/", controller="organizations", action="memberChurches")
 			.get(name="emailChurchHandbookReview", pattern="/organization/handbookReviewEmail", controller="organizations", action="emailChurchesForHandbookReview")
-			.get(name="infoIsCorrect", pattern="/organization/setreview/[key]", controller="organizations", action="setReview")
+			.get(name="infoIsCorrect", pattern="/organization/setReview/[key]", controller="organizations", action="setReview")
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
