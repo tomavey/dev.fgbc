@@ -483,7 +483,7 @@ public function notStaff(){
 
 	<cffunction name="setReview">
 	<cfargument name="organizationId" default="#params.key#">
-	<cfif session.auth.email NEQ "tomavey@fgbc.org">
+	<cfif session.auth.email NEQ "tomavey@fgbc.org" || session.auth.email NEQ "tomavey@charisfellowship.us" >
     	<cfset organization = model("Handbookorganization").findOne(where="id=#arguments.organizationid#", include="Handbookstate")>
 		<cfif NOT len(organization.updatedBy)>
 			  <cfset organization.updatedBy = session.auth.email>
