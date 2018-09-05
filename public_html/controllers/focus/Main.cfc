@@ -85,7 +85,14 @@
 		<cfset redirectTo(action="welcome")>
 	</cffunction>
 
-	<cffunction name="about">
+	<cffunction name="about">	
 	</cffunction>
+
+<cfscript>
+	public function retreatsAsJson() {
+	data = queryToJson(retreats);
+	renderPage(template="json", layout="/layout_json")
+	}
+</cfscript>
 
 </cfcomponent>
