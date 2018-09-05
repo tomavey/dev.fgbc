@@ -482,7 +482,6 @@ public function notStaff(){
 	</cffunction>
 
 	<cffunction name="setReview">
-	<cfdump var="#params#"><cfabort>
 	<cfargument name="organizationId" default="#params.key#">
 	<cfif session.auth.email NEQ "tomavey@fgbc.org">
     	<cfset organization = model("Handbookorganization").findOne(where="id=#arguments.organizationid#", include="Handbookstate")>
