@@ -2,7 +2,7 @@
 <table align="center" width="800px" style="background-color:white;padding:20px">
 <tr>
 <td>
-<h1>Reminder - Due TODAY!</h1>
+<h1>#getSetting('ChurchHandbookReviewGreeting')#</h1>
 
 <h3>The #year(now())+1# FGBC Handbook is in production and we would like to make sure our information about #churches[i].selectName# is correct!</h3>
 
