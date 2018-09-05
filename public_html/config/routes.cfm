@@ -115,6 +115,7 @@
 			.get(name="pages", pattern="/pages/[key]", controller="organizations", action="show")
 			.get(name="organizationsReview", pattern="/organizations/review/", controller="organizations", action="handbookReviewOptions")
 			.get(name="memberList", pattern="/membershipList/", controller="organizations", action="memberChurches")
+			.get(name="emailChurchHandbookReview", pattern="/organization/handbookReviewEmail", controller="organizations", action="emailChurchesForHandbookReview")
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
