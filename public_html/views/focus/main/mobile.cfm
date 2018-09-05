@@ -13,4 +13,5 @@
 <script>
   const retreats = #retreats#
 </script> 
+
 </cfoutput>

@@ -28,5 +28,6 @@ var vm = new Vue({
       storageBucket: "focus-retreats.appspot.com",
       messagingSenderId: "134917343853"
     })
+    this.$store.dispatch('getRetreats')
   }
 })
