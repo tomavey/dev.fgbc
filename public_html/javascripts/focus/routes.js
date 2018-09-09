@@ -7,7 +7,8 @@ const routes = [
   { path: '/south', component: South },
   { path: '/alaska', component: Alaska },
   { path: '/northwest', component: Northwest },
-  { path: '/announcements', component: Announcements },
+  { path: '/groups', component: Groups },
+  { path: '/groupsDialog', component: GroupsDialog },
   { path: '*', component: Welcome}
 ] 
   

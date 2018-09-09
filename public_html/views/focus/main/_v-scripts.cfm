@@ -17,7 +17,8 @@
   <script src="/javascripts/focus/south.js"></script>
   <script src="/javascripts/focus/alaska.js"></script>
   <script src="/javascripts/focus/northwest.js"></script>
-  <script src="/javascripts/focus/announcements.js"></script>
+  <script src="/javascripts/focus/groups.js"></script>
+  <script src="/javascripts/focus/groupsDialog.js"></script>
   
   <script src="/javascripts/focus/routes.js"></script>
   <script src="/javascripts/focus/store.js"></script>

@@ -1,14 +1,15 @@
 const Welcome = {
   data () {
     return {
-      message: 'Welcome to the Focus Retreats App',
-      retreats: retreats
+      message: 'Welcome to the Focus Retreats App'
     }
   },
   computed: {
     showMenuItem: function () {return true},
-    storeMessage: function () {return this.$store.getters.storeMessage}
-
+    storeMessage: function () {return this.$store.getters.storeMessage},
+    retreats: function () {
+      return this.$store.getters.retreats
+    }
   },
   mixins: [mixins],
   methods: {
@@ -16,7 +17,6 @@ const Welcome = {
   template: `<div>
   <v-layout column>
   <v-flex xs12 sm6>
-  {{ storeMessage }}
    
     <v-card>
       <v-container fluid grid-list-lg>

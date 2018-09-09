@@ -18,6 +18,11 @@ const mixins = {
       console.log(months[d.getMonth()])
       return months[d.getMonth()] + d.getDate() + d.getFullYear()
     },
+    fbDateFormat: function (date) {
+      const d = new Date(date)
+      let m = this.months
+      return m[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear()
+    },
     formatDateSpan: function(start,end) {
       let months = this.months
       let d1 = new Date(this.convertDateToString(start))
@@ -36,6 +41,12 @@ const mixins = {
     },
     goTo: function(menuName) {
       this.$router.push('/' + menuName)
+    },
+    returnBack () {
+      this.$router.go(-1)
+    },
+    returnHome () {
+      this.$router.push('/')
     }
   }
 }
