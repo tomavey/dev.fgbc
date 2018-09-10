@@ -183,103 +183,106 @@
 	<cffunction name="summary">
 	<cfset regs = structNew()>
 
-		<cfloop list="central17single,central17singleprivate" index="i">
+		<cfloop list="Central18ThreePlusShare,Central18NoLodging,Central18TwoShare,Central18PrivateNearbyHotel,Central18CoupleNearbyHotel" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-0,now()))>
 		</cfloop>
-		<cfloop list="central16single,central16singleprivate" index="i">
+		<cfloop list="central17single,central17singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,now()))>
 		</cfloop>
-		<cfloop list="central15single,central15singleprivate" index="i">
+		<cfloop list="central16single,central16singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-2,now()))>
 		</cfloop>
-		<cfloop list="central14single,central14singleprivate" index="i">
+		<cfloop list="central15single,central15singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-3,now()))>
 		</cfloop>
-		<cfloop list="central13single,central13singleprivate" index="i">
+		<cfloop list="central14single,central14singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-4,now()))>
 		</cfloop>
-		<cfloop list="centralsingle,centralprivate" index="i">
+		<cfloop list="central13single,central13singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-5,now()))>
+		</cfloop>
+		<cfloop list="centralsingle,centralprivate" index="i">
+			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-6,now()))>
 		</cfloop>
 
 		<cfloop list="east17single,east17singleprivate" index="i">
-			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-0,now()))>
-		</cfloop>
-		<cfloop list="east16single,east16singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,now()))>
 		</cfloop>
-		<cfloop list="east15single,east15singleprivate" index="i">
+		<cfloop list="east16single,east16singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-2,now()))>
 		</cfloop>
-		<cfloop list="east14single,east14singleprivate" index="i">
+		<cfloop list="east15single,east15singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-3,now()))>
 		</cfloop>
-		<cfloop list="east13single,east13singleprivate" index="i">
+		<cfloop list="east14single,east14singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-4,now()))>
 		</cfloop>
-		<cfloop list="eastsingle,eastprivate" index="i">
+		<cfloop list="east13single,east13singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-5,now()))>
+		</cfloop>
+		<cfloop list="eastsingle,eastprivate" index="i">
+			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-6,now()))>
 		</cfloop>
 
 		<cfloop list="SW18SinglePrivate,SW18Single" index="i">
-			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-0,now()))>
-		</cfloop>
-		<cfloop list="SW17SinglePrivate,SW17Single" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,now()))>
 		</cfloop>
-		<cfloop list="SW16SinglePrivate,SW16Single" index="i">
+		<cfloop list="SW17SinglePrivate,SW17Single" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-2,now()))>
 		</cfloop>
-		<cfloop list="SW15SinglePrivate,SW15Single" index="i">
+		<cfloop list="SW16SinglePrivate,SW16Single" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-3,now()))>
 		</cfloop>
-		<cfloop list="SW14Private,SW14Shared" index="i">
+		<cfloop list="SW15SinglePrivate,SW15Single" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-4,now()))>
 		</cfloop>
-		<cfloop list="SWSingle,SWPrivate" index="i">
+		<cfloop list="SW14Private,SW14Shared" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-5,now()))>
+		</cfloop>
+		<cfloop list="SWSingle,SWPrivate" index="i">
+			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-6,now()))>
 		</cfloop>
 
 
 		<cfloop list="South2018Sgl,South2018Dbl" index="i">
-			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-0,now()))>
-		</cfloop>
-		<cfloop list="South2017Sgl,South2017Dbl" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,now()))>
 		</cfloop>
-		<cfloop list="South2016Sgl,South2016Dbl" index="i">
+		<cfloop list="South2017Sgl,South2017Dbl" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-2,now()))>
 		</cfloop>
-		<cfloop list="South2015Sgl,South2015Dbl" index="i">
+		<cfloop list="South2016Sgl,South2016Dbl" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-3,now()))>
 		</cfloop>
-		<cfloop list="focusSouth2014Sgl,focusSouth2014Dbl" index="i">
+		<cfloop list="South2015Sgl,South2015Dbl" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-4,now()))>
 		</cfloop>
-		<cfloop list="focusSouth2013Sgl,focusSouth2013Dbl" index="i">
+		<cfloop list="focusSouth2014Sgl,focusSouth2014Dbl" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-5,now()))>
+		</cfloop>
+		<cfloop list="focusSouth2013Sgl,focusSouth2013Dbl" index="i">
+			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-6,now()))>
 		</cfloop>
 
 		<cfloop list="FocusNW18" index="i">
-			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-0,now()))>
-		</cfloop>
-		<cfloop list="FocusNW17" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,now()))>
 		</cfloop>
-		<cfloop list="FocusNW16" index="i">
+		<cfloop list="FocusNW17" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-2,now()))>
 		</cfloop>
-		<cfloop list="FocusNW15" index="i">
+		<cfloop list="FocusNW16" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-3,now()))>
 		</cfloop>
-		<cfloop list="FocusNW2014b" index="i">
+		<cfloop list="FocusNW15" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-4,now()))>
 		</cfloop>
-		<cfloop list="FocusNW2014" index="i">
+		<cfloop list="FocusNW2014b" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-5,now()))>
 		</cfloop>
-		<cfloop list="FocusNW" index="i">
+		<cfloop list="FocusNW2014" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-6,now()))>
+		</cfloop>
+		<cfloop list="FocusNW" index="i">
+			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-7,now()))>
 		</cfloop>
 
 			<cfset regs.east12total = regs.eastsingle + regs.eastprivate>
@@ -295,6 +298,7 @@
 			<cfset regs.central15total = regs.central15single + regs.central15singleprivate>
 			<cfset regs.central16total = regs.central16single + regs.central16singleprivate>
 			<cfset regs.central17total = regs.central17single + regs.central17singleprivate>
+			<cfset regs.central18total = regs.Central18ThreePlusShare + regs.Central18NoLodging + regs.Central18TwoShare + regs.Central18PrivateNearbyHotel + regs.Central18CoupleNearbyHotel>
 
 			<cfset regs.southwest13total = regs.SWSingle + regs.SWPrivate>
 			<cfset regs.southwest14total = regs.SW14Shared + regs.SW14Private>
