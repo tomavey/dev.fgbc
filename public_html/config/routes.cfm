@@ -224,6 +224,7 @@
 			.get(name="whoIsComing", pattern="/registrations/whoiscoming/[key]", controller="registrations", action="whoiscoming")
 			.get(name="list", pattern="/registrations/list/", controller="registrations", action="list")
 			.get(name="addRegItem", pattern="/registration/additem/[key]", controller="registrations", action="addTo")
+			.get(name="summary", pattern="/registrations/summary/", controller="registrations", action="summary")
 			.post(name="postAddedItem", pattern="/registration/add/", controller="registrations", action="add")
 			.resources("registrations")
 						
