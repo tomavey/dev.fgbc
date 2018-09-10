@@ -19,6 +19,8 @@
   <script src="/javascripts/focus/northwest.js"></script>
   <script src="/javascripts/focus/groups.js"></script>
   <script src="/javascripts/focus/groupsDialog.js"></script>
+  <script src="/javascripts/focus/signup.js"></script>
+  <script src="/javascripts/focus/signin.js"></script>
   
   <script src="/javascripts/focus/routes.js"></script>
   <script src="/javascripts/focus/store.js"></script>

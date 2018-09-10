@@ -7,6 +7,7 @@
   <title>Focus Retreats</title>
   <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.1.12/vuetify.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/focus/custom.css">
 </head>
 
 <body>

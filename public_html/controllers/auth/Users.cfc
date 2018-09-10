@@ -606,5 +606,4 @@
 		<cfset users = model("Authuser").findDuplicatesByEmail()>
 	</cffunction>
 
-
 </cfcomponent>

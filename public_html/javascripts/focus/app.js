@@ -19,9 +19,11 @@ const appView = `
    <v-navigation-drawer
       v-model="sideNav"
       absolute
+      app
       temporary
       class="white"
-    >
+      style="position:fixed; top:0; left:0; overflow-y:scroll;"
+      >
       <v-list class="pa-1">
         <v-list-tile @click="goTo('welcome')" style="cursor:pointer">
             <img src="https://charisfellowship.us/images/focus/forward40x.png">
@@ -49,6 +51,24 @@ const appView = `
 
           <v-list-tile-content>
             <v-list-tile-title>Groups</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile
+          @click="goTo('signup')"
+          style="cursor:pointer"
+        >
+
+          <v-list-tile-content>
+            <v-list-tile-title>Signup</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile
+          @click="goTo('signin')"
+          style="cursor:pointer"
+        >
+
+          <v-list-tile-content>
+            <v-list-tile-title>SignIn</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>

@@ -85,6 +85,8 @@ const Groups = {
           posted by <span @click="setSearchString(group.name)" style="cursor:pointer">{{group.name}}</span> on {{fbDateFormat(group.datetime)}}
         </v-card-text>
       </v-card>
+      <v-card-text>
+      </v-card-text>
     </v-flex>
     <v-card-text @click="goTo('groupsDialog')">
       ------      

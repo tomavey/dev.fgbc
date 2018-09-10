@@ -9,6 +9,8 @@ const routes = [
   { path: '/northwest', component: Northwest },
   { path: '/groups', component: Groups },
   { path: '/groupsDialog', component: GroupsDialog },
+  { path: '/signup', component: Signup },
+  { path: '/signin', component: Signin },
   { path: '*', component: Welcome}
 ] 
   
