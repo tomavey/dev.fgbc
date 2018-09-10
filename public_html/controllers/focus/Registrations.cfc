@@ -291,6 +291,7 @@
 			<cfset regs.east15total = regs.east15single + regs.east15singleprivate>
 			<cfset regs.east16total = regs.east16single + regs.east16singleprivate>
 			<cfset regs.east17total = regs.east17single + regs.east17singleprivate>
+			<cfset regs.east18total = "NA">
 			
 			<cfset regs.central12total = regs.centralsingle + regs.centralprivate>
 			<cfset regs.central13total = regs.central13single + regs.central13singleprivate>
@@ -306,6 +307,7 @@
 			<cfset regs.southwest16total = regs.SW16Single + regs.SW16SinglePrivate>
 			<cfset regs.southwest17total = regs.SW17Single + regs.SW17SinglePrivate>
 			<cfset regs.southwest18total = regs.SW18Single + regs.SW18SinglePrivate>
+			<cfset regs.southwest19total = "NA">
 
 			<cfset regs.south13total = regs.focusSouth2013Sgl + regs.focusSouth2013Dbl>
 			<cfset regs.south14total = regs.focusSouth2014Sgl + regs.focusSouth2014Dbl>
@@ -313,6 +315,7 @@
 			<cfset regs.south16total = regs.South2016Sgl + regs.South2016Dbl>
 			<cfset regs.south17total = regs.South2017Sgl + regs.South2017Dbl>
 			<cfset regs.south18total = regs.South2018Sgl + regs.South2018Dbl>
+			<cfset regs.south19total = "NA">
 
 			<cfset regs.northwest13total = regs.focusNW>
 			<cfset regs.northwest14total = regs.FocusNW2014>
@@ -321,6 +324,7 @@
 			<cfset regs.northwest16total = regs.FocusNW16>
 			<cfset regs.northwest17total = regs.FocusNW17>
 			<cfset regs.northwest18total = regs.FocusNW18>
+			<cfset regs.northwest19total = "NA">
 
 	</cffunction>
 

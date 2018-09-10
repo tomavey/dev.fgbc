@@ -10,6 +10,14 @@
 			<th>Northwest</th>
 		</tr>
 		<tr>
+			<td>2018/19</td>
+			<td>#regs.central18total#</td>
+			<td>#regs.east18total#</td>
+			<td>#regs.southwest19total#</td>
+			<td>#regs.south19total#</td>
+			<td>#regs.northwest19total#</td>
+		</tr>
+		<tr>
 			<td>2017/18</td>
 			<td>#regs.central17total#</td>
 			<td>#regs.east17total#</td>
