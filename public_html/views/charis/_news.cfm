@@ -30,7 +30,7 @@
                     <div class="col-lg-6 g-mb-30">
                       <!-- Article -->
                       <article>
-                    <cfoutput>#includePartial("twitterfeed")#</cfoutput>
+                    <cfoutput>x#includePartial("twitterfeed")#</cfoutput>
 <!---
                         <img class="img-fluid w-100 g-mb-20" src="assets/img/charis-website.jpg" alt="Image Description">
 
