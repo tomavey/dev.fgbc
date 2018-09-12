@@ -8,7 +8,9 @@ const Signup = {
       alert: true,
       confirmPassword: '',
       displayName: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      alert: false,
+      error: ''
     }
   },
   computed: {
