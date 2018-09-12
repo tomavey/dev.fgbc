@@ -10,19 +10,6 @@
                       <!-- Article -->
                       <article>
                     <cfoutput>#includePartial("announcements")#</cfoutput>
-                    <!---
-                        <img class="img-fluid w-100 g-mb-20" src="assets/img/novannouncement500.jpg" alt="Image Description">
-
-                        <h3 class="text-uppercase g-font-size-15">
-                          <a class="u-link-v5 g-color-main g-color-primary--hover mb-3" href="#">Our New Name is...</a>
-                        </h3>
-
-                        <p>Nullam elementum tincidunt massa, a pulvinar leo ultricies ut. Ut fringilla lectus tellusimp imperdiet molestie est volutpat at. Sed viverra cursus nibh.</p>
-
-                        <strong>
-                          <a class="text-uppercase g-font-size-12" href="#">See More</a>
-                        </strong>
-                      --->  
                       </article>
                       <!-- End Article -->
                     </div>
@@ -30,42 +17,10 @@
                     <div class="col-lg-6 g-mb-30">
                       <!-- Article -->
                       <article>
-                    <cfoutput>x#includePartial("twitterfeed")#</cfoutput>
-<!---
-                        <img class="img-fluid w-100 g-mb-20" src="assets/img/charis-website.jpg" alt="Image Description">
-
-                        <h3 class="text-uppercase g-font-size-15">
-                          <a class="u-link-v5 g-color-main g-color-primary--hover mb-3" href="#">The New Charis Alliance Website</a>
-                        </h3>
-
-                        <p>Nullam elementum tincidunt massa, a pulvinar leo ultricies ut. Ut fringilla lectus tellusimp imperdiet molestie est volutpat at. Sed viverra cursus nibh.</p>
-
-                        <strong>
-                          <a class="text-uppercase g-font-size-12" href="#">See More</a>
-                        </strong>
---->
+                    <cfoutput>#includePartial("twitterfeed")#</cfoutput>
                       </article>
                       <!-- End Article -->
                     </div>
-<!---
-                    <div class="col-lg-4 g-mb-30">
-                      <!-- Article -->
-                      <article>
-                        <img class="img-fluid w-100 g-mb-20" src="assets/img/hurricane-harvey-flooding.jpg" alt="Image Description">
-
-                        <h3 class="text-uppercase g-font-size-15 mb-3">
-                          <a class="u-link-v5 g-color-main g-color-primary--hover" href="#">Hurricane Harvey Relief</a>
-                        </h3>
-
-                        <p>Nullam elementum tincidunt massa, a pulvinar leo ultricies ut. Ut fringilla lectus tellusimp imperdiet molestie est volutpat at. Sed viverra cursus nibh.</p>
-
-                        <strong>
-                          <a class="text-uppercase g-font-size-12" href="#">See More</a>
-                        </strong>
-                      </article>
-                      <!-- End Article -->
-                    </div>
---->                    
                   </div>
                 </div>
 		</div>

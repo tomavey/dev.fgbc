@@ -168,7 +168,4 @@
 	<cfset set(testEmailList = "tomavey@charisfellowship.us,tomavey9173@gmail.com,tomavey@comcast.net,sharmion@charisfellowship.us")>
 	<cfset set(emailNotList = "tomavey@test.net,caesar.die2self@gmail.com,graham.cochrane@td.com")>
 
-<!---Social Media Links--->
-	<cfset set(twitter = "https://twitter.com/charischurches")>
-
 
