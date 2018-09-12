@@ -74,7 +74,7 @@
 	<cfset set(HandbookProfileSecretary="tomavey@charisfellowship.us")>
 	<cfset set(showLinkToHandbookPageBefore = "11-1-#year(now())#")>
 	<cfset set(sendHandbookDeadline = "January 5, 2018")>
-	<cfset set(HandbookReviewSecretary = "Cassie Harris <raylcassie@gmail.com>")>
+	<cfset set(HandbookReviewSecretary = "Cassie Rayl <raylcassie@gmail.com>")>
 	<cfset set(HandbookReviewSecretary2 = "Tom Avey <tomavey@charisfellowship.us>")>
 	<cfset set(SendImmediatePersonUpdates = false)>
 	<cfset set(ChurchHandbookReviewGreeting = "It's Time to Update the Charis Fellowship Handbook!")>
