@@ -140,7 +140,7 @@
 		<cfset var invoiceid = val(params.orderid)>
 
 		<cfif params.status NEQ "True">
-			<cfset redirectTo(action="tryAgain", key=invoiceid)>
+			<cfset redirectTo(action="tryAgain", key=invoiceid, params="sendNotice=false")>
 		</cfif>
 
 		<cfset invoice = model("Focusinvoice").findByKey(invoiceid)>
@@ -164,7 +164,7 @@
 		<cfif isDefined("url.auth_response") && url.auth_response is "APPROVED">
 			<cfset markInvoicePaid(params.key)>
 		<cfelse>	
-			<cfset redirectTo(action="tryAgain", key=params.key)>
+			<cfset redirectTo(action="tryAgain", key=invoiceid, params="sendNotice=false")>
 		</cfif>
 		<cftry>
 		<cfset invoice = model("Focusinvoice").findByKey(params.key)>
