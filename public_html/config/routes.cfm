@@ -214,7 +214,7 @@
 			.get(name="agent", pattern="/agent/", controller="invoices", action="agent")
 			.get(name="confirm", pattern="/confirm/", controller="invoices", action="confirm")
 			.get(name="thankyou", pattern="/thankyou/", controller="invoices", action="thankyou")
-			.get(name="tryagain", pattern="/tryagain/", controller="invoices", action="tryagain")
+			.get(name="tryagain", pattern="/tryagain/[key]", controller="invoices", action="tryagain")
 			.resources("invoices")
 			
 			.get(name="deleteitem", pattern="/items/[key]/delete/", controller="items", action="delete")
