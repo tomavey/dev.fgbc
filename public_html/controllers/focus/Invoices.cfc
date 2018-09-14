@@ -138,7 +138,7 @@
 		hint="goemerchant will call back to this controller">
 		<cfset var invoiceid = val(params.orderid)>
 
-		<cfif params.status is 0>
+		<cfif params.status is 0 || params.status is "False">
 			<cfset redirectTo(action="tryAgain", key=invoiceid)>
 		</cfif>
 
