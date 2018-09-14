@@ -136,6 +136,7 @@
 
 	<cffunction name="confirm" 
 		hint="goemerchant will call back to this controller">
+		
 		<cfset var invoiceid = val(params.orderid)>
 
 		<cfif params.status NEQ "True">
@@ -162,6 +163,8 @@
 		</cfif>	
 		<cfif isDefined("url.auth_response") && url.auth_response is "APPROVED">
 			<cfset markInvoicePaid(params.key)>
+		<cfselse>	
+			<cfset redirectTo(action="tryAgain", key=params.key)>
 		</cfif>
 		<cftry>
 		<cfset invoice = model("Focusinvoice").findByKey(params.key)>
