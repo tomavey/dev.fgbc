@@ -163,7 +163,7 @@
 		</cfif>	
 		<cfif isDefined("url.auth_response") && url.auth_response is "APPROVED">
 			<cfset markInvoicePaid(params.key)>
-		<cfselse>	
+		<cfelse>	
 			<cfset redirectTo(action="tryAgain", key=params.key)>
 		</cfif>
 		<cftry>
