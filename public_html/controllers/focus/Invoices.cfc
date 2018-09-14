@@ -164,7 +164,7 @@
 		<cfif isDefined("url.auth_response") && url.auth_response is "APPROVED">
 			<cfset markInvoicePaid(params.key)>
 		<cfelse>	
-			<cfset redirectTo(action="tryAgain", key=invoiceid, params="sendNotice=false")>
+			<cfset redirectTo(action="tryAgain", key=params.key)>
 		</cfif>
 		<cftry>
 		<cfset invoice = model("Focusinvoice").findByKey(params.key)>
