@@ -205,6 +205,9 @@
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-6,now()))>
 		</cfloop>
 
+		<cfloop list="east18single,east18singleprivate,east18Couple" index="i">
+			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",0,now()))>
+		</cfloop>
 		<cfloop list="east17single,east17singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,now()))>
 		</cfloop>
@@ -291,7 +294,7 @@
 			<cfset regs.east15total = regs.east15single + regs.east15singleprivate>
 			<cfset regs.east16total = regs.east16single + regs.east16singleprivate>
 			<cfset regs.east17total = regs.east17single + regs.east17singleprivate>
-			<cfset regs.east18total = "NA">
+			<cfset regs.east18total = regs.east18single + regs.east18singleprivate + regs.east18couple>
 			
 			<cfset regs.central12total = regs.centralsingle + regs.centralprivate>
 			<cfset regs.central13total = regs.central13single + regs.central13singleprivate>
