@@ -75,9 +75,13 @@
 		</tr>
 	</table>
 
-#linkTo(text="Regs through November 1", action="summary", params="asof=November 1, #year#")# | 
+#linkTo(text="Regs through November 1", action="summary", params="asof=November 1, #year#")# |
+#linkTo(text="Regs through Today", action="summary")#
+
+<!---
+| 
 #linkTo(text="February  1", action="summary", params="asof=February 1, #year#")# | 
 #linkTo(text="April  1", action="summary", params="asof=April 1, #year#")# |
 #linkTo(text="June  1", action="summary", params="asof=June 1, #year#")# 
-
+--->
 </cfoutput>
