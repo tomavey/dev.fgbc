@@ -1,5 +1,8 @@
+<cfparam name="asof" default="#now()#">
+<cfparam name="year" default = "#year(now())#">
+
 <cfoutput>
-	<h2>Registrations through #monthasstring(month(now()))# #day(now())#</h2>
+	<h2>Registrations through #monthasstring(month(asof))# #day(asof)#</h2>
 	<table class="table">
 		<tr>
 			<th>&nbsp;</th>
@@ -71,5 +74,10 @@
 			<td>#regs.northwest13total#</td>
 		</tr>
 	</table>
+
+#linkTo(text="Regs through November 1", action="summary", params="asof=November 1, #year#")# | 
+#linkTo(text="February  1", action="summary", params="asof=February 1, #year#")# | 
+#linkTo(text="April  1", action="summary", params="asof=April 1, #year#")# |
+#linkTo(text="June  1", action="summary", params="asof=June 1, #year#")# 
 
 </cfoutput>
