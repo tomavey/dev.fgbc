@@ -17,6 +17,7 @@ src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js">
 <cfinclude template="dsp_commission.cfm">
 
 <h2>Position Statements</h2>
+<p>Appointed by the Executive Director</p>
 <cfset tag = "fc_positions">
 <cfinclude template="dsp_commission.cfm">
 
