@@ -16,6 +16,10 @@ src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js">
 <cfset tag = "fc_finance">
 <cfinclude template="dsp_commission.cfm">
 
+<h2>Position Statements</h2>
+<cfset tag = "fc_positions">
+<cfinclude template="dsp_commission.cfm">
+
 <br/>
 <cfinvoke component="control" method="getcommission" tag="fc" returnvariable = "commission">
 
