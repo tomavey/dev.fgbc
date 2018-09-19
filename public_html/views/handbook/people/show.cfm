@@ -122,7 +122,7 @@
 							#linkTo(text=tag, controller="handbook.tags", action="show", key=tag)#
 							#linkTo(
 								text="<span style='color:grey'><sup>x</sup></span>",
-								route="handbookRemoveTag",
+								route="handbookRemoveFromTag",
 								key=tag,
 								params="tag=#tag#&itemid=#itemid#",
 								class="tooltipside",
