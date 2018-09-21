@@ -1,4 +1,4 @@
-<cfparam name="reportTitle" default="Listing Registrations:">
+<cfparam name="reportTitle" default="#message#">
 <cfset countUnPaid = 0>
 <cfset countPaid = 0>
 <cfset amountUnPaid = 0>

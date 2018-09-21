@@ -9,8 +9,10 @@
 
 	<!--- -registrations/index --->
 	<cffunction name="index">
-
+	<cfargument name="showHowMany" default="10">
 		<cfset showsummary=true>
+		<cfset message = "Listing Registrations: ">	
+
 
 		<cfif isDefined("params.byLName")>
 			<cfset orderby = "lname">
@@ -48,8 +50,9 @@
 			<cfset reporttitle = "Listing Registrations for option ID###params.itemid#:">
 			<cfset showsummary = true>
 		<cfelse>
-			<cfset registrations = model("Focusregistration").findAll(where="showregs='yes' AND active='yes'", include="item(retreat),registrant,invoice", order=orderby)>
+			<cfset registrations = model("Focusregistration").findAll(where="showregs='yes' AND active='yes'", include="item(retreat),registrant,invoice", order=orderby, maxrows="10")>
 			<cfset registrationCounts = model("Focusregistration").findAll(where="showregs='yes' AND active='yes'", include="item(retreat),registrant,invoice", order="itemid DESC")>
+			<cfset message = "Listing Registrations for the most recent #showHowMany# regs for: ">	
 		</cfif>
 		<cfif isDefined("params.download")>
 			<cfset renderPage(action="download", layout="/layout_download")>
