@@ -44,7 +44,7 @@
   </cfif>
 
 <!--- this button causes the controller to use layout_naked--->
-  <cfif gotrights("superadmin") && !isDefined("params.getremovedstaffonly") && !isDefined("params.layout")>
+  <cfif gotrights("superadmin,handbookadmin") && !isDefined("params.getremovedstaffonly") && !isDefined("params.layout")>
       #linkto(
         text="Show <br/> removed from staff <br/> only.", 
         params="showedit=1&showupdatedat=1&showalert=1&showremoved=1&showhiddenpositions=1&showRemovedStaffOnly", 
