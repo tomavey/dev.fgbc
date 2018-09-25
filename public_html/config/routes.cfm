@@ -138,6 +138,7 @@
 			.get(name="clearSendHandbook", pattern="/people/clearSendHandbook/", controller="people", action="clearSendHandbooks")
 			.get(name="focusMailingList", pattern="/people/focus/[key]", controller="people", action="focus")
 			.get(name="emailPeopleHandbookReview", pattern="/people/handbookReviewEmail", controller="people", action="emailPeopleForHandbookReview")
+			.delete(name="deleteperson", pattern="/people/[key]", controller="people", action="delete")
 			.resources("people")
 
 			.resources("personUpdates")
@@ -170,7 +171,7 @@
 			.post(name="feeProjection", pattern="/statistics/projection/", controller="statistics", action="getFeeTotal")
 			.get(name="closedChurches", pattern="/statistics/closedchurches", controller="statistics", action="closedchurches")
 			.resources("statistics")
-			
+
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
 			.post(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
 			.get(name="removeFromTag", pattern="/tags/remove/", controller="tags", action="removeFromTag")
