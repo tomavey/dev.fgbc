@@ -138,7 +138,7 @@
 			.get(name="clearSendHandbook", pattern="/people/clearSendHandbook/", controller="people", action="clearSendHandbooks")
 			.get(name="focusMailingList", pattern="/people/focus/[key]", controller="people", action="focus")
 			.get(name="emailPeopleHandbookReview", pattern="/people/handbookReviewEmail", controller="people", action="emailPeopleForHandbookReview")
-			.delete(name="deleteperson", pattern="/people/[key]", controller="people", action="delete")
+			.delete(name="deleteperson", pattern="/people/[key]/delete", controller="people", action="delete")
 			.resources("people")
 
 			.resources("personUpdates")
