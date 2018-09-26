@@ -151,6 +151,8 @@
 			.resources("prayers")
 			.resources("profiles")
 
+
+			.get(name="statlist", pattern="/liststatistics/", controller="statistics", action="list")
 			.get(name="liststatistics", pattern="/handbook/stats/", controller="statistics", action="welcome")
 			.get(name="deliquencies", pattern="/stats/deliquent/", controller="statistics", action="delinquent")
 			.get(name="allCurrent", pattern="/stats/allCurrent/", controller="statistics", action="allCurrent")
@@ -170,7 +172,6 @@
 			.get(name="failedPayment", pattern="/statistics/paymentfailed/", controller="statistics", action="paymentfailed")
 			.post(name="feeProjection", pattern="/statistics/projection/", controller="statistics", action="getFeeTotal")
 			.get(name="closedChurches", pattern="/statistics/closedchurches", controller="statistics", action="closedchurches")
-			.get(name="statlist", pattern="/liststatistics/", controller="statistics", action="list")
 			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
@@ -211,7 +212,7 @@
 			.post(name="createnewposition", pattern="/positions/create/", controller="positions", action="create")
 			.resources("positions")
 
-   			.get(name="handbookaddpayment", pattern="/handbook/add/[key]", controller="handbook.agbmInfo", action="add")
+   		.get(name="handbookaddpayment", pattern="/handbook/add/[key]", controller="handbook.agbmInfo", action="add")
 		.end()
 
 		.namespace("focus")
