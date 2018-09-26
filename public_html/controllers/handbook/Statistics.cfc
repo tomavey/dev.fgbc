@@ -103,7 +103,7 @@
 	</cffunction>
 
 
-	<!--- handbook-statistics/show/key --->
+	<!--- handbook/statistic/show/key --->
 	<cffunction name="show">
 
 		<cfif params.key is "0" || params.key is "nokey">

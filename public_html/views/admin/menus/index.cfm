@@ -30,7 +30,7 @@
 			#name#
 		</td>
 		<td>
-			#createLink(text=name, link=link, controller=controllerr, action=actionn, key=keyy)#
+			#createLink(text=name, link=link, controller=controllerr, action=actionn, key=keyy, route=route)#
 		</td>
 		<td>
 			<span class="expand">#left(rightsrequired,50)#</span>

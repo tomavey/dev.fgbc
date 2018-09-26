@@ -18,6 +18,8 @@
 					
 						#textField(objectName='menu', property='keyy', label='Key: ')#
 
+						#textField(objectName='menu', property='route', label='Route:(will use this route if present) ')#
+
 						#textField(objectName='menu', property='rightsrequired', label='Rights Required: ')#
 					
 						#textField(objectName='menu', property='sortorder', label='Sortorder: ')#

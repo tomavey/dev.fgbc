@@ -653,6 +653,7 @@
 <cfargument name="controller" required="false">
 <cfargument name="action" required="false">
 <cfargument name="key" required="false">
+<cfargument name="route" required="false">
 <cfargument name="text" required="true">
 <cfargument name="class" default="">
 <cfargument name="data_role" default="">
@@ -660,7 +661,12 @@
 <cfset var loc=structnew()>
 <cfset loc.return = "">
 
-<cfif isDefined("arguments.controller") and len(arguments.controller)>
+<!--- Delete controller and action in order to use route instead--->
+<cfif isDefined("arguments.route") && len(arguments.route)>
+	<cfset structDelete(arguments, 'controller')>
+	<cfset structDelete(arguments, 'action')>
+	<cfset loc.return = linkto(argumentCollection=arguments, style='color:red')>
+<cfelseif isDefined("arguments.controller") and len(arguments.controller)>
 	<cfif NOT isDefined("arguments.action") or NOT len(arguments.action)>
 		<cfset arguments.action = "index">
 	</cfif>
