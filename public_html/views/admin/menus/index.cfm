@@ -1,3 +1,4 @@
+<cfparam name="route" default="">
 <div class="container">
 
 <h1>Listing Menus</h1>

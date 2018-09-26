@@ -653,7 +653,7 @@
 <cfargument name="controller" required="false">
 <cfargument name="action" required="false">
 <cfargument name="key" required="false">
-<cfargument name="route" required="false">
+<cfargument name="route" default="">
 <cfargument name="text" required="true">
 <cfargument name="class" default="">
 <cfargument name="data_role" default="">
