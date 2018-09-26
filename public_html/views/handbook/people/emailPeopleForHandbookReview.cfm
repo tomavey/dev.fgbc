@@ -7,7 +7,7 @@
 
 <!--- <p>Link for #args.selectName#: #linkto(controller="handbook.welcome", action="welcome", params='id=#encrypt(args.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX")#', onlyPath=false)#</p> --->
 <p>Link for #args.selectName#: 
-  <a href='https://charisfellowship.us/index.cfm/handbook/unlock/#encrypt(handbookperson.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX")#'>
+  <a href='https://charisfellowship.us/index.cfm/handbook/unlock/#encrypt(args.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX")#'>
     charisfellowship.us/index.cfm/handbook/unlock/#encrypt(handbookperson.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX")#
   </a>
 </p>
