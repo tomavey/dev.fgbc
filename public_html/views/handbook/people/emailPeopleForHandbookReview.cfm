@@ -5,8 +5,12 @@
 
 #emailMessage#
 
-<p>Link for #args.selectName#: #linkto(controller="handbook.welcome", action="welcome", params='id=#encrypt(args.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX")#', onlyPath=false)#</p>
-<p>Link for #args.selectName#: #linkto(href="https://charisfellowship.us/index.cfm/handbook/unlock/#encrypt(handbookperson.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX")#")#</p>
+<!--- <p>Link for #args.selectName#: #linkto(controller="handbook.welcome", action="welcome", params='id=#encrypt(args.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX")#', onlyPath=false)#</p> --->
+<p>Link for #args.selectName#: 
+  <a href='https://charisfellowship.us/index.cfm/handbook/unlock/#encrypt(handbookperson.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX")#'>
+    charisfellowship.us/index.cfm/handbook/unlock/#encrypt(handbookperson.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX")#
+  </a>
+</p>
 <p style="font-weight:bold">Thanks so much for your help! If you need assistance, reply to this email.</p>
 <p style="font-size:.8em;color:grey"><span>From</span>: #getHandbookReviewSecretary()#</p>
 <p style="font-size:.8em;color:grey"><span>To</span>: #args.email#</p>
