@@ -170,7 +170,6 @@
 			.get(name="failedPayment", pattern="/statistics/paymentfailed/", controller="statistics", action="paymentfailed")
 			.post(name="feeProjection", pattern="/statistics/projection/", controller="statistics", action="getFeeTotal")
 			.get(name="closedChurches", pattern="/statistics/closedchurches", controller="statistics", action="closedchurches")
-			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
 			.post(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
@@ -601,7 +600,6 @@
 		.get(name="constitution", pattern="/constitution", controller="contents", action="constitution")
 		.get(name="churches", pattern="/churches", controller="churches", action="index")
 		.get(name="newName", pattern="newname", controller="charis", action="rebranding")
-		.get(name="badRoute", pattern="handbook-statistics/show/[key]", controller="home", action="index")
 		.get(name="focusMobile", pattern="/focusmobile/", controller="focus.main", action="mobile")
 		.root(controller="Home", action="index")
 		.wildcard()
