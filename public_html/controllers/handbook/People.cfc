@@ -794,7 +794,7 @@ public function emailPeopleForHandbookReview(
 		sendEmail(
 			to=people[i].email, 
 			from=getHandbookReviewSecretary(), 
-			subject="FGBC Handbook Review", 
+			subject=getSetting('PersonHandbookReviewGreeting'), 
 			template="emailPeopleForHandbookReview.cfm", 
 			layout="/layout_for_email", 
 			args=people[i]

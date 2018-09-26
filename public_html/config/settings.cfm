@@ -78,6 +78,7 @@
 	<cfset set(HandbookReviewSecretary2 = "Tom Avey <tomavey@charisfellowship.us>")>
 	<cfset set(SendImmediatePersonUpdates = false)>
 	<cfset set(ChurchHandbookReviewGreeting = "It's Time to Update the Charis Fellowship Handbook!")>
+	<cfset set(PersonHandbookReviewGreeting = "It's Time to Update the Charis Fellowship Handbook!")>
 
 <!---Used by Focus MVC--->
 	<cfset set(registrant = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")>
