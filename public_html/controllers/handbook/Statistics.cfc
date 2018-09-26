@@ -106,6 +106,10 @@
 	<!--- handbook-statistics/show/key --->
 	<cffunction name="show">
 
+		<cfif params.key is "0" || params.key is "nokey">
+			<cfset redirectTo(action="index")>
+		</cfif>	
+
 		<!--- Find the record --->
     	<cfset handbookstatistic = model("Handbookstatistic").findAll(where="organizationid=#params.key#",include="Handbookorganization(Handbookstate)",order="year DESC")>
 
