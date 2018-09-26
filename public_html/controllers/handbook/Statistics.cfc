@@ -69,6 +69,40 @@
 		</cfif>
 	</cffunction>
 
+	<!--- handbook/statistics/list --->
+	<cffunction name="list">
+		<cfset var loc=structNew()>
+
+		<cfif isDefined("params.year") and len(params.year)>
+			<cfset statyear = params.year>
+		<cfelse>
+			<cfset statYear = year(now())-1>
+		</cfif>
+
+		<cfif not isdefined("params.key")>
+			<cfset params.key = "year">
+		</cfif>
+
+		<cfif isdefined("params.year")>
+			<cfset whereString="year=#params.year#">
+		<cfelse>
+			<cfset whereString="year=#statYear#">
+		</cfif>
+
+		<cfif isDefined("params.temp")>
+			<cfset whereString=whereString & " AND enteredBy='temp'">
+		</cfif>
+
+		<cfset handbookstatistics = model("Handbookstatistic").findAll(where=whereString,include="Handbookorganization(Handbookstate)", order=params.key)>
+
+		<cfif isDefined("params.summary") and params.summary>
+			<cfset renderPage(controller="handbook-statistics", action="summary")>
+		</cfif>
+
+		<cfset renderPage(template="index")>
+	</cffunction>
+
+
 	<!--- handbook-statistics/show/key --->
 	<cffunction name="show">
 
