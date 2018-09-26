@@ -503,6 +503,7 @@
 		.get(name="coopministry", pattern="/coopministry/", controller="membership.newministries", action="new")
 		.get(name="sendstatspick", pattern="/sendstats/", controller="handbook.statistics", action="submit")
 		.get(name="sendstats", pattern="/sendstats/[key]", controller="handbook.statistics", action="submit")
+		.get(name="index", pattern="/statistics/index/", controller="handbook.statistics", action="index")
 
 		.get(name="Xselectpersonselectworkshops", pattern="/selectworkshops/", controller="conference.courses", action="selectworkshops")
 		.get(name="Xselectpersonselectcohorts", pattern="/selectcohorts/", controller="conference.courses", action="selectworkshops")
