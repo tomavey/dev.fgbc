@@ -166,7 +166,7 @@
 <!---For Vision Conference Announcements--->
 
 	<cfset set(useTestEmailList = false)>
-	<cfset set(testEmailList = "tomavey@charisfellowship.us,tomavey9173@gmail.com,tomavey@comcast.net,sharmion@charisfellowship.us")>
+	<cfset set(testEmailList = "tomavey@charisfellowship.us,tomavey@fgbc.org")>
 	<cfset set(emailNotList = "tomavey@test.net,caesar.die2self@gmail.com,graham.cochrane@td.com")>
 
 
