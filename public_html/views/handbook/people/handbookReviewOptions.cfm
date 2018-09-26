@@ -24,7 +24,10 @@
     </p>
     </cfif>
 
-    <div class="well">#emailMessage#</div>    
+    <div class="well">
+        <p>Subject: #getSetting('PersonHandbookReviewGreeting')#<p>
+        <p>#emailMessage#</p>
+    </div>    
 
     <table id="handbookReviewOptions">
         <tr>
