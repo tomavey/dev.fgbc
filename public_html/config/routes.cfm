@@ -172,7 +172,6 @@
 			.get(name="failedPayment", pattern="/statistics/paymentfailed/", controller="statistics", action="paymentfailed")
 			.post(name="feeProjection", pattern="/statistics/projection/", controller="statistics", action="getFeeTotal")
 			.get(name="closedChurches", pattern="/statistics/closedchurches", controller="statistics", action="closedchurches")
-			.resources("statistics")
 
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
 			.post(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
