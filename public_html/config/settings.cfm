@@ -28,7 +28,7 @@
 	<cfif cgi.http_host contains ":8080" || cgi.http_host contains ":8888">
         	<cfset set(URLRewriting="Off")>
 	<cfelse>
-	       <cfset set(URLRewriting="Off")>
+	       <cfset set(URLRewriting="On")>
 	       <cfset set(reloadPassword="mack")>
 	</cfif>
 	<cfset set(autologin=true)>
