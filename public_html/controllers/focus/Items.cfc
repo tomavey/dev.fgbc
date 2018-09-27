@@ -39,7 +39,8 @@
 	<cffunction name="new">
 		<cfset item = model("Focusitem").new()>
 		<cfset item.expiresAt = dateAdd("yyyy",1,now())>
-		<cfset activeRetreats = model("Focusretreat").findall(where="active='yes'")>
+		<cfset activeRetreats = model("Focusretreat").findall(where="active='yes'", order="startAt DESC")>
+		<cfdump var="#activeRetreats#"><cfabort>
 	</cffunction>
 	
 	<!--- -items/edit/key --->
