@@ -189,6 +189,4 @@
 </div>
 </div>
 
-<cfdump var="#cgi#"><cfabort>
-
 </cfoutput>
