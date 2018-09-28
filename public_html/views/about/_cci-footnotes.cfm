@@ -121,5 +121,5 @@ public function getFootnotesAsStruct(){
 
 </cfscript>
 
-<cfdump var="#cgi#">
+<cfdump var="#cgi#"><cfabort>
 
