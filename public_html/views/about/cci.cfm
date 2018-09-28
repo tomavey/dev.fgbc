@@ -81,7 +81,8 @@
                 </ol>
                 <p>
                     We believe that any written document is a creation of man, and must be subject to continual discussion and improvement as we grow in our understanding of the Bible, which alone is the unchanging Word of God, as we seek to apply the Bible to our changing cultural context.&nbsp;</p>
-                 <p class="well">At the annual meeting in 2016 of the Fellowship of Grace Brethren Churces, Inc, delegates unanymously accepted an invitation to become a charter member of the Charis Alliance. They also decided that the Charis Commitment to Common Identity be endorsed as the identity statement of the Fellowship of Grace Brethren Churches and that it be used by our member churches, the Association of Grace Brethren Ministers, our national and cooperating organizations, and districts to train leaders and to communicate and explain our movement.</p>
+                 <p class="well">
+                    At the annual meeting in 2016 of the Charis Fellowship, delegates unanimously accepted an invitation to become a charter member of the global Charis Alliance. In 2017, they decided that the Charis Commitment to Common Identity be endorsed as the identity statement of the Charis Fellowship. They recommended that it be used by our member churches, by Inspire (Charis Pastors Network), by our national and cooperating organizations, and by districts to train leaders and to communicate and explain our movement.</p>
             </div><!---End #introduction-uses--->
 
         </div><!---End #introduction--->
