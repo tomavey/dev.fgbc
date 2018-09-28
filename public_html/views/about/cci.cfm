@@ -25,10 +25,9 @@
                 An Introduction to the Charis Commitment to Common Identity
             </div>
 
-            <sup class="pull-right">Download the PDF
-                <a href="http://fgbc.org/files/Charis%20Commitment%202016,%20single%20page%20-%20revised.pdf" target="_blank">English</a> |
-                <a href="http://charisalliance.org/documents/ccci_final_versions/Nuestro_Compromiso_a_la_Identidad_Com%C3%BAn_2015_(ESP_v2015.0).pdf" target="_blank">Spanish</a> |
-                <a href="http://charisalliance.org/documents/ccci_final_versions/Identit%C3%A9_Commune_de_lAlliance_Charis_2015_(FRA_v2015.0).pdf" target="_blank">French</a></sup>
+            <sup class="pull-right">
+                <a href="https://charisfellowship.us/files/CCCIforCharisFellowship.pdf" target="_blank">Download the PDF</a>
+            </sup>
 
             <div id="introduction-history">
                 <div class="sectionheader">
