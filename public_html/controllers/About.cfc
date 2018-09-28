@@ -83,7 +83,7 @@
 		    var footnote = "";
 		    var footnotes = getFootnotesAsStruct();
 
-		    footnote  = "<a href='###id#'><sup>" & id & "</sup></a><span class='popup'>" & footnotes[id] & "</span>";
+		    footnote  = "<a href='#request_url#/###id#'><sup>" & id & "</sup></a><span class='popup'>" & footnotes[id] & "</span>";
 		    return footnote;
 		}
 
