@@ -4,7 +4,7 @@ public function getFootnote(id){
     var footnote = "";
     var footnotes = getFootnotesAsStruct();
 
-    footnote  = "<a href='/###id#'><sup>" & id & "</sup></a><span class='popup'>" & footnotes[id] & "</span>";
+    footnote  = "<a href='###id#'><sup>" & id & "</sup></a><span class='popup'>" & footnotes[id] & "</span>";
     return footnote;
 }
 
@@ -120,4 +120,6 @@ public function getFootnotesAsStruct(){
 }
 
 </cfscript>
+
+<cfdump var="#cgi#">
 
