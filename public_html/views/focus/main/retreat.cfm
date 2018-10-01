@@ -49,7 +49,7 @@
 						<cfif dateCompare(retreat.deadline, retreat.discountdeadline)>
 							This price increases on #dateformat(retreat.discountdeadline,"medium")#</br>
 						</cfif>
-						Registration deadline is #dateformat(retreat.deadline,"medium")#</br>
+						Registration deadline is #dateformat(retreat.deadline,"medium")#. No refunds for cancelations after #dateformat(retreat.deadline,"medium")#. </br>
 						Additional financial aid may be available.  Email #mailto("tomavey@fgbc.org")# for more information.
 					</p>
 				<cfelse>
