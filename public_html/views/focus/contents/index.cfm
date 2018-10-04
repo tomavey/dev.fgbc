@@ -12,9 +12,6 @@
 				
 					<cfcol header="Comment" text="#left(comment,10)#" />
 				
-	<cfcol header="" text="#showTag()#" />
-	<cfcol header="" text="#editTag()#" />
-	<cfcol header="" text="#deleteTag()#" />
 </cftable>
 </div>
 
