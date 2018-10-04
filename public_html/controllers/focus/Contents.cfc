@@ -20,6 +20,10 @@
 	<!--- -contents/show/key --->
 	<cffunction name="show">
 
+		<cfif isDefined("params.id")>
+			<cfset params.key = params.id>
+		</cfif>	
+
 		<!--- Find the record --->
     	<cfset content = model("Focuscontent").findByKey(params.key)>
 

@@ -12,7 +12,7 @@
 				
 					<cfcol header="Comment" text="#left(comment,10)#" />
 				
-	<cfcol header="" text="#linkto(text='show', controller='focus.contents', action='show', key=id)#" />
+	<cfcol header="" text="#linkto(text='show', controller='focus.contents', action='show', params='id=#id#')#" />
 </cftable>
 </div>
 
