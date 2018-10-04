@@ -19,10 +19,7 @@
 			Begins
 		</th>
 		<th>
-			End
-		</th>
-		<th>
-			Discount Deadline
+			Deadline
 		</th>
 		<th>
 			&nbsp;
@@ -31,7 +28,7 @@
 	<cfoutput query="retreats">
 		<tr>
 			<td>
-				#regid#
+				#linkto(text=regid, controller="focus.retreats", action="show", key=id)#
 			</td>
 			<td>
 				#title#
@@ -46,10 +43,7 @@
 				#dateformat(startAt)#
 			</td>
 			<td>
-				#dateformat(endAt)#
-			</td>
-			<td>
-				#dateformat(discountdeadline)#
+				#dateformat(deadline)#
 			</td>
 			<td>
 				#showtag()# #editTag()# #deleteTag()# #copyTag()#

@@ -72,14 +72,6 @@
 		<cfreturn loc.retreat.regid>
 	</cffunction>
 
-	<cffunction name="showRegistration" hint="used in the view to control displaying link and info to registration page">
-		<cfif (now()-1 LTE retreat.deadline and retreat.regisopen) or isDefined("params.open") or gotrights("office")>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction>
-
 	<cffunction name="logout">
 		<cfset structdelete(session,"auth")>
 		<cfset redirectTo(action="welcome")>

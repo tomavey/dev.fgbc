@@ -22,42 +22,31 @@
 
 <div class="span6">
 
+<cfif isOffice() >
+	Office
+</cfif>
+
 		<div id="registration" class="well">
 			<h1>Registration</h1>
 
-			<cfif showRegistration()>
+			<cfif regIsClosed(retreat.regisopen)>
 
-				<cfif options.recordcount>
-					#linkTo(text="Register Here", controller="focus.shoppingcarts", action="new", params="retreatid=#retreat.id#", class="btn")#
-					#retreat.registrationComments#
+				#retreat.notopenmessage#
 
-					<p>Registration Options: </p>
-					<ul>
-					<cfloop query="options">
-						<cfif showItem(id)>
-						<li>
-							#description# - #dollarformat(price)#
-							<cfif len(popup)>
-								<a href="" title="#popup#" class="tooltipside"><i class="icon-info-sign"></i></a>
-							</cfif>
+			<cfelseif showDeadlineIsPastMessage(retreat.deadline)>
 
-						</li>
-						</cfif>
-					</cfloop>
-					</ul>
-					<p>
-						<cfif dateCompare(retreat.deadline, retreat.discountdeadline)>
-							This price increases on #dateformat(retreat.discountdeadline,"medium")#</br>
-						</cfif>
-						Registration deadline is #dateformat(retreat.deadline,"medium")#. <br/>No refunds for cancelations or changes after #dateformat(retreat.deadline,"medium")#. </br>
-						Additional financial aid may be available.  Email #mailto("tomavey@fgbc.org")# for more information.
-					</p>
+				<cfif len(retreat.pastdeadlinemessage)>
+					#retreat.pastdeadlinemessage#
 				<cfelse>
-						Registration is not ready yet. Stay tuned!
+					#retreat.notopenmessage#
 				</cfif>
 
+			<cfelseif showRegistration(options.recordcount, retreat)>
+					#includePartial("retreatRegOptions")#
+
 			<cfelse>
-					#retreat.notopenmessage#
+				Registration is not open. (this should not show)
+
 			</cfif>
 		</div>
 

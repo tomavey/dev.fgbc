@@ -4,7 +4,7 @@
 		<cfset retreatRegions = model("Handbookdistrict").findall(order="focusretreat")>
 	</cffunction>
 
-    <cffunction name="itemIsSoldOut">
+    <cffunction name="itemIsSoldOut" hint="used by view-helper to determine if a specific reg item should show">
     <cfargument name="itemid" required="false" type="numeric">
         <cfif isDefined("params.itemid")>
             <cfset arguments.itemid = params.itemid>
