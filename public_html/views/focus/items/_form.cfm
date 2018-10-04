@@ -2,8 +2,12 @@
 
 						#textField(objectName='item', property='name', label='Name: ')#
 
-						#select(objectName='item', property='retreatID', label='Retreat: ', options=activeRetreats)#
-
+						<cfif isDefined("params.retreatID")>
+							#hiddenFieldTag(name="item.retreatID", value=params.retreatid)#
+						<cfelse>	
+							#select(objectName='item', property='retreatID', label='Retreat: ', options=activeRetreats)#
+						</cfif>
+						
 						#textField(objectName='item', property='description', label='Description: ')#
 
 						#textField(objectName='item', property='maxtosell', label='Maximum available to sell: ')#

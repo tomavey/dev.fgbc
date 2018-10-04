@@ -23,7 +23,7 @@
 <div class="span6">
 
 <cfif isOffice() >
-	Office
+	Office: #editTag(id=retreat.id, controller="focus.retreats")#
 </cfif>
 
 		<div id="registration" class="well">
