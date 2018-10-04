@@ -13,7 +13,7 @@
 			Active?
 		</th>
 		<th>
-			Show Regs?
+			Reg Open?
 		</th>
 		<th>
 			Begins
@@ -37,7 +37,7 @@
 				#active#
 			</td>
 			<td>
-				#showregs#
+				#regIsOpen#
 			</td>
 			<td>
 				#dateformat(startAt)#
