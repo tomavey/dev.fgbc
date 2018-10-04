@@ -218,7 +218,7 @@
 			.get(name="contentsIndex", pattern="contents/", controller="contents", action="index")
 			.get(name="contentsShow", pattern="showContents/", controller="contents", action="show")
 			.get(name="contentsEdit", pattern="editContents/", controller="contents", action="edit")
-			.get(name="contentsupdate", pattern="updateContents/", controller="contents", action="update")
+			.post(name="contentsupdate", pattern="updateContents/", controller="contents", action="update")
 
 			.get(name="payonline", pattern="/payonline/[key]", controller="invoices", action="payonline")
 			.get(name="agent", pattern="/agent/", controller="invoices", action="agent")
