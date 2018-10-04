@@ -381,7 +381,7 @@
 	</cfif>
 	</cffunction>
 
-	<cffunction name="XlinkTo">
+	<cffunction name="linkTo">
 	<cfset var loc=structNew()>
 	<cfset var i="">
 	<cfloop list="#structKeylist(arguments)#" index="i">
