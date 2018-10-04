@@ -2,6 +2,7 @@
 
 #ckeditor()#
 
+						#hiddenFieldTag(name="id", value=params.key)#
 
 						#textField(objectName='content', property='name', label='Name')#
 					

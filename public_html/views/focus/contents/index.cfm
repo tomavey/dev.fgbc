@@ -18,5 +18,5 @@
 </div>
 
 <cfoutput>
-	<p>#linkTo(text="New content", action="new")#</p>
+<!--- 	<p>#linkTo(text="New content", action="new")#</p> --->
 </cfoutput>
