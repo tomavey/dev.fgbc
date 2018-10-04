@@ -5,6 +5,7 @@
 		<cfset filters(through='checkOffice', only="edit")>
 		<cfset filters(through="getRetreats")>
 		<cfset filters(through="getRetreatRegions")>
+		<cfset filters(through="setKeyToParamsId")>
 	</cffunction>
 
 <!------------------------------->
@@ -20,10 +21,6 @@
 	<!--- -contents/show/key --->
 	<cffunction name="show">
 
-		<cfif isDefined("params.id")>
-			<cfset params.key = params.id>
-		</cfif>	
-
 		<!--- Find the record --->
     	<cfset content = model("Focuscontent").findByKey(params.key)>
 
@@ -37,6 +34,12 @@
 
 	</cffunction>
 
+<cfscript>
+	function setKeyToParamsId() {
+		if (isDefined("params.id")) { params.key = params.id}
+	}
+</cfscript>
+
 	<!--- -contents/new --->
 	<cffunction name="new">
 		<cfset content = model("Focuscontent").new()>
@@ -45,6 +48,7 @@
 
 	<!--- -contents/edit/key --->
 	<cffunction name="edit">
+
 		<!--- Find the record --->
     	<cfset content = model("Focuscontent").findByKey(params.key)>
 
