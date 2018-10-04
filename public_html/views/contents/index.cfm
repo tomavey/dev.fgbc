@@ -23,7 +23,13 @@
 			#dateformat(updatedAt)#	
 		</td>
 		<td>
-			#editTag()# 
+			#linkTo(
+						text="<i class='fa fa-pencil-square'></i>",
+						controller="focus.contents",
+						action="edit",
+						key=ID,
+						title="show"
+						)# 
 			#linkTo(
 						text="<i class='fa fa-search'></i>",
 						controller="focus.contents",
@@ -31,7 +37,6 @@
 						key=ID,
 						title="show"
 						)# 
-			#deleteTag()#
 		</td>
 	</tr>
 </cfoutput>
