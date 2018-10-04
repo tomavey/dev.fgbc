@@ -215,7 +215,10 @@
 		.end()
 
 		.namespace("focus")
-			.get(name="index", pattern="/contents/", controller="contents", action="index")
+			.controller("contents")
+				.get(name="index", pattern="/contents/", action="index")
+				.get(name="show", pattern="/content/[key]", action="show")
+			.end()	
 
 			.get(name="payonline", pattern="/payonline/[key]", controller="invoices", action="payonline")
 			.get(name="agent", pattern="/agent/", controller="invoices", action="agent")
