@@ -26,7 +26,8 @@
 			#editTag()# 
 			#linkTo(
 						text="<i class='fa fa-search'></i>",
-						route="focusContentsShow",
+						controller="focus.contents",
+						action="show",
 						key=ID,
 						title="show"
 						)# 
