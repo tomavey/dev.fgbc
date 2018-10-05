@@ -5,8 +5,17 @@
 		<cfset filters(through='checkOffice', only="edit")>
 		<cfset filters(through="getRetreats")>
 		<cfset filters(through="getRetreatRegions")>
-		<cfset filters(through="setKeyToParamsId")>
+		<cfset filters(through="setKeyToKeyy")>
 	</cffunction>
+
+<!---Filters--->
+
+<cfscript>
+	function setKeyToParamsId() {
+		if (isDefined("params.id")) { params.key = params.id}
+	}
+</cfscript>
+
 
 <!------------------------------->
 <!--------CRUD------------------->
@@ -34,11 +43,6 @@
 
 	</cffunction>
 
-<cfscript>
-	function setKeyToParamsId() {
-		if (isDefined("params.id")) { params.key = params.id}
-	}
-</cfscript>
 
 	<!--- -contents/new --->
 	<cffunction name="new">
