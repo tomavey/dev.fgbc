@@ -448,8 +448,8 @@
 			.end()
 			.resources("delegates")
 
-			.get(name="newchurches", pattern="/newchurches/", controller="newchurches", action="index")
 			.get(name="shownewchurch", pattern="/newchurch/[key]", controller="newchurches", action="show")
+			.get(name="newchurches", pattern="/newchurches/", controller="newchurches", action="index")
 			.get(name="editnewchurch", pattern="/newchurch/[key]/edit", controller="newchurches", action="edit")
 			.get(name="checkin", pattern="/newchurch/checkin/", controller="newchurches", action="checkin")
 			.post(name="createBlankForm", pattern="/newchurches/createBlankForm/", controller="newchurches", action="createBlankForm")
