@@ -15,7 +15,7 @@
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <cfoutput>
-    #javaScriptIncludeTag("angular,focus/app,focus/controllers,focus/services,bootstrap,focus,ajaxdelete")#
+    #javaScriptIncludeTag("bootstrap,focus,ajaxdelete")#
 </cfoutput>
 
 </body>
