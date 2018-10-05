@@ -12,8 +12,8 @@
 				
 					<cfcol header="Comment" text="#left(comment,10)#" />
 				
-	<cfcol header="" text="#linkto(text="<i class='fa fa-search'></i>", controller='focus.contents', action='show', key=id)#" />
-	<cfcol header="" text="#linkto(text="<i class='fa fa-pencil-square'></i>", controller='focus.contents', action='edit', params='id=#id#')#" />
+	<cfcol header="" text="#linkto(text="<i class='fa fa-search'></i>", controller='focus.contents', action='show', params='keyy=#id#')#" />
+	<cfcol header="" text="#linkto(text="<i class='fa fa-pencil-square'></i>", controller='focus.contents', action='edit', params='keyy=#id#')#" />
 </cftable>
 </div>
 

@@ -387,10 +387,6 @@
 	<cfloop list="#structKeylist(arguments)#" index="i">
 		<cfset loc[replace(i,"_","-","all")] = arguments[i]>
 	</cfloop>
-	<!---Workaround for when routes wont read the key--->
-	<cfif isDefined("loc.key")>
-		<cfset loc.keyy = loc.key>
-	</cfif>
 	<cfreturn super.linkTo(argumentCollection=loc)>
 	</cffunction>
 
