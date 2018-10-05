@@ -11,7 +11,7 @@
 <!---Filters--->
 
 <cfscript>
-	function setKeyToParamsId() {
+	function setKeyToKeyy() {
 		if (isDefined("params.id")) { params.key = params.id}
 	}
 </cfscript>
