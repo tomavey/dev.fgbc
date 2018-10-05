@@ -10,6 +10,7 @@
 		<cfset filters(through="provideChurches", only="new,edit,step7")>
 		<cfset filters(through="setMembershipApplicationSessionFromKey", only="edit,show")>
 		<cfset filters(through="setMembershipApplicationSessionFromUUID", only="edit,show")>
+		<cfset filters(through="setKeyToKeyy")>
 	</cffunction>
 
 	<cffunction name="setMembershipApplicationSessionFromKey">
@@ -205,8 +206,7 @@
 
 	<!--- -membershipapplications/delete/key --->
 	<cffunction name="delete">
-
-		<cfset membershipapplication = model("Membershipapplication").findApp(params.key)>
+		<cfset membershipapplication = model("Membershipapplication").findApp(params.keyy)>
 
 		<!--- Verify that the membershipapplication deletes successfully --->
 		<cfif membershipapplication.delete()>

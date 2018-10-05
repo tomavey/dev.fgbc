@@ -33,20 +33,21 @@
 
 					<cfcol header="Created At" text="#dateformat(createdAt,'medium')# - #timeformat(createdAt,'short')#" />
 
-	<cfcol header="" text="#linkTo(text='<i class="icon-eye-open"></i>', action='show', key=ID, class="tooltip2", title="View")#" />
+	<cfcol header="" text="#linkTo(text=viewIcon(), action='show', key=ID, params='keyy=#id#', class='tooltip2', title='View')#" />
+
 	<cfif gotRights("superadmin,office,handbookedit")>
-		<cfcol header="" text="#linkTo(text='<i class="icon-edit"></i>', action='edit', key=ID, class="tooltip2", title="Edit")#" />
+		<cfcol header="" text="#linkTo(text=editIcon(), action='edit', key=ID, params='keyy=#id#', class='tooltip2', title='Edit')#" />
 		<cfcol header=""
 			text="
 				#linkTo
 					(
-					text='<i class="icon-trash"></i>',
+					text=deleteIcon(),
 					action='delete',
 					method="delete",
-					key=ID,
-					class="tooltip2",
-					title="Delete",
-					onclick="return	confirm('Are you sure that you want to delete the application for #name_of_church#?');"
+					params='keyy=#uuid#',
+					class='tooltip2',
+					title='Delete',
+					onclick='return	confirm("Are you sure that you want to delete the application for #name_of_church#?");'
 					)
 					#"
 		/>

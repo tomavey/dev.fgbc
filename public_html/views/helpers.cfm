@@ -259,6 +259,10 @@
 		return "<i class='fa fa-list' aria-hidden='true'></i>";
 	}
 
+	function viewIcon(){
+		return "<i class='icon-eye-open'></i>";
+	}
+
 </cfscript>
 
 <cffunction name="showTag">
