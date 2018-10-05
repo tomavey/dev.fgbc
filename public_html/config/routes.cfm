@@ -454,11 +454,12 @@
 			.resources("delegates")
 
 			.controller("newchurches")
-				.get(name="newchurches", pattern="/newchurches/", action="index")
-				.get(name="shownewchurch", pattern="/newchurch/", action="show")
-				.get(name="editnewchurch", pattern="/newchurch/edit/", action="edit")
-				.get(name="deletenewchurch", pattern="/newchurch/delete/", action="delete")
+				.get(name="newchurches", pattern="/", action="index")
+				.get(name="shownewchurch", pattern="/show/", action="show")
+				.get(name="editnewchurch", pattern="/edit/", action="edit")
+				.get(name="deletenewchurch", pattern="/delete/", action="delete")
 			.end()
+
 			.get(name="checkin", pattern="/newchurch/checkin/", controller="newchurches", action="checkin")
 			.post(name="createBlankForm", pattern="/newchurches/createBlankForm/", controller="newchurches", action="createBlankForm")
 			.get(name="emailSent", pattern="/newchurches/emailsent/", controller="newchurches", action="emailsent")
