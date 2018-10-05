@@ -388,7 +388,7 @@
 		<cfset loc[replace(i,"_","-","all")] = arguments[i]>
 	</cfloop>
 	<!---Workaround for when routes wont read the key--->
-	<cfif isDefined("loc.key")>
+	<cfif isDefined("loc.params.key")>
 		<cfset loc.params.keyy = loc.params.key>
 	</cfif>
 	<cfreturn super.linkTo(argumentCollection=loc)>
