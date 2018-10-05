@@ -12,7 +12,7 @@
 
 <cfscript>
 	function setKeyToKeyy() {
-		if (isDefined("params.id")) { params.key = params.id}
+		if (isDefined("params.keyy")) { params.key = params.keyy}
 	}
 </cfscript>
 
