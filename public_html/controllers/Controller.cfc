@@ -389,7 +389,7 @@
 	</cfloop>
 	<!---Workaround for when routes wont read the key--->
 	<cfif isDefined("loc.key")>
-		<cfset loc.keyy = loc.key>
+		<cfset loc.params.keyy = loc.params.key>
 	</cfif>
 	<cfreturn super.linkTo(argumentCollection=loc)>
 	</cffunction>
