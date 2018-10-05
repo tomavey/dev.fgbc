@@ -32,11 +32,11 @@
 
 					<cfcol header="Created" text="#dateFormat(createdAt)#" />
 
-	<cfcol header="" text="#showTag(uuid)#" />
+	<cfcol header="" text="#linkto(text=showIcon(), controller='membership.newchurches', action='show', params='uuid=#uuid#')#" />
 
 <cfif isOffice() || gotRights("handbookedit")>
-	<cfcol header="" text="#editTag(uuid)#" />
-	<cfcol header="" text="#deleteTag(uuid)#" />
+	<cfcol header="" text="#linkto(text=editIcon(), controller='membership.newchurches', action='edit', params='uuid=#uuid#')#" />
+	<cfcol header="" text="#linkto(text=deleteIcon(), controller='membership.newchurches', action='delete', params='uuid=#uuid#')#" />
 	<cfcol header="" text="#handbookLink(handbookId)#"/>
 </cfif>
 

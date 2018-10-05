@@ -9,6 +9,7 @@
 		<cfset filters(through="loadChurches", only="new,create,update")>
 		<cfset filters(through="loadOrganizations", only="new,edit,create,update")>
 		<cfset filters(through="loadAllChurches", only="edit")>
+		<cfset filters(through="setKeyToKeyy")>
 	</cffunction>
 
 

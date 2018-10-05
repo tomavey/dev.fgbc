@@ -451,10 +451,13 @@
 			.get(name="newchurches", pattern="/newchurches/", controller="newchurches", action="index")
 			.get(name="shownewchurch", pattern="/newchurch/", controller="newchurches", action="show")
 			.get(name="editnewchurch", pattern="/newchurch/edit/", controller="newchurches", action="edit")
+			.get(name="deletenewchurch", pattern="/newchurch/delete/", controller="newchurches", action="delete")
 			.get(name="checkin", pattern="/newchurch/checkin/", controller="newchurches", action="checkin")
 			.post(name="createBlankForm", pattern="/newchurches/createBlankForm/", controller="newchurches", action="createBlankForm")
 			.get(name="emailSent", pattern="/newchurches/emailsent/", controller="newchurches", action="emailsent")
+
 			.get(name="newministries", pattern="/newministries/", controller="newministries", action="index")
+
 			.resources("questions")
 			.resources("resources")
 			.get(name="listAppResources", pattern="/listappresources/[key]", controller="resources", action="index")

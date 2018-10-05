@@ -238,6 +238,29 @@
 						)#">
 </cffunction>
 
+<cfscript>
+	function showIcon(){
+		return "<i class='fa fa-search'></i>";
+	}
+
+	function editIcon(){
+		return "<i class='fa fa-pencil-square'></i>";
+	}
+
+	function deleteIcon(){
+		return "<i class='fa fa-trash'></i>";
+	}
+
+	function copyIcon(){
+		return "<i class='fa fa-copy' aria-hidden='true'></i>";
+	}
+
+	function listIcon(){
+		return "<i class='fa fa-list' aria-hidden='true'></i>";
+	}
+
+</cfscript>
+
 <cffunction name="showTag">
 <cfargument name="id" default='#id#'>
 <cfargument name="uuid" required="false">
