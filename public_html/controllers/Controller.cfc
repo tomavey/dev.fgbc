@@ -659,6 +659,9 @@
 		}
 	}
 
+	function setKeyToKeyy() {
+		if (isDefined("params.keyy")) { params.key = params.keyy}
+	}
 
 </cfscript>		
 
