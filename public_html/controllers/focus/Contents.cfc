@@ -8,15 +8,6 @@
 		<cfset filters(through="setKeyToKeyy")>
 	</cffunction>
 
-<!---Filters--->
-
-<cfscript>
-	function setKeyToKeyy() {
-		if (isDefined("params.keyy")) { params.key = params.keyy}
-	}
-</cfscript>
-
-
 <!------------------------------->
 <!--------CRUD------------------->
 <!------------------------------->
