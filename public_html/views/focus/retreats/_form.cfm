@@ -60,7 +60,7 @@
 						#textArea(objectName='retreat', property='schedule', label='', editor="ckeditor", rows=10, cols=100, class="ckeditor")#
 						</p>
 
-						<p>Location: <br/>
+						<p>Location: (images should be less than 400px wide @ 72dpi) <br/>
 						#textArea(objectName='retreat', property='location', label='', editor="ckeditor", rows=10, cols=100, class="ckeditor")#
 						</p>
 
