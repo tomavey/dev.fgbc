@@ -43,7 +43,6 @@
 					(
 					text=deleteIcon(),
 					action='delete',
-					method="delete",
 					params='keyy=#uuid#',
 					class='tooltip2',
 					title='Delete',
