@@ -1,6 +1,7 @@
-<h1>Editing retreat</h1>
-
 <cfoutput>
+
+<h1>Editing #retreat.regid#</h1>
+
 
 			#errorMessagesFor("retreat")#
 	

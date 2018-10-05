@@ -116,5 +116,11 @@
 			<cfset redirectTo(action="index")>
 		</cfif>
 	</cffunction>
+
+<cfscript>
+	function getRetreatRegId(id) {
+		return model("Focusretreat").findOne(where="id = #id#").regId
+	}
+</cfscript>	
 	
 </cfcomponent>

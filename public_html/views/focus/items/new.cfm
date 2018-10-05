@@ -1,6 +1,11 @@
-<h1>Create new item</h1>
-
 <cfoutput>
+
+<cfif isDefined("params.retreatId")>
+	<h1>Create new item for #getRetreatRegId(params.retreatId)#</h1>
+<cfelse>
+	<h1>Create new item</h1>
+</cfif>
+
 
 			#errorMessagesFor("item")#
 	

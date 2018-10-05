@@ -1,18 +1,19 @@
-<h1>Showing retreat</h1>
-
 <cfoutput>
 
-					<p><span>Regid: </span> 
+<h1>#retreat.title#</h1>
+
+#editTag(retreat.id)#
+
+					<p><span>Retreat ID: </span> 
 						#retreat.regid#</p>
 				
-					<p><span>Title: </span> 
-						#retreat.title#</p>
-				
-					<p><span>Active: </span> 
+					<p><span>This retreat is active? </span> 
 						#retreat.active#</p>
 				
-					<p><span>Showregs: </span> 
+					<p><span>Show registration options? </span> 
 						#retreat.showregs#</p>
+
+					<p>#linkTo(text="View Options for #retreat.title#", controller="focus.items", action="index", params="retreatid=#params.key#", class="btn")#	</p>
 				
 					<p><span>Begins: </span> 
 						#dateformat(retreat.startAt)#</p>
@@ -29,17 +30,29 @@
 					<p><span>Who is coming deadline: </span> 
 						#dateformat(retreat.whoiscomingdeadline)#</p>
 				
-					<p><span>Registration Comments: </span> <br />
-						#retreat.registrationcomments#</p>
+					<p>Registration is closed message:</p>
+						<div class="well">
+							#retreat.notopenmessage#
+						</div>
+
+					<p><span>Past the deadline message: </span></p> 
+						<div class="well">
+							#retreat.pastdeadlinemessage#
+						</div>
+
+					<p><span>Registration Comments: </span> </p>
+						<div class="well">
+							#retreat.registrationcomments#
+						</div>
 				
-					<p><span>Schedule: </span> <br />
-						#retreat.schedule#</p>
+					<p><span>Schedule: </span> </p>
+						<div class="well">#retreat.schedule#</div>
 				
-					<p><span>Location: </span> <br />
-						#retreat.location#</p>
+					<p><span>Location: </span> </p>
+						<div class="well">#retreat.location#</div>
 				
-					<p><span>Comments: </span> 
-						#retreat.comments#</p>
+					<p><span>Comments: </span> </p>
+						<div class="well">#retreat.comments#</div>
 				
 					<p><span>Created: </span> 
 						#dateformat(retreat.createdAt)#</p>

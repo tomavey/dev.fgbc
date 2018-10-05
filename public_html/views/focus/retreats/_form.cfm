@@ -14,7 +14,7 @@
 
 <!--- 						#fileField(objectName='retreat', property='image', label='Image: ')# --->
 
-						#select(objectName='retreat', property='active', label='Active? ', options="Yes,No", values = "1,0")#
+						#select(objectName='retreat', property='active', label='Active? (this means this retreat will show up in admin lists', options="Yes,No", values = "1,0")#
 
 						#select(objectName='retreat', property='showregs', label='Show these registrations in admin? ', options="Yes,No", values = "1,0")#
 
@@ -49,6 +49,11 @@
 						<p>Not Open Message: <br/>
 						#textArea(objectName='retreat', property='notopenmessage', label='', editor="ckeditor", rows=10, cols=100, class="ckeditor")#
 						<span>This is what will show in place of the registration info when the retreat is marked 'No' in the 'Registration is open" field (above).</span>
+						</p>
+
+						<p>Past the deadline message: <br/>
+						#textArea(objectName='retreat', property='pastdeadlinemessage', label='', editor="ckeditor", rows=10, cols=100, class="ckeditor")#
+						<span>This is what will show in place of the registration info when it is past the registration deadline.</span>
 						</p>
 
 						<p>Schedule: <br/>
