@@ -670,7 +670,7 @@
 	}
 
 	function setKeyToKeyy() {
-		if (isDefined("params.keyy") && len(params.key)) { params.key = params.keyy};
+		if (isDefined("params.keyy") && len(params.keyy)) { params.key = params.keyy};
 	}
 
 </cfscript>		
