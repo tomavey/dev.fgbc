@@ -8,7 +8,6 @@
 		<cfset myself=cgi.SCRIPT_NAME>
 		<cfset feedcount=3>
 
-
 	<cffunction name="getCaptcha" output="no">
 	<cfset var arrValidChars = "">
 	<cfset var strCaptcha = arraynew(1)>
@@ -381,7 +380,7 @@
 	</cfif>
 	</cffunction>
 
-	<cffunction name="linkTo">
+	<cffunction name="linkToX">
 	<cfset var loc=structNew()>
 	<cfset var i="">
 	<cfloop list="#structKeylist(arguments)#" index="i">
@@ -389,6 +388,17 @@
 	</cfloop>
 	<cfreturn super.linkTo(argumentCollection=loc)>
 	</cffunction>
+
+<cfscript>
+	function linkTo(){
+		var loc = structNew();
+		for (var arg in arguments) {
+			loc[replace(arg,"_","-","all")] = arguments[arg];
+		}
+		if (isDefined('loc.key')) { loc.params = 'keyy=#loc.key#' };
+		return super.linkTo(argumentCollection=loc);
+	}
+</cfscript>
 
 	<cffunction name="linkToList">
 	<cfargument name="text" default="Go Back">
