@@ -215,7 +215,10 @@
 		.end()
 
 		.namespace("focus")
-			.get(name="contentsIndex", pattern="contents/", controller="contents", action="index")
+			.controller(contents)
+				.root("index")
+			.end()	
+
 			.get(name="contentsShow", pattern="showContents/", controller="contents", action="show")
 			.get(name="contentsEdit", pattern="editContents/", controller="contents", action="edit")
 			.put(name="contentsupdate", pattern="updateContents/", controller="contents", action="update")
