@@ -216,11 +216,10 @@
 
 		.namespace("focus")
 			.controller("contents")
+				.get(name="index", pattern="/")
 				.get(name="show", pattern="show/[key]")
 				.get(name="edit", pattern="edit/")
 				.put(name="update", pattern="update/")
-				.post(name="create", pattern="create/")
-				.root("index")
 			.end()
 
 			.get(name="payonline", pattern="/payonline/[key]", controller="invoices", action="payonline")
