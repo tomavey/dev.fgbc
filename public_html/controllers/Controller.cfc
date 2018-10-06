@@ -671,7 +671,6 @@
 
 	function setKeyToKeyy() {
 		if (isDefined("params.keyy") && len(params.key)) { params.key = params.keyy};
-		structDelete(params, 'keyy')
 	}
 
 </cfscript>		
