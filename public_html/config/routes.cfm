@@ -215,7 +215,7 @@
 		.end()
 
 		.namespace("focus")
-			.controller(contents)
+			.controller("contents")
 				.root("index")
 			.end()	
 
