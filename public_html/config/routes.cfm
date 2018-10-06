@@ -215,12 +215,10 @@
 		.end()
 
 		.namespace("focus")
-			.controller("contents")
-				.get(name="index", pattern="/")
-				.get(name="show", pattern="show/[key]")
-				.get(name="edit", pattern="edit/")
-				.put(name="update", pattern="update/")
-			.end()
+			.get(name="contentsIndex", pattern="contents/", controller="contents", action="index")
+			.get(name="contentsShow", pattern="showContents/", controller="contents", action="show")
+			.get(name="contentsEdit", pattern="editContents/", controller="contents", action="edit")
+			.put(name="contentsupdate", pattern="updateContents/", controller="contents", action="update")
 
 			.get(name="payonline", pattern="/payonline/[key]", controller="invoices", action="payonline")
 			.get(name="agent", pattern="/agent/", controller="invoices", action="agent")
