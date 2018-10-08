@@ -14,9 +14,9 @@
 
 <!--- 						#fileField(objectName='retreat', property='image', label='Image: ')# --->
 
-						#select(objectName='retreat', property='active', label='Active? (this means this retreat will show up in admin lists', options="Yes,No", values = "1,0")#
+						#select(objectName='retreat', property='active', label='Active? (this retreat will show up in admin.', options="Yes,No", values = "1,0")#
 
-						#select(objectName='retreat', property='showregs', label='Show these registrations in admin? ', options="Yes,No", values = "1,0")#
+						#select(objectName='retreat', property='showregs', label='Show in the admin list of registrations? ', options="Yes,No", values = "1,0")#
 
 						#select(objectName='retreat', property='regisopen', label='Registration is open? ', options="Yes,No", values = "1,0")#
 
@@ -34,7 +34,7 @@
 
 						<p>Registration Deadline:
 							#dateSelect(objectName='retreat', property='deadline', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#</br>
-							<span>After this date the registration will be closed.</span>
+							<span>After this date the public registration will be closed.</span>
 						</p>
 
 						<p>Stop showing who is coming:
