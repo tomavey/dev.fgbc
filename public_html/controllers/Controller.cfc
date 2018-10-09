@@ -8,6 +8,10 @@
 		<cfset myself=cgi.SCRIPT_NAME>
 		<cfset feedcount=3>
 
+	<cffunction name="init">
+		<cfset filters(through="setKeyToKeyy")>
+	</cffunction>
+
 	<cffunction name="getCaptcha" output="no">
 	<cfset var arrValidChars = "">
 	<cfset var strCaptcha = arraynew(1)>
