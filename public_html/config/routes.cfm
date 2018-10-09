@@ -154,6 +154,7 @@
 
 			.controller("statistics")
 				.get(name="index", pattern="/")
+				.get(name="welcome", pattern="welcome")
 			.end()
 			.get(name="statlist", pattern="/liststatistics/", controller="statistics", action="list")
 			.get(name="liststatistics", pattern="/handbook/stats/", controller="statistics", action="welcome")
