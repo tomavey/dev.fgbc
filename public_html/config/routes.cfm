@@ -318,6 +318,7 @@
 			.resources("main")
 			
 			.controller("options")
+				.get(name="index", pattern="/")
 				.get(name="show", pattern="show/")
 				.get(name="edit", pattern="edit/")
 				.put(name="update", pattern="update/")
