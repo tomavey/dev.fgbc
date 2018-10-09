@@ -323,9 +323,9 @@
 				.get(name="edit", pattern="edit/")
 				.put(name="update", pattern="update/")
 				.post(name="create", pattern="create/")
+				.get(name="copy", pattern="copy")
+				.get(name="list", pattern="list")
 			.end()	
-			.get(name="copyOption", pattern="/options/copy/[key]", controller="options", action="copy")
-			.get(name="listOptionsBy", pattern="options/list/[key]", controller="options", action="list")
 
 			.controller("people")
 				.get(name="emailList", pattern="/emaillist/", action="emailList")
