@@ -39,7 +39,6 @@
 			.resources("jobs")
 			.resources("menus")
 			.resources("messages")
-			.resources("settings")
 
 			.get(name="listMinistries", pattern="/ministries/list/", controller="ministries", action="list")
 			.get(name="simpleListMinistries", pattern="/ministries/simplelist/", controller="ministries", action="simplelist")
