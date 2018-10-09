@@ -152,6 +152,9 @@
 			.resources("profiles")
 
 
+			.controller("statistics")
+				.get(name="index", pattern="/")
+			.end()
 			.get(name="statlist", pattern="/liststatistics/", controller="statistics", action="list")
 			.get(name="liststatistics", pattern="/handbook/stats/", controller="statistics", action="welcome")
 			.get(name="deliquencies", pattern="/stats/deliquent/", controller="statistics", action="delinquent")
