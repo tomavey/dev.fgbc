@@ -129,6 +129,7 @@
 	<cfset set(housingCoordinatorEmail = "sharmion@charisfellowship.us")>
 	<cfset set(childcarenotifications = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")>
 	<cfset set(workshopnotifications = "tomavey@charisfellowship.us")>
+	<cfset set(sendJobNoticesTo = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")>
 
 <!---What is open and what is not--->
 	<cfset set(registrationIsOpen = false)>
