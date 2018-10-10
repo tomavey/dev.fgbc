@@ -7,7 +7,7 @@
 				
 				#errorMessagesFor("setting")#
 		
-				#startFormTag(action="update", key=params.key)#
+				#startFormTag(action="update", key=params.keyy)#
 
 				#putFormTag()#
 			
