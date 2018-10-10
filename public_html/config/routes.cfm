@@ -26,6 +26,7 @@
 				.get(name="copy", pattern="copy")
 				.get(name="list", pattern="list")
 			.end()	
+			.resources("settings")
 
 			.controller("events")
 				.get(name="copyEvent", pattern="/copy/[key]", action="copy")
