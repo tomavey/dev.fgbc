@@ -21,4 +21,5 @@
 
 	#linkTo(text="Return to the listing", action="index")#
 	</cfoutput>
+	<cfdump var="#params#">
 </div>
