@@ -25,7 +25,7 @@
 				.get(name="copy", pattern="copy")
 				.get(name="list", pattern="list")
 			.end()	
-			.get(name="edit", pattern="edit/", controller="settings")
+			.get(name="edit", pattern="edit/", controller="settings", action="edit")
 
 			.controller("events")
 				.get(name="copyEvent", pattern="/copy/[key]", action="copy")
