@@ -98,7 +98,7 @@ component extends="Controller" output="false" {
   
   // settings/update
   public void function update(){
-    writeDump(params);abort;
+    // writeDump(params);abort;
     setting = model("Fgbcsetting").findByKey(params.key);
 		
 		if (setting.update(params.setting)){
