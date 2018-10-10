@@ -1,7 +1,6 @@
 <cfoutput>		
 				
 						<cfif isDefined("params.keyy") && len(params.keyy)>
-							#hiddenFieldTag(name='keyy', value=params.keyy)#
 							#hiddenFieldTag(name='key', value=params.keyy)#
 						</cfif>
 
