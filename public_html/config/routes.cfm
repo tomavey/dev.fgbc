@@ -22,6 +22,7 @@
 				.get(name="show", pattern="show/")
 				.get(name="edit", pattern="edit/")
 				.get(name="new", pattern="new/")
+				.get(name="delete", pattern="delete/")
 				.put(name="update", pattern="update/")
 				.post(name="create", pattern="create/")
 				.get(name="copy", pattern="copy")
