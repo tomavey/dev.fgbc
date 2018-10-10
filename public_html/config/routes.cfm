@@ -17,7 +17,15 @@
 			.resources("blogs")
 			.resources("contents")
 
-			.resources("settings")
+			.controller("settings")
+				.get(name="index", pattern="/")
+				.get(name="show", pattern="show/")
+				.get(name="edit", pattern="edit/")
+				.put(name="update", pattern="update/")
+				.post(name="create", pattern="create/")
+				.get(name="copy", pattern="copy")
+				.get(name="list", pattern="list")
+			.end()	
 
 			.controller("events")
 				.get(name="copyEvent", pattern="/copy/[key]", action="copy")
