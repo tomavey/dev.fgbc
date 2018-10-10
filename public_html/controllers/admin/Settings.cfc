@@ -99,7 +99,7 @@ component extends="Controller" output="false" {
   // settings/update
   public void function update(){
 // writeDump(params);abort;
-    setting = model("Fgbcsetting").findByKey(params.key);
+    setting = model("Fgbcsetting").findByKey(params.keyy);
 		
 		if (setting.update(params.setting)){
 		  flashInsert(success="The setting was updated successfully.");
