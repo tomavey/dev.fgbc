@@ -3,7 +3,10 @@
 
 <cfoutput>
 
+	<cftry>
 			#errorMessagesFor("contents")#
+	<cfcatch></cfcatch>
+	</cftry>		
 	
 			#startFormTag(action="update", key=params.key)#
 		
