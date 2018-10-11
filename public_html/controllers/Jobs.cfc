@@ -107,12 +107,18 @@
 			<cfset renderPage(action="edit")>
 		</cfif>
 	</cffunction>
+
+	<cfscript>
+		function sendJobNoticesTo(){
+			return getSetting("sendJobNoticesTo");
+		}
+	</cfscript>
 	
 	<cffunction name="sendnotice">
 		<!--- Find the record --->
     	<cfset job = model("Mainjob").findByKey(params.key)>
 		<cfif !isLocalMachine()>
-			<cfset sendEmail(template="emailjob", from=job.email, to="tomavey@comcast.net", subject="New Jobs Post", key=params.key, description=job.description)>
+			<cfset sendEmail(template="emailjob", from=job.email, to=sendJobNoticesTo(), subject="New Jobs Post", key=params.key, description=job.description)>
 		</cfif>
 		<cfif isDefined("job.uuid")>
 			<cfset redirectTo(action="thankyou", key=job.uuid)>
