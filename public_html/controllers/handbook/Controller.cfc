@@ -18,7 +18,7 @@
         <cfif isDefined("orgname.selectname")>
             <cfreturn orgname.selectname>
         <cfelse>
-            <cfreturn "oops">
+            <cfreturn "NA">
         </cfif>        
     </cffunction>
 
