@@ -3,7 +3,7 @@
 
 <cfoutput>
 
-			#errorMessagesFor("content")#
+			#errorMessagesFor("contents")#
 	
 			#startFormTag(action="update", key=params.key)#
 		
