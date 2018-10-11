@@ -5,6 +5,20 @@
 	Routes are not cascading, the first pattern that applied is used.
 	So put routes with [key] before the same route without.
 	So put specific routes before "resource()" routes
+
+	Sometimes .resources() does not work. Somehow it gives a key required but not found error.  
+	This appears to work instead but you have to using something other than the key for selecting records
+			.controller(??controllerName??)
+				.get(name="index", pattern="/")
+				.get(name="show", pattern="show/")
+				.get(name="edit", pattern="edit/")
+				.get(name="new", pattern="new/")
+				.get(name="delete", pattern="delete/")
+				.put(name="update", pattern="update/")
+				.post(name="create", pattern="create/")
+				.get(name="copy", pattern="copy")
+				.get(name="list", pattern="list")
+			.end()	
 --->
 <cfscript>
 	drawRoutes()
@@ -17,7 +31,17 @@
 			.resources("blogs")
 			.resources("contents")
 
-			.resources("settings")
+			.controller("settings")
+				.get(name="index", pattern="/")
+				.get(name="show", pattern="show/")
+				.get(name="edit", pattern="edit/")
+				.get(name="new", pattern="new/")
+				.get(name="delete", pattern="delete/")
+				.put(name="update", pattern="update/")
+				.post(name="create", pattern="create/")
+				.get(name="copy", pattern="copy")
+				.get(name="list", pattern="list")
+			.end()	
 
 			.controller("events")
 				.get(name="copyEvent", pattern="/copy/[key]", action="copy")
