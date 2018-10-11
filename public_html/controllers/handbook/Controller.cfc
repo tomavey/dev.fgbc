@@ -15,7 +15,11 @@
     <cffunction name="getOrg">
         <cfargument name="orgId" required="true" type="numeric">
         <cfset orgname = model("Handbookorganization").findone(where="id=#arguments.orgid#", include="State")>
-        <cfreturn orgname.selectname>
+        <cfif isDefined("orgname.selectname")>
+            <cfreturn orgname.selectname>
+        <cfelse>
+            <cfreturn "oops">
+        </cfif>        
     </cffunction>
 
     <cffunction name="getPerson">
