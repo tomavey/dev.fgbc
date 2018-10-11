@@ -19,6 +19,17 @@
 				.get(name="copy", pattern="copy")
 				.get(name="list", pattern="list")
 			.end()	
+--->
+<cfscript>
+	drawRoutes()
+
+		.namespace("admin")
+			.get(name="copy", pattern="/announcement/[key]/copy/", controller="announcements", action="copy")
+			.get(name="rss", pattern="/announcements/rss/", controller="announcements", action="rss")
+			.resources("announcements")
+
+			.resources("blogs")
+			.resources("contents")
 
 			.controller("settings")
 				.get(name="index", pattern="/")
@@ -31,19 +42,6 @@
 				.get(name="copy", pattern="copy")
 				.get(name="list", pattern="list")
 			.end()	
-
---->
-<cfscript>
-	drawRoutes()
-
-		.namespace("admin")
-			.get(name="copy", pattern="/announcement/[key]/copy/", controller="announcements", action="copy")
-			.get(name="rss", pattern="/announcements/rss/", controller="announcements", action="rss")
-			.resources("announcements")
-
-			.resources("blogs")
-			.resources("contents")
-			.resources("settings")
 
 			.controller("events")
 				.get(name="copyEvent", pattern="/copy/[key]", action="copy")
