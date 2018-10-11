@@ -32,6 +32,9 @@
 			
 
 #linkTo(text="Return to the listing", action="index")#
+<cfif gotRights("office")>
+	#sendJobNoticesTo()#
+</cfif>
 </cfoutput>
 
 </div>
