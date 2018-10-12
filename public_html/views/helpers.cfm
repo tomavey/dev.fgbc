@@ -893,4 +893,10 @@ public function telCoQueryLink(phonenumber){
 	}
 }
 
+function hiddenTagForKeyy() {
+	return '<cfif isDefined("params.keyy") && len(params.keyy)>
+						#hiddenFieldTag(name="key", value=params.keyy)#
+					</cfif>';
+}
+
 </cfscript>
