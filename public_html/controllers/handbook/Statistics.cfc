@@ -7,7 +7,6 @@
 		<cfset filters(through="isAuthorized", only="new,edit,allCurrentNotPaid")>
 		<cfset filters(through="paramsKeyRequired", only="sizeByPercent,getSummary")>
 		<cfset filters(through="setReturn", only="index")>
-		<cfset filters(through="setKeyToKeyy")>
 	</cffunction>
 
 	<cffunction name="isAuthorized">

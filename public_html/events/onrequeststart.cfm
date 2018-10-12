@@ -11,6 +11,10 @@ if ( findNoCase(thisHost, hostsToRedirect) ){
     location(url=newlocation, addToken="no");
 }
 
+function setKeyToKeyy() {
+    if (isDefined("params.keyy") && len(params.keyy)) { params.key = params.keyy};
+}
+
 </cfscript>
 
 <cfloop collection="#form#" item="key">
