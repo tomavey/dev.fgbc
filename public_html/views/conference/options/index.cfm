@@ -1,3 +1,6 @@
+<cfparam name="event" default='#getEvent()#'>
+<cfparam name="previousEvent" default="#getSetting('previousEvent')#">
+
 <cfoutput>
 
 <cfif isDefined("params.event")>
@@ -53,7 +56,7 @@
 
 <cfoutput>
 	<p class="addnew">#linkTo(text="#imageTag('add-icon.png')#", action="new", title="Add New")#</p>
-	<p>Show options for: #linkTo(text=getEvent(), params="event=#getEvent()#")#&nbsp;#linkTo(text=application.wheels.previousevent, params="event=#getSetting('previousevent')#")#</p>
+	<p>Show options for: #linkTo(text='#event#', params="event=#event#")#&nbsp;#linkTo(text=previousEvent, params="event=#previousEvent#")#</p>
 	<cfif isDefined("params.key")>
 	<p>#linkTo(text="List name and description", controller="conference.options", action="list", key=params.key)#</p>
 	</cfif>
