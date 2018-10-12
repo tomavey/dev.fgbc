@@ -1,12 +1,12 @@
-<cfparam name="firstIncreaseDate" default="06/01/2018">
-<cfparam name="firstIncreaseDateGroups" default="06/15/2018">
-<cfparam name="secondIncreaseDate" default="07/01/2018">
+<cfparam name="firstIncreaseDate" default="04/01/2019">
+<cfparam name="firstIncreaseDateGroups" default="06/15/2019">
+<cfparam name="secondIncreaseDate" default="06/01/2019">
 <cfparam name="thirdIncreaseDate" default="skip">
-<cfparam name="lastIncreaseDate" default="07/15/2018">
-<cfparam name="singleBaseCost" default="95">
-<cfparam name="coupleBaseCost" default="150">
-<cfparam name="groupBaseCost" default="65">
-<cfparam name="increaseAmount" default="10">
+<cfparam name="lastIncreaseDate" default="07/15/2019">
+<cfparam name="singleBaseCost" default="120">
+<cfparam name="coupleBaseCost" default="200">
+<cfparam name="groupBaseCost" default="80">
+<cfparam name="increaseAmount" default="20">
 <cfparam name="showAll" default="false">
 <cfif isDefined("params.showAll") && params.showAll>
 	<cfset showAll = "true">
@@ -17,7 +17,7 @@
 
 <cfif preRegIsOpen() && !regIsOpen()>
 	<div id="singlecosts" class="well">
-<p class="text-center">Before January 1  groups of 5 or more can pre-register for just <span class="price">$65 per person.</span>.   Register 5 or more now and add the specific names later (we will contact you for the names after January 1.  We encourage you to bring your church staff and leadership! </p>
+<p class="text-center">Before July 1 groups of 5 or more can pre-register for just <span class="price">$80 per person.</span>. Register 5 or more now and add the specific names later. We encourage you to bring your church staff and leadership! </p>
 	</div>
 <cfelse>
 			<div id="singleregcosts" class="well">
@@ -253,7 +253,7 @@
 					</cfif>
 					<cfif isBefore(secondIncreaseDate)>
 						<tr>
-							<td>Before #dateFormat(secondIncreaseDate, "mmm d")#</td>
+							<td>Before #dateFormat(lastIncreaseDate, "mmm d")#</td>
 							<td class="center">$#getDollarType()##groupBaseCost + increaseAmount#</td>
 							<td class="center">FREE</td>
 							<td class="center">FREE</td>

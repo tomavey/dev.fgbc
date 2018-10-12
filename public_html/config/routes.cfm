@@ -177,7 +177,9 @@
 			.controller("statistics")
 				.get(name="index", pattern="/")
 				.get(name="welcome", pattern="welcome")
+				.get(name="show", pattern="show/")
 			.end()
+
 			.get(name="statlist", pattern="/liststatistics/", controller="statistics", action="list")
 			.get(name="liststatistics", pattern="/handbook/stats/", controller="statistics", action="welcome")
 			.get(name="deliquencies", pattern="/stats/deliquent/", controller="statistics", action="delinquent")
