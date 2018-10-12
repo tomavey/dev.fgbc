@@ -15,6 +15,8 @@ function setKeyToKeyy() {
     if (isDefined("params.keyy") && len(params.keyy)) { params.key = params.keyy};
 }
 
+setKeyToKeyy()
+
 </cfscript>
 
 <cfloop collection="#form#" item="key">
