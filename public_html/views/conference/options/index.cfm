@@ -53,7 +53,7 @@
 
 <cfoutput>
 	<p class="addnew">#linkTo(text="#imageTag('add-icon.png')#", action="new", title="Add New")#</p>
-	<p>Show options for: #linkTo(text=getEvent(), params="event=#getEvent()#")#&nbsp;#linkTo(text=application.wheels.previousevent, params="event=#application.wheels.previousevent#")#</p>
+	<p>Show options for: #linkTo(text=getEvent(), params="event=#getEvent()#")#&nbsp;#linkTo(text=application.wheels.previousevent, params="event=#getSetting('previousevent')#")#</p>
 	<cfif isDefined("params.key")>
 	<p>#linkTo(text="List name and description", controller="conference.options", action="list", key=params.key)#</p>
 	</cfif>
