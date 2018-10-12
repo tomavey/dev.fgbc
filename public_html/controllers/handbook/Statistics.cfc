@@ -1,11 +1,13 @@
 <cfcomponent extends="Controller" output="false">
 <!---Added just in case--->
 
+
 	<cffunction name="init">
 		<cfset usesLayout(template="/handbook/layout_admin")>
 		<cfset filters(through="isAuthorized", only="new,edit,allCurrentNotPaid")>
 		<cfset filters(through="paramsKeyRequired", only="sizeByPercent,getSummary")>
 		<cfset filters(through="setReturn", only="index")>
+		<cfset filters(through="setKeyToKeyy")>
 	</cffunction>
 
 	<cffunction name="isAuthorized">
