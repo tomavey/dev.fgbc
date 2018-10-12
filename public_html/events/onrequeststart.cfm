@@ -12,7 +12,7 @@ if ( findNoCase(thisHost, hostsToRedirect) ){
 }
 
 function setKeyToKeyy() {
-    if (isDefined("params.keyy") && len(params.keyy)) { params.key = params.keyy};
+    if (isDefined("url.keyy") && len(url.keyy)) { url.key = url.keyy};
 }
 
 setKeyToKeyy()
