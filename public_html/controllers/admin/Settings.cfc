@@ -4,7 +4,6 @@ component extends="Controller" output="false" {
     filters(through="isAuthorized");
     filters(through="getCategories", only="index");
     filters(through="setReturn", only="index,show");
-    filters(through="setKeyToKeyy");
   }
   
   public void function isAuthorized(){
