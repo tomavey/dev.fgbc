@@ -5,7 +5,6 @@
 		<cfset filters(through='checkOffice', only="edit")>
 		<cfset filters(through="getRetreats")>
 		<cfset filters(through="getRetreatRegions")>
-		<cfset filters(through="setKeyToKeyy")>
 	</cffunction>
 
 <!------------------------------->

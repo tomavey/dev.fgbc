@@ -669,6 +669,7 @@
 		}
 	}
 
+	<!--- This is also run in onRequestStart - using url.keyy and url.key. might not be needed here --->
 	function setKeyToKeyy() {
 		if (isDefined("params.keyy") && len(params.keyy)) { params.key = params.keyy};
 	}
