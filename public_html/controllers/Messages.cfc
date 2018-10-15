@@ -98,8 +98,12 @@
 		<cfelse>
 			<cfset loc.subject = "A message from charisfellowship.us contact page...">
 		</cfif>	
-		<cfset sendEmail(template="notification", from=message.email, to="tomavey@fgbc.org", subject=loc.subject, layout="/layout_naked")>
-        <cfset redirectTo(action="thankyou")>
+		<cfif !isLocalMachine()>
+			<cfset sendEmail(template="notification", from=message.email, to=getSetting('sendContactUsTo'), subject=loc.subject, layout="/layout_naked")>
+		<cfelse>
+			<cfset flashInsert(failed="Email was not sent from this local machine to #getSetting('sendContactUsTo')#")>
+		</cfif>
+      <cfset redirectTo(action="thankyou")>
 	</cffunction>
 
 </cfcomponent>
