@@ -472,7 +472,7 @@
 				.get(name="step5", pattern="/step5/", action="step5")
 				.get(name="step6", pattern="/step6/", action="step6")
 				.get(name="step7", pattern="/step7/", action="step7")
-				.get(name="about", pattern="/about/", action="about")
+				.post(name="create", pattern="create")
 			.end()
 
 			.controller("delegates")

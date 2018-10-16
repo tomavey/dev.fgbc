@@ -10,6 +10,7 @@
 		<cfset filters(through="provideChurches", only="new,edit,step7")>
 		<cfset filters(through="setMembershipApplicationSessionFromKey", only="edit,show")>
 		<cfset filters(through="setMembershipApplicationSessionFromUUID", only="edit,show")>
+		
 	</cffunction>
 
 	<cffunction name="setMembershipApplicationSessionFromKey">
