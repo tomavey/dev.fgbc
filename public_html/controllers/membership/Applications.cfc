@@ -195,7 +195,7 @@
 			<cfif isDefined("params.nextstep")>
     	        <cfset redirectTo(action=params.nextstep)>
     	    <cfelse>
-    	        <cfset redirectTo(action="show", key='#params.key#')>
+    	        <cfset redirectTo(action="show", key='#session.membershipapplication.uuid#')>
     	    </cfif>
 		<!--- Otherwise --->
 		<cfelse>
