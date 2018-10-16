@@ -473,6 +473,8 @@
 				.get(name="step6", pattern="/step6/", action="step6")
 				.get(name="step7", pattern="/step7/", action="step7")
 				.get(name="thankyou", pattern="thankyou/")
+				.get(name="about", pattern="about/")
+				.get(name="resources", pattern="resources/")
 				.post(name="create", pattern="create")
 				.post(name="update", pattern="update")
 				.put(name="update", pattern="update")
