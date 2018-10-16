@@ -2,6 +2,8 @@
 	<fieldset>
 		<legend>#editButton('churchinfo')##getQuestion("churchinfo")#</legend>
 
+			#hiddenTagForKeyy()#
+
 			<div class="offset1">
 						
 				<cfloop list="name_of_church,mailing_address" index="i">

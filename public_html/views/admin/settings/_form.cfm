@@ -1,8 +1,6 @@
 <cfoutput>		
 				
-						<cfif isDefined("params.keyy") && len(params.keyy)>
-							#hiddenFieldTag(name='key', value=params.keyy)#
-						</cfif>
+						#hiddenTagForKeyy()#
 
 						#textField(objectName='setting', property='name', label='Setting name: ')#
 					
