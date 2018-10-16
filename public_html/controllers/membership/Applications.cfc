@@ -10,7 +10,7 @@
 		<cfset filters(through="provideChurches", only="new,edit,step7")>
 		<cfset filters(through="setMembershipApplicationSessionFromKey", only="edit,show")>
 		<cfset filters(through="setMembershipApplicationSessionFromUUID", only="edit,show")>
-		
+
 	</cffunction>
 
 	<cffunction name="setMembershipApplicationSessionFromKey">
@@ -185,7 +185,7 @@
 	<!--- -membershipapplications/update --->
 	<cffunction name="update">
 
-		<cfset membershipapplication = model("Membershipapplication").findApp(params.key)>
+		<cfset membershipapplication = model("Membershipapplication").findApp(session.membershipapplication.uuid)>
 
 		<!--- Verify that the membershipapplication updates successfully --->
 		<cfif membershipapplication.update(params.membershipapplication)>
