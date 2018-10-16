@@ -532,7 +532,6 @@
 		.get(name="reviewhandbook", pattern="/reviewhandbook/[orgid]", controller="handbook.welcome", action="review")
 		.get(name="myhandbook", pattern="/myhandbook/[key]", controller="handbook.welcome", action="welcome")
 		.put(name="putreviewhandbook", pattern="/reviewhandbook/[orgid]", controller="handbook.welcome", action="review")
-		.get(name="application", pattern="/application/[key]", controller="membership.applications", action="checkin")
 		.get(name="application", pattern="/application", controller="membership.applications", action="checkin")
 		.get(name="applications", pattern="/applications", controller="membership.applications", action="index")
 		.get(name="delegate", pattern="/delegate", controller="membership.delegates", action="new")
