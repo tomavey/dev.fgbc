@@ -16,7 +16,7 @@
 
 <cfoutput>
 
-	#linkto(text="<i class='icon-download-alt'></i>", controller="membership.applications", action="show", key=params.key, params="doc=true", class="btn download tooltip2", title="Download this application")#
+	#linkto(text="<i class='icon-download-alt'></i>", controller="membership.applications", action="show", key=session.membershipapplication.uuid, params="doc=true", class="btn download tooltip2", title="Download this application")#
 
 
 	<div class="well">
