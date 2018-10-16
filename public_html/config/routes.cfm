@@ -510,7 +510,7 @@
 
 			.resources("questions")
 			.resources("resources")
-			.get(name="listAppResources", pattern="/listappresources/[key]", controller="resources", action="index")
+			.get(name="listAppResources", pattern="/listappresources/", controller="resources", action="index")
 			.delete(name="deleteAppResource", pattern="/deleteAppResource/[key]", controller="resources", action="delete")
 			.get(name="nominateThankYou", pattern="/thankyou/[key]", controller="nominations", action="thankyou")
 			.resources("nominations")
