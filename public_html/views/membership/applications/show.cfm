@@ -7,7 +7,7 @@
 #includePartial("showFlash")#
 
 <cfif not isDefined("params.doc") AND showButtons>
-	#linkTo(text=trim(striptags(getQuestion('uploadedlink'))), route="membershipListAppResources", key=params.key, class="btn")#
+	#linkTo(text=trim(striptags(getQuestion('uploadedlink'))), route="membershipListAppResources", key=session.membershipapplication.uuid, class="btn")#
 
 	#linkTo(text=trim(striptags(getQuestion('editlink'))), action="edit", key=getKey(), class="btn")#
 </cfif>
