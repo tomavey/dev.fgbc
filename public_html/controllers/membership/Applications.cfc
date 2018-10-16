@@ -95,7 +95,7 @@
 	<cffunction name="show">
 
 		<!--- Find the record --->
-		<cfset membershipapplication = model("Membershipapplication").findApp(params.key)>
+		<cfset membershipapplication = model("Membershipapplication").findApp(session.membershipapplication.uuid)>
 		<cfset membershipapplicationresources = model("Membershipappresource").findAll(where="applicationid = #membershipapplication.id#")>
 
     	<!--- Check if the record exists --->
