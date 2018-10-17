@@ -7,7 +7,9 @@
 #includePartial("showFlash")#
 
 <cfif not isDefined("params.doc") AND showButtons>
-	#linkTo(text=trim(striptags(getQuestion('uploadedlink'))), controller="membership.resources", action="index", key=session.membershipapplication.uuid, class="btn")#
+	<cfif gotRights("office")>
+		#linkTo(text=trim(striptags(getQuestion('uploadedlink'))), controller="membership.resources", action="index", key=session.membershipapplication.uuid, class="btn")#
+	</cfif>
 
 	#linkTo(text=trim(striptags(getQuestion('editlink'))), action="edit", key=getKey(), class="btn")#
 </cfif>
@@ -175,14 +177,16 @@
 </cfoutput>
 <p>&nbsp;</p>
 
-<div class="well">
-	<h3>UpLoaded docs, images, etc:</h3>
-	<ul>
-		<cfoutput query="membershipapplicationresources">
-			<li>#linkto(text=file, href="/files/#file#")#
-		</cfoutput>
-	</ul>
-<cfoutput>
-	<p>#linkTo(text="Upload A New Document", controller="membership.resources", action="new")#</p>
-</cfoutput>
-</div>
+<cfif gotRights("Office")>
+	<div class="well">
+		<h3>UpLoaded docs, images, etc:</h3>
+		<ul>
+			<cfoutput query="membershipapplicationresources">
+				<li>#linkto(text=file, href="/files/#file#")#
+			</cfoutput>
+		</ul>
+	<cfoutput>
+		<p>#linkTo(text="Upload A New Document", controller="membership.resources", action="new")#</p>
+	</cfoutput>
+	</div>
+</cfif>
