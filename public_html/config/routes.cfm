@@ -163,16 +163,12 @@
 			.delete(name="deleteperson", pattern="/people/[key]/delete", controller="people", action="delete")
 			.resources("people")
 
-			.resources("personUpdates")
-
 			.get(name="setPictureAsDefault", pattern="/pictures/setdefault/[key]", controller="pictures", action="
 			setpictureasdefault")
 			.get(name="getPerson", pattern="/pictures/getperson", controller="pictures", action="getperson")
 			.resources("pictures")
 
-			.resources("prayers")
 			.resources("profiles")
-
 
 			.controller("statistics")
 				.get(name="index", pattern="/")
@@ -280,8 +276,6 @@
 			.post(name="checkout", pattern="/shoppingcarts/checkout/[key]", controller="shoppingcarts", action="checkout")
 			.resources("shoppingcarts")
 			
-			.resources("testmonies")
-
 			.get(name="thisRetreat", pattern="/[key]", controller="main", action="retreat")
 			.get(name="about", pattern="/about/", controller="main", action="about")
 			.get(name="mobile", pattern="/mobile/", controller="main", action="mobile")
@@ -343,7 +337,6 @@
 				.get(name="copyAllToCurrentEvent", pattern="CopyAllToCurrentEvent", action="CopyAllToCurrentEvent")
 			.end()	
 			.resources("locations")
-			.resources("main")
 			
 			.controller("options")
 				.get(name="index", pattern="/")
@@ -517,24 +510,22 @@
 			.get(name="nominationsClosed", pattern="nominationsclosed", controller="nominations", action="closed")
 		.end()
 
-		.namespace("forums")
-			.get(name="login", pattern="/[groupcode]", controller="posts", action="login")
-			.get(name="show", pattern="/page/[key]", controller="posts", action="show")
-			.root(controller="posts", action="login")
-		.end()
-
 		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
-		.get(name="questions", pattern="/questions", controller="messages", action="cci_new")
 		.get(name="conferencereg", pattern="/conference", controller="conference.register", action="welcome")
 		.get(name="conferencereg2", pattern="/conference", controller="conference.-register", action="welcome")
 		.get(name="conferencereg3", pattern="/conference.register", controller="conference.register", action="welcome")
     .get(name="conferencemyreg", pattern="/conference/myregs/", controller="conference.users", action="my-regs")
 		.get(name="conferenceregsummary", pattern="/conference/summary/", controller="conference.registrations", action="summary")
+		.get(name="showInvoice", pattern="/invoice/[key]", controller="conference.invoices", action="show")
+		.get(name="showInvoiceByEmail", pattern="/invoice/", controller="conference.invoices", action="show")
 		.get(name="handbook", pattern="/handbook", controller="handbook.welcome", action="index")
 		.get(name="reviewhandbook", pattern="/reviewhandbook/[orgid]", controller="handbook.welcome", action="review")
 		.get(name="myhandbook", pattern="/myhandbook/[key]", controller="handbook.welcome", action="welcome")
 		.put(name="putreviewhandbook", pattern="/reviewhandbook/[orgid]", controller="handbook.welcome", action="review")
+		.get(name="agbm", pattern="/agbm/", controller="home", action="agbm")
+		.get(name="agbminfo", pattern="/handbook-agbm/index/", controller="handbook.agbminfo", action="index")
+		.get(name="sendhandbook", pattern="/sendhandbook/[key]", controller="handbook.people", action="sendhandbook")
 		.get(name="application", pattern="/application", controller="membership.applications", action="checkin")
 		.get(name="applications", pattern="/applications", controller="membership.applications", action="index")
 		.get(name="delegate", pattern="/delegate", controller="membership.delegates", action="new")
@@ -545,11 +536,6 @@
 		.post(name="sendmydelegates", pattern="/senddelegates/[key]", controller="membership.delegates", action="submit")
 		.get(name="nominate", pattern="/nominate", controller="membership.nominations", action="new")
 		.get(name="nominations", pattern="/nominations/", controller="membership.nominations", action="list")
-		.get(name="showInvoice", pattern="/invoice/[key]", controller="conference.invoices", action="show")
-		.get(name="showInvoiceByEmail", pattern="/invoice/", controller="conference.invoices", action="show")
-		.get(name="agbm", pattern="/agbm/", controller="home", action="agbm")
-		.get(name="agbminfo", pattern="/handbook-agbm/index/", controller="handbook.agbminfo", action="index")
-		.get(name="sendhandbook", pattern="/sendhandbook/[key]", controller="handbook.people", action="sendhandbook")
 		.get(name="about", pattern="/about/", controller="about", action="ourStory")
 		.get(name="editnewchurch", pattern="/newchurch/[key]", controller="membership.newchurches", action="edit")
 		.get(name="newchurch", pattern="/newchurch/", controller="membership.newchurches", action="checkin")
@@ -560,9 +546,6 @@
 		.get(name="sendstatspick", pattern="/sendstats/", controller="handbook.statistics", action="submit")
 		.get(name="sendstats", pattern="/sendstats/[key]", controller="handbook.statistics", action="submit")
 
-		.get(name="Xselectpersonselectworkshops", pattern="/selectworkshops/", controller="conference.courses", action="selectworkshops")
-		.get(name="Xselectpersonselectcohorts", pattern="/selectcohorts/", controller="conference.courses", action="selectworkshops")
-
 		.get(name="mycohorts", pattern="/mycohorts/", controller="conference.courses", action="showSelectedWorkshops")
 		.post(name="mycohorts", pattern="/mycohorts/", controller="conference.courses", action="showSelectedWorkshops")
 		.get(name="accesscohorts", pattern="/accesscohorts/", controller="conference.courses", action="listCohorts")
@@ -570,7 +553,6 @@
 		.get(name="cohorts", pattern="/cohorts/", controller="conference.courses", action="listCohorts")
 		.get(name="cohortssignups", pattern="/cohort/signups", controller="conference.courses", action="showallselectedcohorts")
 
-		.get(name="flinchconference", pattern="/flinchconference/", controller="conference.flinch", action="index")
 		.get(name="agbmrss", pattern="/agbm/rss/", controller="handbook.agbm-info", action="rss")
 		.get(name="agbmjson", pattern="/agbm/json/", controller="handbook.agbm-info", action="json")
 		.get(name="jsonmeals", pattern="/api/conference/meals/", controller="conference.options", action="jsonmeals")
@@ -640,7 +622,6 @@
 		.get(name="homewelcome", pattern="/home/welcome", controller="home", action="index")
 		.get(name="handbook-welcome", pattern="/handbook-welcome/checkin", controller="handbook.welcome", action="checkin")
 		.get(name="handbook-loginform", pattern="/handbook-welcome/login-form", controller="handbook.welcome", action="login-form")
-		.get(name="freelodging", pattern="/ifeelgood", controller="conference.lodgingrequests", action="new")
 		.get(name="access2019", pattern="/access2019", controller="conference.register", action="welcome")
 		.get(name="cci", pattern="/cci", controller="about", action="cci")
 		.get(name="ccci", pattern="/ccci", controller="about", action="cci")
