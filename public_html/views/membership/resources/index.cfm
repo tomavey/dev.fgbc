@@ -1,6 +1,9 @@
 <cfoutput>
 <h1>Documents uploaded...</h1>
 
+<cfdump var="#params#"><cfabort>
+
+
 <cfif len(getChurchAppName(params.key)) EQ 5>
 	<p>For #linkTo(text=getChurchAppName(params.key), controller="membership.applications", action="show", key=params.key)#</p>
 </cfif>
@@ -11,7 +14,6 @@
 
 </cfoutput>
 
-<cfdump var="#membershipappresources#"><cfabort>
 
 <div class="table">
 <cftable query="membershipappresources" colHeaders="true" HTMLTable="true">
