@@ -18,6 +18,7 @@
 	
 	<!--- membershipappresources/index --->
 	<cffunction name="index">
+	<cfdump var="#params#"><cfabort>
 		<cfif !isDefined("params.key") && isDefined("session.membershipapplication.uuid")>
 			<cfset params.key = session.membershipapplication.uuid>
 		</cfif>	
