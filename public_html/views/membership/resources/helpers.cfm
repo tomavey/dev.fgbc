@@ -3,7 +3,7 @@
 <cfset var loc=structNew()>
 <cfset loc.return = "">
 
-	<cfif isNumeric(arguments.appid)>
+	<cfif isNumeric("arguments.appid")>
 		<cfset loc.whereString = "id = #arguments.appid#">
 	<cfelse>
 		<cfset loc.whereString = 'uuid = "#arguments.appid#"'>
