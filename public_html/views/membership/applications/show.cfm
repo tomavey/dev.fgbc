@@ -7,7 +7,7 @@
 #includePartial("showFlash")#
 
 <cfif not isDefined("params.doc") AND showButtons>
-	#linkTo(text=trim(striptags(getQuestion('uploadedlink'))), controller="membership.resources", key=session.membershipapplication.uuid, class="btn")#
+	#linkTo(text=trim(striptags(getQuestion('uploadedlink'))), controller="membership.resources", action="index", key=session.membershipapplication.uuid, class="btn")#
 
 	#linkTo(text=trim(striptags(getQuestion('editlink'))), action="edit", key=getKey(), class="btn")#
 </cfif>
@@ -169,8 +169,6 @@
 	</cfif>
 
 <cfif not isDefined("params.doc") AND showbuttons>
-	#linkTo(text="Show uploaded documents", controller="membership.resources", key=session.membershipapplication.uuid, class="btn")#
-
 	#linkTo(text="Edit this membershipapplication", action="edit", key=getKey(), class="btn")#
 </cfif>
 

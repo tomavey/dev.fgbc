@@ -505,7 +505,7 @@
 
 			.controller("resources")
 				.get(name="index", pattern="/")
-				.get(name="show", pattern="show/[key]")
+				.get(name="show", pattern="show/")
 				.get(name="edit", pattern="edit/")
 				.get(name="new", pattern="new/")
 				.get(name="delete", pattern="delete/")
