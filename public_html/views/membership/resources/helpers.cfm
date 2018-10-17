@@ -4,12 +4,13 @@
 <cfset loc.return = "">
 
 	<cfif len(arguments.appid) GTE 10>
-		<cfset loc.whereString = "id=#arguments.appid#">
+		<cfset loc.whereString = "id = #arguments.appid#">
 	<cfelse>
-		<cfset loc.whereString = "uuid='#arguments.appid#'">
+		<cfset loc.whereString = "uuid = '#arguments.appid#'">
 	</cfif>	
 
-	<cfset app = model("Membershipapplication").findOne(where='#loc.whereString#')>
+	<cfset app = model("Membershipapplication").findOne(where=loc.whereString)>
+
 	<cfif isObject(app)>
 		<cfset loc.return = app.name_of_church & "-" & app.city & " (" & app.principle_leader & ")">
 	</cfif>
