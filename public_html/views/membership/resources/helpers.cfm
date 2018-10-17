@@ -3,13 +3,11 @@
 <cfset var loc=structNew()>
 <cfset loc.return = "">
 
-	<cfif len(arguments.appid) LTE 10>
+	<cfif isNumeric(loc.whereString)>
 		<cfset loc.whereString = "id = #arguments.appid#">
 	<cfelse>
 		<cfset loc.whereString = 'uuid = "#arguments.appid#"'>
 	</cfif>
-
-	<cfdump var="#isNumeric(loc.whereString)#"><cfabort>
 
 	<cfset app = model("Membershipapplication").findOne(where=loc.whereString)>
 
