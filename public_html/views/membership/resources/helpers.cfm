@@ -9,9 +9,7 @@
 		<cfset loc.whereString = "uuid='#arguments.appid#'">
 	</cfif>	
 
-<cfdump var="#whereString#"><cfabort>
-
-	<cfset app = model("Membershipapplication").findOne(where=loc.whereString)>
+	<cfset app = model("Membershipapplication").findOne(where='#loc.whereString#'#)>
 	<cfif isObject(app)>
 		<cfset loc.return = app.name_of_church & "-" & app.city & " (" & app.principle_leader & ")">
 	</cfif>
