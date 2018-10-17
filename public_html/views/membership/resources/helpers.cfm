@@ -3,7 +3,7 @@
 <cfset var loc=structNew()>
 <cfset loc.return = "">
 
-	<cfif val(params.key)>
+	<cfif len(arguments.appid) GTE 10>
 		<cfset loc.whereString = "id=#arguments.appid#">
 	<cfelse>
 		<cfset loc.whereString = "uuid='#arguments.appid#'">
