@@ -18,8 +18,9 @@
 
 <cfoutput>
 
-	#linkto(text="<i class='icon-download-alt'></i>", controller="membership.applications", action="show", key=session.membershipapplication.uuid, params="doc=true", class="btn download tooltip2", title="Download this application")#
-
+	<cfif gotRights("office")>
+		#linkto(text="<i class='icon-download-alt'></i>", controller="membership.applications", action="show", key=session.membershipapplication.uuid, params="doc=true", class="btn download tooltip2", title="Download this application")#
+	</cfif>
 
 	<div class="well">
 					<p>#membershipapplication.name_of_church#</p>
