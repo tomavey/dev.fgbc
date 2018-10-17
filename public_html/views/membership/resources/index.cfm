@@ -11,6 +11,8 @@
 
 </cfoutput>
 
+<cfdump var="#membershipappresources#"><cfabort>
+
 <div class="table">
 <cftable query="membershipappresources" colHeaders="true" HTMLTable="true">
 	
