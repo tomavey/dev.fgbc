@@ -6,7 +6,7 @@
 	<cfif len(arguments.appid) GTE 10>
 		<cfset loc.whereString = "id = #arguments.appid#">
 	<cfelse>
-		<cfset loc.whereString = "uuid = '#arguments.appid#'">
+		<cfset loc.whereString = 'uuid = "#arguments.appid#"'>
 	</cfif>	
 
 	<cfset app = model("Membershipapplication").findOne(where=loc.whereString)>
