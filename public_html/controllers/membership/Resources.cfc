@@ -25,7 +25,7 @@
 		<cfelseif isDefined("params.key")>	
 			<cfset wherestring = "applicationid = '#params.key#'">
 		<cfelse>
-			<cfset wherestring = "1=1">
+			<cfset wherestring = "">
 		</cfif>	
 
 		<cfset membershipappresources = model("Membershipappresource").findAll(where=wherestring)>
