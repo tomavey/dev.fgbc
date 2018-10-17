@@ -503,8 +503,18 @@
 
 			.resources("questions")
 
-			.get(name="listAppResources", pattern="/listappresources/", controller="resources", action="index")
-			.delete(name="deleteAppResource", pattern="/deleteAppResource/[key]", controller="resources", action="delete")
+			.controller("resources")
+				.get(name="index", pattern="/")
+				.get(name="show", pattern="show/")
+				.get(name="edit", pattern="edit/")
+				.get(name="new", pattern="new/")
+				.get(name="delete", pattern="delete/")
+				.put(name="update", pattern="update/")
+				.post(name="create", pattern="create/")
+				.get(name="copy", pattern="copy")
+				.get(name="list", pattern="list")
+			.end()	
+
 			.get(name="nominateThankYou", pattern="/thankyou/[key]", controller="nominations", action="thankyou")
 			.resources("nominations")
 			.get(name="nominationsClosed", pattern="nominationsclosed", controller="nominations", action="closed")
