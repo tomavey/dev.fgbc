@@ -3,7 +3,7 @@
 
 
 <cfif len(getChurchAppName(params.key)) EQ 5>
-	<p>For #linkTo(text=getChurchAppName(params.KEY), controller="membership.applications", action="show", key=params.key)#</p>
+	<p>For #linkTo(text=getChurchAppName(params.keyy), controller="membership.applications", action="show", key=params.keyy)#</p>
 </cfif>
 
 #includePartial("showFlash")#
