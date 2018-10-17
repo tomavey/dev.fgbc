@@ -6,7 +6,7 @@
 	<cfif isNumeric("arguments.appid")>
 		<cfset loc.whereString = "id = #arguments.appid#">
 	<cfelse>
-		<cfset loc.whereString = 'uuid = "#arguments.appid#"'>
+		<cfset loc.whereString = "uuid = '#arguments.appid#'">
 	</cfif>
 
 <!--- <cfdump var="#loc.whereString#"><cfabort> --->
