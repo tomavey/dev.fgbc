@@ -27,7 +27,6 @@
 		<cfelse>
 			<cfset wherestring = "1=1">
 		</cfif>	
-	<cfdump var="#wherestring#"><cfabort>
 
 		<cfset membershipappresources = model("Membershipappresource").findAll(where=wherestring)>
 	</cffunction>
