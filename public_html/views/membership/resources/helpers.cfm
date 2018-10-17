@@ -3,14 +3,14 @@
 <cfset var loc=structNew()>
 <cfset loc.return = "">
 
-	<cfif len(arguments.appid) GTE 10>
+	<cfif len(arguments.appid) LTE 10>
 		<cfset loc.whereString = "id = #arguments.appid#">
 	<cfelse>
 		<cfset loc.whereString = 'uuid = "#arguments.appid#"'>
 	</cfif>
 
 	<cfdump var="#loc.whereString#"><cfabort>
-	
+
 	<cfset app = model("Membershipapplication").findOne(where=loc.whereString)>
 
 	<cfif isObject(app)>
