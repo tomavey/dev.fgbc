@@ -18,10 +18,6 @@
 	
 	<!--- membershipappresources/index --->
 	<cffunction name="index">
-	<cfdump var="#params#"><cfabort>
-		<cfif !isDefined("params.key") && isDefined("session.membershipapplication.uuid")>
-			<cfset params.key = session.membershipapplication.uuid>
-		</cfif>	
 		<cfif isDefined("params.showall")>
 			<cfset wherestring = "">
 		<cfelseif isDefined("params.key") AND len(params.key) GTE 25>
@@ -29,8 +25,9 @@
 		<cfelseif isDefined("params.key")>	
 			<cfset wherestring = "applicationid='#params.key#'">
 		<cfelse>
-			<cfset wherestring = "">
+			<cfset wherestring = "1=1">
 		</cfif>	
+	<cfdump var="#wherestring#"><cfabort>
 
 		<cfset membershipappresources = model("Membershipappresource").findAll(where=wherestring)>
 	</cffunction>
