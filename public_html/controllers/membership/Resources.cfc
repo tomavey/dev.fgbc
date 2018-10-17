@@ -18,6 +18,9 @@
 	
 	<!--- membershipappresources/index --->
 	<cffunction name="index">
+		<cfif !isDefined("params.key") && isDefined("session.membershipapplication.uuid")>
+			<cfset params.key = session.membershipapplication.uuid>
+		</cfif>	
 		<cfif isDefined("params.showall")>
 			<cfset wherestring = "">
 		<cfelseif isDefined("params.key") AND len(params.key) GTE 25>
