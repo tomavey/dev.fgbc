@@ -21,9 +21,9 @@
 		<cfif isDefined("params.showall")>
 			<cfset wherestring = "">
 		<cfelseif isDefined("params.key") AND len(params.key) GTE 25>
-			<cfset wherestring = "applicationUUID='#params.key#'">
+			<cfset wherestring = "applicationUUID = '#params.key#'">
 		<cfelseif isDefined("params.key")>	
-			<cfset wherestring = "applicationid='#params.key#'">
+			<cfset wherestring = "applicationid = '#params.key#'">
 		<cfelse>
 			<cfset wherestring = "1=1">
 		</cfif>	
