@@ -33,7 +33,7 @@
 
 			.controller("settings")
 				.get(name="index", pattern="/")
-				.get(name="show", pattern="/[key]")
+				.get(name="show", pattern="/[KEY]")
 				.get(name="edit", pattern="edit/")
 				.get(name="new", pattern="new/")
 				.get(name="delete", pattern="delete/")
