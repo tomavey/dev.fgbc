@@ -31,7 +31,7 @@
 							<cfcol header="#linkto(text='Updated', params="orderby=updatedat")#" text="#dateFormat(updatedAt)#" />
 						
 				
-			<cfcol header="&nbsp;" text="#linkTo(text="Show", controller="admin.settings", action="show", key="id")#&nbsp;#editTag()#&nbsp;#copyTag(controller='admin.settings')#&nbsp;#deleteTag(class="noajax")#" />
+			<cfcol header="&nbsp;" text="#linkTo(text="Show", controller="admin.settings", action="show", key=id)#&nbsp;#editTag()#&nbsp;#copyTag(controller='admin.settings')#&nbsp;#deleteTag(class="noajax")#" />
 		</cftable>
 	</div>
 	<cftry>
