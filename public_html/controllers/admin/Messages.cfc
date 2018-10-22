@@ -1,7 +1,7 @@
 <cfcomponent extends="Controller" output="false">
 
 	<cffunction name="init">
-		<cfset filters(through="isSuperadmin", only="index,edit")>
+		<cfset filters(through="isOffice", only="index,edit")>
 	</cffunction>
 
 	<!--- messages/index --->

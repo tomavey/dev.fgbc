@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/handbook/layout_handbook")>
-		<cfset filters(through="gotBasicHandbookRights,getStates,getPositionTypes,logview", except="focus,sendhandbook,view")>
+		<cfset filters(through="gotBasicHandbookRights,getStates,getPositionTypes,logview", except="focus,sendhandbook,view,inspire")>
 		<cfset filters(through="getPositions", only="edit,show,view")>
 		<cfset filters(through="getChurches", only="new,edit,create,update")>
 		<cfset filters(through="setReturn", only="show,bluepages,distribution")>
@@ -92,6 +92,10 @@
 	<!---route="handbookViewperson", pattern="/handbook/people/[key]"---->
 	<cffunction name="view">
 		<cfset handbookperson = model("Handbookperson").findByKey(key=params.key, include="State,Handbookpositions,Handbookpictures")>
+		<cfset renderPage(layout="/handbook/layout_handbook2")>
+	</cffunction>
+
+	<cffunction name="inspire">
 		<cfset renderPage(layout="/handbook/layout_handbook2")>
 	</cffunction>
 
