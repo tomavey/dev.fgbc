@@ -391,6 +391,7 @@
 			.resources("courseresources")
 			
 			.get(name="deleteregistration", pattern="/registrations/[key]/delete/", controller="registrations", action="delete")
+			.delete(name="deleteregistration", pattern="/registrations/[key]/delete/", controller="registrations", action="delete")
 			.get(name="showregistration", pattern="/registrations/[key]", controller="registrations", action="show")
 			.put(name="update1", pattern="/registrations/[key]", controller="registrations", action="update")
 			.get(name="listRegistrations", pattern="/registration/list", controller="registrations", action="list")
