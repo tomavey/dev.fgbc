@@ -21,7 +21,7 @@
 	</cffunction>
 
 	<cffunction name="list">
-		<cfset redirectTo("index")>
+		<cfset redirectTo(action="index")>
 	</cffunction>
 
 	<!--- churches/show/key --->
