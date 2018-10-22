@@ -22,7 +22,7 @@
 
 <p>
 	<cfoutput query="districts">
-		#linkto(text=district, route="handbookAgbmList", key="members", params="type=members&district=#districtid#")#
+		#linkto(text=district, route="handbookAgbmList", params="type=members&district=#districtid#")#
 	</cfoutput>
 	<cfoutput>#linkto(text="ALL", route="handbookAgbmList", params="type=members&district=all")#</cfoutput>
 </p>
