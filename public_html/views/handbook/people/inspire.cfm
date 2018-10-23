@@ -26,6 +26,7 @@
         <td class="text-xs-right">{{ props.item.name }}</td>
         <td class="text-xs-right">{{ props.item.org_city }}</td>
         <td class="text-xs-right">{{ props.item.state }}</td>
+        <td class="text-xs-right">{{ props.item.district }}</td>
       </tr>  
       </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
@@ -62,7 +63,9 @@ new Vue({
         { text: 'First Name', value: 'fname' },
         { text: 'Church', value: 'name' },
         { text: 'City', value: 'org_city' },
-        { text: 'State', value: 'state' }
+        { text: 'State', value: 'state' },
+        { text: 'District', value: 'district' },
+
       ]
     }
   },
