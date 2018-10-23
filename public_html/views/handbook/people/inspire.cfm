@@ -56,15 +56,14 @@ new Vue({
       headers: [
         {
           text: 'Last Name',
-          align: 'left',
-          sortable: true,
+          align: 'center',
           value: 'lname'
         },
-        { text: 'First Name', value: 'fname' },
-        { text: 'Church', value: 'name' },
-        { text: 'City', value: 'org_city' },
-        { text: 'State', value: 'state' },
-        { text: 'District', value: 'district' }
+        { text: 'First Name', align: 'center', value: 'fname' },
+        { text: 'Church', align: 'center', value: 'name' },
+        { text: 'City', align: 'center', value: 'org_city' },
+        { text: 'State', align: 'center', value: 'state' },
+        { text: 'District', align: 'center', value: 'district' }
       ]
     }
   },

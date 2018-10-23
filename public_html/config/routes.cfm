@@ -174,6 +174,7 @@
 				.get(name="index", pattern="/")
 				.get(name="welcome", pattern="welcome")
 				.get(name="show", pattern="show/")
+				.get(name="new", pattern="new/")
 			.end()
 
 			.get(name="statlist", pattern="/liststatistics/", controller="statistics", action="list")
