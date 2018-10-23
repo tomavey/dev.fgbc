@@ -28,7 +28,7 @@
       :rows-per-page-items=[25,50,100,{"text":"$vuetify.dataIterator.rowsPerPageAll","value":-1}]
     >
       <template slot="items" slot-scope="props">
-      <tr @click="goToPerson(props.item.personid)" style="cursor:pointer">
+      <tr @click="goToPerson(props.item.personid)" @mouseover="highlightRow" style="cursor:pointer" :class="cursorHighlight">
         <td class="text-xs-right">{{ props.item.lname }}</td>
         <td class="text-xs-right" >{{ props.item.fname }}</td>
         <td class="text-xs-right">{{ props.item.name }}</td>
@@ -59,6 +59,7 @@ new Vue({
       people: [],
       search: '',
       loading: false,
+      cursorHighlight: "none",
       headers: [
         {
           text: 'Last Name',
@@ -76,7 +77,10 @@ new Vue({
   methods: {
     setLoading: function(){ this.loading = true },
     offLoading: function(){ this.loading = false },
-    goToPerson: function(id){ location.href= 'https://charisfellowship.us/handbook/people/' + id }
+    goToPerson: function(id){ location.href= 'https://charisfellowship.us/handbook/people/' + id },
+    highlightRow: function() {
+      this.cursorHighlight = "off"
+    }
   },
   created(){
     let self = this 
@@ -95,6 +99,10 @@ new Vue({
 
 <style scoped>
 #inspireApp {margin-left:10px};
-.v-progress-circular
+.v-progress-circular {
     margin: 1rem
+  }
+.shaded td {
+  background-color: #E1DADA;
+  }
 </style>

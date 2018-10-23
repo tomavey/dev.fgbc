@@ -96,7 +96,7 @@
 	</cffunction>
 
 	<cffunction name="inspire">
-		<cfset renderPage(layout="/handbook/layout_handbook2")>
+		<cfset renderPage(layout="/handbook/layout_handbook_vue")>
 	</cffunction>
 
 	<!---route="handbookVcard", pattern=pattern="/people/vcard/[key]"--->
