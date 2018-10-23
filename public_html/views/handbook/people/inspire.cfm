@@ -94,7 +94,7 @@ new Vue({
 .v-progress-circular {
     margin: 1rem
   }
-.shaded td {
+tr:hover {
   background-color: #E1DADA;
-  }
+}  
 </style>
