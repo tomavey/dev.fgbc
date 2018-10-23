@@ -271,7 +271,7 @@ private function $arrayOfStructsSort(aOfS,key){
 	<cfset var newData = "">
 		<cfset var data = findAllMembers(currentMembershipYear=currentmembershipyear, orderby="lname,fname")>
 		<cfquery dbtype="query" name="newData">
-			select personid, lname, fname, name, org_city, state
+			select personid, lname, fname, name, org_city, org_state as state
 			from data
 		</cfquery>
 		<cfset data = QueryToJson(newData)>

@@ -22,23 +22,30 @@
     <v-data-table
       :headers="headers"
       :items="people"
-      hide-actions
       class="elevation-1"
       :search="search"
+      :rows-per-page-items=[25,50,100,{"text":"$vuetify.dataIterator.rowsPerPageAll","value":-1}]
     >
       <template slot="items" slot-scope="props">
+      <tr @click="goToPerson(props.item.personid)" style="cursor:pointer">
         <td class="text-xs-right">{{ props.item.lname }}</td>
-        <td class="text-xs-right">{{ props.item.fname }}</td>
+        <td class="text-xs-right" >{{ props.item.fname }}</td>
         <td class="text-xs-right">{{ props.item.name }}</td>
         <td class="text-xs-right">{{ props.item.org_city }}</td>
         <td class="text-xs-right">{{ props.item.state }}</td>
+      </tr>  
       </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
           Your search for "{{ search }}" found no results.
         </v-alert>
-    </v-data-table>
+      </v-data-table>
+        <v-progress-circular
+          :size="50"
+          color="primary"
+          indeterminate
+          v-show="loading"
+        >Loading</v-progress-circular>
    </v-card> 
-   {{people}}
   </v-app>
 </div>
 
@@ -50,6 +57,7 @@ new Vue({
     return {
       people: [],
       search: '',
+      loading: false,
       headers: [
         {
           text: 'Last Name',
@@ -64,13 +72,20 @@ new Vue({
       ]
     }
   },
+  methods: {
+    setLoading: function(){ this.loading = true },
+    offLoading: function(){ this.loading = false },
+    goToPerson: function(id){ location.href= 'https://charisfellowship.us/handbook/people/' + id }
+  },
   created(){
     let self = this 
+    this.setLoading()
     axios
       .get('https://charisfellowship.us/api/agbmmembers')
       .then(function(response){
         console.log(response.data)
         self.people = response.data
+        self.offLoading()
       })
   }
 })
@@ -79,4 +94,6 @@ new Vue({
 
 <style scoped>
 #inspireApp {margin-left:10px};
+.v-progress-circular
+    margin: 1rem
 </style>
