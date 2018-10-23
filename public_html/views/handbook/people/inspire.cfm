@@ -64,8 +64,7 @@ new Vue({
         { text: 'Church', value: 'name' },
         { text: 'City', value: 'org_city' },
         { text: 'State', value: 'state' },
-        { text: 'District', value: 'district' },
-
+        { text: 'District', value: 'district' }
       ]
     }
   },
