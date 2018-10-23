@@ -649,7 +649,7 @@
 		.get(name="churches", pattern="/churches", controller="churches", action="index")
 		.get(name="newName", pattern="newname", controller="charis", action="rebranding")
 		.get(name="focusMobile", pattern="/focusmobile/", controller="focus.main", action="mobile")
-		.get(name="inspire", pattern="/handbook/inspire/", controller="handbook.people", action="inspire")
+		.get(name="inspire", pattern="/inspire/", controller="handbook.people", action="inspire")
 		.root(controller="Home", action="index")
 		.wildcard()
 
