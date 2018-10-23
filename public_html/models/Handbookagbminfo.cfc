@@ -268,8 +268,13 @@ private function $arrayOfStructsSort(aOfS,key){
 
 	<cffunction name="Handbookagbminfoasjson">
 	<cfargument name="currentMembershipYear" default="#currentMembershipYear()#">
+	<cfset var newData = "">
 		<cfset var data = findAllMembers(currentMembershipYear=currentmembershipyear, orderby="lname,fname")>
-		<cfset data = QueryToJson(data)>
+		<cfquery dbtype="query" name="newData">
+			select personid, lname, fname, name, org_city, state
+			from data
+		</cfquery>
+		<cfset data = QueryToJson(newData)>
 		<cfreturn data>
 	</cffunction>
 
