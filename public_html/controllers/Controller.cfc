@@ -395,7 +395,10 @@
 		for (var arg in arguments) {
 			loc[replace(arg,"_","-","all")] = arguments[arg];
 		}
-		if (isDefined('loc.key')) { loc.params = 'keyy=#loc.key#' };
+		if (isDefined('loc.key')) { 
+			if (isDefined('loc.params')) { loc.params = loc.params & '&' & 'keyy=#loc.key#' }
+			else { loc.params = 'keyy=#loc.key#' }
+			};
 		return super.linkTo(argumentCollection=loc);
 	}
 </cfscript>
