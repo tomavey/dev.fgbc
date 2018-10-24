@@ -1,10 +1,7 @@
 <cfoutput>
-<!---
 		  <cfif gotRights("superadmin,agbmadmin")>
 						#textField(objectName='handbookagbminfo', property='personid', label='Member ID## <p style="font:size.8em;color:gray;margin-left:15px">Be careful with the member id##. Most of the time it will not need to change.</p>')#
-						
 		  </cfif>
---->
 						#textField(objectName='handbookagbminfo', property='membershipFee', label='Membership Fee')#
 					
 						#textField(objectName='handbookagbminfo', property='membershipFeeYear', label='Membership Fee Year')#
