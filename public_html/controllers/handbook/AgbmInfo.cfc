@@ -325,7 +325,7 @@
 		<cfset loc.whereString1 = loc.whereString & " AND status = 'AGBM Only'">
 		<cfset loc.positions1 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString1, include=loc.includeString)>
 		<cfif loc.positions1.recordcount>
-			<cfset loc.return = gbcit(trim(loc.positions1.name)) & "; " & unrepeatcity(loc.positions1.org_city,loc.positions1.name) & ", " & loc.positions1.state>
+			<cfset loc.return = gbcit(trim(loc.positions1.name)) & "; " & unrepeatcity(loc.positions1.org_city,loc.positions1.name) & " " & loc.positions1.state>
 			<cfreturn loc.return>
 		</cfif>
 
@@ -333,7 +333,7 @@
 		<cfset loc.whereString2 = loc.whereString & " AND status = 'Member'">
 		<cfset loc.positions2 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString2, include=loc.includeString)>
 		<cfif loc.positions2.recordcount>
-			<cfset loc.return = gbcit(loc.positions2.name) & "; " & unrepeatcity(loc.positions2.org_city,loc.positions2.name) & ", " & loc.positions2.state>
+			<cfset loc.return = gbcit(loc.positions2.name) & "; " & unrepeatcity(loc.positions2.org_city,loc.positions2.name) & " " & loc.positions2.state>
 			<cfreturn loc.return>
 		</cfif>
 
@@ -341,7 +341,7 @@
 		<cfset loc.whereString3 = loc.whereString & " AND status = 'Member (co-member)'">
 		<cfset loc.positions3 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString3, include=loc.includeString)>
 		<cfif loc.positions3.recordcount>
-			<cfset loc.return = gbcit(trim(loc.positions3.name)) & "; " & unrepeatcity(loc.positions3.org_city,loc.positions3.name) & ", " & loc.positions3.state>
+			<cfset loc.return = gbcit(trim(loc.positions3.name)) & "; " & unrepeatcity(loc.positions3.org_city,loc.positions3.name) & " " & loc.positions3.state>
 			<cfreturn loc.return>
 		</cfif>
 
