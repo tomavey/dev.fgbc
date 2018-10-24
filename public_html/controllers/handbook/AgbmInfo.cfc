@@ -320,7 +320,7 @@
 	<cfset var loc = arguments>
 	<cfset loc.whereString = "id=#loc.personid#">
 	<cfset loc.includeString = "Handbookpositions(Handbookpositiontype,Handbookorganization(State,Handbookstatus))">
-	<cfset loc.selectString = "name,statusid,status,Handbookpositions.position as position,org_city,Handbookstates.state as state">
+	<cfset loc.selectString = "name,statusid,status,handbookpositions.position as position,org_city,handbookstates.state as state">
 
 		<cfset loc.whereString1 = loc.whereString & " AND status = 'AGBM Only'">
 		<cfset loc.positions1 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString1, include=loc.includeString)>
