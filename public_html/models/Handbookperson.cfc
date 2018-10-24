@@ -171,6 +171,10 @@
 				  <cfset loc.wherestring = loc.wherestring & " AND licensed = 1">
 			</cfif>
 
+			<cfif isDefined("params.mentored") and params.mentored>
+				  <cfset loc.wherestring = loc.wherestring & " AND mentored = 1">
+			</cfif>
+
 			<!---For district grouping--->
 			<cfif isDefined("params.groupby") and params.groupby is "District">
 				  <cfset loc.orderString = "District," & loc.orderString>
@@ -218,6 +222,7 @@
 		<cfset params.category = 1>
 		<cfset params.ordained = 1>
 		<cfset params.licensed = 0>
+		<cfset params.mentored = 0>
 		<cfset loc.people = findAGBM(params)>
 		<cfreturn loc.people>
 	</cffunction>
@@ -228,6 +233,7 @@
 		<cfset params.category = 1>
 		<cfset params.ordained = 0>
 		<cfset params.licensed = 1>
+		<cfset params.mentored = 0>
 		<cfset loc.peopleAndParams = findAGBM(params)>
 		<cfreturn loc.peopleAndParams>
 	</cffunction>
@@ -238,6 +244,7 @@
 		<cfset params.category = 2>
 		<cfset params.ordained = 1>
 		<cfset params.licensed = 0>
+		<cfset params.mentored = 0>
 		<cfset loc.peopleAndParams = findAGBM(params)>
 		<cfreturn loc.peopleAndParams>
 	</cffunction>
@@ -248,6 +255,29 @@
 		<cfset params.category = 2>
 		<cfset params.ordained = 0>
 		<cfset params.licensed = 1>
+		<cfset params.mentored = 0>
+		<cfset loc.peopleAndParams = findAGBM(params)>
+		<cfreturn loc.peopleAndParams>
+	</cffunction>
+
+	<cffunction name="findAllAgbmCat1Mentored">
+	<cfargument name="params" required="true" type="struct">
+	<cfset var loc=structNew()>
+		<cfset params.category = 1>
+		<cfset params.ordained = 0>
+		<cfset params.licensed = 0>
+		<cfset params.mentored = 1>
+		<cfset loc.peopleAndParams = findAGBM(params)>
+		<cfreturn loc.peopleAndParams>
+	</cffunction>
+
+	<cffunction name="findAllAgbmCat2Mentored">
+	<cfargument name="params" required="true" type="struct">
+	<cfset var loc=structNew()>
+		<cfset params.category = 2>
+		<cfset params.ordained = 0>
+		<cfset params.licensed = 0>
+		<cfset params.mentored = 1>
 		<cfset loc.peopleAndParams = findAGBM(params)>
 		<cfreturn loc.peopleAndParams>
 	</cffunction>
@@ -258,6 +288,7 @@
 		<cfset params.category = 3>
 		<cfset params.ordained = 0>
 		<cfset params.licensed = 0>
+		<cfset params.mentored = 0>
 		<cfset loc.peopleAndParams = findAGBM(params)>
 		<cfreturn loc.peopleAndParams>
 	</cffunction>

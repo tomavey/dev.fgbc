@@ -15,6 +15,8 @@
 					
 						#checkBox(objectName='handbookagbminfo', property='licensed', label='Licensed?')#
 					
+						#checkBox(objectName='handbookagbminfo', property='mentored', label='Being Mentored?')#
+
 						Date Paid: #dateSelect(objectName='handbookagbminfo', property='paidAt', class="input-small")#
 					
 						#select(objectName='handbookagbminfo', property='organizationId', label='Church (if different than what is listed in the handbook): ', options=organizations, textField="selectNameCity", includeBlank="-options-" )#

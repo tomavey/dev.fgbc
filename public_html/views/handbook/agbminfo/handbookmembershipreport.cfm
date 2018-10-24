@@ -86,6 +86,36 @@
   </div>
 </cfif>
 
+<cfif cat1Mentored.recordcount>
+  <div class="well">
+    <h2>Category One - Being Mentored</h2>
+    <cfset count = 0>
+    <cfoutput query="cat1Mentored" group="id">
+      #includePartial("handbookMembershipListing")#
+      <cfset count = count + 1>
+    </cfoutput>
+	<cfoutput>
+    &nbsp;&nbsp;&nbsp;Count: #count#
+	</cfoutput>
+    <cfset countall = count + countall>
+  </div>
+</cfif>
+
+<cfif cat2Mentored.recordcount>
+  <div class="well">
+    <h2>Category One - Being Mentored</h2>
+    <cfset count = 0>
+    <cfoutput query="cat2Mentored" group="id">
+      #includePartial("handbookMembershipListing")#
+      <cfset count = count + 1>
+    </cfoutput>
+	<cfoutput>
+    &nbsp;&nbsp;&nbsp;Count: #count#
+	</cfoutput>
+    <cfset countall = count + countall>
+  </div>
+</cfif>
+
 <cfif cat3.recordcount>
   <div class="well">
     <h2>Category Three</h2>

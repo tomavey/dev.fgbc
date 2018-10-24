@@ -297,9 +297,13 @@
 
 		<cfset cat1Licensed = model("Handbookperson").findAllAGBMcat1Licensed(params).people>
 
+		<cfset cat1Mentored = model("Handbookperson").findAllAGBMcat1Mentored(params).people>
+
 		<cfset cat2Ordained = model("Handbookperson").findAllAGBMcat2Ordained(params).people>
 
 		<cfset cat2Licensed = model("Handbookperson").findAllAgbmCat2Licensed(params).people>
+
+		<cfset cat2Mentored = model("Handbookperson").findAllAgbmCat2Mentored(params).people>
 
 		<cfset cat3 = model("Handbookperson").findAllAgbmCat3(params).people>
 
@@ -316,7 +320,7 @@
 	<cfset var loc = arguments>
 	<cfset loc.whereString = "id=#loc.personid#">
 	<cfset loc.includeString = "Handbookpositions(Handbookpositiontype,Handbookorganization(State,Handbookstatus))">
-	<cfset loc.selectString = "name,statusid,status,position,org_city,state">
+	<cfset loc.selectString = "name,statusid,status,Handbookpositions.position as position,org_city,Handbookstates.state as state">
 
 		<cfset loc.whereString1 = loc.whereString & " AND status = 'AGBM Only'">
 		<cfset loc.positions1 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString1, include=loc.includeString)>
@@ -337,7 +341,7 @@
 		<cfset loc.whereString3 = loc.whereString & " AND status = 'Member (co-member)'">
 		<cfset loc.positions3 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString3, include=loc.includeString)>
 		<cfif loc.positions3.recordcount>
-			<cfset loc.return = gbcit(trim(loc.positions3.name)) & "; " & unrepeatcity(loc.positions3.org_city,loc.positions3.name) & "," & loc.positions3.state>
+			<cfset loc.return = gbcit(trim(loc.positions3.name)) & "; " & unrepeatcity(loc.positions3.org_city,loc.positions3.name) & ", " & loc.positions3.state>
 			<cfreturn loc.return>
 		</cfif>
 
