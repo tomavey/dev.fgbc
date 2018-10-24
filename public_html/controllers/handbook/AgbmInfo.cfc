@@ -325,7 +325,7 @@
 		<cfset loc.whereString1 = loc.whereString & " AND status = 'AGBM Only'">
 		<cfset loc.positions1 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString1, include=loc.includeString)>
 		<cfif loc.positions1.recordcount>
-			<cfset loc.return = gbcit(trim(loc.positions1.name)) & "; " & unrepeatcity(loc.positions1.org_city,loc.positions1.name) & "," & loc.positions1.state>
+			<cfset loc.return = gbcit(trim(loc.positions1.name)) & "; " & unrepeatcity(loc.positions1.org_city,loc.positions1.name) & ", " & loc.positions1.state>
 			<cfreturn loc.return>
 		</cfif>
 
