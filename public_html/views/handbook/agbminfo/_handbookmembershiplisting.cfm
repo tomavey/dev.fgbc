@@ -1,9 +1,8 @@
 <cfoutput>
 
 <span>
-	  <u>#fname# #lname##suffix#
-    </u>:
-              #getPositionForHandbookReport(id)#
+	  <u>#fname# #lname#<cfif len(suffix)>&nbsp;#suffix#</cfif>
+    </u>:#getPositionForHandbookReport(id)#
 </span>
        <br>
 
