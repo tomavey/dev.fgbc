@@ -60,9 +60,9 @@
 			</cfif>
 			<td>
 				<cfif REQUEST.lastpayment contains "ordained">
-					an ordained
+					Ordained
 				<cfelseif REQUEST.lastpayment contains "licensed">
-					a licensed
+					Licensed
 				</cfif>
 			</td>		
 		</tr>
