@@ -1,7 +1,7 @@
 <cfoutput>
 
 <span>
-	  #linkto(text="#fname# #lname#", controller="handbook.people", action="show", key=id)#:
+	  <u>#fname# #lname#</u>:
               #getPositionForHandbookReport(id)#
 </span>
        <br>
