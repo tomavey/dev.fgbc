@@ -18,7 +18,7 @@
                                   <span class='icon-bar'></span>
                                 </a>
 		</div>
-		<div class="nav-collapse collapse">
+		<div class="nav-collapse collapse pull-left">
     		<ul class="nav">
     			<li>&nbsp;</li>
     			<li>
@@ -71,7 +71,10 @@
     			<cfif gotrights("superadmin,office,agbmadmin,ministrystaff,handbookadmin")>
 
     			<li class="dropdown">
-    				#linkToData(controller="handbook.menus", action="administration", class="dropdown-toggle", data_toggle="dropdown", text="Administration<b class='caret'></b>")#
+						<cfif isMobile()>
+							#linkTo(controller="handbook.menus", action="administration", text="Administration")#
+						</cfif>
+    				#linkTo(controller="handbook.menus", action="administration", class="dropdown-toggle", data_toggle="dropdown", text="Administration<b class='caret'></b>")#
                 <ul class="dropdown-menu">
                     #includePartial("/handbook/navdropadmin")#
                 </ul>

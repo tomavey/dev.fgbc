@@ -1,3 +1,3 @@
 <cfoutput>
-    #includePartial("/handbook/handbooknavdropadmin")#
+    #includePartial("/handbook/navdropadmin")#
 </cfoutput>
