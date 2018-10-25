@@ -22,6 +22,8 @@
 
 						#textField(objectName='item', property='sortOrder', label='Sort Order (optional): ')#
 
+						#textArea(objectName='item', property='Comments', label='Comments: ')#
+
 						<p>Expires:
 							#dateSelect(objectName='item', property='expiresAt', dateOrder='year,month,day', monthDisplay='abbreviations')#
 						</p>

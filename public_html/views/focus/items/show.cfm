@@ -11,11 +11,26 @@
 					<p><span>Description: </span> 
 						#item.description#</p>
 				
+					<p><span>Popup: </span> 
+						#item.popup#</p>
+
 					<p><span>Price: </span> 
 						#dollarformat(item.price)#</p>
 				
 					<p><span>Sort Order: </span> 
 						#item.sortOrder#</p>
+
+					<p><span>Alert When Selected?: </span> 
+						#item.alertwhenselected#</p>
+
+					<p><span>Max to sell: </span> 
+						#item.maxtosell#</p>
+
+					<p><span>Comments: </span> 
+						#item.comments#</p>
+
+					<p><span>Category: </span> 
+						#item.category#</p>
 
 					<p><span>Expires: </span> 
 						#dateformat(item.expiresAt)#</p>
