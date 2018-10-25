@@ -4,7 +4,7 @@
 var $message = "Move your cursor over names to temporarily view information then click to switch the information to the center screen.";
 
 /*mouseover function for church and people information*/
-function $showsidebar(){
+function $showsidebarXX(){
 	$('#thisAjaxInfo').empty().css("top","0").append($message);
 	$('#ajaxinfo p a,.ajaxclickable').bind("mouseover",function(){
 		$('#ajaxinfo p a,.ajaxclickable').css("background-color","white").parent().find("img").remove();//set all backgrounds to white
