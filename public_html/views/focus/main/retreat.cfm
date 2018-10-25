@@ -25,7 +25,7 @@
 <cfif isOffice() >
 	Office: #editTag(id=retreat.id, controller="focus.retreats")#
 </cfif>
-#retreat.deadline#
+#showDeadlineIsPastMessage(retreat.deadline)#
 		<div id="registration" class="well">
 			<h1>Registration</h1>
 
