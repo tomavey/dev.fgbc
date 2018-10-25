@@ -123,6 +123,10 @@
 			.resources("districts")
 			.resources("groups")
 			.resources("groupTypes")
+
+			.controller("menus")
+				.get(name="administration", pattern="/administration/")
+			.end()
 			.resources("menus")
 			.resources("notes")
 
