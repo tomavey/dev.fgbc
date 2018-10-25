@@ -126,6 +126,7 @@
 
 			.controller("menus")
 				.get(name="administration", pattern="/administration/")
+				.get(name="handbook", pattern="/handbook/")
 			.end()
 			.resources("menus")
 			.resources("notes")
