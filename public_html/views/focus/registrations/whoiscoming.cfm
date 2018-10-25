@@ -1,7 +1,7 @@
 <cfparam name="previousperson" default="">
 <cfset count = 0>
 <cfset emailall = "">
-<h1><cfoutput>Who is coming to #whoiscoming.menuname#?</cfoutput></h1>
+<h1><cfoutput>Who is coming to #whoiscoming.title#?</cfoutput></h1>
 <ul>
 <cfoutput query="whoiscoming" group="registrantid">
 	<cfif fullNameLastFirst NEQ previousperson>
@@ -17,6 +17,7 @@
 <cfoutput>Count = #count#
 <cfif isOffice() or isDefined("params.showemailall")>
 <p>#linkTo(text="Email Everyone", href="mailto:#emailall#")#</p>
+<p>Show email all link: #linkto(controller="focus.registrations", action="whoiscoming", key=key, params="showemailall=1", onlyPath='false')#</p>
 </cfif>
 </cfoutput>
 </ul>
