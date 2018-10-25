@@ -25,9 +25,9 @@
 	    	#contentForLayout()#
 	</div>
 	
-	<div id="thisAjaxInfo" class="span4 well visible-desktop" style="display:none">
-		Move your cursor over names to temporarily view information then click to switch the information to the center screen.
-	</div>
+<!--- 	<div id="thisAjaxInfo" class="span4 well visible-desktop"> --->
+<!--- 		Move your cursor over names to temporarily view information then click to switch the information to the center screen. --->
+<!--- 	</div> --->
 </div>
 
 	#includePartial("/handbook/footer")#
