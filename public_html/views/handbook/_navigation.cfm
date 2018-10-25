@@ -73,23 +73,25 @@
     			<li class="dropdown">
 						<cfif isMobile()>
 							#linkTo(controller="handbook.menus", action="administration", text="Administration")#
-						</cfif>
-    				#linkTo(controller="handbook.menus", action="administration", class="dropdown-toggle", data_toggle="dropdown", text="Administration<b class='caret'></b>")#
+						<cfelse>	
+							#linkTo(controller="handbook.menus", action="administration", class="dropdown-toggle", data_toggle="dropdown", text="Administration<b class='caret'></b>")#
                 <ul class="dropdown-menu">
                     #includePartial("/handbook/navdropadmin")#
                 </ul>
+						</cfif>
     			</li>
     			</cfif>
 
     			<cfif gotRights("superadmin,office,handbookedit")>
     			<li class="dropdown">
 						<cfif isMobile()>
-							#linkTo(controller="handbook.menus", action="handbook", text="Handbook")#
+							#linkTo(controller="handbook.menus", action="handbook", text="Handbook Reports")#
+						<cfelse>	
+							#linkToData(href="##", class="dropdown-toggle", data_toggle="dropdown", text="Handbook Reports<b class='caret'></b>")#
+								<ul class="dropdown-menu">
+												#includePartial("/handbook/navdrophandbook")#
+								</ul>
 						</cfif>
-    				#linkToData(href="##", class="dropdown-toggle", data_toggle="dropdown", text="Handbook Reports<b class='caret'></b>")#
-    				<ul class="dropdown-menu">
-                    #includePartial("/handbook/navdrophandbook")#
-    				</ul>
     			</li>
     			</cfif>
 
