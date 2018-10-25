@@ -313,9 +313,9 @@ $(document).ready(function(){
 
 	$pageheader();
 	
-	$showsidebar();
+	// $showsidebar();
 	
-	$thisAjaxInfoLinks();
+	// $thisAjaxInfoLinks();
 
 	$taginstructions();
 
