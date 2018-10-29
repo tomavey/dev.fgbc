@@ -18,6 +18,9 @@
 <cfif !isDefined("session.shoppingcart[1].groupRegId")>
     <p style="text-align:center;font-size:1.4em">Do not press the back button on your browser from this page on.</p>
 </cfif>
+<cfif isAdmin()>
+    <p style="text-align:center;font-size:1.4em">Possible Admin Options (office only): #getSetting("possibleAgentCodes")#</p>
+</cfif>
 </div>
 </cfoutput>
 </div>
