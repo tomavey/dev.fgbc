@@ -154,7 +154,7 @@
                             </li>
 							  <li class="g-pos-rel g-py-10">
                               <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/equippingnetwork" target="_new">the Equipping Church Nework</a>
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/equippingnetwork" target="_new">The Equipping Church Nework</a>
                                 <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
                               </h4>
                             </li>
