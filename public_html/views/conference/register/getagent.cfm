@@ -12,14 +12,14 @@
 
 #startFormTag(route=formactionRoute, id="getagent")#
     #textfieldtag(label=agentFieldLabel, name="agent", value="#params.agent#")#
+    <cfif isAdmin()>
+        <p style="text-align:center;font-size:1.4em">Possible Admin Options (office only): #getSetting("possibleAgentCodes")#</p>
+    </cfif>
 #submitTag(value="Submit", class="btn")#
 #endFormTag()#
 
 <cfif !isDefined("session.shoppingcart[1].groupRegId")>
     <p style="text-align:center;font-size:1.4em">Do not press the back button on your browser from this page on.</p>
-</cfif>
-<cfif isAdmin()>
-    <p style="text-align:center;font-size:1.4em">Possible Admin Options (office only): #getSetting("possibleAgentCodes")#</p>
 </cfif>
 </div>
 </cfoutput>
