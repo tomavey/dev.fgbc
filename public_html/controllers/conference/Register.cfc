@@ -1002,6 +1002,7 @@
 		if ( usingGroupReg() ) { redirectToThisInvoice(); };
 		if ( params.agent is "prepaid" ) { redirectToThisInvoice("paid"); };
 		if ( params.agent is "manual@fgbc.org" OR params.agent is "manual" OR params.agent is "test" ) { redirectToThisInvoice("TBD"); };
+		if ( params.agent is "test") { redirectToThisInvoice("test"); }
 		if ( params.agent is "comp" ) { redirectToThisInvoice("comp"); };
 		if ( register.totalInShoppingCart() LTE 0 ) { redirectToThisInvoice("TBD"); };
 		if ( params.agent is "tomavey@fgbc.org" AND application.wheels.environment is "development" ) {
