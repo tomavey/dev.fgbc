@@ -6,7 +6,7 @@
 				#fname#
 			</td>
 			<td>
-				#lname#	
+				#lname#	#suffix#
 			</td>
 			<td>
 				#address1#	
