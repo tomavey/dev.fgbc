@@ -15,19 +15,22 @@
 
 					<p>#linkTo(text="View Options for #retreat.title#", controller="focus.items", action="index", params="retreatid=#params.key#", class="btn")#	</p>
 				
-					<p><span>Begins: </span> 
+					<p><span>Retreat Begins: </span> 
 						#dateformat(retreat.startAt)#</p>
 				
-					<p><span>Ends: </span> 
+					<p><span>Retreat Ends: </span> 
 						#dateformat(retreat.endAt)#</p>
 				
-					<p><span>Discount deadline: </span> 
+					<p><span>Discount deadline (after this date, the price may increase): </span> 
 						#dateformat(retreat.discountdeadline)#</p>
 				
-					<p><span>Deadline: </span> 
+					<p><span>Planned price increase after discount deadline (must increase reg prices manually): </span> 
+						#dollarFormat(retreat.priceincrease)#</p>
+
+					<p><span>Registration Deadline (after this date, reg will not show): </span> 
 						#dateformat(retreat.deadline)#</p>
 				
-					<p><span>Who is coming deadline: </span> 
+					<p><span>Who is coming deadline (after this date, the who is coming list will not show): </span> 
 						#dateformat(retreat.whoiscomingdeadline)#</p>
 				
 					<p>Registration is closed message:</p>

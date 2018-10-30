@@ -18,7 +18,11 @@
 					</ul>
 					<p>
 						<cfif dateCompare(retreat.deadline, retreat.discountdeadline)>
-							This price increases on #dateformat(retreat.discountdeadline,"medium")#</br>
+							This price increases 
+							<cfif val(retreat.priceincrease)>
+								(#dollarFormat(retreat.priceincrease)#)
+							</cfif>
+							on #dateformat(retreat.discountdeadline,"medium")#</br>
 						</cfif>
 						Registration deadline is #dateformat(retreat.deadline,"medium")#. <br/>No refunds for cancelations or changes after #dateformat(retreat.deadline,"medium")#. </br>
 						Additional financial aid may be available.  Email #mailto(getSetting('focusForFinancialHelp'))# for more information.

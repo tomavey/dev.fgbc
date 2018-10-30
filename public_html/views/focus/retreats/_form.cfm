@@ -32,6 +32,8 @@
 							#dateSelect(objectName='retreat', property='discountdeadline', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#
 						</p>
 
+						#select(objectName='retreat', property='priceincrease', label='Planned price increase (must increase reg prices manually): ', options="5,10,15,20")#
+
 						<p>Registration Deadline:
 							#dateSelect(objectName='retreat', property='deadline', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#</br>
 							<span>After this date the public registration will be closed.</span>
