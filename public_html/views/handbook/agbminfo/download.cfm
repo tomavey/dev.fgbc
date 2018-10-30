@@ -61,6 +61,9 @@
 				Church Zip
 			</th>
 			<th>
+				Church Email
+			</th>
+			<th>
 				Started in Ministry
 			</th>
 			<cfif showAge>

@@ -51,6 +51,9 @@
 				#handbookorganizationzip#	
 			</td>
 			<td>
+				#org_email#	
+			</td>
+			<td>
 				#ministrystartat#	
 			</td>
 			<cfif showAge && birthdayyear NEQ 1900>
