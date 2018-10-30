@@ -14,7 +14,7 @@
 
 <cfset emailall = replace(emailall,';','','one')>
 
-<cfoutput>Count = #count#
+<cfoutput>Count = #count# #linkto(text="*", controller="focus.registrations", action="whoiscoming", key=key, params="showemailall=1")#
 <cfif isOffice() or isDefined("params.showemailall")>
 <p>#linkTo(text="Email Everyone", href="mailto:#emailall#")#</p>
 <p>Show email all link: #linkto(controller="focus.registrations", action="whoiscoming", key=key, params="showemailall=1", onlyPath='false')#</p>
