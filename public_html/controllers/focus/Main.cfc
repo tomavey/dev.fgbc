@@ -6,6 +6,8 @@
 <!--- 		<cfset useslayout(template='/focus/layout_vue', only='index')> --->
 		<cfset filters(through="getRetreats")>
 		<cfset filters(through="getRetreatRegions")>
+		<cfset filters(through="setReturn", only="retreat")>
+
 	</cffunction>
 
 <!----Filters---->
