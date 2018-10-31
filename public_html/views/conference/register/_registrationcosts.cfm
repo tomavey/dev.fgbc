@@ -309,7 +309,7 @@
 				</p>
 			</div>
 			<cfelse>
-			<div>Prices for Grace Kids are not set yet.</p>
+			<div class="well">Prices for Grace Kids are not set yet.</p>
 			</cfif>
 </cfif>
 </cfoutput>
