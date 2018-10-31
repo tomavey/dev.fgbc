@@ -458,3 +458,7 @@ a.courseresourcenewlink {
 div#showallselectedcohorts .eachItemShown {
     background-color: white;
 }
+
+.vague img {
+    opacity: 0.5;
+}
