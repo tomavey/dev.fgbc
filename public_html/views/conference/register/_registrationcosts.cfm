@@ -272,6 +272,7 @@
 				</p>
 			</div>
 
+			<cfif getSetting("showGraceKidsPrices")>
 			<div id="gracekidscosts" class="well">
 				<p><h3>Grace Kids: Child care costs (infant through 6th grade)</h3>
 				<!---
@@ -307,6 +308,9 @@
 				<p style="text-align:center">Refundable if you cancel before July 15!
 				</p>
 			</div>
+			<cfelse>
+			<div>Prices for Grace Kids are not set yet.</p>
+			</cfif>
 </cfif>
 </cfoutput>
 			</div>
