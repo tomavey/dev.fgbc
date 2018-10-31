@@ -69,7 +69,7 @@
 		#linkto(text="Registration for Grace Kids<br/> is not currently available online", onclick="alert('Not available'); return false", class="btn btn-large btn-block btn-info")#
 	</div>
 
-	<div class="#span#">
+	<div class="#span# vague">
 		#imageTag("/conference/childrenreg.png")#
 		#linkto(text="Registration for Grace Kids<br/> is not currently available online", onclick="alert('Not available'); return false", class="btn btn-large btn-block btn-info")#
 	</div>
@@ -96,7 +96,7 @@
 
 </div>
 
-<cfif (!mealsRegIsOpen() || !childRegIsOpen()) && isBefore("2019-07-15")>
+<cfif (!mealsRegIsOpen() || !childRegIsOpen()) && isBefore("2018-07-15")>
 	<br/>
 	<div class="well alert text-center">
 		<cfif !mealsRegIsOpen()>
