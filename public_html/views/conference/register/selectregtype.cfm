@@ -64,8 +64,8 @@
 		#linkto(text="Register your children", action="selectoptions", params="children", class="btn btn-large btn-block btn-info")#
 	</div>
 <cfelse>
-	<div class="#span#" style="background-color:red">
-		#imageTag("/conference/familyreg.png", style="opacity: 0.5;")#
+	<div class="#span# vague">
+		#imageTag("/conference/familyreg.png")#
 		#linkto(text="Registration for Grace Kids<br/> is not currently available online", onclick="alert('Not available'); return false", class="btn btn-large btn-block btn-info")#
 	</div>
 
