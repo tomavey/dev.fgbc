@@ -81,7 +81,7 @@
 		#linkto(text="Purchase Only Meal Tickets", action="selectoptions",params="meals", class="btn btn-large btn-block btn-info")#
 	</div>
 <cfelse>
-	<div class="#span#">
+	<div class="#span# vague">
 		#imageTag("/conference/meals.png")#
 		#linkto(text="Meal Tickets are not<br/> currently available online.", onclick="alert('Not available yet'); return false", class="btn btn-large btn-block btn-info")#
 	</div>
@@ -96,7 +96,7 @@
 
 </div>
 
-<cfif (!mealsRegIsOpen() || !childRegIsOpen()) && isBefore("2016-07-15")>
+<cfif (!mealsRegIsOpen() || !childRegIsOpen()) && isBefore("2019-07-15")>
 	<br/>
 	<div class="well alert text-center">
 		<cfif !mealsRegIsOpen()>
