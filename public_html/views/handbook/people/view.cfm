@@ -1,5 +1,11 @@
 <cfparam name="handbookperson" required="true" type="struct">
+<cfif handbookperson.hideFromPublic && !gotBasicHandbookRights()>
+	<p>You do not have access to this page</p>
+<cfelse>    
+
 <div id="personview" class="span11 text-center">
+
+
 
 <cfoutput>
 
@@ -26,3 +32,5 @@
 
 </cfoutput>
 </div>
+    
+</cfif>

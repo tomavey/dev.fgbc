@@ -1,12 +1,6 @@
 <!---cftry--->
 <cfset isNotes=arraylen(handbookperson.handbooknotes)>
 
-<cfif handbookperson.hideFromPublic and !gotBasicHandbookRights()>
-	<p>You do not have access to this page</p>
-	<cfabort>
-</cfif>
-
-
 <cfoutput>
 #forcecfcatch()#
 
