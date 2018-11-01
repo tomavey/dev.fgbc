@@ -41,6 +41,8 @@
 				.post(name="create", pattern="create/")
 				.get(name="copy", pattern="copy")
 				.get(name="list", pattern="list")
+				.get(name="showGraceKidsPrices", pattern="showGraceKidsPrices")
+				.get(name="hideGraceKidsPrices", pattern="hideGraceKidsPrices")
 			.end()	
 
 			.controller("events")
