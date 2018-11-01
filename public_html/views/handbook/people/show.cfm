@@ -1,6 +1,11 @@
 <!---cftry--->
 <cfset isNotes=arraylen(handbookperson.handbooknotes)>
 
+<cfif handbookperson.hideFromPublic and !gotBasicHandbookRights()>
+	<p>You do not have access to this page</p>
+	<cfabort>
+</cfif>
+
 
 <cfoutput>
 #forcecfcatch()#
@@ -184,6 +189,14 @@
 					<p><span>Reviewed: </span>#dateformat(handbookperson.reviewedAt)#</p>
 
 					<p>#editTag(handbookperson.id)# #deleteTag(id=handbookperson.id, class="noAjax")#</p>
+
+					<cfif handbookperson.hideFromPublic>
+						<p> The record for #handbookperson.fname# is hidden from public.</br>
+							#linkTo(text="Un-hide #handbookperson.fname# from public", controller="handbook.people", action="unHideFromPublic", params="personid=#handbookperson.id#", class="btn")#
+						</p>
+					<cfelse>
+						<p>#linkTo(text="Hide #handbookperson.fname# from public", controller="handbook.people", action="hideFromPublic", params="personid=#handbookperson.id#", class="btn")#</p>
+					</cfif>
 
 					<p>#linkto(text="Add a new position for #handbookperson.fname#", route="handbookAddnewposition", key=params.key, class="btn")#</p>
 

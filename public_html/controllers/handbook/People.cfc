@@ -59,8 +59,7 @@
 
 	<cftry>
 
-    	<cfset handbookperson = model("Handbookperson").findByKey(key=params.key, include="Handbookstate,Handbookprofile,Handbookpictures,Handbooknotes")>
-
+   	<cfset handbookperson = model("Handbookperson").findOne(where="id=#params.key#", include="Handbookstate,Handbookprofile,Handbookpictures,Handbooknotes")>
 		<cfset tags=model("Handbooktag").findMyTagsForId(params.key,"person")>
 
 	<cfif gotrights("agbm,office,superadmin,agbmadmin")>
@@ -867,6 +866,20 @@ public function isInHandbookMap(obj){
 	else {
 		return false;
 	}
+}
+
+public function hideFromPublic(personid) {
+	var person = model("Handbookperson").findOne(where="id=#personid#", include="state");
+	person.hideFromPublic = 1;
+	person.update();
+	returnBack();
+}
+
+public function unHideFromPublic(personid) {
+	var person = model("Handbookperson").findOne(where="id=#personid#", include="state");
+	person.hideFromPublic = 0;
+	person.update();
+	returnBack();
 }
 
 </cfscript>
