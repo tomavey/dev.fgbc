@@ -197,4 +197,26 @@
 		;
 		return value;
 	}
+
+	public function setSetting(name, value, category="TBD", description="TBD") {
+		var setting = model("Fgbcsetting").findOne(where="name = '#name#'");
+		if ( isObject(setting) ) {
+			setting.value = value;
+			if (setting.update()) {
+				flashInsert(success="#name# was updated to #value#.");
+			} else {
+				flashInsert(success="#name# was NOT updated to #value#.");
+			};
+			return "true"
+		} else {
+			setting = model("Fgbcsetting").new(arguments);
+			if(setting.save()) {
+				flashInsert(success="#name# was saved as #value#.");
+			} else {
+				flashInsert(success="#name# was NOT saved as #value#.");
+			};
+			return "true"
+		}
+		return "false"
+	}
 </cfscript>

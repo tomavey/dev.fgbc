@@ -89,6 +89,8 @@
 						<li>#linkto(text="Settings", controller="admin.settings", action="index", params="category=conference")#</li>
 						<li>#linkto(text="Change to Previous Event", controller="conference.register", action="changeSessionSettingsToPreviousConference")#</li>
 						<li>#linkto(text="Clear Temp Event", controller="conference.register", action="clearSessionSettingsForEvent")#</li>
+						<li>#linkto(text="Show Childcare Prices in Price List", controller="admin.settings", action="showGraceKidsPrices")#</li>
+						<li>#linkto(text="Hide Childcare Prices in Price List", controller="admin.settings", action="hideGraceKidsPrices")#</li>
 						<li>
 							#linkto(
 								text="Mail List for Posters",

@@ -272,6 +272,14 @@
 				</p>
 			</div>
 
+			<cfif gotRights("office")>
+				<cfif !getSetting("showGraceKidsPrices")>
+					#linkTo(text="Show Grace Kids Prices", controller="admin.settings", action="showGraceKidsPrices", class="btn")#
+				<cfelse>		
+					#linkTo(text="Hide Grace Kids Prices", controller="admin.settings", action="hideGraceKidsPrices", class="btn")#
+				</cfif>
+			</cfif>
+
 			<cfif getSetting("showGraceKidsPrices")>
 			<div id="gracekidscosts" class="well">
 				<p><h3>Grace Kids: Child care costs (infant through 6th grade)</h3>

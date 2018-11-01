@@ -119,7 +119,6 @@ component extends="Controller" output="false" {
 		}
 			renderPage(action="new");
 		}
-  }
 
   // settings/delete/key
   public void function delete(){
@@ -131,6 +130,17 @@ component extends="Controller" output="false" {
     } else {
       flashInsert(error="There was an error deleting the setting.");
 			redirectTo(action="index");
+    }
   }
+
+  public void function showGraceKidsPrices(){
+    setSetting('showGraceKidsPrices','true', 'conference');
+    returnBack();
+  } 
   
+  public void function hideGraceKidsPrices(){
+    setSetting('showGraceKidsPrices','false', 'conference');
+    returnBack();
+  } 
+
 }
