@@ -1,7 +1,9 @@
 <cfparam name="handbookperson" required="true" type="struct">
 <cfif handbookperson.hideFromPublic>
 
-    <p>You do not have access to this page</p>
+    <div id="personview" class="span11 text-center">
+        <p>Nothing here!</p>
+    </div>   
 
 <cfelse>    
 
