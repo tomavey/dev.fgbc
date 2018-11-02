@@ -32,10 +32,10 @@
 </cffunction>
 
 <cffunction name="setOpenReg">
-	<cfif isDefined("params.openreg") and getSetting("registrationIsOpen")>
+	<cfif isDefined("params.openreg") || getSetting("registrationIsOpen")>
 		<cfset session.auth.openreg = true>
 	</cfif>
-	<cfif isDefined("params.closereg") and getSetting("registrationIsOpen")>
+	<cfif isDefined("params.closereg"))>
 		<cfset structDelete(session.auth,"openreg")>
 	</cfif>
 </cffunction>
