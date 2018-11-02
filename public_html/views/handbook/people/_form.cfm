@@ -49,7 +49,7 @@
 
 				</fieldset>
 
-						<cfif NOT isDefined("params.simple")>
+						<cfif !isDefined("params.simple")>
 							#includePartial(handbookPerson.handbookPositions)#
 						</cfif>
 
@@ -57,7 +57,9 @@
  	 						  #hiddenField(objectName='handbookprofile', property='personid')#
 						</cfif>
 
-						#includePartial("handbookprofile")#
+						<cfif !isDefined("params.simple")>
+							#includePartial("handbookprofile")#
+						</cfif>	
 
 					<cfif gotRights("superadmin,office,handbookedit")>
 					<fieldset class="well">

@@ -6,7 +6,10 @@
         					#linkto(text="New organization", controller="handbook.organizations", action="new", id="navsearch", title="Add a new organization.", class="tooltip2")#
         				</li>
         				<li>
-        					#linkto(text="New person", controller="handbook.people", action="new", id="navsearch", title="Add a new person.", class="tooltip2")#
+        					#linkto(text="New Person", controller="handbook.people", action="new", id="navsearch", title="Add a new person.", class="tooltip2")#
+        				</li>
+        				<li>
+        					#linkto(text="New Read Only Person", controller="handbook.people", action="new", params="simple", id="navsearch", title="Add a new person.", class="tooltip2")#
         				</li>
         				<li>
         					#linkto(text="Stats", controller="handbook.admin", action="index", title="Handbook Administration", class="tooltip2")#
