@@ -217,6 +217,7 @@
 
 	<!--- handbook-statistics/update --->
 	<cffunction name="update">
+	<cfdump var="#params#"><cfabort>
 		<cfset handbookstatistic = model("Handbookstatistic").findByKey(params.key)>
 
 		<cfloop list="att,members,memfee,members,baptisms,conversions" index="ii">
