@@ -1,7 +1,5 @@
 <cfoutput>		
 				
-						#hiddenTagForKeyy()#
-
 						#textField(objectName='setting', property='name', label='Setting name: ')#
 					
 						#textField(objectName='setting', property='value', label='Setting Value: ')#
