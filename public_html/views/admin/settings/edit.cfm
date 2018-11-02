@@ -10,7 +10,9 @@
 				#startFormTag(action="update")#
 
 				#putFormTag()#
-			
+
+				#hiddenTagForKeyy()#
+		
 				#includePartial("form")#
 					
 				#submitTag()#
