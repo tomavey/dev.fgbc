@@ -894,7 +894,6 @@ public function telCoQueryLink(phonenumber){
 }
 
 function hiddenTagForKeyy() {
-	writeDump(params);abort;
 	try {
 		return '<cfif isDefined("params.keyy") && len(params.keyy)>
 							#hiddenFieldTag(name="key", value=params.keyy)#
