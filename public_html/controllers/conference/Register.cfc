@@ -7,7 +7,7 @@
 	<cfset flashInsert(welcome="???")>
 	<cfset usesLayout("/conference/layout2018")>
 	<cfset filters(through="setReturn", only="welcome,selectregtype,selectoptions,person,showregs")>
-	<cfset filters(through="setOpenReg", only="welcome")>
+	<cfset filters(through="setOpenReg", only="welcome,selectregtype")>
 	<cfset filters(through="checkOpenReg", only="selectregtype,selectoptions")>
 	<cfset filters("clearSession")>
 
