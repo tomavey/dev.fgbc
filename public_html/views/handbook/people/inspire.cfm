@@ -85,7 +85,10 @@ new Vue({
   methods: {
     setLoading: function(){ this.loading = true },
     offLoading: function(){ this.loading = false },
-    goToPerson: function(id){ location.href= 'https://charisfellowship.us/handbook/people/' + id },
+    goToPerson: function(id){ 
+      let newl = 'https://charisfellowship.us/handbook/people/' + id
+      window.open(newl)
+      },
     highlightRow: function() {
       this.cursorHighlight = "off"
     }
