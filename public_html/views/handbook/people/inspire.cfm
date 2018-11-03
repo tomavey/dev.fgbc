@@ -2,6 +2,20 @@
 
   <v-app id="inspire">
     <v-card>
+      <v-text-field
+        v-model="secret"
+        single-line
+        hide-details
+        placeholder="Enter the secret word here and all will be revealed!"
+        id="inspireSecret"
+      > 
+      </v-text-field>
+      <div id="inspirePNG" v-if="!hideImage">
+      <img src="/images/handbook/inspire2.png" />
+      </div>
+
+    </v-card>
+    <v-card v-if="showData">
       <v-card-title>
        Inspire Membership
         <v-spacer></v-spacer>
@@ -53,6 +67,7 @@ new Vue({
       search: '',
       loading: false,
       cursorHighlight: "none",
+      secret: '',
       headers: [
         {
           text: 'Last Name',
@@ -73,6 +88,22 @@ new Vue({
     goToPerson: function(id){ location.href= 'https://charisfellowship.us/handbook/people/' + id },
     highlightRow: function() {
       this.cursorHighlight = "off"
+    }
+  },
+  computed: {
+    showData: function(){
+      if (this.secret.toLowerCase() === "inspiretoday") {
+        return true
+      } else {
+        return false
+      }
+    },
+    hideImage: function() {
+      if (this.secret.length < 3) {
+        return false
+      } else {
+        return true
+      }
     }
   },
   created(){
@@ -98,4 +129,9 @@ new Vue({
 tr:hover {
   background-color: #E1DADA;
 }  
+
+#inspirePNG, #inspireSecret {
+  text-align: center;
+}
+
 </style>

@@ -141,6 +141,6 @@ component extends="Controller" output="false" {
   public void function hideGraceKidsPrices(){
     setSetting('showGraceKidsPrices','false', 'conference');
     returnBack();
-  } 
+  }
 
 }
