@@ -1,7 +1,7 @@
 <div id="inspireApp">
 
   <v-app id="inspire">
-    <v-card>
+    <v-card v-if="showSecretInput">
       <v-text-field
         v-model="secret"
         single-line
@@ -17,7 +17,7 @@
     </v-card>
     <v-card v-if="showData">
       <v-card-title>
-       Inspire Membership
+      <img src="/images/handbook/inspire3.png" />
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -66,6 +66,7 @@ new Vue({
       people: [],
       search: '',
       loading: false,
+      showSecretInput: true,
       cursorHighlight: "none",
       secret: '',
       headers: [
@@ -96,6 +97,8 @@ new Vue({
   computed: {
     showData: function(){
       if (this.secret.toLowerCase() === "inspiretoday") {
+        localStorage.setItem("secret", this.secret.toLowerCase())
+        this.showSecretInput = false
         return true
       } else {
         return false
@@ -112,13 +115,21 @@ new Vue({
   created(){
     let self = this 
     this.setLoading()
+    // if ( localStorage.getItem("inspireData") ) {
+    //   self.people = localStorage.getItem("inspireData")
+    //   self.offLoading()
+    // }
     axios
       .get('https://charisfellowship.us/api/agbmmembers')
       .then(function(response){
-        console.log(response.data)
+        // console.log(response.data)
+        localStorage.setItem("inspireData", response.data)
         self.people = response.data
         self.offLoading()
       })
+    if ( localStorage.getItem("secret") ) {
+      this.secret = localStorage.getItem("secret")
+    }  
   }
 })
 
