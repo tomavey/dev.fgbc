@@ -122,9 +122,9 @@ new Vue({
     this.setLoading()
     if ( localStorage.getItem("inspireData") ) {
       try {
-      self.people = JSON.parse(localStorage.getItem("inspireData"))
-      console.log("got data from localstorare")
-      self.offLoading()
+        self.people = JSON.parse(localStorage.getItem("inspireData"))
+        console.log("got data from localstorare")
+        self.offLoading()
       } catch(err) {
         console.log(err)
       }
