@@ -110,7 +110,7 @@ new Vue({
       }
     },
     hideImage: function() {
-      if (this.secretPhrase.length < 7) {
+      if (this.secretPhrase.length < 8 ) {
         return false
       } else {
         return true
@@ -121,9 +121,13 @@ new Vue({
     let self = this 
     this.setLoading()
     if ( localStorage.getItem("inspireData") ) {
+      try {
       self.people = JSON.parse(localStorage.getItem("inspireData"))
       console.log("got data from localstorare")
       self.offLoading()
+      } catch(err) {
+        console.log(err)
+      }
     }
     axios
       .get('https://charisfellowship.us/api/agbmmembers')
