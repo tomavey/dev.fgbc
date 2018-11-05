@@ -24,8 +24,10 @@
        		title="Click to show #fullname# in the center panel.", 
        		onlyPath=false
        )#
-	 <cfelse>	   
-       #linkTo(text=fullname, 
+	 <cfelse>
+	 		<cfset useFullName = replaceNoCase(fullname,'sr','')>
+	 		<cfset useFullName = replaceNoCase(useFullName,'jr','')>
+       #linkTo(text=useFullName, 
        		action="show", 
        		key=personid,
        		class="tooltip2 ajaxclickable", 
