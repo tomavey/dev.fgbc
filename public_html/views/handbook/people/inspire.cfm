@@ -3,21 +3,24 @@
   <v-app id="inspire">
     <v-card v-if="showSecretInput">
       <v-text-field
-        v-model="secret"
+        v-model="secretPhrase"
         single-line
         hide-details
-        placeholder="Enter the secret word here and all will be revealed!"
+        placeholder="Enter the secret phrase here and all will be revealed!"
         id="inspireSecret"
       > 
       </v-text-field>
       <div id="inspirePNG" v-if="!hideImage">
       <img src="/images/handbook/inspire2.png" />
       </div>
+      <div id="inspirePNG" v-if="hideImage" transition="slide-x-transition">
+      <h2>"And let us consider how we may spur one another on toward love and good deeds, not giving up meeting together, as some are in the habit of doing, but encouraging one another—and all the more as you see the Day approaching."</h>
+      </div>
 
     </v-card>
     <v-card v-if="showData">
       <v-card-title>
-      <img src="/images/handbook/inspire3.png" />
+      <img src="/images/handbook/inspire2.png" width="200" />
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
@@ -68,7 +71,7 @@ new Vue({
       loading: false,
       showSecretInput: true,
       cursorHighlight: "none",
-      secret: '',
+      secretPhrase: '',
       headers: [
         {
           text: 'Last Name',
@@ -96,8 +99,10 @@ new Vue({
   },
   computed: {
     showData: function(){
-      if (this.secret.toLowerCase() === "inspiretoday") {
-        localStorage.setItem("secret", this.secret.toLowerCase())
+      let secret = this.secretPhrase.replace(' ','')
+      secret = secret.toLowerCase()
+      if (secret === "inspiretoday") {
+        localStorage.setItem("secret", secret.toLowerCase())
         this.showSecretInput = false
         return true
       } else {
@@ -105,7 +110,7 @@ new Vue({
       }
     },
     hideImage: function() {
-      if (this.secret.length < 3) {
+      if (this.secretPhrase.length < 7) {
         return false
       } else {
         return true
@@ -115,20 +120,22 @@ new Vue({
   created(){
     let self = this 
     this.setLoading()
-    // if ( localStorage.getItem("inspireData") ) {
-    //   self.people = localStorage.getItem("inspireData")
-    //   self.offLoading()
-    // }
+    if ( localStorage.getItem("inspireData") ) {
+      self.people = JSON.parse(localStorage.getItem("inspireData"))
+      console.log("got data from localstorare")
+      self.offLoading()
+    }
     axios
       .get('https://charisfellowship.us/api/agbmmembers')
       .then(function(response){
         // console.log(response.data)
-        localStorage.setItem("inspireData", response.data)
+        localStorage.setItem("inspireData", JSON.stringify(response.data))
         self.people = response.data
+        console.log("got data from api")
         self.offLoading()
       })
     if ( localStorage.getItem("secret") ) {
-      this.secret = localStorage.getItem("secret")
+      this.secretPhrase = localStorage.getItem("secret")
     }  
   }
 })
