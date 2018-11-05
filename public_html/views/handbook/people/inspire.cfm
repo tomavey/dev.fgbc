@@ -1,6 +1,7 @@
 <div id="inspireApp">
 
   <v-app id="inspire">
+  <v-container>
     <v-card v-if="showSecretInput">
       <v-text-field
         v-model="secretPhrase"
@@ -57,6 +58,7 @@
           v-show="loading"
         >Loading</v-progress-circular>
    </v-card> 
+  </v-container>
   </v-app>
 </div>
 
