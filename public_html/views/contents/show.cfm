@@ -29,7 +29,7 @@
 								<p>Updated: #dateformat(content.updatedAt)#</p>
 
 								<p>Created: #dateformat(content.createdAt)#</p>
-				<cfif gotrights("superadmin,pageEditor")>
+				<cfif gotrights("superadmin,pageEditor,office")>
 					#listTag(controller="admin.contents")# | #editTag(controller="admin.contents", id=content.id)#
 				</cfif>
 			</cfif>
