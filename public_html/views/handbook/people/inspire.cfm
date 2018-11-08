@@ -1,5 +1,5 @@
 <div id="inspireApp">
-
+  
   <v-app id="inspire" v-cloak>
   <v-container>
     <v-card v-if="showSecretInput">
@@ -122,10 +122,10 @@ new Vue({
   created(){
     let self = this 
     this.setLoading()
-    if ( localStorage.getItem("inspireData") ) {
+    if ( localStorage.getItem('inspireData') ) {
       try {
-        self.people = JSON.parse(localStorage.getItem("inspireData"))
-        console.log("got data from localstorare")
+        self.people = JSON.parse(localStorage.getItem('inspireData'))
+        console.log('got data from localstorare')
         self.offLoading()
       } catch(err) {
         console.log(err)
@@ -135,14 +135,14 @@ new Vue({
       .get('https://charisfellowship.us/api/agbmmembers')
       .then(function(response){
         // console.log(response.data)
-        localStorage.setItem("inspireData", JSON.stringify(response.data))
+        localStorage.setItem('inspireData', JSON.stringify(response.data))
         self.people = response.data
-        console.log("got data from api")
+        console.log('got data from api')
         self.offLoading()
       })
-    if ( localStorage.getItem("secret") ) {
-      this.secretPhrase = localStorage.getItem("secret")
-    }  
+    if ( localStorage.getItem('secret') ) {
+      this.secretPhrase = localStorage.getItem('secret')
+    } 
   }
 })
 
