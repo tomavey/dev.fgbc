@@ -1,6 +1,6 @@
 <div id="inspireApp">
 
-  <v-app id="inspire">
+  <v-app id="inspire" v-cloak>
   <v-container>
     <v-card v-if="showSecretInput">
       <v-text-field
@@ -160,5 +160,7 @@ tr:hover {
 #inspirePNG, #inspireSecret {
   text-align: center;
 }
+
+[v-cloak] { display:none; }
 
 </style>
