@@ -1,3 +1,21 @@
+<style scoped>
+  #inspireApp {margin-left:10px};
+  .v-progress-circular {
+      margin: 1rem
+    }
+  tr:hover {
+    background-color: #E1DADA;
+  }  
+  
+  #inspirePNG, #inspireSecret {
+    text-align: center;
+  }
+  
+  [v-cloak] { display:none; }
+  
+  </style>
+  
+  
 <div id="inspireApp">
   
   <v-app id="inspire" v-cloak>
@@ -148,19 +166,3 @@ new Vue({
 
 </script>
 
-<style scoped>
-#inspireApp {margin-left:10px};
-.v-progress-circular {
-    margin: 1rem
-  }
-tr:hover {
-  background-color: #E1DADA;
-}  
-
-#inspirePNG, #inspireSecret {
-  text-align: center;
-}
-
-[v-cloak] { display:none; }
-
-</style>
