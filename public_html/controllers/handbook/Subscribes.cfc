@@ -392,6 +392,7 @@
 		<cfset args.showPeopleCreates = true>
 		<cfset args.showPositionUpdates = true>
 
+		<cfset session.handbook.isSubscriberSession = true>
 
 		<!---people updates--->
 

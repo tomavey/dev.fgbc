@@ -3,7 +3,25 @@
 	<cffunction name="init">
 		<cfset usesLayout("/handbook/layout_handbook1")>
 		<cfset filters(through="gotBasicHandbookRights", except="index")>
+		<cfset filters(through="isSubscriberSession", only="index")>
 	</cffunction>
+
+	<!-------------------------->
+	<!---------Filters---------->
+	<!-------------------------->
+
+<cfscript>
+	function isSubscriberSession (){
+		if ( gotBasicHandbookRights() ) {
+			return true;			
+		};
+		if ( isDefined("session.handbook.isSubscriberSession" ) && session.handbook.isSubscriberSession) {
+			return true;
+		} else {
+			renderText('you do not have permission to view this page');
+		}
+	}
+</cfscript>
 
 <!---------------------->
 <!---------------------->
