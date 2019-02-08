@@ -8,10 +8,10 @@
 
 <cfif not isDefined("params.doc") AND showButtons>
 	<cfif gotRights("office")>
-		#linkTo(text=trim(striptags(getQuestion('uploadedlink'))), controller="membership.resources", action="index", key=session.membershipapplication.uuid, class="btn")#
+		#linkTo(text=trim(striptags(getQuestion('uploadedlink'))), controller="membership.resources", action="index", params="kkey=#session.membershipapplication.uuid#", class="btn")#
 	</cfif>
 
-	#linkTo(text=trim(striptags(getQuestion('editlink'))), action="edit", key=getKey(), class="btn")#
+	#linkTo(text=trim(striptags(getQuestion('editlink'))), action="edit", params="kkey=#session.membershipapplication.uuid#", class="btn")#
 </cfif>
 
 </cfoutput>

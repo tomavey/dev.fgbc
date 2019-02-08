@@ -33,10 +33,10 @@
 
 					<cfcol header="Created At" text="#dateformat(createdAt,'medium')# - #timeformat(createdAt,'short')#" />
 
-	<cfcol header="" text="#linkTo(text=viewIcon(), action='show', key=ID, params='keyy=#id#', class='tooltip2', title='View')#" />
+	<cfcol header="" text="#linkTo(text=viewIcon(), action='show', key=ID, params='keyy=#id#&uuid=#uuid#', class='tooltip2', title='View')#" />
 
 	<cfif gotRights("superadmin,office,handbookedit")>
-		<cfcol header="" text="#linkTo(text=editIcon(), action='edit', key=ID, params='keyy=#id#', class='tooltip2', title='Edit')#" />
+		<cfcol header="" text="#linkTo(text=editIcon(), action='edit', key=ID, params='keyy=#id#&uuid=#uuid#', class='tooltip2', title='Edit')#" />
 		<cfcol header=""
 			text="
 				#linkTo

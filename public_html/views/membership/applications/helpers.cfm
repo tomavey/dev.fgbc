@@ -8,11 +8,13 @@
 <cfreturn state.state>
 </cffunction>
 
-<cffunction name="getKey">
+s<cffunction name="getKey">
 	<cfif isDefined("params.key")>
 		<cfreturn params.key>
 	<cfelseif isDefined("session.membershipapplication.id")>
 		<cfreturn session.membershipapplication.id>
+	<cfelseif isDefined("session.membershipapplication.uuid")>
+		<cfreturn model("Membershipapplication").findApp(session.membershipapplication.uuid).id>
 	<cfelse>
 		<cfreturn "">
 	</cfif>		
@@ -117,7 +119,7 @@
 <cfset var loc=structNew()>
 	<cfsavecontent variable="loc.return">
 		<cfoutput>
-			#editbutton(arguments.fieldname)#
+			<!--- #editbutton(arguments.fieldname)# --->
 			#textfieldQuestion(arguments.fieldname,arguments.fieldsize)#	
 		</cfoutput>
 	</cfsavecontent>
@@ -145,7 +147,7 @@
 <cfset var loc=structNew()>
 	<cfsavecontent variable="loc.return">
 		<cfoutput>
-			#editbutton(arguments.fieldname)#
+			<!--- #editbutton(arguments.fieldname)# --->
 			#textAreaQuestion(arguments.fieldname)#	
 		</cfoutput>
 	</cfsavecontent>
@@ -174,7 +176,7 @@
 <cfset var loc=structNew()>
 	<cfsavecontent variable="loc.return">
 		<cfoutput>
-			#editbutton(arguments.fieldname)#
+			<!--- #editbutton(arguments.fieldname)# --->
 			#selectYesNoQuestion(arguments.fieldname)#	
 		</cfoutput>
 	</cfsavecontent>

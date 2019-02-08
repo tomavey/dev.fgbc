@@ -94,6 +94,8 @@
 	<!--- -membershipapplications/show/key --->
 	<cffunction name="show">
 
+		<cfset setSessionMembershipApplicationFromParams()>
+
 		<!--- Find the record --->
 		<cfset membershipapplication = model("Membershipapplication").findApp(session.membershipapplication.uuid)>
 		<cfset membershipapplicationresources = model("Membershipappresource").findAll(where="applicationid = #membershipapplication.id#")>
@@ -138,7 +140,7 @@
 	<cffunction name="edit">
 
 		<cfif not isDefined("params.key")>
-			<cfset params.key = session.membershipapplication.id>
+			<cfset params.key = getKey()>
 		</cfif>
 
 		<!--- Find the record --->
@@ -280,5 +282,17 @@
 		<cfset sendEmailAtStart("tomavey9173@gmail.com","123")>
 		<cfset renderPage(template="sendEmailAtStart")>
 	</cffunction>
+
+	<cfscript>
+		function setSessionMembershipApplicationFromParams (){
+			if (isDefined("params.uuid")) { session.membershipapplication.uuid = params.uuid; }
+			else if (isDefined("params.kkey")) { 
+				var uuid = model("Membershipapplication").findByKey(params.kkey).uuid;
+				session.membershipapplication.uuid = uuid; 
+			}
+		}
+	</cfscript>
+
+
 
 </cfcomponent>
