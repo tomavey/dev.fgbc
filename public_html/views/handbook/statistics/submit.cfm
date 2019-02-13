@@ -1,4 +1,4 @@
-<cfparam name="request.pdfForm" default="/files/FGBCStatCard2017-18.pdf">
+<cfparam name="request.pdfForm" default="/files/#getSetting(StatForm)#">
 <div class="span10 offset1">
 	<h1>Enter Statistics for <br/><cfoutput>#thisOrg.selectName#</cfoutput></h1>
 
