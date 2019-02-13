@@ -189,6 +189,7 @@
 				.get(name="edit", pattern="edit/")
 				.post(name="create", pattern="create/")
 				.put(name="update", pattern="update/")
+				.get(name="delete", pattern="delete/")
 			.end()
 
 			.get(name="statlist", pattern="/liststatistics/", controller="statistics", action="list")
