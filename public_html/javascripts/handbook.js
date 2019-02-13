@@ -326,6 +326,7 @@ $(document).ready(function(){
 	$('.tooltipleft').tooltip({placement:"left"});
 	$('.tooltipbelow').tooltip({placement:"bottom"});
 	$('.tooltipbottom').tooltip({placement:"bottom"});
+	$('.tooltiptop').tooltip({placement:"top"});
 
 	$('.maxfilesize').mouseover(function(){
 		$(this).prev('label').text("Suggestion: limit the file size of your image to 500kb").css({ color:"red", fontWeight:"bolder", fontSize: "1.3em" });
