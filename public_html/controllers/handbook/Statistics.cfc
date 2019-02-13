@@ -777,7 +777,7 @@
 	</cffunction>
 
 	<cffunction name="getMemFeeDeadline">
-	<cfset var date = get("memFeeDeadline")>
+	<cfset var date = getSetting("memFeeDeadline")>
 		<cfif isDefined('session.statistics.extendDeadline') AND session.statistics.extendDeadline>
 			<cfset date = dateAdd("m",3,date)>
 		</cfif>
@@ -785,19 +785,19 @@
 	</cffunction>
 
 	<cffunction name="getMemFee">
-		<cfreturn get("MemFee")>
+		<cfreturn getSetting("MemFee")>
 	</cffunction>
 
 	<cffunction name="getMemFeeMax">
-		<cfreturn get("memFeeMax")>
+		<cfreturn getSetting("memFeeMax")>
 	</cffunction>
 
 	<cffunction name="getLateMemFee">
-		<cfreturn get("lateMemFee")>
+		<cfreturn getSetting("lateMemFee")>
 	</cffunction>
 
 	<cffunction name="getLateMemFeeMax">
-		<cfreturn get("lateMemFeeMax")>
+		<cfreturn getSetting("lateMemFeeMax")>
 	</cffunction>
 
 	<cffunction name="getOnlineMemFee">
