@@ -14,6 +14,9 @@
 				File	
 			</th>
 			<th>
+				Status	
+			</th>
+			<th>
 				Created
 			</th>
 			<th>
@@ -38,6 +41,9 @@
 						#linkto(text=webaddress, href=webaddress)#
 					<cfelse>
 					</cfif>	
+				</td>
+				<td>
+					#status#
 				</td>
 				<td>
 					#dateformat(createdAt)#
