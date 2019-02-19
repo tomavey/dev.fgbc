@@ -23,7 +23,11 @@
 <cfscript>
 	drawRoutes()
 
-		.namespace("admin")
+<!---------------------------------->
+<!----------Admin------------------->
+<!---------------------------------->
+
+.namespace("admin")
 			.get(name="copy", pattern="/announcement/[key]/copy/", controller="announcements", action="copy")
 			.get(name="rss", pattern="/announcements/rss/", controller="announcements", action="rss")
 			.resources("announcements")
@@ -64,7 +68,11 @@
 			.resources("resources")
 		.end()
 
-		.namespace("auth")
+<!---------------------------------->
+<!----------Auth-------------------->
+<!---------------------------------->
+
+.namespace("auth")
 			.post(name="CheckLogin", pattern="/users/checklogin/", controller="users", action="checklogin")
 			.get(name='LogoutUser', pattern="/users/logout", controller="users", action="logout")
 			.get(name='NewUser', pattern="/users/new", controller="users", action="new")
@@ -90,10 +98,11 @@
 			.resources("rights")
 		.end()
 
+
+
 <!---------------------------------->
 <!----------Handbook---------------->
 <!---------------------------------->
-
 
 		.namespace("handbook")
 			.get(name="downloadmemberchurchesadmin", pattern="/admin/downloadmemberchurches/[key]", controller="admin", action="downloadMemberChurches")
@@ -254,6 +263,12 @@
    		.get(name="handbookaddpayment", pattern="/handbook/add/[key]", controller="handbook.agbmInfo", action="add")
 		.end()
 
+
+
+<!---------------------------------->
+<!----------Focus Retrests---------->
+<!---------------------------------->
+
 		.namespace("focus")
 			.get(name="contentsIndex", pattern="contents/", controller="contents", action="index")
 			.controller("contents")
@@ -299,6 +314,12 @@
 			.resources("main")
 
 		.end()
+
+
+
+<!---------------------------------->
+<!----------Conference-------------->
+<!---------------------------------->
 
 		.namespace("conference")
 			.controller("backups")
@@ -477,6 +498,11 @@
 			.get(name="lodgingrequests", pattern="/lodgingrequests/", controller="lodgingrequests", action="index")
 		.end()
 
+
+<!---------------------------------->
+<!----------Membership-------------->
+<!---------------------------------->
+
 		.namespace("membership")
 			.controller("applications")
 				.get(name="newApp", pattern="/", action="index")
@@ -546,6 +572,11 @@
 			.get(name="nominationsClosed", pattern="nominationsclosed", controller="nominations", action="closed")
 		.end()
 
+
+<!---------------------------------->
+<!--------General - no namespace---->
+<!---------------------------------->
+
 		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
 		.get(name="conferencereg", pattern="/conference", controller="conference.register", action="welcome")
@@ -600,6 +631,39 @@
 		.get(name="childcareworkers", pattern="/gracekidshelper/", controller="conference.childcareworkers", action="new")
 		.get(name="agbmmembership", pattern="/agbm/membership/", controller="handbook.agbm-info", action="publiclist")
 		.get(name="myhandbook", pattern="/myhandbook/", controller="handbook.welcome", action="myhandbook")
+
+		.get(name="handbookdistricts", pattern="/handbook-districts/show/[key]", controller="handbook.districts", action="show")
+		.get(name="handbookpages", pattern="/handbookpages/[key]", controller="handbook.organizations", action="show")
+		.get(name="handbook-subscribes", pattern="/handbook-subscribes/subscribeToDates", controller="handbook.subscribes", action="subscribeToDates")
+		.get(name="handbook-people", pattern="/handbook-people/show/[key]", controller="handbook.people", action="show")
+		.get(name="handbook-people", pattern="/handbook-welcome/welcome/[key]", controller="handbook.welcome", action="welcome")
+		.get(name="handbook-people-index", pattern="/handbook-people/index", controller="handbook.welcome", action="welcome")
+		.get(name="handbookindex", pattern="/handbook/index", controller="handbook.welcome", action="checkin")
+		.get(name="homewelcome", pattern="/home/welcome", controller="home", action="index")
+		.get(name="handbook-welcome", pattern="/handbook-welcome/checkin", controller="handbook.welcome", action="checkin")
+		.get(name="handbook-loginform", pattern="/handbook-welcome/login-form", controller="handbook.welcome", action="login-form")
+		.get(name="access2019", pattern="/access2019", controller="conference.register", action="welcome")
+		.get(name="cci", pattern="/cci", controller="about", action="cci")
+		.get(name="ccci", pattern="/ccci", controller="about", action="cci")
+		.get(name="ccm", pattern="/ccm", controller="about", action="commonCommitment")
+		.get(name="cccm", pattern="/cccm", controller="about", action="commonCommitment")
+		.get(name="ouridentity", pattern="/ouridentity", controller="about", action="cci")
+		.get(name="newname", pattern="/newname", controller="contents", action="newname")
+		.get(name="newnameQA", pattern="/newnameQA", controller="contents", action="newnameQA")
+		.get(name="statementoffaith", pattern="/statementoffaith", controller="contents", action="statementoffaith")
+		.get(name="manualofprocedure", pattern="/manualofprocedure", controller="contents", action="manualofprocedure")
+		.get(name="forAttendifyJson", pattern="/conference.attendify/schema", controller="conference.attendify", action="json")
+		.get(name="constitution", pattern="/constitution", controller="contents", action="constitution")
+		.get(name="churches", pattern="/churches", controller="churches", action="index")
+		.get(name="newName", pattern="newname", controller="charis", action="rebranding")
+		.get(name="focusMobile", pattern="/focusmobile/", controller="focus.main", action="mobile")
+		.get(name="inspire", pattern="/inspire/", controller="handbook.people", action="inspire")
+
+
+<!---------------------------------->
+<!----------API Routes---------->
+<!---------------------------------->
+
 		.get(name="apiChurches", pattern="/api/churches/", controller="handbook.organizations", action="findChurches")
 		.get(name="apiChurch", pattern="/api/church/[key]", controller="handbook.organizations",
 		 action="findChurchWithStaff")
@@ -613,7 +677,6 @@
 		 action="agbmrep")
 		.get(name="apiAgbmMembers", pattern="/api/agbmmembers/", controller="handbook.agbm-info",
 		 action="json")
-
 		.get(name="apiStaff", pattern="/api/staff/[key]", controller="handbook.people", action="findStaff")
 		.get(name="apiBadges", pattern="/api/badges/", controller="conference.families", action="badgesAsJson")
 		.get(name="apiAllStaff", pattern="/api/staff/", controller="handbook.people", action="findAllStaff")
@@ -645,35 +708,9 @@
 		.post(name="apiCrudAnswerSubmit", pattern="/api/crud/", controller="crud", action="submit")
 		.delete(name="apiCrudAnswerDelete", pattern="/api/crud/[id]", controller="crud", action="delete")
 		.get(name="apiRetreats", pattern="/api/retreats", controller="focus.main", action="retreatsAsJson")
-
 		.get(name="fellowshipCouncilPages", pattern="/api/fellowshipcouncil/pages/", controller="fellowshipcouncil.Pages", action="index")
 		.get(name="fellowshipCouncilPage", pattern="/api/fellowshipcouncil/page/[key]", controller="fellowshipcouncil.Pages", action="index")
-		.get(name="handbookdistricts", pattern="/handbook-districts/show/[key]", controller="handbook.districts", action="show")
-		.get(name="handbookpages", pattern="/handbookpages/[key]", controller="handbook.organizations", action="show")
-		.get(name="handbook-subscribes", pattern="/handbook-subscribes/subscribeToDates", controller="handbook.subscribes", action="subscribeToDates")
-		.get(name="handbook-people", pattern="/handbook-people/show/[key]", controller="handbook.people", action="show")
-		.get(name="handbook-people", pattern="/handbook-welcome/welcome/[key]", controller="handbook.welcome", action="welcome")
-		.get(name="handbook-people-index", pattern="/handbook-people/index", controller="handbook.welcome", action="welcome")
-		.get(name="handbookindex", pattern="/handbook/index", controller="handbook.welcome", action="checkin")
-		.get(name="homewelcome", pattern="/home/welcome", controller="home", action="index")
-		.get(name="handbook-welcome", pattern="/handbook-welcome/checkin", controller="handbook.welcome", action="checkin")
-		.get(name="handbook-loginform", pattern="/handbook-welcome/login-form", controller="handbook.welcome", action="login-form")
-		.get(name="access2019", pattern="/access2019", controller="conference.register", action="welcome")
-		.get(name="cci", pattern="/cci", controller="about", action="cci")
-		.get(name="ccci", pattern="/ccci", controller="about", action="cci")
-		.get(name="ccm", pattern="/ccm", controller="about", action="commonCommitment")
-		.get(name="cccm", pattern="/cccm", controller="about", action="commonCommitment")
-		.get(name="ouridentity", pattern="/ouridentity", controller="about", action="cci")
-		.get(name="newname", pattern="/newname", controller="contents", action="newname")
-		.get(name="newnameQA", pattern="/newnameQA", controller="contents", action="newnameQA")
-		.get(name="statementoffaith", pattern="/statementoffaith", controller="contents", action="statementoffaith")
-		.get(name="manualofprocedure", pattern="/manualofprocedure", controller="contents", action="manualofprocedure")
-		.get(name="forAttendifyJson", pattern="/conference.attendify/schema", controller="conference.attendify", action="json")
-		.get(name="constitution", pattern="/constitution", controller="contents", action="constitution")
-		.get(name="churches", pattern="/churches", controller="churches", action="index")
-		.get(name="newName", pattern="newname", controller="charis", action="rebranding")
-		.get(name="focusMobile", pattern="/focusmobile/", controller="focus.main", action="mobile")
-		.get(name="inspire", pattern="/inspire/", controller="handbook.people", action="inspire")
+
 		.root(controller="Home", action="index")
 		.wildcard()
 
