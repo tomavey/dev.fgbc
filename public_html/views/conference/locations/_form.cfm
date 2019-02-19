@@ -1,5 +1,7 @@
 <cfoutput>
 						#textField(objectName='location', property='roomnumber', label='Room Number or Name: ')#
+
+						#hiddenFieldTag(name="keyy", value=params.keyy)#
 					
 						#textField(objectName='location', property='capacity', label='Capacity')#
 					
