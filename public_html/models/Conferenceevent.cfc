@@ -179,7 +179,7 @@
 		<cfset loc.whereString = "category in (#getSetting('eventCategoriesForJson')#) AND event = '#getEvent()#'">
 		<cfset loc.orderString = "dayofyear,timebegin">
 		<cfset loc.selectString = "id,starttime,timebegin,endtime,timeend,eventroom,description,descriptionschedule,descriptionprogram,dateOn,dayOn,dayofyear,dayOfWeek,coursetitle,category,cost">
-		<cfset loc.selectString = loc.selectString & ",buttondescription,descriptionlong,descriptionshort,optiondescription,coursedescription,commentpublic">
+		<cfset loc.selectString = loc.selectString & ",buttondescription,descriptionlong,descriptionshort,optiondescription,coursedescription,commentpublic,eventid">
 
 		<cfif isDefined("loc.id")>
 			<cfset loc.whereString = loc.whereString & " AND id = #loc.id#">

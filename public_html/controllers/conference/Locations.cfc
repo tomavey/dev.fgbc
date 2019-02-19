@@ -94,6 +94,9 @@
 	
 	<!--- locations/update --->
 	<cffunction name="update">
+		<cfif isDefined("params.keyy")>
+			<cfset params.key = params.keyy>
+		</cfif>
 		<cfset location = model("Conferencelocation").findByKey(params.key)>
 		
 		<!--- Verify that the location updates successfully --->
