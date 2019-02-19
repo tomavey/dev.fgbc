@@ -59,10 +59,10 @@
 	<p class="addnew">#linkTo(text="#imageTag('add-icon.png')#", action="new", title="Add New")#</p>
 	<p>Show options for: #linkTo(text='#event#', params="event=#event#")#&nbsp;#linkTo(text=previousEvent, params="event=#previousEvent#")#</p>
 	<cfif isDefined("params.key")>
-	<p>#linkTo(text="List name and description", controller="conference.options", action="list", key=params.key)#</p>
+	<p>#linkTo(text="List name and description", controller="conference.options", action="list", params="type=meal")#</p>
 	</cfif>
 	<cfif isDefined("params.type") && params.type is "meal">
-		#linkto(text="show meals as a list", controller="conference.options", action="list", params="key=meal")#
+		#linkto(text="show meals as a list", controller="conference.options", action="list", params="type=meal")#
 	</cfif>
 </cfoutput>
 </div>

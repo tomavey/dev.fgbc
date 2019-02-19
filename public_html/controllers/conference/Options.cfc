@@ -51,8 +51,8 @@
 	</cffunction>
 
 	<cffunction name="list">
-		<cfif isdefined("params.key")>
-			<cfset options = model("Conferenceoption").findAll(where="type = '#params.key#' AND event = '#getEvent()#'", order="type,sortorder")>
+		<cfif isdefined("params.type")>
+			<cfset options = model("Conferenceoption").findAll(where="type = '#params.type#' AND event = '#getEvent()#'", order="type,sortorder")>
 		<cfelse>
 			<cfset options = model("Conferenceoption").findAll(where="event = '#getEvent()#'", order="type,sortorder")>
 		</cfif>
