@@ -11,11 +11,12 @@
 
 	<cfloop list="#application.wheels.typeOfOptions#" index="i">
 		<cfif isDefined("params.event")>
-			#linkTo(text=i, params="type=#i#&event=#params.event#")# |
+			#linkTo(text=i, controller="conference.options", action="index", params="type=#i#&event=#params.event#")# |
 		<cfelse>
-			#linkTo(text=i, params="type=#i#")# |
+			#linkTo(text=i, controller="conference.options", action="index", params="type=#i#")# |
 		</cfif>
 	</cfloop>
+
 </cfoutput>
 
 <div class="eachItemShown">
@@ -61,7 +62,7 @@
 	<p>#linkTo(text="List name and description", controller="conference.options", action="list", key=params.key)#</p>
 	</cfif>
 	<cfif isDefined("params.type") && params.type is "meal">
-		#linkto(text="show meals as a list", route="conferenceListOptionsBy", key="meal")#
+		#linkto(text="show meals as a list", controller="conference.options", action="list", params="key=meal")#
 	</cfif>
 </cfoutput>
 </div>
