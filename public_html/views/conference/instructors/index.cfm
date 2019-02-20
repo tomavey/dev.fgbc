@@ -50,7 +50,7 @@
 #mailto(name="Email All these instructors", emailaddress=allemail, encode=true)#
 </p>
 <p>
-#linkto(text="Last Year's Instructors", controller="conference.instrutors", action="index", params="event=#application.wheels.previousEvent#")#
+#linkto(text="Last Year's Instructors", controller="conference.instrutors", action="index", params="event=#getSetting('previousEvent')#")#
 </p>
 <p>Count: #instructors.recordcount#</p>
 <!--- <p>#linkto(text="Duplicate #getPreviousEvent()# instructors into #getEvent()#.", controller="conference.instructors", action="copyAllToCurrentEvent", class="btn pull-right")#</p> --->
