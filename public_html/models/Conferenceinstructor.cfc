@@ -36,7 +36,9 @@
         <cfset loc.whereString = 'id > 0 AND tags IN (#commaListToQuoteList(arguments.tags)#)'>
 
         <cfif isDefined("loc.id")>
-                <cfset loc.whereString = loc.whereString & " AND ID = #loc.id# AND event='#getEvent()#'">
+            <cfset loc.whereString = loc.whereString & " AND ID = #loc.id#">
+        <cfelse>        
+            <cfset loc.whereString = loc.whereString & " AND event='#getEvent()#'">
         </cfif>
 
         <cfset loc.speakers = findall(where=loc.whereString, select=loc.selectString, order="lname,fname")>
