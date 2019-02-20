@@ -373,6 +373,7 @@
 				.get(name="delete", pattern="delete/")
 				.put(name="update", pattern="update/")
 				.post(name="create", pattern="create/")
+				.put(name="create", pattern="create/")
 				.get(name="copy", pattern="copy")
 				.get(name="list", pattern="list")
 			.end()	
