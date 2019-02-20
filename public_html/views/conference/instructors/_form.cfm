@@ -1,6 +1,8 @@
 <cfoutput>
 						#hiddenField(objectName='instructor', property='event')#
 
+						#hiddenTagForKeyy()#
+
 
 						#textField(objectName='instructor', property='fname', label='First Name')#
 
