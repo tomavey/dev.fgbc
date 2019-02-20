@@ -4,7 +4,7 @@
 <cfoutput>#includePartial("showFlash")#</cfoutput>
 <cfif gotRights("superadmin,office")>
 <cfoutput>
-	<p>#linkTo(text="New instructor", action="new")#</p>
+	<p>#linkTo(text="New instructor", controller="conference.instrutors", action="index", action="new")#</p>
 </cfoutput>
 </cfif>
 <div class="table" id="instructors">
@@ -50,10 +50,10 @@
 #mailto(name="Email All these instructors", emailaddress=allemail, encode=true)#
 </p>
 <p>
-#linkto(text="Last Year's Instructors", params="event=#application.wheels.previousEvent#")#
+#linkto(text="Last Year's Instructors", controller="conference.instrutors", action="index", params="event=#application.wheels.previousEvent#")#
 </p>
 <p>Count: #instructors.recordcount#</p>
-<p>#linkto(text="Duplicate #getPreviousEvent()# instructors into #getEvent()#.", action="conference.instructors", action="copyAllToCurrentEvent", class="btn pull-right")#</p>
+<!--- <p>#linkto(text="Duplicate #getPreviousEvent()# instructors into #getEvent()#.", controller="conference.instructors", action="copyAllToCurrentEvent", class="btn pull-right")#</p> --->
 </cfoutput>
 </div>
 

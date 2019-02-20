@@ -366,9 +366,16 @@
 			.get(name="invoice", pattern="/invoice/[key]", controller="invoices", action="show")
 
 			.controller("instructors")
-				.get(name="list", pattern="/list/", action="list")
+				.get(name="index", pattern="/")
+				.get(name="show", pattern="show/")
+				.get(name="edit", pattern="edit/")
+				.get(name="new", pattern="new/")
+				.get(name="delete", pattern="delete/")
+				.put(name="update", pattern="update/")
+				.post(name="create", pattern="create/")
+				.get(name="copy", pattern="copy")
+				.get(name="list", pattern="list")
 			.end()	
-			.resources("instructors")
 
 			.controller("locations")
 				.get(name="copyAllToCurrentEvent", pattern="CopyAllToCurrentEvent")
