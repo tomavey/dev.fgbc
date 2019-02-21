@@ -35,7 +35,20 @@
 			.resources("announcements")
 
 			.resources("blogs")
-			.resources("contents")
+
+			.controller("contents")
+				.get(name="index", pattern="/")
+				.get(name="show", pattern="show/")
+				.get(name="edit", pattern="edit/")
+				.get(name="new", pattern="new/")
+				.get(name="delete", pattern="delete/")
+				.post(name="update", pattern="update/")
+				.put(name="update", pattern="update/")
+				.post(name="create", pattern="create/")
+				.put(name="create", pattern="create/")
+				.get(name="copy", pattern="copy")
+				.get(name="list", pattern="list")
+			.end()	
 
 			.controller("settings")
 				.get(name="index", pattern="/")
