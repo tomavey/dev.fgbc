@@ -55,7 +55,7 @@
     				#linkToData(href="##", class="dropdown-toggle", data_toggle="dropdown", text="Exhibits<b class='caret'></b>")#
 					<ul class="dropdown-menu">
 						<li>#linkto(text="Info-Non", action="info", controller="conference.exhibits")#</li>
-						<li>#linkto(text="Info-FGBC", action="info", controller="conference.exhibits", key="natmin")#</li>
+						<li>#linkto(text="Info-FGBC", action="info", controller="conference.exhibits", params="natmin=1")#</li>
 						<li>#linkto(text="List", action="index", controller="conference.exhibits")#</li>
 						<li>#linkto(text="Public List", action="list", controller="conference.exhibits")#</li>
 						<li>#linkto(text="Add New", action="new", controller="conference.exhibits")#</li>
