@@ -16,7 +16,7 @@
 
 <div class="eachItemShown">
 
-	<table class="dataTable">
+	<table class="dataTable table">
 		<thead>
 		<tr>
 			<th>
