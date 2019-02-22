@@ -35,7 +35,10 @@
 	<fieldset>
 		<legend>Specifications</legend>
 						#select(objectName='exhibit', property='numbertables', label='Number of spaces w/tables:', options=optionslist, class="input-mini")#
-						<p style="font-size: .8em">Note: if you would like 6' tables instead of 8' tables, indicate as such in the special request field below.</p>
+
+						<cfif getEvent() is "visionconference2019">
+							<p style="font-size: .8em">Note: if you would like 6' tables instead of 8' tables, indicate accordingly in the special request field below.</p>
+						</cfif>
 
 						#select(objectName='exhibit', property='numberspaces', label='Number of spaces w/o tables:', options=optionslist, class="input-mini")#
 
