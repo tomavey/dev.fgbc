@@ -35,6 +35,7 @@
 	<fieldset>
 		<legend>Specifications</legend>
 						#select(objectName='exhibit', property='numbertables', label='Number of spaces w/tables:', options=optionslist, class="input-mini")#
+						<p style="font-size: .8em">Note: if you would like 6' tables instead of 8' tables, indicate as such in the special request field below.</p>
 
 						#select(objectName='exhibit', property='numberspaces', label='Number of spaces w/o tables:', options=optionslist, class="input-mini")#
 
