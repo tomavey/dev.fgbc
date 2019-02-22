@@ -16,7 +16,7 @@
     <p>8' TABLES with floor length cover will be provided as requested.</p>
     <p>6' TABLES are availeble if requested using the special request section of the form. These table will allow space for narrow floor stand.</p>
     <p>SPACE ONLY can be requested for stand alone displays.  Exhibitors may not provide their own tables.</p>
-    <p>WE ARE EXPECTING 400+ conference attenders. Most (80%+) attenders are pastors, staff and leaders from more than 250 churches in the USA and Canada. Exhibits will be accessible from Tuesday morning (7/23) through Thurday noon (7/25). All exhibits must be removed by 5:00 Thursday evening. Prime times will be before and after meals and celebrations. </p>
+    <p>WE ARE EXPECTING 400+ conference attenders. Most (80%+) attenders are pastors, staff and leaders from more than 250 churches in the USA and Canada. Exhibits will be accessible from Tuesday morning (7/23) through Thurday noon (7/25). All exhibits must be removed by 5:00 Thursday evening. Prime times will be before and after meals and celebrations. </p><br/>
     <ul>
         <li>Table with floor length cover: <cfif natmin>$350 <cfelse>$600 </cfif>per table.</li>
         <li>Space only (8ft X 3ft): <cfif natmin>$300 <cfelse>$600 </cfif>per space. Stand up displays and racks are permitted.</li>
