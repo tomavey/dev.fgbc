@@ -1,5 +1,5 @@
 <div id="exhibitRequestForm" class="container">
-<h1>Vision Conference Exhibitors Request Form:</h1>
+<h1>Exhibitors Request Form:</h1>
 
 <cfoutput>
 
