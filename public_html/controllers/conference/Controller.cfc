@@ -241,7 +241,7 @@
     }
 
     public function optionsRegIsOpen(){
-        if (getSetting("optionsregistrationIsOpen") || isDefined("params.openreg") || isDefined("session.auth.openreg")){
+        if (getSetting("optionsregistrationIsOpen") || isDefined("params.openreg")){
             return true;
         }
         else {

@@ -93,7 +93,6 @@
 		#linkto(text="Put-N-Bay w/ Dinner", action="selectoptions",params="options", class="btn btn-large btn-block btn-info")#
 	</div>
 </cfif>
-#isDefined("session.auth.openreg")#
 </div>
 
 <cfif (!mealsRegIsOpen() || !childRegIsOpen()) && isBefore("2019-07-15")>
