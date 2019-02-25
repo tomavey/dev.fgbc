@@ -96,7 +96,7 @@
 
 </div>
 
-<cfif (!mealsRegIsOpen() || !childRegIsOpen()) && isBefore("2018-07-15")>
+<cfif (!mealsRegIsOpen() || !childRegIsOpen()) && isBefore("2019-07-15")>
 	<br/>
 	<div class="well alert text-center">
 		<cfif !mealsRegIsOpen()>
