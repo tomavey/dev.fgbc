@@ -113,7 +113,7 @@
     </cffunction>
 
 	<cffunction name="getMinistryStaffAdmin">
-		<cfreturn application.wheels.canSetMinistryStaff>
+		<cfreturn application.wheels.ministryStaffAdmin>
 	</cffunction>
 
     <cffunction name="jsonToStruct">

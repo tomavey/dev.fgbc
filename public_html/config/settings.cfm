@@ -55,7 +55,7 @@
 	<cfset set(nominateTerm = "2018-2023")>
 	<cfset set(sortorderoptions = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,18,20,100,900,995,999")>
 	<cfset set(registrarEmail="tomavey@charisfellowship.us,sharmion@charisfellowship.us")>
-    <cfset set(ministryStaffAdmin="'tomavey','hirwin','skoontz'")>
+  <cfset set(ministryStaffAdmin="'tomavey','hirwin','skoontz','sharmion'")>
 	<cfset set(agbmDeadlineDate = "07-1-#year(now())#")>
 	<cfset set(nonStaffSortOrder = 500)>
 	<cfset set(churchStatusForHandbook = "1,4,8,9")>
