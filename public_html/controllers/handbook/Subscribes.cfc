@@ -167,52 +167,53 @@
 
 	<cffunction name="sendTodaysDates">
 	<cfargument name="now" default="#now()#">
-	<cfif isDefined("params.today")>
-		<cfset arguments.now = params.today>
-	</cfif>
 
-	<cftry>
-		<cfset updateDateNumbers()>
-	<cfcatch></cfcatch></cftry>
-
-		<cfif isDefined("params.value1")>
-		<!--- for use by ifttt --->
-			<cfset params.go = params.value1>
+		<cfif isDefined("params.today")>
+			<cfset arguments.now = params.today>
 		</cfif>
 
-	<cfset var loc=structNew()>
-		<cfset birthdays = model("Handbookperson").findDatesToday("birthday",arguments.now)>
-		<cfset anniversaries = model("Handbookperson").findDatesToday("anniversary",arguments.now)>
-		<cfset subscriptions = model("Handbooksubscribe").findAll(where="type='dates'")>
+		<cftry>
+			<cfset updateDateNumbers()>
+		<cfcatch></cfcatch></cftry>
 
-		<cfset emailall = "">
-
-		<cfif isDefined("params.go") && params.go is "test">
-			<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@fgbc.org", subject="TEST - From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_naked")>
-		<cfelse>
-			<cfif isDefined("params.sendto") and len(params.sendto)>
-				<cfset subscriptions = listToQuery(list=params.sendto, columnName="email")>
-				<cfset lastSendAt = now()-1>
+			<cfif isDefined("params.value1")>
+			<!--- for use by ifttt --->
+				<cfset params.go = params.value1>
 			</cfif>
-			<cfloop query="subscriptions">
-				<cfif sendToThisPerson(lastSendAt)>
 
-					<cfset useThisEmail = useHandbookEmail(email,handbookemail)>
+		<cfset var loc=structNew()>
+			<cfset birthdays = model("Handbookperson").findDatesToday("birthday",arguments.now)>
+			<cfset anniversaries = model("Handbookperson").findDatesToday("anniversary",arguments.now)>
+			<cfset subscriptions = model("Handbooksubscribe").findAll(where="type='dates'")>
 
-					<cfset sendEMail(from="tomavey@fgbc.org", to=scrubEmail(useThisEmail), subject="From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_for_email", type="html")>
-					<cfset emailall = emailall & ";" & useThisEmail>
-					<cfif isDefined("id")>
-						<cfset setLastSendAt(id)>
-					</cfif>
+			<cfset emailall = "">
 
+			<cfif isDefined("params.go") && params.go is "test">
+				<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@fgbc.org", subject="TEST - From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_naked")>
+			<cfelse>
+				<cfif isDefined("params.sendto") and len(params.sendto)>
+					<cfset subscriptions = listToQuery(list=params.sendto, columnName="email")>
+					<cfset lastSendAt = now()-1>
 				</cfif>
-			</cfloop>
-		</cfif>
-		<cfif !gotRights("office")>
-			<cfoutput>Sent!</cfoutput>
-			<cfabort>
-		</cfif>
-		<cfset emailall = replace(emailall,";","","one")>
+				<cfloop query="subscriptions">
+					<cfif sendToThisPerson(lastSendAt)>
+
+						<cfset useThisEmail = useHandbookEmail(email,handbookemail)>
+
+						<cfset sendEMail(from="tomavey@fgbc.org", to=scrubEmail(useThisEmail), subject="From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_for_email", type="html")>
+						<cfset emailall = emailall & ";" & useThisEmail>
+						<cfif isDefined("id")>
+							<cfset setLastSendAt(id)>
+						</cfif>
+
+					</cfif>
+				</cfloop>
+			</cfif>
+			<cfif !gotRights("office")>
+				<cfoutput>Sent!</cfoutput>
+				<cfabort>
+			</cfif>
+			<cfset emailall = replace(emailall,";","","one")>
 	</cffunction>
 
 

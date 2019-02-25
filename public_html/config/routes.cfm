@@ -255,6 +255,7 @@
 			.get(name="sendTodaysPrayerReminders", pattern="/subscribes/sendTodaysPrayerReminders/", controller="subscribes", action="sendTodaysPrayerReminders")
 			.get(name="sendThisWeeksPrayerReminders", pattern="/subscribes/sendThisWeeksPrayerReminders/", controller="subscribes", action="sendThisWeeksPrayerReminders")
 			.get(name="sendYesterdaysUpdates", pattern="/sendYesterdaysUpdates/", controller="subscribes", action="sendYesterdaysUpdates")
+			.get(name="sendTodaysUpdates", pattern="/sendTodaysUpdates/", controller="subscribes", action="sendTodaysUpdates")
 			.get(name="sendVerificationToAdmin", pattern="/sendVerificationToAdmin/", controller="subscribes", action="sendVerificationToAdmin")
 			.resources("subscribes")
 
