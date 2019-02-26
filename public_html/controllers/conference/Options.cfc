@@ -4,7 +4,7 @@
 		<cfset usesLayout("/conference/adminlayout")>
 		<cfset filters(through="officeOnly", except="rssmeals,rssregs,rssccare,rssexcursions,rsspreconference,rsslabs,showoption,testisbefore,testiframe,jsonmeals,jsonregs,jsonexcursions,list")>
 		<cfset filters(through="setRssEnvironment", only="rssregs,rssmeals,rssccare,rsspreconference")>
-		<cfset filters(through="setreturn", only="index,show,list")>
+		<cfset filters(through="setreturn", only="index,show,list,delete")>
 		<cfset filters(through="setKeyToKeyy")>
 	</cffunction>
 
@@ -127,7 +127,7 @@
 		<!--- Verify that the option deletes successfully --->
 		<cfif option.delete()>
 			<cfset flashInsert(success="The option was deleted successfully.")>
-            <cfset redirectTo(action="index")>
+            <cfset returnBack()>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error deleting the option.")>
