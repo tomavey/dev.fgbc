@@ -33,7 +33,7 @@
 
 <!---Each Item for this person--->
 <cfoutput>
-	<cfif quantity NEQ 0 && description DOES NOT CONTAIN "Discount">
+	<cfif quantity NEQ 0 && description DOES NOT CONTAIN "Discount"><!---if no family discount they still need to be in the options list but with a price of 0 - should be fixed sometime--->
 	<tr>
 		<td class="description">
 			#description#
