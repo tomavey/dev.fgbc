@@ -417,6 +417,8 @@
 				.get(name="new", pattern="new/")
 				.put(name="update", pattern="update/")
 				.post(name="create", pattern="create/")
+				.get(name="delete", pattern="delete/")
+				.delete(name="delete", pattern="delete/")
 				.get(name="copy", pattern="copy")
 				.get(name="list", pattern="list")
 			.end()	
