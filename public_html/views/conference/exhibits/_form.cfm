@@ -1,6 +1,6 @@
 <cfparam name="exhibit" type="struct">
 <cfparam name="params.office" default="false">
-<cfparam name="optionslist" default="0,1,2,3,4,5,6,7,8,9">
+<cfparam name="optionslist" default="0,1,2">
 <cfparam name='sectionslist' default="B,C,D">
 <cfif params.action is "edit">
 <cfset sectionslist = "A,B,C,D">
@@ -38,6 +38,7 @@
 
 						<cfif getEvent() is "visionconference2019">
 							<p style="font-size: .8em">Note: if you would like 6' tables instead of 8' tables, indicate accordingly in the special request field below.</p>
+							<p>You may be limited to one table depending on space and requests.  Space is limited!</p>
 						</cfif>
 
 						#select(objectName='exhibit', property='numberspaces', label='Number of spaces w/o tables:', options=optionslist, class="input-mini")#
