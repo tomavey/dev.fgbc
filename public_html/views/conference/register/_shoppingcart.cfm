@@ -33,6 +33,7 @@
 
 <!---Each Item for this person--->
 <cfoutput>
+	<cfif quantity NEQ 0 && description DOES NOT CONTAIN "Discount">
 	<tr>
 		<td class="description">
 			#description#
@@ -46,6 +47,7 @@
 			<cfset querystring = querystring & "&" & item & "=" & quantity>
 			<cfset personSubTotal = personSubTotal + (quantity * val(price))>
 	</tr>
+</cfif>
 </cfoutput>
 
 <!---Subtotal for this person--->
