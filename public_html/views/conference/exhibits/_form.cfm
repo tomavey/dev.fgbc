@@ -38,7 +38,7 @@
 
 						<cfif getEvent() is "visionconference2019">
 							<p style="font-size: .8em">Note: if you would like 6' tables instead of 8' tables, indicate accordingly in the special request field below.</p>
-							<p>You may be limited to one table depending on space and requests.  Space is limited!</p>
+							<p style="font-size: .8em">Also, you may be limited to one table depending on space and requests.  Space is limited!</p>
 						</cfif>
 
 						#select(objectName='exhibit', property='numberspaces', label='Number of spaces w/o tables:', options=optionslist, class="input-mini")#
