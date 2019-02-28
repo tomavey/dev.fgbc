@@ -1,3 +1,5 @@
+#includePartial("scripts")#
+
 <div ng-app="lodgingRequestsApp">
 <cfoutput>
 
@@ -67,7 +69,6 @@
 </div>
 </div>
 
-#includePartial("scripts")#
 
 </cfoutput>
 

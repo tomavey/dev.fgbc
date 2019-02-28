@@ -2,7 +2,7 @@ component extends="Controller" output="false" {
 
  public void function init(){
     filters(through="checkauth", except="new,questions,show,index,email,editor");
-    usesLayout("/conference/layout");
+    usesLayout("/conference/layout2018");
   }
 
  public void function checkauth(){
