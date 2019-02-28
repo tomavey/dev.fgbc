@@ -523,7 +523,7 @@
 		<cfset church = model("Handbookorganization").findOne(where="id=#params.churchid#", include="handbookstate", order="createdAt DESC")>
 		<cfset church.name = replace(church.name," ","","all")>
 		<cfset church.org_city = replace(church.org_city," ","","all")>
-		<cfset payonline.orderid = createOrderId(church.properties())>
+		<cfset payonline.orderid = createOrderId(church.properties(),params.statId)>
 		<cfif !isDefined("params.year")>
 			<cfset payonline.usethisyear = year(now())-1>
 		<cfelse>
