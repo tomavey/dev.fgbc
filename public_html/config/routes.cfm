@@ -211,6 +211,8 @@
 				.get(name="show", pattern="show/")
 				.get(name="new", pattern="new/")
 				.get(name="edit", pattern="edit/")
+				.get(name="declined", pattern="declined/")
+				.get(name="thankyou", pattern="thankyou/")
 				.post(name="create", pattern="create/")
 				.put(name="update", pattern="update/")
 				.delete(name="delete", pattern="delete/")
