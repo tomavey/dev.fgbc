@@ -595,7 +595,7 @@
 		
 <cfscript>
 
-    public function markStatFormPaid(id, amout){
+    public function markStatFormPaid(id, amount){
         var args = arguments;
         var stat = model("handbookstatistics").findOne(where="id='#args.id#'");
 				stat.enteredby = "Paid";
