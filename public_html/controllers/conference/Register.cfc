@@ -1136,6 +1136,7 @@
 		<cfset markInvoicePaid(paidinvoiceid)>
 		<cfset sendInvoiceByEmail(paidinvoiceid)>
 	<cfelse>	 
+		<cfset redirectTo(controller="conference.register", action="declined", params="key=#getInvoiceId()#")>
 		<cfset showLinkToinvoice = false>
 	</cfif>
 </cffunction>
@@ -1147,6 +1148,16 @@
 		<cfreturn false>	
 	</cfif>	
 </cffunction>
+
+<cfscript>
+	public function getInvoiceId() { 
+		if (isDefined("url.order_id")) {
+			return val(url.order_id);
+		} else { 
+			return false;
+		}
+	}
+</cfscript>
 
 <cffunction name="deleteCarts">
 	<cfif structKeyExists(session,"registrationCart")>
@@ -1251,6 +1262,7 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 --->
 
 <!---/conference.register/declined--->
+
 <cffunction name="declined">
 <cfset var thiskey = "">
 
@@ -1987,9 +1999,14 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 
     public function markInvoicePaid(id){
         var args = arguments;
-        var invoice = model("Conferenceinvoice").findOne(where="id='#args.id#'");
-        invoice.ccstatus = "Paid";
-        invoice.update();
+				var invoice = model("Conferenceinvoice").findOne(where="id='#args.id#'");
+				try {
+					invoice.ccstatus = "Paid";
+					invoice.update();
+				} catch(any e) {
+					WriteOutput("Error: " & e.message);
+					abort;
+				}
     }
 
 	public function alertObjectNotExists(obj){

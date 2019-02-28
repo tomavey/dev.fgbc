@@ -200,7 +200,7 @@
 <cfdump var="#params#">
 <cfabort>
 --->
-	            <cfset redirectTo(action="payonline", params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#")>
+	            <cfset redirectTo(action="payonline", params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#&statId=#handbookstatistic.id#")>
 			<cfelse>
 	            <cfset returnBack()>
 			</cfif>
@@ -541,9 +541,10 @@
 
 	<cffunction name="createOrderId">
 	<cfargument name="churchinfo" required="true" type="struct">
+	<cfargument name="statId" required="true" type="number">
 		<cfset var ii = "">
 		<cfset var orderid = ""> 
-		<cfset orderid = churchinfo.id & churchinfo.name & churchinfo.org_city>
+		<cfset orderid = statId & "STATS" & churchinfo.id & churchinfo.name & churchinfo.org_city>
 		<cftry>
 			<cfloop list='-,!,_, ,",&' index='ii'>
 				<cfset orderid = replace(orderid,ii,"","all")>
@@ -559,7 +560,42 @@
 		<cfdump var="#orderid#"><cfabort>
 	</cffunction>
 
-	<cffunction name="confirm">
+	<cffunction name="thankyou">
+		<cfif !isDefined("params.key") && isDefined("url.order_id")>
+			<cfset params.key = val(url.order_id)>
+		</cfif>	
+		<cfif isDefined("url.auth_response") && url.auth_response is "APPROVED">
+			<cfset markStatFormPaid(params.key, val(params.amount))>
+		<cfelse>	
+			<cfset redirectTo(action="tryAgain", key=params.key)>
+		</cfif>
+		<cftry>
+		<cfset redirectTo(controller="home", action="thankyou")>
+	</cffunction>
+
+<cfscript>
+
+    public function markStatFormPaid(id, amout){
+        var args = arguments;
+        var stat = model("handbookstatistics").findOne(where="id='#args.id#'");
+				stat.enteredby = "Paid";
+				stat.memfee = args.amount;
+				stat.date = dateFormat(now());
+        stat.update();
+    }
+
+</cfscript>
+
+<!---
+GoEMerchant Response codes:
+http://[MERCHANT_DEFINED_URL]?status={True/False}&auth_code={number}&auth_response={string}&avs_code={string}&cvv2_code={string}&order_id={string}&reference_number={number}&amount={money}&storename={string}&processor={string}&mid={string}&tid={string}
+
+use for a fail test: (May need to make sure the orderid exists)
+https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=&auth_response=Transaction+Declined+Due+to+Security+Reasons&avs_code=&cvv2_code=&order_id=3090visionconference2018Avey&reference_number=&amount=95&storename=fellowshipofgracen&processor=fifththird&mid=020004948386&tid=001
+
+--->
+
+<cffunction name="confirm">
 		<cfif params.status>
 			<cfset church = model("Handbookorganization").findOne(where="id=#val(params.orderid)#", include="Handbookstate")>
 			<cfset statistic = model("Handbookstatistic").findOne(where="organizationid=#val(params.orderid)# AND year = #year(now())-1#")>

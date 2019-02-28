@@ -41,7 +41,7 @@
 
 					<cfcol header="Submitted By: " text="#submittedBy#" />
 
-					<cfcol header="Entered By: " text="#enteredBy#" />
+					<cfcol header="Status: " text="#enteredBy#" />
 
 					<cfif gotRights("superadmin,office")>
 						<cfcol header="&nbsp;" text="#showTag(organizationid)#&nbsp;#editTag()#&nbsp;#deleteTag(class="notajax")#" />
