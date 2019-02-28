@@ -567,12 +567,32 @@
 		<cfif isDefined("url.auth_response") && url.auth_response is "APPROVED">
 			<cfset markStatFormPaid(params.key, val(params.amount))>
 		<cfelse>	
-			<cfset redirectTo(action="tryAgain", key=params.key)>
+			<cfset redirectTo(action="declined", key=params.key)>
 		</cfif>
-		<cftry>
 		<cfset redirectTo(controller="home", action="thankyou")>
 	</cffunction>
 
+	<cffunction name="declined">
+		<cfset var thiskey = "">
+		
+		<cfset payonline = structnew()>
+		<cfset thisinvoice = structNew()>
+		<cfset thiskey = val(params.key)>
+		
+			<cfset stat = model("handbookstatistics").findOne(where="id=#thiskey#")>
+			<cfif isObject(stat)>
+				<cfset payonline.merchant = "fellowshipofgracen">
+				<cfset payonline.orderid = createOrderId(church.properties())>
+				<cfset payonline.amount = (val(stat.att) * getOnlineMemFee())>
+				<cfif payonline.amount GTE getOnlineMemFeeMax()>
+					<cfset payonline.amount = getOnlineMemFeeMax()>
+				</cfif>
+					<cfelse>
+				<cfset renderText("this invoice does not exist")>
+			</cfif>	
+		
+		</cffunction>
+		
 <cfscript>
 
     public function markStatFormPaid(id, amout){
