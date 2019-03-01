@@ -432,6 +432,7 @@
 	<cfset args = structNew()>
 	<cfset statsEmail.Sent = []>
 	<cfset statsEmail.Failed = []>
+
 		<cfif isDefined("params.test")>
 			<cfset churches = makeTestList()>
 		<cfelse>
@@ -447,7 +448,7 @@
 			<cfset args.id = id>
 			<cfif !onLocalhost()>
 				<cftry>
-					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fee are due May 15.", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
+					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", bcc="tomavey@fgbc.org", subject="Charis Fellowship Stats and Fee are due May 15.", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
 					<cfset arrayAppend(statsEmail.sent, args)>
 				<cfcatch>
 					<cfset arrayAppend(statsEmail.failed, args)>
@@ -476,6 +477,12 @@
 
 	<cfset renderPage(template="emailNotificationTemplate", layout="/layout_for_email", showResults=true)>
 	</cffunction>
+
+	<cfscript>
+		private function notifyOfficeOfNewStat (statId) {
+
+		}
+	</cfscript>
 
 	<cffunction name="getThisYear">
 	<cfset var loc = structNew()>
@@ -941,5 +948,11 @@ abort;
 		<cfset test = getStat(churchid=891,year="2007",fieldname="att")>
 		<cfdump var="#test#"><cfabort>
 	</cffunction>
+
+<cfscript>
+	public function testPayapproved(){
+		redirectTo(url="https://charisfellowship.us/home/thankyou?status=True&auth_code=081549&auth_response=APPROVED&avs_code=Z&cvv2_code=M&order_id=3466visionconference2019Avey&reference_number=143969803&amount=60&storename=fellowshipofgracen&processor=fifththird&mid=020004948386&tid=001")
+	}
+</cfscript>
 
 </cfcomponent>
