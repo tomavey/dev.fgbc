@@ -193,6 +193,7 @@
 
 		<!--- Verify that the handbookstatistic creates successfully --->
 		<cfif handbookstatistic.save()>
+			<cfset notifyOfficeOfNewStat(handbookstatistic.id)>
 			<cfset flashInsert(success="The handbookstatistic was created successfully.")>
 			<cfif isdefined("params.pay") and params.pay>
 <!---			
@@ -480,7 +481,17 @@
 
 	<cfscript>
 		private function notifyOfficeOfNewStat (statId) {
+		var stat = model("Handbookstatistic").findOne(where="id=#statid#");
+		if (!isLocalMachine()) {
+			sendEmail(to=getSetting("HandbookStatsReviewer"), from=getSetting('HandbookStatsReviewer'), subject="New Stats Submitted", type="html", template="emailNotifyOfficeOfNewStat");
+		} else {
+			cfthrow(message="Email notification would be sent")
+		}
+		return stat;
+		}
 
+		public function testNotifyOfficeOfNewStat () {
+			writeDump(notifyOfficeOfNewStat(3793).properties());abort;
 		}
 	</cfscript>
 

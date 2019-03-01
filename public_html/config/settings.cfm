@@ -76,6 +76,7 @@
 	<cfset set(sendHandbookDeadline = "January 5, 2018")>
 	<cfset set(HandbookReviewSecretary = "Cassie Rayl <raylcassie@gmail.com>")>
 	<cfset set(HandbookReviewSecretary2 = "Tom Avey <tomavey@charisfellowship.us>")>
+	<cfset set(HandbookStatsReviewer = "tomavey@charisfellowship.us")>
 	<cfset set(SendImmediatePersonUpdates = false)>
 	<cfset set(ChurchHandbookReviewGreeting = "It's Time to Update the Charis Fellowship Handbook!")>
 	<cfset set(PersonHandbookReviewGreeting = "It's Time to Update the Charis Fellowship Handbook!")>
