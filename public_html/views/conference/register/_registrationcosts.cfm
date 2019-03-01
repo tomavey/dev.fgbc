@@ -289,10 +289,10 @@
 				</p>
 				<table>
 					<tr>
-						<td>One Child</td>
-						<td>$#getDollarType()#50</td>
+						<td>Each Child</td>
+						<td>$#getDollarType()#35</td>
 					</tr>
-					<tr>
+					<!--- <tr>
 						<td>Two Children</td>
 						<td>$#getDollarType()#90</td>
 					</tr>
@@ -311,7 +311,7 @@
 					<tr>
 						<td>Six Children</td>
 						<td>$#getDollarType()#160</td>
-					</tr>
+					</tr> --->
 				</table>
 				<p style="text-align:center">Refundable if you cancel before July 15!
 				</p>
