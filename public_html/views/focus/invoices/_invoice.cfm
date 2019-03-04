@@ -49,7 +49,7 @@
 				<tr>
 					<td>&nbsp;</td>
 					<td class="description">#description#</td> 
-					<td class="price">#dollarformat(price)#</td> 
+					<td class="price">#dollarformat(cost)#</td> 
 					<td class="quantity">#quantity#</td>
 				</tr>	
 			</cfoutput>

@@ -5,6 +5,7 @@
 <cfset amountPaid = 0>
 <cfset counts = {}>
 <cfset amounts = {}>
+<!--- <cfdump var='#registrations#'><cfabort> --->
 
 <cfif !isDefined("params.retreatid")>
 	<cftry>
