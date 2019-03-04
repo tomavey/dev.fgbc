@@ -1,5 +1,5 @@
 <h1>Showing registration</h1>
-<cfdump var="#registration.properties()#"><cfabort>
+<!--- <cfdump var="#registration.properties()#"><cfabort> --->
 
 <cfoutput>
 

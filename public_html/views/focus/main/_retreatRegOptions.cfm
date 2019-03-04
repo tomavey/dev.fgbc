@@ -17,7 +17,7 @@
 					</cfloop>
 					</ul>
 					<p>
-						<cfif dateCompare(retreat.deadline, retreat.discountdeadline)>
+						<cfif dateCompare(retreat.deadline, retreat.discountdeadline) && isBefore(retreat.discountdeadline)>
 							This price increases 
 							<cfif val(retreat.priceincrease)>
 								(#dollarFormat(retreat.priceincrease)#)
