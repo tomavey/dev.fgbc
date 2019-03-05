@@ -484,7 +484,7 @@
 	<cfscript>
 		private function notifyOfficeOfNewStat (statId) {
 		var stat = model("Handbookstatistic").findOne(where="id=#statid#");
-		var church = model("Handbookorganization").findOne(where="id = #stat.organizationid#", include="state")
+		church = model("Handbookorganization").findOne(where="id = #stat.organizationid#", include="state")
 		if ( !isLocalMachine() && isObject(stat) && isObject(church) ) {
 			sendEmail(to=getSetting("HandbookStatsReviewer"), from=getSetting('HandbookStatsReviewer'), subject="New Stats Submitted", type="html", template="emailNotifyOfficeOfNewStat");
 		} else {
