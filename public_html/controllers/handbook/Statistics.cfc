@@ -193,7 +193,9 @@
 
 		<!--- Verify that the handbookstatistic creates successfully --->
 		<cfif handbookstatistic.save()>
-			<!--- <cfset notifyOfficeOfNewStat(handbookstatistic.id)> --->
+			<cfif gotRights("superadmin") && !isLocalMachine()>
+				<cfset notifyOfficeOfNewStat(handbookstatistic.id)>
+			</cfif>
 			<cfset flashInsert(success="The handbookstatistic was created successfully.")>
 			<cfif isdefined("params.pay") and params.pay>
 <!---			
