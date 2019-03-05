@@ -8,7 +8,7 @@
 </head>
 <body>
 <cfoutput>
-  <p>#linkTo(text="News Stats were entered for !", controller="handbook.statistics", action="index", pathOnly="false")#</p>
+  <p>#linkTo(text="News Stats were entered for #church.selectName#", controller="handbook.statistics", action="index", pathOnly="false")#</p>
 </cfoutput>
 </body>
 </html>

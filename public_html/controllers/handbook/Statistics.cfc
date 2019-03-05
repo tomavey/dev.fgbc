@@ -193,7 +193,7 @@
 
 		<!--- Verify that the handbookstatistic creates successfully --->
 		<cfif handbookstatistic.save()>
-			<cfif gotRights("superadmin") && !isLocalMachine()>
+			<cfif gotRights("superadmin")>
 				<cfset notifyOfficeOfNewStat(handbookstatistic.id)>
 			</cfif>
 			<cfset flashInsert(success="The handbookstatistic was created successfully.")>
@@ -484,10 +484,11 @@
 	<cfscript>
 		private function notifyOfficeOfNewStat (statId) {
 		var stat = model("Handbookstatistic").findOne(where="id=#statid#");
-		if (!isLocalMachine()) {
+		var church = model("Handbookorganization").findOne(where="id = #stat.organizationid#", include="state")
+		if ( !isLocalMachine() && isObject(stat) && isObject(church) ) {
 			sendEmail(to=getSetting("HandbookStatsReviewer"), from=getSetting('HandbookStatsReviewer'), subject="New Stats Submitted", type="html", template="emailNotifyOfficeOfNewStat");
 		} else {
-			cfthrow(message="Email notification would be sent")
+			cfthrow(message="Email notification would be sent if not on localhost:")
 		}
 		return stat;
 		}
