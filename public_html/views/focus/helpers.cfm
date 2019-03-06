@@ -29,7 +29,7 @@
 
 	function showDeadlineIsPastMessage (deadline) {
 		if ( isOffice() ) { return false }
-		if ( deadline LTE now() ) { return true }
+		if ( deadline LT now()-1 ) { return true }
 		else { return false }
 	}
 
