@@ -32,17 +32,14 @@
 			<h1>Registration</h1>
 
 			<cfif regIsClosed(retreat.regisopen)>
-				regisclosed
 				#retreat.notopenmessage#
 
 			<cfelseif showDeadlineIsPastMessage(retreat.deadline)>
 
 				<cfif len(retreat.pastdeadlinemessage)>
 					#retreat.pastdeadlinemessage#
-					retreat.pastdeadlinemessage
 				<cfelse>
 					#retreat.notopenmessage#
-					retreat.notopenmessage
 				</cfif>
 
 			<cfelseif showRegistration(options.recordcount, retreat)>
