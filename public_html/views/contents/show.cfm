@@ -42,7 +42,11 @@
 			</cfif>
 
 		<cfelse>
-			<p>You do not have permission to view this page.</p>
+			<cfif content.rightsRequired CONTAINS "basic">
+				<h3 style="text-align:center">Use the login link at the top of this page to create a user account or login under your current user account to view this page.</h3>
+			<cfelse>	
+				<p>You do not have permission to view this page.</p>
+			</cfif>
 		</cfif>		
 
 </div>
