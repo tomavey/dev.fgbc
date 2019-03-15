@@ -156,7 +156,9 @@
 
 	<cffunction name="$emailVerify" access="private">
 	<cfargument name="uuid" required="true" type="string">
-		<cfset sendEmail(to=newchurch.email, from="tomavey@fgbc.org", subject="Your new church", template="emailverify", layout="/membership/layout_naked")>
+		<cfif !isLocalMachine()>
+			<cfset sendEmail(to=newchurch.email, from="tomavey@fgbc.org", subject="Your new church", template="emailverify", layout="/membership/layout_naked")>
+		</cfif>
 		<cfreturn true>
 	</cffunction>
 
@@ -206,6 +208,11 @@
 
 	<!--- Newchurch/update --->
 	<cffunction name="update">
+
+		<cfif isDefined("params.keyy")>
+			<cfset params.key = params.keyy>
+		</cfif>
+
 		<cfset newchurch = model("Membershipnewchurch").findByKey(params.key)>
 
 		<cfif !isObject(newchurch) OR !isDefined("params.newchurch")>
