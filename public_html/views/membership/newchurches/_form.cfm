@@ -5,6 +5,8 @@
 
 				#hiddenField(objectName='newchurch', property='uuid')#
 
+				#hiddenTagForKeyy()#
+
 <fieldset class="well">
 <legend>First, some information about the church starter (planter)...</legend>
 
