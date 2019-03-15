@@ -575,6 +575,8 @@
 				.get(name="shownewchurch", pattern="/show/", action="show")
 				.get(name="editnewchurch", pattern="/edit/", action="edit")
 				.get(name="deletenewchurch", pattern="/delete/", action="delete")
+				.post(name="update", pattern="update/")
+				.put(name="update", pattern="update/")
 			.end()
 
 			.get(name="checkin", pattern="/newchurch/checkin/", controller="newchurches", action="checkin")
