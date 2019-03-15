@@ -209,6 +209,8 @@
 	<!--- Newchurch/update --->
 	<cffunction name="update">
 
+		<cfdump var="#params#"><cfabort>
+
 		<cfif isDefined("params.keyy")>
 			<cfset params.key = params.keyy>
 		</cfif>
