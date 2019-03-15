@@ -209,13 +209,13 @@
 	<!--- Newchurch/update --->
 	<cffunction name="update">
 
-		<cfdump var="#params#"><cfabort>
+		<!--- <cfdump var="#params#"><cfabort>
 
 		<cfif isDefined("params.keyy")>
 			<cfset params.key = params.keyy>
-		</cfif>
+		</cfif> --->
 
-		<cfset newchurch = model("Membershipnewchurch").findByKey(params.key)>
+		<cfset newchurch = model("Membershipnewchurch").findOne(where="uuid='#params.newchurch.uuid#'")>
 
 		<cfif !isObject(newchurch) OR !isDefined("params.newchurch")>
 			No church to update!<cfabort>
