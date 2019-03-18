@@ -56,7 +56,7 @@
 	</cffunction>
 
 	<cffunction name="getGroupRosterOptions">
-		<cfset groupsRosterOptions = "Yes,No,#year(now())#">
+		<cfset groupsRosterOptions = "Yes,No,#year(now())#,#year(now())-1#,#year(now())-2#">
 	</cffunction>
 
 <!---Basic CRUD--->
