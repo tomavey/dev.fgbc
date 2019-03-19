@@ -5,4 +5,7 @@
 #linkto(text=selectname, controller="handbook.organizations", action="show", key=id)#&nbsp;&nbsp;&nbsp;  FEIN##-#fein#
 </p>
 </cfoutput>
+<cfoutput>
+  Count: #rosterChurches.recordCount#
+</cfoutput>
 </div>

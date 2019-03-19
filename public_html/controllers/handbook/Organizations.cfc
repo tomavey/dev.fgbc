@@ -633,7 +633,9 @@ public function notStaff(){
 	</cffunction>
 
 	<cffunction name="groupRoster">
-		<cfset rosterChurches = model("Handbookorganization").findAll(where="ingrouproster <> 'no' OR ingrouproster IS NOT NULL", include="State")>
+	<cfargument name="orderBy" default="createdAt">
+	<!--- <cfif isDefined("") --->
+		<cfset rosterChurches = model("Handbookorganization").findAll(where="ingrouproster <> 'no' OR ingrouproster IS NOT NULL", include="State", order="#arguments.orderBy#")>
 		<cfset renderPage(layout="/handbook/layout_handbook2")>
 	</cffunction>
 
