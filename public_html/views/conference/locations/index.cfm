@@ -24,4 +24,9 @@
 	<p>#addTag()#</p>
 	<p>Count: #locations.recordcount#</p>
 	<p>#linkto(text="Duplicate #getPreviousEvent()# locations into #getEvent()#.", action="conference.locations", action="copyAllToCurrentEvent", class="btn pull-right")#</p>
+	<P>
+		Maps:
+		#includePartial("maps")#
+	</P>
+
 </cfoutput>
