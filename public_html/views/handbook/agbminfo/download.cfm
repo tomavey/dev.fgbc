@@ -74,6 +74,12 @@
 			<th>
 				For certificate
 			</th>
+			<th>
+				Category
+			</th>
+			<th>
+				Last Payment
+			</th>
 		</tr>
 	</thead>
 

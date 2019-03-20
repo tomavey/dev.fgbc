@@ -67,6 +67,20 @@
 				<cfelseif REQUEST.lastpayment contains "licensed">
 					Licensed
 				</cfif>
+			</td>
+			<td>
+				<cfif REQUEST.lastpayment contains "Cat. 1">
+					Cat. 1
+				<cfelseif REQUEST.lastpayment contains "Cat. 2">
+					Cat. 2
+				<cfelseif REQUEST.lastpayment contains "Cat. 3">
+					Cat. 3
+				<cfelse>
+					NA	
+				</cfif>
+			</td>
+			<td>
+				#REQUEST.lastpayment#
 			</td>		
 		</tr>
 </cfoutput>
