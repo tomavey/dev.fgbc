@@ -8,6 +8,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.min.js"></script>
 
-<script src="/views/membership/newministries/app.js"></script>
+<script src="/javascripts/membership/newministries/app.js"></script>
 
 <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
