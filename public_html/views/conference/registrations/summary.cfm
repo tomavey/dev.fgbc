@@ -8,13 +8,15 @@
 	<p>Change: this report no longer shows unpaid registrations. To include unpaid and comp regs click #linkto(text="here", controller="conference.registrations", action="summary", params="includeall")#. Unpaid regs may be duplicates or in process of payment.</p>
 	</cfif>
 
+<!--- <cfdump var="#regs#"><cfabort> --->
+
 <table>
 <tr>
 <th>&nbsp;</th>
+<th class="col1">2019 Regs<br/> before #dateformat(regs.todayDate,"mmmm-dd")#</th>
 <th class="col1">2018 Regs<br/> before #dateformat(regs.todayDate,"mmmm-dd")#</th>
 <th class="col1">2017 Regs<br/> before #dateformat(regs.todayDate,"mmmm-dd")#</th>
 <th class="col1">2016 Regs<br/> before #dateformat(regs.todayDate,"mmmm-dd")#</th>
-<th class="col1">2015 Regs<br/> before #dateformat(regs.todayDate,"mmmm-dd")#</th>
 <th>Budget<br/> before April 1</th>
 <th>Budget<br/> before May 1</th>
 <th>Budget<br/> before June 1</th>
@@ -37,6 +39,7 @@
 --->
 <tr>
 <td>#linkto(text="GroupRegs", controller="conference.registrations", action="list", params="type=Registration-Group")#**</td>
+<td align="right" class="col1">#val(regs.Access2019.group)#</td>
 <td align="right" class="col1">#val(regs.Access2018.group)#</td>
 <td align="right" class="col1">#val(regs.Access2017.group)#</td>
 <td align="right" class="col1">&nbsp;</td>
@@ -45,10 +48,10 @@
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td>&nbsp;</td>
 </tr>
 <tr>
 <td>#linkto(text="Singles", controller="conference.registrations", action="list", params="type=Registration-Single")#**</td>
+<td align="right" class="col1">#val(regs.Access2019.singles)#</td>
 <td align="right" class="col1">#val(regs.Access2018.singles)#</td>
 <td align="right" class="col1">#val(regs.Access2017.singles)#</td>
 <td align="right" class="col1">#val(regs.vTOR.singles)#</td>
@@ -57,10 +60,10 @@
 <td>&nbsp;</td>
 <td>&nbsp;</td>
 <td>&nbsp;</td>
-<td>&nbsp;</td>
 </tr>
 <tr>
 <td>#linkto(text="Couples", controller="conference.registrations", action="list", params="type=Registration-Couple")#**</td>
+<td align="right" class="col1">#val(regs.Access2019.couples)#</td>
 <td align="right" class="col1">#val(regs.Access2018.couples)#</td>
 <td align="right" class="col1">#val(regs.Access2017.couples)#</td>
 <td align="right" class="col1">#val(regs.vTOR.couples)#</td>
@@ -73,6 +76,7 @@
 </tr>
 <tr>
 <td>Total</td>
+<td align="right" class="col1"><cftry>#regs.Access2019.singles+regs.Access2019.group+(regs.Access2019.couples*2)#<cfcatch>!</cfcatch></cftry></td>
 <td align="right" class="col1"><cftry>#regs.Access2018.singles+regs.Access2018.group+(regs.Access2018.couples*2)#<cfcatch>!</cfcatch></cftry></td>
 <td align="right" class="col1"><cftry>#regs.Access2017.singles+regs.Access2017.prepaid+regs.Access2017.group+(regs.Access2017.couples*2)#<cfcatch>!</cfcatch></cftry></td>
 <td align="right" class="col1"><cftry>#regs.vTOR.singles+(regs.vTOR.couples*2)#<cfcatch>!</cfcatch></cftry></td>
@@ -80,7 +84,6 @@
 <td align="right">310</td>
 <td align="right">335</td>
 <td align="right">355</td>
-<td align="right">375</td>
 <td align="right">375</td>
 </tr>
 <!---
@@ -164,11 +167,11 @@
 					** GroupRegistrations were sold online so that one person could purchase multiple regs without providing names at registration The minimum number for a group is 5. Groupreg convert to single regs when the church provides a list of names.
 				</li>
 				<li>
-					#regs.Access2018.Free# free (16-24 yr old or 70+ yr olds) registrations for Access2018 are not included in these numbers.
+					#regs.Access2019.Free# free (16-24 yr old or 70+ yr olds) registrations for #getEventAsText()# are not included in these numbers.
 				</li>
-				<cfif regs.Access2018.staff>
+				<cfif regs.Access2019.staff>
 					<li>
-						#regs.Access2018.staff# staff registrations for Access2018 are not included in these numbers.
+						#regs.Access2019.staff# staff registrations for #getEventAsText()# are not included in these numbers.
 					</li>
 				</cfif>
 			</ul>
