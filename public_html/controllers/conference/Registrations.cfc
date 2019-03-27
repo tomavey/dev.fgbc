@@ -336,6 +336,21 @@
 		<cfset regs.Access2018.Free = regs.Access2018.FreeYoung + regs.Access2018.FreeOld>
 		<cfset regs.Access2018.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2018",regs.todayDate)>
 
+		<!---Access2019 - Fremont --->
+		<cfset regs.Access2019.event = "visionconference2019">
+		<cfset regs.Access2019.couples = countRegs(543,params)>
+		<cfset regs.Access2019.couples2 = countRegsByType( type="Registration-couple",includeFree="true", event = regs.Access2019.event )>
+		<cfset regs.Access2018.singles = countRegs(539,params)>
+		<cfset regs.Access2018.singles2 = countRegsByType(type="Registration-single",includeFree="true", event = regs.Access2019.event)>
+		<cfset regs.Access2018.prepaiddiscountssgl = countRegs(514,params)>
+		<cfset regs.Access2018.prepaiddiscountsdbl = countRegs(515,params)>
+		<cfset regs.Access2018.group = countRegs(472,params)>
+		<cfset regs.Access2018.group2 = countRegsByType(type="Registration-group",includeFree="true", event = regs.Access2018.event)>
+		<cfset regs.Access2018.staff = countStaffRegs()>
+		<cfset regs.Access2018.FreeYoung = countRegs(474,params) + (countRegs(518,params) * 2)>
+		<cfset regs.Access2018.FreeOld = countRegs(475,params) + (countRegs(517,params) * 2)>
+		<cfset regs.Access2018.Free = regs.Access2018.FreeYoung + regs.Access2018.FreeOld>
+		<cfset regs.Access2018.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2018",regs.todayDate)>
 
 <!---
 		<cfdump var="#params#">

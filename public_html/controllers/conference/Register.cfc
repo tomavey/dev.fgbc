@@ -1882,10 +1882,17 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 <cfreturn loc.singleReg.id[1]>
 </cffunction>
 
+<cfscript>
+	function getGroupRegOptionPrice() {
+		var groupReg = model("Conferenceoption").findAll(where="type='Registration-Group' AND event='#getevent()#'", order="cost DESC");
+		return groupReg.cost[1];
+	}
+</cfscript>
+
 <cffunction name="GroupRegConvertToSingle">
 <cfargument name="singleOptionid" default="#getSingleRegOptionId()#">
 <cfargument name="quantity" default="1">
-<cfargument name="cost" default="65">
+<cfargument name="cost" default="#getGroupRegOptionPrice()#">
 <cfset var loc = arguments>
 
 	<cfif isDefined("params.fname")>
