@@ -221,7 +221,7 @@
 
 	<!---Decide whether this is a new Cart create or update based on person in url--->
 	<cfparam name="params.person" default="">
-	<cfif len(params.person)><!---use this for a registration add--->
+GroupRegConvertToSingle	<cfif len(params.person)><!---use this for a registration add--->
 		<cfset formaction="updateCartItemsFromForm">
 		<cfset submitValue="Update Cart">
 	<cfelse>
@@ -341,41 +341,46 @@
 		<!--- Put any item in the cart that has an id in the params key --->
 		<cfif val(i) and params[i]>
 			<cfif isDefined("params.cost") && isDefined("params.groupRegId")>
-				<cfset addtocart(item=i, quantity = params[i], person = params.person, cost = params.cost, groupRegid = params.groupRegId)>
+				<cfset addToCart(item=i, quantity = params[i], person = params.person, cost = params.cost, groupRegid = params.groupRegId)>
 			<cfelse>
-				<cfset addtocart(item=i, quantity = params[i], person = params.person)>
+				<cfset addToCart(item=i, quantity = params[i], person = params.person)>
 			</cfif>
 			<cfset loc.checkForSelections = 1>
 		</cfif>
 		<!--- Put radio button registration items into the cart --->
 		<cfif i is "registration">
 			<cfif isDefined("params.cost")>
-				<cfset addtocart(item=params[i], quantity = 1, person = params.person, cost = params.costs)>
+				<cfset addToCart(item=params[i], quantity = 1, person = params.person, cost = params.costs)>
 			<cfelse>
-				<cfset addtocart(item=params[i], quantity = 1, person = params.person)>
+				<cfset addToCart(item=params[i], quantity = 1, person = params.person)>
 			</cfif>
 			<cfset loc.checkForSelections = 1>
 		</cfif>
+
 		<cfif i is "specialcode" and len(params.specialcode)>
-		<cfloop list="#params.specialcode#" delimiters=",; " index="loc.ii">
-			<cfif isDiscountQualified(trim(loc.ii))>
-				<cfset specialCodeItem = model("Conferenceoption").findOne(where="name='#trim(loc.ii)#'")>
+			<cfloop list="#params.specialcode#" delimiters=",; " index="loc.ii">
 				<cftry>
-					<cfswitch expression="specialCodeItem.disountType">
-						<cfcase value = "percent">
-						</cfcase>
-						<cfcase value = "maximum">
-						</cfcase>
-						<cfdefaultcase>
-							<cfset addtocart(item=specialCodeItem.id, quantity = 1, person = params.person)>
-						</cfdefaultcase>
-					</cfswitch>
-					<cfset loc.checkForSelections = 1>
-				<cfcatch></cfcatch></cftry>
-			</cfif>
-		</cfloop>
+					<cfif isDiscountQualified(trim(loc.ii))>
+						<cfset specialCodeItem = model("Conferenceoption").findOne(where="name='#trim(loc.ii)#' AND event='#getEvent()#'")>
+							<cfswitch expression="specialCodeItem.discountType">
+								<cfcase value = "percent">
+								</cfcase>
+								<cfcase value = "maximum">
+								</cfcase>
+								<cfdefaultcase>
+									<cfset addToCart(item=specialCodeItem.id, quantity = 1, person = params.person)>
+								</cfdefaultcase>
+							</cfswitch>
+							<cfset loc.checkForSelections = 1>
+					</cfif>
+				<cfcatch></cfcatch>
+				</cftry>
+			</cfloop>
 		</cfif>
+
 	</cfloop>
+
+<!--- <cfdump var="#params#"><cfabort> --->
 
 	<cfelse>
 		<cfset checkForSelections = 2>
@@ -389,10 +394,11 @@
 <cfset var isQualified = 0>
 <cfset var dependency = structnew()>
 <cfset var thisoption = structnew()>
+<cfset var discount = model("Conferenceoption").findOne(where="name='#arguments.specialcode#' AND event='#getEvent()#'")>
 
 <cftry>
 <!---Get the discountDependsOn information from the options table--->
-<cfset dependency.names = model("Conferenceoption").findOneByName(arguments.specialcode).discountDependsOn>
+<cfset dependency.names = discount.discountDependsOn>
 <cfset dependency.names = replace(dependency.names," ","","all")>
 <!---If there are no dependencies set qualfication = true--->
 <cfif not len(dependency.names)>
@@ -1459,7 +1465,6 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 
  		<!--- get the dependant option--->
 		<cfset loc.discountIsBasedOn.Cost = model("Conferenceoption").findOne(where="id='#loc.discountDependsOn.Id#' AND event = '#loc.cloneOptionDescriptionAndPrice.event#'")>
-
 
 	<cfset debug.discountIsBasedOn[loc.id] = loc.discountIsBasedOn>
 
