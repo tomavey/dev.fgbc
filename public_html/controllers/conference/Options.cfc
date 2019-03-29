@@ -122,12 +122,16 @@
 
 	<!--- options/delete/key --->
 	<cffunction name="delete">
-		<cfset option = model("Conferenceoption").findByKey(params.key)>
+		<cfif isDefined("params.keyy")>
+			<cfset parms.key = params.keyy >
+		</cfif>
+
+		<cfset option = model("Conferenceoption").findOne(where="id=#params.keyy#")>
 
 		<!--- Verify that the option deletes successfully --->
 		<cfif option.delete()>
 			<cfset flashInsert(success="The option was deleted successfully.")>
-            <cfset returnBack()>
+      <cfset returnBack()>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error deleting the option.")>

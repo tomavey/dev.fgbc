@@ -33,22 +33,23 @@
 
 <!---Each Item for this person--->
 <cfoutput>
-	<cfif quantity NEQ 0 && description DOES NOT CONTAIN "Family Discount">
-	<!---TODO: if no family discount they still need to be in the options list but with a price of 0 - should be fixed sometime--->
-	<tr>
-		<td class="description">
-			#description#
-		</td>
-		<td class="quantity">
-			(#quantity#)
-		</td>
-		<td class="price">
-			#dollarformat(val(price)*quantity)#
-		</td>
-			<cfset querystring = querystring & "&" & item & "=" & quantity>
-			<cfset personSubTotal = personSubTotal + (quantity * val(price))>
-	</tr>
-</cfif>
+	<cfif quantity NEQ 0>
+	<!---TODO: Remove this if not needed <cfif quantity NEQ 0 && description DOES NOT CONTAIN "Family Discount"> --->
+		<!---TODO: if no family discount they still need to be in the options list but with a price of 0 - should be fixed sometime--->
+		<tr>
+			<td class="description">
+				#description#
+			</td>
+			<td class="quantity">
+				(#quantity#)
+			</td>
+			<td class="price">
+				#dollarformat(val(price)*quantity)#
+			</td>
+				<cfset querystring = querystring & "&" & item & "=" & quantity>
+				<cfset personSubTotal = personSubTotal + (quantity * val(price))>
+		</tr>
+	</cfif>
 </cfoutput>
 
 <!---Subtotal for this person--->
