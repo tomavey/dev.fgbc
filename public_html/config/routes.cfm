@@ -421,6 +421,8 @@
 				.post(name="create", pattern="create/")
 				.get(name="delete", pattern="delete/")
 				.delete(name="delete", pattern="delete/")
+				.post(name="delete", pattern="delete/")
+				.put(name="delete", pattern="delete/")
 				.get(name="copy", pattern="copy")
 				.get(name="list", pattern="list")
 			.end()	
