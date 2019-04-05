@@ -16,7 +16,7 @@
     <!-- End Promo Block --> 
     	  <div class="container text-center g-py-100" id="app">
 			<cfoutput>
-				<p>#getcontent("jobs").content#</p>
+				<div class="card card-text container">#getcontent("jobs").content#</div>
         #linkto(text="Post a new opportunity", controller="jobs", action="new", class="btn btn-md u-btn-outline-teal g-mr-10 g-mb-15")#
 				<hr/>
         <cfif !isDefined("params.showalldescriptions") && !isDefined("params.key")>

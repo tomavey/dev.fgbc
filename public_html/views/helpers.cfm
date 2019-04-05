@@ -56,6 +56,10 @@
 		<cfset data = model('Maincontent').findOne(where="name='#arguments.identifier#'")>
 	</cfif>
 
+	<cfif !isObject(data)>
+		<cfset data = {content: "***"}>
+	</cfif>
+
 <cfreturn data>
 </cffunction>
 

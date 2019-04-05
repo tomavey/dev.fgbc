@@ -1,4 +1,6 @@
-<cfoutput>						
+<cfoutput>				
+
+	<div class="card card-text container">#getcontent("jobsform").content#</div>
 
 #ckeditor()#	
 						#textField(objectName='job', property='email', label='Your Email Address: ')#
