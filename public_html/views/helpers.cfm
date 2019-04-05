@@ -54,6 +54,9 @@
 		<cfset data = model('Maincontent').findOne(where="id=#val(arguments.identifier)#")>
 	<cfelse>
 		<cfset data = model('Maincontent').findOne(where="name='#arguments.identifier#'")>
+		<cfif !isObject(data)>
+			<cfset data = model('Maincontent').findOne(where="shortlink='#arguments.identifier#'")>
+		</cfif>
 	</cfif>
 
 	<cfif !isObject(data)>
