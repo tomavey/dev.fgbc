@@ -179,7 +179,6 @@
 <p>&nbsp;</p>
 
 <cftry>
-	<cfcatch>
 		<div class="well">
 			<h3>UpLoaded docs, images, etc:</h3>
 			<ul>
@@ -191,5 +190,6 @@
 			<p>#linkTo(text="Upload A New Document", controller="membership.resources", action="new")#</p>
 		</cfoutput>
 		</div>
+	<cfcatch>
 	</cfcatch>
 </cftry>
