@@ -95,7 +95,7 @@
 		<!--- Verify that the membershipappresource creates successfully --->
 		<cfif membershipappresource.save()>
 			<cfset flashInsert(success="The uploaded resource was created successfully.")>
-            <cfset redirectTo(route="membershipListAppResources", key=membershipappresource.applicationUUID)>
+            <cfset redirectTo(controller="membership.resources", action="index", key=membershipappresource.applicationUUID)>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the uploaded resource.")>
@@ -125,7 +125,7 @@
 		<!--- Verify that the membershipappresource deletes successfully --->
 		<cfif membershipappresource.delete()>
 			<cfset flashInsert(success="The membershipappresource was deleted successfully.")>	
-            <cfset redirectTo(route="membershipListAppResources", key=membershipappresource.applicationUUID)>
+            <cfset redirectTo(controller="membership.resources", action="index", key=membershipappresource.applicationUUID)>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error deleting the membershipappresource.")>
