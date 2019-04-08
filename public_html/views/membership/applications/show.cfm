@@ -178,16 +178,18 @@
 </cfoutput>
 <p>&nbsp;</p>
 
-<cfif gotRights("Office")>
-	<div class="well">
-		<h3>UpLoaded docs, images, etc:</h3>
-		<ul>
-			<cfoutput query="membershipapplicationresources">
-				<li>#linkto(text=file, href="/files/#file#")#
-			</cfoutput>
-		</ul>
-	<cfoutput>
-		<p>#linkTo(text="Upload A New Document", controller="membership.resources", action="new")#</p>
-	</cfoutput>
-	</div>
-</cfif>
+<cftry>
+	<cfcatch>
+		<div class="well">
+			<h3>UpLoaded docs, images, etc:</h3>
+			<ul>
+				<cfoutput query="membershipapplicationresources">
+					<li>#linkto(text=file, href="/files/#file#")#
+				</cfoutput>
+			</ul>
+		<cfoutput>
+			<p>#linkTo(text="Upload A New Document", controller="membership.resources", action="new")#</p>
+		</cfoutput>
+		</div>
+	</cfcatch>
+</cftry>
