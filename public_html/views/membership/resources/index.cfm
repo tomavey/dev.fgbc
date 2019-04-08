@@ -1,8 +1,7 @@
 <cfoutput>
 <h1>Documents uploaded...</h1>
 
-
-<cfif len(getChurchAppName(params.kkey)) EQ 5>
+<cfif isDefined("params.kkey") && len(getChurchAppName(params.kkey)) EQ 5>
 	<p>For #linkTo(text=getChurchAppName(params.keyy), controller="membership.applications", action="show", key=params.keyy)#</p>
 </cfif>
 
