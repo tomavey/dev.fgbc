@@ -378,6 +378,9 @@
 	</cffunction>
 
 	<cffunction name="focus">
+		<cfif isDefined("params.keyy")>
+			<cfset params.key = params.keyy>
+		</cfif>
 		<cfset people = model("Handbookperson").findFocus(params.key)>
 		<cfif isDefined("params.download") and params.download is "excel">
 			  <cfset renderPage(layout="/layout_download")>

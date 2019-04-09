@@ -521,7 +521,7 @@
 	<cfset var loc = structNew()>
 
 		<!--- Get names from handbook people with positions in organizations in districts in regions --->
-		<cfset loc.handbookpeople = findAll(select="fname, lname, handbookpeople.email, region", where="p_sortorder < 500 AND region = '#arguments.region#' AND fnamegender = 'm'", include="Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict))", order="lname,fname,email")>
+		<cfset loc.handbookpeople = findAll(select="fname, lname, handbookpeople.email, region", where="p_sortorder < 500 AND focusretreat = '#arguments.region#' AND fnamegender = 'm'", include="Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict))", order="lname,fname,email")>
 
 		<!--- Get names from past focus registrations in that region --->
 		<cfquery datasource="#application.wheels.datasourcename#" name="loc.focuspeople">
