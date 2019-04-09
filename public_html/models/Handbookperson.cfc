@@ -520,8 +520,10 @@
 	<cfargument name="region" required="true" type="string">
 	<cfset var loc = structNew()>
 
+		<!--- Get names from handbook people with positions in organizations in districts in regions --->
 		<cfset loc.handbookpeople = findAll(select="fname, lname, handbookpeople.email, region", where="p_sortorder < 500 AND region = '#arguments.region#' AND fnamegender = 'm'", include="Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict))", order="lname,fname,email")>
 
+		<!--- Get names from past focus registrations in that region --->
 		<cfquery datasource="#application.wheels.datasourcename#" name="loc.focuspeople">
 			SELECT fname, lname, p.email, menuname as region
 			FROM focus_registrants p
@@ -535,22 +537,36 @@
 			ORDER BY lname,fname,email
 		</cfquery>
 
-		<cfquery dbtype="query" name="loc.allpeople">
-			SELECT *
-			FROM loc.handbookpeople
-			UNION
-			SELECT *
-			FROM loc.focuspeople
-		</cfquery>
+		<!--- Combine both queries --->
+		<cfset loc.allpeople = combineTwoQueries(loc.handbookpeople, loc.focuspeople)>	
 
-		<cfquery dbtype="query" name="loc.people">
-			SELECT DISTINCT email, fname, lname, region
-			FROM loc.allpeople
-			ORDER BY lname,fname,email
-		</cfquery>
+		<cftry>
+			<cfset loc.addedpeople = focusEmailAdds(arguments.region)>
+			<cfset loc.allpeople = combineTwoQueries(loc.allpeople, loc.addedpeople)>	
+			<cfcatch>
+			</cfcatch>
+		</cftry>
+
+		<!--- remove duplicates --->
+		<cfset loc.people = distinctsFromQuery(loc.allpeople)>
 
 		<cfreturn loc.people>
 
+	</cffunction>
+
+<cfscript>
+	function focusEmailAdds(retreat){
+		var path =  CGI.http_host;
+		var file = '/files/focus/mailListAddOns/' & #retreat# & ".txt";
+		var filePath = expandPath(file);
+		cffile(action="read" file=filepath variable="list");
+		return listToQuery(list, "email");
+	}
+
+</cfscript>
+
+	<cffunction name="addFocusEmails">
+		<cfargument name="">
 	</cffunction>
 
 	<cffunction name="findAllStaff">

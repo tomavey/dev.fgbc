@@ -165,13 +165,26 @@
     </cffunction>
 
     <cffunction name="distinctsFromQuery">
-        <cfargument name="oldquery" type="query">
-        <cfquery dbType="query" name="newquery">
-            SELECT DISTINCT *
-            FROM oldquery
-        </cfquery>
-        <cfreturn newquery>
-    </cffunction>
+      <cfargument name="oldquery" type="query">
+      <cfquery dbType="query" name="newquery">
+        SELECT DISTINCT *
+        FROM oldquery
+      </cfquery>
+      <cfreturn newquery>
+		</cffunction>
+		
+		<cffunction name="combineTwoQueries">
+			<cfargument name="query1" type="query" required=true>
+			<cfargument name="query2" type="query" required=true>
+			<cfquery dbtype="query" name="data">
+				SELECT *
+				FROM arguments.query1
+				UNION
+				SELECT *
+				FROM arguments.query2
+			</cfquery>
+			<cfreturn data>
+		</cffunction>
 
 	<cffunction name="h">
 	<cfargument name="text" required="true" type="string">
