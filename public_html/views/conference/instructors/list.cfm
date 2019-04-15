@@ -4,7 +4,7 @@
 <h3>#fname# #lname#</h3>
 
     <cfif gotRights("superadmin,office,pageEditor")>
-        #linkto(text="edit", controlled="conference/instructors", action="edit", key=id)#
+        #linkto(text="edit", controller="conference.instructors", action="edit", key=id)#
     </cfif>	
 
 <cfif FileExists(ExpandPath("/images/conference/instructors/#picThumb#"))>
@@ -17,8 +17,9 @@
         #bioPrint#
     </cfif>
 </p>
-
-
+<cfif gotRights("office")>
+    #linkTo(text="link", controller="conference.instructors", action="list", key=#id#)#
+</cfif>
 
 </div>
 </cfoutput>

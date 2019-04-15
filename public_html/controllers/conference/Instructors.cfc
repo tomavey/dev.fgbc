@@ -22,6 +22,12 @@
 		<cfif isDefined("params.tag")>
 			<cfset whereString = whereString & " AND tags LIKE '%#params.tag#%'">
 		</cfif>
+		<cfif isDefined("params.lname")>
+			<cfset whereString = whereString & " AND lname LIKE '%#params.lname#%'">
+		</cfif>
+		<cfif isDefined("params.key")>
+			<cfset whereString = whereString & " AND id = #params.key#">
+		</cfif>
 
 		<cfset instructors = model("Conferenceinstructor").findAll(order="lname, fname", where=whereString)>
 		<cfset headerSubTitle = "Speakers">
