@@ -17,8 +17,23 @@
 	<!--- -instructors/list --->
 	<cffunction name="list">
 	<cfargument name="event" default="#getevent()#">
-		<cfset instructors = model("Conferenceinstructor").findAll(order="lname, fname", where="event='#arguments.event#'")>
+
+		<cfset var whereString = "event='#arguments.event#'">
+		<cfif isDefined("params.tag")>
+			<cfset whereString = whereString & " AND tags LIKE '%#params.tag#%'">
+		</cfif>
+
+		<cfset instructors = model("Conferenceinstructor").findAll(order="lname, fname", where=whereString)>
 		<cfset headerSubTitle = "Speakers">
+
+		<cfif isDefined("params.tag")>
+			<cfif params.tag is "speaker">
+				<cfset headerSubTitle = "Speakers">
+			</cfif>
+			<cfif params.tag is "staff">
+				<cfset headerSubTitle = "Staff">
+			</cfif>
+		</cfif>
 		<cfset renderPage(layout="/conference/layout2018")>
 	</cffunction>
 

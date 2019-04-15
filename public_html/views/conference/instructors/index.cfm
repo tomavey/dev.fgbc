@@ -52,7 +52,13 @@
 <p>
 #linkto(text="Last Year's Instructors", controller="conference.instructors", action="index", params="event=#getSetting('previousEvent')#")#
 </p>
-<p>Count: #instructors.recordcount#</p>
+<p>
+	#linkto(text="Speakers List", controller="conference.instructors", action="list", params="tag=speaker")#
+</p>
+<p>
+	#linkto(text="Staff List", controller="conference.instructors", action="list", params="tag=staff")#
+</p>
+	<p>Count: #instructors.recordcount#</p>
 <!--- <p>#linkto(text="Duplicate #getPreviousEvent()# instructors into #getEvent()#.", controller="conference.instructors", action="copyAllToCurrentEvent", class="btn pull-right")#</p> --->
 </cfoutput>
 </div>
