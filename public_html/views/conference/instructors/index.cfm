@@ -4,7 +4,7 @@
 <cfoutput>#includePartial("showFlash")#</cfoutput>
 <cfif gotRights("superadmin,office")>
 <cfoutput>
-	<p>#linkTo(text="New instructor", controller="conference.instrutors", action="index", action="new")#</p>
+	<p>#linkTo(text="New instructor", controller="conference.instructors", action="index", action="new")#</p>
 </cfoutput>
 </cfif>
 <div class="table" id="instructors">
