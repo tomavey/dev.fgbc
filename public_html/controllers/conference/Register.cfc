@@ -1020,23 +1020,6 @@ GroupRegConvertToSingle	<cfif len(params.person)><!---use this for a registratio
 
 </cfscript>
 
-<cffunction name="XpayExistingInvoiceOnline">
-	<cfset payonline = structnew()>
-	<cfset payonline.merchant = "fellowshipofgracen">
-	<cfset payonline.orderid = params.ccorderid>
-	<cfset invoice =  model("Conferenceinvoice").findOne(where="ccorderid = '#params.ccorderid#'")>
-	<cfset payonline.email = invoice.agent>
-	<cfset payonline.amount = invoice.ccamount>
-
-	<cfif CGI.http_host CONTAINS "localhost:8888">
-		<cfset payonline.url = "http://localhost:8888/index.cfm?controller=conference.register&action=confirm">
-	<cfelse>
-		<cfset payonline.url = "http://#CGI.http_host#/index.cfm?controller=conference.register&action=confirm">
-	</cfif>
-
-	<cfset renderPage(template="payonline")>
-</cffunction>
-
 
 <!---/conference.register/payonline ---- autosubmited by javascript ---->
 <cfscript>
@@ -1113,9 +1096,11 @@ GroupRegConvertToSingle	<cfif len(params.person)><!---use this for a registratio
 	
 		<cfset optionsInThisInvoice = model("Conferenceregistration").findall(where="equip_invoicesid = #thistransaction.key#", include="option,person(family)", order="equip_people.id")>
 
-		<cfif !isLocalMachine()>
+		<!--- <cfif !isLocalMachine()>
 			<cfset sendInvoiceByEmail(val(params.order_id))>
-		</cfif>
+		</cfif> 
+		TODO: Remove this is not needed
+		--->
 
 		<cfset redirectTo(controller="conference.register", action="invoice", key=#thistransaction.key#)>
 
