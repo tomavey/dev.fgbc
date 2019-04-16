@@ -37,6 +37,9 @@
 	<cfelse>
 		<cfset whereString = "event='#getEvent()#'">
 	</cfif>
+	<cfif isDefined("params.type") && (params.type = "exhibitor")>
+		<cfset whereString = whereString & " AND type IN ('exhibitor', 'both')">
+	</cfif>
 	<cfif isDefined("params.sortby")>
 		<cfset orderby = params.sortby>
 	</cfif>
