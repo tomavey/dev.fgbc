@@ -30,23 +30,18 @@
 	</cffunction>
 
 	<!--- exhibits/list --->
-	<cffunction name="list">
-	<cfset orderby = "organization">
-	<cfif isDefined("params.event")>
-		<cfset whereString = "event='#params.event#'">
-	<cfelse>
-		<cfset whereString = "event='#getEvent()#'">
-	</cfif>
-	<cfif isDefined("params.type") && (params.type = "exhibitor")>
-		<cfset whereString = whereString & " AND type IN ('exhibitor', 'both')">
-	</cfif>
-	<cfif isDefined("params.sortby")>
-		<cfset orderby = params.sortby>
-	</cfif>
-	<cfset whereString = whereString & " AND approved = 'yes'">
-		<cfset exhibits = model("Conferenceexhibit").findAll(where=whereString, order=orderby)>
-	<cfset renderPage(layout="/conference/layout2017")>
-	</cffunction>
+	<cfscript>
+		public function list(){
+			var orderBy = "organization";
+			var whereString = "event='#getEvent()#'";
+			if (isDefined('params.event')) { whereString = "event='#params.event#'" };
+			if (isDefined('params.type') && params.type is "exhibit") { whereString = whereString & " AND type IN ('exhibit', 'both')" };
+			if (isDefined("params.type") && (params.type is "sponsor")) { whereString = whereString & " AND type IN ('sponsor', 'both')" };
+			if (isDefined("params.sortby")) { orderBy = params.sortby };
+			exhibits = model("Conferenceexhibit").findAll(where=whereString, order=orderby);
+			renderPage(layout="/conference/layout2017");
+		}
+	</cfscript>
 
 	<!--- Exhibits/json--->
 	<cfscript>
