@@ -18,7 +18,8 @@
     </cfif>
 </p>
 <cfif gotRights("office")>
-    #linkTo(text="link", controller="conference.instructors", action="list", key=#id#)#
+    #linkTo(text="link", controller="conference.instructors", action="list", key=#id#)#<br/>
+    #mailTo(email)#
 </cfif>
 
 </div>
