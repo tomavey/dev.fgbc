@@ -192,11 +192,15 @@
 	<cfif isDefined("params.keyy")>
 		<cfset params.key = params.keyy>
 	</cfif>	
-	<cfif isValid('string',params.key)>
-		<cfset params.key = getIdFromMenuName(params.key)>
-	</cfif>
+
+	<cftry>
 		<cfset whoiscoming = model("Focusitem").findAll(where="retreatId=#params.key#", include="retreat,registration(registrant,invoice)", order="lname,fname")>
-		<cfset retreats = model("Focusretreat").findAll(where="active='yes' and startAt > now()", order="startAt")>
+		<cfcatch>
+			<cfset whoiscoming = model("Focusitem").findAll(where="menuname='#params.key#'", include="retreat,registration(registrant,invoice)", order="lname,fname")>
+		</cfcatch>
+	</cftry>
+
+	<cfset retreats = model("Focusretreat").findAll(where="active='yes' and startAt > now()", order="startAt")>
 		<cfset renderPage(layout="/focus/layout2")>
 	</cffunction>
 
