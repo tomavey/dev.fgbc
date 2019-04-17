@@ -177,10 +177,24 @@
 		</cfif>
 	</cffunction>
 
+	<cfscript>
+		private function getIdFromMenuName(name){
+			var retreat = model("Focusretreat").findOne(where="menuname = '#name#' AND active = 'yes'", order="startAt DESC");
+			try {
+				return retreat.id
+			} catch (any e) {
+				writeOutput("Cannot find #name#");abort
+			}
+		}
+	</cfscript>
+
 	<cffunction name="whoiscoming">
 	<cfif isDefined("params.keyy")>
-			<cfset params.key = params.keyy>
+		<cfset params.key = params.keyy>
 	</cfif>	
+	<cfif isValid('string',params.key)>
+		<cfset params.key = getIdFromMenuName(params.key)>
+	</cfif>
 		<cfset whoiscoming = model("Focusitem").findAll(where="retreatId=#params.key#", include="retreat,registration(registrant,invoice)", order="lname,fname")>
 		<cfset retreats = model("Focusretreat").findAll(where="active='yes' and startAt > now()", order="startAt")>
 		<cfset renderPage(layout="/focus/layout2")>
