@@ -5,7 +5,7 @@
 
 			#errorMessagesFor("event")#
 	
-			#startFormTag(action="update", key=params.key)#
+			#startFormTag(action="update", keyy=params.key)#
 			
 			#hiddenField(objectName="event", property='id')#
 					
