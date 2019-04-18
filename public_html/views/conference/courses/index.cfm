@@ -23,7 +23,7 @@
 </p>
 
 <p>
-	Lists for print: #linkto(text="Cohorts", action="list", params="type=cohort&print=")# | #linkto(text="Workshops", action="list", params="type=workshop&print=")# | #linkto(text="Excursions", action="list", params="type=excursion&print=")#
+	Lists for print: #linkto(text="Cohorts", controller='conference.courses', action="list", params="type=cohort&print=")# | #linkto(text="Workshops", action="list", params="type=workshop&print=")# | #linkto(text="Excursions", action="list", params="type=excursion&print=")#
 </p>
 
 #includePartial("showFlash")#
