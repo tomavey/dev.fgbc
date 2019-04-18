@@ -446,6 +446,7 @@
 				.get(name="edit", pattern="edit/")
 				.get(name="new", pattern="new/")
 				.get(name="delete", pattern="delete/")
+				.delete(name="delete", pattern="delete/")
 				.post(name="update", pattern="update/")
 				.put(name="update", pattern="update/")
 				.get(name="update", pattern="update/")
