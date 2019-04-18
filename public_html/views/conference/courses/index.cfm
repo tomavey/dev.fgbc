@@ -35,7 +35,7 @@
 </cfoutput>
 <div class="table courses">
 
-<cfdump var="#courses#">	
+<!--- <cfdump var="#courses#">	 --->
 
 
 <cftable query="courses" colHeaders="true" HTMLTable="true">
