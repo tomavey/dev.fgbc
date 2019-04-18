@@ -472,7 +472,6 @@
 				.get(name="selectPersonToShowCohorts", pattern="/selectPersonToShowCohorts/", action="selectPersonToShowCohorts")
 				.get(name="show", pattern="show/")
 			.end()	
-			.resources("courses")
 
 			.get(name="listcoursequestions", pattern="/coursequestions/list/", controller="coursequestions", action="list")
 			.get(name="thankyou", pattern="/coursequestions/thankyou/", controller="coursequestions", action="thankyou")
