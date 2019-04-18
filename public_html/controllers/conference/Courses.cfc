@@ -9,7 +9,7 @@
 		<cfset filters(through="getSubtypes", only="list,listCohorts,selectcohorts,showSelectedWorkshops,sendSelectedWorkshops")>
 		<cfset filters(through="setPublicLayout")>
 		<cfset filters(through="isAuthorized", only="copy,create,update,copyAllToCurrentEvent")>
-		<cfset filters(through="setKeyFromKeyy")>
+		<!--- <cfset filters(through="setKeyFromKeyy")> --->
 	</cffunction>
 
 <!------------->
@@ -96,7 +96,6 @@
 
 <cfscript>
 	private function setKeyFromKeyy(){
-		writeOutput("params");abort;
 		if (isDefined('params.keyy')) { params.key = params.keyy };
 	}
 </cfscript>	
