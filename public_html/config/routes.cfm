@@ -448,6 +448,7 @@
 				.get(name="delete", pattern="delete/")
 				.post(name="update", pattern="update/")
 				.put(name="update", pattern="update/")
+				.get(name="update", pattern="update/")
 				.post(name="create", pattern="create/")
 				.put(name="create", pattern="create/")
 				.get(name="copy", pattern="copy")
@@ -470,7 +471,6 @@
 				.get(name="sendSelectedCohorts", pattern="/sendSelectedworkshops/", action="sendSelectedWorkshops")
 				.post(name="sendSelectedCohorts", pattern="/sendSelectedWorkshops/", action="sendSelectedWorkshops")
 				.get(name="selectPersonToShowCohorts", pattern="/selectPersonToShowCohorts/", action="selectPersonToShowCohorts")
-				.get(name="show", pattern="show/")
 			.end()	
 
 			.get(name="listcoursequestions", pattern="/coursequestions/list/", controller="coursequestions", action="list")
