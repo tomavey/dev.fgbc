@@ -147,7 +147,7 @@
 
 	<!--- Courses/update --->
 	<cffunction name="update">
-
+<cfdump var="Hello">
 		<cfdump var="#params#"><cfabort>
 
 		<cfset course = model("Conferencecourse").findByKey(params.key)>
