@@ -7,6 +7,8 @@
 			#errorMessagesFor("course")#
 	
 			#startFormTag(action="update", key=params.key)#
+
+			#hiddenField(objectName="course", property='id')#
 		
 			#putFormTag()#		
 
