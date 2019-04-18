@@ -96,7 +96,7 @@
 
 <cfscript>
 	private function setKeyFromKeyy(){
-		writeDump("params");abort;
+		writeOutput("params");abort;
 		if (isDefined('params.keyy')) { params.key = params.keyy };
 	}
 </cfscript>	
