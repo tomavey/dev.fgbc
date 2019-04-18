@@ -147,7 +147,7 @@
 
 	<!--- Courses/update --->
 	<cffunction name="update">
-		<cfset course = model("Conferencecourse").findOne(where="id=#params.key#")>
+		<cfset course = model("Conferencecourse").findByKey(val(params.key))>
 
 		<!--- Verify that the Conferencecourse updates successfully --->
 		<cfif course.update(params.course)>
