@@ -39,15 +39,15 @@
 
 
 
-					<cfcol header="#linkto(text='Title', params='orderby=title')#" text="#linkto(text=title, action="show", key=id)#" />
+					<cfcol header="#linkto(text='Title', controller='conference.courses', action='index', params='orderby=title')#" text="#linkto(text=title, controller='conference.courses', action="show", key=id)#" />
 
-					<cfcol header="#linkto(text='Event', params='orderby=selectName')#" text="#linkTo(text=selectName, params="where=#selectname#")#" />
+					<cfcol header="#linkto(text='Event', controller='conference.courses', action='index', params='orderby=selectName')#" text="#linkTo(text=selectName, controller='conference.courses', action='index', params="where=#selectname#")#" />
 
 					<cfcol header="Comment/Audio file" text="#left(comment,50)# #getRecordingLink(recordinglink)#<span class='popup'>#comment#</span>" />
 
 					<cfcol header="Description" text="#descriptionlong#" />
 
-					<cfcol header="#linkto(text='Type', params='orderby=subtype')#" text="#subtype#" />
+					<cfcol header="#linkto(text='Type', controller='conference.courses', action='index', params='orderby=subtype')#" text="#subtype#" />
 
 					<cfcol header="Instructors" text="#getInstructorNamesAsString(id)# #linkto(text='+', controller='conference.courseinstructors', action='new', params='courseid=#id#')#" />
 
@@ -55,7 +55,7 @@
 
 					<cfcol header="Max" text="#max#" />
 
-					<cfcol header="#linkto(text='Track', params='orderby=track')#" text="#track#" />
+					<cfcol header="#linkto(text='Track', controller='conference.courses', action='index', params='orderby=track')#" text="#track#" />
 
 					<cfcol header="Display?" text="#display#" />
 
