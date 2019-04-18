@@ -9,6 +9,7 @@
 		<cfset filters(through="getSubtypes", only="list,listCohorts,selectcohorts,showSelectedWorkshops,sendSelectedWorkshops")>
 		<cfset filters(through="setPublicLayout")>
 		<cfset filters(through="isAuthorized", only="copy,create,update,copyAllToCurrentEvent")>
+		<cfset filters(through="setKeyFromKeyy")>
 	</cffunction>
 
 <!------------->
@@ -93,6 +94,12 @@
 		<cfset subtypes.D = "Two Days Long: Tuesday and Wednesday">
 	</cffunction>	
 
+<cfscript>
+	private function setKeyFromKeyy(){
+		if (isDefined('params.keyy')) { params.key = params.keyy };
+	}
+</cfscript>	
+
 <!---End of Filters--->
 
 
@@ -155,6 +162,7 @@
 
 	<!--- Courses/delete/key --->
 	<cffunction name="delete">
+
     	<cfset course = model("Conferencecourse").findOne(where="id=#params.key#")>
 
 		<!--- Verify that the Conferencecourse deletes successfully --->
