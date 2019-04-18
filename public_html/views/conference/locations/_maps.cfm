@@ -1,7 +1,7 @@
 <cfoutput>
   <p>#linkto(href="https://charisfellowship.us/images/conference/Auburn_map-first-floor.jpg", text="Auburn Grace Map - 1st Floor", target="_new", class="btn")#</p>
 
-  <p>#linkto(href="https://charisfellowship.us/images/conference/AGCC%20FIRST%20FLOOR.jpg", text="Auburn Grace Map - 1st Floor", target="_new", class="btn")#</p>
+  <p>#linkto(href="https://charisfellowship.us/images/conference/AGCC%20FIRST%20FLOOR.jpg", text="Auburn Grace Map - 1st Floor w/offices", target="_new", class="btn")#</p>
 
   <p>#linkto(href="https://charisfellowship.us/images/conference/Auburn_map-second-floor.jpg", text="Auburn Grace Map - 2nd Floor", target="_new", class="btn")#</p>
 
