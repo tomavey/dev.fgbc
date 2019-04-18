@@ -96,6 +96,7 @@
 
 <cfscript>
 	private function setKeyFromKeyy(){
+		writeDump(params);abort;
 		if (isDefined('params.keyy')) { params.key = params.keyy };
 	}
 </cfscript>	
@@ -147,8 +148,6 @@
 
 	<!--- Courses/update --->
 	<cffunction name="update">
-<cfdump var="Hello">
-		<cfdump var="#params#"><cfabort>
 
 		<cfset course = model("Conferencecourse").findByKey(params.key)>
 
