@@ -496,10 +496,10 @@
 	</cffunction>
 
 	<cffunction name="getInstructorNamesAsString">
-	<cfargument name="courseid" required="true" type="numeric">
+	<cfargument name="courseid" required="true">
 	<cfset var loc=structNew()>
 	<cfset loc = arguments>
-		<cfset loc.instructors = getInstructors(loc.courseid)>
+		<cfset loc.instructors = getInstructors(val(loc.courseid))>
 		<cfset loc.names = "">
 		<cfloop query="loc.instructors">
 			<cfset loc.names = loc.names & ", " & "#linkto(text=selectName, controller='conference.instructors', action='show', key=id)#">
