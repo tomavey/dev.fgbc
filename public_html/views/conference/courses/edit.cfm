@@ -12,6 +12,8 @@
 		
 			#putFormTag()#		
 
+			#hiddenTagForKeyy()#
+
 			#includePartial("form")#														
 				
 			#submitTag()#
