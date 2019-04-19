@@ -906,7 +906,7 @@ function hiddenTagForKeyy() {
 	}		
 }
 
-function putFormTag() {
+function XputFormTag() {
 	var returnString = '<input type="hidden" name="_method" value="put" />';
 	if ( len(hiddenTagForKeyy()) ) { returnString = returnString & hiddenTagForKeyy() };	
 	return	returnString;
@@ -914,7 +914,7 @@ function putFormTag() {
 
 </cfscript>
 
-<cffunction name="XputFormTag">
+<cffunction name="putFormTag">
 	<cfreturn '<input type="hidden" name="_method" value="put" />'>
 </cffunction>
 
