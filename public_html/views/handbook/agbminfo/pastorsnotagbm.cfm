@@ -1,4 +1,5 @@
 <cfparam name="srpastors" type="query">
+<!--- <cfdump var="#srpastors#"><cfabort> --->
 <cfset count = 1>
 <cfif NOT isDefined("params.download")>
 	<cfoutput>
@@ -45,6 +46,7 @@
 		<th>Church City</th>
 		<th>Church Email</th>
 		<th>Church Zip</th>	
+		<th>District</th>
 		<th>Last Payment</th>
 		</tr>
 <cfelse>
@@ -77,6 +79,7 @@
 			<td>#org_city#</td>
 			<td>#Handbookorganizationstate_mail_abbrev#</td>
 			<td>#Handbookorganizationzip#</td>	
+			<td>#getDistrictName(districtid)#</td>
 			<td>
 				<cfif showpaylink>#lastpaymentinfo#</cfif>
 			</td>

@@ -420,6 +420,14 @@ public function testIsAgbmMember(){
 	writeDump(return);abort;
 }
 
+public function getDistrictName(id){
+	var district = model("Handbookdistrict").findOne(where="districtid=#id#");
+	if (isObject(district)) { 
+		return district.district;
+	}
+	return "NA";
+}
+
 </cfscript>
 
 </cfcomponent>
