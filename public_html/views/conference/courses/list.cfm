@@ -51,7 +51,6 @@
 				<p class="workshopdescription">
 					#description#
 				</p>
-			</cftry>	
 				<cftry>
 				<p class="subtypedesc alert">
 					#getSubtypeDesc(subtype)#
