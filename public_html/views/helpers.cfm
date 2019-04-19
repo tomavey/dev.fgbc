@@ -720,10 +720,6 @@
 <cfreturn loc.return>
 </cffunction>
 
-<cffunction name="putFormTag">
-	<cfreturn '<input type="hidden" name="_method" value="put" />'>
-</cffunction>
-
 <cffunction name="dateText">
 <cfargument name="begin" required="yes" type="string">
 <cfargument name="end" required="yes" type="string">
@@ -910,4 +906,15 @@ function hiddenTagForKeyy() {
 	}		
 }
 
+function putFormTag() {
+	var returnString = '<input type="hidden" name="_method" value="put" />';
+	if ( len(hiddenTagForKeyy()) ) { returnString = returnString & hiddenTagForKeyy() };	
+	return	returnString;
+}
+
 </cfscript>
+
+<cffunction name="XputFormTag">
+	<cfreturn '<input type="hidden" name="_method" value="put" />'>
+</cffunction>
+
