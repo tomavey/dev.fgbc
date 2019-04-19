@@ -43,6 +43,8 @@
 						<p class="subtype">#subtypes[subtype]#</p>
 						</cfif>
 					</cfif>
+
+					<cfif len(descriptionLong)>
 						<cfset description = descriptionlong>
 					<cfelse>
 						<cfset description = descriptionshort>
@@ -86,75 +88,75 @@
 					</p>
 				</cfif>
 
-		<cfif showFacilitatorsWithCourse()>	
+				<cfif showFacilitatorsWithCourse()>	
 
-			<cfset instructors = "">
-			<cfset count = 0>
-				<cfoutput>
-					<cfset imageFile = "/images/conference/instructors/#picThumb#">
-						<cfif len(bioweb) && len(picThumb) && fileExists(expandPath("/images/conference/instructors/#picThumb#"))>
-							<cfset instructors = instructors & '<li>' & #imageTag(source="/conference/instructors/#picThumb#", class="instructorpic")# & #pedigree# & ' ' & #fullname# & ': ' & #bioweb# & #editInstructorLink(instructorid)# & '</li><li class="clearfix">&nbsp;</li>'>
-						<cfelseif len(bioweb) && len(picThumb)>
-							<cfset instructors = instructors & '<li>' & #imageTag(source="/conference/instructors/imagemissing.jpg", class="instructorpic")# & #pedigree# & ' ' & #fullname# & ': ' & #bioweb# & #editInstructorLink(instructorid)# & '</li><li class="clearfix">&nbsp;</li>'>
-						<cfelseif len(bioweb)>
-							<cfset instructors = instructors & '<li>' & #pedigree# & ' ' & #fullname# & ': ' & #bioweb# & #editInstructorLink(instructorid)# & '</li>'>
+					<cfset instructors = "">
+					<cfset count = 0>
+						<cfoutput>
+							<cfset imageFile = "/images/conference/instructors/#picThumb#">
+								<cfif len(bioweb) && len(picThumb) && fileExists(expandPath("/images/conference/instructors/#picThumb#"))>
+									<cfset instructors = instructors & '<li>' & #imageTag(source="/conference/instructors/#picThumb#", class="instructorpic")# & #pedigree# & ' ' & #fullname# & ': ' & #bioweb# & #editInstructorLink(instructorid)# & '</li><li class="clearfix">&nbsp;</li>'>
+								<cfelseif len(bioweb) && len(picThumb)>
+									<cfset instructors = instructors & '<li>' & #imageTag(source="/conference/instructors/imagemissing.jpg", class="instructorpic")# & #pedigree# & ' ' & #fullname# & ': ' & #bioweb# & #editInstructorLink(instructorid)# & '</li><li class="clearfix">&nbsp;</li>'>
+								<cfelseif len(bioweb)>
+									<cfset instructors = instructors & '<li>' & #pedigree# & ' ' & #fullname# & ': ' & #bioweb# & #editInstructorLink(instructorid)# & '</li>'>
+								<cfelse>
+									<cfset instructors = instructors & '<li>' & #pedigree# & ' ' & #fullname# & #editInstructorLink(instructorid)# & '</li>'>
+								</cfif>
+								<cfif len(fullname)>
+									<cfset count = count +1>
+								</cfif>
+							</cfoutput>
+
+						<cfif count EQ 0>
+							<div class="facilitators">&nbsp;
+						<cfelseif count EQ 1>
+							<div class="facilitators">#instructorname# ...
 						<cfelse>
-							<cfset instructors = instructors & '<li>' & #pedigree# & ' ' & #fullname# & #editInstructorLink(instructorid)# & '</li>'>
+							<div class="facilitators">#pluralize(instructorname)#...
 						</cfif>
-						<cfif len(fullname)>
-							<cfset count = count +1>
+						<cfif count><!---So that the <li> does not even show if no facilitators--->
+							<ul>
+								<li>#instructors#</li>
+							</ul>
+						</cfif>	
+						</div>
+				</cfif>
+
+				<cfif len(commentpublic)>
+					<div class="moreinstructions">
+						#linkto(text="additional instructions", action="view", key=id, class="btn btn-block")#
+					</div>
+				</cfif>
+
+				<div class="#questionsClass#">
+					<p class="questionsheader well" id="questionsheader">These questions have been posted by folks who have signed up for this cohort.<br/>Cohort facilitators will use these questions and others for discussion starters by the group.</p>
+					<cfset questionscounter = 1>
+					<cfset maxCount = 10>
+					<cfoutput>
+						<cfif questionscounter LTE maxcount>
+						<p>#question#</p>
 						</cfif>
+						<cfset questionscounter = questionscounter + 1>
 					</cfoutput>
-
-				<cfif count EQ 0>
-					<div class="facilitators">&nbsp;
-				<cfelseif count EQ 1>
-					<div class="facilitators">#instructorname# ...
-				<cfelse>
-					<div class="facilitators">#pluralize(instructorname)#...
-				</cfif>
-				<cfif count><!---So that the <li> does not even show if no facilitators--->
-					<ul>
-						<li>#instructors#</li>
-					</ul>
-				</cfif>	
-				</div>
-		</cfif>
-
-			<cfif len(commentpublic)>
-				<div class="moreinstructions">
-					#linkto(text="additional instructions", action="view", key=id, class="btn btn-block")#
-				</div>
-			</cfif>
-
-			<div class="#questionsClass#">
-				<p class="questionsheader well" id="questionsheader">These questions have been posted by folks who have signed up for this cohort.<br/>Cohort facilitators will use these questions and others for discussion starters by the group.</p>
-				<cfset questionscounter = 1>
-				<cfset maxCount = 10>
-				<cfoutput>
-					<cfif questionscounter LTE maxcount>
-					<p>#question#</p>
+					<cfif questionscounter EQ 2>
+						<p>No questions Yet</p>
 					</cfif>
-					<cfset questionscounter = questionscounter + 1>
-				</cfoutput>
-				<cfif questionscounter EQ 2>
-					<p>No questions Yet</p>
-				</cfif>
-				<cfif questionscounter GT maxcount>
-					#Linkto(text="View more questions", action="view", key=id, class="btn")#
-				</cfif>
-				<!---Not working
-				<cfif 1 eq 2>
-					<script>
-						document.getElementById("questionsheader").innerHTML = "No Questions have been posted yet!";				
-					</script>
-				</cfif>
-				--->
-			</div>
+					<cfif questionscounter GT maxcount>
+						#Linkto(text="View more questions", action="view", key=id, class="btn")#
+					</cfif>
+					<!---Not working
+					<cfif 1 eq 2>
+						<script>
+							document.getElementById("questionsheader").innerHTML = "No Questions have been posted yet!";				
+						</script>
+					</cfif>
+					--->
+				</div>
 
-		</div>
-	<hr/>
-	</cfif>
+			</div>
+		<hr/>
+		</cfif>
 	</cfoutput>
 </cfoutput>
 </div>
