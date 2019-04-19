@@ -38,6 +38,9 @@
 							#linkto(text="Staff Pastor Not-list", route="handbookPastorsNotAgbm", params="type=staffpastors")#
 						</li>
 						<li>
+							#linkto(text="All Pastor Not-list", route="handbookPastorsNotAgbm", params="type=allpastors")#
+						</li>
+						<li>
 							#linkto(text="All Staff Not-list", route="handbookPastorsNotAgbm")#
 						</li>
 						<li>

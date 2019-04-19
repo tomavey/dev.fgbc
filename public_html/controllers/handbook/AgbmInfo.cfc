@@ -239,9 +239,11 @@
 
 	<cffunction name="pastorsNotAgbm">
 	<cfif isDefined("params.type") AND params.type is "seniorpastors">
-		  <cfset wherestring = "p_sortorder = 1 AND ">
+		  <cfset wherestring = "p_sortorder = 1 AND position LIKE '%pastor%' AND ">
 	<cfelseif isDefined("params.type") AND params.type is "staffpastors">
-		  <cfset wherestring = "p_sortorder <> 1 AND position LIKE '%pastor%' AND ">
+		  <cfset wherestring = "p_sortorder > 1 AND position LIKE '%pastor%' AND ">
+	<cfelseif isDefined("params.type") AND params.type is "allpastors">
+		  <cfset wherestring = "position LIKE '%pastor%' AND ">
 	<cfelse>
 		  <cfset wherestring = "p_sortorder < 500 AND ">
 	</cfif>
