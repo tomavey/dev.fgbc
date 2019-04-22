@@ -90,7 +90,7 @@
 
 	<!---route="handbookViewperson", pattern="/handbook/people/[key]"---->
 	<cffunction name="view">
-		<cfset handbookperson = model("Handbookperson").findByKey(key=params.key, include="State,Handbookpositions,Handbookpictures")>
+		<cfset handbookperson = model("Handbookperson").findOne(where="id=#params.key#", include="State,Handbookpositions,Handbookpictures")>
 		<cfset renderPage(layout="/handbook/layout_handbook2")>
 	</cffunction>
 
