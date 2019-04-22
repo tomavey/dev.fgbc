@@ -424,8 +424,7 @@
 
 	<!---get email from #1 staff person and emails from organization--->
 	<cfset loc.org = model("Handbookorganization").findOne(where="id=#arguments.id#", include="Handbookstate")>
-	<cfset loc.leader = model("Handbookperson").findAll(where="organizationid=#arguments.id# AND (p_sortorder = 1 OR gtd = 'Yes')", include="Handbookstate,Handbookpositions")>
-
+	<cfset loc.leader = model("Handbookperson").findAll(where="organizationid=#arguments.id# AND ((p_sortorder = 1 AND gtd <> 'No') OR gtd = 'Yes')", include="Handbookstate,Handbookpositions")>
 
 	<!---add each valid main church email to a list--->
 	<cfif isDefined("loc.org.email") AND isValid("email",loc.org.email)>

@@ -82,7 +82,7 @@
 
 	<cfcatch>
 		<cfset #sendPersonPageErrorNotice()#>
-	        	<cfset redirectTo(action="index", error="Oops! Something went wrong try to access this person.  We are working on a solution. You should be able to continue from this page.")>
+   	<cfset redirectTo(action="index", error="Oops! Something went wrong try to access this person.  We are working on a solution. You should be able to continue from this page.")>
 	</cfcatch>
 	</cftry>
 
