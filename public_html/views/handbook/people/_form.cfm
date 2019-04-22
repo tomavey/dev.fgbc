@@ -70,7 +70,7 @@
 
 						#select(objectName='handbookperson', property='gtd', options="No,Yes", label='GTD Person? ')#
 
-						#select(objectName='handbookperson', property='private', options="No,Yes", label='Not Public? ')#
+						#select(objectName='handbookperson', property='private', options="No,Yes", label='Not Public? (ie: Missionary working in difficult areas) ')#
 					</fieldset>
 					</cfif>
 </cfoutput>
