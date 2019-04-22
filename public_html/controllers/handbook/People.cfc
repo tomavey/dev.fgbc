@@ -92,7 +92,7 @@
 	<cffunction name="view">
 		<cfset handbookperson = model("Handbookperson").findOne(where="id=#params.key#", include="State,Handbookpositions,Handbookpictures")>
 		<cfif handbookperson.private is "yes">
-			<cfset renderText("No such person")>
+			<cfset redirectTo(action="index")>
 		</cfif>
 		<cfset renderPage(layout="/handbook/layout_handbook2")>
 	</cffunction>
