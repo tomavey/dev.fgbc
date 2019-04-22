@@ -68,7 +68,7 @@
 
 						#select(objectName='handbookperson', property='sendHandbook', options="Yes,No", label='Send Handbook: ')#
 
-						#select(objectName='handbookperson', property='gtd', options="No,Yes", label='GTD Person? ')#
+						#select(objectName='handbookperson', property='gtd', options="No,Yes,Never", label='GTD Person? (Use never to ignore for admin mailings) ')#
 
 						#select(objectName='handbookperson', property='private', options="No,Yes", label='Not Public? (ie: Missionary working in difficult areas) ')#
 					</fieldset>

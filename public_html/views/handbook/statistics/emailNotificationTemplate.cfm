@@ -134,7 +134,7 @@
                 <cfloop from="1" to='#arrayLen(statsEmail.Sent)#' index="org">
                     #org#- #statsEmail.Sent[org].emails# for #statsEmail.Sent[org].name# #statsEmail.Sent[org].city#</br>
                 </cfloop>
-                
+                            
 
             </cfoutput>
         </cfif>    
