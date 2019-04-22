@@ -8,7 +8,7 @@
 
 		<p>#linkTo(text="New setting", action="new")#</p>
 		<p>Categories: <cfloop list="#categories#" index="i">
-		#linkto(text=i, controller="admin.settings", action="index", params="category=#i#")# 
+		#linkto(text=i, controller="admin.settings", action="index", params="category=#i#")# |  
 		</cfloop>
 		#linkto(text="All", controller="admin.settings", action="index")#
 		</p>
