@@ -50,6 +50,7 @@
 				</fieldset>
 
 						<cfif !isDefined("params.simple")>
+						<!---Testing nothing--->
 							#includePartial(handbookPerson.handbookPositions)#
 						</cfif>
 
