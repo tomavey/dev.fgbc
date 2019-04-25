@@ -28,7 +28,7 @@
 
 	<!--- nominations/index --->
 	<cffunction name="index">
-	<cfargument name="nominateYear" default="#application.wheels.nominateYear#">
+	<cfargument name="nominateYear" default="#getSetting('nominateYear')#">
 		<cfif isDefined("params.year")>
 			<cfset arguments.nominateYear = params.year>
 		</cfif>
@@ -41,7 +41,7 @@
 	<cfif isDefined("params.year")>
 		<cfset nominateYear = params.year>
 	<cfelse>
-		<cfset nominateYear = application.wheels.nominateYear>
+		<cfset nominateYear = getSetting('nominateYear')>
 	</cfif>
 		<cfset nominations = model("Fgbcnomination").findAll(where="status = 'active' AND year='#nominateYear#'", include="district", order="region")>
 		<cfset nominateMessage = nominateMessage(nominateYear)>
