@@ -1,4 +1,4 @@
-<h1>Nominations for Fellowship Council for <cfoutput>#application.wheels.nominateyear#</cfoutput>:</h1>
+<h1>Nominations for Fellowship Council for <cfoutput>#getSetting("nominateyear")#</cfoutput>:</h1>
 
 <cfoutput>
 
