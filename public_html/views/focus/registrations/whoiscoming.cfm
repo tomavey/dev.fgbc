@@ -5,7 +5,11 @@
 <ul>
 <cfoutput query="whoiscoming" group="registrantid">
 	<cfif fullNameLastFirst NEQ previousperson>
-		<li>#fname# #lname# [#mailto(emailAddress=email, encode=true)#]</li>
+		<li>#fname# #lname# 
+			<cfif gotRights('basic') || isDefined("params.showemailall")>
+				[#mailto(emailAddress=email, encode=true)#]
+			</cfif>
+		</li>
 		<cfset count = count + 1>
 		<cfset emailall = emailall & ';' & email>
 	</cfif>
