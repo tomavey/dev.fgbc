@@ -2,7 +2,7 @@
 
 	<!--- filters --->
 	<cffunction name="init">
-		<cfset filters(through="showContent", except="contactUs,cci,commoncommitment,ccm")>
+		<cfset filters(through="showContent", except="contactUs,cci,cci_es,commoncommitment,ccm")>
 		<cfreturn this>
 	</cffunction>
 
@@ -77,6 +77,9 @@
 
 	<cfscript>
 		public function cci(){
+		}
+
+		public function cci_es(){
 		}
 
 		public function getFootnote(id){

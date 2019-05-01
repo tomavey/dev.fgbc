@@ -435,6 +435,13 @@
 	<cfset args = structNew()>
 	<cfset statsEmail.Sent = []>
 	<cfset statsEmail.Failed = []>
+	<cfscript>
+			if (getSetting('SendHandbookStatsReminderCopy')) {
+				args.bcc = getSetting('SendHandbookStatsReminderCopyTo');
+			} else {
+				args.bcc = "";
+			};
+	</cfscript>
 
 		<cfif isDefined("params.test")>
 			<cfset churches = makeTestList()>
@@ -451,7 +458,7 @@
 			<cfset args.id = id>
 			<cfif !onLocalhost()>
 				<cftry>
-					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", bcc="tomavey@fgbc.org", subject="Charis Fellowship Stats and Fee are due May 15.", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
+					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", bcc=args.bcc, subject="Charis Fellowship Stats and Fee are due May 15.", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
 					<cfset arrayAppend(statsEmail.sent, args)>
 				<cfcatch>
 					<cfset arrayAppend(statsEmail.failed, args)>

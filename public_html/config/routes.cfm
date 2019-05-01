@@ -700,6 +700,8 @@
 		.get(name="access2019", pattern="/access2019", controller="conference.register", action="welcome")
 		.get(name="cci", pattern="/cci", controller="about", action="cci")
 		.get(name="ccci", pattern="/ccci", controller="about", action="cci")
+		.get(name="cci_es", pattern="/cci", controller="about", action="cci_es")
+		.get(name="ccci_es", pattern="/ccci", controller="about", action="cci_es")
 		.get(name="ccm", pattern="/ccm", controller="about", action="commonCommitment")
 		.get(name="cccm", pattern="/cccm", controller="about", action="commonCommitment")
 		.get(name="ouridentity", pattern="/ouridentity", controller="about", action="cci")
