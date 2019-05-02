@@ -1,141 +1,95 @@
-<cfcomponent extends="Controller" output="false">
+component extends="Controller" output="false" {
+	
+	<!--- Initialize --->
+	function init(){
+		filters(through="isSuperadmin", only="index,edit,show,new,delete")
+		filters(through="setReturn", only="list,index,show")
+		filters(through="getEvent", only="copy,edit,update")
+	}	
 
-	<cffunction name="init">
-		<cfset filters(through="isSuperadmin", only="index,edit,show,new,delete")>
-		<cfset filters(through="setReturn", only="list,index,show")>
-		<!---
-		<cfset filters(through="logview")>
-		--->
-	</cffunction>
+	<!--- filters --->
+	function getEvent(){
+		event = model("Mainevent").findByKey(params.key)
+	}
 
 <!--------------------------------->
 <!------------CRUD----------------->
 <!--------------------------------->
 
-
 	<!--- events/index --->
-	<cffunction name="index">
-		<cfif isDefined("params.sortby")>
-			<cfswitch expression="#params.sortby#">
-				<cfcase value="ascendingDates">
-					<cfset orderString = "begin,end">
-				</cfcase>
-				<cfcase value="sponsor">
-					<cfset orderString = "sponsor">
-				</cfcase>
-				<cfcase value="event">
-					<cfset orderString = "event">
-				</cfcase>
-				<cfdefaultcase>
-					<cfset orderString = "begin DESC,end">
-				</cfdefaultcase>
-			</cfswitch>
-		<cfelse>
-			<cfset orderString = "begin DESC,end">
-		</cfif>
-		<cfset events = model("Mainevent").findAll(order=orderString)>
-		<cfset session.return = params.action>
-	</cffunction>
-	
-	<!--- events/show/key --->
-	<cffunction name="show">
-		
-		<cfif isdefined("params.key")>
-			<!--- Find the record --->
-	    	<cfset event = model("Mainevent").findAll(where="id=#params.key#")>
-	    	
-		<cfelse>
-		
-			<cfset event = model("Mainevent").findAll(order="begin,end")>
-	
-		</cfif>	
-			
-	</cffunction>
-	
+	function index(){
+		var orderString = 'begin DESC,end';
+		if(isDefined('params.sortby')){
+			if (params.sortBy is 'ascendingDates') { orderString = "begin,end"}
+			if (params.sortBy is 'sponsor') { orderString = "sponsor"}
+			if (params.sortBy is 'event') { orderString = "event"}
+		}
+		events = model("Mainevent").findAll(order=orderString);
+	}
+
+	<!--- events/show --->
+	function show(){
+		if (!isDefined('params.key')){ writeOutput("No event selected"); abort; }
+		event = model("Mainevent").findAll(where="id=#params.key#")
+	}
+
 	<!--- events/new --->
-	<cffunction name="new">
-		<cfset event = model("Mainevent").new()>
-	</cffunction>
+	function new() {
+		event = model("Mainevent").new()
+	}
 
 	<!--- events/copy/key ---->
-	<cffunction name="copy">
-	
-		<!--- Find the record --->
-    	<cfset event = model("Mainevent").findByKey(params.key)>
-    	
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(event)>
-	        <cfset flashInsert(error="Event #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
+	function copy(){
+		if (!isObject(event)) {
+			flashInsert(error="Event #params.key# was not found")
+			returnBack()
+		}
+		renderPage(action="new")
+	}
 
-	    <cfset renderPage(action="new")>
-		
-	</cffunction>
-	
 	<!--- events/edit/key --->
-	<cffunction name="edit">
-	
-		<!--- Find the record --->
-    	<cfset event = model("Mainevent").findByKey(params.key)>
+	function edit(){
+		event.begin = dateformat(event.begin,"yyyy-mm-dd")
+		event.end = dateformat(event.end,"yyyy-mm-dd")
+		if (!isObject(event)) {
+			flashInsert(error="event #params.key# was not found")
+			redirectTo(action="index")
+		}
+	}
 
-    	<cfset event.begin = dateformat(event.begin,"yyyy-mm-dd")>
-    	<cfset event.end = dateformat(event.end,"yyyy-mm-dd")>
-    	
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(event)>
-	        <cfset flashInsert(error="event #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-		
-	</cffunction>
-	
 	<!--- events/create --->
-	<cffunction name="create">
-		<cfset event = model("Mainevent").new(params.event)>
-		
-		<!--- Verify that the event creates successfully --->
-		<cfif event.save()>
-			<cfset flashInsert(success="The FGBC event was created successfully.")>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error creating the event.")>
-			<cfset renderPage(action="new")>
-		</cfif>
-	</cffunction>
-	
+	function create(){
+		event = model("Mainevent").new(params.event)
+		if (event.save()) {
+			flashInsert(success="The FGBC event was created successfully.")
+			redirectTo(action="index")
+		} else {
+			flashInsert(error="There was an error creating the event.")
+			renderPage(action="new")
+		}
+	}
+
 	<!--- events/update --->
-	<cffunction name="update">
-		<cfset var return="">
-		<cfset event = model("Mainevent").findByKey(params.key)>
+	function update() {
+		if (event.update(params.event)){
+			flashInsert(success="The Charis Fellowship event was updated successfully.")
+			returnBack()
+		} else {
+			flashInsert(error="There was an error updating the event.")
+			renderPage(action="edit")
+		}
+	}
 
-		<!--- Verify that the event updates successfully --->
-		<cfif event.update(params.event)>
-			<cfset eventnew = model("Mainevent").findByKey(params.key)>
-			<cfset flashInsert(success="The FGBC event was updated successfully.")>	
-            <cfset returnBack()>
-
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the event.")>
-			<cfset renderPage(action="edit")>
-		</cfif>
-	</cffunction>
-	
 	<!--- events/delete/key --->
-	<cffunction name="delete">
-		<cfset event = model("Mainevent").findByKey(params.key)>
-		
-		<!--- Verify that the event deletes successfully --->
-		<cfif event.delete()>
-			<cfset flashInsert(success="The event was deleted successfully.")>	
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error deleting the event.")>
-			<cfset redirectTo(action="index")>
-		</cfif>
-	</cffunction>
-	
-</cfcomponent>
+	function delete(){
+		event = model("Mainevent").findByKey(params.key)
+		if (event.delete()) {
+			flashInsert(success="The event was deleted successfully.")
+			redirectTo(action="index")
+		} else {
+			flashInsert(error="There was an error deleting the event.")
+			redirectTo(action="index")
+		}
+	}
+
+}

@@ -1,4 +1,6 @@
-<cfcomponent extends="Controller" output="false"><cfscript>
+<cfcomponent extends="Controller" output="false">
+
+<cfscript>
   
   function init(){
     usesLayout(template="/conference/adminlayout", only="index");
