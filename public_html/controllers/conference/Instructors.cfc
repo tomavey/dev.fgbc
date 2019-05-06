@@ -150,12 +150,13 @@
 
 	<cffunction name="listInstructorsAsJson">
 		<cfset data = model("Conferenceinstructor").findInstructorsAsJson(params)>
-	        	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+	  <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="listspeakersAsJson">
 		<cfset data = model("Conferenceinstructor").findSpeakersAsJson(params)>
-	        	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+		<cfdump var="#data#"><cfabort>
+   	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="listStaffAsJson">

@@ -33,14 +33,15 @@
         <cfset var loc=structNew()>
         <cfset loc = arguments.params>
         <cfset loc.selectString = "ID, lname, fname, bioWeb,picBig,picThumb,pic120x120,event">
-        <cfset loc.whereString = 'id > 0 AND tags IN (#commaListToQuoteList(arguments.tags)#)'>
+        <cfset loc.whereString = "id > 0 AND tags LIKE '%#arguments.tags#%'">
 
         <cfif isDefined("loc.id")>
             <cfset loc.whereString = loc.whereString & " AND ID = #loc.id#">
         <cfelse>        
             <cfset loc.whereString = loc.whereString & " AND event='#getEvent()#'">
         </cfif>
-
+        
+        <!--- <cfdump var="#loc.whereString#"><cfabort> --->
         <cfset loc.speakers = findall(where=loc.whereString, select=loc.selectString, order="lname,fname")>
         <cfset loc.speakers = queryToJson(loc.speakers)>
 
