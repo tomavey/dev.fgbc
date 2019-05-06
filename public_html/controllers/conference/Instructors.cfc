@@ -153,16 +153,21 @@
 	  <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
-	<cffunction name="listspeakersAsJson">
+	<!--- <cffunction name="listSpeakersAsJson">
 		<cfdump var="listspeakersAsJson"><cfabort>
 		<cfset data = model("Conferenceinstructor").findSpeakersAsJson(params)>
 		<cfdump var="#params#"><cfabort>
    	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+	</cffunction> --->
+	
+	<cffunction name="speakersAsJson">
+		<cfset data = model("Conferenceinstructor").findStaffAsJson(params)>
+	  <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="listStaffAsJson">
 		<cfset data = model("Conferenceinstructor").findStaffAsJson(params)>
-	        	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+	  <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 <cfscript>
