@@ -1,16 +1,135 @@
 <cfcomponent extends="Controller" output="false">
 	
-	<cffunction name="init">
+
+<cfscript>
+
+	function init(){
+		filters(through="setReturn", only="list,index,show")
+	}
+
+	function index(){
+		jobs = model("Mainjob").findAll(order="createdAt DESC")
+	}
+
+	function show(){
+		if (isDefined('params.key')){
+			job = model("Mainjob").findAll(where="id=#params.key#")
+		} elseif (gotrights("superadmin,office")) {
+			job = model("Mainjob").findAll(order="id DESC")
+		} else {
+			job = model("Mainjob").findAll(where="expirationdate > now() AND approved='Y'", order="id DESC")
+		}
+	}
+
+	function new(){
+		job = model("Mainjob").new()
+		strCaptcha = getcaptcha()
+	}
+
+	function edit(){
+		job = model("Mainjob").findByKey(params.key)
+		strCaptcha = getcaptcha()
+		if (!IsObject(job)) {
+			flashInsert(error="Job #params.key# was not found")
+			redirectTo(action="index")
+		}
+	}
+
+	function create(){
+		if (len(params.captcha) AND params.captcha is decrypt(params.captcha_check,application.wheels.passwordkey,"CFMX_COMPAT","HEX")) {
+			params.job.uuid = replace(CreateUUID(),"-","","all")
+			job = model("Mainjob").new(params.job)
+			if (job.save()) {
+				flashInsert(success="The Job was created successfully.")
+				redirectTo(action="sendnotice", key=job.id)
+			} else {
+				flashInsert(error=errorMessagesFor("job"))
+				job = model("Mainjob").new(params.job)
+				strCaptcha = getcaptcha()
+				renderPage(action="new")
+			}
+		} else {
+			flashInsert(error="Please try to enter the scrambled image again.")
+			job = model("Mainjob").new(params.job)
+			strCaptcha = getcaptcha()
+			renderPage(action="new")
+		}
+	}
+
+	function update() {
+		job = model("Mainjob").findByKey(params.key)
+		if(job.update(params.job)){
+			flashInsert(success="The job was updated successfully.")
+			redirectTo(action="index")
+		} else {
+			flashInsert(error="There was an error updating the job.")
+			renderPage(action="edit")
+		}
+	}
+
+	function delete(){
+		job = model("Mainjob").findByKey(params.key)
+		if (job.delete()){
+			flashInsert(success="The job was deleted successfully.")
+			redirectTo(action="index")
+		} else {
+			flashInsert(error="There was an error deleting the job.")
+			redirectTo(action="index")
+		}
+	}
+
+
+	<!---Services--->
+	function sendnotice() {
+		job = model("Mainjob").findByKey(params.key)
+		if(!isLocalMachine()){
+			sendEmail(template="emailjob", from=job.email, to=sendJobNoticesTo(), subject="New Jobs Post", key=params.key, description=job.description)
+		}
+		redirectTo(action="thankyou", key=params.key)
+	}
+
+	function sendJobNoticesTo(){
+		return getSetting("sendJobNoticesTo");
+	}
+
+	function sendnotice(){
+		job = model("Mainjob").findByKey(params.key)
+		if (!isLocalMachine()){
+			sendEmail(template="emailjob", from=job.email, to=sendJobNoticesTo(), subject="New Jobs Post", key=params.key, description=job.description)
+		}
+		redirectTo(action="thankyou", key=params.key)
+	}
+	
+	function approve(){
+		job = model("Mainjob").findByKey(params.key)
+		job.approved = "Y"
+		job.update()
+		job = model("Mainjob").findAll(where="id=#params.key#")
+		renderPage(controller="jobs", action="show")
+	}
+
+	function rss(){
+		jobs = model("Mainjob").findAll(where="approved='y' AND expirationDate > now()", order="createdAt DESC")
+		title = "FGBC Jobs"
+		description= "Ministry Positions posted by Charis Fellowship"
+		renderPage(template="rss.cfm", layout="rsslayout")
+	}
+
+
+
+</cfscript>	
+
+	<cffunction name="Xinit">
 		<cfset filters(through="setReturn", only="list,index,show")>
 	</cffunction>
 
 	<!--- jobs/index --->
-	<cffunction name="index">
+	<cffunction name="Xindex">
 		<cfset jobs = model("Mainjob").findAll(order="createdAt DESC")>
 	</cffunction>
 	
 	<!--- jobs/show/key --->
-	<cffunction name="show">
+	<cffunction name="Xshow">
 		
 		<cfif isdefined("params.key")>
 			<!--- Find the record --->
@@ -29,13 +148,13 @@
 	</cffunction>
 	
 	<!--- jobs/new --->
-	<cffunction name="new">
+	<cffunction name="Xnew">
 		<cfset job = model("Mainjob").new()>
 		<cfset strCaptcha = getcaptcha()>
 	</cffunction>
 	
 	<!--- jobs/edit/key --->
-	<cffunction name="edit">
+	<cffunction name="Xedit">
 	
 		<!--- Find the record --->
     	<cfset job = model("Mainjob").findByKey(params.key)>
@@ -50,7 +169,7 @@
 	</cffunction>
 	
 	<!--- jobs/create --->
-	<cffunction name="create">
+	<cffunction name="Xcreate">
 		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
 
 			<cfset params.job.uuid = CreateUUID()>
@@ -79,7 +198,7 @@
 	</cffunction>
 	
 	<!--- jobs/update --->
-	<cffunction name="update">
+	<cffunction name="Xupdate">
 		<cfset job = model("Mainjob").findByKey(params.key)>
 		
 		<!--- Verify that the job updates successfully --->
@@ -94,12 +213,12 @@
 	</cffunction>
 
 	<cfscript>
-		function sendJobNoticesTo(){
+		function XsendJobNoticesTo(){
 			return getSetting("sendJobNoticesTo");
 		}
 	</cfscript>
 	
-	<cffunction name="sendnotice">
+	<cffunction name="Xsendnotice">
 		<!--- Find the record --->
     	<cfset job = model("Mainjob").findByKey(params.key)>
 		<cfif !isLocalMachine()>
@@ -108,7 +227,7 @@
 		<cfset redirectTo(action="thankyou", key=params.key)>
 	</cffunction>
 	
-	<cffunction name="approve">
+	<cffunction name="Xapprove">
 	    	<cfset job = model("Mainjob").findByKey(params.key)>
 			<cfset job.approved = "Y">
 			<cfset job.update()>
@@ -118,7 +237,7 @@
 
 	
 	<!--- jobs/delete/key --->
-	<cffunction name="delete">
+	<cffunction name="Xdelete">
 			<cfset job = model("Mainjob").findByKey(params.key)>
 			
 			<!--- Verify that the job deletes successfully --->
@@ -132,7 +251,7 @@
 			</cfif>
 	</cffunction>
 	
-	<cffunction name="rss">
+	<cffunction name="Xrss">
 		<cfset jobs = model("Mainjob").findAll(where="approved='y' AND expirationDate > now()", order="createdAt DESC")>
 		
 		<cfset title = "FGBC Jobs">
@@ -140,7 +259,7 @@
 		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
 	</cffunction>
 
-	<cffunction name="addUuids">
+	<cffunction name="XaddUuids">
 	<cfargument name="jobs" required="true" type="query">
 	<cfset var loc = arguments>
 		<cfloop query="loc.jobs">
