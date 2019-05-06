@@ -33,7 +33,7 @@
         <cfset var loc=structNew()>
         <cfset loc = arguments.params>
         <cfset loc.selectString = "ID, lname, fname, bioWeb,picBig,picThumb,pic120x120,event">
-        <cfset loc.whereString = "id > 0 AND tags LIKE '%#arguments.tags#%'">
+        <cfset loc.whereString = "id > 0 AND tags IN (#commaListToQuoteList(arguments.tags)#)">
 
         <cfif isDefined("loc.id")>
             <cfset loc.whereString = loc.whereString & " AND ID = #loc.id#">
