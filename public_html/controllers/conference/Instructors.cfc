@@ -161,7 +161,7 @@
 	</cffunction> --->
 	
 	<cffunction name="speakersAsJson">
-		<cfset data = model("Conferenceinstructor").findStaffAsJson(params)>
+		<cfset data = model("Conferenceinstructor").findSpeakersAsJson(params)>
 	  <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
