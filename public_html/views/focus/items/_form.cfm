@@ -12,6 +12,8 @@
 
 						#textField(objectName='item', property='maxtosell', label='Maximum available to sell: ')#
 
+						#select(objectName='item', property='regCount', options="0,1,2", label='Reg Count (for summary report)')#
+
 						#textArea(objectName='item', property='popup', label='Popup: ', cols="40")#
 
 						#select(objectName='item', property='alertwhenselected', label='Alert when selected? ', options="No,Yes")#

@@ -204,6 +204,25 @@
 		<cfset renderPage(layout="/focus/layout2")>
 	</cffunction>
 
+	<cffunction name="countRegsToDate">
+		<cfargument name="retreatID" required="true">
+		<cfif !isNumeric(arguments.retreatId)>
+			<cfset arguments.retreatId = getIdFromRegid(arguments.retreatId)>
+		</cfif>
+		<cfset var regs = model("Focusregistration").findAll(where="retreatId = #arguments.retreatID#", include="item")>
+		<cfset var total = 0>
+		<cfloop query=regs>
+			<cfset total = total + val(regCount)>
+		</cfloop>
+		<cfreturn total>
+	</cffunction>
+
+	<cffunction name="getIdFromRegid">
+		<cfargument name="regId" required="true">
+		<cfset retreat = model("focusretreat").findOne(where="regId = '#arguments.regId#'")>
+		<cfreturn retreat.id>
+	</cffunction>
+
 	<cffunction name="summary">
 	<cfargument name="asOf" default="#now()#">
 	<cfset regs = structNew()>
@@ -212,9 +231,8 @@
 		<cfset asof = params.asof>
 	</cfif>
 
-		<cfloop list="Central18ThreePlusShare,Central18NoLodging,Central18TwoShare,Central18PrivateNearbyHotel,Central18CoupleNearbyHotel" index="i">
-			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-0,asof))>
-		</cfloop>
+		<cfset regs.central18total = countRegsToDate("central18",-0,asof)>
+
 		<cfloop list="central17single,central17singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,asof))>
 		</cfloop>
@@ -234,9 +252,11 @@
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-6,asof))>
 		</cfloop>
 
-		<cfloop list="east18single,east18singleprivate,east18Couple" index="i">
+		<cfset regs.east18total = countRegsToDate("east18")>
+
+		<!--- <cfloop list="east18single,east18singleprivate,east18Couple" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",0,asof))>
-		</cfloop>
+		</cfloop> --->
 		<cfloop list="east17single,east17singleprivate,east17Couple" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,asof))>
 		</cfloop>
@@ -332,7 +352,7 @@
 			<cfset regs.east15total = regs.east15single + regs.east15singleprivate>
 			<cfset regs.east16total = regs.east16single + regs.east16singleprivate>
 			<cfset regs.east17total = regs.east17single + regs.east17singleprivate + regs.east17couple>>
-			<cfset regs.east18total = regs.east18single + regs.east18singleprivate + regs.east18couple>
+			<!--- <cfset regs.east18total = regs.east18single + regs.east18singleprivate + regs.east18couple> --->
 			
 			<cfset regs.central12total = regs.centralsingle + regs.centralprivate>
 			<cfset regs.central13total = regs.central13single + regs.central13singleprivate>
@@ -340,7 +360,7 @@
 			<cfset regs.central15total = regs.central15single + regs.central15singleprivate>
 			<cfset regs.central16total = regs.central16single + regs.central16singleprivate>
 			<cfset regs.central17total = regs.central17single + regs.central17singleprivate>
-			<cfset regs.central18total = regs.Central18ThreePlusShare + regs.Central18NoLodging + regs.Central18TwoShare + regs.Central18PrivateNearbyHotel + regs.Central18CoupleNearbyHotel>
+			<!--- <cfset regs.central18total = regs.Central18ThreePlusShare + regs.Central18NoLodging + regs.Central18TwoShare + regs.Central18PrivateNearbyHotel + regs.Central18CoupleNearbyHotel> --->
 
 			<cfset regs.southwest13total = regs.SWSingle + regs.SWPrivate>
 			<cfset regs.southwest14total = regs.SW14Shared + regs.SW14Private>

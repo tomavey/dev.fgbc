@@ -2,6 +2,7 @@
 	
 	<cffunction name="init">
 		<cfset table("focus_retreats")>
+		<cfset hasMany(name='focusitems', modelName="Focusitem", foreignKey="id")>
 
 <!---Use on laptop--->
 		<cfset uploadableFile(property="image", destination="#replace(GetBaseTemplatePath(),'index.cfm','')#images/")>		
