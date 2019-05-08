@@ -256,6 +256,9 @@
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-6,asof))>
 		</cfloop>
 
+		<cfloop list="SW19Single1,SW19Single2,SW19SinglePrivate" index="i">
+			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-0,asof))>
+		</cfloop>
 		<cfloop list="SW18SinglePrivate,SW18Single" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,asof))>
 		</cfloop>
@@ -276,6 +279,9 @@
 		</cfloop>
 
 
+		<cfloop list="South19Single,South19Double,South19Triple" index="i">
+			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-0,asof))>
+		</cfloop>
 		<cfloop list="South2018Sgl,South2018Dbl" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,asof))>
 		</cfloop>
@@ -295,6 +301,9 @@
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-6,asof))>
 		</cfloop>
 
+		<cfloop list="FocusNW19" index="i">
+			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-0,asof))>
+		</cfloop>
 		<cfloop list="FocusNW18" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,asof))>
 		</cfloop>
@@ -339,7 +348,7 @@
 			<cfset regs.southwest16total = regs.SW16Single + regs.SW16SinglePrivate>
 			<cfset regs.southwest17total = regs.SW17Single + regs.SW17SinglePrivate>
 			<cfset regs.southwest18total = regs.SW18Single + regs.SW18SinglePrivate>
-			<cfset regs.southwest19total = "NA">
+			<cfset regs.southwest19total = regs.SW19Single1 + regs.SW19Single2 + regs.SW19SinglePrivate>
 
 			<cfset regs.south13total = regs.focusSouth2013Sgl + regs.focusSouth2013Dbl>
 			<cfset regs.south14total = regs.focusSouth2014Sgl + regs.focusSouth2014Dbl>
@@ -347,7 +356,7 @@
 			<cfset regs.south16total = regs.South2016Sgl + regs.South2016Dbl>
 			<cfset regs.south17total = regs.South2017Sgl + regs.South2017Dbl>
 			<cfset regs.south18total = regs.South2018Sgl + regs.South2018Dbl>
-			<cfset regs.south19total = "NA">
+			<cfset regs.south19total = regs.South19Single + regs.South19Double + regs.South19Triple>
 
 			<cfset regs.northwest13total = regs.focusNW>
 			<cfset regs.northwest14total = regs.FocusNW2014>
@@ -356,7 +365,7 @@
 			<cfset regs.northwest16total = regs.FocusNW16>
 			<cfset regs.northwest17total = regs.FocusNW17>
 			<cfset regs.northwest18total = regs.FocusNW18>
-			<cfset regs.northwest19total = "NA">
+			<cfset regs.northwest19total = regs.FocusNW19>
 
 	</cffunction>
 
