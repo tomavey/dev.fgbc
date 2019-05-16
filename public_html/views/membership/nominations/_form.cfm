@@ -1,9 +1,10 @@
 <cfoutput>
 #ckeditor()#
+
 						<cfif gotRights("office")>
 							<p>#textField(objectName='nominations', property='year', label="Nominate year: ")#</p>
 						<cfelse>
-							#hiddenFieldTag(name="nominations[year]", value=application.wheels.nominateyear)#
+							#hiddenField(objectName='nominations', property='year')#
 						</cfif>
 
 						<p>#textField(objectName='nominations', property='name', label="Name of person filling out this form (that's you!): ")#</p>

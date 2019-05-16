@@ -78,6 +78,7 @@
 	<cffunction name="new">
 		<cfif isBefore("#year(now())#-07-01") OR isDefined("params.open") OR gotRights("office")>
 			<cfset nominations = model("Fgbcnomination").new()>
+			<cfset nominations.year = getSetting('nominateYear')>
 			<cfset nominations.status = "Pending">
 			<cfset districts = model("Handbookdistrict").findAll()>
 		<cfelse>
@@ -102,6 +103,7 @@
 
 	<!--- nominations/create --->
 	<cffunction name="create">
+
 		<cfset nominations = model("Fgbcnomination").create(params.nominations)>
 
 		<!--- Verify that the nominations creates successfully --->

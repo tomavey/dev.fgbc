@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset table("fc_nominations")>
-		<cfset property(name="year", defaultValue=year(now()))>
+		<!--- <cfset property(name="year", defaultValue=year(now()))> --->
 		<cfset belongsTo(name="District", modelName="Handbookdistrict", foreignKey="districtID")>
 	</cffunction>
 
