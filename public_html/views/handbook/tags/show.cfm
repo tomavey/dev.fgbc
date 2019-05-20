@@ -107,6 +107,7 @@
 
 		<cfset emailall = replace(emailall,";","","one")>
 		<cfset emailAllComma = replace(emailall,";",",","all")>
+		
 		<cfoutput>
 		
 <p>#linkTo(text='Email Everyone Tagged "#params.key#" (semicolon delimited)', href="mailto:#emailall#", class="btn tooltipside", title="This will create one email message in your email client (ie:outlook) to all these people/organizations" )#</p>

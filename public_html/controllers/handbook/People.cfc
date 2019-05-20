@@ -7,6 +7,7 @@
 		<cfset filters(through="getChurches", only="new,edit,create,update")>
 		<cfset filters(through="setReturn", only="show,bluepages,distribution")>
 		<cfset filters(through="setIsAgbmAdmin")>
+		<cfset provides("json")>
 	</cffunction>
 
 <!---Filters--->
