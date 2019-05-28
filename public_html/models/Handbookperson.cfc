@@ -570,7 +570,12 @@
 	</cffunction>
 
 	<cffunction name="findAllStaff">
-		<cfset staff = findAll(select="id, selectname", where="p_sortorder <= 500 AND position <> 'Removed From Staff'", include="Handbookpositions,Handbookstate")>
+		<cfset staff = findAll(select="id, selectname", where="p_sortorder <= 500 AND position <> 'Removed From Staff'", include="Handbookpositions,Handbookstate", order="selectname")>
+		<cfquery dbtype="query" name="staff">
+			select DISTINCT *
+			from staff
+			order by selectname
+		</cfquery>
 		<cfset staff = queryToJson(staff)>
 		<cfreturn staff>
 	</cffunction>
