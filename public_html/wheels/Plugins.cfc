@@ -99,7 +99,7 @@
 						</cfcatch>
 					</cftry>
 				</cfif>
-				<!--- <cfzip action="unzip" destination="#loc.plugin.folderPath#" file="#loc.plugin.file#" overwrite="true" /> --->
+				<cfzip action="unzip" destination="#loc.plugin.folderPath#" file="#loc.plugin.file#" overwrite="true" />
 			</cfif>
 		</cfloop>
 
