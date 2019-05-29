@@ -155,7 +155,7 @@
 
                         <div class="xicon xicon-normal-phone"></div>
                         <div class="address-content">
-                            <span class="title">(572) 269 1269</span>
+                            <span class="title">(574) 269 1269</span>
                         </div>
                     </address>
 

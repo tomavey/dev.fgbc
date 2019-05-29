@@ -1,3 +1,4 @@
+<!--- <script src="https://www.google.com/recaptcha/api.js" async defer></script> --->
 <cfoutput>
 <cfparam name="title" default="">
 <cfif isDefined("content.name")>
@@ -16,7 +17,12 @@
     <!-- End Promo Block --> 
 
 <div class="container card card-charis card-charis-square">
-
+	<!--- <form action="?" method="POST">
+		<div class="g-recaptcha" data-sitekey="6LdXI6YUAAAAAHcRsltBV3Zhe8v45WPP8ZyZxTCm"></div>
+		<br/>
+		<input type="submit" value="Submit">
+	</form> --->
+	
 		<cfif !len(content.rightsRequired) OR gotRights(content.rightsRequired)>
 
 					#content.content#
