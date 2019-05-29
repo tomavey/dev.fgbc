@@ -285,7 +285,7 @@
 				<cfif gotRights("office")>
 						<cfset payEmailSubject = "Pay%20Your%20#trim(getEventAsUrlEncodedText())#%20Registration">
 						<a href="mailto:#thisinvoice.agent#?body=https://charisfellowship.us/conference/register/payonline/?ccorderid=#thisinvoice.ccorderid#&subject=#payEmailSubject#" class="btn">Email a link to pay for this invoice</a><br/>
-					#linkToList(text="return to list", controller="conference.invoices", action="list")#
+					#linkToList(text="return to list.", controller="conference.invoices", action="list")#
 				</cfif>	
 
 				<cfif containsGroupReg && convertGroupRegIsOpen()>
