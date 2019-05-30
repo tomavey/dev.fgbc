@@ -92,30 +92,30 @@
 
         <div id="ourcci">
             <div class="title">
-                Our Commitment to Common Identity</div>
+                El Compromiso de la Alianza Charis a la Identidad Común</div>
 
             <div id="center">
             <div class="clusterheader">
-                1. &nbsp;The Center</div>
+                1. &nbsp;El Centro</div>
             <div id="thecenter">
                 <div style="text-align: center;">
                     &nbsp;</div>
                 <div>
-                    We declare that Jesus Christ, the incarnate Word of God #getFootnote(1)#  as revealed in the Bible, the written Word of God,#getFootnote(2)# is the only Savior and Lord.#getFootnote(3)# He is the center of our shared experience of true biblical unity.&nbsp;</div>
+                    Declaramos que Jesucristo, la Palabra de Dios encarnada, tal como está revelada en la Biblia, la Palabra escrita de Dios, es el único Salvador y Señor. Cristo es el centro de nuestra experiencia bíblica compartida.&nbsp;</div>
              </div><!---end #thecenter--->
 
              <div id="evangelicalcore">
                     <div class="clusterheader">
-                        2. &nbsp;The Evangelical Core</div>
+                        2. &nbsp;El Núcleo Evangélico</div>
                     <div>
                         &nbsp;</div>
                     <div>
-                        We affirm our commitment to the following core truths of the Bible which we share with other genuine believers in Jesus Christ:</div>
+                        Afirmamos nuestro compromiso con el siguiente núcleo de verdades de la Biblia que compartimos con otros creyentes genuinos en Jesucristo:</div>
                     <div>
                         &nbsp;</div>
                     <ol>
                         <li>
-                            <span class="itemheader">The One True God</span> - There is one, and only one, true God,#getFootnote(4)# the God of Abraham, Isaac, and Jacob.#getFootnote(5)# He is the Creator and Lord of all,#getFootnote(6)# existing eternally in three persons, never less and never more - Father, Son, and Holy Spirit.#getFootnote(7)#</li>
+                            <span class="itemheader">1.	El Único Dios Verdadero</span>Verdadero – Hay uno y sólo  un Dios verdadero, el Dios de Abraham,#getFootnote(4)# Isaac y Jacob.#getFootnote(5)# Él es el Creador y Señor de todo,#getFootnote(6)# existiendo eternamente en tres personas, nada menos ni nada más: Padre, Hijo y Espíritu Santo.#getFootnote(7)#</li>
                         </li>
                         <li>
                             <span class="itemheader">The Lord Jesus Christ</span> - Jesus Christ is fully God, existing eternally.#getFootnote(8)# Everything was created by Him and for Him.#getFootnote(9)# His incarnation took place in the womb of a virgin.#getFootnote(10)# He became man,#getFootnote(11)# but never sinned.#getFootnote(12)# He died a substitutionary death to atone for sin,#getFootnote(13)# resurrected bodily,#getFootnote(14)# and ascended into heaven where He remains fully God and fully man,#getFootnote(15)# and is presently ministering#getFootnote(16)# until He comes again.#getFootnote(17)#

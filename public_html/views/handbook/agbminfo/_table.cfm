@@ -3,7 +3,8 @@
 	<cfset REQUEST.payments = getPayments(personid)>
 			<tr>	
 				<td>
-					#linkTo(text="#fname# #lname#", controller="handbook.people", action="show", key=personid)#
+					#linkTo(text="#fname# #lname#", controller="handbook.people", action="show", key=personid)#<br/>
+					#inspireId(people['personid'][currentrow])#
 					<cfif showAge && birthdayyear NEQ 1900>
 						<br/>#birthdayyear#
 					</cfif>

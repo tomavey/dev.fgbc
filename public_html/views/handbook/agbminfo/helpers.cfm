@@ -86,3 +86,12 @@
 <cfreturn loc.downloadParamsList>
 </cffunction>
 
+<cfscript>
+	public function inspireId(personId,lname){
+		var id = personid & lname;
+		id = replace(id," ","");
+		id = replace(id,"'","");
+		return id;
+	}
+</cfscript>
+
