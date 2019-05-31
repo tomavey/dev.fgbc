@@ -6,9 +6,9 @@
 
 			<p style="float:right">
 				<cfif !oldform>
-					#linkTo(text="Show old form with categories", controller="handbook.agbm-info", action="add", key=params.key, params="oldform=", class="btn")#
+					#linkTo(text="Show old form with categories", controller="handbook.AgbmInfo", action="add", key=params.key, params="oldform=", class="btn")#
 				<cfelse>		
-					#linkTo(text="Show form with commissions", controller="handbook.agbm-info", action="add", key=params.key, params="", class="btn")#
+					#linkTo(text="Show form with commissions", controller="handbook.AgbmInfo", action="add", key=params.key, params="", class="btn")#
 				</cfif>
 			</p>
 
