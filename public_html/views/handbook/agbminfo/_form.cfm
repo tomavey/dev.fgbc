@@ -34,7 +34,7 @@
 					</cfif>	
 
 					
-						#checkBox(objectName='handbookagbminfo', property='mentored', label='Being Mentored?')#
+						<!--- #checkBox(objectName='handbookagbminfo', property='mentored', label='Being Mentored?')# --->
 
 						Date Paid: #dateSelect(objectName='handbookagbminfo', property='paidAt', class="input-small")#
 					
