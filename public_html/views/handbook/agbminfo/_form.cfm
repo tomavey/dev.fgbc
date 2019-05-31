@@ -30,7 +30,7 @@
 					<cfif oldform>
 						#select(objectName='handbookagbminfo', property='category', label='Category:', options=getSetting('inspireCategories'))#
 					<cfelse>	
-						#select(objectName='handbookagbminfo', property='commission', includeBlank=true, label='Commissioned for:', options=getSetting('inspireCommissions'))#
+						#select(objectName='handbookagbminfo', property='commission', includeBlank=true, label='Commissioned...', options=getSetting('inspireCommissions'))#
 					</cfif>	
 
 					
