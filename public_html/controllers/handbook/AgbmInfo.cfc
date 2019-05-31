@@ -101,6 +101,11 @@
 		<cfset handbookagbminfo.category = thisPersonsLastPayment.category>
 		<cfset handbookagbminfo.ordained = thisPersonsLastPayment.ordained>
 		<cfset handbookagbminfo.licensed = thisPersonsLastPayment.licensed>
+		<cfset handbookagbminfo.commissioned = thisPersonsLastPayment.commissioned>
+		<cfset handbookagbminfo.commission = thisPersonsLastPayment.commission>
+		<!--- <cfif isDefined("params.key") && val(params.key)>
+			<cfset handbookagbminfo.personid = params.key>
+		</cfif> --->
 		<cfset renderPage(action="new")>
 	</cffunction>
 
@@ -185,25 +190,34 @@
 		</cfif>
 
 		<cfif loc.lastPayment.category EQ 1>
-			  <cfset loc.check = loc.lastpayment.licensed + loc.lastpayment.ordained>
-			  <cfif NOT loc.check>
+			  <cfset loc.check = loc.lastpayment.licensed + loc.lastpayment.ordained + loc.lastpayment.commissioned>
+			  <cfif !loc.check>
 			  		<cfset loc.fontcolor = "red">
 			  </cfif>
 		</cfif>
 
 			<cfsavecontent variable="loc.return">
 					<cfoutput>
-					<cfif arguments.formatted>
-					  <p style="color:#loc.fontcolor#">
-						#dollarFormat(loc.lastPayment.membershipfee)# for #loc.lastPayment.membershipfeeyear#<br/>
-						Cat. #loc.lastPayment.category#<cfif loc.lastPayment.ordained>; Ordained<cfelseif loc.lastpayment.licensed>; Licensed</cfif>
-					  </p>
-					  <cfelse>
-						#dollarFormat(loc.lastPayment.membershipfee)# for #loc.lastPayment.membershipfeeyear#
-						Cat. #loc.lastPayment.category#<cfif loc.lastPayment.ordained>; Ordained<cfelseif loc.lastpayment.licensed>; Licensed</cfif>
-					  </cfif>
+						<cfif arguments.formatted>
+							<p style="color:#loc.fontcolor#">
+							#dollarFormat(loc.lastPayment.membershipfee)# for #loc.lastPayment.membershipfeeyear#<br/>
+								<cfif loc.lastPayment.commissioned>
+									Commissioned #loc.lastpayment.commission#
+								<cfelse>	
+									Cat. #loc.lastPayment.category#<cfif loc.lastPayment.ordained>; Ordained<cfelseif loc.lastpayment.licensed>; Licensed</cfif>
+								</cfif>
+							</p>
+						<cfelse>
+								#dollarFormat(loc.lastPayment.membershipfee)# for #loc.lastPayment.membershipfeeyear#
+								<cfif loc.lastPayment.commissioned>
+									Commissioned #loc.lastpayment.commission#
+								<cfelse>	
+									Cat. #loc.lastPayment.category#<cfif loc.lastPayment.ordained>; Ordained<cfelseif loc.lastpayment.licensed>; Licensed</cfif>
+								</cfif>
+						</cfif>
 					</cfoutput>
 			</cfsavecontent>
+
 		<cfelse>
 			<cfset loc.return = "na">
 		</cfif>

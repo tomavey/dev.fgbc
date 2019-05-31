@@ -124,6 +124,8 @@
 	<cfset set(eventCategories="Celebration,Workshop,Excursion,Roundtable,Network,Meal,ChildCare,Kids Konference,Reception,Board Meeting,Other,Office,Rehearsal,Exhibits,Prayer,Other-Public,Cohort")>
 	<cfset set(eventCategoriesForJson="'meal','celebration','workshop','excursion','reception','prayer','other-public'")>
 	<cfset set(ministryCategories=listSort("Church Planting Ministries, Communication, Districts, Doing Good, Leadership Training Ministries, none","text"))>
+	<cfset set(inspireCategories = "1,2,3")>
+	<cfset set(inspireCommissions = "by a local church, in process of ordination, as a missionary, as a miltary chaplain")>
 
 <!---email addresses used--->
 	<cfset set(registrarEmail="sharmion@charisfellowship.us")>
