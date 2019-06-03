@@ -4,7 +4,7 @@
 
 						#hiddenField(objectName='course', property='event')#
 
-						#textField(objectName='course', property='title', label='Title')#
+						#textField(objectName='course', property='title', label='Title', class="input-xxlarge")#
 
 						#select(objectName='course', property='type', label='Type of event:', options=typesOfCoursesForDropdown())#
 
