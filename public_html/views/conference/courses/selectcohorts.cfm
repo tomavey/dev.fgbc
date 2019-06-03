@@ -3,7 +3,7 @@
 
 <div class="container">
 
-    <cfif getSetting("workshopsRegIsOpen")>
+    <cfif workshopsRegOpen()>
 
     <cfif showSubTypesOfCourses()>
         <div class="row">
