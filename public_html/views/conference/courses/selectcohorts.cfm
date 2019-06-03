@@ -69,7 +69,7 @@
 
     <cfelse>    
         <div class="alert text-center cohortIntro">
-            Registration for Cohorts and Workshops is not open yet.  Check back after May 1
+            Signup for Cohorts and Workshops is not open yet.  Check back after June 10
         </div>
     </cfif>
 

@@ -148,7 +148,9 @@
 	<!--- fgbcdelegates/new --->
 	<cffunction name="submit">
 
-		<cfif !isBefore('07-20-2019')>
+		<cfset var deadline = getSetting('delegatesSubmitDeadline') & '-' & year(now())>
+
+		<cfif !isBefore(deadline)>
 			<cfset redirectTo(action="closed")>
 			<cfabort>
 		</cfif>

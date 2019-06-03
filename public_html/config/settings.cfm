@@ -68,6 +68,7 @@
 	<cfset set(memFeeMax = 8300)>
 	<cfset set(lateMemFeeMax = 8500)>
 	<cfset set(memFeeDeadline = "2018-05-15")>
+	<cfset set(delegatesSubmitDeadline = "07-20")><!---Current Year--->
 
 <!---used by handbook--->			 
 	<cfset set(handbookRightsRequired = "handbook,office,superadmin,natmin,agbmadmin")>
