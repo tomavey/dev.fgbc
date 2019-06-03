@@ -110,7 +110,7 @@ function $clearAllSelections(){
 
 function $selectcohortchecked(){
 	var $numberOfCohortsSelected = $('form.cohortcheckbox input[type=checkbox]:checked').length;
-	var $numberOfCohortsRemaining = 2 - $numberOfCohortsSelected; 
+	var $numberOfCohortsRemaining = 3 - $numberOfCohortsSelected; 
 	var initialMessage = 'Currently ' + $numberOfCohortsSelected + ' cohorts are selected. Please select ' + $numberOfCohortsRemaining + ' more. ';
 	if ($numberOfCohortsRemaining == 0) {
 		initialMessage = $numberOfCohortsSelected + ' cohorts are selected.';
@@ -140,7 +140,7 @@ function $selectcohortchecked(){
 
 		// if too many cohorts are selected, disables submit and changes message
 		if ($numberOfCohortsRemaining < 0){
-			newMessage = "Oops, too many are selected. Please check two cohorts OR 1 two-day workshop.";
+			newMessage = "Oops, too many are selected. Please check three cohorts.";
 			alert(newMessage);
 			$('.cohortsubmit').attr({disabled:'disabled',value:'Oops, select only 2 cohorts OR 1 two-day workshop'}); 
 		}
