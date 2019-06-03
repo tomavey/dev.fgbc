@@ -148,7 +148,7 @@
 	<!--- fgbcdelegates/new --->
 	<cffunction name="submit">
 
-		<cfif !isBefore('07-20-2018')>
+		<cfif !isBefore('07-20-2019')>
 			<cfset redirectTo(action="closed")>
 			<cfabort>
 		</cfif>
