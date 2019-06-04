@@ -21,12 +21,17 @@
 				<li class="dropdown">
 					#linkToData(text="Retreats<b class='caret'></b>", href="##", data_toggle="dropdown", class="dropdown-toggle")#
 					<ul class="dropdown-menu">
-					<cfloop query="retreats">
-						<li>
-							#linkto(text=menuname, controller="focus.main", action="retreat", key=id)#
-						</li>
-					</cfloop>	
+						<cfif retreats.recordCount>
+							<cfloop query="retreats">
+								<li>
+									#linkto(text=menuname, controller="focus.main", action="retreat", key=id)#
+								</li>
+							</cfloop>	
+						<cfelse>
+								<li>#linkto(text="Future retreats", controller="events", action="index", params="search=focus")#</li>
+						</cfif>	
 					</ul>	
+						
 				</li>
         </cfif>
 		    </ul>	

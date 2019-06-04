@@ -6,12 +6,21 @@
 		--->
 	</cffunction>
 
-	<cffunction name="index">
-		<cfset setreturn()>
-		<cfset events = model("Mainevent").findAll(where="begin > now()", order="begin,end")>
-	</cffunction>
+<cfscript>
 
-	<cffunction name="list">
+	public function index() {
+		setReturn()
+		var whereString = "begin > now()"
+		var orderString = "begin,end"
+		if (isDefined("params.search")) {
+			whereString = whereString & " AND (event LIKE '%#params.search#%' OR sponsor LIKE '%#params.search#%')"
+		}
+		events = model("Mainevent").findAll(where=whereString, order = orderString)
+	} 
+
+</cfscript>	
+
+<cffunction name="list">
 		<cfset redirectTo("index")>
 	</cffunction>
 

@@ -33,6 +33,7 @@
 
 	<cffunction name="welcome">
 		<cfset content = getFocusContent("introContent")>
+		<!--- <cfdump var="#getSetting('focusisopen')#"><cfabort> --->
 		<cfif getSetting('focusisopen')>
 			<cfset title="Welcome">
 		<cfelse>

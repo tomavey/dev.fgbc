@@ -13,28 +13,13 @@
         </div>
     </cfif>
 
-        <div class="submitCohortsBox">
-
-            <div class="cohortmessage alert">
-            <cfif !flashIsEmpty()>
-            #flash("toomany")#
-            </cfif>
-            </div>
-
-            #submitTag(value="Save My Selections", class="btn cohortsubmit")#
-
-            #endFormTag()#
-
-            <a href="##" class="clearAllSelections">Clear All Selections</a>
-
-        </div>
+    #startFormTag(action=formaction, class="cohortcheckbox")#
 
         <div class="row">
 
         <div class="span10">
         <button href="##" class="clearAllSelections" class="btn btn-block">Clear All Selections</button>
 
-        #startFormTag(action=formaction, class="cohortcheckbox")#
 
         #hiddenFieldTag(name="personid", value=params.personid)#
         #hiddenFieldTag(name="type", value=params.type)#
@@ -67,11 +52,23 @@
 
         </div><!---span--->
 
-       
-
-
         </div><!---row--->
 
+        <div class="submitCohortsBox">
+
+            <div class="cohortmessage alert">
+            <cfif !flashIsEmpty()>
+            #flash("toomany")#
+            </cfif>
+            </div>
+
+            #submitTag(value="Save My Selections", class="btn cohortsubmit")#
+
+            <a href="##" class="clearAllSelections">Clear All Selections</a>
+
+        </div>
+
+        #endFormTag()#
 
     <cfelse>    
         <div class="alert text-center cohortIntro">
