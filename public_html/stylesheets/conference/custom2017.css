@@ -327,6 +327,15 @@ div.addcoursequestion {
     font-size:large;
 }
 
+div.submitCohortsBox {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width:200px;
+    border: solid 2px grey;
+    background-color: white;
+}
+
 .cohortmessage {
     text-align: center;
     font-size:2em;
@@ -358,8 +367,10 @@ a.clearAllSelections:hover {
 }
 
 .eachcohort .description {
-    font-size: .8em;
+    font-size: .6em;
+    padding-top: 10px;
 }
+
 .eachcohort input[type="checkbox"] {
     display:inline-block;
     width:20px;

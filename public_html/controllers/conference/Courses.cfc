@@ -88,10 +88,10 @@
 
 	<cffunction name="getSubtypes">
 		<cfset subtypes = structNew()>
-		<cfset subtypes.A = "Tuesday, July 24">
-		<cfset subtypes.B = "Wednesday, July 25">
-		<cfset subtypes.C = "Repeated Tue & Wed">
-		<cfset subtypes.D = "Two Days Long: Tuesday and Wednesday">
+		<cfset subtypes.A = "Tuesday, July 23">
+		<cfset subtypes.B = "Wednesday, July 24">
+		<cfset subtypes.C = "Thursday, July 25">
+		<cfset subtypes.D = "NA">
 	</cffunction>	
 
 <cfscript>
@@ -295,7 +295,7 @@
 		<cfset loc.type = params.type>
 	</cfif>	 
 
-		<cfset cohorts = model("Conferencecourse").findAll(where="event='#getEvent()#' AND type IN ('#loc.type#')", order="title")>
+		<cfset cohorts = model("Conferencecourse").findAll(where="event='#getEvent()#' AND type IN ('#loc.type#')", order="subtype title")>
 
 		<cfif isDefined("params.personid")>
 			<cfset selectedcohorts = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# AND equip_optionsid = #getOptionIdFromName(translatetype(arguments.type))#")>
@@ -422,19 +422,16 @@
 	<cffunction name="getSubtypeDesc">
 	<cfargument name="subtype" required="true" type="string">
 		<cfif subtype is "A">
-			<cfreturn "This cohort meets on Tuesday, July 24 from 11:00 am - 12:15 pm and 2:00 pm - 3:30 pm.">
+			<cfreturn "This cohort meets on Tuesday, July 23 from 11:00 am - 12:30 pm">
 		</cfif>
 		<cfif subtype is "B">
-			<cfreturn "This cohort meets on Wednesday, July 25 from 11:00 am - 12:15 pm and 2:00 pm - 3:30 pm.">
+			<cfreturn "This cohort meets on Wednesday, July 24 from 11:00 am - 12:30 pm.">
 		</cfif>
 		<cfif subtype is "C">
-			<cfreturn "Signup for this cohort is very high so we are offering it twice.<br/><br/>You can choose either the Tuesday or Wednesday.<br/><br/>Specific times are (choose A or B):<br/>A = Tuesday from 11:15-12:15 and 3:00 - 5:00 and Wednesday from 9:30 - 11:30;<br/>B = Wednesday from 3:00 - 5:00, Thursday from 9:30 - 11:30 and 3:00 - 5:00.">
-		</cfif>
-		<cfif subtype is "C">
-			<cfreturn "Signup for this cohort is very high so we are offering it twice.<br/><br/>You can choose either the Tuesday/Wednesday (A) or the Wednesday/Thursday (B).<br/>">
+			<cfreturn "This cohort meets on Thursday, July 25 from 11:00 am - 12:30 pm.">
 		</cfif>
 		<cfif subtype is "D">
-			<cfreturn "This is a two day workshop... Tuesday from 11:15-12:15 and 3:00 - 5:00 and Wednesday from 9:30 - 11:30">
+			<cfreturn "NA">
 		</cfif>
 	<cfreturn "NA">
 	</cffunction>

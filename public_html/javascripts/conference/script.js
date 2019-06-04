@@ -109,8 +109,9 @@ function $clearAllSelections(){
 };
 
 function $selectcohortchecked(){
+	var $totalCohortsAllowed = 3;
 	var $numberOfCohortsSelected = $('form.cohortcheckbox input[type=checkbox]:checked').length;
-	var $numberOfCohortsRemaining = 3 - $numberOfCohortsSelected; 
+	var $numberOfCohortsRemaining = $totalCohortsAllowed - $numberOfCohortsSelected; 
 	var initialMessage = 'Currently ' + $numberOfCohortsSelected + ' cohorts are selected. Please select ' + $numberOfCohortsRemaining + ' more. ';
 	if ($numberOfCohortsRemaining == 0) {
 		initialMessage = $numberOfCohortsSelected + ' cohorts are selected.';
@@ -124,25 +125,29 @@ function $selectcohortchecked(){
 		var $aCohortsCheckbox = $('form.cohortcheckbox .subtype-A:checkbox');
 		var $bCohorts = $('form.cohortcheckbox .subtype-B');
 		var $bCohortsCheckbox = $('form.cohortcheckbox .subtype-B:checkbox');
+		var $cCohorts = $('form.cohortcheckbox .subtype-C');
+		var $cCohortsCheckbox = $('form.cohortcheckbox .subtype-C:checkbox');
 		var $dCohorts = $('form.cohortcheckbox .subtype-D');
 		var $dCohortsCheckbox = $('form.cohortcheckbox .subtype-D:checkbox');
 		var $aCohortsCheckboxUnchecked = $('form.cohortcheckbox .subtype-A:checkbox:not(:checked)');
 		var $bCohortsCheckboxUnchecked = $('form.cohortcheckbox .subtype-B:checkbox:not(:checked)');
+		var $cCohortsCheckboxUnchecked = $('form.cohortcheckbox .subtype-C:checkbox:not(:checked)');
 		var $dCohortsCheckboxUnchecked = $('form.cohortcheckbox .subtype-D:checkbox:not(:checked)');
 		var $numberOfACohortsSelected = $('form.cohortcheckbox .subtype-A:checkbox:checked').length;
 		var $numberOfBCohortsSelected = $('form.cohortcheckbox .subtype-B:checkbox:checked').length;
+		var $numberOfCCohortsSelected = $('form.cohortcheckbox .subtype-C:checkbox:checked').length;
 		var $numberOfDCohortsSelected = $('form.cohortcheckbox .subtype-D:checkbox:checked').length;
 		if ($numberOfDCohortsSelected == 1){
 			$numberOfCohortsSelected = $numberOfCohortsSelected + 1;
 		}
-		var $numberOfCohortsRemaining = 2 - $numberOfCohortsSelected; 
+		var $numberOfCohortsRemaining = $totalCohortsAllowed - $numberOfCohortsSelected; 
 		var newMessage = 'Currently ' + $numberOfCohortsSelected + ' are selected. Please select ' + $numberOfCohortsRemaining + ' more. ';
 
 		// if too many cohorts are selected, disables submit and changes message
 		if ($numberOfCohortsRemaining < 0){
 			newMessage = "Oops, too many are selected. Please check three cohorts.";
 			alert(newMessage);
-			$('.cohortsubmit').attr({disabled:'disabled',value:'Oops, select only 2 cohorts OR 1 two-day workshop'}); 
+			$('.cohortsubmit').attr({disabled:'disabled',value:'Oops, select only 3 cohorts'}); 
 		}
 		else {
 			$('.cohortsubmit').removeAttr('disabled').attr('value',"Submit"); 
@@ -168,9 +173,9 @@ function $selectcohortchecked(){
 
 	   // If 2 Wednesday Cohort are selected, disables submit button (failsafe)	
 		if ($numberOfBCohortsSelected > 1){
-			newMessage = "Oops, two Wednesday Cohorts have been selected. Please check one Tuesday Cohort and one Wednesday Cohort";
+			newMessage = "Oops, two Wednesday Cohorts have been selected. Please check one Tuesday cohort, one Wednesday cohort and one Thursday cohort.";
 			alert(newMessage);
-			$('.cohortsubmit').attr({disabled:'disabled',value:'Oops, select only 1 Wednesday Cohort'}); 
+			$('.cohortsubmit').attr({disabled:'disabled',value:'Pick only 1 Wednesday'}); 
 		}
 		else {
 			$('.cohortsubmit').removeAttr('disabled').attr('value',"Submit"); 
@@ -178,9 +183,19 @@ function $selectcohortchecked(){
 
 		// If 2 Tuesday Cohort are selected, disables submit button (failsafe)	
 		if ($numberOfACohortsSelected > 1){
-			newMessage = "Oops, two Tuesday Cohorts have been selected. Please check one Tuesday Cohort and one Wednesday Cohort";
+			newMessage = "Oops, two Tuesday Cohorts have been selected. Please check one Tuesday cohort, one Wednesday cohort and one Thursday cohort.";
 			alert(newMessage);
-			$('.cohortsubmit').attr({disabled:'disabled',value:'Oops, select only 1 Tuesday Cohort'}); 
+			$('.cohortsubmit').attr({disabled:'disabled',value:'Pick only 1 Tuesday'}); 
+		}
+		else {
+			$('.cohortsubmit').removeAttr('disabled').attr('value',"Submit"); 
+		};
+
+		// If 2 Tuesday Cohort are selected, disables submit button (failsafe)	
+		if ($numberOfCCohortsSelected > 1){
+			newMessage = "Oops, two Thursday Cohorts have been selected. Please check one Thursday cohort, one Wednesday cohort and one Thursday cohort.";
+			alert(newMessage);
+			$('.cohortsubmit').attr({disabled:'disabled',value:'Pick only 1 Thursday'}); 
 		}
 		else {
 			$('.cohortsubmit').removeAttr('disabled').attr('value',"Submit"); 
@@ -228,7 +243,7 @@ $(document).ready(function () {
 	$selectcohortchecked();
 	$clearAllSelections()
 	$showQuestions();
-	$moveCohortInfoBox();
+	// $moveCohortInfoBox();
 
 /*	$filterQuestions("Tech"); need to wire in a search submission */
 

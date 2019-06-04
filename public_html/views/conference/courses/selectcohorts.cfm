@@ -13,17 +13,36 @@
         </div>
     </cfif>
 
+        <div class="submitCohortsBox">
+
+            <div class="cohortmessage alert">
+            <cfif !flashIsEmpty()>
+            #flash("toomany")#
+            </cfif>
+            </div>
+
+            #submitTag(value="Save My Selections", class="btn cohortsubmit")#
+
+            #endFormTag()#
+
+            <a href="##" class="clearAllSelections">Clear All Selections</a>
+
+        </div>
+
         <div class="row">
 
-        <div class="span8">
+        <div class="span10">
         <button href="##" class="clearAllSelections" class="btn btn-block">Clear All Selections</button>
 
         #startFormTag(action=formaction, class="cohortcheckbox")#
 
         #hiddenFieldTag(name="personid", value=params.personid)#
         #hiddenFieldTag(name="type", value=params.type)#
-
+        <cfset previousSubType = "">    
             <cfoutput query="cohorts">
+                <cfif subtype NEQ previousSubType>
+                    <h2>#subtypes[subtype]#</h2>
+                </cfif>
                 <div class="well eachcohort">
                     <cfif find(id,coursesIdList)>
                     #checkBoxTag(name="cohorts", value=id, checked="true", id="#title#", class="subtype-#subtype#")#
@@ -38,30 +57,17 @@
                                 </cfif>
                             </cfif>
                     <div class="cohortdescription">#descriptionlong#</div>
+                    <br/>
                     <p class="description">#getSubtypeDesc(subtype)#</p>
                 </div>
+                <cfset previousSubType = subtype>
             </cfoutput>
 
         <div class="cohortmessage alert"></div>
 
         </div><!---span--->
 
-        <div class="span3">
-
-        <div class="cohortmessage alert">
-        <cfif !flashIsEmpty()>
-        #flash("toomany")#
-        </cfif>
-        </div>
-
-        #submitTag(value="Save My Selections", class="btn cohortsubmit")#
-
-        #endFormTag()#
-
-        <a href="##" class="clearAllSelections">Clear All Selections</a>
-            
-
-        </div><!---span--->
+       
 
 
         </div><!---row--->
