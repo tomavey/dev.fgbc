@@ -110,6 +110,7 @@
 	<cfset set(tracksOfCourses = listSort("Leadership Training,Church Planting,Integrated Ministry,Identity Initiative, Business Integration, Contemporary Theological Issues, Worship, Missional Living, Multi-site, France, Womens Studies, Prayer, Creativity,Other", "text"))>
 	<cfset set(possibleAgentCodes = listSort("Comp,Manual,Prepaid,Test","text"))>
 	<cfset set(sendEmailBeforePayment = false)>
+	<cfset set(maxCohorts = 3)>
 
 <!---options used in dropdowns and menus--->
 	<cfset set(typeOfOptions=listsort("Registration-Couple,Registration-Single,Registration-Group,Registration-Staff,Workshop,Meal,TouristOption,GraceKids-Nursery,GraceKids-Preschool,GraceKids-Elementary,GraceKidsSegments,GraceKidsExcursions,Other,Discount,AutoDiscount,InActive,preRegistration","text"))>

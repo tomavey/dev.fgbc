@@ -40,7 +40,7 @@
     Person = model("Conferenceperson").findByKey(key=coursequestion.personid, include="family");
     Course = model("Conferencecourse").findByKey(coursequestion.courseid);	
     if (!IsObject(Coursequestion)){
-      flashInsert(error="Coursequestion #params.key# was not found");
+      flashInsert(error="Course question #params.key# was not found");
       redirectTo(action="index");
     }
   }
@@ -70,7 +70,7 @@
     Coursequestion = model("Conferencecoursequestion").findByKey(params.key);
     	
     if (!IsObject(Coursequestion)){
-	    flashInsert(error="Coursequestion #params.key# was not found");
+	    flashInsert(error="Course-question #params.key# was not found");
 			redirectTo(action="index");
 	  }
     if (isMobile()){
@@ -83,7 +83,7 @@
     Coursequestion = model("Conferencecoursequestion").new(params.Coursequestion);
 		
 		if (Coursequestion.save()){
-			flashInsert(success="The Coursequestion was created successfully.");
+			flashInsert(success="The question was created successfully.");
       if (isMobile()) { redirectTo(action="thankyou") };
       returnBack();
 		} else {
@@ -102,10 +102,10 @@
     Coursequestion = model("Conferencecoursequestion").findByKey(params.key);
 		
 		if (Coursequestion.update(params.Coursequestion)){
-		  flashInsert(success="The Coursequestion was updated successfully.");
+		  flashInsert(success="The question was updated successfully.");
       returnBack();
 		} else {
-		  flashInsert(error="There was an error updating the Coursequestion.");
+		  flashInsert(error="There was an error updating the course-question.");
 			renderPage(action="edit");
 		}
   }
@@ -115,10 +115,10 @@
     Coursequestion = model("Conferencecoursequestion").findByKey(params.key);
 
 		if (Coursequestion.delete()){
-			flashInsert(success="The Coursequestion was deleted successfully.");
+			flashInsert(success="The question was deleted successfully.");
       redirectTo(action="index");
     } else {
-      flashInsert(error="There was an error deleting the Coursequestion.");
+      flashInsert(error="There was an error deleting the question.");
 			redirectTo(action="index");
     }
   }

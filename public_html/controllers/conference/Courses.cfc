@@ -140,7 +140,7 @@
 	            <cfset returnBack()>
 		<!--- Otherwise --->
 		<cfelse>
-			<cfset flashInsert(error="There was an error creating the Conferencecourse.")>
+			<cfset flashInsert(error="There was an error creating the course.")>
 			<cfset renderPage(action="new")>
 		</cfif>
 	</cffunction>
@@ -152,11 +152,11 @@
 
 		<!--- Verify that the Conferencecourse updates successfully --->
 		<cfif course.update(params.course)>
-			<cfset flashInsert(success="The Conferencecourse was updated successfully.")>
+			<cfset flashInsert(success="The course was updated successfully.")>
             		<cfset returnBack()>
 		<!--- Otherwise --->
 		<cfelse>
-			<cfset flashInsert(error="There was an error updating the Conferencecourse.")>
+			<cfset flashInsert(error="There was an error updating the course.")>
 			<cfset renderPage(action="edit")>
 		</cfif>
 	</cffunction>
@@ -361,7 +361,7 @@
 		<cfset loc.datelimit = createDateTime(year(now())-1,10,01,01,01,01)>
 		<cfset registrations = model("Conferenceperson").findAllPeopleRegistered()>
 		<cfset formaction = "ConferenceCoursesSelectCohorts">
-		<cfset headerSubTitle = "Sign up for a Cohort">
+		<cfset headerSubTitle = "Sign up for a Cohort or Workshop">
 		<cfset renderPage(template="selectPersonToSelectWorkshops")>
 	</cffunction>
 
@@ -527,7 +527,7 @@
 			<cfset arguments.type = params.type>
 		</cfif>
 
-		<cfif listlen(params.cohorts) LTE 2>
+		<cfif listlen(params.cohorts) LTE getSetting('maxCohorts')>
 			<cfset deletedSelectedWorshopsForPersonid(params.personid,params.type)>
 			<cfloop list="#params.cohorts#" index="i">
 				<cfset registration = model("Conferenceregistration").new()>

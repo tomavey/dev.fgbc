@@ -16,7 +16,7 @@
 <div id='xselectworkshops' class="container">
 <cfoutput>
 <cfif !isDefined("instructions")>
-<h2 class="center">You must be registered for #geteventAsText()# in order to sign up for a cohort.</h2>
+<h2 class="center">You must be registered for #geteventAsText()# in order to sign up for a cohort or workshop.</h2>
 <cfelse>
 <h2 class="center">#instructions#</h2>
 </cfif>

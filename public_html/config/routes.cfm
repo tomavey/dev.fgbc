@@ -728,6 +728,7 @@
 		.get(name="newName", pattern="newname", controller="charis", action="rebranding")
 		.get(name="focusMobile", pattern="/focusmobile/", controller="focus.main", action="mobile")
 		.get(name="inspire", pattern="/inspire/", controller="handbook.people", action="inspire")
+		.get(name="selectCohorts", pattern="selectcohorts", controller="conference.courses", action="selectcohorts")
 
 
 <!---------------------------------->
