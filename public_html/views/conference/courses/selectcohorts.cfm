@@ -18,7 +18,7 @@
         <div class="row">
 
         <div class="span10">
-        <button href="##" class="clearAllSelections" class="btn btn-block">Clear All Selections</button>
+        <a href="##" class="clearAllSelections">Clear All Selections</a>
 
 
         #hiddenFieldTag(name="personid", value=params.personid)#
@@ -54,18 +54,21 @@
 
         </div><!---row--->
 
-        <div class="submitCohortsBox">
+        <div>
+            <div class="submitCohortsBox">
 
-            <div class="cohortmessage alert">
-            <cfif !flashIsEmpty()>
-            #flash("toomany")#
-            </cfif>
+                <div class="cohortmessage alert">
+                <cfif !flashIsEmpty()>
+                #flash("toomany")#
+                </cfif>
+                </div>
+    
+                #submitTag(value="Save My Selections", class="btn cohortsubmit")#
+    
+                <a href="##" class="clearAllSelections">Clear All Selections</a>
+    
             </div>
-
-            #submitTag(value="Save My Selections", class="btn cohortsubmit")#
-
-            <a href="##" class="clearAllSelections">Clear All Selections</a>
-
+    
         </div>
 
         #endFormTag()#

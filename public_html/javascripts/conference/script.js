@@ -103,6 +103,7 @@ function $alert(){
 
 function $clearAllSelections(){
 	$(".clearAllSelections").click(function(){
+		console.log('clearAllSelections')
 		$('input[type=checkbox]').removeAttr('checked').removeAttr('disabled').next().removeAttr('class').text("");
 	    $("div.cohortmessage").html("Choices have been cleared");
 	})	
