@@ -51,7 +51,7 @@
 		<cfset loc.whereString = loc.whereString & " AND o.id = #loc.id#">
 	</cfif>
 		<cfquery dataSource="#getDataSource()#" name="loc.options">
-			SELECT o.id,o.buttondescription,o.description, o.cost, l.roomnumber 
+			SELECT o.id,o.buttondescription,o.description, o.cost, l.roomnumber, e.timebegin
 			FROM equip_options o
 			JOIN equip_events e
 			ON e.eventid = o.id
