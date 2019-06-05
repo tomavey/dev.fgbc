@@ -123,30 +123,30 @@ function $selectcohortchecked(){
 		var $cohortsSelected = $('form.cohortcheckbox input[type=checkbox]:checked');
 		var $numberOfCohortsSelected = $cohortsSelected.length;
 		var $cohortSubmitButton = $('.cohortsubmit');
-		var $aCohorts = $('form.cohortcheckbox .subtype-A');
-		var $aCohortsCheckbox = $('form.cohortcheckbox .subtype-A:checkbox');
-		var $bCohorts = $('form.cohortcheckbox .subtype-B');
-		var $bCohortsCheckbox = $('form.cohortcheckbox .subtype-B:checkbox');
-		var $cCohorts = $('form.cohortcheckbox .subtype-C');
-		var $cCohortsCheckbox = $('form.cohortcheckbox .subtype-C:checkbox');
-		var $dCohorts = $('form.cohortcheckbox .subtype-D');
-		var $dCohortsCheckbox = $('form.cohortcheckbox .subtype-D:checkbox');
+		// var $aCohorts = $('form.cohortcheckbox .subtype-A');
+		// var $aCohortsCheckbox = $('form.cohortcheckbox .subtype-A:checkbox');
+		// var $bCohorts = $('form.cohortcheckbox .subtype-B');
+		// var $bCohortsCheckbox = $('form.cohortcheckbox .subtype-B:checkbox');
+		// var $cCohorts = $('form.cohortcheckbox .subtype-C');
+		// var $cCohortsCheckbox = $('form.cohortcheckbox .subtype-C:checkbox');
+		// var $dCohorts = $('form.cohortcheckbox .subtype-D');
+		// var $dCohortsCheckbox = $('form.cohortcheckbox .subtype-D:checkbox');
 		var $aCohortsCheckboxUnchecked = $('form.cohortcheckbox .subtype-A:checkbox:not(:checked)');
 		var $bCohortsCheckboxUnchecked = $('form.cohortcheckbox .subtype-B:checkbox:not(:checked)');
 		var $cCohortsCheckboxUnchecked = $('form.cohortcheckbox .subtype-C:checkbox:not(:checked)');
 		var $dCohortsCheckboxUnchecked = $('form.cohortcheckbox .subtype-D:checkbox:not(:checked)');
 
 		var $numberOfACohortsSelected = $('form.cohortcheckbox .subtype-A:checkbox:checked').length;
-		console.log("A Cohorts: " + $numberOfACohortsSelected);
+		// console.log("A Cohorts: " + $numberOfACohortsSelected);
 		var $numberOfBCohortsSelected = $('form.cohortcheckbox .subtype-B:checkbox:checked').length;
-		console.log("B Cohorts: " + $numberOfBCohortsSelected);
+		// console.log("B Cohorts: " + $numberOfBCohortsSelected);
 		var $numberOfCCohortsSelected = $('form.cohortcheckbox .subtype-C:checkbox:checked').length;
-		console.log("C Cohorts: " + $numberOfCCohortsSelected);
+		// console.log("C Cohorts: " + $numberOfCCohortsSelected);
 		var $numberOfDCohortsSelected = $('form.cohortcheckbox .subtype-D:checkbox:checked').length;
-		console.log("D Cohorts: " + $numberOfDCohortsSelected);
+		// console.log("D Cohorts: " + $numberOfDCohortsSelected);
 
 		var $numberOfCohortsRemaining = $totalCohortsAllowed - $numberOfCohortsSelected; 
-		console.log("$numberOfCohortsRemaining: " + $numberOfCohortsRemaining)
+		// console.log("$numberOfCohortsRemaining: " + $numberOfCohortsRemaining)
 
 		var newMessage = 'Currently ' + $numberOfCohortsSelected + ' are selected. Please select ' + $numberOfCohortsRemaining + ' more. ';
 
@@ -163,7 +163,7 @@ function $selectcohortchecked(){
 		// If 1 Tuesday Cohort is selected, disables checkboxes for other Tuesday Cohorts	
 		if ($numberOfACohortsSelected === 1){
 			$aCohortsCheckboxUnchecked.attr({disabled: 'disabled'});
-			$aCohortsCheckboxUnchecked.next().attr({class:'alert'}).text("You have already selected one Wednesday Cohort or Workshop");
+			$aCohortsCheckboxUnchecked.next().attr({class:'alert alert-error'}).text("You have already selected one Tuesday Cohort or Workshop");
 		}
 		else {
 			$aCohortsCheckboxUnchecked.removeAttr('disabled')
@@ -173,20 +173,20 @@ function $selectcohortchecked(){
 		// If 1 Wednesday Cohort is selected, disables checkboxes for all Wednesday Cohorts	
 		if ($numberOfBCohortsSelected === 1){
 			$bCohortsCheckboxUnchecked.attr({disabled: 'disabled'});
-			$bCohortsCheckboxUnchecked.next().attr({class:'alert'}).text("You have already selected one Tuesday Cohort or Workshop");
+			$bCohortsCheckboxUnchecked.next().attr({class:'alert alert-error'}).text("You have already selected one Monday Cohort or Workshop");
 	 }
 	 else {
-		 $bCohortsCheckbox.not($this).removeAttr('disabled')
-		 .not($this).next().removeAttr('class').text("");
+		$bCohortsCheckboxUnchecked.removeAttr('disabled')
+		.not($this).next().removeAttr('class').text("");
 	 };
 
 	 // If 1 Thursday Cohort is selected, disables checkboxes for all Thursday Cohorts	
 		if ($numberOfCCohortsSelected === 1){
 			$cCohortsCheckboxUnchecked.attr({disabled: 'disabled'});
-			$cCohortsCheckboxUnchecked.next().attr({class:'alert'}).text("You have already selected one Thursday Cohort or Workshop");
+			$cCohortsCheckboxUnchecked.next().attr({class:'alert alert-error'}).text("You have already selected one Thursday Cohort or Workshop");
 		}
 		else {
-			$cCohortsCheckbox.not($this).removeAttr('disabled')
+			$cCohortsCheckboxUnchecked.removeAttr('disabled')
 			.not($this).next().removeAttr('class').text("");
 		};
 
