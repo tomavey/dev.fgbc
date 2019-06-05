@@ -51,10 +51,14 @@
 		<cfset loc.whereString = loc.whereString & " AND o.id = #loc.id#">
 	</cfif>
 		<cfquery dataSource="#getDataSource()#" name="loc.options">
-			SELECT o.id,o.buttondescription,o.description, o.cost
+			SELECT o.id,o.buttondescription,o.description, o.cost, l.roomnumber 
 			FROM equip_options o
+			JOIN equip_events e
+			ON e.eventid = o.id
+			JOIN equip_locations l
+			ON e.locationid = l.id
 			WHERE #loc.wherestring#
-			AND deletedAt IS NULL
+			AND o.deletedAt IS NULL
 			ORDER BY #loc.orderString#
 		</cfquery>
 	<cfreturn loc.options>
