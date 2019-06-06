@@ -1,6 +1,8 @@
 <cfoutput>
 #ckeditor()#
 
+						#hiddenTagForKeyy()#
+
 						<cfif gotRights("office")>
 							<p>#textField(objectName='nominations', property='year', label="Nominate year: ")#</p>
 						<cfelse>
