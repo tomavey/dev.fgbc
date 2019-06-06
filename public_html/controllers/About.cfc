@@ -83,6 +83,9 @@
 		}
 
 		public function getFootnote(id){
+				if ( isDefined('params.noFootnotes') ) {
+						return "";
+				}
 		    var footnote = "";
 		    var footnotes = getFootnotesAsStruct();
 

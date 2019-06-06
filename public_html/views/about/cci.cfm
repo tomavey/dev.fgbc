@@ -176,17 +176,24 @@
             </div>
     </div>    
 
-    <div id="footnotes">
-        <div class="sectionheader">
-        Footnotes
+    <cfif !isDefined("params.nofootnotes")>
+        #linkto(text="Remove Footnotes", route="cci", params="nofootnotes=")#
+
+        <div id="footnotes">
+            <div class="sectionheader">
+            Footnotes
+            </div>
+            <cfset footnotes = getFootnotesAsStruct()>
+            <ul>
+                <cfloop from="1" to="#structCount(footnotes)#" index = "i">
+                    <li id="#i#">#i# - #footnotes[i]#</li>
+                </cfloop>
+            </ul>
         </div>
-        <cfset footnotes = getFootnotesAsStruct()>
-        <ul>
-            <cfloop from="1" to="#structCount(footnotes)#" index = "i">
-                <li id="#i#">#i# - #footnotes[i]#</li>
-            </cfloop>
-        </ul>
-    </div>
+
+    <cfelse>    
+        #linkto(text="Add Footnotes", route="cci", params="")#
+    </cfif>
 
 </div>
 </div>
