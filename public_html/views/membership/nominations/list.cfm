@@ -6,14 +6,14 @@
 
 <cfoutput>
 <cfif !showElected>
-<h1>Nominees for Fellowship Council #application.wheels.nominateTerm#</h1>
+<h1>Nominees for Fellowship Council #getSetting('nominateTerm')#</h1>
 <cfelse>
 <h1>New Fellowship Council Members</h1>
 #linkto(text="What is the Fellowship Council?", href="https://charisfellowship.us/contents/show/22")#
 </cfif>
 <div class="hero-unit">
 	<cfif !showElected>
-	<h3>The Nominating Committee of the <a href="https://charisfellowship.us/">Charis Fellowship</a> is pleased to nominate the following people to the #application.wheels.nominateTerm# term of the <a href="https://charisfellowship.us/contents/show/22">Fellowship Council</a> of the <a href="https://charisfellowship.us/">Charis Fellowship</a>:</h3>
+	<h3>The Nominating Committee of the <a href="https://charisfellowship.us/">Charis Fellowship</a> is pleased to nominate the following people to the #getSetting('nominateTerm')# term of the <a href="https://charisfellowship.us/contents/show/22">Fellowship Council</a> of the <a href="https://charisfellowship.us/">Charis Fellowship</a>:</h3>
 	<p>Delegates at the annual corporation meeting of the Fellowship of Grace Brethren Churches, Inc (Doing business as Charis Fellowship) conference will select one representative from each region from this list.</p>
 	<ul>
 		<li>Region A: Arctic, Hawaii, Mountain Plains, Nor-Cal, Pacific Northwest, Southern California-Arizona, Iowa Midlands, and Heartland</li>
