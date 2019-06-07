@@ -4,6 +4,7 @@
 <cfparam name= "addtracks" default="false">
 <cfparam name= "addquestions" default="false">
 <cfparam name="hideAddoptions" default="false">
+<cfparam name = "stringOfTitles" default="">
 <cfif isDefined("params.type") AND params.type is "excursion">
     <cfset instructorname = "Guide">
 </cfif>
@@ -51,6 +52,7 @@
     <cfoutput group="title">
         <cfif title NEQ "empty">
             <cfset daycount = daycount + 1>
+            <cfset stringOfTitles = stringOfTitles & ' &bull; ' & title>
             <div class="eachworkshop">
             <cfif addlinks>
                 #linkto(text=title, controller="conference.courses", action="view", key=id, onlyPath=false)#<br/>
@@ -130,4 +132,11 @@
     </p>
     <hr/>
 </cfoutput>
+<p>
+    <cfset stringOfTitles = replace(stringOfTitles,'.','','all')>
+    <cfset stringOfTitles = replace(stringOfTitles,' &bull; ','','one')>
+    <cfoutput>
+        #stringOfTitles#
+    </cfoutput>
+</p>
 </div>
