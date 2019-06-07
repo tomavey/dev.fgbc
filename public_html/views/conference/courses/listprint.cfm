@@ -47,8 +47,10 @@
     </cfif>    
         <br/><br/>
     </cfif>
+    <cfset daycount = 0>
     <cfoutput group="title">
         <cfif title NEQ "empty">
+            <cfset daycount = daycount + 1>
             <div class="eachworkshop">
             <cfif addlinks>
                 #linkto(text=title, controller="conference.courses", action="view", key=id, onlyPath=false)#<br/>
@@ -123,5 +125,9 @@
             </cfif>
         </cfif>
     </cfoutput>
+    <p style="text-align: right">
+        Count on #dayOfWeekasString(dayOfWeek(date))#: #daycount#
+    </p>
+    <hr/>
 </cfoutput>
 </div>
