@@ -1,9 +1,10 @@
 <!---cfdump var="#badges#"><cfabort--->
-<cfif isDefined("params.forWorkshops") or isDefined("params.download")>
-    <cfset forWorkshops = false>
-<cfelse>
-    <cfset forWorkshops = true>
-</cfif>
+<cfscript>
+  var forWorkshops = false
+  if (isDefined("params.forWorkshops") || isDefined("params.download")) {
+    forWorkshops = true
+  }
+</cfscript>
 
 <cfset count = 0>
 <cfset previousname = "">
