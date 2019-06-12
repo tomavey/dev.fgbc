@@ -59,7 +59,7 @@
         <cfif len(email)>#trim(email)#<cfelse>#trim(getSpouseEmail(id))#</cfif>
       </td>
       <td>
-        #linkTo(href="http://www.fgbc.org/selectcohorts/?type=cohorts&personid=#id#")#
+        #linkTo(href="http://www.charisfellowship.us/selectcohorts?type=cohort&personid=#id#")#
       </td>
       </cfif>
     </tr>
