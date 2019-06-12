@@ -2,7 +2,7 @@
 <cfif isDefined("params.forWorkshops") or isDefined("params.download")>
     <cfset forWorkshops = false>
 <cfelse>
-    <cfset forWorkshops = false>
+    <cfset forWorkshops = true>
 </cfif>
 
 <cfset count = 0>
