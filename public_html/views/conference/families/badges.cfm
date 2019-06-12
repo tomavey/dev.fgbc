@@ -43,7 +43,7 @@
   	<th>LName</th>
     <cfif forWorkshops>
     <th>Email</th>
-    <th style="text-align:center">Signup for Workshops</th>
+    <th style="text-align:center">Signup for Cohorts</th>
     </cfif>
   </tr>
   <cfoutput query="badges">
@@ -59,7 +59,7 @@
         <cfif len(email)>#trim(email)#<cfelse>#trim(getSpouseEmail(id))#</cfif>
       </td>
       <td>
-        #linkTo(href="http://www.fgbc.org/conference/select/workshops/#simpleEncode(id,13)#")#
+        #linkTo(href="http://www.fgbc.org/conference/selectcohorts/?type=cohorts&personid=#id#")#
       </td>
       </cfif>
     </tr>
