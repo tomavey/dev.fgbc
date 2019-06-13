@@ -31,8 +31,8 @@
 <!---------------------------------->
 
 .namespace("admin")
-			.get(name="copy", pattern="/announcement/[key]/copy/", action="copy")
-			.get(name="rss", pattern="/announcements/rss/", action="rss")
+			.get(name="copy", pattern="/announcement/[key]/copy/", controller="announcements", action="copy")
+			.get(name="rss", pattern="/announcements/rss/", controller="announcements", action="rss")
 			.resources("announcements")
 
 			.resources("blogs")
@@ -443,13 +443,13 @@
 			.end()
 			.resources("people")
 
+			.get(name="sendAnnouncement", pattern="/announcements/send/[key]", controller="announcements", action="sendAnnouncement")
+			.get(name="approveAnnouncement", pattern="/announcement/approve/[key]", controller="announcements", action="approve")
+			.get(name="notifyAnnouncement", pattern="/announcement/notification/[key]", controller="announcements", action="notification")
+			.get(name="deleteAnnouncement", pattern="/announcement/[key]/delete", controller="announcements", action="delete")
+			.get(name="copyAnnouncement", pattern="/announcement/[key]/copy", controller="announcements", action="copy")
+			.get(name="view", pattern="/announcements/view", controller="announcements", action="view")
 			.controller("announcements")
-				.get(name="sendAnnouncement", pattern="/send/[key]", action="sendAnnouncement")
-				.get(name="approveAnnouncement", pattern="/approve/[key]", action="approve")
-				.get(name="notifyAnnouncement", pattern="/notification/[key]", action="notification")
-				.get(name="deleteAnnouncement", pattern="/[key]/delete", action="delete")
-				.get(name="copyAnnouncement", pattern="/[key]/copy", action="copy")
-				.get(name="view", pattern="/view", action="view")
 				.get(name="index", pattern="/")
 				.get(name="show", pattern="show/")
 				.get(name="edit", pattern="edit/")
