@@ -66,7 +66,7 @@
 
 						#textField(objectName='exhibit', property='comments', label='Comments')#
 
-						#textArea(objectName='exhibit', property='description', label='Description for mobile app: ', cass="input-block-level")#
+						#textArea(objectName='exhibit', property='description', label='Description for mobile app: ', cass="input-block-level", style="width:100%;height:50px")#
 
 						#textArea(objectName='exhibit', property='sponsordescription', label='Additional Sponsor Description for mobile app: ', cass="input-block-level")#
 
