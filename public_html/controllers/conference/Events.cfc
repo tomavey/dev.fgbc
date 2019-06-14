@@ -3,7 +3,7 @@
 	<cffunction name="init">
 		<cfset usesLayout("/conference/adminlayout")>
 		<cfset filters(through="getEvents,getLocations,getCourses", except="update,create,delete")>
-		<cfset filters(through="officeOnly", except="index,summary,show,listScheduleAsJson,listMealsAsJson,generalInfo,testCopy,copyCategoryToNextDay")>
+		<cfset filters(through="officeOnly", except="index,summary,show,listScheduleAsJson,listMealsAsJson,listExcursionsAsJson,generalInfo,testCopy,copyCategoryToNextDay")>
 		<cfset filters(through="setreturn", only="index,show")>
 	</cffunction>
 
@@ -313,6 +313,12 @@
 <!---JSON Controllers--->
 
 	<cffunction name="listScheduleAsJson">
+		<cfset data = model("Conferenceevent").findScheduleAsJson(params)>
+       	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+	</cffunction>
+
+	<cffunction name="listExcursionsAsJson">
+		<cfset params.useExcursions = true>
 		<cfset data = model("Conferenceevent").findScheduleAsJson(params)>
        	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>

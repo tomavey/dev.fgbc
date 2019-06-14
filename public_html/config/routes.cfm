@@ -774,6 +774,7 @@
 		.post(name="apiAnnouncementPost", pattern="/api/announcement/post/", controller="conference.announcements", action="postFromJson")
 		.get(name="apiAnnouncementGet", pattern="/api/announcement/post/", controller="conference.announcements", action="postFromJson")
 		.get(name="apiSchedule", pattern="/api/schedule/", controller="conference.events", action="listScheduleAsJson")
+		.get(name="apiExcursions", pattern="/api/excursions/", controller="conference.events", action="listExcursionsAsJson")
 		.get(name="apiScheduleItem", pattern="/api/schedule/[ID]", controller="conference.events", action="listScheduleAsJson")
 		.get(name="apiMeals", pattern="/api/meals/", controller="conference.options", action="jsonmeals")
 		.get(name="apiMeal", pattern="/api/meals/[ID]", controller="conference.events", action="listMealsAsJson")
