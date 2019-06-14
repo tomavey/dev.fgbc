@@ -183,7 +183,7 @@
 		<cfset loc.selectString = loc.selectString & ",buttondescription,descriptionlong,descriptionshort,optiondescription,coursedescription,commentpublic,eventid">
 
 		<cfif isDefined('params.useExcursions') && params.useExcursions>
-			<cfset loc.whereString = "category = 'excursions' AND event = '#getEvent()#'">
+			<cfset loc.whereString = "category = 'excursion' AND event = '#getEvent()#'">
 		</cfif>
 
 		<cfif isDefined("loc.id")>
