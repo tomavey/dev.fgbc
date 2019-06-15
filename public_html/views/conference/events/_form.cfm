@@ -61,5 +61,9 @@ Was created to give a way to connect instructors with celebration events but the
 
 						#textArea(objectName='event', property='setup', label='Setup')#
 
+						#textField(objectName='event', property='link', label='Link (use full url)')#
+
+						#textField(objectName='event', property='setup', label='Image (use full url')#
+
 						#textArea(objectName='event', property='comment', label='Comments')#
 </cfoutput>

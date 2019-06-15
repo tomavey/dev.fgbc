@@ -56,6 +56,12 @@
 					<p><span>Setup: </span> <br />
 						#event.setup#</p>
 
+					<p><span>Link: </span> <br />
+						#event.link#</p>
+
+					<p><span>Image: </span> <br />
+						#event.image#</p>
+
 					<p><span>Comment: </span> <br />
 						#event.comment#</p>
 
