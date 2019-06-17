@@ -175,12 +175,17 @@
 	<cffunction name="findScheduleAsJson">
 	<cfargument name="params" required="true" type="struct">
 	<cfargument name="useExcursions" default="false">
+	<cfargument name="useOtherEvents" default="false">
 	<cfset var loc = structNew()>
 	<cfset loc = arguments.params>
 		<cfset loc.whereString = "category in (#getSetting('eventCategoriesForJson')#) AND event = '#getEvent()#'">
 		<cfset loc.orderString = "dayofyear,timebegin">
 		<cfset loc.selectString = "id,starttime,timebegin,endtime,timeend,eventroom,description,descriptionschedule,descriptionprogram,dateOn,dayOn,dayofyear,dayOfWeek,coursetitle,category,cost,link,image">
 		<cfset loc.selectString = loc.selectString & ",buttondescription,descriptionlong,descriptionshort,optiondescription,coursedescription,commentpublic,eventid">
+
+		<cfif isDefined('params.useOtherEvents') && params.useOtherEvents>
+			<cfset loc.whereString = "category = 'Other' AND event = '#getEvent()#'">
+		</cfif>
 
 		<cfif isDefined('params.useExcursions') && params.useExcursions>
 			<cfset loc.whereString = "category = 'excursion' AND event = '#getEvent()#'">
