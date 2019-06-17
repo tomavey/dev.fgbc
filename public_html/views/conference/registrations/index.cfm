@@ -14,8 +14,6 @@
 		#linkto(text="Paid", controller="conference.registrations", action="index", params="status=Paid")#
 	</p>	
 
-	<p>#addTag()#</p>
-
 </cfoutput>
 
 <table class="table table-striped table-responsive">
@@ -81,7 +79,6 @@
 </table>
 
 <cfoutput>
-	<p>#linkTo(text="#imageTag("add-icon.png")#", action="new", title="Add New")#</p>
 	<p>Count = #count#</p>
 </cfoutput>
 
