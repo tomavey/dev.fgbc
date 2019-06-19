@@ -291,11 +291,12 @@
 	<cfargument name="type" default="cohort">
 	<cfset var loc=arguments>
 
-	<cfif isDefined("params.type")>
-		<cfset loc.type = params.type>
-	</cfif>	 
+		<cfif isDefined("params.type")>
+			<cfset whereString = "event='#getEvent()#' AND type IN ('cohort','workshop')">
+		</cfif>	 
 
-		<cfset cohorts = model("Conferencecourse").findAll(where="event='#getEvent()#' AND type IN ('#loc.type#')", order="subtype title")>
+
+		<cfset cohorts = model("Conferencecourse").findAll(where=whereString, order="subtype title")>
 
 		<cfif isDefined("params.personid")>
 			<cfset selectedcohorts = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# AND equip_optionsid = #getOptionIdFromName(translatetype(arguments.type))#")>

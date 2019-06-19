@@ -45,6 +45,7 @@
     <th>Email</th>
     <th style="text-align:center">Signup for Cohorts</th>
     </cfif>
+    <th>Tickets Info</th>
   </tr>
   <cfoutput query="badges">
     <cfif previousname NEQ fullname>
@@ -62,6 +63,13 @@
         #linkTo(href="http://www.charisfellowship.us/selectcohorts?type=cohort&personid=#id#")#
       </td>
       </cfif>
+      <cfscript>
+        var thisPerson = {}
+        thisPerson.type = badges.type[badges.currentRow]
+        thisPerson.personid = badges.id[badges.id]
+        thisPerson.familyid = badges.equip_familiesID[badges.currentRow]
+      </cfscript>
+      <td>#thisPersonEnvelopeInfo(thisPerson.type, thisPerson.personid, thisPerson.familyid)#</td>
     </tr>
     <cfset previousname = fullname>
     <cfset count = count +1>

@@ -168,6 +168,7 @@
 				<cfset data=queryToJson(badges)>
 				<cfset renderJson()>
 		</cfif>
+		<!--- <cfdump var="#badges#"><cfabort> --->
 	</cffunction>
 
 	<cffunction name="badgesAsJson">
@@ -235,8 +236,8 @@
 		<cfset whereString = whereString & " AND alpha='#params.alpha#'">
 	</cfif>
 
-   		<cfset envelopes = model("Conferencefamily").findAll(where=whereString, order="lname")>
-
+			 <cfset envelopes = model("Conferencefamily").findAll(where=whereString, order="lname")>
+			 
 		<cfset options = model("Conferenceoption").findAll(where="event='#getEvent()#'", order="name")>
 		<cfset listcounts = QuotedValueList("options.name")>
 		<cfset listcounts = replace(listcounts,"'","","all")>
@@ -264,6 +265,16 @@
 	<cfreturn loc.showThisEnvelope>
 	</cffunction>
 
+<cfscript>
+	private function thisPersonEnvelopeInfo (type, personId, familyid) {
+		if (type is 'adult') {
+			regs = model("Conferenceregistration").findAll(where="equip_peopleid = #personId#")
+			return regs
+		}
+	}
+</cfscript>
+	
+	
 <!---This method is used by the envelope view to gather information that should be on the registration envelope--->
 	<cffunction name="thisFamilyEnvelopeInfo">
 	<cfargument name="familyid" required="true">

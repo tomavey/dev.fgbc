@@ -6,6 +6,10 @@
 		<cfset filters(through="setreturn", only="index,show,list")>
 	</cffunction>
 
+<!---------->
+<!---CRUD--->
+<!---------->
+
 	<!--- peoples/index --->
 	<cffunction name="index">
 	<cfset var loc = structNew()>
@@ -147,6 +151,10 @@
 			<cfset redirectTo(action="index")>
 		</cfif>
 	</cffunction>
+
+<!--------------------->
+<!--- END OF CRUD ----->
+<!--------------------->
 
 	<cffunction name="male">
 		<cfset thisperson = model("Conferenceperson").findOne(where="id=#params.key#", include="family")>
