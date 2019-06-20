@@ -241,7 +241,7 @@
 		<cfset options = model("Conferenceoption").findAll(where="event='#getEvent()#'", order="name")>
 		<cfset listcounts = QuotedValueList("options.name")>
 		<cfset listcounts = replace(listcounts,"'","","all")>
-		<!--- <cfdump var="#badges#"><cfabort> --->
+		<!--- <cfdump var="#envelopes#"><cfabort> --->
 		<cfif isdefined("params.download")>
 			  <cfset renderPage(layout="/conference/layoutdownload")>
 		</cfif>

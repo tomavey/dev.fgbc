@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/handbook/layout_handbook")>
-		<cfset filters(through="gotBasicHandbookRights,getStates,getPositionTypes,logview", except="focus,sendhandbook,view,inspire,findstaff,findallstaff")>
+		<cfset filters(through="gotBasicHandbookRights,getStates,getPositionTypes,logview", except="focus,sendhandbook,inspire,findstaff,findallstaff")>
 		<cfset filters(through="getPositions", only="edit,show,view")>
 		<cfset filters(through="getChurches", only="new,edit,create,update")>
 		<cfset filters(through="setReturn", only="show,bluepages,distribution")>

@@ -63,6 +63,7 @@
 		<th>Tickets</th>
 	</tr>
 <cfset count1 = 0>
+
 <cfoutput query="envelopes">
 
 	<cfset thisenvelopeinfo = thisFamilyEnvelopeInfo(id)>
