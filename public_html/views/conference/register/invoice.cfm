@@ -297,17 +297,17 @@
 					
 						#putFormTag()#		
 
-							#textFieldTag(name="fname", placeholder="First Name")#
+							#textFieldTag(name="fname", placeholder="First Name", required=true)#
 
-							#textFieldTag(name="lname", placeholder="Last Name")#
+							#textFieldTag(name="lname", placeholder="Last Name", required=true)#
 
-							#textFieldTag(name="email", placeholder="Email Address")#
+							#textFieldTag(name="email", placeholder="Email Address", required=true)#
 
 							#textFieldTag(name="phone", placeholder="Cell Phone")#
 
-							#selectTag(name="gender", placeholder="Gender", options="M,F")#
+							#selectTag(name="gender", placeholder="Gender", options="M,F", required=true)#
 
-							#selectTag(name="age", placeholder="Cell Phone", options=ageRanges, valueField="id", textField="description")#
+							#selectTag(name="age", placeholder="Cell Phone", options=ageRanges, valueField="id", textField="description", required=true)#
 
 							#hiddenFieldTag(name="groupRegId", value=groupRegId)#
 
