@@ -291,6 +291,8 @@
 	<cfargument name="type" default="cohort">
 	<cfset var loc=arguments>
 
+	<cfset whereString = "event='#getEvent()#'">
+
 		<cfif isDefined("params.type")>
 			<cfset whereString = "event='#getEvent()#' AND type IN ('cohort','workshop')">
 		</cfif>	 
