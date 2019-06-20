@@ -173,7 +173,7 @@ function $selectcohortchecked(){
 		// If 1 Wednesday Cohort is selected, disables checkboxes for all Wednesday Cohorts	
 		if ($numberOfBCohortsSelected === 1){
 			$bCohortsCheckboxUnchecked.attr({disabled: 'disabled'});
-			$bCohortsCheckboxUnchecked.next().attr({class:'alert alert-error'}).text("You have already selected one Monday Cohort or Workshop");
+			$bCohortsCheckboxUnchecked.next().attr({class:'alert alert-error'}).text("You have already selected one Wednesday Cohort or Workshop");
 	 }
 	 else {
 		$bCohortsCheckboxUnchecked.removeAttr('disabled')
