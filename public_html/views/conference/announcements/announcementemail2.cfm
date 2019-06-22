@@ -20,7 +20,7 @@
                 <tr>
                     <td colspan="2">
                         <cfoutput>
-                        <a href="http://access2019.com">
+                        <a href="http://access2019.us">
                             <img src="https://charisfellowship.us/images/conference/Access_Final_2-d.jpg" />
                         </a>
                         </cfoutput>
