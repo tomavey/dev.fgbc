@@ -20,7 +20,7 @@
                 <tr>
                     <td colspan="2">
                         <cfoutput>
-                        <a href="http://access2018.com">
+                        <a href="http://access2019.com">
                             <img src="https://charisfellowship.us/images/conference/Access_Final_2-d.jpg" />
                         </a>
                         </cfoutput>
@@ -55,7 +55,7 @@
                         <p>#announcement.link#</p>
                     </cfif>
                     <cfif isDefined("announcement.invoiceLink") and announcement.invoiceLink>
-                        #linkto(route="showInvoiceByEmail", params="email=#trim(i)#", onlypath=false)#
+                        Use this link to see your registration information: #linkto(route="showInvoiceByEmail", params="email=#trim(i)#", onlypath=false)#
                     </cfif>
                     </cfoutput>
 
