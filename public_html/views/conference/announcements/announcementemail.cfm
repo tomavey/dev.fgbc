@@ -15,9 +15,6 @@
 <cfif isDefined("announcement.invoiceLink") and announcement.invoiceLink>
     Use this link to see your registration information: #linkto(route="showInvoiceByEmail", params="email=#trim(i)#", onlypath=false)#
 </cfif>
-<!---
-<p style="font-weight:bold">See more Margins2016 announcements at <a href="http://www.flinchmobile.com">flinchmobile.com</a><p>
---->
 <p>&nbsp;</p>
 <p style="font-size:.8em;color:grey"><span>Author</span>: #announcement.author#</p>
 <p style="font-size:.8em;color:grey">You are receiving this email because you are registered for #getEventAsText()#</p>
