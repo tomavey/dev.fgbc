@@ -2,7 +2,7 @@
 <table align="center" width="800px" style="background-color:white;padding:20px">
 <tr>
 <td>
-<h3>Attention #getEventAsText()# registerees...</h3>
+<h3>Attention #getEventAsText()# folk...</h3>
 
 <p>&nbsp;</p>
 <p style="font-weight:bold">#announcement.subject#</p>
@@ -13,7 +13,7 @@
 </cfif>
 <p>&nbsp;</p>
 <cfif isDefined("announcement.invoiceLink") and announcement.invoiceLink>
-    #linkto(route="showInvoiceByEmail", params="email=#trim(i)#", onlypath=false)#
+    Use this link to see your registration information: #linkto(route="showInvoiceByEmail", params="email=#trim(i)#", onlypath=false)#
 </cfif>
 <!---
 <p style="font-weight:bold">See more Margins2016 announcements at <a href="http://www.flinchmobile.com">flinchmobile.com</a><p>
