@@ -615,6 +615,10 @@ td.DinnerInspTueSingle {
   background-color: greenyellow
 }
 
+td.DinnerInspWedSingle {
+  background-color: greenyellow
+}
+
 td.BFastCENThu {
   background-color: blueviolet
 }
@@ -626,3 +630,12 @@ td.LunchFGBCThu {
 td.LunchCPWed {
   background-color: burlywood
 }
+
+td.BFastBMHWed {
+  background-color: rebeccapurple
+}
+
+td.DinnerEagleWed {
+  background-color: #177DAB
+}
+
