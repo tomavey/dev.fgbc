@@ -268,79 +268,94 @@
 <cfscript>
 	private function thisPersonEnvelopeInfo (type, personId, familyid) {
 		if (type is 'adult') {
-			regs = model("Conferenceregistration").findAll(where="equip_peopleid = #personId#")
+			try {
+				var whereString = "equip_peopleid = #personId#"
+				regs = model("Conferenceregistration").findAll(where=whereString)
+			} catch (any e) {
+				regs = "something went wrong"
+				// writeOutput("something has gone wrong! ")
+				// writeDump(whereString);abort;
+			}
 			return regs
 		}
 	}
 </cfscript>
 	
-	
-<!---This method is used by the envelope view to gather information that should be on the registration envelope--->
+	<!---This method is used by the envelope view to gather information that should be on the registration envelope--->
 	<cffunction name="thisFamilyEnvelopeInfo">
-	<cfargument name="familyid" required="true">
-	<cfargument name="optionid" default="0">
-	<cfset var EnvelopeInfo = structnew()>
-	<cfset var familyRegInfo = structnew()>
-	<cfset var him = structnew()>
-	<cfset var her = structnew()>
-	<cfset EnvelopeInfo.items = "">
-	<cfset EnvelopeInfo.invoice = "">
-	<cfset EnvelopeInfo.status = "">
-	<cfset itemOrder="FIELD(type, 'Meal', 'Other', 'Workshop', 'Registration'), sortorder">
-	<cfset consolidateLinkString = '/index.cfm/?controller=conference.registrations&action=consolidateregs&'>
+		<cfargument name="familyid" required="true">
+		<cfargument name="optionid" default="0">
+		<cfargument name="optionType" default="">
+		<cfset var EnvelopeInfo = structnew()>
+		<cfset var familyRegInfo = structnew()>
+		<cfset var him = structnew()>
+		<cfset var her = structnew()>
+		<cfset EnvelopeInfo.items = "">
+		<cfset EnvelopeInfo.invoice = "">
+		<cfset EnvelopeInfo.status = "">
 
-		<cfset him = Model("Conferenceperson").findAll(where="Equip_familiesid = #arguments.familyid# AND type='adult'", include="family")>
-		<cfset her = Model("Conferenceperson").findAll(where="equip_familiesid=#arguments.familyid# AND type='Spouse'", include="family")>
+		<cfset itemOrder="FIELD(type, 'Meal', 'Other', 'Workshop', 'Registration'), sortorder">
+
+		<cfset consolidateLinkString = '/index.cfm/?controller=conference.registrations&action=consolidateregs&'>
+
+				<cfset him = Model("Conferenceperson").findAll(where="Equip_familiesid = #arguments.familyid# AND type='adult'", include="family")>
+				<cfset her = Model("Conferenceperson").findAll(where="equip_familiesid=#arguments.familyid# AND type='Spouse'", include="family")>
 
 
-		<cfif him.recordcount and her.recordcount>
-			<cfset EnvelopeInfo.name = him.fname & " & " & her.fname>
-			<cfif isDefined("params.showFnameId")>
-				<cfset EnvelopeInfo.name = "<a href='#consolidateLinkString#temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
-			</cfif>
-			<cfset wherestring = "event='#getEvent()#' AND (equip_peopleid = #him.id# OR equip_peopleid = #her.id#)">
+				<cfif him.recordcount and her.recordcount>
+						<cfset EnvelopeInfo.name = him.fname & " & " & her.fname>
+						<cfif isDefined("params.showFnameId")>
+								<cfset EnvelopeInfo.name = "<a href='#consolidateLinkString#temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
+						</cfif>
+						<cfset wherestring = "event='#getEvent()#' AND (equip_peopleid = #him.id# OR equip_peopleid = #her.id#)">
 
-		<cfelseif him.recordcount>
-			<cfset EnvelopeInfo.name = him.fname>
-			<cfif isDefined("params.showFnameId")>
-				<cfset EnvelopeInfo.name = "<a href='#consolidateLinkString#temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
-			</cfif>
-			<cfset wherestring = "event='#getEvent()#' AND equip_peopleid = #him.id#">
-		<cfelseif her.recordcount>
-			<cfset EnvelopeInfo.name = her.fname>
-			<cfif isDefined("params.showFnameId")>
-				<cfset EnvelopeInfo.name = "<a href='#consolidateLinkString#temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
-			</cfif>
-			<cfset wherestring = "event='#getEvent()#' AND equip_peopleid = #her.id#">
-		<cfelse>
-			<cfset EnvelopeInfo.name = "NA">
-		</cfif>
+				<cfelseif him.recordcount>
+						<cfset EnvelopeInfo.name = him.fname>
+						<cfif isDefined("params.showFnameId")>
+								<cfset EnvelopeInfo.name = "<a href='#consolidateLinkString#temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
+						</cfif>
+						<cfset wherestring = "event='#getEvent()#' AND equip_peopleid = #him.id#">
+				<cfelseif her.recordcount>
+						<cfset EnvelopeInfo.name = her.fname>
+						<cfif isDefined("params.showFnameId")>
+								<cfset EnvelopeInfo.name = "<a href='#consolidateLinkString#temppersonid=#him.id#&lname=#lname#' target='_blank'>&##8225;</a> " & EnvelopeInfo.name>
+						</cfif>
+						<cfset wherestring = "event='#getEvent()#' AND equip_peopleid = #her.id#">
+				<cfelse>
+						<cfset EnvelopeInfo.name = "NA">
+				</cfif>
 
-		<cfif isDefined("params.option")>
-			<cfset wherestring = whereString & " AND name = '#params.option#'">
-		</cfif>
+				<cfif isDefined("params.option")>
+						<cfset wherestring = whereString & " AND name = '#params.option#'">
+				</cfif>
 
-		<cfif !isDefined("params.showall")>
-			<cfset whereString = whereString & " AND quantity <> 0">
-		</cfif>		
+				<cfif !isDefined("params.showall")>
+						<cfset whereString = whereString & " AND quantity <> 0">
+				</cfif>		
 
-		<cfset familyRegInfo = Model("Conferenceregistration").findAll(where=wherestring, include="option,invoice", order=itemOrder)>
+				<cfscript>
+					if (optionType IS "mealsOnly") {
+						whereString = whereString & " AND type = 'Meal'"
+					}
+				</cfscript>
 
-		<cftry>
-			<cfset envelopeInfo.status = paystatus(familyRegInfo.ccstatus)>
-		<cfcatch></cfcatch></cftry>
+				<cfset familyRegInfo = Model("Conferenceregistration").findAll(where=wherestring, include="option,invoice", order=itemOrder)>
 
-		<cftry>
-			<cfset envelopeInfo.invoice = familyRegInfo.ccorderid>
-		<cfcatch></cfcatch></cftry>
+				<cftry>
+						<cfset envelopeInfo.status = paystatus(familyRegInfo.ccstatus)>
+				<cfcatch></cfcatch></cftry>
 
-		<cftry>
-		<cfloop query="familyRegInfo">
-			<cfset EnvelopeInfo.items = EnvelopeInfo.items & "; " & name & "[" & quantity & "]">
-		</cfloop>
-		<cfcatch></cfcatch></cftry>
+				<cftry>
+						<cfset envelopeInfo.invoice = familyRegInfo.ccorderid>
+				<cfcatch></cfcatch></cftry>
 
-		<cfset EnvelopeInfo.items = replace(EnvelopeInfo.items,"; ","","one")>
+				<cftry>
+				<cfloop query="familyRegInfo">
+						<cfset EnvelopeInfo.items = EnvelopeInfo.items & "; " & quantity & name>
+				</cfloop>
+				<cfcatch></cfcatch></cftry>
+
+				<cfset EnvelopeInfo.items = replace(EnvelopeInfo.items,"; ","","one")>
 
 	<cfreturn EnvelopeInfo>
 	</cffunction>
@@ -351,6 +366,31 @@
 		<cfdump var="#test1#"><cfdump var="#test2#"><cfabort>
 	</cffunction>
 
+<cfscript>
 
+	function thisPersonsMealTickets(personid, familyid, type) {
+		var EnvelopeInfo = thisFamilyEnvelopeInfo(familyid,0,"mealsOnly").items
+		EnvelopeInfo = listToArray(EnvelopeInfo,";")
+		var tickets = ""
+		var item = ""
+		if (type IS "spouse") {
+			tickets = ""
+			for ( item IN EnvelopeInfo ) {
+				if (val(item) EQ 2) {
+					tickets = tickets & ";" & item 
+				}
+			}
+		} else {
+			tickets = ""
+			for ( item IN EnvelopeInfo ) {
+				if (val(item)) {
+					tickets = tickets & ";" & item
+				}
+		}
+	}
+		return tickets
+	}
+
+</cfscript>
 
 </cfcomponent>

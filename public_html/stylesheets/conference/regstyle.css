@@ -592,3 +592,37 @@ input#captcha {height: 30px}
   font-size: .8em;
 }
 
+td.mealTicket {
+  border-radius: 20px;
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+td.BFastGCSTue {
+  background-color: yellow
+}
+
+td.LunchEWPTue {
+  background-color: pink
+}
+
+td.DinnerInspTueCouple {
+  background-color: greenyellow
+}
+
+td.DinnerInspTueSingle {
+  background-color: greenyellow
+}
+
+td.BFastCENThu {
+  background-color: blueviolet
+}
+
+td.LunchFGBCThu {
+  background-color: orchid
+}
+
+td.LunchCPWed {
+  background-color: burlywood
+}

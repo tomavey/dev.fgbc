@@ -1,4 +1,4 @@
-<!---cfdump var="#badges#"><cfabort--->
+<!--- <cfdump var="#badges#"><cfabort> --->
 <cfscript>
   var forWorkshops = false
   if (isDefined("params.forWorkshops") || isDefined("params.download")) {
@@ -69,7 +69,7 @@
         thisPerson.personid = badges.id[badges.id]
         thisPerson.familyid = badges.equip_familiesID[badges.currentRow]
       </cfscript>
-      <td>#thisPersonEnvelopeInfo(thisPerson.type, thisPerson.personid, thisPerson.familyid)#</td>
+      <td>#ticketsToTable(thisPersonsMealTickets(id,equip_familiesID,type))#</td>
     </tr>
     <cfset previousname = fullname>
     <cfset count = count +1>
