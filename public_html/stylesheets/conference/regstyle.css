@@ -593,15 +593,15 @@ input#captcha {height: 30px}
 }
 
 p.mealTicket {
-  display: inline;
+  display: inline-block;
   border-radius: 30px;
   height: 30px;
-  width:30px;
+  width:130px;
   text-align: center;
-  vertical-align: middle;
   padding:5px;
   font-weight: bold;
   font-size: 1.2em;
+  line-height: 2;
 }
 
 p.BFastGCSTue {
