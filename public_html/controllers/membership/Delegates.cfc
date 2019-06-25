@@ -17,6 +17,10 @@
 		delegateYear = getDelegateYear();
 	}
 
+	private function officeOnly() {
+		is (!gotRights("office")) { abort }
+	}
+
 </cfscript>
 
 	<cffunction name="getChurch" access="private">
