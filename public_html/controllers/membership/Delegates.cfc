@@ -18,7 +18,7 @@
 	}
 
 	private function officeOnly() {
-		if (!gotRights("office")) { abort }
+		if (!gotRights("office")) { renderText('You do not have permission to access this page!') }
 	}
 
 </cfscript>
