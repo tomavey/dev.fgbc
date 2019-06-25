@@ -666,7 +666,7 @@
 		<cfset flashInsert(success="Please provide a valid email address to send this list to.")>
 		<cfset redirectTo(action="showSelectedWorkshops", params="personid=#params.personid#&type=#params.type#")>
 	</cfif>
-		<cfset workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#arguments.personid# AND type='#arguments.type#'", include="Workshop(Agenda)", order="eventDate")>
+		<cfset workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#arguments.personid# AND (type = 'cohort' OR type='workshop')", include="Workshop(Agenda)", order="eventDate")>
 		<cfset person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family")>
 			<cfif !isLocalMachine()>
 				<cfset sendEMail(to=arguments.sendToEmail, from="tomavey@fgbc.org", layout="/conference/layout_for_email", template="showSelectedWorkshops", subject="Access2017 #params.type# selections")>
