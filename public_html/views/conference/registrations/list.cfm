@@ -30,6 +30,9 @@
 		<cfelse>
 			#linkto(text="Show all status", action="list", params="type=#params.type#")#
 		</cfif>
+		<cfif !gotRights("Basic")>
+			<p>You must be logged into this site to see email addresses.</p>
+		</cfif>
 	</p>
 	<hr/>
 	</cfoutput>
@@ -47,7 +50,11 @@
 	<h1>#ButtonDescription#</h1>
 </cfif>
 		<table class="reglist">
-			<th>&nbsp;</th><th>Name</th><th>Quantity</th><th>Email</th><th>Phone</th><th>Age Range</th>
+			<th>&nbsp;</th><th>Name</th><th>Quantity</th>
+			<cfif gotRights("basic")>
+				<th>Email</th><th>Phone</th>
+			</cfif>
+			<th>Age Range</th>
 			<cfif gotRights("superadmin,office")>
 				<th>&nbsp;</th>
 				<cfif find(cgi.path_info,"?")>
@@ -84,13 +91,15 @@
 							<cfcatch></cfcatch>
 							</cftry>
 						</td>
-						<td>
-							#mailto(email)#
-						</td>
-						<td>
-							#phone#
-						</td>
-						<td>
+						<cfif gotrights("basic")>
+							<td>
+								#mailto(email)#
+							</td>
+							<td>
+								#phone#
+							</td>
+						</cfif>
+					<td>
 							#description#
 						</td>
 					<cfif gotRights("superadmin,office")>
@@ -134,7 +143,9 @@
 		</cfif>
 
 		<p>Link: #linkTo(controller="conference.registrations", action="list", key="#equip_optionsid#", onlyPath=false)#</p>
-		<p>Email All: #emailEveryone()#</p>
+		<cfif gotRights("basic")>
+			<p>Email All: #emailEveryone()#</p>
+		</cfif>
 </div>
 
 <cfset totalAllQuantity = totalAllQuantity + totalThisQuantity>
@@ -148,21 +159,25 @@ Total Count = #totalAllCount#<br/>
 <cfif gotrights("office")>
 	Total All Cost #dollarformat(totalAllCost)#<br/>
 </cfif>
-Email All = #emailEveryoneAll()#<br/>
-Email All Count = #listLen(emailEveryoneAll(),';')#<br/>
+<cfif gotRights("Basic")>
+	Email All = #emailEveryoneAll()#<br/>
+	Email All Count = #listLen(emailEveryoneAll(),';')#<br/>
+</cfif>
 </cfoutput>
 
 
 <hr/>
 <cfoutput>
-<table>
-<cfloop list="#emailEveryoneAll()#" delimiters=";" index="i">
-<tr>
-<td>
-	#i#
-</td>
-</tr>
-</cfloop>
-</table>
+	<cfif gotRights("basic")>
+		<table>
+			<cfloop list="#emailEveryoneAll()#" delimiters=";" index="i">
+				<tr>
+					<td>
+						#i#
+					</td>
+				</tr>
+			</cfloop>
+		</table>
+	</cfif>
 
 </cfoutput>

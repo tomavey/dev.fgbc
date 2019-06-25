@@ -27,7 +27,10 @@
 --->
 	<p>
 		<table class="reglist">
-			<th>&nbsp;</th><th>Name</th><th>Email</th>
+			<th>&nbsp;</th><th>Name</th>
+			<cfif gotRights("Basic")>
+				<th>Email</th>
+			</cfif>
 		<cfset totalThisQuantity = 0>
 	<cfoutput>
 	<cfif not isDefined("params.noMll")	OR not isRegMLL(personid)>
@@ -44,7 +47,9 @@
 					<cfelseif len(getSpouseEmail(equip_peopleid))>
 						<cfset thisemail = getSpouseEmail(equip_peopleid)>
 					</cfif>
-					#mailto(thisemail)#
+					<cfif gotRights("basic")>
+						#mailto(thisemail)#
+					</cfif>
 				</td>
 			<cfif gotRights("superadmin,office")>
 				<td>
@@ -68,7 +73,9 @@
 		</cfif>
 
 		<p>Link: #linkTo(controller="conference.courses", action=params.action, key="#equip_coursesid#", onlyPath=false)#</p>
-		<p>Email All: #emailEveryone()#</p>
+		<cfif gotRights("basic")>
+			<p>Email All: #emailEveryone()#</p>
+		</cfif>
 		<p>Questions posted: #linkTo(controller="conference.coursequestions", action="list", params="courseid=#equip_coursesid#", onlyPath=false)#</p>
 		<cftry>
 		<p>Room and Date: #getEventEquipmentForThisCourse(eventid).selectName#</p>
@@ -107,21 +114,24 @@ Total of these registered people that have signed up = #listlen(emaillistall,";"
 Cohorts with no signups: #emptyWorkshops#
 </div>
 
-
-<p>Email All = #emaillistall#</p>
+<cfif gotRights("basic")>
+	<p>Email All = #emaillistall#</p>
+</cfif>
 </cfoutput>
 
 <hr/>
-<cfoutput>
-<table>
-<cfloop list="#emailEveryoneAll()#" delimiters=";" index="i">
-<tr>
-<td>
-	#i#
-</td>
-</tr>
-</cfloop>
-</table>
-</cfoutput>
+<cfif gotRights("basic")>
+	<cfoutput>
+		<table>
+		<cfloop list="#emailEveryoneAll()#" delimiters=";" index="i">
+		<tr>
+		<td>
+			#i#
+		</td>
+		</tr>
+		</cfloop>
+		</table>
+		</cfoutput>
+</cfif>
 </div>
 
