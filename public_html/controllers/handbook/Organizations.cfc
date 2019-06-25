@@ -227,7 +227,7 @@ public function EmailChurchesForHandbookReview(){
 			churches = model("Handbookorganization").findChurchesForEmailing();
 		}
 	for (i=1; i LTE arrayLen(churches); i=i+1){
-		sendEmail(to=churches[i].email, from=getHandbookReviewSecretary(), subject="FGBC Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
+		sendEmail(to=churches[i].email, from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
 		allemails = allemails & "; " & churches[i].email;
 	};
 	allemails = replace(allemails,"; ","","one");

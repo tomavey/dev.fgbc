@@ -2,7 +2,7 @@
 #linkto(text="Help?", action="help", class="help")#
 <div class="#params.action#" id="showinfo">
 
-  <h1>Welcome to the FGBC Online Handbook.</h1>
+  <h1>Welcome to the Charis Fellowship Online Handbook.</h1>
 
   <cfif isMobile()>
   	<p>Enter your email below and we will send you a link to unlock the online handbook on this device.</p>
