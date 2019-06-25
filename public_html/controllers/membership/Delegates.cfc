@@ -18,7 +18,7 @@
 	}
 
 	private function officeOnly() {
-		is (!gotRights("office")) { abort }
+		if (!gotRights("office")) { abort }
 	}
 
 </cfscript>
