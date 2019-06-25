@@ -763,6 +763,14 @@
 
 	</cffunction>
 
+	<cfscript>
+
+		function gotRightsForEmailLinks() {
+			return gotRights("basic")
+		}
+	
+	</cfscript>
+
 
 
 </cfcomponent>
