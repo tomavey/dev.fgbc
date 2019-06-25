@@ -30,7 +30,7 @@
 		<cfelse>
 			#linkto(text="Show all status", action="list", params="type=#params.type#")#
 		</cfif>
-		<cfif !gotRights("Basic")>
+		<cfif !gotRightsForEmailLinks()>
 			<p>You must be logged into this site to see email addresses.</p>
 		</cfif>
 	</p>
@@ -51,7 +51,7 @@
 </cfif>
 		<table class="reglist">
 			<th>&nbsp;</th><th>Name</th><th>Quantity</th>
-			<cfif gotRights("basic")>
+			<cfif gotRightsForEmailLinks()>
 				<th>Email</th><th>Phone</th>
 			</cfif>
 			<th>Age Range</th>
@@ -91,7 +91,7 @@
 							<cfcatch></cfcatch>
 							</cftry>
 						</td>
-						<cfif gotrights("basic")>
+						<cfif gotRightsForEmailLinks()>
 							<td>
 								#mailto(email)#
 							</td>
@@ -143,7 +143,7 @@
 		</cfif>
 
 		<p>Link: #linkTo(controller="conference.registrations", action="list", key="#equip_optionsid#", onlyPath=false)#</p>
-		<cfif gotRights("basic")>
+		<cfif gotRightsForEmailLinks()>
 			<p>Email All: #emailEveryone()#</p>
 		</cfif>
 </div>
@@ -159,7 +159,7 @@ Total Count = #totalAllCount#<br/>
 <cfif gotrights("office")>
 	Total All Cost #dollarformat(totalAllCost)#<br/>
 </cfif>
-<cfif gotRights("Basic")>
+<cfif gotRightsForEmailLinks()>
 	Email All = #emailEveryoneAll()#<br/>
 	Email All Count = #listLen(emailEveryoneAll(),';')#<br/>
 </cfif>
@@ -168,7 +168,7 @@ Total Count = #totalAllCount#<br/>
 
 <hr/>
 <cfoutput>
-	<cfif gotRights("basic")>
+	<cfif gotRightsForEmailLinks()>
 		<table>
 			<cfloop list="#emailEveryoneAll()#" delimiters=";" index="i">
 				<tr>

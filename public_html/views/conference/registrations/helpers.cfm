@@ -15,4 +15,12 @@
 <cfreturn combinedEmail>	
 </cffunction>
 
+<cfscript>
+
+	function gotRightsForEmailLinks() {
+		return gotRights("basic")
+	}
+
+</cfscript>
+
 <cfinclude template="../helpers.cfm">
