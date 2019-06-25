@@ -592,50 +592,55 @@ input#captcha {height: 30px}
   font-size: .8em;
 }
 
-td.mealTicket {
-  border-radius: 20px;
+p.mealTicket {
+  display: inline;
+  border-radius: 30px;
   height: 30px;
+  width:30px;
   text-align: center;
   vertical-align: middle;
+  padding:5px;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 
-td.BFastGCSTue {
-  background-color: yellow
+p.BFastGCSTue {
+  background-color: lightblue
 }
 
-td.LunchEWPTue {
-  background-color: pink
+p.LunchEWPTue {
+  background-color: lightcoral
 }
 
-td.DinnerInspTueCouple {
-  background-color: greenyellow
+p.DinnerInspTueCouple {
+  background-color:lightcyan
 }
 
-td.DinnerInspTueSingle {
-  background-color: greenyellow
+p.DinnerInspTueSingle {
+  background-color:  lightgreen
 }
 
-td.DinnerInspWedSingle {
-  background-color: greenyellow
+p.DinnerInspTueSingle {
+  background-color: lightgreen
 }
 
-td.BFastCENThu {
-  background-color: blueviolet
+p.BFastCENThu {
+  background-color: lightpink
 }
 
-td.LunchFGBCThu {
-  background-color: orchid
+p.LunchFGBCThu {
+  background-color: lightsalmon
 }
 
-td.LunchCPWed {
-  background-color: burlywood
+p.LunchCPWed {
+  background-color: lightseagreen
 }
 
-td.BFastBMHWed {
+p.BFastBMHWed {
   background-color: rebeccapurple
 }
 
-td.DinnerEagleWed {
-  background-color: #177DAB
+p.DinnerEagleWed {
+  background-color: lightskyblue
 }
 
