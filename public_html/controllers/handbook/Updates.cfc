@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/handbook/layout_handbook1")>
-		<cfset filters(through="gotBasicHandbookRights", except="index")>
+		<cfset filters(through="gotBasicHandbookRights")>
 		<!--- <cfset filters(through="isSubscriberSession", only="index")> --->
 	</cffunction>
 
