@@ -6,6 +6,7 @@
 		<cfset filters(through="getChurches", only="getChurchId,delinquent")>
 		<cfset filters(through="setReturn", only="show")>
 		<cfset filters(through="setDelegateYear")>
+		<cfset filters(through="officeOnly", only="index")>
 	</cffunction>
 
 <!---Filters--->
