@@ -602,6 +602,7 @@ p.mealTicket {
   font-weight: bold;
   font-size: 1.2em;
   line-height: 2;
+  margin-right:2px;
 }
 
 p.BFastGCSTue {
