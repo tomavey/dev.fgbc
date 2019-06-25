@@ -22,15 +22,15 @@
   function shortCodeForTicket(ticket) {
     var codes = structNew()
     var code = ""
-    codes.BFastGCSTue = "GCS-TB"
-    codes.LunchEWPTue = "ENC-TL"
-    codes.DinnerInspTueCouple = "ICp-TD"
-    codes.DinnerInspTueSingle = "ISg-TD"
-    codes.BFastBMHWed = "BMH-WB"
-    codes.LunchCPWed = "ChP-LW"
-    codes.DinnerEagleWed = "EGL-WD"
-    codes.BFastCENThu = "CEN-RB"
-    codes.LunchFGBCThu = "ChF-RL"
+    codes.BFastGCSTue = "GCS-TueBfast"
+    codes.LunchEWPTue = "ENC-TueLunch"
+    codes.DinnerInspTueCouple = "IN2-TueDinnr"
+    codes.DinnerInspTueSingle = "IN1-TueDinnr"
+    codes.BFastBMHWed = "BMH-WedBfast"
+    codes.LunchCPWed = "ChP-WedLunch"
+    codes.DinnerEagleWed = "EGL-WedDinnr"
+    codes.BFastCENThu = "CEN-ThuBFast"
+    codes.LunchFGBCThu = "ChF-ThuLunch"
     try {
       code = codes[ticket]
     } catch (any e) {
