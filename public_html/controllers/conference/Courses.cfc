@@ -339,7 +339,7 @@
 		<cfif isDefined("params.orderby")>
 			<cfset orderBy = params.orderby>
 		</cfif>
-		<cfset whereStringAll = "event='#getEvent()#' AND type='cohort'">
+		<cfset whereStringAll = "event='#getEvent()#' AND (type='cohort' OR type = 'workshop')">
 		<cfif isDefined("params.key")>
 			<cfset whereString = whereStringAll & " AND equip_coursesid = #params.key#">
 		<cfelse>
