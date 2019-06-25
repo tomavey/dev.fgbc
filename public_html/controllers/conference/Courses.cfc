@@ -602,18 +602,18 @@
 	</cffunction>
 
 	<cffunction name="showSelectedWorkshops">
-	<cfargument name="type"  default="cohorts">
-		<cfif isDefined("params.type")>
+	<cfargument name="type"  default="cohorts,workshops">
+		<!--- <cfif isDefined("params.type")>
 			<cfset arguments.type = params.type>
 		<cfelse>
 			<cfset params.type = arguments.type>	
-		</cfif>
+		</cfif> --->
 	<cfset var loc = arguments>
 	<cfset loc.sendString = "from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your #params.type# selections...'">
-	<cfset arguments.type = translateType(arguments.type)>
+	<!--- <cfset arguments.type = translateType(arguments.type)> --->
 		<cfif isDefined("params.personid")>
 
-			<cfset workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# AND type='#arguments.type#'", include="Workshop(Agenda)", order="eventDate")>
+			<cfset workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# AND (type = 'cohort' OR type='workshop')", include="Workshop(Agenda)", order="eventDate")>
 
 			<cfset person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family")>
 		<cfelse>
