@@ -3,6 +3,7 @@
 	<cffunction name="init">
 		<cfset filters(through="getCurrentMembershipYear")>
 		<cfset usesLayout(template="/handbook/layout_agbm")>
+		<cfset filters(through="gotAgbmRights")>
 	</cffunction>
 
 	<!--- handbookagbmregions/index --->
