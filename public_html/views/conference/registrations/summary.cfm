@@ -132,9 +132,9 @@
 					</li>
 				</cfif>
 
-				<li>
+				<!--- <li>
 					#linkto(text="Options (Excursions)", action="list", params="type=other", class="btn btn-block")#
-				</li>
+				</li> --->
 
 				<cfif childRegIsOpen()>
 					</li>
