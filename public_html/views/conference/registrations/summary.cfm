@@ -117,10 +117,10 @@
 					#linkto(action="list", text="ALL",class="btn btn-block")#
 				</li>
 				<li>
-					#linkto(text="Registrations", action="list", params="type=Registration",class="btn btn-block")#
+					#linkto(text="Registrations", action="list", params="type=Registration&token=#getSetting("requiredToken")#",class="btn btn-block")#
 				</li>
 				<li>
-					#linkto(text="Meals", action="list", params="type=Meal", class="btn btn-block")#
+					#linkto(text="Meals", action="list", params="type=Meal&token=#getSetting("requiredToken")#", class="btn btn-block")#
 				</li>
 				<li>
 					#linkto(text="Cohorts", controller="conference.courses", action="showallselectedcohorts", class="btn btn-block")#

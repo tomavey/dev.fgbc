@@ -10,7 +10,7 @@
 <p>&nbsp;</p>
 <p><a href="#summaryOfCounts" class="btn">Go to summary of totals</a>
 <cfoutput>
-#linkto(text='<i class="icon-download-alt"></i>', controller="conference.courses", action="downloadallselectedcohorts", params="download=1", class="btn pull-right")#
+#linkto(text='Download', controller="conference.courses", action="downloadallselectedcohorts", params="download=1", class="btn pull-right")#
 </cfoutput>
 </p> 
 <cfoutput query="workshops" group="title">
@@ -38,7 +38,11 @@
 			<tr>
 				<td>#grouprowcount#</td>
 				<td>
-					#linkto(text='#cleanname(lname)#, #cleanname(fname)#' , controller="conference.people", action="show", key=EQUIP_PEOPLEID)#
+					<cfif gotRights("office")>
+						#linkto(text='#cleanname(lname)#, #cleanname(fname)#' , controller="conference.people", action="show", key=EQUIP_PEOPLEID)#
+					<cfelse>	
+						#cleanname(lname)#, #cleanname(fname)#
+					</cfif>
 				</td>
 				<td>
 

@@ -677,6 +677,12 @@
 		if (isDefined("params.keyy") && len(params.keyy)) { params.key = params.keyy};
 	}
 
+	private function requiresToken() {
+		if (!isDefined('params.token') || params.token NEQ getSetting("requiredToken")) {
+			reDirectTo(action="summary")
+		}
+	}
+
 </cfscript>		
 
 <cffunction name="getDistinctColumnValuesFromQuery">

@@ -4,6 +4,7 @@
 		<cfset usesLayout("/conference/adminlayout")>
 		<cfset filters(through="officeOnly", except="list,summary")>
 		<cfset filters(through="setReturn", only="index,show,list")>
+		<cfset filters(through="requiresToken", only="list")>
 	</cffunction>
 
 	<!--- registrations/index --->
