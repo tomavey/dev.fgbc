@@ -22,7 +22,7 @@
             </cfif>
             <cfset loc.selectString = "id,subject,author,content,searchable,createdAt,datePosted,postAt,link">
             <cfset loc.event = getEvent()>
-            <cfset loc.whereString = "event='#getEvent()#' AND approved = 'yes' AND postAt < '#loc.postAt#'">
+            <cfset loc.whereString = "event='#getEvent()#' AND approved = 'yes' AND postAt < '#loc.postAt#' AND emailOnly = 'no'">
             <cfif isDefined("loc.id")>
                 <cfset loc.whereString = loc.whereString & " AND id=#loc.id#">
                 <cfset loc.selectString = loc.selectString & ",content">
