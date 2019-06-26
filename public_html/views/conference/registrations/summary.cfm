@@ -140,7 +140,7 @@
 					</li>
 
 					<li>
-						#linkto(text="GraceKids", action="list", params="type=GraceKids", class="btn btn-block")#
+						#linkto(text="GraceKids", action="list", params="type=GraceKids&token=#getSetting('requiredToken')#", class="btn btn-block")#
 					</li>
 					<!---
 					<li>
