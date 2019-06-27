@@ -101,6 +101,7 @@
 	</cffunction>
 
 	<cffunction name="gotBasicHandbookRights">
+		<cfcookie name="handbookLastRequest_url" value=#cgi.request_url#>		
 		<cfif isDefined("params.action") and params.action is "sendHandbook">
 			<cfreturn true>
 		</cfif>

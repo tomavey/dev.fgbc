@@ -20,7 +20,7 @@
 
 						#select(objectName='announcement', property='approved', label='Approved: ', options="yes,no")#
 
-						#select(objectName='announcement', property='emailOnly', label='Email Only: ', options="no,yes")#
+						#select(objectName='announcement', property='emailOnly', label='Email Only (if "yes", this will not show in the app): ', options="no,yes")#
 
 						<!---
 						#select(objectName='announcement', property='sendType', label='Type of Send: ', options="never,digest,immediate")#
