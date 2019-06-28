@@ -1,5 +1,19 @@
 <!--- <cfdump var="#badges#"><cfabort> --->
-<cfscript>
+<cfparam name="params.showTicketsAs" default="spanList">
+
+<style>
+  .spanList {
+    color:blue
+  }
+  .BFastBMHWed {
+    background-color: red;
+    display: block;
+    width:150px;
+    border-radius:10px;
+  }
+</style>
+
+<cfscript>  
   var forWorkshops = false
   if (isDefined("params.forWorkshops") || isDefined("params.download")) {
     forWorkshops = true
@@ -14,18 +28,20 @@
     #dateSelectTags(name="date")#
     #submitTag("Date After")#
     #endFormTag()#
+
     <cfif isDefined("params.previousyear")>
-      #linkTo(text="Download as Excel", action="badges",  params="download=true&previousyear")#
+      #linkTo(text="Download as Excel", action="badges",  params="download=true&previousyear&showticketsas=#params.showticketsas#")#
     <cfelseif isDefined("params.date")>
-      #linkTo(text="Download as Excel", action="badges",  params="download=true&date=#dateformat(params.date,'yyyy-mm-dd')#")#
+      #linkTo(text="Download as Excel", action="badges",  params="download=true&date=#dateformat(params.date,'yyyy-mm-dd')#&showticketsas=#params.showticketsas#")#
     <cfelse>
-      #linkTo(text="Download as Excel", action="badges",  params="download=true")#
+      #linkTo(text="Download as Excel", action="badges",  params="download=true&showticketsas=#params.showticketsas#")#
     </cfif>
     <cfif not isDefined("params.previousyear")>
-      <p>#linkTo(text="Previous Year", action="badges", params="previousyear")#</p>
+      <p>#linkTo(text="Previous Year", action="badges", params="previousyear&showticketsas=#params.showticketsas#")#</p>
     <cfelse>
       <p>#linkTo(text="Current Year", action="badges")#</p>
     </cfif>
+
   </cfoutput>
 </cfif>
 
@@ -45,7 +61,19 @@
     <th>Email</th>
     <th style="text-align:center">Signup for Cohorts</th>
     </cfif>
-    <th>Tickets Info</th>
+    <th>Tickets Info
+      <cfoutput>
+        <cfif params.showticketsas NEQ "tableList">
+          [#linkTo(text="As buttons", action="badges", params="showticketsas=tableList")#]&nbsp;
+        </cfif>
+        <cfif params.showticketsas NEQ "pipeList">
+          [#linkTo(text="As | list", action="badges", params="showticketsas=pipeList")#]&nbsp;
+        </cfif>  
+        <cfif params.showticketsas NEQ "spanList">
+          [#linkTo(text="As spaced list", action="badges", params="showticketsas=spanList")#] 
+        </cfif>  
+      </cfoutput>
+    </th>
   </tr>
   <cfoutput query="badges">
     <cfif previousname NEQ fullname>
@@ -69,7 +97,13 @@
         thisPerson.personid = badges.id[badges.id]
         thisPerson.familyid = badges.equip_familiesID[badges.currentRow]
       </cfscript>
-      <td>#ticketsToTable(thisPersonsMealTickets(id,equip_familiesID,type))#</td>
+      <cfif params.showTicketsAs is "pipeList">
+        <td>#ticketsToPipeList(thisPersonsMealTickets(id,equip_familiesID,type))#</td>
+      <cfelseif params.showTicketsAs is "spanList">
+        <td>#ticketsToSpanList(thisPersonsMealTickets(id,equip_familiesID,type))#</td>
+      <cfelse>
+        <td>#ticketsToTable(thisPersonsMealTickets(id,equip_familiesID,type))#</td>
+      </cfif>
     </tr>
     <cfset previousname = fullname>
     <cfset count = count +1>

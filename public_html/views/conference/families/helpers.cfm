@@ -12,6 +12,30 @@
     return ticketsTable
   }
 
+  function ticketsToPipeList(tickets) {
+    var ticketsArr = listToArray(tickets,";")
+    var ticketsPipeList = ""
+    var ticket = "| "
+    for (ticket in ticketsArr) {
+      ticketsPipeList = ticketsPipeList & " | " & shortCodeForTicket(removeCountFromTicket(ticket))
+    }
+    ticketsPipeList = replace(ticketsPipeList, "| ", "")
+    return ticketsPipeList
+  }
+
+  function ticketsToSpanList(tickets) {
+    var ticketsArr = listToArray(tickets,";")
+    var ticketsList = ""
+    var ticket = "| "
+    for (ticket in ticketsArr) {
+      var ticketClass = removeCountFromTicket(ticket)
+      ticketsList = ticketsList & "<span class='spanList #ticketClass#'>" & shortCodeForTicket(removeCountFromTicket(ticket)) & "</span>"
+    }
+    ticketsList = replace(ticketsList, "| ", "")
+    return ticketsList
+
+  }
+
   function removeCountFromTicket(ticket) {
     var count = val(ticket)
     var countAsString = toString(count)
