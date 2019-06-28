@@ -5,7 +5,7 @@
 <h3>Member Churches that have not yet submitted their delegate form.</h3>
   <cfoutput>
 <cfif NOT isDefined("params.download")>
-  <cfif isDefined('params.showall')>
+  <cfif isDefined('params.showall') && params.showAll>
     #linkTo(text="Download as excel", action="delinquent", params="download=1&showall=1", class="btn")#
   <cfelse>
     #linkTo(text="Download as excel", action="delinquent", params="download=1", class="btn")#
@@ -19,6 +19,8 @@
 </cfif> 
 <cfif !params.showall>
   #linkTo(text="Show All Churches", controller="membership.delegates", action="delinquent", params="showall=true", class="btn")#
+<cfelse>  
+  #linkTo(text="Show Only Deliqnuent Churches", controller="membership.delegates", action="delinquent", params="", class="btn")#
 </cfif>
   </cfoutput>
 

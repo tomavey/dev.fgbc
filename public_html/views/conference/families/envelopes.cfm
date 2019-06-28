@@ -32,9 +32,9 @@
 <cfelseif isDefined("params.showFnameId")>
 	| #linkTo(text="Don't Show Merge Icon", action="envelopes", params="")#
 <cfelseif !isDefined("params.showFnameId") && !isDefined("params.alpha")>	
-	| #linkTo(text="Show Merge Icon", action="envelopes", params="showFnameId=true")#
+	| #linkTo(text="Show Merge Icon", action="envelopes", params="showFnameId=true&showLNameId=true")#
 <cfelseif !isDefined("params.showFnameId") && isDefined("params.alpha")>	
-	| #linkTo(text="Show Merge Icon", action="envelopes", params="alpha=#params.alpha#&showFnameId=true")#
+	| #linkTo(text="Show Merge Icon", action="envelopes", params="alpha=#params.alpha#&showFnameId=true&showLNameId=true")#
 </cfif>
 
 <p>

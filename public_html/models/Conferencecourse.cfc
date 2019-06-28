@@ -125,6 +125,7 @@
 		<cfscript>
 			var loc= structNew();
 			loc = arguments.params;
+
 			if ( !isDefined("params.event") ) { loc.event = getEvent() };
 
 			loc.orderbyString = "title";
@@ -132,11 +133,14 @@
 			
 			loc.whereString = "event='#loc.event#'";
 			if ( isDefined("loc.type") ) { loc.whereString = loc.whereString & " AND type = '#loc.type#'" };
+			if ( isDefined("loc.types") ) { 
+				loc.types = commaListToQuoteList(loc.types)
+				loc.whereString = loc.whereString & " AND type IN ('#loc.types#')" 
+			};
 			if ( isDefined("loc.where") ) { loc.whereString & " AND selectName = '#loc.where#'" };
 
 			loc.courses = findAll(where=loc.whereString, include="Agenda", order=loc.orderbyString);
 			loc.courses = htmlEditDescriptions(loc.courses);
-
 			return loc.courses;
 		</cfscript>
 	</cffunction>
