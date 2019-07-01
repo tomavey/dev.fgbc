@@ -564,7 +564,7 @@
 		<cfset loc.riscursions = "excursion">
 		<cfset loc.cohorts = "cohort">
 		<cfset loc.cohort = "cohort">
-	<cfreturn loc['#arguments.type#']>
+	<cfreturn type>
 	</cffunction>
 
 	<cffunction name="isInWorkshop">
