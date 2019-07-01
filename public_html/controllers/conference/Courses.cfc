@@ -533,8 +533,8 @@
 		<cfif isDefined("params.type")>
 			<cfset arguments.type = params.type>
 		</cfif>
-
-		<cfif listlen(params.cohorts) LTE getSetting('maxCohorts')>
+		
+		<cfif isDefined("params.cohort") AND listlen(params.cohorts) LTE getSetting('maxCohorts')>
 			<cfset deletedSelectedWorshopsForPersonid(params.personid,params.type)>
 			<cfloop list="#params.cohorts#" index="i">
 				<cfset registration = model("Conferenceregistration").new()>
