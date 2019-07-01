@@ -41,6 +41,7 @@
     <cfelse>
       <p>#linkTo(text="Current Year", action="badges")#</p>
     </cfif>
+    <p>#linkTo(text="Print", action="badges", params="print=yes")#</p>
 
   </cfoutput>
 </cfif>

@@ -168,6 +168,9 @@
 				<cfset data=queryToJson(badges)>
 				<cfset renderJson()>
 		</cfif>
+		<cfif isDefined("params.print")>
+			<cfset renderPage(template="badgesPrint", layout="/layout_naked")>
+		</cfif>
 		<!--- <cfdump var="#badges#"><cfabort> --->
 	</cffunction>
 
