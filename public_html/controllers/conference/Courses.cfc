@@ -656,7 +656,7 @@
 	</cffunction>
 
 	<cffunction name="sendSelectedWorkshops">
-	<cfargument name="type" default="#params.type#">
+	<cfargument name="type" default="">
 	<cfargument name="personid" default="#params.personid#">
 	<cfargument name="sendToEmail" default="tomavey@fgbc.org">
 	<cfset arguments.type = translateType(arguments.type)>
