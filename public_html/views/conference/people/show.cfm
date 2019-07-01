@@ -171,7 +171,7 @@
 <cfoutput query="regsforthisperson">
 <cftry>
 	Description: #buttondescription#: #quantity# @ #dollarformat(conferenceOptioncost)#<br/>
-	Invoice: #linkto(text=ccorderid, controller="conference", action="invoice", key=equip_invoicesid, target="_blank")# - #dollarformat(ccamount)# - #getRegStatus(ccstatus)#<br/><br/>
+	Invoice: #linkto(text=ccorderid, controller="conference.invoices", action="show", key=equip_invoicesid, target="_blank")# - #dollarformat(ccamount)# - #getRegStatus(ccstatus)#<br/><br/>
 <cfcatch>oops</cfcatch>
 </cftry>
 </cfoutput>
