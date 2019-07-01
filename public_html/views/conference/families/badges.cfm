@@ -1,5 +1,5 @@
 <!--- <cfdump var="#badges#"><cfabort> --->
-<cfparam name="params.showTicketsAs" default="spanList">
+<cfparam name="params.showTicketsAs" default="pipeList">
 
 <style>
   .spanList {

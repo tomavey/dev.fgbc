@@ -379,7 +379,7 @@
 		if (type IS "spouse") {
 			tickets = ""
 			for ( item IN EnvelopeInfo ) {
-				if (val(item) EQ 2) {
+				if (val(item) GTE 2) {
 					tickets = tickets & ";" & item 
 				}
 			}

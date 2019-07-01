@@ -609,7 +609,7 @@
 			<cfset params.type = arguments.type>	
 		</cfif> --->
 	<cfset var loc = arguments>
-	<cfset loc.sendString = "from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your #params.type# selections...'">
+	<cfset loc.sendString = "from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your cohort or workshop selections...'">
 	<!--- <cfset arguments.type = translateType(arguments.type)> --->
 		<cfif isDefined("params.personid")>
 
