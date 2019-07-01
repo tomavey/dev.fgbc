@@ -233,6 +233,7 @@
 				</p>
 			</div>
 --->
+		<cfif getSetting("groupregistrationIsOpen")>
 			<div id="groupratecosts" class="well">
 				<p><h3>GROUP RATES: For groups of 5 or more...</h3>
 				</p>
@@ -271,6 +272,7 @@
 				<p style="text-align:center">Not Refundable<br/>
 				</p>
 			</div>
+		</cfif>
 
 			<cfif gotRights("office")>
 				<cfif !getSetting("showGraceKidsPrices")>
