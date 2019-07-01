@@ -45,7 +45,7 @@
 <cfoutput>
 
     <cfif isDefined("params.personid")>
-    #linkTo(text="Edit this list", controller="conference.courses", action="selectCohorts", params="type=cohort&personid=#params.personid#", class="btn btn-block", onlyPath="false")#
+        #linkTo(text="Edit this list", controller="conference.courses", action="selectCohorts", params="type=cohort&personid=#params.personid#", class="btn btn-block", onlyPath="false")#
     </cfif>
 
 </cfoutput>
