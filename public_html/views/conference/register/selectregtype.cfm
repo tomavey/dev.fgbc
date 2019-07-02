@@ -90,7 +90,7 @@
 <cfif optionsRegIsOpen()>
 	<div class="#span#">
 		#linkto(text=imageTag("/conference/excursion.png"), action="selectoptions", action="selectoptions",params="options")#
-		#linkto(text="Put-N-Bay w/ Dinner", action="selectoptions",params="options", class="btn btn-large btn-block btn-info")#
+		#linkto(text="Monday Evening Options", action="selectoptions",params="options", class="btn btn-large btn-block btn-info")#
 	</div>
 </cfif>
 </div>

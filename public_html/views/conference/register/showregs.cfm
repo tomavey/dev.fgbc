@@ -124,7 +124,7 @@
 			<cfelse>
 				Cart Total = #dollarformat(cartTotal)#<br/>
 			</cfif>
-			<cfif isdefined("session.shoppingcart[1].groupRegId")>
+			<cfif isdefined("session.shoppingcart[1].groupRegId") || !cartTotal>
 				#linkTo(text="Finalize this Registration", action=formaction, class="btn")#
 			<cfelse>
 				#linkTo(text="Proceed to Payment Center", action=formaction, class="btn")#

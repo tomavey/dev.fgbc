@@ -126,15 +126,15 @@
 					#linkto(text="Cohorts", controller="conference.courses", action="showallselectedcohorts", class="btn btn-block")#
 				</li>
 
+					<!--- <li>
+						#linkto(text="Workshops", controller="conference.courses", action="showallselectedworkshops", class="btn btn-block")#
+					</li> --->
+
 				<cfif optionsRegIsOpen()>
 					<li>
-						#linkto(text="Workshops", controller="conference.courses", action="showallselectedworkshops", class="btn btn-block")#
+						#linkto(text="Options (Excursions)", action="list", params="type=other&token=#getSetting("requiredToken")#", class="btn btn-block")#
 					</li>
 				</cfif>
-
-				<!--- <li>
-					#linkto(text="Options (Excursions)", action="list", params="type=other", class="btn btn-block")#
-				</li> --->
 
 				<cfif childRegIsOpen()>
 					</li>
