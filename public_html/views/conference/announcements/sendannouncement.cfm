@@ -12,7 +12,7 @@ Announcement was sent to:
 	</cfif>
 </cfloop>
 <p>
-	#linkTo(text="Back to list", controller="conference.announcements")#
+	#linkTo(text="Back to list", controller="conference/announcements", action="index")#
 </p>
 </cfoutput>
 </div>
