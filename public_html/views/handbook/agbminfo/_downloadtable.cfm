@@ -3,6 +3,9 @@
 
 		<tr>
 			<td>
+				#inspireId(people['personid'][currentrow])#
+			</td>
+			<td>
 				#fname#
 			</td>
 			<td>
@@ -30,7 +33,7 @@
 				#phone#	
 			</td>
 			<td>
-				#district#	
+				#district# District
 			</td>
 			<td>
 				#name#	

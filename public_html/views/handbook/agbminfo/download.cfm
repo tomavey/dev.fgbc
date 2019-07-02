@@ -13,6 +13,9 @@
 	<thead>
 		<tr>
 			<th>
+				Inspire ID
+			</th>
+			<th>
 				First Name
 			</th>
 			<th>
