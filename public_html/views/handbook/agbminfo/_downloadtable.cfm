@@ -67,8 +67,8 @@
 			<td>
 				<cfif REQUEST.lastpayment contains "ordained">
 					Ordained
-				<cfelseif REQUEST.lastpayment contains "licensed">
-					Licensed
+				<cfelse>
+					Commissioned
 				</cfif>
 			</td>
 			<td>
