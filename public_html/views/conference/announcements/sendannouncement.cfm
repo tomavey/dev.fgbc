@@ -11,8 +11,5 @@ Announcement was sent to:
 		#i#; 
 	</cfif>
 </cfloop>
-<p>
-	#linkTo(text="Back to list", controller="conference.announcements")#
-</p>
 </cfoutput>
 </div>
