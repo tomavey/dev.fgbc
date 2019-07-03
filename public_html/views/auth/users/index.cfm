@@ -1,6 +1,6 @@
 <!--- <cfdump var="#users#"><cfabort> --->
 <div class="app container">
-
+{{ users_array }}
     <p>
         <input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search for..." /></br>
         Search by Name, Username, Email
