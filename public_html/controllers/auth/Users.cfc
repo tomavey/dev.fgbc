@@ -1,13 +1,13 @@
 <cfcomponent extends="Controller" output="false">
 
 	<cffunction name="init">
-		<cfset filters(through="isSuperadmin", only="index,show,loginAsUser")>
-		<cfset filters(through="setReturn", only="index,show")>
+		<cfset filters(through="isSuperadmin", only="index,indexOld,show,loginAsUser")>
+		<cfset filters(through="setReturn", only="index,indexOld,show")>
 	</cffunction>
 
 <cfscript>
 	private function useOldIndex(){
-		return false
+		return true
 	}
 </cfscript>	
 
@@ -46,14 +46,12 @@
 	</cffunction>
 
 <cfscript>
-	function index(
-		orderbyString = "createdAt DESC, lname,fname"){
+	function index(orderbyString = "createdAt DESC, lname,fname"){
 			if ( useOldIndex() ) {
 				redirectTo(action="indexOld") <!---Havng trouble with Vue page--->
 			}
 			var args = arguments
 			users = model("Authuser").findAll(order = orderbyString)
-			writeDump(users);abort;
 			users = serializeJSON(users, "struct")
 		}
 </cfscript>	
