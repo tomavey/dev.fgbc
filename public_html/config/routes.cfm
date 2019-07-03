@@ -111,7 +111,7 @@
 			.get(name="removeRight", pattern="/groups/removeRight/", controller="groups", action="removeRight")
 			.resources("groups")
 
-			.controller("rights"
+			.controller("rights")
 				.get(name="index", pattern="/")
 				.get(name="show", pattern="show/")
 				.get(name="edit", pattern="edit/")
