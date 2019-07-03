@@ -107,6 +107,7 @@
 			.get(name="reCheckLogin", pattern="/users/checkLogin/", controller="users", action="loginform")
 			.controller("users")
 				.get(name="index", pattern="/")
+				.get(name="indexOld", pattern="indexOld/")
 				.get(name="show", pattern="show/")
 				.get(name="edit", pattern="edit/")
 				.get(name="new", pattern="new/")
