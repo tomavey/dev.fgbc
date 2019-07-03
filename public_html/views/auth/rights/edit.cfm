@@ -9,6 +9,8 @@
 	#startFormTag(action="update", key=params.key)#
 
 	#putFormTag()#		
+	
+	#hiddenTagForKeyy()#
 
 				#textField(objectName='right', property='name', label='Name')#
 			
