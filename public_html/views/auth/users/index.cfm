@@ -1,4 +1,4 @@
-<!---cfdump var="#users#"><cfabort--->
+cfdump var="#users#"><cfabort
 <div class="app container">
 
     <p>

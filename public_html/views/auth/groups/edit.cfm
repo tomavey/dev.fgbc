@@ -9,7 +9,9 @@
 	
 		#putFormTag()#		
 
-					#textField(objectName='group', property='name', label='Name')#
+		#hiddenTagForKeyy()#
+
+		#textField(objectName='group', property='name', label='Name')#
 				
 					#textField(objectName='group', property='description', label='Description')#
 				
