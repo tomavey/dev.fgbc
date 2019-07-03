@@ -7,7 +7,7 @@
 
 <cfscript>
 	private function useOldIndex(){
-		return true
+		return false
 	}
 </cfscript>	
 
