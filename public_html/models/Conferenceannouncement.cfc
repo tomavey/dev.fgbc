@@ -5,7 +5,6 @@
         <cfset property(name="datePosted", sql="DATE_FORMAT(equipannouncements.postAt,'%b %d %Y %h:%i %p')")>
         <cfset property(name="searchable", sql='CONCAT(subject,content)')>
         <cfset property(name="uuid", defaultValue="#createUUID()#")>
-        <cfset beforeSave('fixText')>
     </cffunction>
 
 <cfscript>
