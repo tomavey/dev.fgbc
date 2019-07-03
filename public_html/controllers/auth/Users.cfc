@@ -53,8 +53,8 @@
 			}
 			var args = arguments
 			users = model("Authuser").findAll(order = orderbyString)
-			users = serializeJSON(users, "struct")
 			writeOutput(users);abort;
+			users = serializeJSON(users, "struct")
 		}
 </cfscript>	
 
