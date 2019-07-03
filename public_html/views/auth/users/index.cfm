@@ -1,6 +1,6 @@
 <!--- <cfdump var="#users#"><cfabort> --->
 <div class="app container">
-{{ users_array }}
+
     <p>
         <input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search for..." /></br>
         Search by Name, Username, Email
@@ -16,7 +16,7 @@
             <th><a href="" @click.prevent="reSortBy('createdDate')">Created</a></th>
             <th>&nbsp;</th>
         </tr>
-        <tr v-for="user in users" v-cloak>
+        <tr v-for="user in users_array" v-cloak>
             <td width='30%'><a :href="showUser(user.id)">{{user.fullName}}</a></td>    
             <td>{{user.username | shorten}}</td>
             <td><a :href="mailTo(user.email)">{{user.email | shorten | lowerCase}}</a></td>
