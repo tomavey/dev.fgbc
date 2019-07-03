@@ -47,9 +47,6 @@
 
 <cfscript>
 	function index(orderbyString = "createdAt DESC, lname,fname"){
-			if ( useOldIndex() ) {
-				redirectTo(action="indexOld") <!---Havng trouble with Vue page--->
-			}
 			var args = arguments
 			users = model("Authuser").findAll(order = orderbyString)
 			users = serializeJSON(users, "struct")
