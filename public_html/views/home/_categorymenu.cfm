@@ -31,7 +31,8 @@
 			<cfoutput>
 				<cfif gotrights(rightsrequired)>
 					<cfset rowcount = rowcount + 1>
-					<li>#createLink(text=name, link=link, controller=controllerr, action=actionn, key=keyy)#		
+					<li>
+						#createLink(text=name, link=link, controller=controllerr, action=actionn, key=keyy, route=route)#
 					</li>
 				</cfif> 
 				<!---Create a column break--->
