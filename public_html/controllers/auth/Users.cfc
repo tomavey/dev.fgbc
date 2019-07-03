@@ -5,6 +5,12 @@
 		<cfset filters(through="setReturn", only="index,show")>
 	</cffunction>
 
+<cfscript>
+	private function useOldIndex(){
+		return false
+	}
+</cfscript>	
+
 <!---Basic CRUD--->
 
 	<!--- users/index --->
@@ -42,10 +48,13 @@
 <cfscript>
 	function index(
 		orderbyString = "createdAt DESC, lname,fname"){
-		var args = arguments;
-		users = model("Authuser").findAll(order = orderbyString);
-		users = serializeJSON(users, "struct");
-	}
+			if ( useOldIndex() ) {
+				redirectTo(action="indexOld") <!---Havng trouble with Vue page--->
+			}
+			var args = arguments
+			users = model("Authuser").findAll(order = orderbyString)
+			users = serializeJSON(users, "struct")
+		}
 </cfscript>	
 
 	<cffunction name="search">
