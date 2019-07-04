@@ -749,6 +749,7 @@
 		.get(name="handbook-welcome", pattern="/handbook-welcome/checkin", controller="handbook.welcome", action="checkin")
 		.get(name="handbook-loginform", pattern="/handbook-welcome/login-form", controller="handbook.welcome", action="login-form")
 		.get(name="access2019", pattern="/access2019", controller="conference.register", action="welcome")
+		.get(name="access2018", pattern="/access2018", controller="conference.register", action="welcome")
 		.get(name="cci", pattern="/cci", controller="about", action="cci")
 		.get(name="ccci", pattern="/ccci", controller="about", action="cci")
 		.get(name="cci_es", pattern="/cci", controller="about", action="cci_es")
