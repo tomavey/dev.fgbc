@@ -65,7 +65,7 @@
     <div id="sendworkshopsemail" class="text-center">
     <p>Check your inbox.  You may have already received email confirmation of these choices.</p>
     <div class="text-center">
-        #StartFormTag(action="sendSelectedWorkshops", class="form")#
+        #StartFormTag(action="sendSelectedWorkshops", class="sendemailform")#
         <fieldset>
             <cfif isValid("email",person.email)>
                 #textFieldTag(name="email", value=person.email, label="Email this list to: ", placeholder="email address", class="input-large")#

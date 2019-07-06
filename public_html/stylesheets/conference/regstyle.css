@@ -464,7 +464,7 @@ div.facilitators ul li {margin: 10px 0 0 40px; text-indent:-20px; font-size: .8e
 p.workshoptime {float: right;font-size: .8em}
 
 div#selectworkshops {margin:20px;}
-#selectworkshops label {width:600px;float: left;font-weight: normal;font-size: .8em}
+#selectworkshops label {width:100%;float: left;font-weight: normal;font-size: .8em}
 #selectworkshops input {width:1.5em;height:1.5em;}
 #selectworkshops input[type="submit"] {width:150px}
 #selectworkshops h2 {margin: 20px 0 10px 0}
@@ -563,12 +563,16 @@ input#captcha {height: 30px}
 #signupstats {font-size: .8em; color:gray; float:right;}
 
 #sendworkshopsemail fieldset{
-  width:500px;
+  width:300px;
   margin: 20px auto;
   border: 1px dotted grey;
   padding:20px;
   foat:none;
   text-align:center;
+}
+
+.sendemailform { 
+  width:100%
 }
 
 #sendworkshopsemail input[type="submit"], #sendworkshopsemail input, #getagent input {
