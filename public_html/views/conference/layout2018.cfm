@@ -61,44 +61,6 @@
 
 <body>
 
-<!---div class="navigation">
-<body data-spy="scroll" data-target="#main-navbar">
-    <div class="navbar navbar-fixed-top" role="navigation">
-        <div class="navbar-inner">
-            <div class="container">
-
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <div class="logo">
-                    <a href="#nav-header" class="roll"><span class="icon-normal-infinitive logo-icon"></span><span></span></a>
-                </div><!-- /.logo -->
-
-                <div class="navbar-collapse collapse" id="main-navbar">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#nav-header">Home</a></li>
-                            <li><a href="https://www.access2018.com/#nav-schedule">Schedule</a></li>
-                            <li><a href="https://www.access2018.com/#nav-subscribe" target="_blank">Subscribe</a></li>
-                            <li><a href="https://www.access2018.com/#nav-lodging">Lodging</a></li>
-                            <li><a href="https://www.access2018.com/#nav-childcare">Childcare</a></li>
-                            <cfif workshopsRegOpen()>
-                                <li><a href="/index.cfm/conference.courses/list/cohort">Cohorts</a></li>
-                            </cfif>
-                            <li><a href="https://www.access2018.com/#nav-contact" target="_blank">Contact</a></li>
-
-                    </ul>
-                </div><!-- /.main-navigation -->
-            </div><!-- /.container -->
-          </div><!-- /.navbar-inner -->
-    </div><!-- /.main-navigation -->
-</div>
-.navigation --->
-
-
 <div class="main">
 
 <div id="nav-header" class="header-wrapper">
@@ -118,7 +80,7 @@
     </div><!-- /.header -->
 </div><!-- /.header-wrapper -->
 
-<div class="container">
+<div class="container-fluid">
     <cfoutput>#includeContent()#</cfoutput>
 </div>
 

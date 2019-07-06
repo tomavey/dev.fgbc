@@ -1,5 +1,5 @@
 <cfparam name="params.personid" default=0>
-<div id='selectworkshops' class="container">
+<div id='selectworkshops'>
 <cfif isObject(person)>
     <cfoutput>
         <h2 class="text-center">#getEventAsText()# #capitalize(pluralize(params.type))# selected for #person.fname#</h2>
@@ -45,7 +45,7 @@
 <cfoutput>
 
     <cfif isDefined("params.personid")>
-        #linkTo(text="Edit this list", controller="conference.courses", action="selectCohorts", params="type=cohort&personid=#params.personid#", class="btn btn-block", onlyPath="false")#
+        style="border:1px solid black;        #linkTo(text="Edit this list", controller="conference.courses", action="selectCohorts", params="type=cohort&personid=#params.personid#", class="btn btn-block", onlyPath="false")#
     </cfif>
 
 </cfoutput>
