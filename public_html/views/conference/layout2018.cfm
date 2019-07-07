@@ -80,7 +80,7 @@
     </div><!-- /.header -->
 </div><!-- /.header-wrapper -->
 
-<div class="container-fluid">
+<div class="container">
     <cfoutput>#includeContent()#</cfoutput>
 </div>
 
