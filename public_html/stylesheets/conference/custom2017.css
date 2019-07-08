@@ -1,7 +1,7 @@
 .xregistration-center, .main {
-    background-image: url(http://www.access2018.com/assets/pictures/background-conference-10.jpg);
+    width: 100%;
     background-position: center top;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-color: #D1D4C9;
     padding:20px;
     margin-top: 50px;

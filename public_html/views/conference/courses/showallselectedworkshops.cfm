@@ -105,10 +105,19 @@
 <h3>Summary of counts</h3>
 <cfset summaryKeys  = StructKeyArray(summary)>
 <cfset ArraySort(summaryKeys, "text")>
-<ol>
-<cfloop from="1" to="#structCount(summary)#" index="i">
-	<li>#summaryKeys[i]#: #summary[summaryKeys[i]].count#</li>
-</cfloop>
+<table>
+	<cfloop from="1" to="#structCount(summary)#" index="i">
+		<tr>
+			<td>
+				#summaryKeys[i]#
+			</td>
+			<td>
+				#summary[summaryKeys[i]].count#
+			</td>
+		</tr>
+	</cfloop>
+	
+</table>
 </ol>
 <cfcatch>Something is broken</cfcatch></cftry>
 <cfset emaillistall = #emailEveryoneAll()#>

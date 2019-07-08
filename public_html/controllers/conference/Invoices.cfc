@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout(template="/conference/adminlayout", except="invoice")>
-		<cfset usesLayout(template="/conference/layout2018", only="invoice")>
+		<cfset usesLayout(template="/conference/layout2019invoice", only="invoice")>
 		<cfset filters(through="officeOnly,setEvent", except="show,showByEmail")>
 		<cfset filters(through="setReturn", only="index,show,list")>
 	</cffunction>
