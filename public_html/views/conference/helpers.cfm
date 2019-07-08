@@ -223,4 +223,10 @@ function editInstructorLink(instructorid){
 	}
 }
 
+function fixEmailList(list) {
+	var newList = ""
+	newList = replace(list,"; ", "", "one")
+	return newList
+}
+
 </cfscript>

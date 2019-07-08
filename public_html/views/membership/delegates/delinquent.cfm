@@ -1,5 +1,6 @@
 <cfparam name="params.repeat" default="yes">
 <cfparam name="params.showall" default="no">
+<cfparam name="allEmails" default="">
 
 <cfset count = 0>
 <h3>Member Churches that have not yet submitted their delegate form.</h3>
@@ -46,7 +47,8 @@ Email
   <cfif !churchHasSubmittedDelegates(id) || params.showall>
   <tr>
     <td>#linkto(text=selectname, controller="handbook-statistics", action="show", key=id)#</td>
-	  <td>#getDelegatesAllowed(id)#</td>
+    <td>#getDelegatesAllowed(id)#</td>
+      <cfset allEmails = allEmails & "; " & email>
 	   <td>#mailto(email)#</td>
       <td>#linkTo(route="sendmydelegates", key=id, onlyPath=false, protocol="https")#<td>
 	  <cfset count = count +1>
@@ -55,6 +57,7 @@ Email
   <!---Repeats the row if the church email NEQ leaders email--->
   	<cfset leaderEmail = getleaderEmail(id)>
     <cfif leaderEmail NEQ email and leaderEmail NEQ false and params.repeat>
+      <cfset allEmails = allEmails & "; " & leaderEmail>
     <tr>
       <td>#linkto(text=selectname, controller="handbook-statistics", action="show", key=id)#</td>
       <td>#getDelegatesAllowed(id)#</td>
@@ -91,4 +94,6 @@ Email
 <cfoutput>
 <p>Church count = #count#</p>
 <p>Out of: #churches.recordcount#</p>
+
+<p>Email All: #fixEmailList(allEmails)#</p>
 </cfoutput>
