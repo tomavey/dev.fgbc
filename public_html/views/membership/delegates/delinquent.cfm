@@ -94,6 +94,7 @@ Email
 <cfoutput>
 <p>Church count = #count#</p>
 <p>Out of: #churches.recordcount#</p>
-
-<p>Email All: #fixEmailList(allEmails)#</p>
+  <cfset allEmails = fixEmailList(allEmails)>
+  <cfset ellEmailsLength = listLen(replace(allEmails,"; ",",","all"))>
+<p>Email All: #allEmails# (#ellEmailsLength#)</p>
 </cfoutput>

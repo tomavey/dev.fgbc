@@ -6,6 +6,7 @@
 <cfparam name="request.emailallall" default="">
 <cfset accumulatedEmailList = "">
 <cfset summary = structNew()>
+
 <div id="showallselectedcohorts">
 <p>&nbsp;</p>
 <p><a href="#summaryOfCounts" class="btn">Go to summary of totals</a>
@@ -71,6 +72,7 @@
 	</cfoutput>
 		</table>
 		<cfset summary[title].count = totalThisQuantity>
+		<cfset summary[title].room = getEventEquipmentForThisCourse(eventid).selectName>
 		<p>Total for #title#: #totalThisQuantity#</p>
 		<cfif val(max)>
 		<p>Maximum: #max#</p>
@@ -114,6 +116,10 @@
 			<td>
 				#summary[summaryKeys[i]].count#
 			</td>
+			<td>
+				#summary[summaryKeys[i]].room#
+			</td>
+	
 		</tr>
 	</cfloop>
 	
