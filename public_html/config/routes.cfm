@@ -503,6 +503,7 @@
 				.get(name="list", pattern="list")
 				.get(name="showAllSelected", pattern="showallselectedcohorts/[key]", controller="courses", action="showallselectedcohorts")
 				.get(name="showAllSelected", pattern="showallselectedcohorts", controller="courses", action="showallselectedcohorts")
+				.get(name="downloadAllSelected", pattern="downloadAllSelectedCohorts", controller="courses", action="downloadAllSelectedCohorts")
 				.get(name="listType", pattern="list/[key]", action="list")
 				.get(name="view", pattern="view/[key]", action="view")
 				.get(name="copyAllToCurrentEvent", pattern="CopyAllToCurrentEvent", action="CopyAllToCurrentEvent")
