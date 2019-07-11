@@ -1,1 +1,1 @@
-<h2 style="text-align:center">The deadline to submit delegates has passed.</h2>
+<h2 style="text-align:center">The deadline to submit delegates online has passed.</h2>
