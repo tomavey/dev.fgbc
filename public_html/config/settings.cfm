@@ -112,6 +112,7 @@
 	<cfset set(sendEmailBeforePayment = false)>
 	<cfset set(maxCohorts = 3)>
 	<cfset set(requiredToken = "nDIyfwSXltprRbwmgc2V")>
+	<cfset set(requireRegForBadge = false)>
 
 <!---options used in dropdowns and menus--->
 	<cfset set(typeOfOptions=listsort("Registration-Couple,Registration-Single,Registration-Group,Registration-Staff,Workshop,Meal,TouristOption,GraceKids-Nursery,GraceKids-Preschool,GraceKids-Elementary,GraceKidsSegments,GraceKidsExcursions,Other,Discount,AutoDiscount,InActive,preRegistration","text"))>

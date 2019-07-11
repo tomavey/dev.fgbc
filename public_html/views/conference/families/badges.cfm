@@ -22,6 +22,7 @@
 
 <cfset count = 0>
 <cfset previousname = "">
+<cfset previoustickets = "">
   <cfif not isdefined("params.download")>
   <cfoutput>
     #startFormTag(action="badges")#
@@ -42,6 +43,9 @@
       <p>#linkTo(text="Current Year", action="badges")#</p>
     </cfif>
     <p>#linkTo(text="Print", action="badges", params="print=yes")#</p>
+    <cfif getSetting("requireRegForBadge")>
+      <p>Persons registration required inorder to show badge</p>
+    </cfif>
 
   </cfoutput>
 </cfif>
@@ -77,7 +81,16 @@
     </th>
   </tr>
   <cfoutput query="badges">
-    <cfif previousname NEQ fullname>
+    <cfset thisPersonsMeals = thisPersonsMealTickets(id,equip_familiesID,type)>
+    <cftry>
+      <cfset thisRow = badges.currentRow>
+      <cfset nextRow = thisRow + 1>
+      <cfset nextName = queryGetRow(badges,nextRow).fullname>
+      <cfcatch>
+        <cfset nextName = "">
+      </cfcatch>
+    </cftry>
+    <cfif printThisBadge(fullname, previousname, nextname, thisPersonsMeals, previoustickets)>
     <tr>
     	<td>
         #linkto(text=capname(fname), controller="conference.people", action="show", key=ID, target="_blank")#
@@ -99,14 +112,15 @@
         thisPerson.familyid = badges.equip_familiesID[badges.currentRow]
       </cfscript>
       <cfif params.showTicketsAs is "pipeList">
-        <td>#ticketsToPipeList(thisPersonsMealTickets(id,equip_familiesID,type))#</td>
+        <td>#ticketsToPipeList(thisPersonsMeals)#</td>
       <cfelseif params.showTicketsAs is "spanList">
-        <td>#ticketsToSpanList(thisPersonsMealTickets(id,equip_familiesID,type))#</td>
+        <td>#ticketsToSpanList(thisPersonsMeals)#</td>
       <cfelse>
-        <td>#ticketsToTable(thisPersonsMealTickets(id,equip_familiesID,type))#</td>
+        <td>#ticketsToTable(thisPersonsMeals)#</td>
       </cfif>
     </tr>
     <cfset previousname = fullname>
+    <cfset previoustickets = thisPersonsMeals>
     <cfset count = count +1>
     </cfif>
   </cfoutput>

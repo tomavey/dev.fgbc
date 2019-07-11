@@ -160,6 +160,7 @@
 			FROM badges
 			WHERE registered = 1
 		</cfquery>
+		<!--- <cfdump var='#badges#'><cfabort> --->
 		<cfif isdefined("params.download")>
 			  <cfset renderPage(layout="/conference/layoutdownload")>
 		</cfif>
@@ -171,7 +172,6 @@
 		<cfif isDefined("params.print")>
 			<cfset renderPage(template="badgesPrint", layout="/layout_naked")>
 		</cfif>
-		<!--- <cfdump var="#badges#"><cfabort> --->
 	</cffunction>
 
 	<cffunction name="badgesAsJson">
@@ -195,18 +195,25 @@
 	<cfset loc.return = false>
 	<cfset loc.reg = model("Conferenceregistration").findOne(where="equip_peopleid=#arguments.personid#")>
 
-	<cfif isObject(loc.reg)>
-		<cfreturn loc.return>
-	</cfif>
-
-       <cfset loc.familyid = model("Conferenceperson").findOne(where="id=#arguments.personid#", include="family").equip_familiesid>
-	   <cfset loc.spouse = model("Conferenceperson").findOne(where="equip_familiesid=#loc.familyid#", include="family")>
-	   <cfif isObject(loc.spouse)>
-	    	 <cfset loc.reg = model("Conferenceregistration").findOne(where="equip_peopleid=#loc.spouse.id#", include="invoice")>
 		<cfif isObject(loc.reg)>
-        		  <cfset loc.return = true>
-	        	</cfif>
-	</cfif>
+			<cfset loc.return=true>
+			<cfreturn loc.return>
+		</cfif>
+
+		<cftry>
+			<cfset loc.familyid = model("Conferenceperson").findOne(where="id=#arguments.personid#", include="family").equip_familiesid>
+			<cfcatch>
+				<cfreturn false>
+			</cfcatch>
+		</cftry>
+	  <cfset loc.spouse = model("Conferenceperson").findOne(where="equip_familiesid=#loc.familyid#", include="family")>
+		
+		<cfif isObject(loc.spouse)>
+			<cfset loc.reg = model("Conferenceregistration").findOne(where="equip_peopleid=#loc.spouse.id#", include="invoice")>
+				<cfif isObject(loc.reg)>
+					<cfset loc.return = true>
+				</cfif>
+		</cfif>
 
 	<cfreturn loc.return>
 	</cffunction>
@@ -392,6 +399,10 @@
 		}
 	}
 		return tickets
+	}
+
+	function testthisPersonsMealTickets(){
+		writeDump(thisPersonsMealTickets(6260,3869,"Spouse"));abort;
 	}
 
 </cfscript>

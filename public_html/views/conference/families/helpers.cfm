@@ -63,4 +63,24 @@
     return code
   }
 
+  function printThisBadgeStr(thisname, previousname, nextname, thisTickets, previoustickets){
+    var printThisBadge = false
+    var str = " this name:" & thisname & " previousname:" & previousname & " nextname:" & nextname & " thisTickets:" & thisTickets & " previoustickets:" & previoustickets
+    if ( thistickets NEQ previoustickets ) { printThisBadge = true }
+    if ( thisname EQ nextname ) { printThisBadge = false }
+    if ( thisname NEQ previousname ) { printThisBadge = true }
+    return str
+  }
+
+  function printThisBadge(thisname, previousname, nextname, thisTickets, previoustickets){
+    var printThisBadge = true
+    if (thisname EQ nextname && !len(thisTickets) ) { printThisBadge = false }
+    if (thisname EQ previousname && !len(thisTickets) ) { printThisBadge = false }
+
+    // if ( thistickets NEQ previoustickets ) { printThisBadge = true }
+    // if ( thisname EQ nextname ) { printThisBadge = false }
+    // if ( thisname NEQ previousname ) { printThisBadge = true }
+    return printThisBadge
+  }
+
 </cfscript>
