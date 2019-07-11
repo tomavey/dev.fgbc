@@ -82,7 +82,7 @@
     	<td>
         #linkto(text=capname(fname), controller="conference.people", action="show", key=ID, target="_blank")#
     	</td>
-    	<td>#linkTo(text=capname(lname), controller="conference.registrations", action="showsearch", params="search=#lname#", target="_blank")# <cfif lname is fname>####Need's fixin'####</cfif>
+    	<td>#linkTo(text=capname(lname), controller="conference.families", action="show", key=equip_familiesID, target="_blank")# <cfif lname is fname>####Need's fixin'####</cfif>
     	</td>
       <cfif forWorkshops>
       <td>
