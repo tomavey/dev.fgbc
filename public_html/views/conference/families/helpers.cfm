@@ -38,8 +38,10 @@
 
   function removeCountFromTicket(ticket) {
     var count = val(ticket)
-    var countAsString = toString(count)
-    var ticket = replace(ticket,countAsString,"")
+    if ( count LTE 2 ) {
+      var countAsString = toString(count)
+      var ticket = replace(ticket,countAsString,"")
+    }
     return trim(ticket)
   }
 
@@ -58,7 +60,7 @@
     try {
       code = codes[ticket]
     } catch (any e) {
-      code = "NA"
+      code = "**" & ticket & "**"
     }
     return code
   }
