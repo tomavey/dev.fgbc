@@ -2,8 +2,8 @@
 
     <cffunction name="init">
         <cfset usesLayout("/conference/adminlayout")>
-        <cfset filters(through="officeOnly", except="list,newest,announcementcount,view,postFromJson,httpTest,httpHeaders")>
-        <cfset filters(through="conferenceEditor", except="list,newest,announcementcount,view,postFromJson,httpTest,httpHeaders")>
+        <!--- <cfset filters(through="officeOnly", except="list,newest,announcementcount,view,postFromJson,httpTest,httpHeaders")>
+        <cfset filters(through="conferenceEditor", except="list,newest,announcementcount,view,postFromJson,httpTest,httpHeaders")> --->
         <cfset filters(through="setAccessControlHeaders", only="postFromJsonX")>
     </cffunction>
 
