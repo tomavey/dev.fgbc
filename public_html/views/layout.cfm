@@ -34,6 +34,11 @@
     </cftry>
 </cfif>
 
+<cfif isDefined("params.showRightsList")>
+    <p>#session.auth.rightslist#</p>
+</cfif>
+
+
     </body>
 
 </cfoutput>
