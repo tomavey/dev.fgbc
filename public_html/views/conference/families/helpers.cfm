@@ -65,8 +65,8 @@
     count = ticketStruct.count
     codes.BFastGCSTue = "GCS-TueBfast"
     codes.LunchEWPTue = "ENC-TueLunch"
-    codes.DinnerInspTueCouple = "IN2-TueDinnr"
-    codes.DinnerInspTueSingle = "IN1-TueDinnr"
+    codes.DinnerInspTueCouple = "IN-TueDnrFor2"
+    codes.DinnerInspTueSingle = "IN-TueDnrFor1"
     codes.BFastBMHWed = "BMH-WedBfast"
     codes.LunchCPWed = "ChP-WedLunch"
     codes.DinnerEagleWed = "EGL-WedDinnr"
