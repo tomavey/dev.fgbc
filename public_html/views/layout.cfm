@@ -34,10 +34,10 @@
     </cftry>
 </cfif>
 
-<cfif isDefined("params.showRightsList")>
+<!--- <cfif isDefined("params.showRightsList")>
     <p>#session.auth.rightslist#</p>
     <p>#gotrights("office,conferenceEditor")#</p>
-</cfif>
+</cfif> --->
 
 
     </body>
