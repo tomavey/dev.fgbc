@@ -25,8 +25,10 @@
 				Previous URL#session.previousUrl#<br/>
 			</cfif>
 		</cfif>
-		
-		<p>#session.auth.rightslist#</p>
+
+		<cfif isDefined("session.auth.rightslist")>
+			<p>#session.auth.rightslist#</p>
+		</cfif>
 
 #forcecfcatch()#
 	</body>
