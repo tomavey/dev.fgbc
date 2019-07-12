@@ -2,14 +2,14 @@
 
     <cffunction name="init">
         <cfset usesLayout("/conference/adminlayout")>
-        <cfset filters(through="officeOnly,conferenceEditor", except="list,newest,announcementcount,view,postFromJson,httpTest,httpHeaders")>
+        <!--- <cfset filters(through="officeOnly,conferenceEditor", except="list,newest,announcementcount,view,postFromJson,httpTest,httpHeaders")> --->
         <cfset filters(through="setAccessControlHeaders", only="postFromJsonX")>
     </cffunction>
 
  <!---Filters---->
  <cfscript>
      function conferenceEditor() {
-         if ( !gotrights("conferenceEditor")) {
+         if ( !gotrights("office,conferenceEditor")) {
              renderText("You do not have permission to see this page")
              abort
          }
