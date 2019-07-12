@@ -405,6 +405,15 @@
 		writeDump(thisPersonsMealTickets(6260,3869,"Spouse"));abort;
 	}
 
+  function testSeparateCountFromTicket() {
+		var ticket = "3DinnerInspTueSingle"
+		var text = separateCountFromTicket(ticket)
+		writeDump(ticket);
+		writeDump(text);
+		write
+    abort;
+  }
+
 </cfscript>
 
 </cfcomponent>

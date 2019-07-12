@@ -6,7 +6,7 @@
     var ticketsTable = "<div class='ticketsTable'>"
     var ticket = ""
     for ( ticket in ticketsArr) {
-      ticketsTable = ticketsTable & "<p class='mealTicket #removeCountFromTicket(ticket)#'>" & shortCodeForTicket(removeCountFromTicket(ticket)) & "</p>"
+      ticketsTable = ticketsTable & "<p class='mealTicket #removeCountFromTicket(ticket)#'>" & shortCodeForTicket(ticket) & "</p>"
     }
     ticketsTable = ticketsTable & "</div>"
     return ticketsTable
@@ -17,7 +17,7 @@
     var ticketsPipeList = ""
     var ticket = "| "
     for (ticket in ticketsArr) {
-      ticketsPipeList = ticketsPipeList & " | " & shortCodeForTicket(removeCountFromTicket(ticket))
+      ticketsPipeList = ticketsPipeList & " | " & shortCodeForTicket(ticket)
     }
     ticketsPipeList = replace(ticketsPipeList, "| ", "")
     return ticketsPipeList
@@ -29,7 +29,7 @@
     var ticket = "| "
     for (ticket in ticketsArr) {
       var ticketClass = removeCountFromTicket(ticket)
-      ticketsList = ticketsList & "<span class='spanList #ticketClass#'>" & shortCodeForTicket(removeCountFromTicket(ticket)) & "</span>"
+      ticketsList = ticketsList & "<span class='spanList #ticketClass#'>" & shortCodeForTicket(ticket) & "</span>"
     }
     ticketsList = replace(ticketsList, "| ", "")
     return ticketsList
@@ -45,9 +45,24 @@
     return trim(ticket)
   }
 
+  function separateCountFromTicket(required string ticket) {
+    var ticketStruct = structNew()
+    var count = val(ticket)
+    var countAsString = toString(count)
+    var ticket = replace(ticket,countAsString,"")
+    ticketStruct.ticket = ticket
+    ticketStruct.count = count
+    return ticketStruct
+  }
+
   function shortCodeForTicket(ticket) {
     var codes = structNew()
     var code = ""
+    var count = 0
+    var ticketStruct = {}
+    ticketStruct = separateCountFromTicket(ticket)
+    ticket = trim(ticketStruct.ticket)
+    count = ticketStruct.count
     codes.BFastGCSTue = "GCS-TueBfast"
     codes.LunchEWPTue = "ENC-TueLunch"
     codes.DinnerInspTueCouple = "IN2-TueDinnr"
@@ -61,6 +76,12 @@
       code = codes[ticket]
     } catch (any e) {
       code = "**" & ticket & "**"
+    }
+    if ( count GT 2 ) {
+      code = count & "-" & code
+    }
+    if ( count EQ 2 ) {
+      code = code & "+"
     }
     return code
   }
