@@ -9,10 +9,9 @@
  <!---Filters---->
  <cfscript>
      function conferenceEditor() {
-         if (gotrights("office,conferenceEditor")) {
-             return true
-         } else {
+         if ( !gotrights("conferenceEditor")) {
              renderText("You do not have permission to see this page")
+             abort
          }
      }
  </cfscript>   
