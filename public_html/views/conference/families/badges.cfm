@@ -144,12 +144,11 @@
 </cfoutput>
 
 </cfsavecontent>
-
 <cfoutput>
   <cfif !isDefined("params.asJson")>
     #badgecontent#
   <cfelse>
-    #serialize(badgesArray)#
+    #serializeJson(badgesArray)#
   </cfif>
 </cfoutput>
 
