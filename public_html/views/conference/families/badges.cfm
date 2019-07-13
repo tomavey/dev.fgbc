@@ -100,10 +100,10 @@
     <tr>
     	<td>
         #linkto(text=capname(fname), controller="conference.people", action="show", key=ID, target="_blank")#
-        <cfset thisBadgeStruct.fname = fname>
     	</td>
     	<td>#linkTo(text=capname(lname), controller="conference.families", action="show", key=equip_familiesID, target="_blank")# <cfif lname is fname>####Need's fixin'####</cfif>
-        <cfset thisBadgeStruct.lname = lname>
+        <cfset thisBadgeStruct["fullnamelastfirst"] = lname & ", " & fname>
+        
     	</td>
       <cfif forWorkshops>
       <td>
@@ -122,7 +122,7 @@
       <cfif params.showTicketsAs is "pipeList">
         <cfset thisPeronsTickets = ticketsToPipeList(thisPersonsMeals)>
         <td>#thisPeronsTickets#</td>
-        <cfset thisBadgeStruct.tickets = thisPeronsTickets>
+        <cfset thisBadgeStruct["tickets"] = thisPeronsTickets>
       <cfelseif params.showTicketsAs is "spanList">
         <td>#ticketsToSpanList(thisPersonsMeals)#</td>
       <cfelse>
@@ -149,14 +149,7 @@
   <cfif !isDefined("params.asJson")>
     #badgecontent#
   <cfelse>
-    <cfsetting enablecfoutputonly="true">
-    <cfheader name="Access-Control-Allow-Origin" value="*" />
-    <cfheader name="Access-Control-Allow-Methods" value="GET,PUT,POST,DELETE" />
-    <cfheader name="Access-Control-Allow-Headers" value="Content-Type" />
-    <cfheader name="Access-Control-Allow-Credentials" value="true" />
-    <cfheader name="Content-Type" value="application/json">
     #serialize(badgesArray)#
-  </cfsetting>
   </cfif>
 </cfoutput>
 
