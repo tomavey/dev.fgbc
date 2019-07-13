@@ -1,5 +1,8 @@
 <!--- <cfdump var="#badges#"><cfabort> --->
 <cfparam name="params.showTicketsAs" default="pipeList">
+<cfset badgesArray= []>
+
+<cfsavecontent variable="badgecontent">
 
 <style>
   .spanList {
@@ -23,7 +26,7 @@
 <cfset count = 0>
 <cfset previousname = "">
 <cfset previoustickets = "">
-  <cfif not isdefined("params.download")>
+  <cfif !isdefined("params.download")>
   <cfoutput>
     #startFormTag(action="badges")#
     #dateSelectTags(name="date")#
@@ -45,6 +48,9 @@
     <p>#linkTo(text="Print", action="badges", params="print=yes")#</p>
     <cfif getSetting("requireRegForBadge")>
       <p>Persons registration required inorder to show badge</p>
+    </cfif>
+    <cfif !isDefined("params.asJson")>
+      <p>#linkTo(text="Json", action="badges", params="asjson")#</p>
     </cfif>
 
   </cfoutput>
@@ -81,6 +87,7 @@
     </th>
   </tr>
   <cfoutput query="badges">
+    <cfset thisBadgeStruct = {}>
     <cfset thisPersonsMeals = thisPersonsMealTickets(id,equip_familiesID,type)>
     <cftry>
       <cfset thisRow = badges.currentRow>
@@ -94,8 +101,10 @@
     <tr>
     	<td>
         #linkto(text=capname(fname), controller="conference.people", action="show", key=ID, target="_blank")#
+        <cfset thisBadgeStruct.fname = fname>
     	</td>
     	<td>#linkTo(text=capname(lname), controller="conference.families", action="show", key=equip_familiesID, target="_blank")# <cfif lname is fname>####Need's fixin'####</cfif>
+        <cfset thisBadgeStruct.lname = lname>
     	</td>
       <cfif forWorkshops>
       <td>
@@ -112,7 +121,9 @@
         thisPerson.familyid = badges.equip_familiesID[badges.currentRow]
       </cfscript>
       <cfif params.showTicketsAs is "pipeList">
-        <td>#ticketsToPipeList(thisPersonsMeals)#</td>
+        <cfset thisPeronsTickets = ticketsToPipeList(thisPersonsMeals)>
+        <td>#thisPeronsTickets#</td>
+        <cfset thisBadgeStruct.tickets = thisPeronsTickets>
       <cfelseif params.showTicketsAs is "spanList">
         <td>#ticketsToSpanList(thisPersonsMeals)#</td>
       <cfelse>
@@ -123,7 +134,23 @@
     <cfset previoustickets = thisPersonsMeals>
     <cfset count = count +1>
     </cfif>
+    <cfif len(thisBadgeStruct)>
+      <cfset arrayAppend(badgesArray,thisBadgeStruct)>
+    </cfif>
   </cfoutput>
 </table>
 
-<cfoutput>Count: #count#</cfoutput>
+<cfoutput>
+  Count: #count#
+</cfoutput>
+
+</cfsavecontent>
+
+<cfoutput>
+  <cfif !isDefined("params.asJson")>
+    #badgecontent#
+  <cfelse>  
+    #serialize(badgesArray)#<br/>
+  </cfif>
+</cfoutput>
+

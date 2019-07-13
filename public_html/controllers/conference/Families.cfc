@@ -172,6 +172,9 @@
 		<cfif isDefined("params.print")>
 			<cfset renderPage(template="badgesPrint", layout="/layout_naked")>
 		</cfif>
+		<cfif isDefined("params.asJson")>
+			<cfset renderPage(layout="/layout_json")>
+		</cfif>
 	</cffunction>
 
 	<cffunction name="badgesAsJson">
