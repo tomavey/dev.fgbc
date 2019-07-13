@@ -173,7 +173,7 @@
 			<cfset renderPage(template="badgesPrint", layout="/layout_naked")>
 		</cfif>
 		<cfif isDefined("params.asJson")>
-			<cfset renderPage(layout="/layout_json", hideDebugInformation=true)>
+			<cfset renderPage(layout="/layout_json_simple", hideDebugInformation=true)>
 		</cfif>
 	</cffunction>
 
