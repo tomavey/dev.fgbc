@@ -45,12 +45,12 @@
     <cfelse>
       <p>#linkTo(text="Current Year", action="badges")#</p>
     </cfif>
-    <p>#linkTo(text="Print", action="badges", params="print=yes")#</p>
-    <cfif getSetting("requireRegForBadge")>
+    <p>#linkTo(text="Print", action="badges", params="print=yes")#&nbsp;|&nbsp;
+    <!--- <cfif getSetting("requireRegForBadge")>
       <p>Persons registration required inorder to show badge</p>
-    </cfif>
+    </cfif> --->
     <cfif !isDefined("params.asJson")>
-      <p>#linkTo(text="Json", action="badges", params="asjson")#</p>
+      #linkTo(text="Json", action="badges", params="asjson")#</p>
     </cfif>
 
   </cfoutput>
@@ -150,7 +150,7 @@
   <cfif !isDefined("params.asJson")>
     #badgecontent#
   <cfelse>  
-    #serialize(badgesArray)#<br/>
+    #serialize(badgesArray)#
   </cfif>
 </cfoutput>
 
