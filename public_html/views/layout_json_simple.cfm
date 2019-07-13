@@ -1,5 +1,5 @@
 <cfsetting enablecfoutputonly="true">
-<cfheader name="Access-Control-Allow-Origin" value="http://localhost:8080" />
+<cfheader name="Access-Control-Allow-Origin" value="*" />
 <cfoutput>#contentForLayout()#</cfoutput>
 <!---
 <cfdump
