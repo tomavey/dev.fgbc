@@ -187,6 +187,10 @@
 		<cfset renderJson()>
 	</cffunction>
 
+	<cffunction name="badgesJson">
+		<cfset renderPage(layout="/layout_json_simple", hideDebugInformation=true)>
+	</cffunction>
+
 	<cffunction name="testIsRegistered">
 		<cfset check = isRegistered(params.key)>
 		<cfdump var="#check#"><cfabort>
