@@ -72,7 +72,12 @@
 	</cfoutput>
 		</table>
 		<cfset summary[title].count = totalThisQuantity>
-		<cfset summary[title].room = getEventEquipmentForThisCourse(eventid).selectName>
+		<cftry>
+			<cfset summary[title].room = getEventEquipmentForThisCourse(eventid).selectName>
+			<cfcatch>
+				<cfdump var="#getEventEquipmentForThisCourse(eventid)#"><cfabort>
+			</cfcatch>
+		</cftry>
 		<p>Total for #title#: #totalThisQuantity#</p>
 		<cfif val(max)>
 		<p>Maximum: #max#</p>

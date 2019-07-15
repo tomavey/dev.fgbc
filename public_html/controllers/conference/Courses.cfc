@@ -722,6 +722,7 @@
 	<cfargument name="eventid" default="716">
 	<cfset var loc = structNew()>
 		<cfset loc.eventinfo = model("Conferenceevent").findOne(where="id = #arguments.eventid#")>
+		<!--- <cfdump var="#loc.eventinfo.properties()#"><cfabort> --->
 		<cfreturn loc.eventinfo>
 	</cffunction>
 

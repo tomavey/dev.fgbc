@@ -142,7 +142,7 @@
 			</cfif>
 		</cfif>
 
-		<p>Link: #linkTo(controller="conference.registrations", action="list", key="#equip_optionsid#", onlyPath=false)#</p>
+		<p>Link: #linkTo(controller="conference.registrations", action="list", key="#equip_optionsid#", onlyPath=false, params="token=#params.token#")#</p>
 		<cfif gotRightsForEmailLinks()>
 			<p>Email All: #emailEveryone()#</p>
 		</cfif>
