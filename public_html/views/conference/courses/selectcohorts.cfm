@@ -30,7 +30,7 @@
                 </cfif>
                 <div class="well eachcohort">
                     <cfif display is "Full">
-                        This event is FULL.
+                        <span style="color:red;font-weight:bold">This event is FULL.</span>
                     <cfelse>    
                         <cfif find(id,coursesIdList)>
                         #checkBoxTag(name="cohorts", value=id, checked="true", id="#title#", class="subtype-#subtype#")#
