@@ -386,6 +386,7 @@
 				.get(name="edit", pattern="edit/")
 				.get(name="new", pattern="new/")
 				.get(name="delete", pattern="delete/")
+				.post(name="delete", pattern="delete/")
 				.post(name="update", pattern="update/")
 				.put(name="update", pattern="update/")
 				.post(name="create", pattern="create/")
