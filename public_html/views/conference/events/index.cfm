@@ -112,7 +112,7 @@ See only:
 								#showTag()# &nbsp;
 							<cfif gotRights("superadmin,office")>
 								#editTag()# &nbsp;
-								#deleteTag(class="noajax")# &nbsp;
+								#linkTo(text="<i class='fa fa-trash'></i>", controller="conference.events", action="delete", params="keyy=#id#")# &nbsp;
 								#copyTag()#
 							</cfif>
 						</td>
