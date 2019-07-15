@@ -24,7 +24,7 @@
 
 						#select(objectName='course', property='eventid', label='Event', options=events, textfield="selectnameid", class="input-xxlarge")#
 
-						#select(objectName='course', property='display', label='Display?', options="Yes,No")#
+						#select(objectName='course', property='display', label='Display?', options="Yes,No,Full")#
 
 						#textArea(objectName='course', property='comment', label='Comment')#
 

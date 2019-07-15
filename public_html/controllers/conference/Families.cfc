@@ -191,6 +191,16 @@
 		<cfset renderPage(layout="/layout_json_simple", hideDebugInformation=true)>
 	</cffunction>
 
+<cfscript>
+	function thisPersonsMealTicketsAsJson() {
+		var tickets = thisPersonsMealTickets(params.personid, params.familyid, params.type)
+		tickets = ticketsToPipeList(tickets)
+		tickets = "[{" & tickets & "}]"
+		data = serializeJSON(tickets)
+		renderJson()
+	}
+</cfscript>	
+
 	<cffunction name="testIsRegistered">
 		<cfset check = isRegistered(params.key)>
 		<cfdump var="#check#"><cfabort>

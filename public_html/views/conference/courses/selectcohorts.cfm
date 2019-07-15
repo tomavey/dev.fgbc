@@ -29,21 +29,30 @@
                     <h2>#subtypes[subtype]#</h2>
                 </cfif>
                 <div class="well eachcohort">
-                    <cfif find(id,coursesIdList)>
-                    #checkBoxTag(name="cohorts", value=id, checked="true", id="#title#", class="subtype-#subtype#")#
-                    <cfelse>
-                    #checkBoxTag(name="cohorts", value=id, id="#title#", id="#title#", class="subtype-#subtype#")#
-                    </cfif>
-                    <p class="disabledMessage-#subtype#"></p>
-                    <p>#title#</p>
-                            <cfif isDefined("subtype") && showSubTypesOfCourses()>
-                                <cfif len(subtype)>
-                                <p class="subtype">#subtypes[subtype]#</p>
+                    <cfif display is "Full">
+                        <cftry>
+                            This #params.type# is FULL.
+                            <cfcatch>
+                               FULL     
+                            </cfcatch>
+                        </cftry>
+                    <cfelse>    
+                        <cfif find(id,coursesIdList)>
+                        #checkBoxTag(name="cohorts", value=id, checked="true", id="#title#", class="subtype-#subtype#")#
+                        <cfelse>
+                        #checkBoxTag(name="cohorts", value=id, id="#title#", id="#title#", class="subtype-#subtype#")#
+                        </cfif>
+                    </cfif>    
+                        <p class="disabledMessage-#subtype#"></p>
+                        <p>#title#</p>
+                                <cfif isDefined("subtype") && showSubTypesOfCourses()>
+                                    <cfif len(subtype)>
+                                    <p class="subtype">#subtypes[subtype]#</p>
+                                    </cfif>
                                 </cfif>
-                            </cfif>
-                    <div class="cohortdescription">#descriptionlong#</div>
-                    <br/>
-                    <p class="description">#getSubtypeDesc(subtype)#</p>
+                        <div class="cohortdescription">#descriptionlong#</div>
+                        <br/>
+                        <p class="description">#getSubtypeDesc(subtype)#</p>
                 </div>
                 <cfset previousSubType = subtype>
             </cfoutput>

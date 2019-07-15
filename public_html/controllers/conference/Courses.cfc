@@ -294,7 +294,7 @@
 	<cfset whereString = "event='#getEvent()#'">
 
 		<cfif isDefined("params.type")>
-			<cfset whereString = "event='#getEvent()#' AND type IN ('cohort','workshop')">
+			<cfset whereString = "event='#getEvent()#' AND type IN ('cohort','workshop') AND (display = 'Yes' OR display = 'Full')">
 		</cfif>	 
 
 
@@ -609,14 +609,22 @@
 		<cfelse>
 			<cfset params.type = arguments.type>	
 		</cfif> --->
+		<!--- <cfif !isDefined("params.personid")>
+			<cfset redirectTo(route="conferenceCoursesSelectPersonToSelectCohorts")>
+		</cfif> --->
 	<cfset var loc = arguments>
 	<cfset loc.sendString = "from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your cohort or workshop selections...'">
 	<!--- <cfset arguments.type = translateType(arguments.type)> --->
 		<cfif isDefined("params.personid")>
+			<cftry>
 
-			<cfset workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# AND (type = 'cohort' OR type='workshop')", include="Workshop(Agenda)", order="eventDate")>
-
-			<cfset person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family")>
+				<cfset workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# AND (type = 'cohort' OR type='workshop')", include="Workshop(Agenda)", order="eventDate")>
+				<cfset person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family")>
+				<cfcatch>
+					//TODO - Set up a flash for redirect
+					<cfset redirectTo(route="mycohorts")>
+				</cfcatch>
+			</cftry>	
 		<cfelse>
 			<cfset redirectTo(action="selectPersonToShowCohorts", params="type=#arguments.type#&encodePersonId=false")>
 			Need to get personid<cfabort>	

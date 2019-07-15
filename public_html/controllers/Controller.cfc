@@ -690,7 +690,7 @@
 	<cfargument name='oldquery' required='true'>
 	<cfargument name='column' required='true'>
 	<cfquery dbtype="query" name="newQuery">
-		SELECT DISTINCT fullnamelastfirst
+		SELECT DISTINCT #column#
 		FROM oldquery
 	</cfquery>
 	<cfreturn newQuery>
