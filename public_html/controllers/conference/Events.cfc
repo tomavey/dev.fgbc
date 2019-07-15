@@ -159,6 +159,9 @@
 
 <!--- conference/events/update --->
 	<cffunction name="update">
+		<cfif isDefined("params.keyy")>
+			<cfset params.key = params.keyy>
+		</cfif>
 
 		<cfset event = model("Conferenceevent").findByKey(params.key)>
 
