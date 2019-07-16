@@ -142,7 +142,15 @@
         }
     }    
 
-	public function workshopsRegOpen(){
+    public function regRegIsOpen(){
+        if (getSetting("regRegIsOpen") OR gotRights("office") || isDefined("params.openreg") || isDefined("session.auth.openreg")){
+            return true;
+        } else {
+            return false;
+        }
+    }    
+
+    public function workshopsRegOpen(){
     	if (getSetting("workshopsRegIsOpen") OR gotRights("office") or isDefined("params.openreg") || (isDefined("session.auth.openWorkshops") && session.auth.openWorkshops)){
             return true;
         } else {

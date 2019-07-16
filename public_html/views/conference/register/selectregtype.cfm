@@ -29,7 +29,7 @@
 	</div>
 </cfif>
 
-<cfif regIsOpen()>
+<cfif regRegIsOpen()>
 	<div class="#span#">
 		#linkto(text=imageTag("/conference/couplereg.png"), action="selectoptions", params="couple")#
 		#linkto(text="Register a couple", action="selectoptions", params="couple",class="btn btn-large btn-block btn-info")#
