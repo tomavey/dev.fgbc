@@ -3,27 +3,35 @@
 <cfif regRegIsOpen()>
   #includePartial("registrationoptions")#
 <cfelse>
-  Online Registration is Closed.  
+  <p>
+    Online Registration is Closed.
+  </p>  
 </cfif>  
 
 <cfif mealsRegIsOpen()>
   #includePartial("mealoptions")#
 <cfelse>  
-  Online Ticket sales are Closed
+  <p>
+    Online Ticket sales are Closed
+  </p>
 </cfif>
 
 <cfif childRegIsOpen()>
   #includePartial("childcareoptions")#
   #includePartial("kidskonferenceoptions")#
 <cfelse>  
-  Grace Kids Registration is Closed
+  <p>
+    Grace Kids Registration is Closed
+  </p>
 </cfif>
 
 
 <cfif optionsRegIsOpen()>
   #includePartial("otheroptions")#
 <cfelse>
-  Options signup us closed    
+  <p>
+    Options signup us closed    
+  </p>
 </cfif>
 
 <div id="specialcode">
