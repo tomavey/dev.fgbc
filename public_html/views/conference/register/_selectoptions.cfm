@@ -1,4 +1,4 @@
-<cfparams name="showClosedMessage" default = "false">
+<cfparam name="showClosedMessage" default = "false">
 
 <cfoutput>
 
