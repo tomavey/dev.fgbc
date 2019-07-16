@@ -850,13 +850,14 @@ public function getAlphabet(){
 }
 
 public function linkToPlus(required addParams,class="",text="link",oldurl=cgi.request_url,showIf=true){
-	if ( find(addParams,oldUrl) ) { return oldurl }
-	var delim = "?"
-	if ( find("?",oldurl) ) { delim = "&" }
-	if ( !showIf ){ return "" };
-	var newUrl = oldurl;
-	newurl = oldurl & delim & addParams;
-	return #linkto(text=text, href=newurl, class=class)#;
+	if ( !find(addParams,oldUrl) ) { 
+		var delim = "?"
+		if ( find("?",oldurl) ) { delim = "&" }
+		if ( !showIf ){ return "" };
+		var newUrl = oldurl;
+		newurl = oldurl & delim & addParams;
+		return #linkto(text=text, href=newurl, class=class)#;
+	}
 }
 
 public function testremoveDuplicateParamsInUrl() {
