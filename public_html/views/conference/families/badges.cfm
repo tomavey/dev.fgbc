@@ -147,7 +147,23 @@
 <cfoutput>
   <cfif !isDefined("params.asJson")>
     #badgecontent#
-  <cfelse>
+  <div style="margin-top:20px;padding:20px;border:2px solid black">
+    <p>
+      Checksums...
+      <cfset ticketList = "GCS-TueBfast, ENC-TueLunch, IN-TueDnrFor1, IN-TueDnrFor2, BMH-WedBfast, ChP-WedLunch, EGL-WedDinnr, CEN-ThuBFast, ChF-ThuLunch">
+      <ul>
+        <cfloop index = i list = '#ticketList#'>
+          <li>
+             #i#:  #countOccurrences(badgecontent,i)#
+          </li>
+        </cfloop>
+      </ul>
+    </p>
+    <p>
+      These numbers do not account for quantity of each ticket.  It is just a simple count of each time the ticket code appears.
+    </p>
+  </div>
+<cfelse>
     #serializeJson(badgesArray)#
   </cfif>
 </cfoutput>

@@ -107,4 +107,35 @@
     return printThisBadge
   }
 
+  function countWord(string,substring) {
+    var occurrences = ( Len(string) - Len(Replace(string,substring,'','all')))
+    return occurrences
+  }
+
+  public string function writeDumpToText( required any input ) {
+    savecontent variable="local.result" {
+        writeDump( var = input, format = "text" );
+    }
+    result = reReplaceNoCase( result, "^<pre>|</pre>\s*$", "", "all" );
+    return( result );
+}
 </cfscript>
+
+<cffunction name="countOccurrences" access="public" returntype="numeric" required="true">
+  <cfargument name="string" type="string" required="True" />
+  <cfargument name="subString" type="string" required="True" />
+  
+  <cfset VAR position = findNoCase(arguments.substring,arguments.string,1) />
+  <cfset VAR count = 0 />
+  
+  <cfif len(trim(arguments.substring))>
+      <cfloop condition="position NEQ 0">
+          <cfset count = count + 1 />
+          <cfset position = findNoCase(arguments.substring,arguments.string, position + len(trim(arguments.substring))) />
+      </cfloop>
+  <cfelse>
+      <cfreturn 0 />
+  </cfif>
+
+<cfreturn count />
+</cffunction>
