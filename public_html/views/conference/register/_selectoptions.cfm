@@ -7,7 +7,7 @@
 </cfif>
 
 <cfif showClosedMessage>
-  <h3 style="text-align:center">
+  <h3 style="text-align:center;display:block">
     The following registration options are now closed:
   </h3>
 </cfif>
@@ -15,7 +15,7 @@
 <cfif regRegIsOpen()>
   #includePartial("registrationoptions")#
 <cfelse>
-  <p style="text-align:center">
+  <p style="text-align:center;display:block">
     Conference Registration<br/>
   </h3>  
 </cfif>  
@@ -23,8 +23,8 @@
 <cfif mealsRegIsOpen()>
   #includePartial("mealoptions")#
 <cfelse>  
-  <p style="text-align:center">
-    Meal Tickets
+  <p style="text-align:center;display:block">
+    Meal Tickets<br/>
   </p>
 </cfif>
 
@@ -32,8 +32,8 @@
   #includePartial("childcareoptions")#
   #includePartial("kidskonferenceoptions")#
 <cfelse>  
-  <p style="text-align:center">
-    Grace Kids.
+  <p style="text-align:center;display:block">
+    Grace Kids<br/>
   </p>
 </cfif>
 
