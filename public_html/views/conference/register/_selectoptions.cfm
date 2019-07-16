@@ -4,7 +4,7 @@
   #includePartial("registrationoptions")#
 <cfelse>
   <p>
-    Online Registration is Closed.
+    Online Registration is Closed.<br/>
   </p>  
 </cfif>  
 
