@@ -57,7 +57,7 @@
 		#linkto(text="Register a group", action="selectoptions", params="group", class="btn btn-large btn-block btn-info")#
 	</div>
 <cfelse>	
-	<div class="#span#">
+	<div class="#span# vague">
 		#linkto(text=imageTag("/conference/groupreg.png"), onclick="alert('Not available'); return false")#
 		#linkto(text="Registration for Group <br/> is not available", onclick="alert('Not available'); return false", class="btn btn-large btn-block btn-info")#
 	</div>
