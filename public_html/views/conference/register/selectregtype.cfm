@@ -39,6 +39,16 @@
 		#linkto(text=imageTag("/conference/singlereg.png"), action="selectoptions", params="single")#
 		#linkto(text="Register a single", action="selectoptions", params="single", class="btn btn-large btn-block btn-info")#
 	</div>
+<cfelse>	
+	<div class="#span#">
+		#linkto(text=imageTag("/conference/couplereg.png"), action="selectoptions", params="couple")#
+		#linkto(text="Registration for is not currently available online", onclick="alert('Not available'); return false", class="btn btn-large btn-block btn-info")#
+	</div>
+
+	<div class="#span#">
+		#linkto(text=imageTag("/conference/singlereg.png"), action="selectoptions", params="single")#
+		#linkto(text="Registration for is not currently available online", onclick="alert('Not available'); return false", class="btn btn-large btn-block btn-info")#
+	</div>
 </cfif>
 
 <cfif groupRegIsOpen()>
