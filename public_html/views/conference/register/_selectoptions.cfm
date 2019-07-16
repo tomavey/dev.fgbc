@@ -3,9 +3,9 @@
 <cfif regRegIsOpen()>
   #includePartial("registrationoptions")#
 <cfelse>
-  <h2 style="text-align:center">
+  <h3 style="text-align:center">
     Online Registration is Closed.<br/>
-  </h2>  
+  </h3>  
 </cfif>  
 
 <cfif mealsRegIsOpen()>
