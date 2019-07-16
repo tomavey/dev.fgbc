@@ -850,9 +850,11 @@ public function getAlphabet(){
 }
 
 public function linkToPlus(required addParams,class="",text="link",oldurl=cgi.request_url,showIf=true){
-	if (!showIf){return ""};
+	var delim = "&"
+	if ( !find("&",oldurl) ) { delim = "?" }
+	if ( !showIf ){ return "" };
 	var newUrl = oldurl;
-	newurl = oldurl & "&" & addParams;
+	newurl = oldurl & delim & addParams;
 	return #linkto(text=text, href=newurl, class=class)#;
 }
 
