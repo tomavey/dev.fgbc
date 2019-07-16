@@ -11,6 +11,8 @@
 <cfset accumulatedEmailList = "">
 <cfif isDefined("params.byage") and params.byage is "true">
 	<cfset groupby = "age">
+<cfelseif isDefined("params.bylname") and params.bylname is "true">
+	<cfset groupby = "lname">
 <cfelse>
 	<cfset groupby = "equip_optionsid">
 </cfif>

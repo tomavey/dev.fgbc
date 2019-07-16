@@ -18,11 +18,15 @@
 		<cfif isDefined("params.sortby")>
 			<cfset orderString = params.sortby>
 		</cfif>
+		<cfif isDefined("params.type")>
+			<cfset whereString = whereString & " AND equip_options.type = '#params.type#'">
+		</cfif>
 		<cfset registrations = model("Conferenceregistration").findAll(where=whereString, include="person(family),option,invoice", order=orderString)>
+
 		<cfif isDefined("params.download")>
 			  <cfset renderPage(layout="/conference/layoutdownload")>
 		</cfif>
-    </cffunction>
+  </cffunction>
 
 	<cffunction name="parentEmail">
 			<cfloop query="registrations">
@@ -39,6 +43,8 @@
 	<cfset loc.includeString = "person(family,age_ranges),option,invoice">
 		<cfif isDefined("params.byage") AND params.byage is "true">
 			<cfset loc.orderString = "age,lname">
+		<cfelseif isDefined("params.bylname") AND params.bylname is "true">
+			<cfset loc.orderString = "lname,fname">
 		<cfelse>
 			<cfset loc.orderString = "equip_optionsid,lname">
 		</cfif>

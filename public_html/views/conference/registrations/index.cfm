@@ -11,7 +11,9 @@
 		#linkto(text="Comp", controller="conference.registrations", action="index", params="status=comp")# | 
 		#linkto(text="Temp", controller="conference.registrations", action="index", params="status=temp")# | 
 		#linkto(text="TBD", controller="conference.registrations", action="index", params="status=tbd")# | 
-		#linkto(text="Paid", controller="conference.registrations", action="index", params="status=Paid")#
+		#linkto(text="Paid", controller="conference.registrations", action="index", params="status=Paid")# |
+		#linkToPlus(text="Sort by Lname", addParams="sortBy=lname,fname")# | 
+		#linkToPlus(text="Meals Only", addParams="type=meal")# | 
 	</p>	
 
 </cfoutput>
