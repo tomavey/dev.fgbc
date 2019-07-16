@@ -1,18 +1,30 @@
+<cfparams name="showClosedMessage" default = "false">
+
 <cfoutput>
+
+<cfif !regRegIsOpen() || !mealsRegIsOpen() || !childRegIsOpen() || !optionsRegIsOpen()>
+  <cfset showClosedMessage = "true">
+</cfif>
+
+<cfif showClosedMessage>
+  <h3 style="text-align:center">
+    The following registration options are now closed:
+  </h3>
+</cfif>
 
 <cfif regRegIsOpen()>
   #includePartial("registrationoptions")#
 <cfelse>
-  <h3 style="text-align:center">
-    Online Registration is Closed.<br/>
+  <p style="text-align:center">
+    Conference Registration<br/>
   </h3>  
 </cfif>  
 
 <cfif mealsRegIsOpen()>
   #includePartial("mealoptions")#
 <cfelse>  
-  <p>
-    Online Ticket sales are Closed.
+  <p style="text-align:center">
+    Meal Tickets
   </p>
 </cfif>
 
@@ -20,8 +32,8 @@
   #includePartial("childcareoptions")#
   #includePartial("kidskonferenceoptions")#
 <cfelse>  
-  <p>
-    Grace Kids Registration is Closed.
+  <p style="text-align:center">
+    Grace Kids.
   </p>
 </cfif>
 
@@ -29,8 +41,8 @@
 <cfif optionsRegIsOpen()>
   #includePartial("otheroptions")#
 <cfelse>
-  <p>
-    Options signup is closed.    
+  <p style="text-align:center">
+    Other Options.    
   </p>
 </cfif>
 
