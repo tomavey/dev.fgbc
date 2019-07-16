@@ -12,7 +12,7 @@
   #includePartial("mealoptions")#
 <cfelse>  
   <p>
-    Online Ticket sales are Closed
+    Online Ticket sales are Closed.
   </p>
 </cfif>
 
@@ -21,7 +21,7 @@
   #includePartial("kidskonferenceoptions")#
 <cfelse>  
   <p>
-    Grace Kids Registration is Closed
+    Grace Kids Registration is Closed.
   </p>
 </cfif>
 
@@ -30,7 +30,7 @@
   #includePartial("otheroptions")#
 <cfelse>
   <p>
-    Options signup us closed    
+    Options signup is closed.    
   </p>
 </cfif>
 
