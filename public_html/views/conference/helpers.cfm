@@ -156,11 +156,12 @@
 			<cfset capWord = capWord & " " & humanize(lcase(i))>
 		</cfloop>
 	</cfif>
-	<cfif left(capWord,2) is "Mc">
+	<cfif left(capWord,2) is "Mc" || left(capword,2) is "O'">
 		<cfset capWordMcLeft = left(capWord,2)>
 		<cfset capWordMcRight = right(capWord,len(capword)-2)>
 		<cfset capWord = humanize(capWordMcLeft)&humanize(capWordMcRight)>
 	</cfif>
+
 	<cfif capWord is "Odeens">
 		<cfset capWord = "O'Deens">
 	</cfif>
