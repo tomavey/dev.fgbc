@@ -96,7 +96,7 @@
         <cfset nextName = "">
       </cfcatch>
     </cftry>
-    <cfif printThisBadge(fullname, previousname, nextname, thisPersonsMeals, previoustickets)>
+    <cfif printThisBadge(fullname, previousname, nextname, thisPersonsMeals, previoustickets) && isRegistered(id)>
     <tr>
     	<td>
         #linkto(text=capname(fname), controller="conference.people", action="show", key=ID, target="_blank")#
