@@ -2,7 +2,7 @@
 <div class="row">
 
 <div class="span4 well">
-#imageTag("/focus/forward.jpg")#
+#imageTag("/focus/#getSetting('FocusLogo')#")#
 </div>
 
 <div class="span7 well">
