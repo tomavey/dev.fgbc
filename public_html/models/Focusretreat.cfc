@@ -4,8 +4,9 @@
 		<cfset table("focus_retreats")>
 		<cfset hasMany(name='focusitems', modelName="Focusitem", foreignKey="id")>
 
-<!---Use on laptop--->
+<!---Use on laptop
 		<cfset uploadableFile(property="image", destination="#replace(GetBaseTemplatePath(),'index.cfm','')#images/")>		
+--->
 		
 <!---Use on alurium
 		<cfset uploadableFile(property="image", destination="/home/fgbcalur/public_html/focus/images/")>
