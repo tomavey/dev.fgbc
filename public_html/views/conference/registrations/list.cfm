@@ -39,7 +39,13 @@
 	<hr/>
 	</cfoutput>
 </cfif>
-
+<cfoutput>
+	<cfif !isDefined("params.byQuantity")>
+		#linkToPlus(text="Sort by Quantity", addParams="byQuantity=true")#
+	<cfelse>
+		#linkTo(text="Sort by Last Name", controller="conference.registrations", action="list", params="type=Meal&&token=nDIyfwSXltprRbwmgc2V")#
+	</cfif>
+</cfoutput>
 <cfoutput query="registrations" group="#groupby#">
 <cfset grouprowcount = 0>
 <cfset groupagetotal = 0>

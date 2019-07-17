@@ -45,6 +45,8 @@
 			<cfset loc.orderString = "age,lname">
 		<cfelseif isDefined("params.bylname") AND params.bylname is "true">
 			<cfset loc.orderString = "lname,fname">
+		<cfelseif isDefined("params.byQuantity") AND params.byQuantity is "true">
+			<cfset loc.orderString = "equip_optionsid,quantity DESC">
 		<cfelse>
 			<cfset loc.orderString = "equip_optionsid,lname">
 		</cfif>
