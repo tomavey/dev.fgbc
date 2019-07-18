@@ -184,9 +184,11 @@
 						<div class="well">
 							<p>#fname# #lname#  
 							</p>
-							<p>
-								#linkTo(text="Add registrations or meals tickets for #fname# #lname# (or family)", controller="conference.register", action="startFamilyRegs", key=conferencefamilyid, onlyPath=false, class="btn btn-large")#
-							</p>
+							<cfif regIsOpen() && (regRegIsOpen() || mealsRegIsOpen())>
+								<p>
+									#linkTo(text="Add registrations <cfif mealsRegIsOpen()>or meals tickets </cfif>for #fname# #lname# (or family)", controller="conference.register", action="startFamilyRegs", key=conferencefamilyid, onlyPath=false, class="btn btn-large")#
+								</p>
+							</cfif>
 							<cfif workshopsRegOpen()>
 								<p>
 									#linkTo(text="Use this button to view, add or edit COHORTS for #fname#", route="conferenceCoursesSelectCohorts", params="type=cohort&personid=#equip_peopleid#", onlyPath=false, class="btn  btn-large btn-inverse")#
