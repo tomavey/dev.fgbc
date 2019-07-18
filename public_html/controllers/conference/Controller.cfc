@@ -235,7 +235,6 @@
 
     public function optionsregistrationIsOpen(){
         return optionsRegIsOpen()
-        };
     }
 
     public function regOpenPromiseDate(){
