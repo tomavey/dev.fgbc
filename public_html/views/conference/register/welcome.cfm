@@ -56,7 +56,7 @@
 	<cfelseif optionsregistrationIsOpen()>
 				You Can still purchase tickets for options here.
 	<cfelse>
-			<p>We are preparing registration envelopes for #getSetting("eventAsText")#.  If you still need to register or purchase meal tickets, go directly to the Welcome Center when you arrive to register and purchase meal ticket if they are still available.</p>
+			<p>#getSetting("eventAsText")# is just a few days away! We are preparing registration envelopes for #getSetting("eventAsText")# participants.  If you still need to register or purchase meal tickets, go directly to the Welcome Center when you arrive to register and purchase meal ticket if they are still available.</p>
 	</cfif>
 
 </cfoutput>
