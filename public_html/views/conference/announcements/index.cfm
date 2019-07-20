@@ -19,7 +19,7 @@
 
                     <cfcol header="Author" text="#mailto(author)#" />
 
-                    <cfcol header="Home Screen" text="#showHomeScreen#" />
+                    <cfcol header="Home Screen" text="#iif(showHomeScreen,'Yes','')#" />
 
                     <cfcol header="Post At" text="#datetimeformat(postAt,"short")#" />
 
