@@ -168,7 +168,7 @@
     <cffunction name="announcementcount">
         <cfset var loc = StructNew()>
         <cfset loc.postAt = now()>
-        <cfset var whereString = "event='#getEvent()#' AND approved = 'yes' AND postAt < '#loc.postAt#'">
+        <cfset var whereString = "event='#getEvent()#' AND emailonly <> 'yes' AND approved = 'yes' AND postAt < '#loc.postAt#'">
         <cfset data = model("Conferenceannouncement").findAll(where=whereString, order="id DESC", returnAs="query").recordcount>
         <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
     </cffunction>
