@@ -356,8 +356,19 @@
 		</cfloop>
 		<cfset emptyWorkshops = replace(emptyWorkshops,",","","one")>
 		<cfset countpeopleregistered = countPeopleRegistered()>
-		<cfset renderPage(action="showAllSelectedWorkshops")>
-	</cffunction>
+		<cfif isDefined("params.json")>
+
+			<cfquery dbtype="query" name="data">
+				SELECT fullname, coursetitle
+				FROM workshops
+			</cfquery>
+
+			<cfset data = queryToJson(data)>
+			<cfset renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)>
+		<cfelse>	
+			<cfset renderPage(action="showAllSelectedWorkshops")>
+		</cfif>
+</cffunction>
 
 	<!---Courses/select-person-to-select-cohorts/--->
 	<cffunction name="selectPersonToSelectCohorts">
