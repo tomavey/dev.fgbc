@@ -360,6 +360,7 @@
 			<cfquery dbtype="query" name="data">
 				SELECT fullname, coursetitle, eventday, eventroom
 				FROM workshops
+				ORDER BY fullname
 			</cfquery>
 
 			<cfset data = queryToJson(data)>
