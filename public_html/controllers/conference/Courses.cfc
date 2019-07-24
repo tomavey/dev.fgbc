@@ -357,9 +357,8 @@
 		<cfset emptyWorkshops = replace(emptyWorkshops,",","","one")>
 		<cfset countpeopleregistered = countPeopleRegistered()>
 		<cfif isDefined("params.json")>
-
 			<cfquery dbtype="query" name="data">
-				SELECT fullname, coursetitle
+				SELECT fullname, coursetitle, eventday, eventroom
 				FROM workshops
 			</cfquery>
 
