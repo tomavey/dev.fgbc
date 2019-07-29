@@ -705,7 +705,7 @@
 	</cfif>
 	<cfset loc.return = linkto(argumentCollection=arguments)>
 <cfelse>
-  	<cfif link contains ("http://")>
+  	<cfif link contains ("http://") || link contains ("https://")>
   		<cfset loc.hrefargs.text = arguments.text>
   		<cfset loc.hrefargs.href = arguments.link>
   		<cfset loc.hrefargs.class = arguments.class>
