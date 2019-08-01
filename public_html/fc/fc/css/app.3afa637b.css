@@ -1,1 +1,0 @@
-.grid-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));grid-gap:5px;grid-auto-rows:minmax(100px,auto)}.grid-item{padding:10px}.pointer{cursor:pointer}.center-text{text-align:center}
