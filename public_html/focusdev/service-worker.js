@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/focusdev/precache-manifest.bc11e6e86dff8dcf98ebf5a53cf8715e.js"
+  "/focusdev/precache-manifest.a167e07605113afcf76205bda945e1e2.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "avey"});
