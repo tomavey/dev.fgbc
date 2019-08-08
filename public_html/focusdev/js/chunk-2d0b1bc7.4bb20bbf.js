@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0b1bc7"],{"20b5":function(e,a,n){"use strict";n.r(a);var s=function(){var e=this,a=e.$createElement,n=e._self._c||a;return n("v-container",[n("div",{staticClass:"about"},[n("h1",[e._v(e._s(e.message))])])])},t=[],i={data(){return{message:"This is teams page"}}},u=i,c=n("2877"),o=n("6544"),r=n.n(o),l=n("a523"),p=Object(c["a"])(u,s,t,!1,null,null,null);p.options.__file="Teams.vue";a["default"]=p.exports;r()(p,{VContainer:l["a"]})}}]);
-//# sourceMappingURL=chunk-2d0b1bc7.4bb20bbf.js.map
