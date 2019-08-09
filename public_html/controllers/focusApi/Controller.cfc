@@ -1,3 +1,3 @@
-component extends="controllers.Controller" output="false" {
+<cfcomponent extends="controllers.Controller">
 
-}
+</cfcomponent>

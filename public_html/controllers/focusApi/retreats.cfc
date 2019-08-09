@@ -24,6 +24,7 @@ component extends="Controller" {
       whereString = "menuname='#params.menuname#'"
     }
     data = queryToJson(model('Focusretreat').findAll(where=whereString, order="createdAt DESC", maxrows="1"))
+    writeOutput("retreat");abort;
     renderJson()
   }
 
