@@ -824,7 +824,7 @@
 		.get(name="apiRetreats", pattern="/api/retreats", controller="focus.main", action="retreatsAsJson")
 		.get(name="fellowshipCouncilPages", pattern="/api/fellowshipcouncil/pages/", controller="fellowshipcouncil.Pages", action="index")
 		.get(name="fellowshipCouncilPage", pattern="/api/fellowshipcouncil/page/[key]", controller="fellowshipcouncil.Pages", action="index")
-		.get(name="focusRetreatInfo", pattern="/api/focus/retreat/[menuname]", controller="focusApi.retreats", action="retreat")
+		.get(name="apiFocusRetreatInfo", pattern="/api/focus/retreat/[menuname]", controller="focusApi.retreats", action="retreat")
 
 		.root(controller="Home", action="index")
 		.wildcard()
