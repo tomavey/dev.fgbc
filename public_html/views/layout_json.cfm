@@ -5,10 +5,4 @@
 <cfheader name="Access-Control-Allow-Credentials" value="true" />
 <cfheader name="Content-Type" value="application/json">
 <cfoutput>#contentForLayout()#</cfoutput>
-<!---
-<cfdump
-    var="#GetHttpRequestData()#"
-    label="GetHttpResponseData() Values"
-    />
---->
 </cfsetting>

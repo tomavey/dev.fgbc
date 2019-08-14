@@ -420,7 +420,7 @@
 		<cfset var churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state_mail_abbrev,org_city,name")>
 		<cfset var notpaidchurches = queryNew("id,name,city,emails")>
 		<cfloop query="churches">
-			<cfif getFeePaid(id) is "NONE">
+			<cfif getFeePaid(id) is "NONE" || getFeePaid(id) is 0>
 				<cfset queryAddRow(notpaidchurches,1)>
 				<cfset querySetCell(notpaidchurches,"id",#id#)>
 				<cfset querySetCell(notpaidchurches,"name",#name#)>
