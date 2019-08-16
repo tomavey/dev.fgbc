@@ -15,7 +15,7 @@
               <p class="g-color-white g-font-weight-700 g-font-size-20 text-right">Charis Fellowship churches plant new churches! The Charis Fellowship ministries listed below help Charis Fellowship churches plant healthy reproducing churches...</p>
               <!-- Vimeo Example -->
               <div class="embed-responsive embed-responsive-16by9">
-                <iframe src="https://player.vimeo.com/video/281065796?autoplay=1" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe><p><a href="https://vimeo.com/242131178">Mark Artrip about Planting Churches</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>
+                <iframe src="https://player.vimeo.com/video/348151965?autoplay=1" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe><p><a href="https://vimeo.com/242131178">Mark Artrip about Planting Churches</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>
               </div>
               <!--- End Vimeo Example --->
             </div>

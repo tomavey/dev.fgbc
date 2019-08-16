@@ -353,17 +353,15 @@
 
                         <ul class="list-inline mb-0">
                           <li class="list-inline-item g-mr-10">
-                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://facebook.com/charischurches">
-                              <i class="fa fa-facebook"></i>
+                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://vimeo.com/charisfellowship">
+                              <i class="fa fa-vimeo"></i>
                             </a>
                           </li>
-                          <!---
                           <li class="list-inline-item g-mr-10">
                             <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="#">
                               <i class="fa fa-instagram"></i>
                             </a>
                           </li>
-                          --->
                           <li class="list-inline-item g-mr-10">
                             <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://twitter.com/charischurches">
                               <i class="fa fa-twitter"></i>
