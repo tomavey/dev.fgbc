@@ -13,10 +13,7 @@
 <table class="table table-striped">
 	<tr>
 		<th>
-			Name
-		</th>
-		<th>
-			Retreat
+			Item ID<br/>Retreat ID
 		</th>
 		<th>
 			Description
@@ -25,10 +22,7 @@
 			Price
 		</th>
 		<th>
-			Category
-		</th>
-		<th>
-			Sort Order
+			Category<br/>List Order
 		</th>
 		<th>
 			&nbsp;
@@ -37,10 +31,7 @@
 	<cfoutput query="items">
 		<tr>
 			<td>
-				#name#
-			</td>
-			<td>
-				#regid#
+				#name#<br/>#regid#
 			</td>
 			<td>
 				#description#
@@ -52,10 +43,7 @@
 				#price#
 			</td>
 			<td>
-				#category#
-			</td>
-			<td>
-				#sortOrder#
+				#category#<br/>#sortOrder#
 			</td>
 			<td>
 				#editTag()# #deleteTag()# #showTag()# #copyTag()# #linkTo(text="<i class='icon-list'></i>", controller="focus", action="registrations", params="itemid=#id#")#				
