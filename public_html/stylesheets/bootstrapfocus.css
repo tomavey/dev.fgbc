@@ -3648,7 +3648,7 @@ a.thumbnail:hover {
     padding-top: 0;
   }
   .navbar-fixed-top {
-    position: static;
+    position: absolute;
     margin-bottom: 18px;
   }
   .navbar-fixed-top .navbar-inner {
