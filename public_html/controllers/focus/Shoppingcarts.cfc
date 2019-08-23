@@ -82,6 +82,8 @@
 	<!--- -shoppingcarts/create --->
 	<cffunction name="create">
 
+		<cfdump var="#params.shoppingcart#"><cfabort>
+
 		<cfset shoppingcart = model("Focusshoppingcart").new(params.shoppingcart)>
 		<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId=#shoppingcart.retreat# AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price DESC")>
 
@@ -315,6 +317,53 @@
 	<cfreturn loc.newlist>
 	</cffunction>
 
-
+	<!--- Used by putFormIntoShoppingCart()--->
+	<cffunction name="isDiscountQualified">
+		<cfargument name="specialcode" required="true" type="string">
+		<cfset var isQualified = 0>
+		<cfset var dependency = structnew()>
+		<cfset var thisoption = structnew()>
+		<cfset var discount = model("Conferenceoption").findOne(where="name='#arguments.specialcode#' AND event='#getEvent()#'")>
+		
+		<cftry>
+		<!---Get the discountDependsOn information from the options table--->
+		<cfset dependency.names = discount.discountDependsOn>
+		<cfset dependency.names = replace(dependency.names," ","","all")>
+		<!---If there are no dependencies set qualfication = true--->
+		<cfif not len(dependency.names)>
+				<cfset isQualified = 1>
+		</cfif>
+		<cfcatch></cfcatch></cftry>
+		
+		<!---check params.registration for discount dependency--->
+		<cfif isdefined("params.registration")>
+			<cftry>
+			<!---Get the option name for this option id--->
+			<cfset thisoption = model("Conferenceoption").findOne(where="id='#params.registration#'")>
+			<!---check to see if this option name is in the list of dependencies--->
+			<cfif listFind(dependency.names,thisoption.name)>
+				<cfset isQualified = 1>
+			</cfif>
+			<cfcatch></cfcatch></cftry>
+		</cfif>
+		
+		<cfif not isQualified>
+		<cftry>
+		
+		<!---Loop through all the other items in the shoppingcart using params keys--->
+			<cfloop collection="#params#" item="i">
+				<!---Get the option name for this option id--->
+				<cfset thisoption = model("Conferenceoption").findOne(where="id='#i#'")>
+				<!---check to see if this option name is in the of dependencies--->
+				<cfif listFind(dependency.names,thisoption.name)>
+					<cfset isQualified = 1>
+					<cfbreak>
+				</cfif>
+			</cfloop>
+		<cfcatch></cfcatch></cftry>
+		</cfif>
+		
+		<cfreturn isQualified>
+		</cffunction>
 
 </cfcomponent>
