@@ -20,13 +20,16 @@
 					<p><span>Sort Order: </span> 
 						#item.sortOrder#</p>
 
-					<p><span>Reg Count (for summary report): </span> 
-						#item.regCount#</p>
+					<!--- <p><span>Reg Count (for summary report): </span> 
+						#item.regCount#</p> --->
 
 					<p><span>Alert When Selected?: </span> 
 						#item.alertwhenselected#</p>
 
-					<p><span>Max to sell: </span> 
+						<p><span>Dependencies: </span> 
+							#item.dependencies#</p>
+
+							<p><span>Max to sell: </span> 
 						#item.maxtosell#</p>
 
 					<p><span>Comments: </span> 

@@ -50,6 +50,12 @@
 			<cfset isReadyForCheckOut = false>						
 	</cfif>
 
+<cfif flashKeyExists("errorMessage")>
+	<div class="alert alert-error">
+		#flash("errorMessage")#
+	</div>	
+</cfif>	
+
 <cfif isReadyForCheckOut>
 	<p>#linkTo(text="Checkout", action="agent", key=shoppingcart.id, class="btn btn-large btn-block btn-primary")#</p>
 <cfelse>	

@@ -8,26 +8,28 @@
 							#select(objectName='item', property='retreatID', label='Retreat: ', options=activeRetreats)#
 						</cfif>
 						
-						#textField(objectName='item', property='description', label='Description: ')#
+						#textField(objectName='item', property='description', label='Description: ', class="input-xxlarge")#
 
-						#textField(objectName='item', property='maxtosell', label='Maximum available to sell: ')#
+						#textField(objectName='item', property='maxtosell', label='Maximum available to sell: ', class="input-mini")#
 
-						#select(objectName='item', property='regCount', options="0,1,2", label='Reg Count (for summary report)')#
+						#select(objectName='item', property='regCount', options="0,1,2", label='Reg Count (for summary report)', class="input-mini")#
 
-						#textArea(objectName='item', property='popup', label='Popup: ', cols="40")#
+						#textArea(objectName='item', property='popup', label='Popup: ', cols="40", class="input-xxlarge")#
 
-						#select(objectName='item', property='alertwhenselected', label='Alert when selected? ', options="No,Yes")#
+						#select(objectName='item', property='alertwhenselected', label='Alert when selected? ', options="No,Yes", class="input-mini")#
 
-						#textField(objectName='item', property='price', label='Price: ')#
+						#textField(objectName='item', property='price', label='Price: ', class="input-small")#
+
+						#textField(objectName='item', property='dependencies', label='Which other items must be selected for this item to qualify?', placeholder="list qualfifying item name or names separated by a comma", class="input-xxlarge")#
 
 						#select(objectName='item', property='category', label='Category: ', options=application.wheels.optiontypes)#
 
-						#textField(objectName='item', property='sortOrder', label='Sort Order (optional): ')#
+						#textField(objectName='item', property='sortOrder', label='Sort Order (optional): ', class="input-mini")#
 
-						#textArea(objectName='item', property='Comments', label='Comments: ')#
+						#textArea(objectName='item', property='Comments', label='Comments: ', class="input-xxlarge")#
 
 						<p>Expires:
-							#dateSelect(objectName='item', property='expiresAt', dateOrder='year,month,day', monthDisplay='abbreviations')#
+							#dateSelect(objectName='item', property='expiresAt', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#
 						</p>
 
 </cfoutput>
