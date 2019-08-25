@@ -15,13 +15,6 @@
 		return false
 	}
 
-			public function test_isItemQualified(){
-				var testItem = 298
-				var testItems = "300,303,298,299"
-				var testResult = testItem & " is qualified: " & isItemQualified(testItem,testItems)
-				writeOutput(testResult);abort;
-			}
-
 	private function qualifiedItems(itemIds) {
 		var itemIdsArray = listToArray(itemids)
 		var newItemIdsArray = []
@@ -34,12 +27,6 @@
 		newItemIds = arrayToList(newItemIdsArray)
 		return newItemIds
 	}
-
-			public function test_qualifiedItems() {
-				var test_items  = "300,303,298"
-				var test_results = qualifiedItems(test_items)
-				writeOutput(test_results);abort;
-			}
 
 	private function getItemIdFromItemName(itemName) {
 		var item = model("Focusitem").findOne(where="name = '#itemName#'")
@@ -59,6 +46,23 @@
 		newListOfItemIds = arrayToList(itemIdsArray)
 		return(newListOfItemIds)
 	}
+
+
+<!---Tests--->	
+
+public function test_isItemQualified(){
+		var testItem = 298
+		var testItems = "300,303,298,299"
+		var testResult = testItem & " is qualified: " & isItemQualified(testItem,testItems)
+		writeOutput(testResult);abort;
+	}
+
+	public function test_qualifiedItems() {
+		var test_items  = "300,303,298"
+		var test_results = qualifiedItems(test_items)
+		writeOutput(test_results);abort;
+	}
+
 
 </cfscript>
 
