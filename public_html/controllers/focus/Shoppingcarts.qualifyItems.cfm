@@ -2,6 +2,7 @@
 
 	private function isItemQualified(itemId,itemIds) {
 		var item = model("Focusitem").findOne(where="id=#itemid#")
+		if ( !isObject(item) ) { return false }
 		var dependenciesNames = item.dependencies
 		var dependenciesIds = ''
 		var dependenciesIdsArray = []

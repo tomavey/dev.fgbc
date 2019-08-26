@@ -104,6 +104,8 @@
 					<cfset shoppingCart.items = specialCodeItem.id>
 				</cfcatch>
 				</cftry>
+			<cfelse>
+				<cfset flashInsert(errorMessage="A special coded entered is invalid")>
 			</cfif>
 		</cfloop>
 		</cfif>
