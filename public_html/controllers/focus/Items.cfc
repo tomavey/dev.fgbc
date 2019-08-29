@@ -11,7 +11,15 @@
 <!---Filters--->
 <cfscript>
 	private function getItems(){
+		if ( !isDefined('params.retreatid') ) {
+			params.retreatid = getRetreatIdFromItemId(params.key)
+		}
 		items = model("Focusitem").findAll(where="retreatid=#params.retreatid#", include="retreat")
+	}
+
+	private function getRetreatIdFromItemId(itemid){
+		retreat = model("Focusitem").findOne(where="id = #itemid#")
+		return retreat.retreatid
 	}
 </cfscript>	
 
