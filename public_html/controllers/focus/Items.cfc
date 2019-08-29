@@ -5,7 +5,15 @@
 		<cfset filters('checkOffice')>
 		<cfset filters(through="setReturn", only="index,show,items")>
 		<cfset filters(through="getRetreatRegions")>	
+		<cfset filters(through="getItems", only="new,edit")>
 	</cffunction>
+
+<!---Filters--->
+<cfscript>
+	private function getItems(){
+		items = model("Focusitem").findAll(where="retreatid=#params.retreatid#", include="retreat")
+	}
+</cfscript>	
 
 <!----------------------------------------------->	
 <!-------------CCRUD------------------------------>	
@@ -36,12 +44,15 @@
 	</cffunction>
 	
 	<!--- -items/new --->
-	<cffunction name="new">
-		<cfset item = model("Focusitem").new()>
-		<cfset item.expiresAt = dateAdd("yyyy",1,now())>
-		<cfset activeRetreats = model("Focusretreat").findall(where="active='yes'", order="startAt DESC")>
-	</cffunction>
-	
+
+	<cfscript>
+		public function new(){
+			item = model("Focusitem").new()
+			item.expiresAt = dateAdd("yyyy",1,now())
+			activeRetreats = model("Focusretreat").findall(where="active='yes'", order="startAt DESC")
+		}
+	</cfscript>
+
 	<!--- -items/edit/key --->
 	<cffunction name="edit">
 	
