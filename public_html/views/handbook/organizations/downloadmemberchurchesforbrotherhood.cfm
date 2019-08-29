@@ -68,10 +68,10 @@
 		</td>
 		<cfset seniorpastor = getSeniorPastor(id)>
 		<td>
-			#seniorpastor.lname#
+			#seniorpastor.fname#
 		</td>
 		<td>
-			#seniorpastor.fname#
+			#seniorpastor.lname#
 		</td>
 		<td>
 			<cfif len(seniorpastor.email)>

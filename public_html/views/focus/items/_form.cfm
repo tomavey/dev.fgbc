@@ -20,7 +20,19 @@
 
 						#textField(objectName='item', property='price', label='Price: ', class="input-small")#
 
-						#textField(objectName='item', property='dependencies', label='Which other items must be selected for this item to qualify?', placeholder="list qualfifying item name or names separated by a comma", class="input-xxlarge")#
+						<cfif items.recordcount>
+							<table>
+								<tr>
+									<td colspan="3">This item depends on these other item(s):</td>
+								</tr>
+								<cfoutput query="items">
+									<tr>
+										<td>&nbsp;&nbsp;&nbsp;</td><td style="font-size:.8em">#name#</td><td>#checkBoxTag(name="item[dependencies]", value='#name#')#</td>
+									</tr>
+								</cfoutput>
+								<tr><td colspan="3"></td></tr>
+							</table>
+						</cfif> 
 
 						#select(objectName='item', property='category', label='Category: ', options=application.wheels.optiontypes)#
 

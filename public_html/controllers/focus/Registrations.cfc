@@ -190,7 +190,13 @@
 
 	<cffunction name="whoiscoming">
 	<cfif isDefined("params.keyy")>
-		<cfset params.key = params.keyy>
+		<cfif val(params.key)>
+			<cfset params.key = params.keyy>
+		<cfelse>
+			<cfset params.key = getIdFromMenuName(params.keyy)>		
+		</cfif>	
+	<cfelse>	
+		<cfset renderText("Something is not working correctly! Try again.")>
 	</cfif>	
 
 	<cftry>
