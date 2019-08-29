@@ -5,6 +5,7 @@
 		<cfset filters('checkOffice')>
 		<cfset filters(through="setReturn", only="index,show,items")>
 		<cfset filters(through="getRetreatRegions")>	
+		<cfset filters(through="getItems", only="new,edit")>
 	</cffunction>
 
 <!---Filters--->
