@@ -92,6 +92,7 @@
 	
 	<!--- -items/create --->
 	<cffunction name="create">
+		<cfdump var="#params#"><cfabort>
 		<cfset item = model("Focusitem").new(params.item)>
 		
 		<!--- Verify that the item creates successfully --->
