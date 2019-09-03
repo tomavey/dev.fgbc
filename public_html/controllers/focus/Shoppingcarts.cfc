@@ -12,6 +12,9 @@
 	<!--- -shoppingcarts/index --->
 	<cffunction name="index">
 		<cfset shoppingcarts = model("Focusshoppingcart").findAll()>
+		<cfif !isObject(shoppingcarts)>
+			<cfset reDirectTo(controller="focus.main", action="welcome")>
+		</cfif>
 	</cffunction>
 
 	<!--- -shoppingcarts/show/key --->
