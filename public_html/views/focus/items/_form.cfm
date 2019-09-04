@@ -1,4 +1,5 @@
 <cfoutput>
+<!--- <cfdump var="#item.properties()#"> --->
 
 						#textField(objectName='item', property='name', label='Name: ')#
 
@@ -20,10 +21,11 @@
 
 						#textField(objectName='item', property='price', label='Price: ', class="input-small")#
 
-						#textField(objectName='item', property='dependencies', label='Dependencies: ', class="input-large")#
+						<!--- #textField(objectName='item', property='dependencies', label='Dependencies: ', class="input-large")# --->
 
-						<!--- #select(objectName='item', property='dependencies', label='Dependencies (hold shift key to select muliple): ', options=items, valueField="name", includeBlank="------", multiple=true)# --->
-						<cfif len(item.dependencies)>
+						#select(objectName='item', property='dependencies', label='Dependencies (hold ctrl key to select muliple): ', options=items, valueField="name", includeBlank="None", multiple=true, size=#items.recordcount+1#)#
+
+						<cfif isDefined('item.dependencies') && len(item.dependencies)>
 							<p style="font-size: .7em; color: gray">&nbsp;&nbsp;&nbsp;(Current Dependencies: #item.dependencies#)</p>
 						</cfif>
 

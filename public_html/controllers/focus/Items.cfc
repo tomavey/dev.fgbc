@@ -14,7 +14,7 @@
 		if ( !isDefined('params.retreatid') ) {
 			params.retreatid = getRetreatIdFromItemId(params.key)
 		}
-		items = model("Focusitem").findAll(where="retreatid=#params.retreatid#", include="retreat")
+		items = model("Focusitem").findAll(where="retreatid=#params.retreatid# AND price > 0", include="retreat")
 	}
 
 	private function getRetreatIdFromItemId(itemid){

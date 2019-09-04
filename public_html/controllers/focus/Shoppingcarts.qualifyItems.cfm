@@ -1,5 +1,19 @@
 <cfscript>
 
+<!---function qualifiedItems is the main method called by the shopping cart create method--->	
+	private function qualifiedItems(itemIds) {
+		var itemIdsArray = listToArray(itemids)
+		var newItemIdsArray = []
+		for ( itemId in itemIdsArray ) {
+			var item = model("Focusitem").findOne(where="id = #itemid#")
+			if ( isItemQualified(itemId,itemIds) ) {
+				arrayAppend(newItemIdsArray,itemId)	
+			}
+		}
+		newItemIds = arrayToList(newItemIdsArray)
+		return newItemIds
+	}
+
 	private function isItemQualified(itemId,itemIds) {
 		var item = model("Focusitem").findOne(where="id=#itemid#")
 		if ( !isObject(item) ) { return false }
@@ -16,23 +30,12 @@
 		return false
 	}
 
-	private function qualifiedItems(itemIds) {
-		var itemIdsArray = listToArray(itemids)
-		var newItemIdsArray = []
-		for ( itemId in itemIdsArray ) {
-			var item = model("Focusitem").findOne(where="id = #itemid#")
-			if ( isItemQualified(itemId,itemIds) ) {
-				arrayAppend(newItemIdsArray,itemId)	
-			}
-		}
-		newItemIds = arrayToList(newItemIdsArray)
-		return newItemIds
-	}
-
 	private function getItemIdFromItemName(itemName) {
 		var item = model("Focusitem").findOne(where="name = '#itemName#'")
 		if (isObject(item)) {
 			return item.id
+		} else {
+			return 'NA'
 		}
 	}
 
@@ -42,7 +45,9 @@
 		var itemIdsArray = []
 		for (itemName in itemNames) {
 			var thisItemId = getItemIdFromItemName(itemName)
-			arrayAppend(itemIdsArray,thisItemId)
+			if ( thisItemId NEQ 'NA') {
+				arrayAppend(itemIdsArray,thisItemId)
+			}
 		}
 		newListOfItemIds = arrayToList(itemIdsArray)
 		return(newListOfItemIds)
