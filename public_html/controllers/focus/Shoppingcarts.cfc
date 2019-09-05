@@ -90,7 +90,9 @@
 
 		<cfscript>
 			// writeDump(params.shoppingcart.items)
-			params.shoppingcart.items = qualifiedItems(params.shoppingcart.items)
+			if ( isDefined('params.shoppingcart.items') ) {
+				params.shoppingcart.items = qualifiedItems(params.shoppingcart.items)
+			}
 			// writeDump(params.shoppingcart.items);abort;
 		</cfscript>
 
