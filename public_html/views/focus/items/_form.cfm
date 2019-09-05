@@ -41,6 +41,8 @@
 
 						#select(objectName='item', property='category', label='Category: ', options=getSetting("optiontypes"))#
 
+						#select(objectName='item', property='regCount', label='This counts as how many people? ', options="1,2")#
+
 						#textField(objectName='item', property='sortOrder', label='Sort Order (optional): ')#
 
 						#textArea(objectName='item', property='Comments', label='Comments: ', class="input-xxlarge")#
