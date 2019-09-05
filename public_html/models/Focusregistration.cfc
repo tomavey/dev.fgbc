@@ -14,4 +14,16 @@
 		<cfreturn regs.recordcount>
 	</cffunction>
 
+	<cffunction name="regsCountToDate">
+		<cfargument name="itemname" required="true" type="string">
+		<cfargument name="date" default="#now()#">
+		<cfset regs = findall(where="name = '#arguments.itemname#' AND createdAt <= '#arguments.date#'", include="registrant,item(retreat)")>
+		<cfset var total = 0>
+		<cfloop query=regs>
+			<cfset total = total + val(regCount)>
+		</cfloop>
+		<cfreturn total>
+		<cfreturn total>
+	</cffunction>
+
 </cfcomponent>

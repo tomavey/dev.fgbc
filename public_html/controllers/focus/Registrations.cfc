@@ -212,6 +212,7 @@
 
 	<cffunction name="countRegsToDate">
 		<cfargument name="retreatID" required="true">
+		<cfargument name="asOf" default="#now()#">
 		<cfif !isNumeric(arguments.retreatId)>
 			<cfset arguments.retreatId = getIdFromRegid(arguments.retreatId)>
 		</cfif>
