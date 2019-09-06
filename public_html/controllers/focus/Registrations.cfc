@@ -210,19 +210,43 @@
 		<cfset renderPage(layout="/focus/layout2")>
 	</cffunction>
 
-	<cffunction name="countRegsToDate">
+	<cffunction name="XcountRegsToDate">
 		<cfargument name="retreatID" required="true">
+		<cfargument name="yearsAgo" default = 0>
 		<cfargument name="asOf" default="#now()#">
+
 		<cfif !isNumeric(arguments.retreatId)>
 			<cfset arguments.retreatId = getIdFromRegid(arguments.retreatId)>
 		</cfif>
-		<cfset var regs = model("Focusregistration").findAll(where="retreatId = #arguments.retreatID#", include="item")>
+		<cfset var regs = model("Focusregistration").findAll(where="retreatId = #arguments.retreatID# AND createdAt <= '#arguments.asOf#'", include="item")>
 		<cfset var total = 0>
 		<cfloop query=regs>
 			<cfset total = total + val(regCount)>
 		</cfloop>
 		<cfreturn total>
 	</cffunction>
+
+	<cfscript>
+		private function countRegsToDate(required retreatId, number yearsAgo = 0, asOf = '#now()#'){
+			var regs = ""
+			var total = 0
+			var reg = ""
+			asOf = dateAdd("yyyy",-yearsAgo,asOf)
+			writeDump(asOf)
+			if (!isNumeric(retreatId)) {
+				retreatId = getIdFromRegid(retreatId)
+			}
+			regs = model("Focusregistration").findAll(where="retreatId = #retreatID# AND createdAt <= '#asOf#'", include="item")
+			for (var reg in regs ) {
+				total = total + val(reg.regCount)
+			}
+			return total
+		}
+
+		public function testCountRegsToDate(){
+			writeDump(countRegsToDate("central18",0,"2019-08-01"));abort;
+		}
+	</cfscript>
 
 	<cffunction name="getIdFromRegid">
 		<cfargument name="regId" required="true">
@@ -238,28 +262,32 @@
 		<cfset asof = params.asof>
 	</cfif>
 
-		<cfset regs.central18total = countRegsToDate("central18",-0,asof)>
+		<cfset regs.central19total = countRegsToDate("central19",0,asof)>
+
+		<cfset regs.central18total = countRegsToDate("central18",1,asof)>
 
 		<cfloop list="central17single,central17singleprivate" index="i">
-			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,asof))>
-		</cfloop>
-		<cfloop list="central16single,central16singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-2,asof))>
 		</cfloop>
-		<cfloop list="central15single,central15singleprivate" index="i">
+		<cfloop list="central16single,central16singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-3,asof))>
 		</cfloop>
-		<cfloop list="central14single,central14singleprivate" index="i">
+		<cfloop list="central15single,central15singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-4,asof))>
 		</cfloop>
-		<cfloop list="central13single,central13singleprivate" index="i">
+		<cfloop list="central14single,central14singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-5,asof))>
 		</cfloop>
-		<cfloop list="centralsingle,centralprivate" index="i">
+		<cfloop list="central13single,central13singleprivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-6,asof))>
 		</cfloop>
+		<cfloop list="centralsingle,centralprivate" index="i">
+			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-7,asof))>
+		</cfloop>
 
-		<cfset regs.east18total = countRegsToDate("east18")>
+		<cfset regs.east19total = countRegsToDate("east19",0,asof)>
+
+		<cfset regs.east18total = countRegsToDate("east18",1,asof)>
 
 		<!--- <cfloop list="east18single,east18singleprivate,east18Couple" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",0,asof))>

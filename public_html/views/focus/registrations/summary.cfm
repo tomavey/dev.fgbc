@@ -13,6 +13,14 @@
 			<th>Northwest</th>
 		</tr>
 		<tr>
+			<td>2019/20</td>
+			<td>#regs.central19total#</td>
+			<td>#regs.east19total#</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
 			<td>2018/19</td>
 			<td>#regs.central18total#</td>
 			<td>#regs.east18total#</td>
