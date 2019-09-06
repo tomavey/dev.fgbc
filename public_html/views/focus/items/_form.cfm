@@ -15,6 +15,8 @@
 
 						#select(objectName='item', property='regCount', options="0,1,2", label='Reg Count (for summary report)', class="input-mini")#
 
+						<!--- #textField(objectName='item', property='regCount', label='Reg Count (for summary report)', class="input-mini")# --->
+
 						#textArea(objectName='item', property='popup', label='Popup: ', cols="40", class="input-xxlarge")#
 
 						#select(objectName='item', property='alertwhenselected', label='Alert when selected? ', options="No,Yes", class="input-mini")#
@@ -30,8 +32,6 @@
 						</cfif>
 
 						#select(objectName='item', property='category', label='Category: ', options=application.wheels.optiontypes)#
-
-						#select(objectName='item', property='regCount', label='This counts as how many people? ', options="1,2")#
 
 						#textField(objectName='item', property='sortOrder', label='Sort Order (optional): ')#
 

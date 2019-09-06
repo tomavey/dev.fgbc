@@ -5,7 +5,8 @@
 		<cfset filters('checkOffice')>
 		<cfset filters(through="setReturn", only="index,show,items")>
 		<cfset filters(through="getRetreatRegions")>	
-		<cfset filters(through="getItems", only="new,edit")>
+		<cfset filters(through="getItems")>
+		<cfset filters(through="getActiveRetreats")>
 	</cffunction>
 
 <!---Filters--->
@@ -20,6 +21,10 @@
 	private function getRetreatIdFromItemId(itemid){
 		retreat = model("Focusitem").findOne(where="id = #itemid#")
 		return retreat.retreatid
+	}
+
+	private function getActiveRetreats(){
+		activeRetreats = model("Focusretreat").findall(where="active='yes'", order="startAt DESC")
 	}
 </cfscript>	
 
@@ -57,7 +62,6 @@
 		public function new(){
 			item = model("Focusitem").new()
 			item.expiresAt = dateAdd("yyyy",1,now())
-			activeRetreats = model("Focusretreat").findall(where="active='yes'", order="startAt DESC")
 		}
 	</cfscript>
 
@@ -92,7 +96,7 @@
 	
 	<!--- -items/create --->
 	<cffunction name="create">
-		<cfdump var="#params#"><cfabort>
+		<!--- <cfdump var="#params#"><cfabort> --->
 		<cfset item = model("Focusitem").new(params.item)>
 		
 		<!--- Verify that the item creates successfully --->

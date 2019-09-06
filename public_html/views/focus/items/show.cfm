@@ -20,7 +20,10 @@
 					<p><span>Sort Order: </span> 
 						#item.sortOrder#</p>
 
-					<!--- <p><span>Reg Count (for summary report): </span> 
+						<p><span>Reg Count (for summary report): </span> 
+							#item.regCount#</p>
+
+							<!--- <p><span>Reg Count (for summary report): </span> 
 						#item.regCount#</p> --->
 
 					<p><span>Alert When Selected?: </span> 
