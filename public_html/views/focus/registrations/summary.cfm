@@ -5,7 +5,7 @@
 	<cfif isBefore(asof)>
 		<h2>Total Registrations for completed retreats:</h2>
 	<cfelse>	
-		<h2>Registrations through #monthasstring(month(asof))# #day(asof)#, #year(asof)#:</h2>
+		<h2>Registrations through #monthasstring(month(asof))# #day(asof)#:</h2>
 	</cfif>
 	<table class="table">
 		<tr>
@@ -86,9 +86,11 @@
 			<td>#regs.northwest13total#</td>
 		</tr> --->
 	</table>
-
-#linkTo(text="Total Regs for completed retreats", action="summary", params="asof=July 1, #year+1#")# |
-#linkTo(text="Regs through Today", action="summary")#
+<cfif asOf IS now()>
+	#linkTo(text="View total regs for completed retreats", action="summary", params="asof=July 1, #year+1#", class="btn")#
+<cfelse>
+	#linkTo(text="View regs through #monthasstring(month(now()))# #day(now())#", action="summary", class="btn")#
+</cfif>
 
 <!---
 | 
