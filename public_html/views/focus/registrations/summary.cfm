@@ -83,7 +83,7 @@
 		</tr> --->
 	</table>
 
-#linkTo(text="Regs through November 1", action="summary", params="asof=November 1, #year#")# |
+#linkTo(text="Total Regs for completed retreats", action="summary", params="asof=July 1, #year+1#")# |
 #linkTo(text="Regs through Today", action="summary")#
 
 <!---
