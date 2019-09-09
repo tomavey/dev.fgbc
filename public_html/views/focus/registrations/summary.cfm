@@ -55,7 +55,7 @@
 			<td>#regs.northwest15total#</td>
 
 		</tr>
-		<tr>
+		<!--- <tr>
 			<td>2014/15</td>
 			<td>#regs.central14total#</td>
 			<td>#regs.east14total#</td>
@@ -80,7 +80,7 @@
 			<td>#regs.southwest13total#</td>
 			<td>#regs.northwest13total#</td>
 			<td>#regs.northwest13total#</td>
-		</tr>
+		</tr> --->
 	</table>
 
 #linkTo(text="Regs through November 1", action="summary", params="asof=November 1, #year#")# |
