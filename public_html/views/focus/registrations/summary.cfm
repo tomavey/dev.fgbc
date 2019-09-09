@@ -2,7 +2,11 @@
 <cfparam name="year" default = "#year(now())#">
 
 <cfoutput>
-	<h2>Registrations through #monthasstring(month(asof))# #day(asof)#</h2>
+	<cfif isBefore(asof)>
+		<h2>Total Registrations for completed retreats:</h2>
+	<cfelse>	
+		<h2>Registrations through #monthasstring(month(asof))# #day(asof)#, #year(asof)#:</h2>
+	</cfif>
 	<table class="table">
 		<tr>
 			<th>&nbsp;</th>
