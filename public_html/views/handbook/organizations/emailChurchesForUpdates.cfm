@@ -14,7 +14,7 @@
 <p style="font-size:.8em;color:grey"><span>To</span>: #churches[i].email#</p>
 <p style="font-size:.8em;color:grey"><span>Church</span>: #churches[i].selectName#</p>
 <p style="font-size:.8em;color:grey"><span>Last Reviewed</span>: #churches[i].lastReviewedAt# by #churches[i].lastReviewedBy#</p>
-<p style="font-size:.8em;color:grey">You are receiving this email because you are church in the FGBC.</p>
+<p style="font-size:.8em;color:grey">You are receiving this email because you are church in the Charis Fellowship.</p>
 </td>
 </tr>
 </table>
