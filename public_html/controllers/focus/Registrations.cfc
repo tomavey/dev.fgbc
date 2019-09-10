@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset useslayout('/focus/layoutadmin')>
-		<cfset filters(through='checkOffice', except="whoiscoming,list,summary")>
+		<cfset filters(through='checkOffice', except="whoiscoming,list,summary,index")>
 		<cfset filters(through="setReturn", only="index,show")>
 		<cfset filters(through="getRetreatRegions")>
 	</cffunction>
@@ -18,6 +18,10 @@
 			<cfset orderby = "lname">
 		<cfelse>
 			<cfset orderby = "registrantid DESC">
+		</cfif>
+
+		<cfif isDefined("params.menuname")>
+			<cfset params.retreatid = getIdFromMenuName(params.menuname)>
 		</cfif>
 
 		<cfif isdefined("params.retreatid")>

@@ -1,6 +1,5 @@
 <cfparam name="asof" default="#now()#">
 <cfparam name="year" default = "#year(now())#">
-
 <cfoutput>
 	<cfif isBefore(asof)>
 		<h2>Total Registrations for completed retreats:</h2>
@@ -10,11 +9,11 @@
 	<table class="table">
 		<tr>
 			<th>&nbsp;</th>
-			<th>Central</th>
-			<th>East</th>
-			<th>Southwest</th>
-			<th>South</th>
-			<th>Northwest</th>
+			<th>#linkto(text="Central", controller="focus.registrations", action="index", params="menuName=central")#</th>
+			<th>#linkto(text="East", controller="focus.registrations", action="index", params="menuName=east")#</th>
+			<th>#linkto(text="Southwest", controller="focus.registrations", action="index", params="menuName=southwest")#</th>
+			<th>#linkto(text="South", controller="focus.registrations", action="index", params="menuName=south")#</th>
+			<th>#linkto(text="Northwest", controller="focus.registrations", action="index", params="menuName=northwest")#</th>
 		</tr>
 		<tr>
 			<td>2019/20</td>

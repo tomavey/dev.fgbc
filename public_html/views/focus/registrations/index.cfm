@@ -6,8 +6,9 @@
 <cfset counts = {}>
 <cfset amounts = {}>
 <!--- <cfdump var='#registrations#'><cfabort> --->
+<cfset isOffice = gotRights("office")>
 
-<cfif !isDefined("params.retreatid")>
+<cfif !isDefined("params.retreatid") && !isDefined("params.key")>
 	<cftry>
 		<cfloop query="showRegsFor">
 			<cfset reportTitle = reportTitle & " " & linkto(text=regid, action='index', params='retreatid=#id#')>
@@ -37,7 +38,7 @@ public function countRegItems(ccstatus,cost){
 <cfset emailall = "">
 <cfoutput>
 	<h1>#reportTitle#</h1>
-	<cfif isdefined("params.retreatid")>
+	<cfif isdefined("params.retreatid") && isOffice>
 		#linkto(text="Show Registrations by option", action="list", params="retreatid=#params.retreatid#", class="btn")#
 		#linkto(text="Download these names", action="index", params="retreatid=#params.retreatid#&download=true", class="btn")#
 		#linkto(text="Sort by last name", action="index", params="retreatid=#params.retreatid#&bylname", class="btn")#
@@ -68,7 +69,11 @@ public function countRegItems(ccstatus,cost){
 	<cfoutput query="registrations" group="registrantid">
 		<tr>
 			<td colspan="5">
-				<h2>#linkTo(controller="focus.registrants", action="show", key=registrantid, text="#fname# #lname#", title="View this person.", class="tooltip2")# </h2>
+				<cfif isOffice>
+					<h2>#linkTo(controller="focus.registrants", action="show", key=registrantid, text="#fname# #lname#", title="View this person.", class="tooltip2")# </h2>
+				<cfelse>
+					<h2>#fname# #lname#</h2>		
+				</cfif>
 			</td>
 			<td>
 				 <cfif len(roommate)>
@@ -94,39 +99,57 @@ public function countRegItems(ccstatus,cost){
 					&nbsp;
 				</td>
 				<td>
-					#linkto(text=description, controller="focus.items", action="show", key=itemid, title="View this item.", class="tooltip2")#
+					<cfif isOffice>
+						#linkto(text=description, controller="focus.items", action="show", key=itemid, title="View this item.", class="tooltip2")#
+					<cfelse>	
+						#description#	
+					</cfif>
 				</td>
 				<td>
-					#linkto(text=orderid, controller="focus.invoices", action="show", key=val(orderid), title="View this invoice.", class="tooltip2")#
+					<cfif isOffice>
+						#linkto(text=orderid, controller="focus.invoices", action="show", key=val(orderid), title="View this invoice.", class="tooltip2")#
+					<cfelse>	
+						#orderid#
+					</cfif>
 				</td>
 				<td>
-					#linkto(text=getStatus(ccstatus), controller="focus.invoices", action="edit", key=val(orderid), title="Edit this invoice.", class="tooltip2")#
+					<cfif isOffice>
+						#linkto(text=getStatus(ccstatus), controller="focus.invoices", action="edit", key=val(orderid), title="Edit this invoice.", class="tooltip2")#
+					<cfelse>	
+						#getStatus(ccstatus)#
+					</cfif>
 				</td>
 				<td>
 					#dollarformat(cost)#
 				</td>
-				<td>
-					#editTag()#
-					#deleteTag()#
-				</td>
+				<cfif isOffice>
+					<td>
+						#editTag()#
+						#deleteTag()#
+					</td>
+				</cfif>
 			</tr>
 			<cfset countRegItems(ccstatus,cost)>
 		</cfoutput>
-			<tr>
-				<td>&nbsp;</td>
-				<td>
-					#linkTo(text="<i class='icon-plus'></i>", action="addTo", key=registrantid, title="Add a new registration item for #fname#", class="tooltip2")#
-				</td>
-				<td colspan="4">&nbsp;
-				</td>
-			</tr>
+			<cfif isOffice>
+				<tr>
+					<td>&nbsp;</td>
+					<td>
+						#linkTo(text="<i class='icon-plus'></i>", action="addTo", key=registrantid, title="Add a new registration item for #fname#", class="tooltip2")#
+					</td>
+					<td colspan="4">&nbsp;
+					</td>
+				</tr>
+			</cfif>
 
 	</cfoutput>
 	</table>
 
 
 <cfoutput>
-	<p>#linkTo(text="New registration", controller="main", action="welcome")#</p>
+	<cfif isDefined("params.retreatid")>
+		<p>#linkTo(text="New registration", controller="focus.shoppingcarts", action="new", params="retreatid=#params.retreatid#")#</p>
+	</cfif>
 </cfoutput>
 <cfif showsummary>
 	<div id="focusRegSummary">
@@ -158,9 +181,11 @@ public function countRegItems(ccstatus,cost){
 </cfif>
 <cfset emailall = replace(emailall,";","","one")>
 <cfoutput>
-<p style="margin-top:20px">
-#mailto(emailaddress=emailall, name="Email Everyone", class="btn")#
-</p>
+	<cfif isOffice>
+		<p style="margin-top:20px">
+			#mailto(emailaddress=emailall, name="Email Everyone", class="btn")#
+		</p>
+	</cfif>
 </cfoutput>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
