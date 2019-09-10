@@ -90,7 +90,7 @@
 		</cfif>
 
 		<cfset loc.peopleSearchString = "p_sortorder <= #getNonStaffSortOrder()# AND #getSearchString('lname,fname,city,email,position,prefix,suffix')#">
-		<cfset loc.orgSearchString = "show_in_handbook = 1 AND #getSearchString('name,org_city,email,ein')#">
+		<cfset loc.orgSearchString = "show_in_handbook = 1 AND #getSearchString('name,org_city,email,fein')#">
 		<cfset loc.tagSearchString = "(username = '#session.auth.email#' OR username = '#session.auth.username#') AND tag LIKE '#params.search#%'">
 
 		<cfif params.search contains "=">
