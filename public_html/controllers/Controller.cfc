@@ -394,6 +394,7 @@
 	function linkTo(){
 		var loc = structNew();
 		for (var arg in arguments) {
+			if (arg is "officeOnly" && arguments.officeOnly) { return arguments.text }
 			loc[replace(arg,"_","-","all")] = arguments[arg];
 		}
 		if (isDefined('loc.key')) { 

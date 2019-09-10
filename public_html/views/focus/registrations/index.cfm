@@ -69,11 +69,7 @@ public function countRegItems(ccstatus,cost){
 	<cfoutput query="registrations" group="registrantid">
 		<tr>
 			<td colspan="5">
-				<cfif isOffice>
-					<h2>#linkTo(controller="focus.registrants", action="show", key=registrantid, text="#fname# #lname#", title="View this person.", class="tooltip2")# </h2>
-				<cfelse>
-					<h2>#fname# #lname#</h2>		
-				</cfif>
+					<h2>#linkTo(controller="focus.registrants", action="show", key=registrantid, text="#fname# #lname#", title="View this person.", class="tooltip2", officeOnly=!isOffice)# </h2>
 			</td>
 			<td>
 				 <cfif len(roommate)>
@@ -99,25 +95,13 @@ public function countRegItems(ccstatus,cost){
 					&nbsp;
 				</td>
 				<td>
-					<cfif isOffice>
-						#linkto(text=description, controller="focus.items", action="show", key=itemid, title="View this item.", class="tooltip2")#
-					<cfelse>	
-						#description#	
-					</cfif>
+						#linkto(text=description, controller="focus.items", action="show", key=itemid, title="View this item.", class="tooltip2", officeOnly=!isOffice)#
 				</td>
 				<td>
-					<cfif isOffice>
-						#linkto(text=orderid, controller="focus.invoices", action="show", key=val(orderid), title="View this invoice.", class="tooltip2")#
-					<cfelse>	
-						#orderid#
-					</cfif>
+						#linkto(text=orderid, controller="focus.invoices", action="show", key=val(orderid), title="View this invoice.", class="tooltip2", officeOnly=!isOffice)#
 				</td>
 				<td>
-					<cfif isOffice>
-						#linkto(text=getStatus(ccstatus), controller="focus.invoices", action="edit", key=val(orderid), title="Edit this invoice.", class="tooltip2")#
-					<cfelse>	
-						#getStatus(ccstatus)#
-					</cfif>
+						#linkto(text=getStatus(ccstatus), controller="focus.invoices", action="edit", key=val(orderid), title="Edit this invoice.", class="tooltip2", officeOnly=!isOffice)#
 				</td>
 				<td>
 					#dollarformat(cost)#
