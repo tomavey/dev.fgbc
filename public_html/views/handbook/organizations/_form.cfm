@@ -62,17 +62,18 @@
 							#select(objectName='handbookorganization', property='statusid', label='Status: ', options=status)#
 							The following status' will not show in the online handbook: #noShowString#
 							<br/><br/><br/>
-							#textField(objectName='handbookorganization', property='reviewedBy', label='Reviewer: ')#
 
+							#select(objectName='handbookorganization', property='joinedAt', label='Year Joined: ', options=yearRange, includeBlank="-Select Year-")#
+
+							#textField(objectName='handbookorganization', property='fein', label='FEIN ##: ')#
+	
+							#select(objectName='handbookorganization', property='ingrouproster', label='Is this church in our 501c3 group roster? Select the year if relevant.', options=groupsRosterOptions, includeBlank="-Select Option-")#
+	
 						<cfelse>
 							#hiddenField(objectName='handbookorganization', property='statusid')#
 						</cfif>
 
-						#select(objectName='handbookorganization', property='joinedAt', label='Year Joined: ', options=yearRange, includeBlank="-Select Year-")#
-
-						#textField(objectName='handbookorganization', property='fein', label='FEIN ##: ')#
-
-						#select(objectName='handbookorganization', property='ingrouproster', label='Is this church in our 501c3 group roster? Select the year if relevant.', options=groupsRosterOptions, includeBlank="-Select Option-")#
+						#textField(objectName='handbookorganization', property='reviewedBy', label='Reviewer: ')#
 
 
 </cfoutput>
