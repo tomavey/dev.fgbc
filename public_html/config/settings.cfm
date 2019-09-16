@@ -84,6 +84,7 @@
 	<cfset set(ChurchHandbookReviewGreeting = "It's Time to Update the Charis Fellowship Handbook!")>
 	<cfset set(PersonHandbookReviewGreeting = "It's Time to Update the Charis Fellowship Handbook!")>
 	<cfset set(StatFormFile = "https://charisfellowship.us/files/FGBCStatCard2018-19.pdf")>
+	<cfset set(churchReviewDeadline = "September 20")>
 
 <!---Used by Focus MVC--->
 	<cfset set(registrant = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")>

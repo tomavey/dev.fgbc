@@ -149,11 +149,11 @@
 <cfargument name="name" default="Greetings">
 <cfargument name="message" required="false">
 <cfargument name="subject" default='#URLEncodedFormat("Please review #name# FGBC Handbook listing")#'>
-<cfargument name="changeMessageDate" default="September 20, #year(now())#">
+<cfargument name="changeMessageDate" default="#getSetting('churchReviewDeadline')#, #year(now())#">
 <cfsavecontent variable="createEmailLink">
 <cfoutput>
             <cfif isBefore(changeMessageDate)>
-                 <cfset message = URLEncodedFormat("#name# - We are starting production of the the #year(now())+1# FGBC handbook.  Can you review this for me?  By September 15?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
+                 <cfset message = URLEncodedFormat("#name# - We are starting production of the the #year(now())+1# FGBC handbook.  Can you review this for me?  By #changeMessageDate# ?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
             <cfelse>
                  <cfset message = URLEncodedFormat("#name# - I'm finishing up the #year(now())+1# FGBC handbook.  Can you review this for me?  Today?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
             </cfif>     
