@@ -3,12 +3,13 @@
 
 						#textField(objectName='item', property='name', label='Name: ')#
 
-						<cfif isDefined("params.retreatID")>
+
+						<cfif isDefined("params.retreatID") && params.action NEQ "copy" && params.action NEQ "edit">
 							#hiddenFieldTag(name="item.retreatID", value=params.retreatid)#
 						<cfelse>	
 							#select(objectName='item', property='retreatID', label='Retreat: ', options=activeRetreats)#
 						</cfif>
-						
+
 						#textField(objectName='item', property='description', label='Description: ', class="input-xxlarge")#
 
 						#textField(objectName='item', property='maxtosell', label='Maximum available to sell: ', class="input-mini")#
@@ -23,9 +24,13 @@
 
 						#textField(objectName='item', property='price', label='Price: ', class="input-small")#
 
-						<!--- #textField(objectName='item', property='dependencies', label='Dependencies: ', class="input-large")# --->
-
-						#select(objectName='item', property='dependencies', label='Dependencies (hold ctrl key to select muliple): ', options=items, valueField="name", includeBlank="None", multiple=true, size=#items.recordcount+1#)#
+					
+						<cftry>
+							#select(objectName='item', property='dependencies', label='Dependencies (hold ctrl key to select muliple): ', options=items, valueField="name", includeBlank="None", multiple=true, size=#items.recordcount+1#)#
+						<cfcatch>
+							#textField(objectName='item', property='dependencies', label='Dependencies (list itemnames separated by commas): ', class="input-large")#
+						</cfcatch>	
+						</cftry>
 
 						<cfif isDefined('item.dependencies') && len(item.dependencies)>
 							<p style="font-size: .7em; color: gray">&nbsp;&nbsp;&nbsp;(Current Dependencies: #item.dependencies#)</p>

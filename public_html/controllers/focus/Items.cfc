@@ -5,17 +5,17 @@
 		<cfset filters('checkOffice')>
 		<cfset filters(through="setReturn", only="index,show,items")>
 		<cfset filters(through="getRetreatRegions")>	
-		<cfset filters(through="getItems")>
+		<cfset filters(through="getItems", except="create")>
 		<cfset filters(through="getActiveRetreats")>
 	</cffunction>
 
 <!---Filters--->
 <cfscript>
 	private function getItems(){
-		if ( !isDefined('params.retreatid') ) {
+		if ( !isDefined('params.retreatid') && isDefined('params.key') ) {
 			params.retreatid = getRetreatIdFromItemId(params.key)
+			items = model("Focusitem").findAll(where="retreatid=#params.retreatid# AND price > 0", include="retreat")
 		}
-		items = model("Focusitem").findAll(where="retreatid=#params.retreatid# AND price > 0", include="retreat")
 	}
 
 	private function getRetreatIdFromItemId(itemid){
