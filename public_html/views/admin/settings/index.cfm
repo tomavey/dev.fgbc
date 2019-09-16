@@ -59,6 +59,9 @@
 
 	<cfif gotRights("superadmin") && !len(params.category)>
 		<cfoutput>
+		<p>
+			These are ALL settings used by the app. The "Application.wheels" column are directly from config/setting.cfm. The "getSetting()" column are settings from the getSetting function which will overWrite a setting if it is in the fgbc_metas mySql table. The green highlights show which settings will be overwritten. Click on #imageTag('/add-icon.png')# to add a new setting value. Use the table above to edit a value that is already in the fgbc_metas mySql table.
+		</p>	
 		<table>
 			<tr>
 				<th>Variable</th>
@@ -72,7 +75,11 @@
 				<cfset rowclass = "equalsetting">
 			</cfif>
 			<tr class="#rowclass#">
-				<td>#linkto(text=i, controller="admin.settings", action="new", params="name=#i#")#</td>
+				<cfif application.wheels[i] NEQ getSetting(i)>
+					<td>#i#</td>
+				<cfelse>
+					<td>#i#&nbsp;#linkto(text='#imageTag('/add-icon.png')#', controller="admin.settings", action="new", params="name=#i#", title="Add a new value")#</td>
+				</cfif>		
 				<td>#application.wheels[i]#
 				<td>#getSetting(i)#</td>
 			</tr>
