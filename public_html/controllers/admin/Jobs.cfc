@@ -110,7 +110,7 @@
 
 	function rss(){
 		jobs = model("Mainjob").findAll(where="approved='y' AND expirationDate > now()", order="createdAt DESC")
-		title = "FGBC Jobs"
+		title = "Charis Fellowship Jobs"
 		description= "Ministry Positions posted by Charis Fellowship"
 		renderPage(template="rss.cfm", layout="rsslayout")
 	}
@@ -254,7 +254,7 @@
 	<cffunction name="Xrss">
 		<cfset jobs = model("Mainjob").findAll(where="approved='y' AND expirationDate > now()", order="createdAt DESC")>
 		
-		<cfset title = "FGBC Jobs">
+		<cfset title = "Charis Fellowship Jobs">
 		<cfset description= "Ministry Positions posted by Grace Brethren Churches">
 		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
 	</cffunction>

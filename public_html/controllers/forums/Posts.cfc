@@ -269,7 +269,7 @@
 		<cfif users.email is "tomavey@fgbc.org">
 			<cfset users.email = "tomavey@comcast.net">
 		</cfif>
-		<cfset sendEmail(template="notify", from="tomavey@fgbc.org", to=users.email, subject="New post on the FGBC Forum", layout="/layout_naked")>
+		<cfset sendEmail(template="notify", from="tomavey@fgbc.org", to=users.email, subject="New post on the Charis Fellowhip Forum", layout="/layout_naked")>
 	</cfloop>
 	</cffunction>
 	

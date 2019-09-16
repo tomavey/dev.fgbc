@@ -601,7 +601,7 @@
 	</cffunction>
 
 	<cffunction name="sendLoginErrorNotice">
-	<cfargument name="subject"  default="FGBC Login Error">
+	<cfargument name="subject"  default="Charis Fellowship Login Error">
 		<cfset sendEmail(from=application.wheels.errorEmailAddress, to=application.wheels.errorEmailAddress, template="loginerroremail.cfm", subject=arguments.subject)>
 	</cffunction>
 

@@ -61,7 +61,7 @@ component extends="Controller" output="false" {
 	function create(){
 		event = model("Mainevent").new(params.event)
 		if (event.save()) {
-			flashInsert(success="The FGBC event was created successfully.")
+			flashInsert(success="The Charis Fellowsip event was created successfully.")
 			redirectTo(action="index")
 		} else {
 			flashInsert(error="There was an error creating the event.")

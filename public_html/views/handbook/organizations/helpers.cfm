@@ -143,19 +143,36 @@
 <cfreturn loc.return>
 </cffunction>
 
+<cfscript>
+  private function $changeMessageDate(date){
+    return "#date#, #year(now())#";
+  }
+
+  private function $dayOfDateAsString(date){
+    return dayOfWeekAsString(dayOfWeek(date))
+  }
+
+  private function $deadLineAsString(dayMonth = getSetting('churchReviewDeadline')){
+    var deadLine = "#dayMonth#, #year(now())#"
+    return "#$dayOfDateAsString(deadline)#, #deadline#";
+  }
+</cfscript>
+
 <cffunction name="createEmailToUpdateOrg">
 <cfargument name="id" required="true" type="numeric">
 <cfargument name="email" required="true" type="string">
 <cfargument name="name" default="Greetings">
 <cfargument name="message" required="false">
 <cfargument name="subject" default='#URLEncodedFormat("Please review #name# FGBC Handbook listing")#'>
-<cfargument name="changeMessageDate" default="#getSetting('churchReviewDeadline')#, #year(now())#">
+<cfargument name="changeMessageDate" default="September 20">
+<cfset changeMessageDate = $changeMessageDate(getSetting('churchReviewDeadline'))>
+
 <cfsavecontent variable="createEmailLink">
 <cfoutput>
             <cfif isBefore(changeMessageDate)>
-                 <cfset message = URLEncodedFormat("#name# - We are starting production of the the #year(now())+1# FGBC handbook.  Can you review this for me?  By #changeMessageDate# ?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
+                 <cfset message = URLEncodedFormat("#name# - We are starting production of the the #year(now())+1# Charis Fellowship handbook.  Can you review this for me?  By #$deadLineAsString()#?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
             <cfelse>
-                 <cfset message = URLEncodedFormat("#name# - I'm finishing up the #year(now())+1# FGBC handbook.  Can you review this for me?  Today?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
+                 <cfset message = URLEncodedFormat("#name# - I'm finishing up the #year(now())+1# Charis Fellowship handbook.  Can you review this for me?  Today?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
             </cfif>     
 
 			  #mailTo(name='<i class="icon-envelope"></i>', emailaddress="#email#?subject=#subject#&body=#message#")#

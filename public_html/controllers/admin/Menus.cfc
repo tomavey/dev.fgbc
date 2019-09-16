@@ -108,7 +108,7 @@
 
 	<cffunction name="handbookadmin">
 		<cfset unlockKey = getKey(session.auth.email)>
-		<cflocation url="http://www.fgbc.org/handbook/adm?key=#unlockKey#">
+		<cflocation url="http://www.charisfellowship.us/handbook/adm?key=#unlockKey#">
 	</cffunction>
 
 	<cffunction name="handbookadmiDev">

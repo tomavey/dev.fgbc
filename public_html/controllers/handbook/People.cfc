@@ -513,7 +513,7 @@
 
   <cffunction name="getEmailSubject">
   <cfset var loc=structNew()>
-    <cfset loc.return="The online FGBC Handbook goes mobile!">
+    <cfset loc.return="The online Charis Fellowship Handbook goes mobile!">
   <cfreturn loc.return>
   </cffunction>
 
@@ -590,7 +590,7 @@
 
 		<cfset params.emailto=arguments.emailto>
 
-     	<cfset sendEMail(to=arguments.emailto, from=arguments.emailfrom, subject="From the FGBC Online Handbook: Your person profile.", template="sendprofileform", layout="/layout_naked")>
+     	<cfset sendEMail(to=arguments.emailto, from=arguments.emailfrom, subject="From the Charis Fellowship Online Handbook: Your person profile.", template="sendprofileform", layout="/layout_naked")>
 
    </cffunction>
 
