@@ -209,7 +209,7 @@
 			.get(name="setreview", pattern="/people/setreview/[key]", controller="people", action="setReview")
 			.get(name="vcard", pattern="/people/vcard/[key]", controller="people", action="vcard")
 			.get(name="bluepages", pattern="/people/bluepages/", controller="people", action="bluepages")
-			.get(name="handbookinfo", pattern="/organizations/handbookinfo/", controller="people", action="handbookinfo")
+			.get(name="handbookinfo", pattern="/people/handbookinfo/", controller="people", action="handbookinfo")
 			.get(name="downloadagbm", pattern="/people/downloadagbm/", controller="people", action="downloadagbm")
 			.get(name="peopleDistribution", pattern="/people/distribution/", controller="people", action="distribution")
 			.get(name="birthdays", pattern="/people/dates", controller="people", action="dates")
