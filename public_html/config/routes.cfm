@@ -194,6 +194,7 @@
 			.get(name="downloadMemberChurchesForBrotherhood", pattern="/brotherhood/[key]", action="downloadMemberChurchesForBrotherhood")
 			.get(name="updatelinks", pattern="/organizations/updatelinks/", controller="organizations", action="updatelinks")
 			.get(name="yellowpages", pattern="/organizations/yellowpages/", controller="organizations", action="yellowpages")
+			.get(name="handbookinfo", pattern="/organizations/handbookinfo/", controller="organizations", action="handbookinfo")
 			.get(name="prayerlist", pattern="/organizations/prayerlist/", controller="organizations", action="prayerlist")
 			.get(name="organiztionDistribution", pattern="/organizations/distribution/", controller="organizations", action="distribution")
 			.get(name="grouproster", pattern="/grouproster/", controller="organizations", action="groupRoster")
