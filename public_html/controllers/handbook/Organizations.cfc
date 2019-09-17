@@ -3,9 +3,6 @@
 	<cffunction name="init">
 		<cfset usesLayout("/handbook/layout_handbook")>
 		<cfset filters(through="gotBasicHandbookRights,logview", except="memberChurches,findChurches,findChurchWithStaff,groupRoster")>
-		<!---
-		<cfset filters(through="isOnStaffHere", except="index,show,handbookpages,edit,new,notStaff,resort,move")>
-		--->
 		<cfset filters(through="getStates,getDistricts,getStatus", only="new,edit,update,index,create,downloadguidelines")>
 		<cfset filters(through="noShowString,getGroupRosterOptions", only="new,edit")>
 		<cfset provides("json")>
@@ -354,11 +351,12 @@ private function $connectNewChurchToHandbook(newchurchUUID, handbookId){
 	<cffunction name="handbookpages">
 		<cfset setReturn()>
 
-    	<cfset organization = model("Handbookorganization").findByKey(key=params.key, include="Handbookstate,Handbookstatus,Handbookdistrict")>
+    <cfset organization = model("Handbookorganization").findByKey(key=params.key, include="Handbookstate,Handbookstatus,Handbookdistrict")>
 
 		<cfset reSort(params.key)>
 
-		<cfset whereString = "organizationid='#params.key#' AND p_sortorder < #getNonStaffSortOrder()# AND position NOT LIKE '%Removed%'">
+		<cfset whereString = "organizationid='#params.key#' AND p_sortorder < #getNonStaffSortOrder()# AND position NOT LIKE '%Removed%' AND position NOT LIKE '%AGBM Only%'">
+
 		<cfset orderString = "p_sortorder,lname">
 
 		<cfif isDefined("params.sortByLname")>
