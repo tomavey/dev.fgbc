@@ -120,8 +120,8 @@
 
 <div class="offset1">
 <cfoutput>
-#linkTo(text="View Unformated Blue Page Info for #organization.name# staff", controller="handbook/people", action="handbookinfo", key=params.key, class="btn")#<br/>
-#linkTo(text="View Unformated Yellow Page Info for #organization.name#", controller="handbook/organizations", action="yellowpages", key=params.key, class="btn")#
+#linkTo(text="View Unformated Blue Page Info for #organization.name# staff", controller="handbook.people", action="handbookinfo", key=params.key, class="btn")#<br/>
+#linkTo(text="View Unformated Yellow Page Info for #organization.name#", controller="handbook.organizations", action="yellowpages", key=params.key, class="btn")#
 </cfoutput>
 </div>
 
