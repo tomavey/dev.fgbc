@@ -5,17 +5,17 @@
 		<cfset filters('checkOffice')>
 		<cfset filters(through="setReturn", only="index,show,items")>
 		<cfset filters(through="getRetreatRegions")>	
-		<cfset filters(through="getItems", except="create")>
+		<cfset filters(through="getDependencyItems", only="new,edit,copy")>
 		<cfset filters(through="getActiveRetreats")>
 	</cffunction>
 
 <!---Filters--->
 <cfscript>
-	private function getItems(){
+	private function getDependencyItems(){
 		if ( !isDefined('params.retreatid') && isDefined('params.key') ) {
 			params.retreatid = getRetreatIdFromItemId(params.key)
-			items = model("Focusitem").findAll(where="retreatid=#params.retreatid# AND price > 0", include="retreat")
 		}
+		dependencyItems = model("Focusitem").findAll(where="retreatid=#params.retreatid# AND price > 0", include="retreat")
 	}
 
 	private function getRetreatIdFromItemId(itemid){
@@ -84,7 +84,6 @@
 
 		<!--- Find the record --->
     	<cfset item = model("Focusitem").findByKey(params.key)>
-		<cfset activeRetreats = model("Focusretreat").findall(where="active='yes'")>
     	
     	<!--- Check if the record exists --->
 	    <cfif NOT IsObject(item)>

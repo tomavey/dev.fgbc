@@ -3,7 +3,6 @@
 
 						#textField(objectName='item', property='name', label='Name: ')#
 
-
 						<cfif isDefined("params.retreatID") && params.action NEQ "copy" && params.action NEQ "edit">
 							#hiddenFieldTag(name="item.retreatID", value=params.retreatid)#
 						<cfelse>	
@@ -26,11 +25,15 @@
 
 					
 						<cftry>
-							#select(objectName='item', property='dependencies', label='Dependencies (hold ctrl key to select muliple): ', options=items, valueField="name", includeBlank="None", multiple=true, size=#items.recordcount+1#)#
-						<cfcatch>
-							#textField(objectName='item', property='dependencies', label='Dependencies (list itemnames separated by commas): ', class="input-large")#
-						</cfcatch>	
+							<cfif dependencyItems.recordcount>
+								#select(objectName='item', property='dependencies', label='Dependencies (hold ctrl key to select muliple): ', options=DependencyItems, valueField="name", includeBlank="None", multiple=true, size=#DependencyItems.recordcount+1#)#
+							</cfif>	
+							<cfcatch>
+								#textField(objectName='item', property='dependencies', label='Dependencies (list itemnames separated by commas): ', class="input-large")#
+							</cfcatch>
 						</cftry>
+
+						<!---remove this try-catch later--->	
 
 						<cfif isDefined('item.dependencies') && len(item.dependencies)>
 							<p style="font-size: .7em; color: gray">&nbsp;&nbsp;&nbsp;(Current Dependencies: #item.dependencies#)</p>
