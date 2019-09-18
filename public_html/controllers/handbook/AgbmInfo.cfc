@@ -311,7 +311,11 @@
 
 		<cfset cat1Ordained = model("Handbookperson").findAllAGBMcat1Ordained(params).people>
 
+		<cfset cat0Ordained = model("Handbookperson").findAllAgbmCat0Ordained(params).people>
+
 		<cfset cat1Licensed = model("Handbookperson").findAllAGBMcat1Licensed(params).people>
+
+		<cfset cat0Commissioned = model("Handbookperson").findAllAGBMCat0Commissioned(params).people>
 
 		<cfset cat1Mentored = model("Handbookperson").findAllAGBMcat1Mentored(params).people>
 

@@ -24,6 +24,23 @@
 <p><small>(Based on membership payment records recorded for #currentMembershipYear#)</small></p>
 </cfoutput>
 
+<cfif cat0Ordained.recordcount>
+  <div class="well">
+    <h2>Ordained Ministers</h2>
+    <cfset count = 0>
+    <cfoutput query="cat0Ordained" group="id">
+		<cfoutput>
+		</cfoutput>
+	    #includePartial("handbookMembershipListing")#
+    	<cfset count = count + 1>
+    </cfoutput>
+	<cfoutput>
+    &nbsp;&nbsp;&nbsp;Count: #count#
+	</cfoutput>
+    <cfset countall = count + countall>
+  </div>
+</cfif>
+
 <cfif cat1Ordained.recordcount>
   <div class="well">
     <h2>Category One - Ordained Ministers</h2>
@@ -46,6 +63,21 @@
     <h2>Category One - Licensed Ministers</h2>
     <cfset count = 0>
     <cfoutput query="cat1Licensed" group="id">
+      #includePartial("handbookMembershipListing")#
+      <cfset count = count + 1>
+    </cfoutput>
+	<cfoutput>
+    &nbsp;&nbsp;&nbsp;Count: #count#
+	</cfoutput>
+    <cfset countall = count + countall>
+  </div>
+</cfif>
+
+<cfif cat0Commissioned.recordcount>
+  <div class="well">
+    <h2>Commissioned Ministers</h2>
+    <cfset count = 0>
+    <cfoutput query="cat0Commissioned" group="id">
       #includePartial("handbookMembershipListing")#
       <cfset count = count + 1>
     </cfoutput>

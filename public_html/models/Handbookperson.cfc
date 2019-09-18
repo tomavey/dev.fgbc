@@ -171,6 +171,10 @@
 				  <cfset loc.wherestring = loc.wherestring & " AND licensed = 1">
 			</cfif>
 
+			<cfif isDefined("params.commissioned") and params.commissioned>
+				<cfset loc.wherestring = loc.wherestring & " AND commissioned = 1">
+			</cfif>
+
 			<cfif isDefined("params.mentored") and params.mentored>
 				  <cfset loc.wherestring = loc.wherestring & " AND mentored = 1">
 			</cfif>
@@ -227,6 +231,17 @@
 		<cfreturn loc.people>
 	</cffunction>
 
+	<cffunction name="findAllAgbmCat0Ordained">
+		<cfargument name="params" required="true" type="struct">
+		<cfset var loc=structNew()>
+			<cfset params.category = 0>
+			<cfset params.ordained = 1>
+			<cfset params.licensed = 0>
+			<cfset params.mentored = 0>
+			<cfset loc.people = findAGBM(params)>
+			<cfreturn loc.people>
+		</cffunction>
+
 	<cffunction name="findAllAgbmCat1Licensed">
 	<cfargument name="params" required="true" type="struct">
 	<cfset var loc=structNew()>
@@ -238,7 +253,19 @@
 		<cfreturn loc.peopleAndParams>
 	</cffunction>
 
-	<cffunction name="findAllAgbmCat2Ordained">
+	<cffunction name="findAllAGBMCat0Commissioned">
+		<cfargument name="params" required="true" type="struct">
+		<cfset var loc=structNew()>
+			<cfset params.category = 0>
+			<cfset params.ordained = 0>
+			<cfset params.licensed = 0>
+			<cfset params.mentored = 0>
+			<cfset params.commissioned = 1>
+			<cfset loc.peopleAndParams = findAGBM(params)>
+			<cfreturn loc.peopleAndParams>
+		</cffunction>
+
+		<cffunction name="findAllAgbmCat2Ordained">
 	<cfargument name="params" required="true" type="struct">
 	<cfset var loc=structNew()>
 		<cfset params.category = 2>
