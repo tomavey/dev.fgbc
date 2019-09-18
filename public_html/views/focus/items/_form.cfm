@@ -39,7 +39,7 @@
 							<p style="font-size: .7em; color: gray">&nbsp;&nbsp;&nbsp;(Current Dependencies: #item.dependencies#)</p>
 						</cfif>
 
-						#select(objectName='item', property='category', label='Category: ', options=application.wheels.optiontypes)#
+						#select(objectName='item', property='category', label='Category: ', options=getSetting("optiontypes"))#
 
 						#textField(objectName='item', property='sortOrder', label='Sort Order (optional): ')#
 
