@@ -133,7 +133,7 @@
 	</cffunction>
 
 	<cffunction name="isPageEditor">
-		<cfif gotRights("office,pageEditor")>
+		<cfif gotRights("office,pageEditor,agbm")>
 			<cfreturn true>
 		<cfelse>
 			<cfset renderText("You do not have persmission to view this page")>

@@ -307,6 +307,8 @@
 
 	<cffunction name="handbookMembershipReport">
 
+		<cfset setreturn()>
+
 		<cfset currentMembershipYear = model("Handbookperson").currentMembershipYear(params)>
 
 		<cfset cat1Ordained = model("Handbookperson").findAllAGBMcat1Ordained(params).people>
