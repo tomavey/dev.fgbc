@@ -28,7 +28,7 @@
 					</cfif>	
 
 					<cfif oldform>
-						#select(objectName='handbookagbminfo', property='category', label='Category:', options=getSetting('inspireCategories'), includeBlank=true)#
+						#select(objectName='handbookagbminfo', property='category', label='Category:', options=getSetting('inspireCategories'))#
 					<cfelse>	
 						#select(objectName='handbookagbminfo', property='commission', includeBlank=true, label='Commissioned...', options=getSetting('inspireCommissions'))#
 					</cfif>	
