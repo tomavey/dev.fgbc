@@ -136,7 +136,7 @@
 		<cfif gotRights("office,pageEditor")>
 			<cfreturn true>
 		<cfelse>
-			<cfset renderText("You do have persmission to view this page")>
+			<cfset renderText("You do not have persmission to view this page")>
 		</cfif>
 	</cffunction>
 

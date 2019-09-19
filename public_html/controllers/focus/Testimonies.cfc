@@ -75,7 +75,7 @@
 				<cfset redirectTo(action="index")>
 			</cfif>
 		<cfelse>
-			<cfset renderText("You do have permission to access this page")>
+			<cfset renderText("You do not have permission to access this page")>
 		</cfif>
 	</cffunction>
 	
@@ -86,7 +86,7 @@
 			<cfset story.update()>
 			<cfset returnBack()>
 		<cfelse>
-			<cfset renderText("You do have permission to access this page")>
+			<cfset renderText("You do not have permission to access this page")>
 		</cfif>
 	</cffunction>
 	

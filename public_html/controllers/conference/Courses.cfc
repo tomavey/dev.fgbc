@@ -22,7 +22,7 @@
 
 	<cffunction name="isAuthorized">
 		<cfif !gotRights('office')>
-			<cfset renderText("You do have permission to view this page")>
+			<cfset renderText("You do not have permission to view this page")>
 		</cfif>
 	</cffunction>
 
