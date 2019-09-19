@@ -21,7 +21,7 @@
   </cfif>
 </cfoutput>
 
-
+<p>&nbsp;</p>
 
 <cfoutput query="churches" group="state">
   <span style="font-family:'Times New Roman';font-size:22pt">#state#</span><br/>

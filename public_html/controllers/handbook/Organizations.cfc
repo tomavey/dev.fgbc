@@ -514,7 +514,7 @@ public function notStaff(){
 		<cfif isDefined("params.noFormat")>
 			<cfset renderPage(layout="/layout_naked", hideDebugInformation="true")>
 		<cfelse>
-			<cfset renderPage(layout="/handbook/layout_handbook1")>
+			<cfset renderPage(layout="/handbook/layout_handbook")>
 		</cfif>
 	</cffunction>
 
