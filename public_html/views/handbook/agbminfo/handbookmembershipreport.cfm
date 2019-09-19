@@ -10,9 +10,7 @@
 
   #getContent('inspiremem').content#
 
-  <cfif gotrights("superadmin,pageEditor,office,agbm")>
-    #editTag(controller="admin.contents", id=getContent('inspiremem').id)#
-  </cfif>
+  #editTag(controller="admin.contents", id=getContent('inspiremem').id)#
 
 </cfoutput>
 
