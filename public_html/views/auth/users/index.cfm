@@ -8,8 +8,6 @@
 
 	<p>#addTag()#</p>
 
-	#includePartial("/_shared/paginationlinks")#
-
 	<div class="well">
 
 			#startFormTag(action="search")#
@@ -69,8 +67,6 @@
 		</tr>
 	</cfoutput>
 	</table>
-
-	#includePartial("/_shared/paginationlinks")#
 
 	<p>#addTag()#</p>
 	<p>#linkTo(text="Duplicate Emails Used", action="findDuplicatesByEmail")#</p>

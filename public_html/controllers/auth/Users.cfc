@@ -14,7 +14,7 @@
 <!---Basic CRUD--->
 
 	<!--- users/index --->
-	<cffunction name="indexOld">
+	<cffunction name="index">
 		<cfargument name="orderby" default="createdAt DESC, lname,fname">
 		<cfset var loc = arguments>
 		<cfparam name="params.page" default="1">
@@ -27,9 +27,10 @@
 		<cfif isDefined("params.search")>
 			<cfset users = model("Authuser").findAll(where="lname like '%#params.search#%' OR fname like '%#params.search#%' OR username like '%#params.search#%' OR email like '%#params.search#%'", order="lname,fname", page=params.page, perPage=params.maxPages)>
 		<cfelse>
-			<cfset users = model("Authuser").findAll(order=loc.orderby, page=params.page, perPage=params.maxPages)>
+			<!--- <cfset users = model("Authuser").findAll(order=loc.orderby, page=params.page, perPage=params.maxPages)> --->
+			<cfset users = model("Authuser").findAll(order=loc.orderby)>
 		</cfif>
-		<cfset params.lastpage = pagination().totalpages>
+		<!--- <cfset params.lastpage = pagination().totalpages> --->
 
 		<cfif isdefined("params.page") AND params.page GT 1>
 			<cfset params.previousPage = params.page - 1>
@@ -37,16 +38,18 @@
 			<cfset params.previousPage = 0>
 		</cfif>
 
+	<!---
 		<cfif isdefined("params.page") AND params.page lt params.lastpage>
 			<cfset params.nextPage = params.page + 1>
 		<cfelse>
 			<cfset params.nextPage = 0>
 		</cfif>
+	--->
 
 	</cffunction>
 
 <cfscript>
-	function index(orderbyString = "createdAt DESC, lname,fname"){
+	function Xindex(orderbyString = "createdAt DESC, lname,fname"){
 			var args = arguments
 			users = model("Authuser").findAll(order = orderbyString)
 			users = serializeJSON(users, "struct")

@@ -6,9 +6,9 @@
 
 			<p style="float:right">
 				<cfif !oldform>
-					#linkTo(text="Show old form with categories", controller="handbook.AgbmInfo", action="add", key=params.key, params="oldform=", class="btn")#
+					#linkTo(text="Show old form with categories", controller="handbook.AgbmInfo", action=params.action, key=params.key, params="oldform=", class="btn")#
 				<cfelse>		
-					#linkTo(text="Show form with commissions", controller="handbook.AgbmInfo", action="add", key=params.key, params="", class="btn")#
+					#linkTo(text="Show form with commissions", controller="handbook.AgbmInfo", action=params.action, key=params.key, params="", class="btn")#
 				</cfif>
 			</p>
 
@@ -28,7 +28,7 @@
 					</cfif>	
 
 					<cfif oldform>
-						#select(objectName='handbookagbminfo', property='category', label='Category:', options=getSetting('inspireCategories'))#
+						#select(objectName='handbookagbminfo', property='category', label='Category:', options=getSetting('inspireCategories'), includeBlank=true)#
 					<cfelse>	
 						#select(objectName='handbookagbminfo', property='commission', includeBlank=true, label='Commissioned...', options=getSetting('inspireCommissions'))#
 					</cfif>	
