@@ -106,8 +106,7 @@
 			.get(name="removeFromGroup", pattern="/users/removeFromGroup/", controller="users", action="removeFromGroup")
 			.get(name="reCheckLogin", pattern="/users/checkLogin/", controller="users", action="loginform")
 			.controller("users")
-				.get(name="index", pattern="/", action="indexOld")
-				.get(name="indexOld", pattern="indexOld/")
+				.get(name="index", pattern="/", action="index")
 				.get(name="show", pattern="show/")
 				.get(name="edit", pattern="edit/")
 				.get(name="new", pattern="new/")
@@ -138,7 +137,7 @@
 				.get(name="list", pattern="list")
 			.end()
 
-			.end()
+		.end()
 
 
 
