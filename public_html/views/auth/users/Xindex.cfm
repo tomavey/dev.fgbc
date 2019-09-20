@@ -1,4 +1,5 @@
 <!--- <cfdump var="#users#"><cfabort> --->
+<p>Is this showing?</p>
 <div class="container" id="app">
     <p>
         <input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search for..." /></br>
