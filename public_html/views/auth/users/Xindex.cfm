@@ -1,12 +1,11 @@
 <!--- <cfdump var="#users#"><cfabort> --->
 <div class="app container">
-
+{{users_array}}
     <p>
         <input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search for..." /></br>
         Search by Name, Username, Email
     </p>
     <p>Count: {{users_array.length}}</p>
-{{users_array}}
     <table class="table table-striped">
     <tr>
             <th><a href="" @click.prevent="reSortBy('fullName')">Name</a></th>
