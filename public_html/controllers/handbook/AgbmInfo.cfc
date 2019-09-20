@@ -203,8 +203,15 @@
 							#dollarFormat(loc.lastPayment.membershipfee)# for #loc.lastPayment.membershipfeeyear#<br/>
 								<cfif loc.lastPayment.commissioned>
 									Commissioned #loc.lastpayment.commission#
-								<cfelse>	
-									Cat. #loc.lastPayment.category#<cfif loc.lastPayment.ordained>; Ordained<cfelseif loc.lastpayment.licensed>; Licensed</cfif>
+								<cfelse>
+									<cfif loc.lastPayment.category>
+										Cat. #loc.lastPayment.category#; 
+									</cfif>
+									<cfif loc.lastPayment.ordained>
+										Ordained
+									<cfelseif loc.lastpayment.licensed>
+										; Licensed
+									</cfif>
 								</cfif>
 							</p>
 						<cfelse>

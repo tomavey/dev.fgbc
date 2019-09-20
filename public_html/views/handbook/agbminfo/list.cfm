@@ -2,6 +2,14 @@
 <cfset count = 0>
 <cfset previousdistrict = "">
 <cfset previousalpha = "">
+<cfset showOrdainedOnly = false>
+<cfset showCommissionedOnly = false>
+<cfif isDefined("params.ordainedonly")>
+	<cfset showOrdainedOnly = true>
+</cfif>
+<cfif isDefined("params.commissionedonly")>
+	<cfset showCommissionedOnly = true>
+</cfif>
 
 <div class="table table-striped">
 <!---
@@ -66,8 +74,14 @@
 				<cfif isDefined("params.alpha") and alpha IS NOT previousalpha and params.alpha is not "all">
 				<h2>#alpha#</h2>
 				</cfif>
-    			#includePartial("table")#
-				<cfset count = count +1>
+				<cfset REQUEST.lastpayment = getLastPayment(personid)>
+				<cfset REQUEST.payments = getPayments(personid)>
+				<cfif !showOrdainedOnly || (showOrdainedOnly && find("Ordained",REQUEST.lastpayment))>
+					<cfif !showCommissionedOnly || (showCommissionedOnly && find("Commissioned",REQUEST.lastpayment))>
+	    			#includePartial("table")#<!---Table Row--->
+						<cfset count = count +1>
+					</cfif>
+				</cfif>
 				<cfset previousdistrict = district>
 				<cfset previousalpha = alpha>
     		</cfoutput>
@@ -86,5 +100,11 @@
 <p>
    Total Count=#count#
 </p>
+
+#linkto(text="Ordained Only", controller="handbook.agbm-info", action="list", params="type=members&ordainedOnly=")# | 
+#linkto(text="Commissioned Only", controller="handbook.agbm-info", action="list", params="type=members&commissionedOnly=")# |
+#linkto(text="All", controller="handbook.agbm-info", action="list", params="type=members")# |
+
+
 </cfoutput>
 </div>
