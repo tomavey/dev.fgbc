@@ -11,7 +11,17 @@
 
 		#styleSheetLinkTag("bootstrap,main,custom,/assets/vendor/icon-awesome/css/font-awesome.min")#
 
-		#javaScriptIncludeTag("jquery.min,bootstrap,responsiveslides.min,iCanHaz.min,application,jquery_ujs,ajaxdelete")#
+		<cfif !isDefined("params.action") || params.action NEQ "xindex">
+			#javaScriptIncludeTag("jquery.min,bootstrap,responsiveslides.min,iCanHaz.min,application,jquery_ujs,ajaxdelete")#
+		</cfif>	
+
+		<!---Load Vue Early--->
+		<cfset folder = "/assets/js">
+			#javaScriptIncludeTag("
+				#folder#/vue,
+				#folder#/vue-resource,
+				#folder#/lodash.min
+			")#
 
 	</head>
 	<body>

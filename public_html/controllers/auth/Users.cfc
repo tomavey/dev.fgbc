@@ -3,6 +3,7 @@
 	<cffunction name="init">
 		<cfset filters(through="isSuperadmin", only="index,indexOld,show,loginAsUser")>
 		<cfset filters(through="setReturn", only="index,indexOld,show")>
+		<cfset usesLayout("/layoutadmin")>
 	</cffunction>
 
 <cfscript>
