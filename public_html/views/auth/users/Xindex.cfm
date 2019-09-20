@@ -5,7 +5,7 @@
         <input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search for..." /></br>
         Search by Name, Username, Email
     </p>
-    <p v-cloak>Count: {{users_array.length}}</p>
+    <p>Count: {{users_array.length}}</p>
 
     <table class="table table-striped">
     <tr>
@@ -16,7 +16,7 @@
             <th><a href="" @click.prevent="reSortBy('createdDate')">Created</a></th>
             <th>&nbsp;</th>
         </tr>
-        <tr v-for="user in users_array" v-cloak>
+        <tr v-for="user in users_array">
             <td width='30%'><a :href="showUser(user.id)">{{user.fullName}}</a></td>    
             <td>{{user.username | shorten}}</td>
             <td><a :href="mailTo(user.email)">{{user.email | shorten | lowerCase}}</a></td>
