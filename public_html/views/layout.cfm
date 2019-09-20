@@ -16,7 +16,9 @@
 
                 #contentForLayout()#
 
-                #includePartial("/charis/footer")#
+                <cfif !isDefined("params.noFooter")>
+                    #includePartial("/charis/footer")#
+                </cfif>
 
             </main>
 
