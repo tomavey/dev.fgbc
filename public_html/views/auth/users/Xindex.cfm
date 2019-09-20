@@ -6,7 +6,7 @@
         Search by Name, Username, Email
     </p>
     <p>Count: {{users_array.length}}</p>
-
+{{users_array}}
     <table class="table table-striped">
     <tr>
             <th><a href="" @click.prevent="reSortBy('fullName')">Name</a></th>
