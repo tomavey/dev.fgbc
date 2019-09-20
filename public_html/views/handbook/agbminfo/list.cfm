@@ -101,9 +101,9 @@
    Total Count=#count#
 </p>
 
-#linkto(text="Ordained Only", controller="handbook.agbm-info", action="list", params="type=members&ordainedOnly=")# | 
-#linkto(text="Commissioned Only", controller="handbook.agbm-info", action="list", params="type=members&commissionedOnly=")# |
-#linkto(text="All", controller="handbook.agbm-info", action="list", params="type=members")# |
+#linkto(text="Ordained Only", route="handbookAgbmList", params="type=members&ordainedOnly=")# | 
+#linkto(text="Commissioned Only", route="handbookAgbmList", params="type=members&commissionedOnly=")# |
+#linkto(text="All", route="handbookAgbmList", params="type=members")# |
 
 
 </cfoutput>
