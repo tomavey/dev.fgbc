@@ -43,6 +43,7 @@ $(document).ready(function(){
 	$('input.alertwhenselected:checkbox').click(function(){
 		var $alert = this.title;
 		alert($alert);
+		return true;
 	});
 
 });

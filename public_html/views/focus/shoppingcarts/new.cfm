@@ -52,7 +52,10 @@
 								<tr>
 									<td>&nbsp;</td>
 									<td>#checkboxTag(name='shoppingcart[items]', value=id, labelPlacement="around", class=thisclass, title=popup)#</td>
-									<td class="description">#description#</td>
+									<td class="description">
+										#description#
+										<p class="popup">#popup#</p>
+									</td>
 									<td class="price">#dollarformat(getItem(id).price)#
 									</td>
 									<td>

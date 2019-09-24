@@ -51,3 +51,7 @@ li.notpaid {
 #focusRegSummary td.text-right {
     text-align: right
 }
+
+.popup {
+    width: 80%
+}
