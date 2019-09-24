@@ -9,15 +9,23 @@
 <div class="span10 offset1">
 <!---#javaScriptIncludeTag("ajaxdelete")#--->
 
+<!--- 
+  not working yet
+  <p>
+  <cfloop list="#getSetting('alphabet')#" index="ii">
+    #linkToPlus(text=ii, addParams="alpha=#ii#")#
+  </cfloop>
+</p> --->
+
 <!---This section places buttons at the top depending on params defined--->
 <!---params.layout turns off all buttons--->
 <!---params.showdedit turns on special edit and alert options and it turns off the Show Edit Button--->
 <div class="btn-group btn-group-justified">
   <cfif NOT isDefined("params.showedit") AND not isDefined("params.layout")>
-    #linkTo(
+    #linkToPlus(
       text="Show Edit Button, Position Delete, <br/> Update and Duplication Alert <br/> and removed from staff and AGBM only", 
       action="bluepages", 
-      params="showedit=1&showupdatedat=1&showalert=1&showremoved=1&showhiddenpositions=1", 
+      addParams="showedit=1&showupdatedat=1&showalert=1&showremoved=1&showhiddenpositions=1", 
       class="btn btn-xl")#
   <cfelseif not isDefined("params.layout")>
     #linkTo(
@@ -29,10 +37,10 @@
 
 <!---params.nonstaff filters out people who are on staff at a church or ministry or is a member of the agbm.  Use this to find names that might need to be deleted.  It also turns off the non-staff button--->
   <cfif NOT isDefined("params.nonstaff") AND not isDefined("params.layout")>
-      #linkTo(
+      #linkToPlus(
         text="Only show <br/> Non-Staff and <br/> Non-Agbm With Links", 
         action="bluepages", 
-        params="nonstaff=1&showedit=1&showupdatedat=1&showalert=1", 
+        addParams="nonstaff=1&showedit=1&showupdatedat=1&showalert=1", 
         class="btn btn-xl")#
   <cfelseif not isDefined("params.layout")>
       <!--- this button removes all the special params--->
@@ -45,18 +53,18 @@
 
 <!--- this button causes the controller to use layout_naked--->
   <cfif gotrights("superadmin,handbookadmin") && !isDefined("params.getremovedstaffonly") && !isDefined("params.layout")>
-      #linkto(
+      #linktoPlus(
         text="Show <br/> removed from staff <br/> only.", 
-        params="showedit=1&showupdatedat=1&showalert=1&showremoved=1&showhiddenpositions=1&showRemovedStaffOnly", 
+        addParams="showedit=1&showupdatedat=1&showalert=1&showremoved=1&showhiddenpositions=1&showRemovedStaffOnly", 
         action="bluepages", 
         class="btn btn-xl")#
   </cfif>
 
 <!--- this button causes the controller to use layout_naked--->
   <cfif not isDefined("params.layout")>
-      #linkto(
+      #linktoPlus(
         text="Show <br/> without <br/> formatting", 
-        params="layout=naked", 
+        addParams="layout=naked", 
         action="bluepages", 
         class="btn btn-xl")#
   </cfif>

@@ -28,9 +28,10 @@
 
 <cfif application.wheels.environment NEQ "production">
     <cftry>
-    <cfdump var="#session.auth#">
+    <cfdump var="#session.auth#" label="session auth">
     #session.auth.rightslist#
     #gotrights("handbook")#
+    <cfdump var="#cgi#" label="Cgi">
     <cfcatch>
     </cfcatch>
     </cftry>

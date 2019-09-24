@@ -316,6 +316,10 @@
 			<cfif isDefined("params.lname")>
 				<cfset whereString = whereString & " AND lname like '#params.lname#%'">
 			</cfif>
+			<cfif isDefined("params.alpha")>
+				<cfset whereString = whereString & " AND alpha =  '#params.alpha#'">
+			</cfif>
+
 
 		<!--- Run the query then filter out persons that should not be listed in the handbook --->
 			<cfset bluepagesPeople = model("Handbookperson").findAll(where=whereString, order=orderString, include=includeString)>

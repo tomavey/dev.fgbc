@@ -493,7 +493,7 @@
 				  	#selectname#
 				  	<cfif position CONTAINS "Remove">**</cfif>
 
-					<cfif gotrights("superadmin") and isDefined("params.showedit") and params.showedit>
+					<cfif gotrights("superadmin") and isDefined("params.showedit")>
 						<cfif isAgbm>
 							#linkto(text="Make AGBM Only", controller="Handbook.people", action="changeToAGBMOnly", params="positionId=#id#", target="_blank")#
 						<cfelse>	
@@ -866,15 +866,47 @@ public function testremoveDuplicateParamsInUrl() {
 
 public function removeDuplicateParamsInUrl(required oldurl) {
 	var item = '';
-	var count = find('?',oldurl);
-	var leftq = left(oldurl,count);
-	var newUrl = replace(oldUrl,leftq,"");
-	var newUrlList = listChangeDelims(newUrl, ',', '&');
-	for (var i=1;i LTE ListLen(newUrlList); i=i+1){
-			item = listGetAt(newUrlList,i)
-			writeDump(item);
+	var newurlQueryString = '';
+	var locationQ = find('?',oldurl);
+	writeOutput(locationQ);writeOutput('<br/>');
+	var leftOfQ = left(oldurl,locationQ);
+	writeOutput(leftOfQ);writeOutput('<br/>');
+	var urlQueryString = replace(oldUrl,leftOfQ,"");
+	writeOutput(urlQueryString);writeOutput('<br/>');
+	var urlQueryStringAsArrayOfStructs = (queryStringToArrayOfStructs(urlQueryString))
+	writeOutput(serialize(urlQueryStringAsArrayOfStructs))
+	for (var param in urlQueryStringAsArrayOfStructs){
+			var thisKey = structKeyList(param)
+			if ( !find(thisKey,newurlQueryString) ) { 
+				newurlQueryString = newurlQueryString & "&" & thiskey & param[thiskey]
+			}
+			writeDump(thisKey);
 		}
-	writeDump(len(newUrlList));abort;
+	writeDump(newurlQueryString);abort;
+}
+
+public function testqueryStringToArrayOfStructs() {
+	writeDump(queryStringToArrayOfStructs('controller=conference.-families&action=envelopes&alpha=R&alpha=N'));abort;
+}
+
+public function queryStringToArrayOfStructs(required string queryString) {
+	var queryStringArray = listToArray(queryString, '&')
+	var queryStringArrayOfStructs = []
+	var itemStruct = {}
+	var countEqLeft = 0
+	var countEqRight = 0
+	for (var item in queryStringArray) {
+		try {
+			countEqLeft = find("=",item) - 1
+			countEqRight = len(item)-countEqLeft - 1
+			var itemVariable = left(item,countEqLeft)
+			var itemValue = right(item,countEqRight)
+			itemStruct = {'#itemvariable#': itemvalue}
+			arrayAppend(queryStringArrayOfStructs,itemStruct)	
+		} catch (any e) {
+		}
+	}
+	return queryStringArrayOfStructs;
 }
 
 public function phoneTo(required phonenumber){
