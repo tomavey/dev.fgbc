@@ -236,7 +236,7 @@
 		<cfreturn "#linkTo(
 						text="<i class='fa fa-trash'></i>",
 						controller=arguments.controller,
-						action='delete me',
+						action='delete',
 						key=arguments.id,
 						title=arguments.title,
 						class=arguments.class,
@@ -497,7 +497,7 @@
 						<cfif isAgbm>
 							#linkto(text="Make AGBM Only", controller="Handbook.people", action="changeToAGBMOnly", params="positionId=#id#", target="_blank")#
 						<cfelse>	
-							#deleteTag(controller="handbook.positions", action="delete", key=id)#
+							#deleteTag(controller="handbook.positions", action="deleteTeg", key=id)#
 						</cfif>	
 					</cfif>
 				  	<br/>
