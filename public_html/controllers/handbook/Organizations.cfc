@@ -440,11 +440,11 @@ public function notStaff(){
 	loc.isAgbm = isAgbm(loc.personid);
 	if (loc.isAgbmMember || loc.isAGBM){
 		loc.position = "AGBM Only";
-		loc.positiontypeid = 32
+		loc.positiontypeid = 32 //position type 32 is AGBM Only - position type does not show in handbook
 	}
 	else {
 		loc.position = "Removed From Staff";
-		loc.positiontypeid = 13
+		loc.positiontypeid = 13 //position type 13 is 'later'
 	};
 	model("Handbookorganization").removeFromStaff(loc.positionid, loc.position, loc.positiontypeid);
 	redirectTo(back=true);
