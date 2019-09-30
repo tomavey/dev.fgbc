@@ -236,7 +236,7 @@
 		<cfreturn "#linkTo(
 						text="<i class='fa fa-trash'></i>",
 						controller=arguments.controller,
-						action='delete',
+						action='delete me',
 						key=arguments.id,
 						title=arguments.title,
 						class=arguments.class,
