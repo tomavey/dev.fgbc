@@ -35,7 +35,6 @@
 		<cfif len(zip)>
 			   #trim(zip)#
 				<cfset addreturn = 1>
-				#isAgbm(id)#
 		</cfif>
 		<cfif addreturn>
 			  <br/>
@@ -89,6 +88,9 @@
       <cfif len(skype)>
       	Skype:#trim(skype)#<br/>
       </cfif>
-      #displayPositions(id)#<!---From views/helpers.cfm--->
+			#displayPositions(id)#<!---From views/helpers.cfm--->
+			<cfif isAgbm()>
+				AGBM
+			</cfif>
 </div>
 </cfoutput>
