@@ -35,6 +35,7 @@
 		<cfif len(zip)>
 			   #trim(zip)#
 				<cfset addreturn = 1>
+				#isAgbm(id)#
 		</cfif>
 		<cfif addreturn>
 			  <br/>
