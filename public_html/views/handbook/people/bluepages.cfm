@@ -16,7 +16,7 @@
         text=ii, 
         controller="handbook.people", 
         action="bluepages", 
-        params="showedit=1&showupdatedat=1&showalert=1&showremoved=1&showhiddenpositions=1&alpha=#ii#
+        params="showedit=1&showupdatedat=1&showalert=1&showremoved=1&showhiddenpositions=1&alpha=#ii#"
         )#
     </cfloop>
   </p>
