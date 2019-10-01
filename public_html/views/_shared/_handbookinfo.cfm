@@ -90,8 +90,5 @@
       	Skype:#trim(skype)#<br/>
       </cfif>
 			#displayPositions(id)#<!---From views/helpers.cfm--->
-			<cfif isAgbm(id)>
-				AGBM
-			</cfif>
 </div>
 </cfoutput>
