@@ -145,5 +145,17 @@
 
 <cfoutput>
   Count: #count#
+  <cfif isDefined('params.showedit') && isDefined('showremoved') && isDefined('showhiddenpositions')>
+    <p>
+      <cfloop list="#getSetting('alphabet')#" index="ii">
+        #linkTo(
+          text=ii, 
+          controller="handbook.people", 
+          action="bluepages", 
+          params="showedit=1&showupdatedat=1&showalert=1&showremoved=1&showhiddenpositions=1&alpha=#ii#"
+          )#
+      </cfloop>
+    </p>
+  </cfif>
 </cfoutput>
 </div>
