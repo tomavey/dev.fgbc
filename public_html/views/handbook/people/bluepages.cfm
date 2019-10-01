@@ -9,13 +9,18 @@
 <div class="span10 offset1">
 <!---#javaScriptIncludeTag("ajaxdelete")#--->
 
-<!--- 
-  not working yet
+<cfif isDefined('params.showedit') && isDefined('showremoved') && isDefined('showhiddenpositions')>
   <p>
-  <cfloop list="#getSetting('alphabet')#" index="ii">
-    #linkToPlus(text=ii, addParams="alpha=#ii#")#
-  </cfloop>
-</p> --->
+    <cfloop list="#getSetting('alphabet')#" index="ii">
+      #linkTo(
+        text=ii, 
+        controller="handbook.people", 
+        action="bluepages", 
+        params="showedit=1&showupdatedat=1&showalert=1&showremoved=1&showhiddenpositions=1&alpha=#ii#
+        )#
+    </cfloop>
+  </p>
+</cfif>
 
 <!---This section places buttons at the top depending on params defined--->
 <!---params.layout turns off all buttons--->
