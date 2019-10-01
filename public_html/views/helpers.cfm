@@ -234,7 +234,7 @@
 </cfif>
 
 		<cfreturn "#linkTo(
-						text="#imageTag('/delete-icon.png')#",
+						text="<i class='fa fa-trash'></i>",
 						controller=arguments.controller,
 						action='delete',
 						key=arguments.id,
