@@ -63,6 +63,12 @@
                             <li>#linkTo(controller="focus.registrations", action="summary", text="Summary")#</li>
         				</ul>
       			</li>	
+						<li class="dropdown">
+        			#linkToData(href="##", text="Misc<b class='caret'></b>", data_toggle="dropdown", class="dropdown-toggle")#
+        				<ul class="dropdown-menu">
+        						<li>#linkTo(text="Shopping Carts", controller="focus.shoppingcarts", action="index")#</li>
+        				</ul>
+      			</li>	
 			</ul>
 				  	#startFormTag(class="navbar-search")#
 					#textFieldTag(name="search", class="search-query input-small", placeholder="Search")#

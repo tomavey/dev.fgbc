@@ -11,8 +11,8 @@
 
 	<!--- -shoppingcarts/index --->
 	<cffunction name="index">
-		<cfset shoppingcarts = model("Focusshoppingcart").findAll()>
-		<cfif !isObject(shoppingcarts)>
+		<cfset shoppingcarts = model("Focusshoppingcart").findAll(order="createdAt DESC")>
+		<cfif !shoppingcarts.recordcount>
 			<cfset reDirectTo(controller="focus.main", action="welcome")>
 		</cfif>
 	</cffunction>

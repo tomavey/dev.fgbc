@@ -1,36 +1,25 @@
 <h1>Listing shoppingcarts</h1>
+<p>These are the tenmporary shopping carts that are used during registration.  They are not the same as a final registration.</p>
+<!--- <cfdump var="#shoppingcarts#"><cfabort> --->
 
 <cftable query="shoppingcarts" colHeaders="true" HTMLTable="true">
 	
-					<cfcol header="Id" text="#id#" />
-				
-					<cfcol header="Retreat" text="#retreat#" />
+					<cfcol header="Id" text="#linkto(text=#id#, controller="focus.shoppingcarts", action="show", key=#id#)#" />
 				
 					<cfcol header="Fname" text="#fname#" />
 				
 					<cfcol header="Lname" text="#lname#" />
 				
-					<cfcol header="Email" text="#email#" />
+					<cfcol header="Email" text="#mailto(email)#" />
 				
-					<cfcol header="Phone" text="#phone#" />
+					<cfcol header="Items (by id)" text="#items#" />
 				
-					<cfcol header="Roommate" text="#roommate#" />
+					<cfcol header="Created:" text="#dateformat(createdAt, 'short')#" />
 				
-					<cfcol header="Items" text="#items#" />
 				
-					<cfcol header="Quantities" text="#quantities#" />
-				
-					<cfcol header="Shoppingcartid" text="#shoppingcartid#" />
-				
-					<cfcol header="Created At" text="#createdAt#" />
-				
-					<cfcol header="Updated At" text="#updatedAt#" />
-				
-					<cfcol header="Deleted At" text="#deletedAt#" />
-				
-	<cfcol header="" text="#linkTo(text='Show', action='show', key=id)#" />
-	<cfcol header="" text="#linkTo(text='Edit', action='edit', key=id)#" />
-	<cfcol header="" text="#linkTo(text='Delete', action='delete', key=id, confirm='Are you sure?')#" />
+	<cfcol header="" text="#linkTo(text="<i class='fa fa-search'></i>", action='show', key=id)#" />
+	<cfcol header="" text="#linkTo(text="<i class='fa fa-pencil'></i>", action='edit', key=id)#" />
+	<cfcol header="" text="#linkTo(text="<i class='fa fa-trash'></i>", action='delete', key=id, confirm='Are you sure?')#" />
 </cftable>
 
 <cfoutput>
