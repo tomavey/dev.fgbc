@@ -233,9 +233,15 @@
 	<cfset var totalcost = 0>
 	<cfset byPass = false>
 	<cfset params.agent = trim(params.agent)>
-	<cfif listFind(params.agent, getSetting('byPassWords'))>
+	<cfset byPassWords = replace(getSetting('byPassWords'), " ","","all")>
+	<cfif find(params.agent, byPassWords) && gotRights("office")>
 			<cfset bypass = true>
 	</cfif>
+	<!--- <cfdump var="#params.agent#">
+	<cfdump var="#getSetting('byPassWords')#">
+	<cfdump var="#listToArray(getSetting('byPassWords'))#">
+	<cfdump var="#bypass#">
+	<cfabort> --->
 		<cfif byPass is false>
 			<cfif !isValid("email",params.agent)>
 				<cfset flashInsert(error="Please provide a valid email address")>

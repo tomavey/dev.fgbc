@@ -93,7 +93,7 @@
 	<cfset set(optionTypes = "Public,Discount,Office")>
 	<cfset set(focusIsOpen = true)>
   <cfset set(focusMinistryAreas = "Lead Pastor, Executive Pastor, Worship Arts, Youth, Family, Children, Discipleship, Elder, Small Groups, Pastoral Care, Administration, Associate Pastor, Other")>
-	<cfset set(byPassWords = "manual, comp, pending, paid")>
+	<cfset set(byPassWords = "manual,comp,pending,paid")>
 
 <!---Used by Conference Registration--->
 	<cfset set(event="visionconference2018")>
