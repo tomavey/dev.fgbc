@@ -236,10 +236,12 @@
 	<cfif listFind(params.agent, getSetting('byPassWords'))>
 			<cfset bypass = true>
 	</cfif>
-		<cfif !isValid("email",params.agent) && bypass>
-			<cfset flashInsert(error="Please provide a valid email address")>
-			<cfset returnBack()>
-			<cfset renderText("Please press your browsers back button and enter a valid email address. Thanks!")><cfabort>
+		<cfif !byPass>
+			<cfif !isValid("email",params.agent)>
+				<cfset flashInsert(error="Please provide a valid email address")>
+				<cfset returnBack()>
+				<cfset renderText("Please press your browsers back button and enter a valid email address. Thanks!")><cfabort>
+			</cfif>
 		</cfif>
 
 		<!---Retrieve Shopping Cart--->
