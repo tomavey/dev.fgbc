@@ -36,7 +36,10 @@
 	</cffunction>
 
 	<cffunction name="agent">
-    	<cfset agentemail = trim(model("Focusshoppingcart").findByKey(params.key).email)>
+			<cfset agentemail = trim(model("Focusshoppingcart").findByKey(params.key).email)>
+			<cfif !isValid('email', agentEmail)>
+				<cfset agentemail = "">
+			</cfif>
 		<cfif isOffice()>
 			<cfset message = "Bypass options = #getSetting('byPassWords')#">
 		<cfelse>
@@ -228,9 +231,12 @@
 	<cfset var thisitem=0>
 	<cfset var cart = {}>
 	<cfset var totalcost = 0>
+	<cfset byPass = false>
 	<cfset params.agent = trim(params.agent)>
-
-		<cfif !isValid("email",params.agent) && !find(params.agent, getSetting('byPassWords'))>
+	<cfif listFind(params.agent, getSetting('byPassWords'))>
+			<cfset bypass = true>
+	</cfif>
+		<cfif !isValid("email",params.agent) && !bypass>
 			<cfset flashInsert(error="Please provide a valid email address")>
 			<cfset returnBack()>
 			<cfset renderText("Please press your browsers back button and enter a valid email address. Thanks!")><cfabort>
