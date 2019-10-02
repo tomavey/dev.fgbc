@@ -236,7 +236,7 @@
 	<cfif listFind(params.agent, getSetting('byPassWords'))>
 			<cfset bypass = true>
 	</cfif>
-		<cfif !byPass>
+		<cfif byPass is false>
 			<cfif !isValid("email",params.agent)>
 				<cfset flashInsert(error="Please provide a valid email address")>
 				<cfset returnBack()>
