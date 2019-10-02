@@ -8,7 +8,7 @@
 							#hiddenField(objectName='handbookorganization', property='applicationuuid')#
 						</cfif>
 
-						#textField(objectName='handbookorganization', property='name', label='Name: ')#
+						#textField(objectName='handbookorganization', property='name', label='Church Name: ')#
 
 						#textField(objectName='handbookorganization', property='alt_name', label='Public Name (as used on web sites, signs, etc: ')#
 
