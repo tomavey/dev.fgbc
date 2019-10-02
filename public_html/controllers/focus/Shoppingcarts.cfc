@@ -303,7 +303,7 @@
 		<cfset thisInvoice.save()>
 
 		<cfscript>
-			if (find(params.agent, getSetting('byPassWords'))) 
+			if (  byPass ) 
 				{ redirectTo(controller='focus.invoices', action='show', key=params.invoiceid, params='ccstatus=#params.agent#') };
 		</cfscript>
 
