@@ -155,7 +155,15 @@
           params="showedit=1&showupdatedat=1&showalert=1&showremoved=1&showhiddenpositions=1&alpha=#ii#"
           )#
       </cfloop>
-    </p>
+      <br/>
+      <cfset aged = 5>
+      #linkTo(
+        text="Show #aged# year old data", 
+        controller="handbook.people", 
+        action="bluepages", 
+        params="showedit=1&showupdatedat=1&showalert=1&showremoved=1&showhiddenpositions=1&aged=#dateAdd('yyyy',-aged,now())#"
+        )#
+  </p>
   </cfif>
 </cfoutput>
 </div>

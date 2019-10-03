@@ -319,6 +319,10 @@
 			<cfif isDefined("params.alpha")>
 				<cfset whereString = whereString & " AND alpha =  '#params.alpha#'">
 			</cfif>
+			<cfif isDefined('params.aged')>
+				<cfset whereString = whereString & " AND updatedAt < '#params.aged#'">
+				<!--- <cfdump var="#whereString#"><cfabort> --->
+			</cfif>
 
 
 		<!--- Run the query then filter out persons that should not be listed in the handbook --->
