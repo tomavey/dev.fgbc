@@ -10,7 +10,8 @@
 		association="handbookPositions",
 		position=arguments.current,
 		property='position',
-		label='Title: '
+		label='Title: ',
+		class="input-xxlarge"
 		)#
 
 
@@ -53,7 +54,8 @@
 		objectName='handbookperson',
 		association="handbookPositions",
 		property='organizationid',
-		position=arguments.current
+		position=arguments.current,
+		class="input-xxlarge"
 		)#
 
 <cfelse>		
@@ -66,8 +68,8 @@
 		options=churches,
 		textfield="selectNameCity",
 		label='Church or Ministry: ',
-		includeBlank= '---Select Your Church---'
-		)#
+		includeBlank= '---Select Your Church---',
+		class="input-xxlarge"		)#
 
 </cfif>
 
