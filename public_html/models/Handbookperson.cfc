@@ -642,7 +642,7 @@ public function getHandbookReviewStruct(
 	loc.previousid = 0;
 	if (loc.go) {
 		whereString = $buildWhereString(whereString,loc.type);
-		selectString = "handbookpeople.id,lname,concat(lname,', ',fname,': ',city) as SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') as reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') as updatedAt";
+		selectString = "handbookpeople.id,lname,concat(lname,', ',fname) as SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') as reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') as updatedAt";
 		loc.peopleQ = findAll(select=selectString, where = whereString, include="State,Handbookpositions,Handbooktags", maxrows=maxrows, order=orderby);
 		loc.people = $peopleQueryToArray(loc.peopleQ);
 		loc.people = $removeInValidEmail(loc.people);

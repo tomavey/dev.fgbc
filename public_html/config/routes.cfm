@@ -224,6 +224,7 @@
 			.controller("people")
 				.get(name="hideFromPublic", pattern="hideFromPublic/")
 				.get(name="UnHideFromPublic", pattern="UnHideFromPublic/")
+				.get(name="removeFromSessionArray", pattern="removeFromSessionArray/", action="removePersonFromSessionArray")
 			.end()
 			.resources("people")
 

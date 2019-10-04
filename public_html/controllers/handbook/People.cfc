@@ -779,6 +779,7 @@ public function handbookReviewOptions(
 			);	
 	}
 	people = session.people;
+	// writeOutput(serialize(people));abort;
 	testpeople = model("Handbookperson").getHandbookReviewStruct(
 		lastReviewedBefore=lastReviewedBefore,
 		orderby=orderby, 
