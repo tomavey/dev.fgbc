@@ -827,7 +827,7 @@ public function emailPeopleForHandbookReview(
 }
 
 private function $getEmailMessageForPeopleReview(){
-	var emailMessage = "<h3>We are updating our database for the #year(now())+1# Charis Fellowship Handbook!</h3><p>Churches have updated their staff. You can check your personal listing before October 15 using the link below.</p><p>Be sure to click the 'This information is correct' button when you are finished. </p>";
+	var emailMessage = "<h3>We are updating our database for the #year(now())+1# Charis Fellowship Handbook!</h3><p>Churches have updated their staff. You can check your personal listing before #getSetting('personReviewDeadline')# using the link below.</p><p>Be sure to click the 'This information is correct' button when you are finished. </p>";
 	return emailMessage; 
 }
 
