@@ -5,12 +5,18 @@
 		<cfset belongsTo(name="Handbookperson", foreignKey="personid", joinType="outer")>
 		<cfset belongsTo(name="Handbookorganization", foreignKey="organizationid", joinType="outer")>
 		<cfset belongsTo(name="Handbookpositiontype", foreignKey="positiontypeid")>
-        <cfset beforeUpdate("logUpdates,positionTypeRequired")>
-        <cfset beforeSave("positionTypeRequired")>
+        <cfset beforeUpdate("logUpdates,positionTypeRequired,setPositionSortOrderForDeceased")>
+        <cfset beforeSave("positionTypeRequired,setPositionSortOrderForDeceased")>
         <cfset afterCreate("logCreates")>
         <cfset afterDelete("logDeletes")>
 
-	</cffunction>
+    </cffunction>
+    
+    <cffunction name="setPositionSortOrderForDeceased">
+        <cfif val(this.positiontypeid) is 39>
+            <cfset this.p_sortorder = 999>
+        </cfif>
+    </cffunction>
 
 	<cffunction name="positionTypeRequired">
 		<cfif !val(this.positiontypeid)>
