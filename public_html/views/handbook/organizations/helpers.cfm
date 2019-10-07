@@ -163,7 +163,7 @@
 <cfargument name="email" required="true" type="string">
 <cfargument name="name" default="Greetings">
 <cfargument name="message" required="false">
-<cfargument name="subject" default='#URLEncodedFormat("Please review #name# FGBC Handbook listing")#'>
+<cfargument name="subject" default='#URLEncodedFormat("Please review #name# Charis Fellowship Handbook listing")#'>
 <cfargument name="changeMessageDate" default="September 20">
 <cfset changeMessageDate = $changeMessageDate(getSetting('churchReviewDeadline'))>
 
