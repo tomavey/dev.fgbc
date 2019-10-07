@@ -93,7 +93,7 @@
 			    #fname# #lname#
 			  </cfif>
 			  <cfif isDefined("params.showreview") and len(handbookpersonemail)>
-          #createEmailToUpdateOrg(id,handbookpersonemail,fname)#
+          #createEmailToUpdateOrg(id,handbookpersonemail,name,fname)#
 			  </cfif>
 			  </span>
 			  <br/>
