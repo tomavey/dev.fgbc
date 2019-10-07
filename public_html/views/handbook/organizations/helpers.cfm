@@ -162,7 +162,7 @@
 <cfargument name="id" required="true" type="numeric">
 <cfargument name="email" required="true" type="string">
 <cfargument name="name" default="Greetings">
-<cfargument name="fname" default=name>
+<cfargument name="fname" default='#name#'>
 <cfargument name="message">
 <cfargument name="subject" default='#URLEncodedFormat("Please review #name# for the Charis Fellowship Handbook listing")#'>
 <cfargument name="changeMessageDate" default="September 20">
