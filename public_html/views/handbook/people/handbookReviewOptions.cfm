@@ -1,3 +1,4 @@
+<cfdump var="#people#"><cfabort>
 <div class="container span10">
     <cfoutput>
      
