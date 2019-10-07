@@ -166,14 +166,15 @@
 <cfargument name="message">
 <cfargument name="subject" default='#URLEncodedFormat("Please review #name# for the Charis Fellowship Handbook listing")#'>
 <cfargument name="changeMessageDate" default="September 20">
+<!--- <cfdump var="#arguments#"> --->
 <cfset changeMessageDate = $changeMessageDate(getSetting('churchReviewDeadline'))>
 
 <cfsavecontent variable="createEmailLink">
 <cfoutput>
             <cfif isBefore(changeMessageDate)>
-                 <cfset message = URLEncodedFormat("#name# - We are starting production of the the #year(now())+1# Charis Fellowship handbook.  Can you review this for me?  By #$deadLineAsString()#?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
+                 <cfset message = URLEncodedFormat("#fname# - We are starting production of the the #year(now())+1# Charis Fellowship handbook.  Can you review this for me?  By #$deadLineAsString()#?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
             <cfelse>
-                 <cfset message = URLEncodedFormat("#name# - I'm finishing up the #year(now())+1# Charis Fellowship handbook.  Can you review this for me?  Today?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
+                 <cfset message = URLEncodedFormat("#fname# - I'm finishing up the #year(now())+1# Charis Fellowship handbook.  Can you review this for me?  Today?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
             </cfif>     
 
 			  #mailTo(name='<i class="icon-envelope"></i>', emailaddress="#email#?subject=#subject#&body=#message#")#
