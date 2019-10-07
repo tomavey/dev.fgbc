@@ -1,6 +1,6 @@
 <div class="container span10">
     <cfoutput>
-        
+     
         #startFormTag(action="handbookReviewOptions", method="get", class="form-search")#
         #textFieldTag(Label="Show persons last reviewed before:&nbsp;&nbsp;", name="lastReviewedBefore", value=args.lastReviewedBefore, class="input-small", id="datepicker", prepend="", append="")#
         <cfif isDefined("params.type")>

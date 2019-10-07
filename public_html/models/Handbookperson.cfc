@@ -748,6 +748,19 @@ private function $peopleQueryToArray(peopleQuery){
 	<cfreturn loc.newarray>
 	</cffunction>
 
+	<cffunction name="$removeFormerAGBMMembers">
+	<cfargument name="handbookReviewArray" required='true' type="array">
+	<cfset var loc = arguments>
+	<cfset loc.newArray = []>
+	<cfloop from="1" to="#arraylen(loc.handbookReviewArray)#" index="loc.i">
+		<cfif !isFormerAGBMMember(loc.handbookReviewArray[loc.i].id)>
+			<cfset arrayAppend(loc.newArray,loc.handbookReviewArray[loc.i])>
+		</cfif>	
+	</cfloop>
+	<cfreturn loc.newarray>
+
+	</cffunction>
+
 <!---Not sure where this is used--->
 	<cffunction name="handbookReport">
 

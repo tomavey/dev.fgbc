@@ -173,25 +173,52 @@
       <cfreturn newquery>
 		</cffunction>
 		
-		<cffunction name="combineTwoQueries">
-			<cfargument name="query1" type="query" required=true>
-			<cfargument name="query2" type="query" required=true>
-			<cfquery dbtype="query" name="data">
-				SELECT *
-				FROM arguments.query1
-				UNION
-				SELECT *
-				FROM arguments.query2
-			</cfquery>
-			<cfreturn data>
-		</cffunction>
+	<cffunction name="combineTwoQueries">
+		<cfargument name="query1" type="query" required=true>
+		<cfargument name="query2" type="query" required=true>
+		<cfquery dbtype="query" name="data">
+			SELECT *
+			FROM arguments.query1
+			UNION
+			SELECT *
+			FROM arguments.query2
+		</cfquery>
+		<cfreturn data>
+	</cffunction>
 
 	<cffunction name="h">
 	<cfargument name="text" required="true" type="string">
 	<return xmlFormat(text)>
 	</cffunction>
 
-
+	<cffunction name="isAGBM">
+	<cfargument name="personid">
+		<cfset var loc=structNew()>
+		<cfset loc.return = false>
+		
+			<cfset loc.check = model("Handbookagbminfo").findOne(where="personid = #arguments.personid#")>
+		
+			<cfif isObject(loc.check)>
+				<cfset loc.return = true>
+			</cfif>
+		
+		<cfreturn loc.return>
+		</cffunction>
+		
+		<cffunction name="isAgbmMember">
+		<cfargument name="personid" required="true" type="numeric">
+	<cfreturn model("Handbookagbminfo").isAgbmMember(arguments.personid)>
+	</cffunction>
+		
+	<cffunction name="isFormerAGBMMember">
+	<cfargument name="personid" required="true" type="numeric">
+		<cfif isAGBM(personid) && !isAgbmMember(personid)>
+				<cfreturn true>
+		<cfelse>    
+				<cfreturn false>
+		</cfif>    
+	</cffunction>
+		
 <cfscript>
 	public function getSetting(name){
 		var value = "";
