@@ -206,12 +206,12 @@
 		</cffunction>
 		
 		<cffunction name="isAgbmMember">
-		<cfargument name="personid" required="true" type="numeric">
+		<cfargument name="personid">
 	<cfreturn model("Handbookagbminfo").isAgbmMember(arguments.personid)>
 	</cffunction>
 		
 	<cffunction name="isFormerAGBMMember">
-	<cfargument name="personid" required="true" type="numeric">
+	<cfargument name="personid">
 		<cfif isAGBM(personid) && !isAgbmMember(personid)>
 				<cfreturn true>
 		<cfelse>    
