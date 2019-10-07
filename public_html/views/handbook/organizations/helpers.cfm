@@ -162,7 +162,7 @@
 <cfargument name="id" required="true" type="numeric">
 <cfargument name="email" required="true" type="string">
 <cfargument name="name" default="Greetings">
-<cfargument name="fname" required="false">
+<cfargument name="fname" default=name>
 <cfargument name="message">
 <cfargument name="subject" default='#URLEncodedFormat("Please review #name# for the Charis Fellowship Handbook listing")#'>
 <cfargument name="changeMessageDate" default="September 20">
@@ -170,9 +170,6 @@
 
 <cfsavecontent variable="createEmailLink">
 <cfoutput>
-          <cfif isDefined("fname")>
-            <cfset name = fname>
-          </cfif>
             <cfif isBefore(changeMessageDate)>
                  <cfset message = URLEncodedFormat("#name# - We are starting production of the the #year(now())+1# Charis Fellowship handbook.  Can you review this for me?  By #$deadLineAsString()#?  Be sure to click the 'This information is all correct' link at the top when you are finished. Thanks so much https://charisfellowship.us/reviewhandbook/#simpleencode(id)#?reviewer=#email#")>
             <cfelse>
