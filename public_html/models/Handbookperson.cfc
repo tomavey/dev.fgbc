@@ -647,9 +647,8 @@ public function getHandbookReviewStruct(
 		loc.people = $peopleQueryToArray(loc.peopleQ);
 		loc.people = $removeInValidEmail(loc.people);
 		loc.people = $addLastEmailToConfirm(loc.people);
-		// loc.people = $removeFormerAGBMMembers(loc.people);
+		loc.people = $removeFormerAGBMMembers(loc.people);
 		loc.people = $removeDuplicates(loc.people);
-		writeDump(loc.people);abort;
 		return loc.people;		
 	}
 	else {
@@ -755,9 +754,7 @@ private function $peopleQueryToArray(peopleQuery){
 	<cfset var loc = arguments>
 	<cfset loc.newArray = []>
 	<cfloop from="1" to="#arraylen(loc.handbookReviewArray)#" index="loc.i">
-		<cfif !isFormerAGBMMember(loc.handbookReviewArray[loc.i].id)>
 			<cfset arrayAppend(loc.newArray,loc.handbookReviewArray[loc.i])>
-		</cfif>	
 	</cfloop>
 	<cfreturn loc.newarray>
 
