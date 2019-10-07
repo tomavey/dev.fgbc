@@ -754,7 +754,7 @@ private function $peopleQueryToArray(peopleQuery){
 	<cfset var loc = arguments>
 	<cfset loc.newArray = []>
 	<cfloop from="1" to="#arraylen(loc.handbookReviewArray)#" index="loc.i">
-		<cfif loc.handbookReviewArray[loc.i] is 261>
+		<cfif loc.handbookReviewArray[loc.i].id is 261>
 			<cfset arrayAppend(loc.newArray,loc.handbookReviewArray[loc.i])>
 		</cfif>
 	</cfloop>
