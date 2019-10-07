@@ -748,8 +748,6 @@ private function $peopleQueryToArray(peopleQuery){
 	<cfreturn loc.newarray>
 	</cffunction>
 
-	</cffunction>
-
 <!---Not sure where this is used--->
 	<cffunction name="handbookReport">
 
