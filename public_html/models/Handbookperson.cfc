@@ -649,6 +649,7 @@ public function getHandbookReviewStruct(
 		loc.people = $addLastEmailToConfirm(loc.people);
 		// loc.people = $removeFormerAGBMMembers(loc.people);
 		loc.people = $removeDuplicates(loc.people);
+		writeDump(loc.people);abort;
 		return loc.people;		
 	}
 	else {
