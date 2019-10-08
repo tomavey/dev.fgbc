@@ -527,7 +527,7 @@
 
 <cfscript>
 	public function fixAddress(required string address) {
-		var newString = lCase(arguments.address) & ' '
+		var newString = ' ' & lCase(arguments.address) & ' '
 		//
 		//the address lines are capitlaized using css after these data transformations
 		var replacements = {
@@ -551,16 +551,16 @@
 			' e ': ' e. ',
 			' w ': ' w. ',
 			' s ': ' s. ',
-			'west ': 'w. ',
-			'north ': 'n. ',
+			' west ': ' w. ',
+			' north ': ' n. ',
 			' east ': ' e. ',
-			'co ': 'co. ',
-			'blvd ': 'blvd. ',
-			'apt ': 'apt. ',
-			'po ':'PO ',
-			'po. ':'PO ',
-			'nw ': "NW. ",
-			'se ': "SE. ",
+			' co ': ' co. ',
+			' blvd ': ' blvd. ',
+			' apt ': ' apt. ',
+			' po ':' PO ',
+			' po. ':' PO ',
+			' nw ': " NW. ",
+			' se ': " SE. ",
 		}
 		for (replacement in replacements) {
 				newString = replace(newString,replacement,replacements[replacement])
