@@ -553,7 +553,8 @@
 			'North ': 'N.',
 			'Co ': 'Co.',
 			'Blvd ': 'Blvd.',
-			'Apt ': "Apt."
+			'Apt ': 'Apt.',
+			'apt ':'Apt.'
 		}
 		for (replacement in replacements) {
 				newString = replace(newString,replacement,replacements[replacement])
