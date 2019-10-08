@@ -27,7 +27,7 @@
             </cfcatch>
         </cftry>
         <cfif getHandbookReviewSecretary() IS application.wheels.handbookReviewsecretary2 and gotRights("office")>    
-            #linkTo(text="Use Main Handbook Secretary", action="handbookReviewOptions", params="handbookReviewsecretary=#appplication.wheelshandbookReviewsecretary#", class="pull-right")#    
+            #linkTo(text="Use Main Handbook Secretary", action="handbookReviewOptions", params="handbookReviewsecretary=#appplication.wheels.handbookReviewsecretary#", class="pull-right")#    
         <cfelse>    
             #linkTo(text="Use Alt Handbook Secretary", action="handbookReviewOptions", params="handbookReviewsecretary=#application.wheels.handbookReviewsecretary2#", class="pull-right")#    
         </cfif>
