@@ -548,7 +548,6 @@
 			' E ': ' E. ',
 			' W ': ' W. ',
 			' S ': ' S. ',
-			'Ave.nue ': 'Ave.',
 			'West ': 'W.',
 			'North ': 'N.',
 			'Co ': 'Co.',
