@@ -10,7 +10,7 @@
 	<cfset var loc=structnew()>
 
 		<cfquery datasource="#getDataSourceName()#" name="loc.return">
-			SELECT p.lname, left(p.lname,1) as alpha, p.suffix, p.fname, o.name, p.address1, p.address2, p.city, p.zip, p.phone, p.email, district, d.districtid, ps.state_mail_abbrev as state, s.state_mail_abbrev as org_state, org_city, max(membershipfeeyear) as lastpayment, p.id as personid, o.id as organizationid, o.address1 as handbookorganizationaddress1, o.address2 as handbookorganizationaddress2, o.org_city, s.state_mail_abbrev as handbookorganizationstate, o.zip as handbookorganizationzip, o.statusid, o.email as org_email, region.name as regionname, region.id as regionid, regionrep.lname as regionreplname, regionrep.fname as regionrepfname, regionrep.id as regionrepid, ministrystartat, profile.birthdayyear
+			SELECT p.lname, left(p.lname,1) as alpha, p.suffix, p.fname, o.name, p.address1, p.address2, p.city, p.zip, p.phone, p.email, district, d.districtid, ps.state_mail_abbrev as state, s.state_mail_abbrev as org_state, org_city, max(membershipfeeyear) as lastpayment, p.id as personid, o.id as organizationid, o.address1 as handbookorganizationaddress1, o.address2 as handbookorganizationaddress2, o.org_city, s.state_mail_abbrev as handbookorganizationstate, o.zip as handbookorganizationzip, o.statusid, o.email as org_email, region.name as regionname, region.id as regionid, regionrep.lname as regionreplname, regionrep.fname as regionrepfname, regionrep.id as regionrepid, ministrystartat, profile.birthdayyear, p.private
 			FROM handbookpeople p
 			JOIN handbookpositions t
 			ON t.personid = p.id
@@ -189,6 +189,8 @@ private function $arrayOfStructsSort(aOfS,key){
 	<cfargument name="district" required="false" type="string">
 	<cfargument name="search" required="false" type="string">
 	<cfargument name="orderby" default="lname,fname">
+	<cfargument name="publicOnly" default=false>
+
 	<cfset arguments.currentMembershipyear = val(arguments.currentMembershipyear)>
 
 	<cfset var loc=structNew()>
@@ -212,6 +214,9 @@ private function $arrayOfStructsSort(aOfS,key){
 			<cfif isDefined("arguments.search") and len(arguments.search)>
 				AND lname = '#arguments.search#'
 				OR fname = '#arguments.search#'
+			</cfif>
+			<cfif isDefined("arguments.publicOnly") && arguments.publicOnly>
+				AND private <> 'Yes'
 			</cfif>
 			ORDER BY #arguments.orderby#
 		</cfquery>
@@ -268,8 +273,9 @@ private function $arrayOfStructsSort(aOfS,key){
 
 	<cffunction name="Handbookagbminfoasjson">
 	<cfargument name="currentMembershipYear" default="#currentMembershipYear()#">
+	<cfargument name="publicOnly" default=false>
 	<cfset var newData = "">
-		<cfset var data = findAllMembers(currentMembershipYear=currentmembershipyear, orderby="lname,fname")>
+		<cfset var data = findAllMembers(currentMembershipYear=currentmembershipyear, orderby="lname,fname", publicOnly = arguments.publicOnly)>
 		<cfquery dbtype="query" name="newData">
 			select personid, lname, fname, name, org_city, org_state as state, district
 			from data

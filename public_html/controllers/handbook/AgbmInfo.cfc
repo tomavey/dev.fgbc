@@ -308,7 +308,7 @@
 	</cffunction>
 
 	<cffunction name="json">
-		<cfset data = model("Handbookagbminfo").Handbookagbminfoasjson()>
+		<cfset data = model("Handbookagbminfo").Handbookagbminfoasjson(publicOnly=true)>
 		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
 	</cffunction>
 
