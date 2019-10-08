@@ -556,7 +556,7 @@
 				newString = replace(newString,replacement,replacements[replacement])
 				newString = replace(newString,"..",".","all")
 		}		
-			return newString
+			return trim(newString)
 	}
 
 </cfscript>
