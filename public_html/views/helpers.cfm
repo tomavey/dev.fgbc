@@ -527,15 +527,15 @@
 
 <cfscript>
 	public function fixAddress(required string address) {
-		var newString = arguments.address
+		var newString = arguments.address & ' '
 		var newArray = stringToArray(address)
 		var replacements = {
 			'Street': 'St.',
-			'St': 'St.',
+			'St ': 'St.',
 			'Avenue': 'Ave.',
-			'Ave': 'Ave.',
+			'Ave ': 'Ave.',
 			'Drive': 'Dr.',
-			'Dr': 'Dr.',
+			'Dr ': 'Dr.',
 			'Road': 'Rd.',
 			'Rd': 'Rd.',
 			'Lane': 'Ln.',
