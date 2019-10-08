@@ -553,7 +553,7 @@
 			' s ': ' s. ',
 			'west ': 'w. ',
 			'north ': 'n. ',
-			'East ': 'e. ',
+			'east ': 'e. ',
 			'co ': 'co. ',
 			'blvd ': 'blvd. ',
 			'apt ': 'apt. ',
