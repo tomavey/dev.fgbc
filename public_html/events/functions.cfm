@@ -259,4 +259,9 @@
 		}
 		return "false"
 	}
+
+	public function stringToArray(required string oldString){
+		var stringToList = replace(oldString," ",",","all")
+		return listToArray(stringToList)
+	}
 </cfscript>

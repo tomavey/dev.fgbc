@@ -525,15 +525,49 @@
 
 </cffunction>
 
-<cffunction name="fixAddress">
+<cfscript>
+	public function fixAddress(required string address) {
+		var newString = arguments.address
+		var newArray = stringToArray(address)
+		var replacements = {
+			'Street': 'St.',
+			'St': 'St.',
+			'Avenue': 'Ave.',
+			'Ave': 'Ave.',
+			'Drive': 'Dr.',
+			'Dr': 'Dr.',
+			'Road': 'Rd.',
+			'Rd': 'Rd.',
+			'Lane': 'Ln.',
+			'Ln': 'Ln.',
+			'Court': 'Ct.',
+			'Ct': 'Ct.',
+			' N ': ' N. ',
+			' E ': ' E. ',
+			' W ': ' W. ',
+			' S ': ' S. ',
+			'Ave.nue': 'Ave.',
+			'West': 'W.',
+			'North': 'N.',
+		}
+		for (replacement in replacements) {
+				newString = replace(newString,replacement,replacements[replacement])
+				newString = replace(newString,"..",".","all")
+		}		
+			return newString
+	}
+
+</cfscript>
+
+<cffunction name="fixAddressx">
 <cfargument name="address" required="true" type="string">
 <cfset var loc=structNew()>
 <cfset loc.return = arguments.address>
 <cfset loc.return = replace(loc.return,".","","all")>
-<cfset loc.return = replace(loc.return,"Street","St","all")>
-<cfset loc.return = replace(loc.return,"Avenue","Ave","all")>
-<cfset loc.return = replace(loc.return,"Drive","Dr","all")>
-<cfset loc.return = replace(loc.return,"Road","Rd","all")>
+<cfset loc.return = replace(loc.return,"Street","St.","all")>
+<cfset loc.return = replace(loc.return,"Avenue","Ave.","all")>
+<cfset loc.return = replace(loc.return,"Drive","Dr.","all")>
+<cfset loc.return = replace(loc.return,"Road","Rd.","all")>
 <cfreturn trim(loc.return)>
 </cffunction>
 
