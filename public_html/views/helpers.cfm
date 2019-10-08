@@ -531,32 +531,33 @@
 		//
 		//the address lines are capitlaized using css after these data transformations
 		var replacements = {
-			'street': 'st.',
-			'st ': 'st.',
-			'avenue': 'ave.',
-			'ave ': 'ave.',
-			'drive': 'dr.',
-			'dr ': 'dr.',
-			'road': 'rd. ',
-			'rd ': 'rd. ',
-			'lane': 'ln.',
-			'ln ': 'ln.',
-			'court': 'ct.',
-			'ct ': 'ct.',
-			'circle': 'cr.',
-			'cr ': 'cr.',
-			'trail': 'tr.',
-			'tr ': 'tr.',
+			'street': 'st. ',
+			'st ': 'st. ',
+			' avenue ': ' ave. ',
+			' ave ':  'ave. ',
+			' drive': ' dr. ',
+			' dr ': ' dr. ',
+			' road': ' rd. ',
+			' rd ': ' rd. ',
+			' lane': ' ln. ',
+			' ln ': ' ln. ',
+			' court': ' ct. ',
+			' ct ': ' ct. ',
+			' circle': ' cr. ',
+			' cr ': ' cr. ',
+			' trail': ' tr. ',
+			' tr ': ' tr. ',
 			' n ': ' n. ',
 			' e ': ' e. ',
 			' w ': ' w. ',
 			' s ': ' s. ',
-			'west ': 'w.',
-			'north ': 'n.',
-			'co ': 'co.',
-			'blvd ': 'blvd.',
-			'apt ': 'apt.',
+			'west ': 'w. ',
+			'north ': 'n. ',
+			'co ': 'co. ',
+			'blvd ': 'blvd. ',
+			'apt ': 'apt. ',
 			'po ':'PO ',
+			'po. ':'PO ',
 			'nw ': "NW. ",
 			'se ': "SE. ",
 		}
@@ -564,6 +565,7 @@
 				newString = replace(newString,replacement,replacements[replacement])
 				newString = replace(newString,"..",".","all")
 		}		
+			newString = replace(newString,"  "," ","all")
 			return trim(newString)
 	}
 
