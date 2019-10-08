@@ -19,7 +19,7 @@
         
 
     <p>
-        #getSetting('handbookReviewsecretary')# - #application.wheels.handbookReviewsecretary#
+        #getSetting('handbookReviewsecretary')# - #application.wheels.handbookReviewsecretary# - # session.handbook.handbookReviewsecretary#
         <cfif getHandbookReviewSecretary() IS getSetting('handbookReviewsecretary2') and gotRights("office")>    
             #linkTo(text="Use Main Handbook Secretary", action="handbookReviewOptions", params="handbookReviewsecretary=#getSetting('handbookReviewsecretary')#", class="pull-right")#    
         <cfelse>    
