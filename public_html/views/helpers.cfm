@@ -531,8 +531,8 @@
 		//
 		//the address lines are capitlaized using css after these data transformations
 		var replacements = {
-			'street': 'st. ',
-			'st ': 'st. ',
+			' street ': ' st. ',
+			' st ': ' st. ',
 			' avenue ': ' ave. ',
 			' ave ':  ' ave. ',
 			' drive': ' dr. ',
@@ -553,7 +553,7 @@
 			' s ': ' s. ',
 			'west ': 'w. ',
 			'north ': 'n. ',
-			'east ': 'e. ',
+			' east ': ' e. ',
 			'co ': 'co. ',
 			'blvd ': 'blvd. ',
 			'apt ': 'apt. ',
