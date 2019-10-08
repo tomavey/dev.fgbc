@@ -551,6 +551,9 @@
 			'Ave.nue ': 'Ave.',
 			'West ': 'W.',
 			'North ': 'N.',
+			'Co ': 'Co.',
+			'Blvd ': 'Blvd.',
+			'Apt ': "Apt."
 		}
 		for (replacement in replacements) {
 				newString = replace(newString,replacement,replacements[replacement])
