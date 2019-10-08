@@ -220,14 +220,14 @@
 	</cffunction>
 		
 <cfscript>
-	public function getSetting(name){
+	public function getSetting(name, useSessionSetting=true){
 		var value = "";
 		try {
 				var setting = model("Fgbcsetting").findOne(where="name='#name#'").value;
 			} catch(any e){}	
 		if (isDefined("params[name]")){
 			value = params[name];
-		} elseif (isDefined("session.settings[name]")){	
+		} elseif (isDefined("session.settings[name]") && useSessionSetting){	
 			value = session.settings[name];	
 		} elseif (isDefined("setting")){
 			value = setting;	

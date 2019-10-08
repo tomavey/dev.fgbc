@@ -49,6 +49,10 @@ public function getHandbookReviewSecretary(){
     }
 }
 
+public function getHandbookReviewSecretarySetting(){
+    
+}
+
 private function $$useParamsForDefaults(params,args){
     var loc = arguments;
 	var argKeys = StructKeyList(loc.args);
