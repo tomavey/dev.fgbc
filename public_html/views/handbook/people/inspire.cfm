@@ -13,7 +13,7 @@
   
   [v-cloak] { display:none; }
   
-  </style>
+</style>
   
   
 <div id="inspireApp">
