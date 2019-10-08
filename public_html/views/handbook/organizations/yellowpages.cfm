@@ -60,10 +60,10 @@
 	</cfif>
 	<br/>
     <cfif len(address1)>
-    <span style="font-family:'Times New Roman';font-size:9pt">#address1#</span><br/>
+    <span style="font-family:'Times New Roman';font-size:9pt">#fixAddress(address1)#</span><br/>
     </cfif>
     <cfif len(address2)>
-    <span style="font-family:'Times New Roman';font-size:9pt">#address2#</span><br/>
+    <span style="font-family:'Times New Roman';font-size:9pt">#fixAddress(address2)#</span><br/>
     </cfif>
     <span style="font-family:'Times New Roman';font-size:9pt">#org_city#, #state_mail_abbrev# #zip#<span><br/>
     <cfif len(meetingplace)>
