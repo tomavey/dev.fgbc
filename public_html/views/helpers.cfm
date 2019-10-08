@@ -534,7 +534,7 @@
 			'street': 'st. ',
 			'st ': 'st. ',
 			' avenue ': ' ave. ',
-			' ave ':  'ave. ',
+			' ave ':  ' ave. ',
 			' drive': ' dr. ',
 			' dr ': ' dr. ',
 			' road': ' rd. ',
