@@ -527,33 +527,38 @@
 
 <cfscript>
 	public function fixAddress(required string address) {
-		var newString = arguments.address & ' '
-		var newArray = stringToArray(address)
+		var newString = lCase(arguments.address) & ' '
+		//
+		//the address lines are capitlaized using css after these data transformations
 		var replacements = {
-			'Street': 'St.',
-			'St ': 'St.',
-			'Avenue': 'Ave.',
-			'Ave ': 'Ave.',
-			'Drive': 'Dr.',
-			'Dr ': 'Dr.',
-			'Road': 'Rd.',
-			'Rd ': 'Rd.',
-			'Lane': 'Ln.',
-			'Ln ': 'Ln.',
-			'Court': 'Ct.',
-			'Ct ': 'Ct.',
-			'Circle': 'Cr.',
-			'Cr ': 'Cr.',
-			' N ': ' N. ',
-			' E ': ' E. ',
-			' W ': ' W. ',
-			' S ': ' S. ',
-			'West ': 'W.',
-			'North ': 'N.',
-			'Co ': 'Co.',
-			'Blvd ': 'Blvd.',
-			'Apt ': 'Apt.',
-			'apt ':'Apt.'
+			'street': 'st.',
+			'st ': 'st.',
+			'avenue': 'ave.',
+			'ave ': 'ave.',
+			'drive': 'dr.',
+			'dr ': 'dr.',
+			'road': 'rd.',
+			'rd ': 'rd.',
+			'lane': 'ln.',
+			'ln ': 'ln.',
+			'court': 'ct.',
+			'ct ': 'ct.',
+			'circle': 'cr.',
+			'cr ': 'cr.',
+			'trail': 'tr.',
+			'tr ': 'tr.',
+			' n ': ' n. ',
+			' e ': ' e. ',
+			' w ': ' w. ',
+			' s ': ' s. ',
+			'west ': 'w.',
+			'north ': 'n.',
+			'co ': 'co.',
+			'blvd ': 'blvd.',
+			'apt ': 'apt.',
+			'po ':'PO ',
+			'nw ': "NW. ",
+			'se ': "SE. ",
 		}
 		for (replacement in replacements) {
 				newString = replace(newString,replacement,replacements[replacement])

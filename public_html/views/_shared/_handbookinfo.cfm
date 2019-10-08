@@ -16,15 +16,15 @@
 	<br/>
 
       <cfif len(trim(address1))>
-      #fixAddress(address1)#<br/>
-	  </cfif>
+	    	<span style="text-transform:capitalize">#fixAddress(address1)#</span><br/>
+		  </cfif>
 
       <cfif len(trim(address2))>
-	    #fixAddress(address2)#<br/>
+	    	<span style="text-transform:capitalize">#fixAddress(address2)#</span><br/>
       </cfif>
 
 	  <cfif len(city)>
-        #trim(city)#,
+        <span style="text-transform:capitalize">#trim(lcase(city))#</span>,
 		<cfset addreturn = 1>
 	  </cfif>
 
