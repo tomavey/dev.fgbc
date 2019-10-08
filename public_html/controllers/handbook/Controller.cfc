@@ -39,13 +39,13 @@ public function getHandbookReviewSecretary(){
         session.handbook.handbookReviewsecretary = params.handbookReviewsecretary;
     }
     if (isDefined("params.useHandbookReviewSecretary2")){
-        session.handbook.handbookReviewsecretary = application.wheels.handbookReviewsecretary2;
+        session.handbook.handbookReviewsecretary = getSetting('handbookReviewsecretary2');
     }
     if (isDefined("session.handbook.handbookReviewSecretary")){
         return session.handbook.handbookReviewSecretary;
     }
     else {
-        return application.wheels.handbookReviewsecretary;
+        return getSetting('handbookReviewsecretary');
     }
 }
 
