@@ -45,7 +45,7 @@
     		<cfif isdefined("params.unlockcode") and len(params.unlockcode) GT 5>
 				<cfset session.auth.passedString = 'isdefined("params.unlockcode")'>
     			<cfset thisemail = decrypt(params.unlockcode,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
-    			<cfset person = model("Handbookperson").findOne(where="email = '#thisemail#' OR email2='#thisemail#'", include="Handbookstate")>
+    			<cfset person = model("Handbookperson").findOne(where="email = '#thisemail#' OR email2='#thisemail#' OR spouse_email='#thisemail#'", include="Handbookstate")>
     			<cfif isobject(person)>
     				<cfset session.auth.email = thisemail>
     				<cfset session.auth.username = thisemail>
@@ -231,10 +231,15 @@
 		<cfset redirectTo(action="checkin")>
 	</cfif>	
                 <cfif isValid("email",params.email)>
-		<cfset loc.check = model("Handbookperson").findAll(where="email='#params.email#' OR email2='#params.email#'", include="Handbookstate")>
+		<cfset loc.check = model("Handbookperson").findAll(where="email='#params.email#' OR email2='#params.email#' OR spouse_email='#params.email#'", include="Handbookstate")>
 		<cfif loc.check.recordcount>
 			<cfset params.key = encrypt(params.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
-			<cfset sendEmail(template="sendlink", layout="/layout_naked", from=application.wheels.userAdminEmailAddress, to=params.email, subject="Your FGBC Handbook Link")>
+			<cfif !isLocalMachine()>
+				<cfset sendEmail(template="sendlink", layout="/layout_naked", from=getSetting('userAdminEmailAddress'), to=params.email, subject="Your FGBC Handbook Link")>	
+			<cfelse>
+				<cfset flashInsert(error="#linkTo(controller="handbook.welcome", action="welcome", onlyPath=false, params="id=#params.key#")#
+				")>
+			</cfif>
 			<cfset renderPage(action="thankyou")>
 		<cfelse>
 			<cfset flashInsert(failure="The email address you provided is not in the current handbook. Please try another email address.")>
