@@ -43,9 +43,9 @@
         <v-spacer></v-spacer>
         <v-text-field
           v-model="search"
-          append-icon="search"
           single-line
           hide-details
+          placeholder="Search"
         ></v-text-field>
       </v-card-title>
     <v-data-table
@@ -84,6 +84,7 @@
 
 new Vue({
   el: '#inspireApp',
+  vuetify: new Vuetify(),
   data () {
     return {
       people: [],
