@@ -42,6 +42,12 @@
 		<cfif !len(this.birthdayYear)>
 			<cfset this.birthdayYear = 1900>
 		</cfif>
+		<cfif !len(this.anniversaryYear)>
+			<cfset this.anniversaryYear = 1900>
+		</cfif>
+		<cfif !len(this.wifesbirthdayYear)>
+			<cfset this.wifesbirthdayYear = 1900>
+		</cfif>
 			<cftry>
 				<cfset this.birthday = CreateDate(this.birthdayYear, this.birthdayMonthNumber, this.birthdayDayNumber)>
 			<cfcatch></cfcatch></cftry>	
