@@ -12,11 +12,11 @@
 </cfif>
 
 <cfif !isDefined('params.onlyIfEmail') && showdownloadbutton>
-	<cfoutput>#linkToPlus(text="List only if there is an email address", addParams="onlyIfEmail", class="btn")#</cfoutput>
+	<cfoutput>#linkToPlus(text="List ONLY if there IS an email address", addParams="onlyIfEmail", class="btn")#</cfoutput>
 </cfif>
 
 <cfif isDefined('params.onlyIfEmail') && showdownloadbutton>
-	<cfoutput>#linkTo(text="List even if there is NOT an email address", route="handbookPeoplePastorsWives", class="btn")#</cfoutput>
+	<cfoutput>#linkTo(text="List EVEN if there IS NOT an email address", route="handbookPeoplePastorsWives", class="btn")#</cfoutput>
 </cfif>
 
 <table>
