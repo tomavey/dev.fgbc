@@ -328,6 +328,36 @@
 		<cfreturn loc.peopleAndParams>
 	</cffunction>
 
+	<cfscript>
+		function findPastorsWives(string titleIncludesList = 'pastor,chaplain'){
+			var titleIncludes = $buildMysqlLikeString(titleIncludesList)
+			var selectString = "spouse, lname, spouse_email, address1, address2, city, state_mail_abbrev, zip, position AS hisPosition"
+			var whereString = "fnameGender = 'M' AND spouse IS NOT NULL AND (#titleIncludes#)"
+			var includeString = "State,Handbookpositions"
+			var orderString = "lname, spouse"
+			var maxRows = 1000000
+			var pastorsWives = model("Handbookperson").findAll(
+				select = selectString,
+				where = whereString,
+				maxRows = maxRows,
+				include = includeString,
+				order = orderString
+
+			)
+			return pastorsWives
+		}
+
+		private function $buildMysqlLikeString(likeList){
+			var i = ''
+			var likeList = listToArray(likeList)
+			var titleIncludes = ''
+			for (like in likeList) {
+				titleIncludes = titleIncludes & " OR position LIKE '%#like#%'"
+			}
+			return replace(titleIncludes,"OR ","","one")
+		}
+	</cfscript>
+
 	<cffunction name="isAGBMMember">
 	<cfargument name="personid" required="true" type="numeric">
 	<cfargument name="params" required="true" type="struct">

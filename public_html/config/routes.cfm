@@ -225,7 +225,8 @@
 				.get(name="hideFromPublic", pattern="hideFromPublic/")
 				.get(name="UnHideFromPublic", pattern="UnHideFromPublic/")
 				.get(name="removeFromSessionArray", pattern="removeFromSessionArray/", action="removePersonFromSessionArray")
-			.end()
+				.get(name="pastorsWives", pattern="pastorsWives/", action="pastorsWives")
+				.end()
 			.resources("people")
 
 			.get(name="setPictureAsDefault", pattern="/pictures/setdefault/[key]", controller="pictures", action="

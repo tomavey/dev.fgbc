@@ -1,0 +1,42 @@
+<cfparam name="showdownloadbutton" default="true">
+<cfif isdefined("params.download")>
+	<cfset showdownloadbutton = false>
+</cfif>
+<cfif isdefined("params.preview")>
+	<cfset showdownloadbutton = false>
+</cfif>
+
+<cfif showdownloadbutton>
+	<cfoutput>#linkToPlus(text="Download as excel", addParams="download=1", class="btn")#</cfoutput>
+</cfif>
+
+<table>
+	<tr>
+		<th>Last Name</th>
+		<th>First Name</th>
+		<th>Address</th>
+		<th>City</th>
+		<th>State</th>
+		<th>Zip</th>
+		<th>Email</th>
+		<th>His Position</th>
+	</tr>
+<cfset count = 0>
+
+<cfoutput query="pastorsWives">
+
+	<tr>
+		<td>#lname#</td>
+		<td>#spouse#</td>
+		<td>#address1#</td>
+		<td>#city#</td>
+		<td>#state_mail_abbrev#</td>
+    <td>#zip#</td>
+    <td>#spouse_email#</td>
+		<td>#hisPosition#</td>
+	</tr>
+	<cfset count = count +1>
+
+</cfoutput>
+</table>
+<cfoutput>#count#</cfoutput>

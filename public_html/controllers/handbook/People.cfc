@@ -742,7 +742,12 @@
 
 <cffunction name="sendPersonPageErrorNotice">
 	<cfargument name="subject"  default="FGBC Handbook Person Page Error">
-	<cfset sendEmail(from=application.wheels.errorEmailAddress, to=application.wheels.errorEmailAddress, template="personpageerroremail.cfm", subject=arguments.subject)>
+	<cftry>
+			<cfset sendEmail(from=application.wheels.errorEmailAddress, to=application.wheels.errorEmailAddress, template="personpageerroremail.cfm", subject=arguments.subject)>
+		<cfcatch>
+		</cfcatch>
+	</cftry>
+
 </cffunction>
 
 <cfscript>
@@ -901,6 +906,15 @@ public function unHideFromPublic(personid) {
 	person.hideFromPublic = 0;
 	person.update();
 	returnBack();
+}
+
+public function pastorsWives(titleIncludesList = 'pastor,chaplain'){
+	pastorsWives = model("Handbookperson").findPastorsWives()
+	if (isDefined('params.download') || isDefined('params.excel')){
+		renderPage(template="downloadWives", layout = "/layout_download")
+	} else {
+		renderPage(template="downloadWives", layout = "/layout_naked")
+	}
 }
 
 </cfscript>
