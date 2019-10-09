@@ -908,8 +908,10 @@ public function unHideFromPublic(personid) {
 	returnBack();
 }
 
-public function pastorsWives(titleIncludesList = 'pastor,chaplain'){
-	pastorsWives = model("Handbookperson").findPastorsWives()
+public function pastorsWives(){
+	var onlyIfEmail = false
+	if ( isDefined('params.onlyIfEmail') ) { onlyIfEmail = true }
+	pastorsWives = model("Handbookperson").findPastorsWives(titleIncludesList = 'pastor,chaplain', onlyIfEmail = onlyIfEmail)
 	if (isDefined('params.download') || isDefined('params.excel')){
 		renderPage(template="downloadWives", layout = "/layout_download")
 	} else {

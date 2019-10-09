@@ -329,11 +329,14 @@
 	</cffunction>
 
 	<cfscript>
-		function findPastorsWives(string titleIncludesList = 'pastor,chaplain'){
+		function findPastorsWives(string titleIncludesList = 'pastor,chaplain', string onlyIfEmail = false){
 			var titleIncludes = $buildMysqlLikeString(titleIncludesList)
-			var selectString = "spouse, lname, spouse_email, address1, address2, city, state_mail_abbrev, zip, position AS hisPosition"
-			var whereString = "fnameGender = 'M' AND spouse IS NOT NULL AND (#titleIncludes#)"
-			var includeString = "State,Handbookpositions"
+			var selectString = "handbookpeople.id, spouse, lname, spouse_email, handbookpeople.address1, handbookpeople.address2, city, state_mail_abbrev, handbookpeople.zip, position AS hisPosition, (CONCAT_WS(', ',org_city,state_mail_abbrev,handbookorganizations.name)) AS churchNameCity"
+			var whereString = "deletedAt IS NULL AND fnameGender = 'M' AND spouse IS NOT NULL AND (#titleIncludes#)"
+			if ( onlyIfEmail ) {
+				whereString = whereString & " AND spouse_email IS NOT NULL"
+			}
+			var includeString = "State,Handbookpositions(Handbookorganization)"
 			var orderString = "lname, spouse"
 			var maxRows = 1000000
 			var pastorsWives = model("Handbookperson").findAll(
@@ -344,6 +347,7 @@
 				order = orderString
 
 			)
+			// writeDump(pastorsWives);abort;
 			return pastorsWives
 		}
 

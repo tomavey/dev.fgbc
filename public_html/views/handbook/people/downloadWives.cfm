@@ -1,3 +1,4 @@
+<!--- <cfdump var="#pastorsWives#"><cfabort> --->
 <cfparam name="showdownloadbutton" default="true">
 <cfif isdefined("params.download")>
 	<cfset showdownloadbutton = false>
@@ -10,6 +11,10 @@
 	<cfoutput>#linkToPlus(text="Download as excel", addParams="download=1", class="btn")#</cfoutput>
 </cfif>
 
+<cfif !isDefined('params.onlyIfEmail') && showdownloadbutton>
+	<cfoutput>#linkToPlus(text="Show only if there is an email address", addParams="onlyIfEmail", class="btn")#</cfoutput>
+</cfif>
+
 <table>
 	<tr>
 		<th>Last Name</th>
@@ -20,10 +25,11 @@
 		<th>Zip</th>
 		<th>Email</th>
 		<th>His Position</th>
+		<th>Church Name</th>
 	</tr>
 <cfset count = 0>
 
-<cfoutput query="pastorsWives">
+<cfoutput query="pastorsWives" group="id">
 
 	<tr>
 		<td>#lname#</td>
@@ -34,6 +40,7 @@
     <td>#zip#</td>
     <td>#spouse_email#</td>
 		<td>#hisPosition#</td>
+		<td>#churchNameCity#</td>
 	</tr>
 	<cfset count = count +1>
 
