@@ -81,12 +81,15 @@
 	<br/>
 	</cfif>
 	<cfif len(website)>
-    <span style="font-family:'Times New Roman';font-size:9pt">#fixWebSite(website)#</span><br/>
+    <span style="font-family:'Times New Roman';font-size:9pt">#fixWebSite(website)#</span>
     <cfif isDefined("params.showreview") && urlExists(website)>
-      <span>OK</span>
+      <span>...OK</span>
+    <cfelse>
+      <span>...Website Not Working</span>  
     </cfif>
-	</cfif>
 
+  </cfif>
+  <br/>
   <cfoutput>
   		  <cfif len(trim(position)) AND position NEQ "AGBM Only">
   		  		<span style="font-family:'Times New Roman';font-size:9pt">#position#:
