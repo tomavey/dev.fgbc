@@ -451,10 +451,10 @@ public function notStaff(){
 }
 
 public function websites(){
-	var whereString = "website IS NOT NULL AND website <> ' '"
+	var whereString = "website IS NOT NULL AND website <> ' ' AND statusid IN '1,4,2,8,9,10,11,12'"
 	var selectString = "id, website"
 	var maxrows = 999999999999
-	if ( isLocalMachine() ) { maxrows = 10 }
+	if ( isLocalMachine() ) { maxrows = 1000 }
 	websites = model("Handbookorganization").findAll(
 		where = whereString,
 		select = selectString,
