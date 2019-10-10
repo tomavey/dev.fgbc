@@ -849,6 +849,7 @@
 <cfargument name="address" required="true" type="string">
 <cfset var loc = structNew()>
 <cfset loc.return = $stripHttp(arguments.address)>
+<cfset loc.return = replaceNoCase(loc.return,'www.','','one')>
 <cfreturn trim(loc.return)>
 </cffunction>
 
