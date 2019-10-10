@@ -453,12 +453,12 @@ public function notStaff(){
 public function websites(){
 	var whereString = "website IS NOT NULL AND website <> ' '"
 	var selectString = "id, website"
-	var maxrows = ''
-	if ( isLocalMachine() ) { maxrows = '10' }
+	var maxrows = 999999999999
+	if ( isLocalMachine() ) { maxrows = 10 }
 	websites = model("Handbookorganization").findAll(
 		where = whereString,
 		select = selectString,
-		maxrows = val(maxrows)
+		maxrows = maxrows
 		)
 }
 
