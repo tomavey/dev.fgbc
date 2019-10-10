@@ -458,7 +458,7 @@ public function websites(){
 	websites = model("Handbookorganization").findAll(
 		where = whereString,
 		select = selectString,
-		maxrows = maxrows
+		maxrows = val(maxrows)
 		)
 }
 
