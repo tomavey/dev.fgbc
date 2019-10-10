@@ -29,9 +29,15 @@
 		</cfif>
 		<cfif len(handbookorganization.website)>
 			#linkTo(text=fixWebSite(handbookorganization.website), href="http://#fixWebSite(handbookorganization.website)#", target="new")#<br/>
-			<cfif !urlExists(fixWebSite(handbookorganization.website))>
-        <span>...WEBSITE NOT WORKING!!!</span>  
-      </cfif>
+
+			<cftry>
+				<cfif !urlExists(fixWebSite(handbookorganization.website))>
+					<span>...WEBSITE NOT WORKING!!!</span>  
+				</cfif>
+					<cfcatch>
+						<span>...BAD WEB ADDRESS!!!</span>  
+				</cfcatch>
+			</cftry>
 
 		</cfif>
 		<cfif len(handbookorganization.facebook)>
