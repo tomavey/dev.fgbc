@@ -113,11 +113,11 @@
 	<!--- -items/update --->
 	<cffunction name="update">
 		<cfset item = model("Focusitem").findByKey(params.key)>
-		
+		<!--- <cfdump var="#params.item#"><cfabort> --->
 		<!--- Verify that the item updates successfully --->
 		<cfif item.update(params.item)>
 			<cfset flashInsert(success="The item was updated successfully.")>	
-            <cfset returnBack()>
+      <cfset returnBack()>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the item.")>
