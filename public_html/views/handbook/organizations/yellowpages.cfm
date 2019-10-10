@@ -81,7 +81,10 @@
 	<br/>
 	</cfif>
 	<cfif len(website)>
-		<span style="font-family:'Times New Roman';font-size:9pt">#fixWebSite(website)#</span><br/>
+    <span style="font-family:'Times New Roman';font-size:9pt">#fixWebSite(website)#</span><br/>
+    <cfif isDefined("params.showreview") && urlExists(website)>
+      <span>OK</span>
+    </cfif>
 	</cfif>
 
   <cfoutput>
