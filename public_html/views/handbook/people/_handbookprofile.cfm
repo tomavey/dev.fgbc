@@ -6,19 +6,19 @@
 						
 						#hiddenField(objectName='handbookperson', association='handbookprofile', property='createdby')#
 						
-					<p>Birthday:
+					<p>Birthday (the year will not display):
 						#select(options=getMonthsQuery(), objectName='handbookperson', association='handbookprofile', property='birthdayMonthNumber', label="", includeBlank="----Month---", class="input-small", prependToLabel="", appendToLabel="", prepend="", append="")#
 						#select(options=getDaysInMonth(), objectName='handbookperson', association='handbookprofile', property='birthdayDayNumber', label="", includeBlank="----Day---", class="input-small", prependToLabel="", appendToLabel="", appendToLabel="", prepend="", append="")#
 						#select(options=getYearsList(), objectName='handbookperson', association='handbookprofile', property='birthdayYear', label="", includeBlank="----Year---", class="input-small", prependToLabel="", appendToLabel="", appendToLabel="", prepend="", append="")#
 					</p>	
 					
-					<p>Spouses' Birthday:
+					<p>Spouses' Birthday (the year will not display):
 						#select(options=getMonthsQuery(), objectName='handbookperson', association='handbookprofile', property='wifesBirthdayMonthNumber', label="", includeBlank="----Month---", class="input-small", prependToLabel="", appendToLabel="", appendToLabel="", prepend="", append="")#
 						#select(options=getDaysInMonth(), objectName='handbookperson', association='handbookprofile', property='wifesBirthdayDayNumber', label="", includeBlank="----Day---", class="input-small", prependToLabel="", appendToLabel="", appendToLabel="", prepend="", append="")#
 						#select(options=getYearsList(), objectName='handbookperson', association='handbookprofile', property='wifesBirthdayYear', label="", includeBlank="----Year---", class="input-small", prependToLabel="", appendToLabel="", appendToLabel="", prepend="", append="")#
 					</p>	
 
-					<p>Anniversary:
+					<p>Anniversary (the year will not display):
 						#select(options=getMonthsQuery(), objectName='handbookperson', association='handbookprofile', property='anniversaryMonthNumber', label="", includeBlank="----Month---", class="input-small", prependToLabel="", appendToLabel="", appendToLabel="", prepend="", append="")#
 						#select(options=getDaysInMonth(), objectName='handbookperson', association='handbookprofile', property='anniversaryDayNumber', label="", includeBlank="----Day---", class="input-small", prependToLabel="", appendToLabel="", appendToLabel="", prepend="", append="")#
 						#select(options=getYearsList(), objectName='handbookperson', association='handbookprofile', property='anniversaryYear', label="", includeBlank="----Year---", class="input-small", prependToLabel="", appendToLabel="", appendToLabel="", prepend="", append="")#
