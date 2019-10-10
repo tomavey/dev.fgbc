@@ -65,7 +65,7 @@
     <cfif len(address2)>
     <span style="font-family:'Times New Roman';font-size:9pt;text-transform:capitalize">#fixAddress(address2)#</span><br/>
     </cfif>
-    <span style="font-family:'Times New Roman';font-size:9pt;text-transform:capitalize">#lcase(org_city)#, #state_mail_abbrev# #zip#<span><br/>
+    <span style="font-family:'Times New Roman';font-size:9pt;text-transform:capitalize">#lcase(org_city)#, #state_mail_abbrev# #zip#</span><br/>
     <cfif len(meetingplace)>
 	    <span style="font-family:'Times New Roman';font-size:9pt">Meeting at: #fixMeetingPlace(meetingplace)#</span></br>
     </cfif>
