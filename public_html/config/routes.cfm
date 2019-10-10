@@ -203,6 +203,9 @@
 			.get(name="memberList", pattern="/membershipList/", controller="organizations", action="memberChurches")
 			.get(name="emailChurchHandbookReview", pattern="/organization/handbookReviewEmail", controller="organizations", action="emailChurchesForHandbookReview")
 			.get(name="infoIsCorrect", pattern="/organization/setReview/[key]", controller="organizations", action="setReview")
+			.controller("organizations")
+				.get(name="websites", pattern="websites")
+			.end()	
 			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
