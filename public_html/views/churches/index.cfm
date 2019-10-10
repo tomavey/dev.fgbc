@@ -35,13 +35,16 @@
   <div v-bind:class="columnsClass">
   <cfoutput>
   <div v-for="(church, index) in filteredChurches">
-    <h1 v-if="isNewState(index,church.state,filteredChurches)">{{church.state}}</h1>
+    <div v-if="isNewState(index,church.state,filteredChurches)">
+      <hr/>
+      <h3 class="alert alert-warning">{{church.state}}</h3>
+    </div>
     <p class="card">
       <h4>{{church.name}}</h4>
       {{church.org_city}}, {{church.state}} {{church.zip}}</br>
       <span v-if="church.org_city !== church.listed_as_city">Listed as: {{church.listed_as_city}}</br></span>
       <span v-if="church.meetingplace.length">Meeting at: {{church.meetingplace}}</br></span>
-      <span v-if="church.website.length"><a v-bind:href="fixurl(church.website)">{{church.website}}</a></br></span>
+      <span v-if="church.website.length"><a v-bind:href="fixUrlLink(church.website)">{{ fixUrlLook(church.website) }}</a></br></span>
       {{church.phone}}</br>
     </p>
   </div>
@@ -64,12 +67,17 @@ var vm = new Vue({
         columnsClass: "charis-columns"
     },
     methods: {
-        fixurl: function(website){
+        fixUrlLink: function(website){
           if (website.includes("https://")){
             return website;
           };
           website = website.replace("http://","");
           return "http://" + website;
+        },
+        fixUrlLook: function(website) {
+          website = website.replace("http://","");
+          website = website.replace("https://","");
+          return website
         },
         isNewState: function(index,state,churches){
           if (index==0){
