@@ -82,11 +82,11 @@
 	</cfif>
 	<cfif len(website)>
     <span style="font-family:'Times New Roman';font-size:9pt">#fixWebSite(website)#</span>
-    <cfif isDefined("params.showreview")>
+    <!--- <cfif isDefined("params.showreview")>
       <cfif !urlExists(fixWebSite(website))>
         <span>...WEBSITE NOT WORKING!!!</span>  
       </cfif>
-    </cfif>
+    </cfif> --->
   </cfif>
   <br/>
   <cfoutput>
