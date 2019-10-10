@@ -47,6 +47,10 @@
 						W: #phoneTo(handbookperson.phone3)#<br/>
 					</cfif>
 
+					<cfif len(handbookperson.phone4)>
+						Spouse: #phoneTo(handbookperson.phone4)#<br/>
+					</cfif>
+
 					<cfif len(handbookperson.skype)>
 						<span>Skype:</span>#handbookperson.skype#<br/>
 					</cfif>

@@ -45,6 +45,8 @@
 
 						#textField(objectName='handbookperson', property='phone3', label='Work Phone: ')#
 
+						#textField(objectName='handbookperson', property='phone4', label="Spouse's Cell Phone: ")#
+
 						#textField(objectName='handbookperson', property='skype', label='Skype address: ')#
 
 				</fieldset>
