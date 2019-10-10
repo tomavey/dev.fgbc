@@ -28,7 +28,11 @@
 		GTD Email: #mailto(handbookorganization.email2)#<br/>
 		</cfif>
 		<cfif len(handbookorganization.website)>
-		  #linkTo(text=fixWebSite(handbookorganization.website), href="http://#fixWebSite(handbookorganization.website)#", target="new")#<br/>
+			#linkTo(text=fixWebSite(handbookorganization.website), href="http://#fixWebSite(handbookorganization.website)#", target="new")#<br/>
+			<cfif !urlExists(fixWebSite(handbookorganization.website))>
+        <span>...WEBSITE NOT WORKING!!!</span>  
+      </cfif>
+
 		</cfif>
 		<cfif len(handbookorganization.facebook)>
 		  #linkTo(text=fixFacebook(handbookorganization.facebook), href="http://#fixFacebook(handbookorganization.facebook)#", target="new")#<br/>
