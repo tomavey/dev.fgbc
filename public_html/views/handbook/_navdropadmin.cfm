@@ -53,6 +53,9 @@
                             #linkto(text="Send Update Person Links", controller="handbook.people", action="handbookReviewOptions", id="navsearch", title="under development", class="tooltip2")#
                         </li>
 						<li>
+							#linkto(text="Web Sites", controller="handbook.organizations", action="websites")#
+						</li>
+						<li>
 							#linkto(text="501c3 Group Roster", controller="handbook.organizations", action="groupRoster")#
 						</li>
             </cfif>
