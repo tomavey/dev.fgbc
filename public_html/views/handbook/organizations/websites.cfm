@@ -1,9 +1,9 @@
 <!--- <cfdump var="#websites#"> --->
 <cfset count = 1>
 
-<p class="container text-center">
+<h3 class="container text-center">
   Click the ID number to view the organizations page.  Click the web site to view the site.
-</p>
+</h3>
 <cfoutput query='webSites' group="website">
   #linkto(text=id, controller="handbook.organizations", action="show", key=id, target="new")# - #linkto(text=fixWebSite(website), href="http://#fixWebSite(website)#", target="new")#
   <br/>
