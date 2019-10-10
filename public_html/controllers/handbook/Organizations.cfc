@@ -454,11 +454,13 @@ public function websites(){
 	var whereString = "website IS NOT NULL AND website <> ' ' AND statusid IN '1,4,2,8,9,10,11,12'"
 	var selectString = "id, website"
 	var maxrows = 999999999999
+	var order = "website"
 	if ( isLocalMachine() ) { maxrows = 1000 }
 	websites = model("Handbookorganization").findAll(
 		where = whereString,
 		select = selectString,
-		maxrows = maxrows
+		maxrows = maxrows,
+		order = order
 		)
 }
 
