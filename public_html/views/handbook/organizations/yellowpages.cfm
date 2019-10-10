@@ -85,7 +85,7 @@
     <cfif isDefined("params.showreview") && urlExists(website)>
       <span>...OK</span>
     <cfelse>
-      <span>...Website Not Working</span>  
+      <span>...WEBSITE NOT WORKING!!!</span>  
     </cfif>
 
   </cfif>
