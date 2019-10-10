@@ -14,6 +14,12 @@
 
 <p class="container card text-center"><a href="/handbook/" target="_new" class="btn btn-md u-btn-inset u-btn-bluegray g-mr-10 g-mb-15">Access the online handbook</a></p>
 
+<cfoutput>
+  <p class="container text-center">
+    Request additional information about a church using the #linkTo(text="Contact Us", controller="messages", action="new")# form.
+  </p>
+</cfoutput>
+
 <div class="container card card-charis card-charis-square text-center" v-cloak id="churches1">
 
 <p>
@@ -32,13 +38,10 @@
     <h1 v-if="isNewState(index,church.state,filteredChurches)">{{church.state}}</h1>
     <p class="card">
       <h4>{{church.name}}</h4>
-      {{church.address1}}</br>
-      <span v-if="church.address2.length">{{church.address2}}</br></span>
       {{church.org_city}}, {{church.state}} {{church.zip}}</br>
       <span v-if="church.org_city !== church.listed_as_city">Listed as: {{church.listed_as_city}}</br></span>
       <span v-if="church.meetingplace.length">Meeting at: {{church.meetingplace}}</br></span>
       <span v-if="church.website.length"><a v-bind:href="fixurl(church.website)">{{church.website}}</a></br></span>
-      <span v-if="church.email.length"><a v-bind:href="'mailto:'+church.email">{{church.email}}</a></br></span>
       {{church.phone}}</br>
     </p>
   </div>
