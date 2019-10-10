@@ -450,6 +450,18 @@ public function notStaff(){
 	redirectTo(back=true);
 }
 
+public function websites(){
+	var whereString = "website IS NOT NULL AND website <> ' '"
+	var selectString = "id, website"
+	var maxrows = ''
+	if ( isLocalMachine() ) { maxrows = '10' }
+	websites = model("Handbookorganization").findAll(
+		where = whereString,
+		select = selectString,
+		maxrows = maxrows
+		)
+}
+
 </cfscript>
 
 	<cffunction name="testReSort">
