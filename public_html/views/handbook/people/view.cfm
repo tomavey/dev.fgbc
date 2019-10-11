@@ -1,5 +1,5 @@
 <cfparam name="handbookperson" required="true" type="struct">
-<cfif handbookperson.hideFromPublic>
+<cfif handbookperson.hideFromPublic || handbookperson.private>
 
     <div id="personview" class="span11 text-center">
         <p>Nothing here!</p>
