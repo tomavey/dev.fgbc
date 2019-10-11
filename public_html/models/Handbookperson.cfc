@@ -631,7 +631,7 @@
 	</cffunction>
 
 	<cffunction name="findAllStaff">
-		<cfset staff = findAll(select="id, selectname", where="p_sortorder <= 500 AND position <> 'Removed From Staff'", include="Handbookpositions,Handbookstate", order="selectname")>
+		<cfset staff = findAll(select="id, selectname", where="p_sortorder <= 500 AND position <> 'Removed From Staff' AND (private = 'NO' OR private IS NULL)", include="Handbookpositions,Handbookstate", order="selectname")>
 		<cfquery dbtype="query" name="staff">
 			select DISTINCT *
 			from staff
@@ -643,7 +643,7 @@
 
 	<cffunction name="findStaff">
 	<cfargument name="staffid" required="true" type="numeric">
-		<cfset staff = findAll(select="id,fname,lname,spouse,file,address1,address2,city,state,zip,phone,phone2,email,name,position,birthdayasstring,anniversaryasstring,organizationid",where="id=#arguments.staffid#", include="Handbookpositions(Handbookorganization),Handbookstate,Handbookprofile")>
+		<cfset staff = findAll(select="id,fname,lname,spouse,file,address1,address2,city,state,zip,phone,phone2,email,name,position,birthdayasstring,anniversaryasstring,organizationid",where="id=#arguments.staffid# AND (private = 'NO' OR private IS NULL)", include="Handbookpositions(Handbookorganization),Handbookstate,Handbookprofile")>
 		<cfset staff = queryToJson(staff)>
 		<cfreturn staff>
 	</cffunction>
