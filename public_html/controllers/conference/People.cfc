@@ -2,7 +2,9 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/conference/adminlayout")>
-		<cfset filters(through="officeOnly", except="show")>
+		<!--- <cfset filters(through="officeOnly", except="show")> --->
+		<!--- Removed exception to protect data - TODO: Figure out a better way --->
+		<cfset filters(through="officeOnly")>
 		<cfset filters(through="setreturn", only="index,show,list")>
 	</cffunction>
 
