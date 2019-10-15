@@ -49,10 +49,8 @@
 				text=left("#linkToText#",linkToTextMaxLength),
 				route="handbookOrganization",
 				key=id,
-				protocol="https",
 				class="tooltip2 ajaxclickable",
-				title="Click to show #name# in the center panel.",
-				onlyPath=false
+				title="Click to show #name# in the center panel."
 				)#
 		<cfif request.showAtt>
 			<cfset thisatt = getAtt(id)>
