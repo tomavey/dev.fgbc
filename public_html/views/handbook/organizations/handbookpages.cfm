@@ -1,4 +1,9 @@
 <cfparam name="nextSortOrder" default="1">
+<cfparam name="showAll" default = false>
+<cfif isDefined("params.showAll")>
+	<cfset showAll = true>
+</cfif>
+
 <cfoutput>
 
 	<div class="row">
@@ -20,7 +25,7 @@
 	<cfif isNatOrg(organization.statusid)>
 				<p>Each National and Cooperating Ministry has it's own page and is not listed in the yellow pages of the handbook.  However, this report is provided to help update the staff information.</p>
 	<cfelse>
-			<cfif isDefined("params.showall")>
+			<cfif showAll>
 				<h3>Your church listing PLUS (yellow pages in the handbook):</h3>
 				This list includes everyone who will be listed in the blue pages (staff section) of the handbook if they are connected with your church - even if they will not be listed in your churches (yellow pages) listing.
 				#linkto(text="Show only staff to be listed in the yellow pages (churches section)", controller="handbook.organizations", action="handbookpages", key=#params.key#, class="pull-right")#
@@ -75,25 +80,33 @@
 				</cfif>
   		  <cfloop query="positions">
       		  <cfset nextposition = getNextPosition(handbookpositionid)>
-      		  <li>&middot;#fname# #lname#: #left(position,75)#
-									<span> 	  
-								<cfif !isDefined("params.sortByLname")>
+						<li>&middot;#fname# #lname#: #left(position,75)#
+							<cfif p_sortorder GTE getNonStaffSortOrder()>*</cfif>
+								<span> 	  
+								<cfif !isDefined("params.sortByLname") && !showAll>
 									<cfif previousid>	  
-									#linkto(text='<i class="icon-arrow-up"></i>', action="move", params="positionid=#handbookpositionid#&sortorder=#p_sortorder#&otherID=#previousid#&otherSortOrder=#previousSortOrder#&orgid=#organization.id#", class="tooltipside", title="Move #fname# Up")#
-								</cfif>				
+										#linkto(text='<i class="icon-arrow-up"></i>', action="move", params="positionid=#handbookpositionid#&sortorder=#p_sortorder#&otherID=#previousid#&otherSortOrder=#previousSortOrder#&orgid=#organization.id#", class="tooltipside", title="Move #fname# Up")#
+									</cfif>				
 									
-								<cfif isStruct(nextposition)>
-									#linkto(text='<i class="icon-arrow-down"></i>', action="move", params="positionid=#handbookpositionid#&sortorder=#p_sortorder#&otherID=#nextposition.id#&otherSortOrder=#nextposition.sortorder#&orgid=#organization.id#", class="tooltipside", title="Move #fname# Down")#
+									<cfif isStruct(nextposition) && !showAll>
+										#linkto(text='<i class="icon-arrow-down"></i>', action="move", params="positionid=#handbookpositionid#&sortorder=#p_sortorder#&otherID=#nextposition.id#&otherSortOrder=#nextposition.sortorder#&orgid=#organization.id#", class="tooltipside", title="Move #fname# Down")#
+									</cfif>
+
 								</cfif>
-							</cfif>
-      		  		#linkto(text='[remove]', route="handbookremoveStaff", key=handbookpositionid, class="tooltipside", title="Remove #fname# from staff list", onclick="return confirm('Are you sure you want to remove #fname# from your staff list?')")#
-      		  		#linkto(text='[edit]', controller="Handbook.people", action="edit", key=id, class="tooltipside", title="Edit #fname#")#
-      				</span>
+								
+								<cfif !showAll>
+									#linkto(text='[remove]', route="handbookremoveStaff", key=handbookpositionid, class="tooltipside", title="Remove #fname# from staff list", onclick="return confirm('Are you sure you want to remove #fname# from your staff list?')")#
+								</cfif>
+  	    		  		#linkto(text='[edit]', controller="Handbook.people", action="edit", key=id, class="tooltipside", title="Edit #fname#")#
+  	    				</span>
       		  </li>
       		  <cfset previousid = handbookpositionid>
       		  <cfset previousSortOrder = p_sortorder>		
 			  <cfset nextSortOrder = p_sortorder + 1>	  		  
-  		  </cfloop>
+				</cfloop>
+				<cfif showAll>
+					* = will not be listed in yellow pages
+				</cfif>
   
 	  </ul>
 	  #linkTo(text="Add a new staff member", route="handbookAddstaff", key=params.key, params="SortOrder=#nextSortOrder#&organizationid=#params.key#", class="btn")#
