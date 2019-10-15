@@ -355,7 +355,11 @@ private function $connectNewChurchToHandbook(newchurchUUID, handbookId){
 
 		<cfset reSort(params.key)>
 
-		<cfset whereString = "organizationid='#params.key#' AND p_sortorder < #getNonStaffSortOrder()# AND position NOT LIKE '%Removed%' AND position NOT LIKE '%AGBM Only%'">
+		<cfset whereString = "organizationid='#params.key#' AND position NOT LIKE '%Removed%' AND position NOT LIKE '%AGBM Only%'">
+
+		<cfif !isDefined("params.showall")>
+			<cfset whereString = whereString & " AND p_sortorder < #getNonStaffSortOrder()#">
+		</cfif>
 
 		<cfset orderString = "p_sortorder,lname">
 

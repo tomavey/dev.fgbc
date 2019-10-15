@@ -1,27 +1,37 @@
 <cfparam name="nextSortOrder" default="1">
 <cfoutput>
-<div class="row">
-  <div class="span9 offset1">
-    #linkTo(text="This information is all correct", class="btn tooltipside", title="Click this to let us know when the following information is correct", action="setReview", key=params.key)#</br>
-    <cfif len(organization.reviewedat)>
-    Last reviewed on #dateformat(organization.reviewedat)# by #organization.reviewedby#.
-    </cfif>
-  </div>
-  <div class="span2">
-    #linkTo(text="Need help?", href="http://vimeo.com/73854099")#
-  </div>
-</div>
 
-<div>&nbsp;</div>
-</cfoutput>
+	<div class="row">
+		<div class="span9 offset1">
+			#linkTo(text="This information is all correct", class="btn tooltipside", title="Click this to let us know when the following information is correct", action="setReview", key=params.key)#</br>
+			<cfif len(organization.reviewedat)>
+			Last reviewed on #dateformat(organization.reviewedat)# by #organization.reviewedby#.
+			</cfif>
+		</div>
+		<div class="span2">
+			#linkTo(text="Need help?", href="http://vimeo.com/73854099")#
+		</div>
+	</div>
 
-<div class="row">
-<div class="well span10 offset1" id="yellowpages">
-<cfif isNatOrg(organization.statusid)>
-	  	<p>Each National and Cooperating Ministry has it's own page and is not listed in the yellow pages of the handbook.  However, this report is provided to help update the staff information.</p>
-<cfelse>
-		<h3>Your church listing (yellow pages in the handbook):</h3>
-</cfif>
+	<div>&nbsp;</div>
+
+	<div class="row">
+	<div class="well span10 offset1" id="yellowpages">
+	<cfif isNatOrg(organization.statusid)>
+				<p>Each National and Cooperating Ministry has it's own page and is not listed in the yellow pages of the handbook.  However, this report is provided to help update the staff information.</p>
+	<cfelse>
+			<cfif isDefined("params.showall")>
+				<h3>Your church listing PLUS (yellow pages in the handbook):</h3>
+				This list includes everyone who will be listed in the blue pages (staff section) of the handbook if they are connected with your church - even if they will not be listed in your churches (yellow pages) listing.
+				#linkto(text="Show only staff to be listed in the yellow pages (churches section)", controller="handbook.organizations", action="handbookpages", key=#params.key#, class="pull-right")#
+			<cfelse>
+				<h3>Your church listing (yellow pages in the handbook):</h3>
+				#linkto(text="Show All", controller="handbook.organizations", action="handbookpages", key=#params.key#, params="showAll", class="pull-right")#
+			</cfif>
+	</cfif>
+
+	</cfoutput>
+
 
 <p>&nbsp;</p>
 
