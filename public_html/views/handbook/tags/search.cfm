@@ -31,10 +31,8 @@
     							controller="handbook.people",
     							action="show",
     							key=id,
-									protocol="https",
     							class="ajaxclickable tooltip2", 
-    							title="Click to show #fname# #lname# in the center panel",
-    							onlypath=false
+    							title="Click to show #fname# #lname# in the center panel"
     							)#
     				</li>
 			</cfoutput>
@@ -76,10 +74,8 @@
 							controller="handbook.organizations",
 							action="show", 
 							key=id, 
-							protocol="https",
 							class="ajaxclickable tooltip2", 
-							title="Click to show #name# in the center panel.", 
-							onlyPath=false
+							title="Click to show #name# in the center panel."
 							)#
 				</li>		
 			</cfoutput>

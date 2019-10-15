@@ -37,11 +37,9 @@
 					text=linktext,
 					action="show",
 					key=id,
-					protocol="https",
 					id="ajaxclickable",
 					class="tooltip2",
-					title="Click to show #fname# #lname# in the center panel.",
-					onlyPath=false
+					title="Click to show #fname# #lname# in the center panel."
 					)#
 			</p>
 		</cfoutput>

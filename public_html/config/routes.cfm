@@ -273,8 +273,8 @@
 			.post(name="feeProjection", pattern="/statistics/projection/", controller="statistics", action="getFeeTotal")
 			.get(name="closedChurches", pattern="/statistics/closedchurches", controller="statistics", action="closedchurches")
 
-			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
 			.post(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
+			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
 			.get(name="removeFromTag", pattern="/tags/remove/", controller="tags", action="removeFromTag")
 			.get(name="removeTag", pattern="/tag/remove/[key]", controller="tags", action="removeTag")
 			.get(name="downloadTag", pattern="/tag/download/[key]", controller="tags", action="download")
