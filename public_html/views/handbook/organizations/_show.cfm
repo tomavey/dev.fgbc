@@ -65,7 +65,7 @@
 								text="#thisname#; #position#",
 								controller="handbook.People",
 								action="show",
-								class="tooltip2",
+								class="tooltip2 ajaxclickable",
 								title="Click to show #fname# #lname# in the center panel.",
 								key=personid
 								)#

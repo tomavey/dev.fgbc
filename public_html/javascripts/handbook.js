@@ -1,7 +1,7 @@
 // JavaScript Document
 
 /*instruction message*/
-var $message = "Move your cursor over names to temporarily view information then click to switch the information to the center screen.";
+var $message = "Move your cursor over names to temporarily view information then click to switch the information to the center screen...";
 
 /*mouseover function for church and people information*/
 function $showsidebar(){
@@ -9,7 +9,7 @@ function $showsidebar(){
 	$('#ajaxinfo p a,.ajaxclickable').bind("mouseover",function(){
 		$('#ajaxinfo p a,.ajaxclickable').css("background-color","white").parent().find("img").remove();//set all backgrounds to white
 		$(this).css("background-color","#DFF9FF");//set selected anchor background to blue
-		var $hreflink = $(this).attr("href")+"?ajax";
+		var $hreflink = $(this).attr("href")+"&ajax";
 // For some reason this broke.  Might be a javascript conflict.	Test again by removing '+?ajax' on previous line and removing comment marks.	
 //		var $search = $hreflink.search("?");
 //		if ($search)
@@ -284,7 +284,7 @@ function $skypelink(){
 /*Binds mouseover and click events after ajax callback*/
 function $bindeverything(){
 	$segmentlinks();
-	// $showsidebar();
+	$showsidebar();
 	$maininfolinks();
 	$quicksearch();
 	$thisAjaxInfoLinks();
@@ -313,9 +313,9 @@ $(document).ready(function(){
 
 	$pageheader();
 	
-	// $showsidebar();
+	$showsidebar();
 	
-	// $thisAjaxInfoLinks();
+	$thisAjaxInfoLinks();
 
 	$taginstructions();
 

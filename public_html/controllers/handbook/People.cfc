@@ -16,6 +16,10 @@
 	</cffunction>
 
 	<cffunction name="getPositions">
+		<cfif isDefined("params.keyy")>
+			<cfset params.key = params.keyy>
+		</cfif>
+
 		<cfif gotrights("superadmin,agbmadmin")>
 			<cfset positions = model("Handbookposition").findAll(where="personid=#params.key#", include="Handbookorganization(Handbookstate)", order="p_sortorder")>
 		<cfelse>
