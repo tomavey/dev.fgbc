@@ -3,30 +3,34 @@
 <cfset isPictures=arraylen(handbookperson.handbookpictures)>
 
 <cfset pictureShown = false>
-			 <cftry>
-        		<cfif isPictures>
-				  <cfloop from="1" to="#ispictures#" index="i">
-					  <cfif isPictures EQ 1 OR handbookperson.handbookpictures[i].usefor is "default">
-        				#linkTo(
+
+		<cftry>
+   		<cfif isPictures>
+			  <cfloop from="1" to="#ispictures#" index="i">
+				  <cfif isPictures EQ 1 OR handbookperson.handbookpictures[i].usefor is "default">
+     				#linkTo(
 								text=imageTag(source="/handbookpictures/thumb_#handbookperson.handbookpictures[i].file#"),
 								href="/images/handbookpictures/web_#handbookperson.handbookpictures[i].file#")
 								#
-							<cfset pictureShown = true>
-							<cfbreak>
-						</cfif>
-					</cfloop>
-						<cfif not pictureShown>
-            				#linkTo(
-    								text=imageTag(source="/handbookpictures/thumb_#handbookperson.handbookpictures[ispictures].file#"),
-    								href="/images/handbookpictures/web_#handbookperson.handbookpictures[ispictures].file#")
-    								#
-						</cfif>
-						<cfif isPictures GT 1 AND not isAjax()>
-							#linkTo(text="<i class='icon-picture'></i>", controller="handbook.pictures", action="index", params="personid=#params.key#", class="tooltipside", title="Show more pictures of #handbookperson.fname#")#
-						</cfif>
-        		</cfif>
-				<cfcatch>Missing Picture</cfcatch>
-			</cftry>
+						<cfset pictureShown = true>
+						<cfbreak>
+					</cfif>
+
+				</cfloop>
+					<cfif not pictureShown>
+     				#linkTo(
+							text=imageTag(source="/handbookpictures/thumb_#handbookperson.handbookpictures[ispictures].file#"),
+							href="/images/handbookpictures/web_#handbookperson.handbookpictures[ispictures].file#"
+						)#
+					</cfif>
+					<cfif isPictures GT 1 AND not isAjax()>
+						#linkTo(text="<i class='icon-picture'></i>", controller="handbook.pictures", action="index", params="personid=#params.key#", class="tooltipside", title="Show more pictures of #handbookperson.fname#")#
+					</cfif>
+				 </cfif>
+				 
+			<cfcatch>Missing Picture</cfcatch>
+
+		</cftry>
     				<cfif !isAjax() && 
 					(
 							(
