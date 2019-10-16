@@ -53,9 +53,8 @@
       :items="people"
       class="elevation-1"
       :search="search"
-      :rows-per-page-items=[25,50,100,{"text":"$vuetify.dataIterator.rowsPerPageAll","value":-1}]
     >
-      <template slot="items" slot-scope="props">
+      <!--- <template slot="items" slot-scope="props">
       <tr @click="goToPerson(props.item.personid)" @mouseover="highlightRow" style="cursor:pointer" :class="cursorHighlight">
         <td class="text-xs-right">{{ props.item.lname }}</td>
         <td class="text-xs-right" >{{ props.item.fname }}</td>
@@ -67,7 +66,7 @@
       </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
           Your search for "{{ search }}" found no results.
-        </v-alert>
+        </v-alert> --->
       </v-data-table>
         <v-progress-circular
           :size="50"
@@ -110,7 +109,8 @@ new Vue({
   methods: {
     setLoading: function(){ this.loading = true },
     offLoading: function(){ this.loading = false },
-    goToPerson: function(id){ 
+    goToPerson: function(id){
+      alert("goto" + id) 
       let newl = 'https://charisfellowship.us/handbook/people/' + id
       window.open(newl)
       },
