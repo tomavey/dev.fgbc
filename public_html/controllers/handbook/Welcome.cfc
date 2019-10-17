@@ -41,23 +41,23 @@
 		<!---Conditions to authorize this user--->
 		<cftry>
 
-    		<!---If params.unlockcode is an encrypted use email that is already in the handbook - give basic rights only--->
-    		<cfif isdefined("params.unlockcode") and len(params.unlockcode) GT 5>
-				<cfset session.auth.passedString = 'isdefined("params.unlockcode")'>
-    			<cfset thisemail = decrypt(params.unlockcode,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
-    			<cfset person = model("Handbookperson").findOne(where="email = '#thisemail#' OR email2='#thisemail#' OR spouse_email='#thisemail#'", include="Handbookstate")>
-    			<cfif isobject(person)>
-    				<cfset session.auth.email = thisemail>
-    				<cfset session.auth.username = thisemail>
-    				<cfset session.auth.handbook.basic = true>
-    				<!---Checks to see if person is tagged as ministry staff by usernames set in application.wheels.canSetMinistryStaff--->
-    				<cfif isMinistryStaff(person.id)>
-    					<cfset session.auth.rightslist = "handbook,ministrystaff">
-    				<cfelse>
-	    				<cfset session.auth.rightslist = "handbook">
-    				</cfif>
-    				<cfset setAuthCookies()>
-    			</cfif>
+			<!---If params.unlockcode is an encrypted use email that is already in the handbook - give basic rights only--->
+			<cfif isdefined("params.unlockcode") and len(params.unlockcode) GT 5>
+			<cfset session.auth.passedString = 'isdefined("params.unlockcode")'>
+				<cfset thisemail = decrypt(params.unlockcode,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
+				<cfset person = model("Handbookperson").findOne(where="email = '#thisemail#' OR email2='#thisemail#' OR spouse_email='#thisemail#'", include="Handbookstate")>
+				<cfif isobject(person)>
+					<cfset session.auth.email = thisemail>
+					<cfset session.auth.username = thisemail>
+					<cfset session.auth.handbook.basic = true>
+					<!---Checks to see if person is tagged as ministry staff by usernames set in application.wheels.canSetMinistryStaff--->
+					<cfif isMinistryStaff(person.id)>
+						<cfset session.auth.rightslist = "handbook,ministrystaff">
+					<cfelse>
+						<cfset session.auth.rightslist = "handbook">
+					</cfif>
+					<cfset setAuthCookies()>
+				</cfif>
 
 			<!--- if this session is already authorized, other conditions don't apply--->
 			<cfelseif isDefined("session.auth.handbook.basic") and session.auth.handbook.basic>
@@ -68,22 +68,24 @@
 				<cfset session.auth.passedString = 'structKeyExists(session.auth,"rightslist") and NOT isdefined("params.logoutfirst") and NOT isDefined("params.reviewer") and NOT isDefined("params.handbookUpdate")'>
     			<cfloop list="#application.wheels.handbookRightsRequired#" index="i">
     				<cfif listfind(session.auth.rightslist,i)>
-    					<cfset session.auth.handbook.basic = true>
-    					<cfset setAuthCookies()>
+							<cfset session.auth.handbook.basic = true>
+							<cfif getSetting('allowHandbookAuthByCookie')>
+								<cfset setAuthCookies()>
+							</cfif>
     				</cfif>
     			</cfloop>
 
-    		<!---If authorization cookies are set - give basic rights only--->
-    		<cfelseif isDefined("cookie.authhandbookbasic") AND cookie.authhandbookbasic>
-				<cfset session.auth.passedString = 'isDefined("cookie.authhandbookbasic") AND cookie.authhandbookbasic'>
-	   				 <cfset session.auth.email = cookie.authemail>
-	   				 <cfset session.auth.username = cookie.authusername>
-	   				 <cfset session.auth.rightslist = "basic">
-	   				 <cfset session.auth.handbook.basic = true>
+			<!---If authorization cookies are set - give basic rights only--->
+			<cfelseif isDefined("cookie.authhandbookbasic") && cookie.authhandbookbasic && getSetting('allowHandbookAuthByCookie')>
+			<cfset session.auth.passedString = 'isDefined("cookie.authhandbookbasic") AND cookie.authhandbookbasic'>
+						<cfset session.auth.email = cookie.authemail>
+						<cfset session.auth.username = cookie.authusername>
+						<cfset session.auth.rightslist = "basic">
+						<cfset session.auth.handbook.basic = true>
 
-			<!---If this is a reviewer (using a reviewed link) - give basic rights only--->
-			<cfelseif isDefined("params.reviewer") and len(params.reviewer) and isDefined("params.orgid") and val(params.orgid) and allowHandbookUpdate()>
-				<cfset session.auth.passedString = 'isDefined("params.reviewer") and len(params.reviewer) and isDefined("params.orgid") and val(params.orgid) and allowHandbookUpdate()'>
+			<!---If this is a reviewer (using a reviewed link) - give basic rights only - reviewed email must--->
+			<cfelseif isDefined("params.reviewer") && len(params.reviewer) && isDefined("params.orgid") && val(params.orgid) && allowHandbookOrgUpdate()>
+				<cfset session.auth.passedString = 'isDefined("params.reviewer") and len(params.reviewer) and isDefined("params.orgid") and val(params.orgid) and allowHandbookOrgUpdate()'>
 	   				 <cfset session.auth.email = params.reviewer>
 	   				 <cfset session.auth.username = params.reviewer>
 	   				 <cfset session.auth.rightslist = "basic">
@@ -99,8 +101,8 @@
 					<cfset redirectTo(action="handbookReviewCheckin", key=params.handbookupdate)>
     		</cfif>
 
-    		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in authentication section")#"</cfcatch>
-    		</cftry>
+ 		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in authentication section")#"</cfcatch>
+ 		</cftry>
 
 
 	<!-------------------->
@@ -129,10 +131,10 @@
 			</cfif>
 		</cfif>
 
-   		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in the authorization section")#"</cfcatch>
-   		</cftry>
+		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in the authorization section")#"</cfcatch>
+		</cftry>
 
-   		<cftry>
+ 		<cftry>
 
 <!---
 	<cfdump var="#session.auth#" label="Params">
@@ -167,17 +169,26 @@
 
 	</cffunction>
 
-	<cffunction name="setBasicRights">
-	</cffunction>
+	<!--- <cffunction name="setBasicRights">
+	</cffunction> --->
 
-	<cffunction name="allowHandbookUpdate">
-	<cfreturn true>
-	</cffunction>
+<cfscript>
+	function allowHandbookOrgUpdate(){
+		if (
+			getSetting('allowHandbookOrgUpdate')
+			&& isBefore(getSetting('churchReviewDeadline'))
+		) {
+			return true
+		} else {
+			return false
+		}
+	}
+</cfscript>
 
 	<cffunction name="review">
 		<cfset params.key = simpleDecode(params.orgid)>
 
-		<cfif isDefined("params.reviewer") and isDefined("params.key") and allowHandbookUpdate()>
+		<cfif isDefined("params.reviewer") and isDefined("params.key") and allowHandbookOrgUpdate()>
 			<cfset church = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
 		  	<cfif isObject(church)>
 			     <cfset session.auth.email = params.reviewer>
@@ -190,7 +201,7 @@
 			<cfelse>
 				<cfset renderText("Oops!  Something went wrong.  Email tomavey@fgbc.org for assistance.")>
 			</cfif>
-		<cfelseif isDefined("params.key") and allowHandbookUpdate()>
+		<cfelseif isDefined("params.key") and allowHandbookOrgUpdate()>
 			<cfset church = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
 		  	<cfif isObject(church)>
 				<cfset formaction = "review">
@@ -204,9 +215,9 @@
 	</cffunction>
 
 	<cffunction name="setAuthCookies">
-  				<cfcookie name="authemail" expires="never" value="#session.auth.email#">
-				<cfcookie name="authusername" expires="never" value="#session.auth.username#">
-				<cfcookie name="authhandbookbasic" expires="never" value="#session.auth.handbook.basic#">
+		<cfcookie name="authemail" expires="never" value="#session.auth.email#">
+		<cfcookie name="authusername" expires="never" value="#session.auth.username#">
+		<cfcookie name="authhandbookbasic" expires="never" value="#session.auth.handbook.basic#">
 	</cffunction>
 
 	<cffunction name="removeDuplicates">
@@ -278,7 +289,7 @@
 
 	<cffunction name="sendWelcomeErrorNotice">
 	<cfargument name="subject"  default="FGBC Handbook Welcome Error">
-		<cfset sendEmail(from=application.wheels.errorEmailAddress, to=application.wheels.errorEmailAddress, template="welcomeerroremail.cfm", subject=arguments.subject)>
+		<cfset sendEmail(from=getSetting('errorEmailAddress'), to=getSetting('errorEmailAddress'), template="welcomeerroremail.cfm", subject=arguments.subject)>
 	</cffunction>
 
 
