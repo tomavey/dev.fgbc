@@ -50,45 +50,29 @@
 
 			<!--- if this session is already authorized, other conditions don't apply--->
 			<cfelseif isDefined("session.auth.handbook.basic") and session.auth.handbook.basic>
-				<cfset session.auth.passedString = 'isDefined("session.auth.handbook.basic") and session.auth.handbook.basic'>
+				<cfset authenticate.isAlreadyAuthorized(params)>
 
-    		<!---If this person is already logged into fgbc.org with handbook rights - all rights maintained--->
-    		<cfelseif structKeyExists(session.auth,"rightslist") and NOT isdefined("params.logoutfirst") and NOT isDefined("params.reviewer") and NOT isDefined("params.handbookUpdate")>
-				<cfset session.auth.passedString = 'structKeyExists(session.auth,"rightslist") and NOT isdefined("params.logoutfirst") and NOT isDefined("params.reviewer") and NOT isDefined("params.handbookUpdate")'>
-    			<cfloop list="#application.wheels.handbookRightsRequired#" index="i">
-    				<cfif listfind(session.auth.rightslist,i)>
-							<cfset session.auth.handbook.basic = true>
-							<cfif getSetting('allowHandbookAuthByCookie')>
-								<cfset setAuthCookies()>
-							</cfif>
-    				</cfif>
-    			</cfloop>
+			<!---If this person is already logged into fgbc.org with handbook rights - all rights maintained--->
+			<cfelseif structKeyExists(session.auth,"rightslist") and NOT isdefined("params.logoutfirst") and NOT isDefined("params.reviewer") and NOT isDefined("params.handbookUpdate")>
+
+				<cfset authenticate.isAlreadyLoggedInToMainSiteWithHandbookRights(params)>
 
 			<!---If authorization cookies are set - give basic rights only--->
 			<cfelseif isDefined("cookie.authhandbookbasic") && cookie.authhandbookbasic && getSetting('allowHandbookAuthByCookie')>
-			<cfset session.auth.passedString = 'isDefined("cookie.authhandbookbasic") AND cookie.authhandbookbasic'>
-						<cfset session.auth.email = cookie.authemail>
-						<cfset session.auth.username = cookie.authusername>
-						<cfset session.auth.rightslist = "basic">
-						<cfset session.auth.handbook.basic = true>
+
+				<cfset authenticate.cookiesSet()>
 
 			<!---If this is a reviewer (using a reviewed link) - give basic rights only - reviewed email must--->
 			<cfelseif isDefined("params.reviewer") && len(params.reviewer) && isDefined("params.orgid") && val(params.orgid) && allowHandbookOrgUpdate()>
-				<cfset session.auth.passedString = 'isDefined("params.reviewer") and len(params.reviewer) and isDefined("params.orgid") and val(params.orgid) and allowHandbookOrgUpdate()'>
-	   				 <cfset session.auth.email = params.reviewer>
-	   				 <cfset session.auth.username = params.reviewer>
-	   				 <cfset session.auth.rightslist = "basic">
-	   				 <cfset session.auth.handbook.basic = true>
-	   				 <cfset session.auth.handbook.review = true>
-	   				 <cfset request.auth.handbook.review = true>
 
-					<cfset redirectTo(controller="handbook.organization", action="show", key=params.orgid)>
+				<cfset authenticate.reviewer(params)>
+				<cfset redirectTo(controller="handbook.organization", action="show", key=params.orgid)>
 
 			<!---If this is a handbook updater send to handbook review checkin--->
 			<cfelseif isDefined("params.handbookUpdate") and val(params.handbookupdate)>
 				<cfset session.auth.passedString = 'isDefined("params.handbookUpdate") and val(params.handbookupdate)'>
 					<cfset redirectTo(action="handbookReviewCheckin", key=params.handbookupdate)>
-    		</cfif>
+   		</cfif>
 
  		<!--- <cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in authentication section")#"</cfcatch>
  		</cftry> --->
