@@ -43,7 +43,7 @@
 		</cfif>
 
 		<cfif !gotRights("agbm,superadmin,agbmadmin")>
-		  	<cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district")>
+	  	<cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district", publicOnly=true)>
 			<cfset renderPage(template="publicList")>
 		</cfif>
 

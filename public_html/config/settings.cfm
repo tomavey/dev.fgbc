@@ -86,8 +86,10 @@
 	<cfset set(StatFormFile = "https://charisfellowship.us/files/FGBCStatCard2018-19.pdf")>
 	<cfset set(churchReviewDeadline = "September 20")>
 	<cfset set(personReviewDeadline = "October 20")>
+	<cfset set(allowHandbookAuthByCookie = false)>
+	<cfset set(allowHandbookOrgUpdate = true)>
 
-<!---Used by Focus MVC--->
+	<!---Used by Focus MVC--->
 	<cfset set(registrant = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")>
 	<cfset set(testAgents = "tomavey@charisfellowship.us,sharmion@charisfellowship.us,tomavey@fgbc.org")>
 	<cfset set(mainregistrar = "sharmion@charisfellowship.us")>

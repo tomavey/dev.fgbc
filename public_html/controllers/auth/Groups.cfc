@@ -2,7 +2,6 @@
 	
 	<cffunction name="init">
 		<cfset filters(through="isSuperadmin", only="index,edit,show,new,delete")>
-		<cfset usesLayout("/layoutadmin")>
 	</cffunction>
 
 <!-------------------------------------->

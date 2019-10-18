@@ -3,7 +3,6 @@
 	<!--- rights/index --->
 	<cffunction name="index">
 		<cfset rights = model("Authright").findAll(order="name")>
-		<cfset usesLayout("/layoutadmin")>
 	</cffunction>
 	
 <!-------------------------------------->
