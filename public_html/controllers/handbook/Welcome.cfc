@@ -1,5 +1,8 @@
 <cfcomponent extends="Controller" output="false">
 
+	<cfobject name="authorize" component="models.handbookauthorize" >
+	<cfobject name="authenticate" component="models.handbookauthenticate" >
+
 	<cffunction name="init">
 		<cfset usesLayout("/handbook/layout_handbook2")>
 		<cfset filters(through="logview")>
@@ -39,25 +42,11 @@
 	<!-------------------->
 
 		<!---Conditions to authorize this user--->
-		<cftry>
+		<!--- <cftry> --->
 
 			<!---If params.unlockcode is an encrypted use email that is already in the handbook - give basic rights only--->
 			<cfif isdefined("params.unlockcode") and len(params.unlockcode) GT 5>
-			<cfset session.auth.passedString = 'isdefined("params.unlockcode")'>
-				<cfset thisemail = decrypt(params.unlockcode,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
-				<cfset person = model("Handbookperson").findOne(where="email = '#thisemail#' OR email2='#thisemail#' OR spouse_email='#thisemail#'", include="Handbookstate")>
-				<cfif isobject(person)>
-					<cfset session.auth.email = thisemail>
-					<cfset session.auth.username = thisemail>
-					<cfset session.auth.handbook.basic = true>
-					<!---Checks to see if person is tagged as ministry staff by usernames set in application.wheels.canSetMinistryStaff--->
-					<cfif isMinistryStaff(person.id)>
-						<cfset session.auth.rightslist = "handbook,ministrystaff">
-					<cfelse>
-						<cfset session.auth.rightslist = "handbook">
-					</cfif>
-					<cfset setAuthCookies()>
-				</cfif>
+				<cfset authenticate.unLockCode(params)>
 
 			<!--- if this session is already authorized, other conditions don't apply--->
 			<cfelseif isDefined("session.auth.handbook.basic") and session.auth.handbook.basic>
@@ -101,8 +90,8 @@
 					<cfset redirectTo(action="handbookReviewCheckin", key=params.handbookupdate)>
     		</cfif>
 
- 		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in authentication section")#"</cfcatch>
- 		</cftry>
+ 		<!--- <cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in authentication section")#"</cfcatch>
+ 		</cftry> --->
 
 
 	<!-------------------->
