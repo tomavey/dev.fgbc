@@ -46,26 +46,23 @@
 
 			<!---If params.unlockcode is an encrypted use email that is already in the handbook - give basic rights only--->
 			<cfif isdefined("params.unlockcode") and len(params.unlockcode) GT 5>
-				<cfset authenticate.unLockCode(params)>
+				<cfset session.auth = authenticate.unLockCode(params)>
 
 			<!--- if this session is already authorized, other conditions don't apply--->
 			<cfelseif isDefined("session.auth.handbook.basic") and session.auth.handbook.basic>
-				<cfset authenticate.isAlreadyAuthorized(params)>
+				<cfset session.auth = authenticate.isAlreadyAuthorized(params)>
 
 			<!---If this person is already logged into fgbc.org with handbook rights - all rights maintained--->
 			<cfelseif structKeyExists(session.auth,"rightslist") and NOT isdefined("params.logoutfirst") and NOT isDefined("params.reviewer") and NOT isDefined("params.handbookUpdate")>
-
-				<cfset authenticate.isAlreadyLoggedInToMainSiteWithHandbookRights(params)>
+				<cfset session.auth = authenticate.isAlreadyLoggedInToMainSiteWithHandbookRights(params)>
 
 			<!---If authorization cookies are set - give basic rights only--->
 			<cfelseif isDefined("cookie.authhandbookbasic") && cookie.authhandbookbasic && getSetting('allowHandbookAuthByCookie')>
-
-				<cfset authenticate.cookiesSet()>
+				<cfset session.auth = authenticate.cookiesSet()>
 
 			<!---If this is a reviewer (using a reviewed link) - give basic rights only - reviewed email must--->
 			<cfelseif isDefined("params.reviewer") && len(params.reviewer) && isDefined("params.orgid") && val(params.orgid) && allowHandbookOrgUpdate()>
-
-				<cfset authenticate.reviewer(params)>
+				<cfset session.auth = authenticate.reviewer(params)>
 				<cfset redirectTo(controller="handbook.organization", action="show", key=params.orgid)>
 
 			<!---If this is a handbook updater send to handbook review checkin--->
@@ -84,7 +81,7 @@
 
 		<!---Set up session variables that connect this person with the people and organizations he or she can edit--->
 
-		<cftry>
+		<!--- <cftry> --->
 
 		<cfif isdefined("session.auth.email")>
 			<!---Search handbookPerson for this email address and set id's into a string and save as session.auth.handbook.people--->
@@ -96,7 +93,7 @@
 			</cfif>
 
 			<!---Search handbookPeople with positions for this email address and set id's into a string and save as session.auth.handbook.organizations--->
-			<cfset organizations = model("Handbookperson").findall(where="email = '#session.auth.email#' AND p_sortorder < 100", include="Handbookpositions,Handbookstate")>
+			<cfset organizations = model("Handbookperson").findall(where="(email = '#session.auth.email#' OR email2 = '#session.auth.email#') AND p_sortorder < #getSetting('nonStaffSortOrder')#", include="Handbookpositions,Handbookstate")>
 			<cfset session.auth.handbook.organizations = valuelist(organizations.organizationid,",")>
 
 			<cfif listLen(session.auth.handbook.organizations)>
@@ -104,8 +101,8 @@
 			</cfif>
 		</cfif>
 
-		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in the authorization section")#"</cfcatch>
-		</cftry>
+		<!--- <cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in the authorization section")#"</cfcatch>
+		</cftry> --->
 
  		<cftry>
 
@@ -141,9 +138,6 @@
 		</cftry>
 
 	</cffunction>
-
-	<!--- <cffunction name="setBasicRights">
-	</cffunction> --->
 
 <cfscript>
 	function allowHandbookOrgUpdate(){
@@ -263,6 +257,11 @@
 	<cffunction name="sendWelcomeErrorNotice">
 	<cfargument name="subject"  default="FGBC Handbook Welcome Error">
 		<cfset sendEmail(from=getSetting('errorEmailAddress'), to=getSetting('errorEmailAddress'), template="welcomeerroremail.cfm", subject=arguments.subject)>
+	</cffunction>
+
+	<cffunction name="testSendWelcomeErrorNotice">
+		<cfset sendWelcomeErrorNotice("Test Welcome Error Notice")>
+		<cfset renderText("Message should have been sent")>
 	</cffunction>
 
 
