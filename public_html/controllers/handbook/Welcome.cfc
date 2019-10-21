@@ -9,9 +9,9 @@
 		<cfset filters(through="setReturn", only="index")>
 	</cffunction>
 
-	<cffunction name="location">
+	<!--- <cffunction name="location">
 		<cflocation url="http://www.fgbc.org/handbook/" addtoken="true">
-	</cffunction>
+	</cffunction> --->
 
 	<cffunction name="welcome">
 		<cfif isDefined("params.id")>
@@ -32,10 +32,12 @@
 	</cffunction>
 
 	<cffunction name="index">
-	<cfset session.auth.handbook = structNew()>
-	<cfset session.auth.handbook.basic = false>
-	<cfset session.auth.handbook.people = "">
-	<cfset session.auth.handbook.organizations = "">
+		<cfset var auth = {}>
+		<cfset auth.handbook = structNew()>
+		<cfset auth.handbook.basic = false>
+		<cfset auth.handbook.people = "">
+		<cfset auth.handbook.organizations = "">
+		<cfset session.auth = auth>
 
 	<!-------------------->
 	<!---AUTHENTICATION--->	
@@ -50,7 +52,7 @@
 
 			<!--- if this session is already authorized, other conditions don't apply--->
 			<cfelseif isDefined("session.auth.handbook.basic") and session.auth.handbook.basic>
-				<cfset session.auth = authenticate.isAlreadyAuthorized(params)>
+				<cfset session.auth.passedString = authenticate.isAlreadyAuthorized()>
 
 			<!---If this person is already logged into fgbc.org with handbook rights - all rights maintained--->
 			<cfelseif structKeyExists(session.auth,"rightslist") and NOT isdefined("params.logoutfirst") and NOT isDefined("params.reviewer") and NOT isDefined("params.handbookUpdate")>
@@ -68,8 +70,8 @@
 			<!---If this is a handbook updater send to handbook review checkin--->
 			<!---Need to check this out more--->
 			<cfelseif isDefined("params.handbookUpdate") and val(params.handbookupdate)>
-				<cfset session.auth.passedString = 'isDefined("params.handbookUpdate") and val(params.handbookupdate)'>
-					<cfset redirectTo(action="handbookReviewCheckin", key=params.handbookupdate)>
+				<cfset session.auth.passedString = authenticate.isHandbookUpdater()>
+				<cfset redirectTo(action="handbookReviewCheckin", key=params.handbookupdate)>
    		</cfif>
 
  		<!--- <cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in authentication section")#"</cfcatch>

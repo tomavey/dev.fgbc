@@ -716,7 +716,6 @@
 		.get(name="showInvoiceByEmail", pattern="/invoice/", controller="conference.invoices", action="show")
 		.get(name="handbook", pattern="/handbook", controller="handbook.welcome", action="index")
 		.get(name="reviewhandbook", pattern="/reviewhandbook/[orgid]", controller="handbook.welcome", action="review")
-		.get(name="myhandbook", pattern="/myhandbook/[key]", controller="handbook.welcome", action="welcome")
 		.put(name="putreviewhandbook", pattern="/reviewhandbook/[orgid]", controller="handbook.welcome", action="review")
 		.get(name="agbm", pattern="/agbm/", controller="home", action="agbm")
 		.get(name="agbminfo", pattern="/handbook-agbm/index/", controller="handbook.agbminfo", action="index")
@@ -758,6 +757,7 @@
 		.get(name="generalinfo", pattern="/api/conference/info/", controller="conference.events", action="generalInfo")
 		.get(name="childcareworkers", pattern="/gracekidshelper/", controller="conference.childcareworkers", action="new")
 		.get(name="agbmmembership", pattern="/agbm/membership/", controller="handbook.agbm-info", action="publiclist")
+		.get(name="myhandbook", pattern="/myhandbook/[key]", controller="handbook.welcome", action="welcome")
 		.get(name="myhandbook", pattern="/myhandbook/", controller="handbook.welcome", action="myhandbook")
 
 		.get(name="handbookdistricts", pattern="/handbook-districts/show/[key]", controller="handbook.districts", action="show")

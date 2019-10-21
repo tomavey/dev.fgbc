@@ -19,8 +19,12 @@ component extends="model" {
     writeDump(auth);abort;
   }
 
-  function isAlreadyAuthorized(required params){
+  function isAlreadyAuthorized(){
     return 'isDefined("session.auth.handbook.basic") and session.auth.handbook.basic'
+  }
+
+  function isHandbookUpdater() {
+    return 'isDefined("params.handbookUpdate") and val(params.handbookupdate)'
   }
 
   function isAlreadyLoggedInToMainSiteWithHandbookRights(params) {
