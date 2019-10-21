@@ -66,6 +66,7 @@
 				<cfset redirectTo(controller="handbook.organization", action="show", key=params.orgid)>
 
 			<!---If this is a handbook updater send to handbook review checkin--->
+			<!---Need to check this out more--->
 			<cfelseif isDefined("params.handbookUpdate") and val(params.handbookupdate)>
 				<cfset session.auth.passedString = 'isDefined("params.handbookUpdate") and val(params.handbookupdate)'>
 					<cfset redirectTo(action="handbookReviewCheckin", key=params.handbookupdate)>
