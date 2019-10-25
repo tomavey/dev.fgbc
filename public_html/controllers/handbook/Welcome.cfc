@@ -32,19 +32,19 @@
 	</cffunction>
 
 	<cffunction name="index">
-		<cfset var auth = {}>
+		<!--- <cfset var auth = {}>
 		<cfset auth.handbook = structNew()>
 		<cfset auth.handbook.basic = false>
 		<cfset auth.handbook.people = "">
 		<cfset auth.handbook.organizations = "">
-		<cfset session.auth = auth>
+		<cfset session.auth = auth> --->
 
 	<!-------------------->
 	<!---AUTHENTICATION--->	
 	<!-------------------->
 
 		<!---Conditions to authorize this user--->
-		<!--- <cftry> --->
+		<cftry>
 
 			<!---If params.unlockcode is an encrypted use email that is already in the handbook - give basic rights only--->
 			<cfif isdefined("params.unlockcode") and len(params.unlockcode) GT 5>
@@ -55,7 +55,7 @@
 				<cfset session.auth.passedString = authenticate.isAlreadyAuthorized()>
 
 			<!---If this person is already logged into fgbc.org with handbook rights - all rights maintained--->
-			<cfelseif structKeyExists(session.auth,"rightslist") and NOT isdefined("params.logoutfirst") and NOT isDefined("params.reviewer") and NOT isDefined("params.handbookUpdate")>
+			<cfelseif isDefined("session.auth") && structKeyExists(session.auth,"rightslist") and NOT isdefined("params.logoutfirst") and NOT isDefined("params.reviewer") and NOT isDefined("params.handbookUpdate")>
 				<cfset session.auth = authenticate.isAlreadyLoggedInToMainSiteWithHandbookRights(params)>
 
 			<!---If authorization cookies are set - give basic rights only--->
@@ -74,8 +74,8 @@
 				<cfset redirectTo(action="handbookReviewCheckin", key=params.handbookupdate)>
    		</cfif>
 
- 		<!--- <cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in authentication section")#"</cfcatch>
- 		</cftry> --->
+ 		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in authentication section")#"</cfcatch>
+ 		</cftry>
 
 
 	<!-------------------->
@@ -84,9 +84,10 @@
 
 		<!---Set up session variables that connect this person with the people and organizations he or she can edit--->
 
-		<!--- <cftry> --->
+		<cftry>
 
 		<cfif isdefined("session.auth.email")>
+
 			<!---Search handbookPerson for this email address and set id's into a string and save as session.auth.handbook.people--->
 			<cfset people = model("Handbookperson").findall(where="email = '#session.auth.email#' OR email2='#session.auth.email#'", include="Handbookpositions,handbookstate")>
 			<cfset session.auth.handbook.people = valuelist(people.id,",")>
@@ -102,10 +103,11 @@
 			<cfif listLen(session.auth.handbook.organizations)>
 				<cfset session.auth.handbook.organizations = removeDuplicates(session.auth.handbook.organizations)>
 			</cfif>
+
 		</cfif>
 
-		<!--- <cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in the authorization section")#"</cfcatch>
-		</cftry> --->
+		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in the authorization section")#"</cfcatch>
+		</cftry>
 
  		<cftry>
 
@@ -115,18 +117,22 @@
 --->
 
 		<!---If this person is authorized, send them to their personal page or else send them to checkin--->
+
 		<cfif session.auth.handbook.basic>
 
-    		<!---If the params.handbookUpdate is set, go to the handbook update page for this persons organization--->
-    		<cfif isDefined("params.handbookUpdate") and isDefined("session.auth.handbook.organizations")>
-    			<cfset redirectTo(controller="handbook.organizations", action="handbookpages", key=val(session.auth.handbook.organizations))>
-			<!---OR else if this person is entering using only an email and organizationid--->
-    		<cfelseif isDefined("request.auth.handbook.review") and request.auth.handbook.review>
+   		<!---If the params.handbookUpdate is set, go to the handbook update page for this persons organization--->
+   		<cfif isDefined("params.handbookUpdate") and isDefined("session.auth.handbook.organizations")>
+   			<cfset redirectTo(controller="handbook.organizations", action="handbookpages", key=val(session.auth.handbook.organizations))>
+
+			 <!---OR else if this person is entering using only an email and organizationid--->
+   		<cfelseif isDefined("request.auth.handbook.review") and request.auth.handbook.review>
     			<cfset redirectTo(controller="handbook.organizations", action="handbookpages", key=params.orgid)>
+
 			<!---OR else if this person is connected with at least one person record, show that page--->
  			<cfelseif val(session.auth.handbook.people) and isDefined("params.simpleupdate")>
 				<cfset redirectTo(route="editHandbookPerson", key=val(session.auth.handbook.people), params="simple=true")>
- 			<cfelseif val(session.auth.handbook.people)>
+
+			<cfelseif val(session.auth.handbook.people)>
 				<cfset redirectTo(route="handbookPerson", key=val(session.auth.handbook.people))>
 			<!---Or else, go to the people index page--->
 			<cfelse>
@@ -139,6 +145,8 @@
 
 		<cfcatch>#sendWelcomeErrorNotice("Handbook welcome error in the redirection section")#"</cfcatch>
 		</cftry>
+
+		<cfset redirectTo(action="checkin")>
 
 	</cffunction>
 
