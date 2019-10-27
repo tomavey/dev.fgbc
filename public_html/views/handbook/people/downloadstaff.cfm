@@ -82,7 +82,7 @@
 		<td>#dateformat(reviewedAt,"medium")#</td>
 		<td>#reviewedBy#</td>
 		<cfif gotrights("superadmin,office")>
-		<td>#linkTo(controller="handbook.welcome", action="welcome", onlyPath=false, key=encrypt(email,application.wheels.passwordkey,"CFMX_COMPAT","HEX"))#</td>
+		<td>#linkTo(controller="handbook.welcome", action="welcome", onlyPath=false, key=encrypt(email,getSetting("passwordkey"),"CFMX_COMPAT","HEX"))#</td>
 		</cfif>
 
 	</tr>

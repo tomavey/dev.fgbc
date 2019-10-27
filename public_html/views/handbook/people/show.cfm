@@ -206,12 +206,12 @@
 --->
 					<cftry>
 					<p>
-					#linkto(text="Access handbook as #handbookperson.fname# #handbookperson.lname#", route="handbookUnlockLinkfor", key=encrypt(handbookperson.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX"), onlyPath=false, params="logoutfirst=true", class="btn")#
+					#linkto(text="Access handbook as #handbookperson.fname# #handbookperson.lname#", route="handbookUnlockLinkfor", key=encrypt(handbookperson.email,getSetting("passwordkey"),"CFMX_COMPAT","HEX"), onlyPath=false, params="logoutfirst=true", class="btn")#
 					</p>
 					<cfcatch></cfcatch></cftry>
 					<cftry>
 					<p>
-					#mailTo(name="Email a handbook unlock link to #handbookperson.email#",emailaddress='#handbookperson.email#?subject=Your%20Link%20to%20the%20Charis%20Fellowship%20Handbook&body=http://#cgi.http_host#/index.cfm/handbook/unlock/#encrypt(handbookperson.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX")#', class="btn")#
+					#mailTo(name="Email a handbook unlock link to #handbookperson.email#",emailaddress='#handbookperson.email#?subject=Your%20Link%20to%20the%20Charis%20Fellowship%20Handbook&body=http://#cgi.http_host#/index.cfm/handbook/unlock/#encrypt(handbookperson.email,getSetting("passwordkey"),"CFMX_COMPAT","HEX")#', class="btn")#
 					</p>
 
 					<cfcatch></cfcatch></cftry>

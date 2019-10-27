@@ -222,7 +222,7 @@
                 <cfif isValid("email",params.email)>
 		<cfset loc.check = model("Handbookperson").findAll(where="email='#params.email#' OR email2='#params.email#' OR spouse_email='#params.email#'", include="Handbookstate")>
 		<cfif loc.check.recordcount>
-			<cfset params.key = encrypt(params.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
+			<cfset params.key = encrypt(params.email,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
 			<cfif !isLocalMachine()>
 				<cfset sendEmail(template="sendlink", layout="/layout_naked", from=getSetting('userAdminEmailAddress'), to=params.email, subject="Your FGBC Handbook Link")>	
 			<cfelse>

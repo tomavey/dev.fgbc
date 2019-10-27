@@ -61,7 +61,7 @@
 	
 	<!--- jobs/create --->
 	<cffunction name="create">
-		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
+		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
 
 			<cfset params.job.uuid = CreateUUID()>
 			<cfset params.job.uuid = replace(params.job.uuid,"-","","all")>

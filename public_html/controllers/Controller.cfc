@@ -50,7 +50,7 @@
 
 	<cffunction name="checkCaptcha">
 
-		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
+		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
 			<cfset flashInsert(message="Type one adult (ie: 'John''), couple (ie:'John and Jane') or child (ie:'Johnny') on the left then select the appropriate registration options below before click 'Add To Cart'")>
 			<cfset redirectTo(action="selectoptions")>
 		<cfelse>
@@ -62,7 +62,7 @@
 	<cffunction name="getKey" output="no">
 	<cfargument name="email" required="yes" type="string">
 	<cfset var key="">
-		<cfset key = encrypt(arguments.email,application.wheels.PasswordKey,"CFMX_COMPAT","Hex")>
+		<cfset key = encrypt(arguments.email,getSetting("passwordkey"),"CFMX_COMPAT","Hex")>
 	    <cfreturn key>
 	</cffunction>
 

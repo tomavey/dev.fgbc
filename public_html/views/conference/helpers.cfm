@@ -132,7 +132,7 @@
 			</div>
 		</cfif>
 		<cfform action="/index.cfm?controller=conference.register&action=#arguments.action#">
-			<cfinput type="hidden" name="captcha_check" value="#encrypt(strCaptcha,application.wheels.passwordkey,'CFMX_COMPAT','HEX')#">
+			<cfinput type="hidden" name="captcha_check" value="#encrypt(strCaptcha,getSetting("passwordkey"),'CFMX_COMPAT','HEX')#">
 
 			<cfimage action="captcha" height="75" width="363" text="#strCaptcha#" difficulty="medium" fonts="verdana,arial,times new roman,courier" fontsize="28" /><br /><br />
 		             <p>

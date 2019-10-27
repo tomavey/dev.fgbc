@@ -157,7 +157,7 @@
 	<!--- -membershipapplications/create --->
 	<cffunction name="create">
 		<cfif len(params.membershipapplication.captcha) AND
-			params.membershipapplication.captcha is decrypt(params.membershipapplication.captcha_check,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
+			params.membershipapplication.captcha is decrypt(params.membershipapplication.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
 
 		<cfelse>
 			<cfset flashInsert(error="Please enter the text from the image again.")>
@@ -233,7 +233,7 @@
 			<cfset membershipapplication = model("Membershipapplication").new()>
 			<cfset membershipapplication.captcha = "">
 			<cfset membershipapplication.strCaptcha = getStrCaptcha()>
-			<cfset membershipapplication.captcha_check = encrypt(membershipapplication.strCaptcha,application.wheels.passwordkey,'CFMX_COMPAT','HEX')>
+			<cfset membershipapplication.captcha_check = encrypt(membershipapplication.strCaptcha,getSetting("passwordkey"),'CFMX_COMPAT','HEX')>
 			<cfif isDefined("session.membershipapplication.language")>
 				<cfset membershipapplication.language = session.membershipapplication.language>
 			</cfif>

@@ -1,7 +1,7 @@
 component extends="model" {
 
   function unLockCode(params){
-    var thisemail = decrypt(params.unlockcode,application.wheels.passwordkey,"CFMX_COMPAT","HEX")
+    var thisemail = decrypt(params.unlockcode,getSetting("passwordkey"),"CFMX_COMPAT","HEX")
     var person = model("Handbookperson").findOne(where="email = '#thisemail#' OR email2='#thisemail#' OR spouse_email='#thisemail#'", include="Handbookstate")
     var auth = {}
     if (isobject(person)) {

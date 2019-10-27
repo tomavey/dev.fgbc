@@ -38,7 +38,7 @@
 
 						Date Paid: #dateSelect(objectName='handbookagbminfo', property='paidAt', class="input-small")#
 					
-						#select(objectName='handbookagbminfo', property='organizationId', label='Church (if different than what is listed in the handbook): ', options=organizations, textField="selectNameCity", includeBlank="-options-" )#
+						<!--- #select(objectName='handbookagbminfo', property='organizationId', label='Church (if different than what is listed in the handbook): ', options=organizations, textField="selectNameCity", includeBlank="-options-" )# --->
 					
 						#textArea(objectName='handbookagbminfo', property='comments', label='Comments', class="input-xlarge")#
 </cfoutput>

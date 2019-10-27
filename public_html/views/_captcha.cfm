@@ -1,5 +1,5 @@
 <cfoutput>
-			#hiddenFieldTag(name="captcha_check", value=encrypt(strCaptcha,application.wheels.passwordkey,'CFMX_COMPAT','HEX'))#
+			#hiddenFieldTag(name="captcha_check", value=encrypt(strCaptcha,getSetting("passwordkey"),'CFMX_COMPAT','HEX'))#
 
 			<cfif flashKeyExists("error")>
 				<p class="errorMessage">

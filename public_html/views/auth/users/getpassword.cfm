@@ -6,10 +6,10 @@
 	<td>#left(password,"20")#</td>
 	<td>
 		<cftry>
-			<cfset dpassword = decrypt(password,application.wheels.passwordKey,"CFMX_COMPAT","Hex")>
+			<cfset dpassword = decrypt(password,getSetting("passwordkey"),"CFMX_COMPAT","Hex")>
 		<cfcatch>
 		<cftry>
-			<cfset dpassword=decrypt(password,application.wheels.passwordKey)>
+			<cfset dpassword=decrypt(password,getSetting("passwordkey"))>
 			<cfcatch>
 				<cfset dpassword = password>
 			</cfcatch>

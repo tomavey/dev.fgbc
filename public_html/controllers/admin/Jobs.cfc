@@ -36,7 +36,7 @@
 	}
 
 	function create(){
-		if (len(params.captcha) AND params.captcha is decrypt(params.captcha_check,application.wheels.passwordkey,"CFMX_COMPAT","HEX")) {
+		if (len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")) {
 			params.job.uuid = replace(CreateUUID(),"-","","all")
 			job = model("Mainjob").new(params.job)
 			if (job.save()) {
@@ -170,7 +170,7 @@
 	
 	<!--- jobs/create --->
 	<cffunction name="Xcreate">
-		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
+		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
 
 			<cfset params.job.uuid = CreateUUID()>
 			<cfset params.job.uuid = replace(params.job.uuid,"-","","all")>

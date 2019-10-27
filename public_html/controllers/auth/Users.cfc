@@ -102,7 +102,7 @@
 	<!--- users/create --->
 	<cffunction name="create">
 		<cfset strCaptcha = getcaptcha()>
-		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
+		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
 
 			<cfset user = model("Authuser").new(params.user)>
 
@@ -302,7 +302,7 @@
 			<cfset loginuser(username=loc.checkUserName.username, email=loc.checkUserName.email, userid=loc.checkUserName.id, login_method="2")>
 			<cfset returnBack()>
 		3-Login using encrypted password - no salt, two-way - needs to be deprecated
-		<cfelseif trim(loc.checkUsername.password) is not "encrypted" and trim(loc.checkUsername.password) is encrypt(trim(params.user.password),application.wheels.passwordKey,"CFMX_COMPAT","Hex")>
+		<cfelseif trim(loc.checkUsername.password) is not "encrypted" and trim(loc.checkUsername.password) is encrypt(trim(params.user.password),getSetting("passwordkey"),"CFMX_COMPAT","Hex")>
 			<cfset loginuser(username=loc.checkUserName.username, email=loc.checkUserName.email, userid=loc.checkUserName.id, login_method="3")>
 			<cfset returnBack()>
 	 the above section has been deprecated. 03-03-16
@@ -444,10 +444,10 @@
 			<cfset usersold = model("Authuser").findall(where="password <> 'encrypted'", maxrows="300")>
 			<cfloop query="usersold">
 				<cftry>
-					<cfset dpassword = decrypt(password,application.wheels.passwordKey,"CFMX_COMPAT","Hex")>
+					<cfset dpassword = decrypt(password,getSetting("passwordkey"),"CFMX_COMPAT","Hex")>
 					<cfcatch>
 						<cftry>
-							<cfset dpassword=decrypt(password,application.wheels.passwordKey)>
+							<cfset dpassword=decrypt(password,getSetting("passwordkey"))>
 							<cfcatch>
 								<cfset dpassword = password>
 							</cfcatch>

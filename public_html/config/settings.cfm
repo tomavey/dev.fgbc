@@ -48,7 +48,7 @@
 	<!---cfset set(obfuscateURLs=true)--->
 
 <!---application.wheels Variables--->
-	<cfset set(passwordKey="j316fgsltwj11itbwtwp16hwbagwiy")>
+	<cfset set(passwordKey="j316fgsltwj11itbwtwp16hwbagwiy")> <!---PasswordKey is not accessible via getSetting()--->
 	<cfset set(oldself = "http://my.charisfellowship.us")>
 	<cfset set(feedcount=9)>
 	<cfset set(nominateYear = "2018")>

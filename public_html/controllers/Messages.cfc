@@ -68,7 +68,7 @@
 	<!--- messages/create --->
 	<cffunction name="create">
 		<cfset strCaptcha = getcaptcha()>
-		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,application.wheels.passwordkey,"CFMX_COMPAT","HEX")>
+		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
 			<cfset message = model("Mainmessage").new(params.message)>
 
 			<!--- Verify that the message creates successfully --->

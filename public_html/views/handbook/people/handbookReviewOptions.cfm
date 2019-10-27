@@ -62,9 +62,9 @@
         <tr>
             <td valign="top">        
                 <cfloop from="1" to="#arraylen(people)#" index="i">
-                     <cfset message = urlEncodedFormat("Greetings!  We are updating information in the online FGBC handbook which is used each year for the printed handbook. Can you review this for me?  Today?  Be sure to click the 'This information is correct' button when you are finished. Thanks so much! #urlFor(controller="handbook.welcome", action="welcome", params='id=#encrypt(people[i].email,application.wheels.passwordkey,'CFMX_COMPAT','HEX')#', onlyPath=false)#")>
+                     <cfset message = urlEncodedFormat("Greetings!  We are updating information in the online FGBC handbook which is used each year for the printed handbook. Can you review this for me?  Today?  Be sure to click the 'This information is correct' button when you are finished. Thanks so much! #urlFor(controller="handbook.welcome", action="welcome", params='id=#encrypt(people[i].email,getSetting("passwordkey"),'CFMX_COMPAT','HEX')#', onlyPath=false)#")>
                     <cfset subject = urlEncodedFormat("Please review your personal FGBC Handbook listing")>
-                    #linkto(text="#people[i].selectName#", controller="handbook.welcome", action="welcome", key=encrypt(people[i].email,application.wheels.passwordkey,"CFMX_COMPAT","HEX"), onlyPath=false, params="logoutfirst=true")#
+                    #linkto(text="#people[i].selectName#", controller="handbook.welcome", action="welcome", key=encrypt(people[i].email,getSetting("passwordkey"),"CFMX_COMPAT","HEX"), onlyPath=false, params="logoutfirst=true")#
                     #mailTo(
 				        name='<i class="icon-envelope"></i>',
 				        emailaddress='#people[i].email#?subject=#subject#&body=#message#',
@@ -84,7 +84,7 @@
             </td>
             <td valign="top">
                 <cfloop from="1" to="#arraylen(testpeople)#" index="i">
-                    #linkto(text="#testpeople[i].selectName#", controller="handbook.welcome", action="welcome", key=encrypt(people[i].email,application.wheels.passwordkey,"CFMX_COMPAT","HEX"), onlyPath=false, params="logoutfirst=true")#
+                    #linkto(text="#testpeople[i].selectName#", controller="handbook.welcome", action="welcome", key=encrypt(people[i].email,getSetting("passwordkey"),"CFMX_COMPAT","HEX"), onlyPath=false, params="logoutfirst=true")#
                     </br>
                     #testpeople[i].email#
                     </br>

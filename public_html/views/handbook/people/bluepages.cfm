@@ -125,7 +125,7 @@
 
           <cfif isDefined("params.showupdatedat")  and isDate(updatedAt)>
           <cftry>
-            #linkTo(text="Access handbook as #fname#", controller="handbook.welcome", action="welcome", onlyPath=false, key=encrypt(email,application.wheels.passwordkey,"CFMX_COMPAT","HEX"))#
+            #linkTo(text="Access handbook as #fname#", controller="handbook.welcome", action="welcome", onlyPath=false, key=encrypt(email,getSetting("passwordkey"),"CFMX_COMPAT","HEX"))#
           <cfcatch></cfcatch></cftry>
           </cfif>
 

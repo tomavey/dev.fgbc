@@ -10,7 +10,7 @@
 	</cfif>
 	#person.city#, #person.state_mail_abbrev# #person.zip#<br/>
 <br/>
-	#linkto(text="Access the online handbook", controller="handbook.welcome", action="welcome", key=encrypt(person.email,application.wheels.passwordkey,"CFMX_COMPAT","HEX"), class="btn")#
+	#linkto(text="Access the online handbook", controller="handbook.welcome", action="welcome", key=encrypt(person.email,getSetting("passwordkey"),"CFMX_COMPAT","HEX"), class="btn")#
 
 <cfelse>
 	The deadline for requesting your free FGBC handbook has passed.
