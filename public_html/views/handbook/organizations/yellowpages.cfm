@@ -76,15 +76,12 @@
 		<span style="font-family:'Times New Roman';font-size:9pt">#email#</span>
 		  <cfif isDefined("params.showreview")>
         #createEmailToUpdateOrg(id,email,name)#
-		  </cfif>
-
-	<br/>
+      </cfif>
+     <br/> 
 	</cfif>
   <cfif len(trim(website)) GTE 3>
-    #website#
-    <span style="font-family:'Times New Roman';font-size:9pt">#fixWebSite(website)#</span>
+    <span style="font-family:'Times New Roman';font-size:9pt">#fixWebSite(website)#</span><br/>
   </cfif>
-  <br/>
   <cfoutput>
   		  <cfif len(trim(position)) AND position NEQ "AGBM Only">
   		  		<span style="font-family:'Times New Roman';font-size:9pt">#position#:
