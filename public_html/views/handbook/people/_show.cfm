@@ -3,12 +3,12 @@
 #includePartial("pictures")#
 
 					<h2 style="display:inline;">
-						<cfif len(handbookperson.prefix)>#trim(handbookperson.prefix)# </cfif>#handbookperson.fname# #trim(handbookperson.lname)#<cfif len(handbookperson.suffix)> #trim(handbookperson.suffix)#</cfif><cfif len(handbookperson.spouse)>,&nbsp;<i>#handbookperson.spouse#</i></cfif>
+						<cfif len(handbookperson.prefix)>#trim(handbookperson.prefix)# </cfif>#alias("fname",handbookperson.fname,handbookperson.id)# #alias("lname",handbookperson.lname,handbookperson.id)#<cfif len(handbookperson.suffix)> #trim(handbookperson.suffix)#</cfif><cfif len(handbookperson.spouse)>,&nbsp;<i>#handbookperson.spouse#</i></cfif>
 					</h2>
 
 					<cfif NOT isAjax() AND (isDefined("session.auth.handbook.people") AND gotHandbookPersonRights(handbookperson.id)) OR gotrights("superadmin,office,agbmadmin,handbookedit")>
 					<p id="editicon">
-						  #linkto(text='<i class="icon-edit"></i>', action="edit", key=params.key, class="tooltipleft", title="Edit #handbookperson.fullname#")#
+						  #linkto(text='<i class="icon-edit"></i>', action="edit", key=params.key, class="tooltipleft", title="Edit #handbookperson.lname#")#
 					</p>
 					</cfif>
 

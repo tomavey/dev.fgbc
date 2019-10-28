@@ -27,7 +27,7 @@
 	<cfoutput query="handbookpeople" group="alpha">
 		<h1>#alpha#</h1>
 		<cfoutput group="id">
-		<cfset linktext = "#lname#, #fname# <i>#spouse#</i>: #city#, #state_mail_abbrev#">
+		<cfset linktext = "#alias('lname',lname,id)#, #alias('fname',fname,id)# <i>#alias('spouse',spouse,id)#</i>: #city#, #state_mail_abbrev#">
 		<cfset linktext = left(linktext,50)>
 		<cfif find("<i>",linktext) AND not find("</i>",linktext)>
 		<cfset linktext = linktext & "</i>">

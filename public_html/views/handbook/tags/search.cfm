@@ -23,16 +23,17 @@
 				<h4>People that match "<cfoutput>#params.search#</cfoutput>":</h4></br>
 			<ul>	
 			<cfoutput query="people" group="id">
-    			<cfset peoplecount = peoplecount+1>
-    			<cfset selectname = replace(selectname,"Non","","all")>
+					<cfset peoplecount = peoplecount+1>
+					<cfset selectnameAlias = "#alias('lname',lname,id)#, #alias('fname',fname,id)# of #city#, #state#">
+    			<cfset selectnameAlias = replace(selectnameAlias,"Non","","all")>
     				<li>
     					#linkto(
-    							text=scrubSelectName(selectname),
+    							text=scrubSelectName(selectnameAlias),
     							controller="handbook.people",
     							action="show",
     							key=id,
     							class="ajaxclickable tooltip2", 
-    							title="Click to show #fname# #lname# in the center panel"
+    							title="Click to show #alias('fname',fname,id)# #alias('lname',lname,id)# in the center panel"
     							)#
     				</li>
 			</cfoutput>
