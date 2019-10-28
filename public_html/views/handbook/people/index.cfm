@@ -40,7 +40,7 @@
 					key=id,
 					id="ajaxclickable",
 					class="tooltip2",
-					title="Click to show #fname# #lname# in the center panel."
+					title="Click to show #alias('fname',fname,id)# #alias('lname',lname,id)# in the center panel."
 					)#
 			</p>
 		</cfoutput>

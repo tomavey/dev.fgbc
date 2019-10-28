@@ -36,8 +36,8 @@
 <cfoutput query="pastorsWives" group="id">
 
 	<tr>
-		<td>#lname#</td>
-		<td>#spouse#</td>
+		<td>#alias('lname',lname,id)#</td>
+		<td>#alias('spouse',spouse,id)#</td>
 		<td>#address1#</td>
 		<td>#city#</td>
 		<td>#state_mail_abbrev#</td>

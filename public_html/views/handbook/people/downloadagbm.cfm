@@ -24,8 +24,8 @@
 <tbody>
 <cfoutput query="agbmmembers" group="id">
 <tr>
-<td>#fname#</td>
-<td>#lname#</td>
+<td>#alias('fname',fname,id)#</td>
+<td>#alias('lname',lname,id)#</td>
 <td>#address1#</td>
 <td>#address2#</td>
 <td>#city#</td>

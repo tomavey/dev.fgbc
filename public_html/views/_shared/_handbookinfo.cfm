@@ -5,7 +5,7 @@
 
 		  <cfif params.action NEQ "bluepages" and params.action NEQ "handbookinfo" or isDefined("params.showedit")>
                                 <cftry>
-		  	#linkto(text='<i class="icon-search"></i>', controller="handbook.People", action="show", key=id, class="tooltipside", title="Show #fname# #lname#", onclick="window.open(this.href); return false;")#
+		  	#linkto(text='<i class="icon-search"></i>', controller="handbook.People", action="show", key=id, class="tooltipside", title="Show #alias('fname',fname,id)# #alias('lname',lname,id)#", onclick="window.open(this.href); return false;")#
                                     <cfcatch>---</cfcatch></cftry>
 			<!--- NOT WORKING CORRECTLY <cfif !isAgbm(id) and gotRights("office")>						
 				#deleteTag(controller="handbook.positions", action="delete", key=id)#

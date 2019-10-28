@@ -17,7 +17,7 @@
 	 </cfif>
 	 - 
      <cfif isDefined("params.dateType") and params.dateType contains "anniversary">
-       #linkTo(text="#fname# and #spouse# #lname#", 
+       #linkTo(text="#alias('fname',fname,id)# and #alias('spouse',spouse,id)# #alias('lname',lname,id)#", 
        		action="show", 
        		key=personid,
        		class="tooltip2 ajaxclickable", 
@@ -25,7 +25,7 @@
        		onlyPath=false
        )#
 	 <cfelse>
-	 		<cfset useFullName = replaceNoCase(fullname,'sr','')>
+	 		<cfset useFullName = replaceNoCase(alias('fullname',fullname,id),'sr','')>
 	 		<cfset useFullName = replaceNoCase(useFullName,'jr','')>
        #linkTo(text=useFullName, 
        		action="show", 
@@ -37,7 +37,7 @@
 	 </cfif>
      
      <cfif isDefined("params.dateType") and params.dateType contains "birthday">
-     	<cfset subject = urlEncodedFormat("Happy Birthday #fname#!")>
+     	<cfset subject = urlEncodedFormat("Happy Birthday #alias('fname',fname,id)#!")>
 		<cfset body = urlEncodedFormat('<INSERT CUSTOM MESSAGE HERE>')>
      <cfelseif isDefined("params.dateType") and params.dateType contains "anniversary">
      	<cfset subject = urlEncodedFormat("Happy Anniversary #fname# and #spouse#!")>
@@ -48,7 +48,7 @@
      </cfif>
      
      #mailTo(
-     		emailaddress='#fullname# <#handbookpersonemail#>?subject=#subject#&body=#body#',
+     		emailaddress='#alias('fullname',fullname,id)# <#handbookpersonemail#>?subject=#subject#&body=#body#',
      		name='<i class="icon-envelope"></i>',
 			class="tooltip2",
 			title="Send a greeting to #fname#"

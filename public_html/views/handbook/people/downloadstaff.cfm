@@ -48,9 +48,9 @@
 <cfoutput query="allHandbookPeople">
 
 	<tr>
-		<td>#lname#</td>
-		<td>#fname#</td>
-		<td>#spouse#</td>
+		<td>#alias('lname',lname,id)#</td>
+		<td>#alias('fname',fname,id)#</td>
+		<td>#alias('spouse',spouse,id)#</td>
 		<td>#address1#</td>
 		<td>#city#</td>
 		<td>#state#</td>

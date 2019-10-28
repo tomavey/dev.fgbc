@@ -66,7 +66,7 @@
 								controller="handbook.People",
 								action="show",
 								class="tooltip2 ajaxclickable",
-								title="Click to show #fname# #lname# in the center panel.",
+								title="Click to show #alias('fname',fname,id)# #alias('lname',lname,id)# in the center panel.",
 								key=personid
 								)#
 						</p>
