@@ -80,7 +80,7 @@
 				</cfif>
   		  <cfloop query="positions">
       		  <cfset nextposition = getNextPosition(handbookpositionid)>
-						<li>&middot;#fname# #lname#: #left(position,75)#
+						<li>&middot;#alias('fname',fname,id)# #alias('lname',lname,id)#: #left(position,75)#
 							<cfif p_sortorder GTE getNonStaffSortOrder()>*</cfif>
 								<span> 	  
 								<cfif !isDefined("params.sortByLname") && !showAll>
