@@ -105,7 +105,8 @@
 		"3610":{"lname":"R.","fname":"B.","spouse":"A."},
 		"3215":{"lname":"S."},
 		"1043":{"lname":"W.","fname":"J.","spouse":"D."},
-		"3615":{"lname":"Y."}
+		"3615":{"lname":"Y."},
+		"1754":{"lname":"B."}
 	})>
 
 	<!---Used by Focus MVC--->
