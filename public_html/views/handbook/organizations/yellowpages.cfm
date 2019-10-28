@@ -82,11 +82,6 @@
 	</cfif>
 	<cfif len(trim(website)) GTE 3>
     <span style="font-family:'Times New Roman';font-size:9pt">#fixWebSite(website)#</span>
-    <!--- <cfif isDefined("params.showreview")>
-      <cfif !urlExists(fixWebSite(website))>
-        <span>...WEBSITE NOT WORKING!!!</span>  
-      </cfif>
-    </cfif> --->
   </cfif>
   <br/>
   <cfoutput>
