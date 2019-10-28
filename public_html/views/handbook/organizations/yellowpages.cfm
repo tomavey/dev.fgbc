@@ -80,7 +80,8 @@
 
 	<br/>
 	</cfif>
-	<cfif len(trim(website)) GTE 3>
+  <cfif len(trim(website)) GTE 3>
+    #website#
     <span style="font-family:'Times New Roman';font-size:9pt">#fixWebSite(website)#</span>
   </cfif>
   <br/>
