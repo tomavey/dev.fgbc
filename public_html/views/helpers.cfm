@@ -511,12 +511,14 @@
 <cfargument name="phone" required="true" type="string">
 <cfset var loc=structNew()>
 <cfset loc.return = arguments.phone>
+<!---remove all paranthesis, spaces, periods,dashes--->
 <cfset loc.return = replace(loc.return,"("," ","all")>
 <cfset loc.return = replace(loc.return,")"," ","all")>
 <cfset loc.return = replace(loc.return,"  "," ","all")>
 <cfset loc.return = trim(loc.return)>
 <cfset loc.return = replace(loc.return," ","-","all")>
 <cfset loc.return = replace(loc.return,".","-","all")>
+<!---insert dashes--->
 <cfif len(loc.return) is 10>
 	<cfset loc.return = insert("-",loc.return,3)>
 	<cfset loc.return = insert("-",loc.return,7)>
@@ -568,6 +570,21 @@
 		}		
 			newString = replace(newString,"  "," ","all")
 			return trim(newString)
+	}
+
+	public function alias(type,name,id){
+		if ( len(getAlias(type,id)) ) { return getAlias(type,id) }
+		else { return trim(name) }
+	}
+
+	private function getAlias(type,id){
+		var lnameStruct = getSetting("alias")
+		var i = 1
+		if ( isDefined(" lnameStruct[id][type]") ) {
+				return lnameStruct[id][type]
+		} else {
+			return ""
+		}
 	}
 
 </cfscript>

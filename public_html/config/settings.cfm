@@ -88,6 +88,25 @@
 	<cfset set(personReviewDeadline = "October 20")>
 	<cfset set(allowHandbookAuthByCookie = false)>
 	<cfset set(allowHandbookOrgUpdate = true)>
+	<cfset set(alias = {
+		"652":{"lname":"B."},
+		"1037":{"lname":"B.","fname":"M.","spouse":"B."},
+		"1033":{"lname":"B"},
+		"423":{"lname":"C."},
+		"1712":{"lname":"C."},
+		"4023":{"lname":"C."},
+		"3299":{"lname":"D.","fname":"M.","spouse":"E."},
+		"3762":{"lname":"F."},
+		"2593":{"lname":"F."},
+		"1073":{"lname":"F."},
+		"3214":{"lname":"H."},
+		"3523":{"lname":"H.","fname":"A."},
+		"1594":{"lname":"P."},
+		"3610":{"lname":"R.","fname":"B.","spouse":"A."},
+		"3215":{"lname":"S."},
+		"1043":{"lname":"W.","fname":"J.","spouse":"D."},
+		"3615":{"lname":"Y."}
+	})>
 
 	<!---Used by Focus MVC--->
 	<cfset set(registrant = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")>

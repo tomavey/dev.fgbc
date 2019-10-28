@@ -1,7 +1,7 @@
 <cfset addreturn = 0>
 <cfoutput>
 <div style='mso-pagination:widow-orphan lines-together'>
-       	  <strong>#trim(lname)#, #trim(fname)#<cfif len(spouse)><span style="font-style:italic;">&nbsp;#trim(spouse)#</span></cfif></strong>
+       	  <strong>#alias("lname",lname,id)#, #alias("fname",fname,id)#<cfif len(spouse)><span style="font-style:italic;">&nbsp;#alias("spouse",spouse,id)#</span></cfif></strong>
 
 		  <cfif params.action NEQ "bluepages" and params.action NEQ "handbookinfo" or isDefined("params.showedit")>
                                 <cftry>
