@@ -57,9 +57,9 @@
 				<cfloop query="positions">
 					<cfif len(position)>
 						<cfif params.reverse>
-							<cfset thisname = "#fname# #lname#">
+							<cfset thisname = "#alias('fname',fname,id)# #alias('lname',lname,id)#">
 						<cfelse>
-							<cfset thisname = "#lname#, #fname#">
+							<cfset thisname = "#alias('lname',lname,id)#, #alias('fname',fname,id)#">
 						</cfif>
 						<p id="stafflist">#linkTo(
 								text="#thisname#; #position#",
