@@ -1,5 +1,5 @@
-<!---Test--->
 <cfparam name="bluepagesPeople" type="query">
+<cfset include = {}> <!---use this struct to include information or not--->
 
 <cfset previouslname = "">
 <cfset previousfname = "">

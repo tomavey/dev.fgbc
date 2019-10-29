@@ -1,4 +1,5 @@
 <cfset addreturn = 0>
+<cfset include.skype = false>
 <cfoutput>
 <div style='mso-pagination:widow-orphan lines-together'>
        	  <strong>#alias("lname",lname,id)#, #alias("fname",fname,id)#<cfif len(spouse)><span style="font-style:italic;">&nbsp;#alias("spouse",spouse,id)#</span></cfif></strong>
@@ -86,7 +87,7 @@
 	      	#trim(email2)#<br/>
 		</cfif>  
       </cfif>
-      <cfif len(skype)>
+      <cfif len(skype) && include.skype>
       	Skype:#trim(skype)#<br/>
       </cfif>
 			#displayPositions(id)#<!---From views/helpers.cfm--->
