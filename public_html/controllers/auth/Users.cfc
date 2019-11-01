@@ -113,8 +113,22 @@
 <cfscript>
 	public function newUserCodeConfirm(){		
 		tempUser = params.user
-		session.auth.checkCode = randRange(100000, 999999)
+		if ( !isValidSessionAuthCheckCode() )
+			{
+				session.auth.checkCode = randRange(100000, 999999)
+			}
+		emailCheckCode(tempuser.email, session.auth.checkCode)
 		formaction = "checkCode"
+	}
+
+	private function isValidSessionAuthCheckCode(){
+		return ( isDefined("session.auth.checkCode") && val(session.auth.checkCode) LTE 999999 && val(session.auth.checkCode) GTE 100000 )
+	}
+
+	private function emailCheckCode(required string email,required string code){
+		if ( !isLocalMachine() ) {
+			sendEmail(template="emailCheckCode", layout="layoutforemail", from=getSetting("userAdminEmailAddress"), to=email, bcc="tomavey@fgbc.org", subject="Your User Account on charisfellowship.us")
+		}
 	}
 
 	public function checkCode(){
@@ -123,13 +137,13 @@
 		params.user.fname = params.fname
 		params.user.username = params.username
 		params.user.password = params.password
-	if ( session.auth.checkCode IS params.code ) {
+		if ( session.auth.checkCode IS params.code ) {
+			structDelete(session.auth,"checkCode")
 			create(params.user)
 		} else {
 			flashInsert(error="Try again")
 			newUserCodeConfirm(params.user)
 			renderPage(template="newUserCodeConfirm")
-			// redirectTo(action="newUserCodeConfirm", params="email=#params.email#&lname=#params.lname#&fname=#params.fname#&username=#params.username#&password=#params.password#")
 		}
 	}
 
@@ -333,17 +347,6 @@
 		<cfelseif trim(loc.checkUsername.password) is "encrypted" and loc.checkUserName.encrypted_password is hash(loc.checkUserName.salt&trim(params.user.password),"SHA-256")>
 			<cfset loginuser(username=loc.checkUserName.username, email=loc.checkUserName.email, userid=loc.checkUserName.id, login_method="1")>
 			<cfset returnBack()>
-
-	<!---	2-Login using password - not encrypted - needs to be deprecated
-		<cfelseif trim(loc.checkUsername.password) is not "encrypted" and trim(loc.checkUsername.password) is trim(params.user.password)>
-			<cfset loginuser(username=loc.checkUserName.username, email=loc.checkUserName.email, userid=loc.checkUserName.id, login_method="2")>
-			<cfset returnBack()>
-		3-Login using encrypted password - no salt, two-way - needs to be deprecated
-		<cfelseif trim(loc.checkUsername.password) is not "encrypted" and trim(loc.checkUsername.password) is encrypt(trim(params.user.password),getSetting("passwordkey"),"CFMX_COMPAT","Hex")>
-			<cfset loginuser(username=loc.checkUserName.username, email=loc.checkUserName.email, userid=loc.checkUserName.id, login_method="3")>
-			<cfset returnBack()>
-	 the above section has been deprecated. 03-03-16
-	 --->
 
 		<cfelse>
 			<cfset flashInsert(success="User Not Found")>
