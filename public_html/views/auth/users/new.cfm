@@ -9,7 +9,9 @@
 
 		#includePartial("form")#	
 		
-		#includePartial("/captcha")#	
+		<cfif !bypassCaptcha>
+			#includePartial("/captcha")#	
+		</cfif>
 
 		#submitTag("Create Your New Account")#
 			

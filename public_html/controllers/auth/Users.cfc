@@ -3,12 +3,18 @@
 	<cffunction name="init">
 		<cfset filters(through="isSuperadmin", only="index,indexOld,show,loginAsUser")>
 		<cfset filters(through="setReturn", only="index,indexOld,show")>
+		<cfset filters(through="bypassCaptcha", only="new,create")>
 	</cffunction>
 
 <cfscript>
 	private function useOldIndex(){
 		return false
 	}
+
+	private function bypassCaptcha() {
+		bypassCaptcha = false
+	}
+
 </cfscript>	
 
 <!---Basic CRUD--->
@@ -76,10 +82,14 @@
 	</cffunction>
 
 	<!--- users/new --->
-	<cffunction name="new">
-		<cfset user = model("Authuser").new()>
-		<cfset strCaptcha = getcaptcha()>
-	</cffunction>
+<cfscript>
+	public function new(){
+		user = model("Authuser").new()
+		if ( !bypassCaptcha ) {
+			strCaptcha = getcaptcha()
+		}
+	}
+</cfscript>	
 
 	<!--- users/edit/key --->
 	<cffunction name="edit">
@@ -99,31 +109,43 @@
 
 	</cffunction>
 
+<cfscript>
+	public function newUserCodeConfirm(){
+		
+	}
+
+	private function checkCaptcha(){
+		if ( bypassCaptcha ) { return true }
+		strCaptcha = getcaptcha()
+		if ( len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX") ) {
+			return true
+		} else {
+			flashInsert(error="Please try to enter the scrambled image again.")
+			user = model("Authuser").new(params.user)
+			strCaptcha = getcaptcha()
+			return false
+		}
+	}
+
 	<!--- users/create --->
-	<cffunction name="create">
-		<cfset strCaptcha = getcaptcha()>
-		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
+	public function create(){
+		if ( checkCaptcha() ) {
+			user = model("Authuser").new(params.user)
+			if ( user.save() ) {
+				putInBasicGroup(user.id)
+				flashInsert(success="The user was created successfully.")
+				loginUser(user.username,user.email,user.id,5)
+				redirectTo(action="thankYou")
+			} else {
+				flashInsert(error="There was an error creating the user.")
+				renderPage(action="new")
+			}
+		} else {
+			renderPage(action="new")
+		}
+	}
+</cfscript>
 
-			<cfset user = model("Authuser").new(params.user)>
-
-			<!--- Verify that the user creates successfully --->
-			<cfif user.save()>
-				<cfset putInBasicGroup(user.id)>
-				<cfset flashInsert(success="The user was created successfully.")>
-				<cfset loginUser(user.username,user.email,user.id,5)>
-	            <cfset redirectTo(action="thankYou")>
-			<!--- Otherwise --->
-			<cfelse>
-				<cfset flashInsert(error="There was an error creating the user.")>
-				<cfset renderPage(action="new")>
-			</cfif>
-		<cfelse>
-			<cfset flashInsert(error="Please try to enter the scrambled image again.")>
-			<cfset user = model("Authuser").new(params.user)>
-			<cfset strCaptcha = getcaptcha()>
-			<cfset renderPage(action="new")>
-		</cfif>
-	</cffunction>
 
 	<!--- users/update --->
 	<cffunction name="update">
