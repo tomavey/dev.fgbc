@@ -1,3 +1,5 @@
+<cfparam name="formAction" default="create">
+
 <div class="container">
 <h1>Create a new Charis user account: </h1>
 
@@ -5,7 +7,7 @@
 
 		#errorMessagesFor("user")#
 
-		#startFormTag(action="create")#
+		#startFormTag(action=formAction)#
 
 		#includePartial("form")#	
 		

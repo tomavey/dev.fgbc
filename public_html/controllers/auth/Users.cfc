@@ -12,7 +12,7 @@
 	}
 
 	private function bypassCaptcha() {
-		bypassCaptcha = false
+		bypassCaptcha = true
 	}
 
 </cfscript>	
@@ -84,6 +84,7 @@
 	<!--- users/new --->
 <cfscript>
 	public function new(){
+		formAction="newUserCodeConfirm"
 		user = model("Authuser").new()
 		if ( !bypassCaptcha ) {
 			strCaptcha = getcaptcha()
@@ -110,8 +111,26 @@
 	</cffunction>
 
 <cfscript>
-	public function newUserCodeConfirm(){
-		
+	public function newUserCodeConfirm(){		
+		tempUser = params.user
+		session.auth.checkCode = randRange(100000, 999999)
+		formaction = "checkCode"
+	}
+
+	public function checkCode(){
+		params.user.email = params.email
+		params.user.lname = params.lname
+		params.user.fname = params.fname
+		params.user.username = params.username
+		params.user.password = params.password
+	if ( session.auth.checkCode IS params.code ) {
+			create(params.user)
+		} else {
+			flashInsert(error="Try again")
+			newUserCodeConfirm(params.user)
+			renderPage(template="newUserCodeConfirm")
+			// redirectTo(action="newUserCodeConfirm", params="email=#params.email#&lname=#params.lname#&fname=#params.fname#&username=#params.username#&password=#params.password#")
+		}
 	}
 
 	private function checkCaptcha(){
@@ -129,18 +148,14 @@
 
 	<!--- users/create --->
 	public function create(){
-		if ( checkCaptcha() ) {
-			user = model("Authuser").new(params.user)
-			if ( user.save() ) {
-				putInBasicGroup(user.id)
-				flashInsert(success="The user was created successfully.")
-				loginUser(user.username,user.email,user.id,5)
-				redirectTo(action="thankYou")
-			} else {
-				flashInsert(error="There was an error creating the user.")
-				renderPage(action="new")
-			}
+		user = model("Authuser").new(params.user)
+		if ( user.save() ) {
+			putInBasicGroup(user.id)
+			flashInsert(success="The user was created successfully.")
+			loginUser(user.username,user.email,user.id,5)
+			redirectTo(action="thankYou")
 		} else {
+			flashInsert(error="There was an error creating the user.")
 			renderPage(action="new")
 		}
 	}

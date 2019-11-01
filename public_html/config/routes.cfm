@@ -119,6 +119,7 @@
 				.put(name="create", pattern="create/")
 				.get(name="copy", pattern="copy")
 				.get(name="list", pattern="list")
+				.get(name="newUserCodeConfirm", pattern="CodeConfirm")
 			.end()	
 
 			.post(name="addARight", pattern="/groups/addARight/[key]", controller="groups", action="addARight")
