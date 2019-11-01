@@ -84,7 +84,7 @@
 	<!--- users/new --->
 <cfscript>
 	public function new(){
-		formAction="newUserCodeConfirm"
+		formAction="codeConfirm"
 		user = model("Authuser").new()
 		if ( !bypassCaptcha ) {
 			strCaptcha = getcaptcha()
@@ -111,7 +111,7 @@
 	</cffunction>
 
 <cfscript>
-	public function newUserCodeConfirm(){		
+	public function codeconfirm(){		
 		tempUser = params.user
 		if ( !isValidSessionAuthCheckCode() )
 			{
@@ -142,8 +142,8 @@
 			create(params.user)
 		} else {
 			flashInsert(error="Try again")
-			newUserCodeConfirm(params.user)
-			renderPage(template="newUserCodeConfirm")
+			codeconfirm(params.user)
+			renderPage(template="codeconfirm")
 		}
 	}
 
