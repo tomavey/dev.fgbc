@@ -69,21 +69,25 @@
 				<th>getSetting()</th>
 			</tr>	
 		<cfloop list="#applicationSettingsList#" index="i">
-			<cfif application.wheels[i] NEQ getSetting(i)>
-				<cfset rowclass = "notequalsetting">
-			<cfelse>	
-				<cfset rowclass = "equalsetting">
-			</cfif>
-			<tr class="#rowclass#">
-				<cfif application.wheels[i] NEQ getSetting(i)>
-					<td>#i#</td>
-				<cfelse>
-					<td>#i#&nbsp;#linkto(text='#imageTag('/add-icon.png')#', controller="admin.settings", action="new", params="name=#i#", title="Add a new value")#</td>
-				</cfif>		
-				<td>#application.wheels[i]#
-				<td>#getSetting(i)#</td>
-			</tr>
-		</cfloop>
+			<cftry>
+					<cfif application.wheels[i] NEQ getSetting(i)>
+						<cfset rowclass = "notequalsetting">
+					<cfelse>	
+						<cfset rowclass = "equalsetting">
+					</cfif>
+				<tr class="#rowclass#">
+					<cfif application.wheels[i] NEQ i>
+						<td>#i#</td>
+					<cfelse>
+						<td>#i#&nbsp;#linkto(text='#imageTag('/add-icon.png')#', controller="admin.settings", action="new", params="name=#i#", title="Add a new value")#</td>
+					</cfif>		
+					<td>#application.wheels[i]#
+					<td>#getSetting(i)#</td>
+				</tr>
+			<cfcatch>
+			</cfcatch>
+		</cftry>
+	</cfloop>
 		</table>
 		</cfoutput>
 	</cfif>

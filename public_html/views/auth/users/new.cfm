@@ -2,7 +2,7 @@
 
 <div class="container">
 
-<cfif getSetting("userAccountCreationAllowed")>
+<cfif getSetting("AllowUserAccountCreation")>
 	<h1>Create a new Charis user account: </h1>
 
 	<cfoutput>
