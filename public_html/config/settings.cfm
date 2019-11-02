@@ -46,6 +46,7 @@
 	<cfset addFormat(extension="js", mimeType="text/javascript")>
 	<cfset set(goEMerchantId = "fellowshipofgracen")>
 	<!---cfset set(obfuscateURLs=true)--->
+	<cfset set(userAccountCreationAllowed = false)>
 
 <!---application.wheels Variables--->
 	<cfset set(passwordKey="j316fgsltwj11itbwtwp16hwbagwiy")> <!---PasswordKey is not accessible via getSetting()--->
@@ -169,7 +170,7 @@
 	set(focusForFinancialHelp="sharmion@charisfellowship.us")
 </cfscript>
 
-<!---What is open and what is not--->
+<!---What is open and what is not for conference--->
 	<cfset set(registrationIsOpen = false)>
 	<cfset set(regOpenPromiseDate = "2018-02-20")>	
 	<cfset set(groupregistrationIsOpen = true)>

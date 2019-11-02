@@ -1,9 +1,9 @@
 <cfparam name="formAction" default="create">
 
 <div class="container">
-	<h1>New user account creation is temporarily closed! </h1>
-	<!--- 	
-<h1>Create a new Charis user account: </h1>
+
+<cfif getSetting("userAccountCreationAllowed")>
+	<h1>Create a new Charis user account: </h1>
 
 	<cfoutput>
 
@@ -26,5 +26,9 @@
 		</cfif>
 
 	</cfoutput>
- --->
+<cfelse>
+	<h1>New user account creation is temporarily closed! </h1>
+</cfif>	
+
+		
 </div>
