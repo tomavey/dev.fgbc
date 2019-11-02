@@ -84,7 +84,9 @@
 	<!--- users/new --->
 <cfscript>
 	public function new(){
-		formAction="codeConfirm"
+		if ( getSetting("requireUserCreateCode") ) {
+			formAction="codeConfirm"
+		} 
 		user = model("Authuser").new()
 		if ( !bypassCaptcha ) {
 			strCaptcha = getcaptcha()
