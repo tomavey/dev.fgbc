@@ -127,10 +127,11 @@
 		return ( isDefined("session.auth.tempUser.checkCode") && val(session.auth.tempUser.checkCode) LTE 999999 && val(session.auth.tempUser.checkCode) GTE 100000 )
 	}
 
-	private function emailCheckCode(required string email,required string code){
+	private function emailCheckCode(required string email,required codeToConfirm){
+		code = codeToConfirm
 		if ( !isLocalMachine() ) {
 			sendEmail(template="emailCheckCode", layout="layoutforemail", from=getSetting("userAdminEmailAddress"), to=email, bcc="tomavey@fgbc.org", subject="Your User Account on charisfellowship.us")
-		}
+		} 
 	}
 
 	public function checkCode(){
@@ -161,6 +162,7 @@
 	public function create(){
 		if ( !isDefined("params.user") && isDefined("session.auth.tempUser") ) {
 			params.user = session.auth.tempUser
+			structDelete(session.auth,"tempUser")
 		} else {
 			renderText("Something went wrong!")
 		}

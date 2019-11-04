@@ -122,6 +122,7 @@
 				.get(name="list", pattern="list")
 				.post(name="codeconfirm", pattern="codeconfirm/")
 				.put(name="codeconfirm", pattern="codeconfirm/")
+				.get(name="codeconfirm", pattern="codeconfirm/")
 				.post(name="checkCode", pattern="checkCode/")
 				.put(name="checkCode", pattern="checkCode/")
 

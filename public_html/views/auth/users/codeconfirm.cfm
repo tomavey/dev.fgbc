@@ -12,8 +12,10 @@
       </cfif>
 
       #startFormTag(action=formAction)#
-
-      #session.auth.tempUser.checkCode#
+      
+      <cfif isLocalMachine()>
+        #session.auth.tempUser.checkCode#
+      </cfif>
 
       #hiddenFieldTag(name="email", value=tempUser.email)#
       #hiddenFieldTag(name="fname", value=tempUser.fname)#
