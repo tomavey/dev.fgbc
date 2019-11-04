@@ -121,6 +121,9 @@
 				.get(name="list", pattern="list")
 				.post(name="codeconfirm", pattern="codeconfirm/")
 				.put(name="codeconfirm", pattern="codeconfirm/")
+				.post(name="checkCode", pattern="checkCode/")
+				.put(name="checkCode", pattern="checkCode/")
+
 			.end()	
 
 			.post(name="addARight", pattern="/groups/addARight/[key]", controller="groups", action="addARight")
