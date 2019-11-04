@@ -13,7 +13,7 @@
 
       #startFormTag(action=formAction)#
 
-      #session.auth.checkCode#
+      #session.auth.tempUser.checkCode#
 
       #hiddenFieldTag(name="email", value=tempUser.email)#
       #hiddenFieldTag(name="fname", value=tempUser.fname)#

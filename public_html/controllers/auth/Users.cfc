@@ -135,9 +135,8 @@
 
 	public function checkCode(){
 		params.user = session.auth.tempUser
-		if ( session.auth.checkCode IS params.code ) {
-			structDelete(session.auth,"tempUser")
-			create(params.user)
+		if ( params.user.checkCode IS params.code ) {
+			redirectTo(action="create")
 		} else {
 			flashInsert(error="Try again")
 			codeconfirm(params.user)
@@ -160,6 +159,11 @@
 
 	<!--- users/create --->
 	public function create(){
+		if ( !isDefined("params.user") && isDefined("session.auth.tempUser") ) {
+			params.user = session.auth.tempUser
+		} else {
+			renderText("Something went wrong!")
+		}
 		user = model("Authuser").new(params.user)
 		if ( user.save() ) {
 			putInBasicGroup(user.id)
