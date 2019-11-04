@@ -1,4 +1,4 @@
-<cfparam name="tempUser" required=true type="struct">
+<cfparam name="tempUser" default='#session.auth.tempUser#'>
 <cfparam name="formAction" required=true type="string">
 <div class="container">
   <h1>Enter the code that was sent to your email address: </h1>

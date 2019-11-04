@@ -114,17 +114,17 @@
 
 <cfscript>
 	public function codeconfirm(){		
-		tempUser = params.user
-		if ( !isValidSessionAuthCheckCode() )
+		session.auth.tempUser = params.user
+		if ( !isValidAuthCheckCodeInSession() )
 			{
-				session.auth.checkCode = randRange(100000, 999999)
+				session.auth.tempUser.checkCode = randRange(100000, 999999)
 			}
-		emailCheckCode(tempuser.email, session.auth.checkCode)
+		emailCheckCode(session.auth.tempUser.email, session.auth.tempUser.checkCode)
 		formaction = "checkCode"
 	}
 
-	private function isValidSessionAuthCheckCode(){
-		return ( isDefined("session.auth.checkCode") && val(session.auth.checkCode) LTE 999999 && val(session.auth.checkCode) GTE 100000 )
+	private function isValidAuthCheckCodeInSession(){
+		return ( isDefined("session.auth.tempUser.checkCode") && val(session.auth.tempUser.checkCode) LTE 999999 && val(session.auth.tempUser.checkCode) GTE 100000 )
 	}
 
 	private function emailCheckCode(required string email,required string code){
@@ -134,13 +134,9 @@
 	}
 
 	public function checkCode(){
-		params.user.email = params.email
-		params.user.lname = params.lname
-		params.user.fname = params.fname
-		params.user.username = params.username
-		params.user.password = params.password
+		params.user = session.auth.tempUser
 		if ( session.auth.checkCode IS params.code ) {
-			structDelete(session.auth,"checkCode")
+			structDelete(session.auth,"tempUser")
 			create(params.user)
 		} else {
 			flashInsert(error="Try again")
