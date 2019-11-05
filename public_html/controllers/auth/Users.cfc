@@ -1,12 +1,12 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
-		<cfset filters(through="isSuperadmin", only="index,indexOld,show,loginAsUser")>
-		<cfset filters(through="setReturn", only="index,indexOld,show")>
-		<cfset filters(through="bypassCaptcha", only="new,create")>
-	</cffunction>
-
 <cfscript>
+	function init(){
+		filters(through="isSuperadmin", only="index,indexOld,show,loginAsUser")
+		filters(through="setReturn", only="index,indexOld,show")
+		filters(through="bypassCaptcha", only="new,create")
+	}
+
 	private function useOldIndex(){
 		return false
 	}
@@ -15,74 +15,54 @@
 		bypassCaptcha = true
 	}
 
-</cfscript>	
 
-<!---Basic CRUD--->
+<!------------------->
+	<!---Basic CRUD--->
+<!------------------->
 
-	<!--- users/index --->
-	<cffunction name="index">
-		<cfargument name="orderby" default="createdAt DESC, lname,fname">
-		<cfset var loc = arguments>
-		<cfparam name="params.page" default="1">
-		<cfparam name="params.maxPages" default="30">
+<!--- users/index --->
+	public function index(orderByString = "createdAt DESC, lname,fname", whereString = ""){
+		var args = arguments
+		if ( isDefined('params.orderby') ) { args.orderByString = params.orderBy }
+		if ( isDefined('params.search') ) {
+			args.whereString = "lname like '%#params.search#%' OR fname like '%#params.search#%' OR username like '%#params.search#%' OR email like '%#params.search#%'"
+		} 	
+		users = model('Authuser').findAll(where=args.whereString, order=args.orderbyString)
+	}
 
-		<cfif isDefined("params.orderby")>
-			<cfset loc.orderby = params.orderby>
-		</cfif>
+	public function Xindex(orderbyString = "createdAt DESC, lname,fname"){
+		var args = arguments
+		users = model("Authuser").findAll(order = orderbyString)
+		users = serializeJSON(users, "struct")
+	}
 
-		<cfif isDefined("params.search")>
-			<cfset users = model("Authuser").findAll(where="lname like '%#params.search#%' OR fname like '%#params.search#%' OR username like '%#params.search#%' OR email like '%#params.search#%'", order="lname,fname", page=params.page, perPage=params.maxPages)>
-		<cfelse>
-			<!--- <cfset users = model("Authuser").findAll(order=loc.orderby, page=params.page, perPage=params.maxPages)> --->
-			<cfset users = model("Authuser").findAll(order=loc.orderby)>
-		</cfif>
-		<!--- <cfset params.lastpage = pagination().totalpages> --->
+	function search(){
+		redirectTo(action="index", params="search=#params.search#")
+	}	
 
-		<cfif isdefined("params.page") AND params.page GT 1>
-			<cfset params.previousPage = params.page - 1>
-		<cfelse>
-			<cfset params.previousPage = 0>
-		</cfif>
-
-	<!---
-		<cfif isdefined("params.page") AND params.page lt params.lastpage>
-			<cfset params.nextPage = params.page + 1>
-		<cfelse>
-			<cfset params.nextPage = 0>
-		</cfif>
-	--->
-
-	</cffunction>
-
-<cfscript>
-	function Xindex(orderbyString = "createdAt DESC, lname,fname"){
-			var args = arguments
-			users = model("Authuser").findAll(order = orderbyString)
-			users = serializeJSON(users, "struct")
+<!--- users/show/key --->
+	public function show(id=params.key){
+		user = model("Authuser").findOne(where="id=#id#")
+		groups = model("Authusersgroup").findall(where="auth_usersid = #id#")
+		allgroups = model("Authgroup").findall(order="name")
+		rights = model("Authuser").getRights(id)
+		if ( !isObject(user) ) {
+			flashInsert(error="User #params.key# was not found")
+			redirectTo(action="index")
 		}
-</cfscript>	
+	}
 
-	<cffunction name="search">
-		<cfset redirectTo(action="index", params="search=#params.search#")>
-	</cffunction>
+<!--- users/edit/key --->
+	public function edit(id=params.key) {
+		if ( !isDefined('params.key') ) { id = session.auth.userid }
+		user = model("Authuser").findByKey(id)
+		if ( !isObject(user) ) {
+			flashInsert(error="User #id# was not found")
+			redirectTo(action="index")
+		}
+	}
 
-	<!--- users/show/key --->
-	<cffunction name="show">
-		<!--- Find the record --->
-    	<cfset user = model("Authuser").findOne(where="id=#params.key#")>
-		<cfset groups = model("Authusersgroup").findall(where="auth_usersid = #params.key#", include="Group")>
-		<cfset allgroups = model("Authgroup").findall(order="name")>
-		<cfset rights = model("Authuser").getRights(params.key)>
-
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(user)>
-	        <cfset flashInsert(error="User #params.key# was not found")>
-	        <cfset redirectTo(action="index")>
-	    </cfif>
-	</cffunction>
-
-	<!--- users/new --->
-<cfscript>
+<!--- users/new --->
 	public function new(){
 		if ( getSetting("requireUserCreateCode") ) {
 			formAction="codeConfirm"
@@ -92,27 +72,7 @@
 			strCaptcha = getcaptcha()
 		}
 	}
-</cfscript>	
 
-	<!--- users/edit/key --->
-	<cffunction name="edit">
-
-		<cfif not isDefined("params.key")>
-			<cfset params.key = session.auth.userid>
-		</cfif>
-
-		<!--- Find the record --->
-    	<cfset user = model("Authuser").findByKey(params.key)>
-
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(user)>
-	        <cfset flashInsert(error="User #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-
-	</cffunction>
-
-<cfscript>
 	public function codeconfirm(){		
 		session.auth.tempUser = params.user
 		if ( !isValidAuthCheckCodeInSession() )
@@ -121,17 +81,6 @@
 			}
 		emailCheckCode(session.auth.tempUser.email, session.auth.tempUser.checkCode)
 		formaction = "checkCode"
-	}
-
-	private function isValidAuthCheckCodeInSession(){
-		return ( isDefined("session.auth.tempUser.checkCode") && val(session.auth.tempUser.checkCode) LTE 999999 && val(session.auth.tempUser.checkCode) GTE 100000 )
-	}
-
-	private function emailCheckCode(required string email,required codeToConfirm){
-		code = codeToConfirm
-		if ( !isLocalMachine() ) {
-			sendEmail(template="emailCheckCode", layout="layoutforemail", from=getSetting("userAdminEmailAddress"), to=email, bcc="tomavey@fgbc.org", subject="Your User Account on charisfellowship.us")
-		} 
 	}
 
 	public function checkCode(){
@@ -143,6 +92,17 @@
 			codeconfirm(params.user)
 			renderPage(template="codeconfirm")
 		}
+	}
+
+	private function isValidAuthCheckCodeInSession(){
+		return ( isDefined("session.auth.tempUser.checkCode") && val(session.auth.tempUser.checkCode) LTE 999999 && val(session.auth.tempUser.checkCode) GTE 100000 )
+	}
+
+	private function emailCheckCode(required string email,required codeToConfirm){
+		code = codeToConfirm
+		if ( !isLocalMachine() ) {
+			sendEmail(template="emailCheckCode", layout="layoutforemail", from=getSetting("userAdminEmailAddress"), to=email, bcc="tomavey@fgbc.org", subject="Your User Account on charisfellowship.us")
+		} 
 	}
 
 	private function checkCaptcha(){
@@ -158,7 +118,7 @@
 		}
 	}
 
-	<!--- users/create --->
+<!--- users/create --->
 	public function create(){
 		if ( !isDefined("params.user") && isDefined("session.auth.tempUser") ) {
 			params.user = session.auth.tempUser
@@ -177,48 +137,41 @@
 			renderPage(action="new")
 		}
 	}
+
+<!--- users/update --->
+	function update(){
+		try {
+			user = model("Authuser").findByKey(params.key)
+		} catch (any e) {
+			user = model("Authuser").findOne(where="token='#params.user.token#'")
+			if ( user.update(params.user) ) {
+				loginUser(user.username,user.email,user.id,5)
+				redirectTo(controller="home", action="index")
+			}
+		}
+		if ( user.update(params.user) ) {
+			flashInsert(success="The user was updated successfully.")
+			redirectTo(action="index")
+		} else {
+			flashInsert(error="There was an error updating the user.")
+			renderPage(action="edit")
+		}
+	}
+
+<!--- users/delete/key --->
+	public function delete(id=params.key){
+		user = model("Authuser").findByKey(id)
+		groups = model("Authusersgroup").findAll(where="auth_usersid=#id#")
+		if ( user.delete() ) {
+			model("Authusersgroup").deleteAll(where="auth_usersid=#id#")
+			flashInsert(success="The user was deleted successfully.")
+			returnBack()
+		} else {
+			flashInsert(error="There was an error deleting the user.")
+			redirectTo(action="index")
+		}
+	}
 </cfscript>
-
-
-	<!--- users/update --->
-	<cffunction name="update">
-
-		<cftry>
-			<cfset user = model("Authuser").findByKey(params.key)>
-		<cfcatch>
-			<cfset user = model("Authuser").findOne(where="token='#params.user.token#'")>
-			<cfif user.update(params.user)>
-				<cfset loginUser(user.username,user.email,user.id,5)>
-	            <cfset redirectTo(controller="home", action="index")>
-		</cfif>
-		</cfcatch>
-		</cftry>
-
-		<!--- Verify that the user updates successfully --->
-		<cfif user.update(params.user)>
-			<cfset flashInsert(success="The user was updated successfully.")>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the user.")>
-			<cfset renderPage(action="edit")>
-		</cfif>
-	</cffunction>
-
-	<!--- users/delete/key --->
-	<cffunction name="delete">
-		<cfset user = model("Authuser").findByKey(params.key)>
-
-		<!--- Verify that the user deletes successfully --->
-		<cfif user.delete()>
-			<cfset flashInsert(success="The user was deleted successfully.")>
-            <cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error deleting the user.")>
-			<cfset redirectTo(action="index")>
-		</cfif>
-	</cffunction>
 
 <!---End of Basic CRUD--->
 
