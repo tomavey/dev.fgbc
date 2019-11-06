@@ -367,16 +367,6 @@
 		</cfif>
 	</cffunction>
 
-<cfscript>
-	private function hasAnAlias(personid) {
-		if ( structKeyExists(getSetting("alias"), personId) ) {
-			return true
-		} else {
-			return false
-		}
-	}
-</cfscript>	
-
 	<!---Used for birthday and anniversary reports--->
 	<cffunction name="dates">
 	<cfif !isDefined("params.dateType")>

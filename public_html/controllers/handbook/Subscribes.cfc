@@ -188,7 +188,7 @@
 
 			<cfset emailall = "">
 
-			<cfif isDefined("params.go") && params.go is "test">
+			<cfif isDefined("params.go") && params.go is "test" && !isLocalMachine()>
 				<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@fgbc.org", subject="TEST - From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_naked")>
 			<cfelse>
 				<cfif isDefined("params.sendto") and len(params.sendto)>
@@ -199,8 +199,9 @@
 					<cfif sendToThisPerson(lastSendAt)>
 
 						<cfset useThisEmail = useHandbookEmail(email,handbookemail)>
-
-						<cfset sendEMail(from="tomavey@fgbc.org", to=scrubEmail(useThisEmail), subject="From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_for_email", type="html")>
+						<cfif !isLocalMachine()>
+							<cfset sendEMail(from="tomavey@fgbc.org", to=scrubEmail(useThisEmail), subject="From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_for_email", type="html")>
+						</cfif>
 						<cfset emailall = emailall & ";" & useThisEmail>
 						<cfif isDefined("id")>
 							<cfset setLastSendAt(id)>

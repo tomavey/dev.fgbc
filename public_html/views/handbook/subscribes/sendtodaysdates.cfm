@@ -21,17 +21,19 @@
 <ul>
   <cfif birthdays.recordcount>
 		<cfset birthdaymessage = urlEncodedFormat('<INSERT CUSTOM MESSAGE HERE>')>
-    <cfoutput query="birthdays" group="fullname">
-	<cfset positioninfo = getpositions(personid,fname)>
-	    <cfif isInHandbook(personid) and positioninfo does not contain "Removed from Staff">
-
-	     	<cfset birthdaysubject = urlEncodedFormat("Happy Birthday #fname#!")>
-		    <li>#fullname# - #mailTo(name="Send a greeting!", emailAddress="#fullname# <#handbookpersonemail#>?subject=#birthdaysubject#&body=#birthdaymessage#")# #handbookpersonphone# (#birthdaymonthnumber#/#birthdaydaynumber#)
-				<ul>
-					<li class="positioninfo">#positioninfo#</li>
-				</ul>					
-			</li>
-		</cfif>	
+		<cfoutput query="birthdays" group="fullname">
+			<cfif !hasAnAlias(personid)>
+				<cfset positioninfo = getpositions(personid,fname)>
+				<cfif isInHandbook(personid) and positioninfo does not contain "Removed from Staff">
+	
+					 <cfset birthdaysubject = urlEncodedFormat("Happy Birthday #fname#!")>
+					<li>#fullname# - #mailTo(name="Send a greeting!", emailAddress="#fullname# <#handbookpersonemail#>?subject=#birthdaysubject#&body=#birthdaymessage#")# #handbookpersonphone# (#birthdaymonthnumber#/#birthdaydaynumber#)
+						<ul>
+							<li class="positioninfo">#positioninfo#</li>
+						</ul>					
+					</li>
+				</cfif>	
+			</cfif>
     </cfoutput>
   <cfelse>
   		  No birthdays today!
