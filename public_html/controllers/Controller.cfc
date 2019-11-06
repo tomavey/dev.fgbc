@@ -662,7 +662,7 @@
 				}
 			}	
 		};
-		return newlist;
+		return replace(newlist,',','','one');
 	}
 
 	public function onLocalHost(){

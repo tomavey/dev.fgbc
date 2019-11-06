@@ -317,41 +317,48 @@
 	</cftry>
 	</cffunction>
 
-	<cffunction name="loginUser">
-	<cfargument name="username" required="true" type="string">
-	<cfargument name="email" required="true" type="string">
-	<cfargument name="userid" required="true" type="numeric">
-	<cfargument name="login_method" required="true" type="numeric">
-	<cfargument name="fbid" default="0">
-		<cfset session.auth.login = true>
-		<cfset session.auth.username = arguments.username>
-		<cfset session.auth.email = arguments.email>
-		<cfset session.auth.userid = arguments.userid>
-		<cfset session.auth.fbid = arguments.fbid>
-		<cfset session.auth.login_method = arguments.login_method>
-		<cfset session.auth.rightslist = "basic">
-		<cfset model("Authuser").recordLastLoginResults(session.auth.userid,session.auth.login_method)>
-		<cfset rights= model("Authuser").getrights(arguments.userid)>
-		<cfloop query="rights">
-			<cfset session.auth.rightslist = name & "," & session.auth.rightslist>
-		</cfloop>
-		<cfset groups = model("Authusersgroup").findall(where="auth_usersid = #arguments.userid#", include="Group")>
-		<cfloop query="groups">
-			<cfset session.auth.rightslist = name & "," & session.auth.rightslist>
-		</cfloop>
-		<cfif emailIsInHandbook(arguments.email)>
-			<cfset session.auth.rightslist = session.auth.rightslist & "handbook,">
-		</cfif>
+<cfscript>
 
-		<cfif emailIsInFC(arguments.email)>
-			<cfset session.auth.rightslist = session.auth.rightslist & "fellowshipcouncil,">
-		</cfif>
+	public void function loginUser ( 
+			required string username,  
+			required string email,
+			required numeric userid,
+			required numeric login_method
+			fbid = 0,
+			login = true,
+			rightslist = "basic"
+			) 
+	{
+		session.auth = arguments
 
-		<cfset session.auth.rightslist = ListSort(session.auth.rightslist,"text")>
-		<cfset session.auth.rightslist = removeDuplicatesFromList(session.auth.rightslist)>
-		<cfset session.auth.rightslist = replace(session.auth.rightslist,",","","one")>
+		//Record last login method to user table
+		model("Authuser").recordLastLoginResults(session.auth.userid,session.auth.login_method)
 
-	</cffunction>
+		//Add rights for user to the session auth rightslist
+		rights= model("Authuser").getrights(arguments.userid)
+		session.auth.rightslist = session.auth.rightslist & "," & valueList(rights.name)
+
+		//Add group names to the session auth righslist
+		groups = model("Authusersgroup").findall(where="auth_usersid = #arguments.userid#", include="Group")
+		session.auth.rightslist = session.auth.rightslist & "," & valueList(groups.name)
+
+		//Add handbook rights if email is in the handbook
+		if ( emailIsInHandbook(arguments.email) ) {
+			session.auth.rightslist = session.auth.rightslist & "," & "handbook,"
+		}
+
+		//Add fellowship council page rights if email is tagged for FC
+		if ( emailIsInFC(arguments.email) ) {
+			session.auth.rightslist = session.auth.rightslist & "fellowshipcouncil,"
+		}
+
+		//Clean up the rightslist
+		session.auth.rightslist = ListSort(session.auth.rightslist,"text")
+		session.auth.rightslist = removeDuplicatesFromList(session.auth.rightslist)
+		//writeDump(session.auth.rightslist);abort;
+	}
+
+</cfscript>
 
 	<cffunction name="setFailedLoginCount">
 		<cfif isDefined("session.auth.failedLoginCount")>
