@@ -264,25 +264,52 @@
 	<cfdump var="#params#"><cfabort>
 	</cffunction>
 
+<cfscript>
+	private void function pauseLoginAfterRepeatedFails(){
+		try {
+			var loc = {}
+			if (isDefined("session.auth.failedLoginCount") AND session.auth.failedLoginCount GTE 7) {
+				loc.milliseconds = (session.auth.failedLoginCount - 7) * 1000
+				sleep(loc.milliseconds)
+			} catch (any e) {
+				sendLoginErrorNotice(subject="Charisfellowship.us login problem at pause login")
+			}
+		}
+	}
+
+	private void function redirectForFBLogin(){
+		try {
+			if (isDefined("params.submit") and params.submit is "facebook") {
+				redirectTo(action="facebookOAuth")
+			}
+		} catch (any e) {
+			sendLoginErrorNotice(subject="Charisfellowship.us login problem at fb login")
+			redirectTo(controller="home", action="index")
+		}
+	}
+</cfscript>
+
+	<cffunction name="xpauseLogin">
+		<cfset var loc=	structnew()>
+
+		<cfif isDefined("session.auth.failedLoginCount") AND session.auth.failedLoginCount GTE 7>
+			<cfset loc.milliseconds = (session.auth.failedLoginCount - 7) * 1000>
+			<cfset sleep(loc.milliseconds)>
+		</cfif>
+	</cffunction>
+
+<cfscript>
+	private function XcheckLogin(){
+
+	}
+</cfscript>
+
+	
 	<cffunction name="checklogin">
 	<cfset var loc=structnew()>
 
-	<cftry>
-		<cfif isDefined("params.submit") and params.submit is "facebook">
-			<cfset redirectTo(action="facebookOAuth")>
-		</cfif>
-	<cfcatch>
-		<cfset sendLoginErrorNotice(subject="Charisfellowship.us login problem at fb login")>
-		<cfset redirectTo(controller="home", action="index")>
-	</cfcatch>
-	</cftry>
-
-	<cftry>
-		<cfset pauseLogin()>
-	<cfcatch>
-		<cfset sendLoginErrorNotice(subject="Charisfellowship.us login problem at pause login")>
-	</cfcatch>
-	</cftry>
+	<cfset redirectForFBLogin()>
+	<cfset pauseLoginAfterRepeatedFails()>
 
 	<cftry>
 		<cfif isDefined("params.user.username")>
@@ -358,6 +385,28 @@
 		//writeDump(session.auth.rightslist);abort;
 	}
 
+	private function emailIsInHandbook(required string email){
+		try {
+			var check = model("Handbookperson").findOne(where="email = '#arguments.email#' OR email2 = '#arguments.email#'", include="State")
+			if ( isObject(check) ) {
+				return true
+			} else {
+				return false
+			}
+		} catch (any e) {
+			return false
+		}
+	}
+
+	private function emailIsInFC(required string email){
+		try {
+			var check = model("Handbookperson").findOne(where="email = '#arguments.email#' AND tag = 'fc' && username = '#getSetting("superAdminUserName")#'", include="Handbooktags,Handbookstate")
+			// writeDump(check);abort;
+			if (isObject(check)) { return true }
+			else { return false }
+		} catch (any e) { return false }
+	}
+
 </cfscript>
 
 	<cffunction name="setFailedLoginCount">
@@ -368,38 +417,6 @@
 		</cfif>
 	</cffunction>
 
-	<cffunction name="emailIsInHandbook">
-	<cfargument name="email" required="true" type="string">
-	<cfset var loc = structNew()>
-	<cftry>
-		<cfset loc.check = model("Handbookperson").findOne(where="email = '#arguments.email#' OR email2 = '#arguments.email#'", include="State")>
-			<cfif isObject(loc.check)>
-				<cfreturn true>
-			<cfelse>
-				<cfreturn false>
-			</cfif>
-		<cfcatch>
-			<cfreturn false>
-		</cfcatch>
-	</cftry>
-	</cffunction>
-
-	<cffunction name="emailIsInFC">
-	<cfargument name="email" required="true" type="string">
-	<cfset var loc = structNew()>
-	<cftry>
-		<cfset loc.check = model("Handbookperson").findOne(where="email = '#arguments.email#' AND tag = 'fc'", include="Handbooktags,Handbookstate")>
-			<cfif isObject(loc.check)>
-				<cfreturn true>
-			<cfelse>
-				<cfreturn false>
-			</cfif>
-		<cfcatch>
-			<cfreturn false>
-		</cfcatch>
-	</cftry>
-	</cffunction>
-
 	<cffunction name="getUserFromEmail">
 	<cfargument name="email" required="true" type="string">
 		<cfset var user = model("Authuser").findOne(where="email='#arguments.email#'")>
@@ -408,8 +425,8 @@
 
 	<cffunction name="loginAsUser">
 		<cfif gotRights("superadmin")>
-		<cfset structDelete(session,"auth")>
-		<cfset loginUser(params.username, params.email, params.userid,5)>
+			<cfset structDelete(session,"auth")>
+			<cfset loginUser(params.username, params.email, params.userid,5)>
 		</cfif>
 	</cffunction>
 

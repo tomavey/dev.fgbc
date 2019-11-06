@@ -90,6 +90,7 @@
 	<cfset set(personReviewDeadline = "October 20")>
 	<cfset set(allowHandbookAuthByCookie = false)>
 	<cfset set(allowHandbookOrgUpdate = true)>
+	<cfset set(superAdminUserName = "tomavey")> <!---used at users.cfc login to give access to FC pages--->
 	<cfset set(alias = {
 		"652":{"lname":"B."},
 		"1037":{"lname":"B.","fname":"M.","spouse":"B."},
