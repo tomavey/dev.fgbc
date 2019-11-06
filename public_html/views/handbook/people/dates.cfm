@@ -44,7 +44,7 @@
 <cfoutput query="datesthisweek" group="fullname">
 <cfif isInHandbook(personid) && !hasAnAlias(personid)>
 	#includePartial("dates")#
-     <cfset count = count + 1>
+  <cfset count = count + 1>
 </cfif>    
 </cfoutput>
 
@@ -58,8 +58,10 @@
 
 <cfset useDayOfWeek = "false">
   <cfoutput group="fullname">
-  	#includePartial("dates")#
-  	<cfset count = count + 1>
+		<cfif isInHandbook(personid) && !hasAnAlias(personid)>
+			#includePartial("dates")#	
+			<cfset count = count + 1>
+		</cfif>	
 	<cfset emailall = emailall & "; " & handbookpersonemail>
   </cfoutput>
 </cfif>
