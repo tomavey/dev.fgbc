@@ -42,7 +42,7 @@
 
 <cfset useDayOfWeek = "true">
 <cfoutput query="datesthisweek" group="fullname">
-<cfif isInHandbook(personid)>
+<cfif isInHandbook(personid) && !hasAnAlias(personid)>
 	#includePartial("dates")#
      <cfset count = count + 1>
 </cfif>    
