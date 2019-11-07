@@ -67,9 +67,19 @@
 		</cfloop>
 	</cffunction>
 
-	<cffunction name="buildNewQuery">
+<cfscript>
+	function buildNewQuery( required query newQuery, required struct rowToAdd ) {
+		queryAddRow(newQuery)
+		for ( var item in rowToAdd ) {
+			querySetCell( newQuery,item,newUser[item] )
+		}
+		return newQuery
+	}
+</cfscript>	
+
+	<cffunction name="XbuildNewQuery">
 	<cfargument name="oldquery" required="true" type="query">
-	<cfargument name="newquery" required="true" type="query">
+	<cfargument name="rowToAdd" required="true" type="structure">
 		<cfset var loc = structNew()>
 		<cfset loc = arguments>
 

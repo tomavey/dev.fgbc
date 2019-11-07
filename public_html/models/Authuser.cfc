@@ -6,6 +6,7 @@
 		hasMany(name="Usersgroup", model="Authusersgroup", foreignKey="auth_usersid")
 		hasMany(name="Conferenceusers", model="Conferenceuser", foreignKey="userid")
 		validatesUniquenessOf(property="username")
+		validatesUniquenessOf(property="email")
 		beforeSave("securePassword")
 		property(
 			name="selectName", 
@@ -96,21 +97,15 @@
 	}
 
 	function findDuplicatesByEmail( orderBy="lastLoginAt", direction="DESC" ) {
-		var count = 0
 		var orderString = "#arguments.orderBy# #arguments.direction#"
 		var users = findAll(order=orderString)
 		var newQuery = queryNew(users.columnlist)
 		var newUsers = ""
-		var temp = ""
-		var count = 0
 		for ( user in users ) {
 			newUsers = findAll(where="email='#user.email#'")
 			if ( newUsers.recordcount GTE 2 ) {
 				for ( newUser in newUsers ) {
-					queryAddRow(newQuery)
-					for (item in newUser ) {
-						querySetCell(newQuery,item,newUser[item])
-					}
+					newQuery = buildNewQuery( newQuery,newUser )
 				}
 			}
 		}
