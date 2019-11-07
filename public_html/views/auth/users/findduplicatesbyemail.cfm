@@ -6,7 +6,7 @@
 <table>
   <cfoutput>
     <tr>
-      <th>#linkto(text="Username", route="AuthUsersfindDuplicatesByEmail" params="orderBy=username&direction=ASC")#</th>
+      <th>#linkto(text="Username", route="AuthUsersfindDuplicatesByEmail", params="orderBy=username&direction=ASC")#</th>
       <th>#linkto(text="Email", controller="auth.users", action="find-duplicates-by-email", params="orderBy=email&direction=ASC")#</th>
       <th>#linkto(text="Created", controller="auth.users", action="find-duplicates-by-email", params="orderBy=createdat&direction=DESC")#</th>
       <th>#linkto(text="Last Logged in", controller="auth.users", action="find-duplicates-by-email", params="orderBy=lastloginat&direction=DESC")#</th>
