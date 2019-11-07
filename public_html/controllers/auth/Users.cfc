@@ -70,6 +70,7 @@ component extends="Controller" output="false" {
 		if ( !bypassCaptcha ) {
 			strCaptcha = getcaptcha()
 		}
+		formaction = "codeconfirm"
 	}
 
 	public function codeconfirm(){		
