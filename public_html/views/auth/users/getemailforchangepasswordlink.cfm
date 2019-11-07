@@ -5,11 +5,11 @@
 <p>If the email address you enter here is found in our system, you will be sent a link to change your password.</p>
 <cfoutput>
 
-		    <cfif flashKeyExists("error")>
-		        <p class="message">
-		            #flash("error")#
-		        </p>
-		    </cfif>
+			<cfif flashKeyExists("error")>
+					<p class="message">
+							#flash("error")#
+					</p>
+			</cfif>
 		    
 			#errorMessagesFor("user")#
 	

@@ -1,112 +1,128 @@
 <cfcomponent extends="Model" output="false">
 
-	<cffunction name="init">
-		<cfset table("auth_users")>
-		<cfset hasMany(name="Usersgroup", model="Authusersgroup", foreignKey="auth_usersid")>
-		<cfset hasMany(name="Conferenceusers", model="Conferenceuser", foreignKey="userid")>
-		<cfset validatesUniquenessOf(property="username")>
-		<cfset beforeSave("securePassword")>
-		<cfset property(
+<cfscript>
+	function init() {
+		table("auth_users")
+		hasMany(name="Usersgroup", model="Authusersgroup", foreignKey="auth_usersid")
+		hasMany(name="Conferenceusers", model="Conferenceuser", foreignKey="userid")
+		validatesUniquenessOf(property="username")
+		beforeSave("securePassword")
+		property(
 			name="selectName", 
 			sql="CONCAT_WS(', ',lname,fname,username)"
-			)>
-		<cfset property(
+			)
+		property(
 			name="fullName", 
 			sql="CONCAT_WS(', ',lname,fname)"
-			)>
-		<cfset property(
-			name="createdDate",
-			sql="date_format(createdAt,'%Y-%m-%d')"
-			)>	
-		<cfset property(
+			)
+		property(
 			name="lastLoginDate",
 			sql="date_format(lastLoginAt,'%Y-%m-%d')"
-			)>	
-	</cffunction>
+			)
+		dsn="fgbc_main_3"
+	}
 
 	<!---Call Backs--->
-	<cffunction name="securePassword">
-		<cfset this.salt = createUUID()>
-		<cfset this.salt = replace(this.salt,"-","","all")>
-		<cfset this.encrypted_password = hash(this.salt&this.password,"SHA-256")>
-		<cfset this.password = "encrypted">
-	</cffunction>
-	
-	<cffunction name="getRights">
-	<cfargument name="userid" required="true" type="numeric">
-	<cfset var loc=structNew()>
-	<cfquery datasource="fgbc_main_3" name="loc.rights">
-		SELECT DISTINCT r.id, r.name, r.description
-		FROM auth_rights r
-			JOIN auth_groupsrights gr
-				ON gr.auth_rightsid = r.id
-			JOIN auth_usersgroups ug
-				ON gr.auth_groupsid = ug.auth_groupsid
-			JOIN auth_users u
-				ON ug.auth_usersid = u.id	
-		WHERE gr.deletedAt IS NULL 	
-		AND ug.deletedAt IS NULL
-		AND ug.auth_usersid = #arguments.userid#
-		ORDER BY r.name
-	</cfquery>	
-	
-	<cfreturn loc.rights>
-	</cffunction>
+	function securePassword() {
+		this.salt = createUUID()
+		this.salt = replace(this.salt,"-","","all")
+		this.encrypted_password = hash(this.salt&this.password,"SHA-256")
+		this.password = "encrypted"
+	}
 
-	<cffunction name="recordLastLoginResults">
-	<cfargument name="userid" required="true" type="numeric">	
-	<cfargument name="login_method" required="true" type="numeric">
-	<cfargument name="lastloginat" default="#now()#">
-		<cfquery datasource="#application.wheels.datasourcename#">
-			UPDATE auth_users
-			SET login_method = #arguments.login_method#,
-			lastloginat = #arguments.lastloginat#
-			WHERE id = #arguments.userid#
-		</cfquery>
-		<cfreturn true>
-	</cffunction>
+	function getRights(userid) {
+		var rights = new Query(
+			datasource=dsn,
+			sql="SELECT DISTINCT r.id, r.name, r.description
+			FROM auth_rights r
+				JOIN auth_groupsrights gr
+					ON gr.auth_rightsid = r.id
+				JOIN auth_usersgroups ug
+					ON gr.auth_groupsid = ug.auth_groupsid
+				JOIN auth_users u
+					ON ug.auth_usersid = u.id	
+			WHERE gr.deletedAt IS NULL 	
+			AND ug.deletedAt IS NULL
+			AND ug.auth_usersid = #arguments.userid#
+			ORDER BY r.name"
+		)
+		return rights.execute().getResult()
+	}
 
-	<cffunction name="recordLastFailedLogin">
-	<cfargument name="userid" required="true" type="numeric">	
-	<cfargument name="lastfailedloginat" default="#now()#">
-	<cfset var loc=structNew()> 
-	<cfset loc.failedLoginCount = getFailedLoginCount(arguments.userid)+1>
-		<cfquery datasource="#application.wheels.datasourcename#">
-			UPDATE auth_users
+	function recordLastLoginResults( required numeric userid, required numeric login_method, lastloginat = now() ) {
+		var qry = new Query(
+			datasource=dsn,
+			sql="UPDATE auth_users
+			SET login_method=#arguments.login_method#,
+			lastloginat=#arguments.lastloginat#
+			WHERE id=#arguments.userid#"
+		)
+		qry.execute()
+		return true
+	}
+
+	function recordLastFailedLogin( required numeric userid, lastfailedloginat=now() ) {
+		var failedLoginCount = getFailedLoginCount(arguments.userid)+1
+		var qry = new Query(
+			datasource = dsn,
+			sql = "UPDATE auth_users
 			SET lastfailedloginat = #arguments.lastfailedloginat#,
 			failedlogins = #loc.failedLoginCount# 
-			WHERE id = #arguments.userid#
-		</cfquery>
-		<cfreturn true>
-	</cffunction>
+			WHERE id = #arguments.userid#"
+		).execute()
+		return true
+	}
 
-	<cffunction name="getFailedLoginCount">
-	<cfargument name="userid" type="numeric" required="true">
-	<cfset failedlogins = findOne(where="id=#arguments.userid#").failedlogins>
-	<cfif failedlogins is "">
-		<cfset failedlogins = 0>
-	</cfif>
-	<cfreturn failedlogins>
-	</cffunction>
+	function getFailedLoginCount( required numeric userid ) {
+		var failedlogins = findOne(where="id=#arguments.userid#").failedlogins
+		if ( failedLogins is "" ) { failedLogins = 0 }
+		return failedLogins 
+	}
 
-	<cffunction name="setToken">
-	<cfargument name="personid" required="true"	type="numeric">
-	<cfset user = findByKey(arguments.personid)>
-	<cfset var loc = structNew()>
-		<cfset loc.token = createUUID()>
-		<cfset loc.token = replace(loc.token,"-","","all")>
-		<cfset loc.token_createdAt = now()>
-		<cfif not len(user.token) or (dayOfYear(now()) NEQ dayOfYear(user.token_createdAt))>
-			<cfquery datasource="#application.wheels.datasourcename#">
-				UPDATE auth_users
+	function setToken( required numerid personid ) {
+		var user = findByKey(arguments.personid)
+		var token = replace( createUUID(),"-","","all" )
+		var token_createdAt = now()
+		if ( !len(user.token) ) {
+			var qry = new Query(
+				datasource=dsn,
+				sql="UPDATE auth_users
 				SET token = '#loc.token#',
 				token_createdAt = #loc.token_createdAt#
-				WHERE id = #arguments.personid#
-			</cfquery>
-		</cfif>	
-	</cffunction>
+				WHERE id = #arguments.personid#"
+			).execute()
+		}
+		return true
+	}
 
-	<cffunction name="findDuplicatesByEmail">
+	function findDuplicatesByEmail( orderBy="lastLoginAt DESC" ) {
+		var count = 0
+		var users = findAll(order=arguments.orderby)
+		var newQuery = queryNew(users.columnlist)
+		var check = ""
+		var temp = ""
+		var count = 0
+		for ( user in users ) {
+			check = findAll(where="email='#user.email#'")
+			if ( check.recordcount EQ 1 && count LTE 20 ) {
+				writeDump(count)
+				count = count + 1
+			}
+		}
+		if ( count GTE 10 ) { writeOutput(count); abort; }
+		abort;
+		return newQuery
+	}
+
+</cfscript>	
+
+
+
+
+
+
+
+	<cffunction name="XfindDuplicatesByEmail">
 	<cfargument name="orderby" default="lastLoginAt DESC">
 	<cfset var loc = structNew()>
 	<cfset loc = arguments>
@@ -156,4 +172,111 @@
 		</cfif>	
 	</cffunction>
 
+
+<!---Trash--->	
+
+	<cffunction name="Xinit">
+		<cfset table("auth_users")>
+		<cfset hasMany(name="Usersgroup", model="Authusersgroup", foreignKey="auth_usersid")>
+		<cfset hasMany(name="Conferenceusers", model="Conferenceuser", foreignKey="userid")>
+		<cfset validatesUniquenessOf(property="username")>
+		<cfset beforeSave("securePassword")>
+		<cfset property(
+			name="selectName", 
+			sql="CONCAT_WS(', ',lname,fname,username)"
+			)>
+		<cfset property(
+			name="fullName", 
+			sql="CONCAT_WS(', ',lname,fname)"
+			)>
+		<cfset property(
+			name="createdDate",
+			sql="date_format(createdAt,'%Y-%m-%d')"
+			)>	
+		<cfset property(
+			name="lastLoginDate",
+			sql="date_format(lastLoginAt,'%Y-%m-%d')"
+			)>	
+	</cffunction>
+
+	<cffunction name="XsecurePassword">
+		<cfset this.salt = createUUID()>
+		<cfset this.salt = replace(this.salt,"-","","all")>
+		<cfset this.encrypted_password = hash(this.salt&this.password,"SHA-256")>
+		<cfset this.password = "encrypted">
+	</cffunction>
+	
+	<cffunction name="XgetRights">
+		<cfargument name="userid" required="true" type="numeric">
+		<cfset var loc=structNew()>
+		<cfquery datasource="fgbc_main_3" name="loc.rights">
+			SELECT DISTINCT r.id, r.name, r.description
+			FROM auth_rights r
+				JOIN auth_groupsrights gr
+					ON gr.auth_rightsid = r.id
+				JOIN auth_usersgroups ug
+					ON gr.auth_groupsid = ug.auth_groupsid
+				JOIN auth_users u
+					ON ug.auth_usersid = u.id	
+			WHERE gr.deletedAt IS NULL 	
+			AND ug.deletedAt IS NULL
+			AND ug.auth_usersid = #arguments.userid#
+			ORDER BY r.name
+		</cfquery>	
+		
+		<cfreturn loc.rights>
+		</cffunction>
+
+		<cffunction name="XrecordLastLoginResults">
+			<cfargument name="userid" required="true" type="numeric">	
+			<cfargument name="login_method" required="true" type="numeric">
+			<cfargument name="lastloginat" default="#now()#">
+				<cfquery datasource="#application.wheels.datasourcename#">
+					UPDATE auth_users
+					SET login_method = #arguments.login_method#,
+					lastloginat = #arguments.lastloginat#
+					WHERE id = #arguments.userid#
+				</cfquery>
+				<cfreturn true>
+			</cffunction>
+		
+			<cffunction name="XrecordLastFailedLogin">
+				<cfargument name="userid" required="true" type="numeric">	
+				<cfargument name="lastfailedloginat" default="#now()#">
+				<cfset var loc=structNew()> 
+				<cfset loc.failedLoginCount = getFailedLoginCount(arguments.userid)+1>
+					<cfquery datasource="#application.wheels.datasourcename#">
+						UPDATE auth_users
+						SET lastfailedloginat = #arguments.lastfailedloginat#,
+						failedlogins = #loc.failedLoginCount# 
+						WHERE id = #arguments.userid#
+					</cfquery>
+					<cfreturn true>
+				</cffunction>
+				<cffunction name="XgetFailedLoginCount">
+					<cfargument name="userid" type="numeric" required="true">
+					<cfset failedlogins = findOne(where="id=#arguments.userid#").failedlogins>
+					<cfif failedlogins is "">
+						<cfset failedlogins = 0>
+					</cfif>
+					<cfreturn failedlogins>
+					</cffunction>
+
+					<cffunction name="XsetToken">
+						<cfargument name="personid" required="true"	type="numeric">
+						<cfset user = findByKey(arguments.personid)>
+						<cfset var loc = structNew()>
+							<cfset loc.token = createUUID()>
+							<cfset loc.token = replace(loc.token,"-","","all")>
+							<cfset loc.token_createdAt = now()>
+							<cfif not len(user.token) or (dayOfYear(now()) NEQ dayOfYear(user.token_createdAt))>
+								<cfquery datasource="#application.wheels.datasourcename#">
+									UPDATE auth_users
+									SET token = '#loc.token#',
+									token_createdAt = #loc.token_createdAt#
+									WHERE id = #arguments.personid#
+								</cfquery>
+							</cfif>	
+						</cffunction>
+										
 </cfcomponent>

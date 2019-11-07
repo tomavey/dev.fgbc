@@ -187,7 +187,7 @@ component extends="Controller" output="false" {
 
 	public function getEmailForChangePasswordLink(){
 		user= model("Authuser").new()
-		formaction = emailChangePasswordLink
+		formaction = "emailChangePasswordLink"
 	}
 
 	public function emailChangePasswordLink(){
@@ -265,13 +265,13 @@ component extends="Controller" output="false" {
 
 		try {
 			if ( !loc.checkUserName.recordcount ) {
-				flashInsert(success="User Not Found")
+				flashInsert(success="User & Password Not Found")
 				redirectTo(action='loginform')
 			} elseif ( trim(loc.checkUsername.password) is "encrypted" and loc.checkUserName.encrypted_password is hash(loc.checkUserName.salt&trim(params.user.password),"SHA-256") ) {
 				loginuser(username=loc.checkUserName.username, email=loc.checkUserName.email, userid=loc.checkUserName.id, login_method="1")
 				returnBack()
 			} else {
-				flashInsert(success="User Not Found")
+				flashInsert(success="User & Password Not Found")
 				setFailedLoginCount()
 				redirectTo(controller="auth.users", action='loginform')
 			}

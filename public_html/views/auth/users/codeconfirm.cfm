@@ -1,6 +1,6 @@
 <cfparam name="tempUser" default='#session.auth.tempUser#'>
 <cfparam name="formAction" required=true type="string">
-<div class="container text-center">
+<div class="container card card-charis text-center">
   <h1>Enter the code that was sent to your email address: </h1>
   <p>Be sure to check spam or junk folders.</p>
     <cfoutput>
