@@ -126,6 +126,7 @@
 				.get(name="codeconfirm", pattern="codeconfirm/")
 				.post(name="checkCode", pattern="checkCode/")
 				.put(name="checkCode", pattern="checkCode/")
+				.get(name="findDuplicatesByEmail", pattern="findDuplicatesByEmail/")
 
 			.end()	
 
