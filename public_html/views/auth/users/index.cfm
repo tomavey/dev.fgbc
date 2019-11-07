@@ -69,7 +69,7 @@
 	</table>
 
 	<p>#addTag()#</p>
-	<p>#linkTo(text="Duplicate Emails Used", action="findDuplicatesByEmail")#</p>
+	<p>#linkTo(text="Duplicate Emails Used", action="findDuplicatesByEmail", params="orderBy=email")#</p>
 
 </div>
 </cfoutput>

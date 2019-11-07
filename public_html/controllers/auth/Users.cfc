@@ -212,7 +212,7 @@ component extends="Controller" output="false" {
 		rendertext("Email not found")
 	}
 
-	function putInBasicGroup(required numeric userid, groupid=2){
+	private function putInBasicGroup(required numeric userid, groupid=2){
 		var userGroup = {}
 		var check = model("Authusersgroup").findAll(where="auth_usersId = #arguments.userID# AND auth_groupsId = #arguments.groupId#")
 		if ( !check.recordCount ) {
@@ -223,12 +223,12 @@ component extends="Controller" output="false" {
 		}
 	}
 
-	function checkUsername(required string username) {
+	private function checkUsername(required string username) {
 		var checkUsername = model("Authuser").findAll(where="username = '#arguments.username#'")
 		return checkUsername
 	}
 
-	function checkEmailAsUsername(required string email) {
+	private function checkEmailAsUsername(required string email) {
 		var checkUsername = model("Authuser").findAll(where="email = '#arguments.email#'")
 		return checkUsername
 	}
@@ -413,6 +413,11 @@ component extends="Controller" output="false" {
 		}
 	}
 
+	function findDuplicatesByEmail(orderBy="lastLoginAt DESC") {
+		if ( isDefined("params.orderBy") ) { arguments.orderBy=params.orderBy }
+		users = model("Authuser").findDuplicatesByEmail(orderBy)
+	}
+	
 }
 
 

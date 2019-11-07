@@ -1,3 +1,4 @@
+<div class="container">
 <h2>Duplicate users with the same email address</h2>
 <table>
 <tr>
@@ -16,3 +17,4 @@
 </tr>
 </cfoutput>
 </table>
+</div>
