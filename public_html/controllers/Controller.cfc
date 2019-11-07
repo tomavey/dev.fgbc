@@ -373,14 +373,6 @@
 		</cfif>
 	</cffunction>
 
-	<cffunction name="pauseLogin">
-	<cfset var loc=	structnew()>
-	<cfif isDefined("session.auth.failedLoginCount") AND session.auth.failedLoginCount GTE 7>
-		<cfset loc.milliseconds = (session.auth.failedLoginCount - 7) * 1000>
-		<cfset sleep(loc.milliseconds)>
-	</cfif>
-	</cffunction>
-
 	<cffunction name="linkToX">
 	<cfset var loc=structNew()>
 	<cfset var i="">

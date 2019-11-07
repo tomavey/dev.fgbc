@@ -1,6 +1,5 @@
-<cfcomponent extends="Controller" output="false">
+component extends="Controller" output="false" {
 
-<cfscript>
 	function init(){
 		filters(through="isSuperadmin", only="index,indexOld,show,loginAsUser")
 		filters(through="setReturn", only="index,indexOld,show")
@@ -17,7 +16,7 @@
 
 
 <!------------------->
-	<!---Basic CRUD--->
+<!-----Basic CRUD---->
 <!------------------->
 
 <!--- users/index --->
@@ -171,109 +170,89 @@
 			redirectTo(action="index")
 		}
 	}
-</cfscript>
 
 <!---End of Basic CRUD--->
 
-	<cffunction name="changePassword">
-		<!--- Find the record --->
-    	<cfset user = model("Authuser").findOne(where="token='#params.key#'")>
 
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(user)>
-	        <cfset flashInsert(error="Something didn't work correctly. Try again!")>
-			<cfset redirectTo(action="get-email-for-change-password-link", params="forceReset=true")>
-		<cfelse>
-			<cfset user.password="">
-	    </cfif>
 
-	</cffunction>
+	public function changePassword(token=params.key){
+		user = model("Authuser").findOne(where="token='#arguments.token#'")
+		if ( !isObject(user) ) {
+			flashInsert(error="Something didn't work correctly. Try again!")
+			redirectTo(action="get-email-for-change-password-link", params="forceReset=true")
+		} else {
+			user.password=""
+		}
+	}
 
-	<cffunction name="getEmailForChangePasswordLink">
-		<cfset user= model("Authuser").new()>
-	</cffunction>
+	function getEmailForChangePasswordLink(){
+		user= model("Authuser").new()
+	}
 
-	<cffunction name="emailChangePasswordLink">
-		<!---find all user accounts that use this email address--->
-		<cfset users = model("Authuser").findAll(where="email = '#params.user.email#'")>
+	function emailChangePasswordLink(){
+		users = model("Authuser").findAll(where="email = '#params.user.email#'")
+		if ( users.recordcount ) {
+			for ( row in users ) {
+				model("Authuser").setToken(row.id)
+			}
+			usersTokens = model("Authuser").findAll(where="email = '#params.user.email#'", reLoad=true)
+			if ( usersTokens.recordcount && !isLocalMachine() ) {
+				sendEmail(template="emailChangePasswordLink", layout="layoutforemail", from=application.wheels.userAdminEmailAddress, to=users.email, bcc="tomavey@fgbc.org", subject="Your Password on charisfellowship.us")
+			} elseIf ( usersTokens.recordcount ) {
+				renderPage(action="emailSent")
+			} else {
+				renderPage(action="tokenNotFound")
+			}
+		} else {
+			renderPage(action="emailNotFound")
+		}
+	}
 
-		<!---If there are any, proceed, if not show an emailnotfound message--->
-		<cfif users.recordcount>
+	function emailNotFound(){
+		rendertext("Email not found")
+	}
 
-			<!---Reset tokens if needed--->
-			<cfloop query="users">
-				<cfset model("Authuser").setToken(id)>
-			</cfloop>
+	function putInBasicGroup(required numeric userid, groupid=2){
+		var userGroup = {}
+		var check = model("Authusersgroup").findAll(where="auth_usersId = #arguments.userID# AND auth_groupsId = #arguments.groupId#")
+		if ( !check.recordCount ) {
+			userGroup = model("Authusersgroup").new()
+			userGroup.auth_usersid = arguments.userid
+			userGroup.auth_groupsid = arguments.groupid
+			usergroup.save()
+		}
+	}
 
-			<!---Gather all the tokens as a query--->
-			<cfset usersTokens = model("Authuser").findAll(where="email = '#params.user.email#'", reLoad=true)>
+	function checkUsername(required string username) {
+		var checkUsername = model("Authuser").findAll(where="username = '#arguments.username#'")
+		return checkUsername
+	}
 
-			<!---Send email links to reset password for each token--->
-			<cfif usersTokens.recordcount>
-				<cfset sendEmail(template="emailChangePasswordLink", layout="layoutforemail", from=application.wheels.userAdminEmailAddress, to=users.email, bcc="tomavey@fgbc.org", subject="Your Password on charisfellowship.us")>
-				<cfif isLocalMachine()>
-				<cfelse>
-					<cfset renderPage(action="emailSent")>
-				</cfif>
-			<cfelse>
-				<cfset renderPage(action="tokenNotFound")>
-			</cfif>
-		<cfelse>
-			<cfset renderPage(action="emailNotFound")>
-		</cfif>
-	</cffunction>
+	function checkEmailAsUsername(required string email) {
+		var checkUsername = model("Authuser").findAll(where="email = '#arguments.email#'")
+		return checkUsername
+	}
 
-	<cffunction name="emailNotFound">
-		<cfset rendertext("Email not found")>
-	</cffunction>
 
-	<cffunction name="putInBasicGroup">
-	<cfargument name="userId" required="true" type="numeric">
-	<cfargument name="groupId" default="2">
-		<cfset check = model("Authusersgroup").findAll(where="auth_usersId = #arguments.userID# AND auth_groupsId = #arguments.groupId#")>
-		<cfif not check.recordcount>
-			<cfset userGroup = model("Authusersgroup").new()>
-			<cfset userGroup.auth_usersid = arguments.userid>
-			<cfset userGroup.auth_groupsid = arguments.groupid>
-			<cfset usergroup.save()>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="checkUsername">
-	<cfargument name="username" required="true" type="string">
-		<cfset checkUsername = model("Authuser").findAll(where="username = '#arguments.username#'")>
-		<cfreturn checkUserName>
-	</cffunction>
-
-	<cffunction name="checkEmailAsUsername">
-	<cfargument name="email" required="true" type="string">
-		<cfset checkUsername = model("Authuser").findAll(where="email = '#arguments.email#'")>
-		<cfreturn checkUserName>
-	</cffunction>
-
+<!------------------->
 <!---Login Methods--->
+<!------------------->
 
-	<!---show login form--->
-	<cffunction name="loginform">
-		<cfset user = model("Authuser").new()>
-		<!---cfset user.return = cgi.HTTP_REFERER--->
-	</cffunction>
+<!---show login form--->
+	public function loginform(){
+		user = model("Authuser").new()
+		// user.return = cgi.HTTP_REFERER
+	}
 
-	<cffunction name="testcheck">
-	testcheck...
-	<cfdump var="#params#"><cfabort>
-	</cffunction>
-
-<cfscript>
 	private void function pauseLoginAfterRepeatedFails(){
 		try {
 			var loc = {}
-			if (isDefined("session.auth.failedLoginCount") AND session.auth.failedLoginCount GTE 7) {
+			if  (isDefined("session.auth.failedLoginCount") AND session.auth.failedLoginCount GTE 7 ) {
 				loc.milliseconds = (session.auth.failedLoginCount - 7) * 1000
 				sleep(loc.milliseconds)
-			} catch (any e) {
-				sendLoginErrorNotice(subject="Charisfellowship.us login problem at pause login")
 			}
+		}	catch (any e) {
+			sendLoginErrorNotice(subject="Charisfellowship.us login problem at pause login")
 		}
 	}
 
@@ -287,64 +266,41 @@
 			redirectTo(controller="home", action="index")
 		}
 	}
-</cfscript>
 
-	<cffunction name="xpauseLogin">
-		<cfset var loc=	structnew()>
+	private function checkLogin(){
+		var loc = {}
 
-		<cfif isDefined("session.auth.failedLoginCount") AND session.auth.failedLoginCount GTE 7>
-			<cfset loc.milliseconds = (session.auth.failedLoginCount - 7) * 1000>
-			<cfset sleep(loc.milliseconds)>
-		</cfif>
-	</cffunction>
+		// redirectForFBLogin()
+		pauseLoginAfterRepeatedFails()
 
-<cfscript>
-	private function XcheckLogin(){
+		try {
+			if ( isDefined("params.user.username") ) {
+				loc.checkUserName = checkUserName('#params.user.username#')
+			} else {
+				redirectTo(action='loginform')
+			}
+		} catch (any e) {
+			sendLoginErrorNotice(subject="Charisfellowship.us login problem check user name")
+			redirectTo(controller="home", action="index")
+		}
 
+		try {
+			if ( !loc.checkUserName.recordcount ) {
+				flashInsert(success="User Not Found")
+				redirectTo(action='loginform')
+			} elseif ( trim(loc.checkUsername.password) is "encrypted" and loc.checkUserName.encrypted_password is hash(loc.checkUserName.salt&trim(params.user.password),"SHA-256") ) {
+				loginuser(username=loc.checkUserName.username, email=loc.checkUserName.email, userid=loc.checkUserName.id, login_method="1")
+				returnBack()
+			} else {
+				flashInsert(success="User Not Found")
+				setFailedLoginCount()
+				redirectTo(controller="auth.users", action='loginform')
+			}
+		} catch (any e) {
+			sendLoginErrorNotice(subject="Charisfellowship.us login problem at last step")
+			redirectTo(controller="home", action="index")			
+		}
 	}
-</cfscript>
-
-	
-	<cffunction name="checklogin">
-	<cfset var loc=structnew()>
-
-	<cfset redirectForFBLogin()>
-	<cfset pauseLoginAfterRepeatedFails()>
-
-	<cftry>
-		<cfif isDefined("params.user.username")>
-			<cfset loc.checkUserName = checkUserName('#params.user.username#')>
-		<cfelse>
-			<cfset redirectTo(action='loginform')>
-		</cfif>
-	<cfcatch>
-		<cfset sendLoginErrorNotice(subject="Charisfellowship.us login problem check user name")>
-		<cfset redirectTo(controller="home", action="index")>
-	</cfcatch>
-	</cftry>
-
-	<cftry>
-		<cfif not loc.checkUserName.recordcount>
-			<cfset flashInsert(success="User Not Found")>
-			<cfset redirectTo(action='loginform')>
-		<!---1-Login using salted and hashed password--->
-		<cfelseif trim(loc.checkUsername.password) is "encrypted" and loc.checkUserName.encrypted_password is hash(loc.checkUserName.salt&trim(params.user.password),"SHA-256")>
-			<cfset loginuser(username=loc.checkUserName.username, email=loc.checkUserName.email, userid=loc.checkUserName.id, login_method="1")>
-			<cfset returnBack()>
-
-		<cfelse>
-			<cfset flashInsert(success="User Not Found")>
-			<cfset setFailedLoginCount()>
-			<cfset redirectTo(controller="auth.users", action='loginform')>
-		</cfif>
-	<cfcatch>
-		<cfset sendLoginErrorNotice(subject="Charisfellowship.us login problem at last step")>
-		<cfset redirectTo(controller="home", action="index")>
-	</cfcatch>
-	</cftry>
-	</cffunction>
-
-<cfscript>
 
 	public void function loginUser ( 
 			required string username,  
@@ -407,232 +363,56 @@
 		} catch (any e) { return false }
 	}
 
-</cfscript>
+	private void function setFailedLoginCount() {
+		if ( isDefined("session.auth.failedLoginCount") ) {
+			session.auth.failedLoginCount = session.auth.failedLoginCount + 1
+		} else {
+			session.auth.failedLoginCount = 1
+		}
+	}
 
-	<cffunction name="setFailedLoginCount">
-		<cfif isDefined("session.auth.failedLoginCount")>
-			<cfset session.auth.failedLoginCount = session.auth.failedLoginCount + 1>
-		<cfelse>
-			<cfset session.auth.failedLoginCount = 1>
-		</cfif>
-	</cffunction>
+	private function getUserFromEmail (required string email) {
+		var user = model("Authuser").findOne(where="email='#arguments.email#'")
+		return user
+	}
 
-	<cffunction name="getUserFromEmail">
-	<cfargument name="email" required="true" type="string">
-		<cfset var user = model("Authuser").findOne(where="email='#arguments.email#'")>
-	<cfreturn user>
-	</cffunction>
+	public function loginAsUser(username=params.username, email=params.email, userid=params.userid) {
+		if ( gotRights("superadmin") ) {
+			loginUser(username, email, userid,5)
+		}
+	}
 
-	<cffunction name="loginAsUser">
-		<cfif gotRights("superadmin")>
-			<cfset structDelete(session,"auth")>
-			<cfset loginUser(params.username, params.email, params.userid,5)>
-		</cfif>
-	</cffunction>
+	public function logout() {
+		structDelete(session,"auth")
+		location(url="/", addToken="no")
+	}
 
-	<cffunction name="logout">
-		<cfset structDelete(session,"auth")>
-		<cflocation url="/" addToken="no">
-	</cffunction>
+	public function addToGroup(userId=params.key, groupId=params.groupId) {
+		var userGroup
+		var check = model("Authusersgroup").findAll(where="auth_usersId = #arguments.userID# AND auth_groupsId = #arguments.groupId#")
+		if ( !check.recordCount ) {
+			userGroup = model("Authusersgroup").new()
+			userGroup.auth_usersid = arguments.userid
+			userGroup.auth_groupsid = arguments.groupid
+			if ( usergroup.save() ) {
+				returnBack()			
+			}
+			returnBack()
+		}
+		returnBack()	
+	}
 
-	<cffunction name="addToGroup">
-	<cfargument name="userId" default='#params.key#'>
-	<cfargument name="groupId" default='#params.groupid#'>
-		<cfset check = model("Authusersgroup").findAll(where="auth_usersId = #arguments.userID# AND auth_groupsId = #arguments.groupId#")>
-		<cfif not check.recordcount>
-			<cfset userGroup = model("Authusersgroup").new()>
-			<cfset userGroup.auth_usersid = arguments.userid>
-			<cfset userGroup.auth_groupsid = arguments.groupid>
-			<cfif usergroup.save()>
-				<cfset returnBack()>
-			</cfif>
-				<cfset returnBack()>
-		</cfif>
-				<cfset returnBack()>
-	</cffunction>
+	public function removeFromGroup(userId=params.key, groupId=params.groupId) {
+		user = model("Authusersgroup").deleteAll(where="auth_usersid='#arguments.userid#' AND auth_groupsid='#arguments.groupid#'")
+		returnBack()
+	}
 
-	<cffunction name="removeFromGroup">
-	<cfargument name="userId" default='#params.userid#'>
-	<cfargument name="groupId" default='#params.groupid#'>
+	private void function sendLoginErrorNotice(required string subject) {
+		if ( !isLocalMachine() ) {
+			sendEmail(from=getSetting("errorEmailAddress"), to=getSettingerrorEmailAddress, template="loginerroremail.cfm", subject=arguments.subject)			
+		}
+	}
 
-		<cfset user = model("Authusersgroup").deleteAll(where="auth_usersid='#arguments.userid#' AND auth_groupsid='#arguments.groupid#'")>
+}
 
-		<cfset returnBack()>
-	</cffunction>
 
-	<cffunction name="getpassword">
-		<cfif isDefined("params.encrypt")>
-			<cfset usersold = model("Authuser").findall(where="password <> 'encrypted'", maxrows="300")>
-			<cfloop query="usersold">
-				<cftry>
-					<cfset dpassword = decrypt(password,getSetting("passwordkey"),"CFMX_COMPAT","Hex")>
-					<cfcatch>
-						<cftry>
-							<cfset dpassword=decrypt(password,getSetting("passwordkey"))>
-							<cfcatch>
-								<cfset dpassword = password>
-							</cfcatch>
-						</cftry>
-					</cfcatch>
-				</cftry>
-				<cfset user = model("Authuser").findOne(where="id=#id#")>
-				<cfset user.password = dpassword>
-				<cfset user.save()>
-			</cfloop>
-		</cfif>
-		<cfset users = model("Authuser").findall()>
-	</cffunction>
-
-	<cffunction name="cleartoken">
-		<cfset count = model("Authuser").clearToken(139)>
-		<cfdump var='#count#'><cfabort>
-	</cffunction>
-
-	<cffunction name="createOauthState">
-		<cfset cookie.state = createUUID()>
-		<cfset session.state = createUUID()>
-		<cfset application.state = createUUID()>
-	</cffunction>
-
-	<cffunction name="getOauthState">
-	<cfset var state = "">
-		<cfif structKeyExists(session,"state")>
-			<cfreturn session.state>
-		<cfelseif structKeyExists(cookie,"state")>
-			<cfreturn cookie.state>
-		<cfelseif structKeyExists(application,"state")>
-			<cfreturn application.state>
-		<cfelse>
-			<cfreturn "None">
-		</cfif>
-	</cffunction>
-
-<!---Used for facebook login--->
-	<cffunction name="facebookOAuth">
-		<cfset createOauthState()>
-		<cflocation url="https://www.facebook.com/dialog/oauth?client_id=#application.fbappid#&redirect_uri=#application.fbredirecturl#&state=#getOauthState()#&scope=email" addtoken="false">
-	</cffunction>
-
-	<cffunction name="getFbaccesstoken">
-	<cfset var loc=structNew()>
-	<cfset loc.noaccess = "noaccess">
-
-	<cftry>
-		<cfif isDefined("params.code") and params.state is getOauthState()>
-			<cfset session.fbcode = params.code>
-
-			<cfhttp url="https://graph.facebook.com/oauth/access_token?client_id=#application.fbappid#&redirect_uri=#urlEncodedFormat(application.fbredirecturl)#&client_secret=#application.fbsecret#&code=#session.fbcode#">
-
-			<cfif findNoCase("access_token=", cfhttp.filecontent)>
-				<cfset loc.parts = listToArray(cfhttp.filecontent, "&")>
-				<cfset loc.at = loc.parts[1]>
-				<cfset loc.fbaccesstoken = listGetAt(loc.at, 2, "=")>
-				<cfreturn loc.fbaccesstoken>
-			<cfelseif isDefined("params.error_reason")>
-				<cfset loc.error_message = "">
-				<cfif isDefined("params.error_reason")>
-					<cfset loc.error_message = loc.error_message & params.error_reason & "<br/>">
-				</cfif>
-				<cfif isDefined("params.error_description")>
-					<cfset loc.error_message = loc.error_message & params.error_description & "<br/>">
-				</cfif>
-
-				<cfset flashInsert(facebookfail = loc.error_message)
-
-			<cfelse>
-				<cfset flashInsert(facebookfail = "Oops, Something went wrong!")>
-				<cfreturn "#loc.noaccess#">
-			</cfif>
-
-		<cfelse>
-			<cfset flashInsert(facebookfail = "Oops, Something went wrong!")>
-			<cfreturn "#loc.noaccess#">
-		</cfif>
-
-		<cfcatch>
-			<cfset session.fblogin = false>
-			<cfset redirectTo(controller="home", action="index")>
-		</cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="facebookLogin">
-
-	<cftry>
-
-			<cfset session.fbaccesstoken = getFbaccesstoken()>
-
-			<cfset session.fbAPI = createObject("component","facebook").init(session.fbaccesstoken)>
-			<cfset loc = session.fbAPI.getMe()>
-			<cfset loc.fbid = session.fbAPI.getMe().id>
-
-			<cfset loc.user = model("Authuser").findOne(where="email='#loc.email#'")>
-
-			<cfif isObject(loc.user)>
-				<cfset loc.id = loc.user.id>
-			</cfif>
-
-			<cfset loginUser(loc.email,loc.email,loc.id,6,loc.fbid)>
-
-			<cfset returnBack()>
-
-		<cfcatch>
-			<cfset session.auth.fblogin = false>
-			<cfset redirectTo(controller="home", action="index")>
-		</cfcatch>
-		</cftry>
-
-	</cffunction>
-
-	<cffunction name="handylogin">
-	<cfargument name="email" default="#params.email#">
-		<cfset data = model("Authuser").handylogin(arguments.email)>
-		<cfif isJson(data)>
-			<cfset loginUserFromJson(data)>
-		</cfif>
-		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
-	</cffunction>
-
-	<cffunction name="loginUserFromJson">
-	<cfargument name="userAsJson" required="true" type="string">
-	<cfset var loc = structNew()>
-	<cfset loc = arguments>
-		<cfset loc.data = deserializeJson(loc.userAsJson)>
-		<cfset loc = loc.data[1]>
-		<cfset loginUser(loc.username, loc.email, loc.id,1)>
-		<cfset session.auth.rightslist = "basic,handbook">
-	</cffunction>
-
-	<cffunction name="handysessionauth">
-		<cfif structKeyExists(session,"auth")>
-			<cfset data = model("Authuser").handysessionauth(session.auth)>
-		<cfelse>
-			<cfset data= '[{"rightslist":"","login_method":"0","username":"","email":"","passedstring":"","userid":"","fbid":"","login":"false"}]'>
-		</cfif>
-		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
-	</cffunction>
-
-	<cffunction name="handyAuthenticate">
-		<cfset data = model("Authuser").handyAuthenticate(params.email)>
-		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
-	</cffunction>
-
-	<cffunction name="handyLogout">
-		<cfset structDelete(session,"auth")>
-		<cfabort>
-		<cfset data = '{"return","true"}'>
-		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
-	</cffunction>
-
-	<cffunction name="sendLoginErrorNotice">
-	<cfargument name="subject"  default="Charis Fellowship Login Error">
-		<cfset sendEmail(from=application.wheels.errorEmailAddress, to=application.wheels.errorEmailAddress, template="loginerroremail.cfm", subject=arguments.subject)>
-	</cffunction>
-
-<!--------------->
-
-	<cffunction name="findDuplicatesByEmail">
-		<cfset users = model("Authuser").findDuplicatesByEmail()>
-	</cffunction>
-
-</cfcomponent>
