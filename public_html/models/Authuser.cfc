@@ -95,22 +95,25 @@
 		return true
 	}
 
-	function findDuplicatesByEmail( orderBy="lastLoginAt DESC" ) {
+	function findDuplicatesByEmail( orderBy="lastLoginAt", direction="DESC" ) {
 		var count = 0
-		var users = findAll(order=arguments.orderby)
+		var orderString = "#arguments.orderBy# #arguments.direction#"
+		var users = findAll(order=orderString)
 		var newQuery = queryNew(users.columnlist)
-		var check = ""
+		var newUsers = ""
 		var temp = ""
 		var count = 0
 		for ( user in users ) {
-			check = findAll(where="email='#user.email#'")
-			if ( check.recordcount EQ 1 && count LTE 20 ) {
-				writeDump(count)
-				count = count + 1
+			newUsers = findAll(where="email='#user.email#'")
+			if ( newUsers.recordcount GTE 2 ) {
+				for ( newUser in newUsers ) {
+					queryAddRow(newQuery)
+					for (item in newUser ) {
+						querySetCell(newQuery,item,newUser[item])
+					}
+				}
 			}
 		}
-		if ( count GTE 10 ) { writeOutput(count); abort; }
-		abort;
 		return newQuery
 	}
 

@@ -419,9 +419,10 @@ component extends="Controller" output="false" {
 		}
 	}
 
-	public function findDuplicatesByEmail(orderBy="lastLoginAt DESC") {
+	public function findDuplicatesByEmail(orderBy="lastLoginAt", direction="ASC") {
 		if ( isDefined("params.orderBy") ) { arguments.orderBy=params.orderBy }
-		users = model("Authuser").findDuplicatesByEmail(orderBy)
+		if ( isDefined("params.direction") ) { arguments.direction=params.direction }
+		users = model("Authuser").findDuplicatesByEmail(arguments.orderBy, arguments.direction)
 	}
 	
 }
