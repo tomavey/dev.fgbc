@@ -246,29 +246,6 @@ component extends="Controller" output="false" {
 		// user.return = cgi.HTTP_REFERER
 	}
 
-	private void function pauseLoginAfterRepeatedFails(){
-		try {
-			var loc = {}
-			if  (isDefined("session.auth.failedLoginCount") AND session.auth.failedLoginCount GTE 7 ) {
-				loc.milliseconds = (session.auth.failedLoginCount - 7) * 1000
-				sleep(loc.milliseconds)
-			}
-		}	catch (any e) {
-			sendLoginErrorNotice(subject="Charisfellowship.us login problem at pause login")
-		}
-	}
-
-	private void function redirectForFBLogin(){
-		try {
-			if (isDefined("params.submit") and params.submit is "facebook") {
-				redirectTo(action="facebookOAuth")
-			}
-		} catch (any e) {
-			sendLoginErrorNotice(subject="Charisfellowship.us login problem at fb login")
-			redirectTo(controller="home", action="index")
-		}
-	}
-
 	private function checkLogin(){
 		var loc = {}
 
@@ -343,6 +320,42 @@ component extends="Controller" output="false" {
 		//writeDump(session.auth.rightslist);abort;
 	}
 
+	public function logout() {
+		structDelete(session,"auth")
+		location(url="/", addToken="no")
+	}
+
+	private void function pauseLoginAfterRepeatedFails(){
+		try {
+			var loc = {}
+			if  (isDefined("session.auth.failedLoginCount") AND session.auth.failedLoginCount GTE 7 ) {
+				loc.milliseconds = (session.auth.failedLoginCount - 7) * 1000
+				sleep(loc.milliseconds)
+			}
+		}	catch (any e) {
+			sendLoginErrorNotice(subject="Charisfellowship.us login problem at pause login")
+		}
+	}
+
+	private void function setFailedLoginCount() {
+		if ( isDefined("session.auth.failedLoginCount") ) {
+			session.auth.failedLoginCount = session.auth.failedLoginCount + 1
+		} else {
+			session.auth.failedLoginCount = 1
+		}
+	}
+
+	private void function redirectForFBLogin(){
+		try {
+			if (isDefined("params.submit") and params.submit is "facebook") {
+				redirectTo(action="facebookOAuth")
+			}
+		} catch (any e) {
+			sendLoginErrorNotice(subject="Charisfellowship.us login problem at fb login")
+			redirectTo(controller="home", action="index")
+		}
+	}
+	
 	private function emailIsInHandbook(required string email){
 		try {
 			var check = model("Handbookperson").findOne(where="email = '#arguments.email#' OR email2 = '#arguments.email#'", include="State")
@@ -365,14 +378,6 @@ component extends="Controller" output="false" {
 		} catch (any e) { return false }
 	}
 
-	private void function setFailedLoginCount() {
-		if ( isDefined("session.auth.failedLoginCount") ) {
-			session.auth.failedLoginCount = session.auth.failedLoginCount + 1
-		} else {
-			session.auth.failedLoginCount = 1
-		}
-	}
-
 	private function getUserFromEmail (required string email) {
 		var user = model("Authuser").findOne(where="email='#arguments.email#'")
 		return user
@@ -381,12 +386,7 @@ component extends="Controller" output="false" {
 	public function loginAsUser(username=params.username, email=params.email, userid=params.userid) {
 		if ( gotRights("superadmin") ) {
 			loginUser(username, email, userid,5)
-		}
-	}
-
-	public function logout() {
-		structDelete(session,"auth")
-		location(url="/", addToken="no")
+		} else { renderText("You do not have permission to do this?") }
 	}
 
 	public function addToGroup(userId=params.key, groupId=params.groupId) {
@@ -399,7 +399,7 @@ component extends="Controller" output="false" {
 			if ( usergroup.save() ) {
 				returnBack()			
 			}
-			returnBack()
+			renderText("Function failed")
 		}
 		returnBack()	
 	}
@@ -415,7 +415,7 @@ component extends="Controller" output="false" {
 		}
 	}
 
-	function findDuplicatesByEmail(orderBy="lastLoginAt DESC") {
+	public function findDuplicatesByEmail(orderBy="lastLoginAt DESC") {
 		if ( isDefined("params.orderBy") ) { arguments.orderBy=params.orderBy }
 		users = model("Authuser").findDuplicatesByEmail(orderBy)
 	}
