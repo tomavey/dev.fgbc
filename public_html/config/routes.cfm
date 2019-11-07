@@ -112,6 +112,7 @@
 				.get(name="show", pattern="show/")
 				.get(name="edit", pattern="edit/")
 				.get(name="new", pattern="new/")
+				.delete(name="delete", pattern="delete/")
 				.get(name="delete", pattern="delete/")
 				.post(name="update", pattern="update/")
 				.put(name="update", pattern="update/")
