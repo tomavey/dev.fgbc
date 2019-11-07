@@ -3,6 +3,11 @@
 
 	<h1>Showing user</h1>
 
+	<cfif flashKeyExists("error")>
+		<h3 class="well">
+				#flash("error")#
+		</h3>
+	</cfif>
 
 	<p><label>Username: </label>
 		#user.username#</p>
@@ -25,13 +30,12 @@
 	<p>
 		<label>Groups:</label>
 		<cfloop query="groups">
-			<cftry>
 			#linkTo(text=name, controller="auth.groups", action="show", key=auth_groupsid)#-#linkTo(text="x", controller="auth.users", action="removeFromGroup", params="groupId=#auth_groupsid#&userid=#params.key#")#
-				<cfcatch></cfcatch>
-			</cftry>
 		</cfloop>
 
 		#startFormTag(action="addToGroup", key=params.key)#
+
+			#hiddenFieldTag(name="username", value=user.username)#
 
 			#selectTag(label="Add to group: ", name="groupid", options=allgroups)#
 

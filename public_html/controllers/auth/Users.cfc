@@ -42,7 +42,7 @@ component extends="Controller" output="false" {
 <!--- users/show/key --->
 	public function show(id=params.key){
 		user = model("Authuser").findOne(where="id=#id#")
-		groups = model("Authusersgroup").findall(where="auth_usersid = #id#")
+		groups = model("Authusersgroup").findall(where="auth_usersid = #id#", include="Group")
 		allgroups = model("Authgroup").findall(order="name")
 		rights = model("Authuser").getRights(id)
 		if ( !isObject(user) ) {
@@ -389,23 +389,27 @@ component extends="Controller" output="false" {
 		} else { renderText("You do not have permission to do this?") }
 	}
 
-	public function addToGroup(userId=params.key, groupId=params.groupId) {
+	public function addToGroup( userId=params.key, groupId=params.groupId, username=params.username ) {
 		var userGroup
 		var check = model("Authusersgroup").findAll(where="auth_usersId = #arguments.userID# AND auth_groupsId = #arguments.groupId#")
+		writeDump(check);abort;
 		if ( !check.recordCount ) {
 			userGroup = model("Authusersgroup").new()
 			userGroup.auth_usersid = arguments.userid
 			userGroup.auth_groupsid = arguments.groupid
 			if ( usergroup.save() ) {
 				returnBack()			
+			} else {
+				flashInsert( error="Group was not added to #username#" )
+				returnBack()
 			}
-			renderText("Function failed")
 		}
+		flashInsert( error="#username# is already in this group" )
 		returnBack()	
 	}
 
-	public function removeFromGroup(userId=params.key, groupId=params.groupId) {
-		user = model("Authusersgroup").deleteAll(where="auth_usersid='#arguments.userid#' AND auth_groupsid='#arguments.groupid#'")
+	public function removeFromGroup( userId=params.userId, groupId=params.groupId ) {
+		user = model( "Authusersgroup" ).deleteAll( where="auth_usersid='#arguments.userid#' AND auth_groupsid='#arguments.groupid#'" )
 		returnBack()
 	}
 
