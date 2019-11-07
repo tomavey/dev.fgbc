@@ -1,11 +1,11 @@
 <cfif users.recordcount GT 1 >
-	<h2>There are more than one usernames using your email address.  Please use the appropriate link to edit your information:</h2>
+	<h2 class="text-center">There are more than one usernames using your email address.  Please use the appropriate link to edit your information:</h2>
 </cfif>
 
 <cfloop query="usersTokens">
 	
 	<div class="postbox">
-		<p>
+		<p class="text-center">
 		<cfoutput>
 			<cfif isDefined("token") and len(token)>
 				Please use this link to enter a new password for #username#:<br/>
