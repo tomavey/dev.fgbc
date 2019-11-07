@@ -1,5 +1,8 @@
 <cfif users.recordcount GT 1 >
-	<h2 class="text-center">There are more than one usernames using your email address.  Please use the appropriate link to edit your information:</h2>
+	<h2 class="text-center">
+		There are more than one usernames using your email address.<br/>
+		Please use the appropriate link to edit your information:
+	</h2>
 </cfif>
 
 <cfloop query="usersTokens">

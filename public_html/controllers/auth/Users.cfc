@@ -185,11 +185,12 @@ component extends="Controller" output="false" {
 		}
 	}
 
-	function getEmailForChangePasswordLink(){
+	public function getEmailForChangePasswordLink(){
 		user= model("Authuser").new()
+		formaction = emailChangePasswordLink
 	}
 
-	function emailChangePasswordLink(){
+	public function emailChangePasswordLink(){
 		users = model("Authuser").findAll(where="email = '#params.user.email#'")
 		if ( users.recordcount ) {
 			for ( row in users ) {
@@ -198,6 +199,7 @@ component extends="Controller" output="false" {
 			usersTokens = model("Authuser").findAll(where="email = '#params.user.email#'", reLoad=true)
 			if ( usersTokens.recordcount && !isLocalMachine() ) {
 				sendEmail(template="emailChangePasswordLink", layout="layoutforemail", from=application.wheels.userAdminEmailAddress, to=users.email, bcc="tomavey@fgbc.org", subject="Your Password on charisfellowship.us")
+				renderPage(action="emailSent")
 			} elseIf ( usersTokens.recordcount ) {
 				renderPage(action="emailSent")
 			} else {
@@ -208,7 +210,7 @@ component extends="Controller" output="false" {
 		}
 	}
 
-	function emailNotFound(){
+	public function emailNotFound(){
 		rendertext("Email not found")
 	}
 
