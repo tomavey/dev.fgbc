@@ -1,94 +1,74 @@
-<cfcomponent extends="Controller" output="false">
-	
-	<!--- rights/index --->
-	<cffunction name="index">
-		<cfset rights = model("Authright").findAll(order="name")>
-	</cffunction>
-	
+component extends="Controller" output="false" {
+
 <!-------------------------------------->
 <!---------------Basic CRUD------------->
 <!-------------------------------------->
 
-
-	<!--- rights/show/key --->
-	<cffunction name="show">
-		
-		<!--- Find the record --->
-    	<cfset right = model("Authright").findByKey(params.key)>
-		<cfset groups = model("Authgroupsright").findAll(where="auth_rightsId = '#params.key#'", include="group", order="name")>
-    	
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(right)>
-	        <cfset flashInsert(error="Right #params.key# was not found")>
-	        <cfset redirectTo(action="index")>
-	    </cfif>
-		<cfset renderPage(layout="/layoutadmin")>
-			
-	</cffunction>
+	<!--- rights/index --->
+	public function index() {
+		rights = model("Authright").findAll(order="name")
+	}
 	
+	<!--- rights/show/key --->
+	public function show(key=params.key){
+		right = model("Authright").findByKey(arguments.key)
+		groups = model("Authgroupsright").findAll(where="auth_rightsId = '#arguments.key#'", include="group", order="name")
+		if ( !IsObject(right) ) {
+			flashInsert(error="Right #arguments.key# was not found")
+			redirectTo(action="index")
+		}
+		renderPage(layout="/layoutadmin")
+	}
+
 	<!--- rights/new --->
-	<cffunction name="new">
-		<cfset right = model("Authright").new()>
-	</cffunction>
+	public function new(){
+		right = model("Authright").new()
+	}
 	
 	<!--- rights/edit/key --->
-	<cffunction name="edit">
-	
-		<!--- Find the record --->
-    	<cfset right = model("Authright").findByKey(params.key)>
-    	
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(right)>
-	        <cfset flashInsert(error="Right #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-		<cfset renderPage(layout="/layoutadmin")>
-	</cffunction>
+	public function edit(key=params.key) {
+		right = model("Authright").findByKey(arguments.key)
+		if ( !isObject(right) ) {
+			flashInsert(error="Right #params.key# was not found")
+			redirectTo(action="index")			
+		}
+		renderPage(layout="/layoutadmin")
+	}
 	
 	<!--- rights/create --->
-	<cffunction name="create">
-		<cfset right = model("Authright").new(params.right)>
-		
-		<!--- Verify that the right creates successfully --->
-		<cfif right.save()>
-			<cfset flashInsert(success="The right was created successfully.")>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error creating the right.")>
-			<cfset renderPage(action="new")>
-		</cfif>
-	</cffunction>
+	public function create(right=params.right){
+		right = model("Authright").new(arguments.right)
+		if ( right.save() ) {
+			flashInsert(success="The right was created successfully.")
+			redirectTo(action="index")
+		} else {
+			flashInsert(error="There was an error creating the right.")
+			renderPage(action="new")
+		}
+	}
 	
 	<!--- rights/update --->
-	<cffunction name="update">
-		<cfset right = model("Authright").findByKey(params.key)>
+	public function update(key=params.key) {
+		right = model("Authright").findByKey(arguments.key)
+		if ( right.update() ) {
+			redirectTo(action="index")
+		} else {
+			flashInsert(error="There was an error updating the right.")
+			renderPage(action="edit")
+		}
+	}
 		
-		<!--- Verify that the right updates successfully --->
-		<cfif right.update(params.right)>
-			<cfset flashInsert(success="The right was updated successfully.")>	
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the right.")>
-			<cfset renderPage(action="edit")>
-		</cfif>
-	</cffunction>
-	
 	<!--- rights/delete/key --->
-	<cffunction name="delete">
-		<cfset right = model("Authright").findByKey(params.key)>
-		
-		<!--- Verify that the right deletes successfully --->
-		<cfif right.delete()>
-			<cfset flashInsert(success="The right was deleted successfully.")>	
-			<cfset groupsright = model("Authgroupsright").deleteAll(where="auth_rightsid=#params.key#")>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error deleting the right.")>
-			<cfset redirectTo(action="index")>
-		</cfif>
-	</cffunction>
-	
-</cfcomponent>
+	public function delete(key=params.key) {
+		right = model("Authright").findByKey(arguments.key)
+		if ( right.delete() ) {
+			flashInsert(success="The right was deleted successfully.")
+			groupsright = model("Authgroupsright").deleteAll(where="auth_rightsid=#params.key#")
+			redirectTo(action="index")
+		} else {
+			flashInsert(error="There was an error deleting the right.")
+			redirectTo(action="index")
+		}
+	}
+
+}
