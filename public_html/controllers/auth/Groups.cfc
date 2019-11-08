@@ -8,12 +8,12 @@ component extends="Controller" output="false" {
 <!---------------Basic CRUD------------->
 <!-------------------------------------->
 
-	<!--- -groups/index --->
+	<!--- -groups/index authGroups--->
 	public function index(){
 		groups = model("Authgroup").findAll(order="name")
 	}
 	
-	<!--- -groups/show/key --->
+	<!--- -groups/show/key authGroup--->
 	public function show() {
 		group = model("Authgroup").findByKey(key=params.key)
 		rights = model("Authgroupsright").findAll(where="auth_groupsId = #params.key#", include="right", order="name")
@@ -23,12 +23,12 @@ component extends="Controller" output="false" {
 		}
 	}
 	
-	<!--- -groups/new --->
+	<!--- -groups/new newAuthGroup--->
 	public function new(){
 		group = model("Authgroup").new()
 	}	
 
-	<!--- -groups/edit/key --->
+	<!--- -groups/edit/key editAuthGroup--->
 	public function edit(key=params.key) {
 		group = model("Authgroup").findByKey(arguments.key)
 		if ( !IsObject(group) ) {
@@ -36,7 +36,7 @@ component extends="Controller" output="false" {
 		}
 	}
 	
-	<!--- -groups/create --->
+	<!--- -groups/create authGroups--->
 	public function create(group=params.group) {
 		group = model("Authgroup").new(arguments.group)
 		if ( group.save() ) {
@@ -46,7 +46,7 @@ component extends="Controller" output="false" {
 		}
 	}
 
-	<!--- -groups/update --->
+	<!--- -groups/update authGroup--->
 	private function update(key=params.key) {
 		group = model("Authgroup").findByKey(arguments.key)
 		if ( group.update(params.group) ) {
@@ -56,7 +56,7 @@ component extends="Controller" output="false" {
 		}
 	}
 	
-	<!--- -groups/delete/key --->
+	<!--- -groups/delete/key authGroup--->
 	public function delete(key=params.key) {
 		group = model("Authgroup").findByKey(arguments.key)
 		if ( group.delete() ) {
@@ -68,7 +68,8 @@ component extends="Controller" output="false" {
 
 <!------------END of CRUD---------------->	
 	
-	private function addARight(rightId=params.rightid, groupId=params.key) {
+	<!---- authAddARight --->
+	public function addARight(rightId=params.rightid, groupId=params.key) {
 		var check = model("Authgroupsright").findAll(where="auth_rightsId = #arguments.rightID# AND auth_groupsId = #arguments.groupId#")
 		if ( !check.recordcount ) {
 			Groupsright = model("Authgroupsright").new()
@@ -82,6 +83,7 @@ component extends="Controller" output="false" {
 		renderText("This group already has this right")
 	}
 
+	<!--- authRemoveRight --->
 	public function removeRight(rightId=params.rightid, groupId=params.groupid) {
 		model("Authgroupsright").deleteAll(where="auth_rightsid='#arguments.rightid#' AND auth_groupsid='#arguments.groupid#'")>
 		redirectTo(back=true)

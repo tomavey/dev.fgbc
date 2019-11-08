@@ -4,12 +4,12 @@ component extends="Controller" output="false" {
 <!---------------Basic CRUD------------->
 <!-------------------------------------->
 
-	<!--- rights/index --->
+	<!--- rights/index route="authRightsIndex"--->
 	public function index() {
 		rights = model("Authright").findAll(order="name")
 	}
 	
-	<!--- rights/show/key --->
+	<!--- rights/show/key route="authRightShow"--->
 	public function show(key=params.key){
 		right = model("Authright").findByKey(arguments.key)
 		groups = model("Authgroupsright").findAll(where="auth_rightsId = '#arguments.key#'", include="group", order="name")
@@ -19,12 +19,12 @@ component extends="Controller" output="false" {
 		}
 	}
 
-	<!--- rights/new --->
+	<!--- rights/new route="authRightNew"--->
 	public function new(){
 		right = model("Authright").new()
 	}
 	
-	<!--- rights/edit/key --->
+	<!--- rights/edit/key route="authRightEdit"--->
 	public function edit(key=params.key) {
 		right = model("Authright").findByKey(arguments.key)
 		if ( !isObject(right) ) {
@@ -33,7 +33,7 @@ component extends="Controller" output="false" {
 		}
 	}
 	
-	<!--- rights/create --->
+	<!--- rights/create route="authRightCreate"--->
 	public function create(right=params.right){
 		right = model("Authright").new(arguments.right)
 		if ( right.save() ) {
@@ -45,7 +45,7 @@ component extends="Controller" output="false" {
 		}
 	}
 	
-	<!--- rights/update --->
+	<!--- rights/update route="authRightUpdate"--->
 	public function update(key=params.key) {
 		right = model("Authright").findByKey(arguments.key)
 		if ( right.update(params.right) ) {
@@ -56,7 +56,7 @@ component extends="Controller" output="false" {
 		}
 	}
 		
-	<!--- rights/delete/key --->
+	<!--- rights/delete/key route="authRightDelete"--->
 	public function delete(key=params.key) {
 		right = model("Authright").findByKey(arguments.key)
 		if ( right.delete() ) {
