@@ -47,7 +47,7 @@
 	<cfset set(goEMerchantId = "fellowshipofgracen")>
 	<!---cfset set(obfuscateURLs=true)--->
 	<cfset set(allowUserAccountCreation = false)>
-	<cfset set(requireUserCreateCode = true)>
+	<cfset set(requireUserCreateCodeConfirm = true)>
 
 <!---application.wheels Variables--->
 	<cfset set(passwordKey="j316fgsltwj11itbwtwp16hwbagwiy")> <!---PasswordKey is not accessible via getSetting()--->

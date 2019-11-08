@@ -2,7 +2,7 @@ component extends="Controller" output="false" {
 
 	function init(){
 		filters(through="isSuperadmin", only="index,indexOld,show,loginAsUser")
-		filters(through="setReturn", only="index,indexOld,show")
+		filters(through="setReturn", only="index,indexOld,show,new")
 		filters(through="bypassCaptcha", only="new,create")
 	}
 
@@ -12,7 +12,8 @@ component extends="Controller" output="false" {
 
 	private function bypassCaptcha() {
 		bypassCaptcha = true
-	}
+	} 
+	// TODO: need to remove all captcha methods later
 
 
 <!------------------->
@@ -63,24 +64,46 @@ component extends="Controller" output="false" {
 
 <!--- users/new --->
 	public function new(){
-		if ( getSetting("requireUserCreateCode") ) {
-			formAction="codeConfirm"
-		} 
 		user = model("Authuser").new()
+		if ( structKeyExists(session.auth,"tempUser") ) {
+			structAppend(user,session.auth.tempUser)
+		}
 		if ( !bypassCaptcha ) {
 			strCaptcha = getcaptcha()
 		}
-		formaction = "codeconfirm"
+		if ( getSetting("requireUserCreateCodeConfirm") ) {
+			formAction="confirmCode"
+		} else {
+			formAction="create"
+		}
 	}
 
-	public function codeconfirm(){		
+	public function confirmCode(){
 		session.auth.tempUser = params.user
+		if ( !isUniqueEmail(params.user.email) ) { 
+			flashInsert(usedEmail='We already have a user account with this email. Use a new email or use the "Forgot Password" option to reset.')
+			returnBack() 
+		}		
+		if ( !isUniqueUsername(params.user.username) ) { 
+			flashInsert(usedUsername='We already have an account with this username.')
+			returnBack() 
+		}		
 		if ( !isValidAuthCheckCodeInSession() )
 			{
 				session.auth.tempUser.checkCode = randRange(100000, 999999)
 			}
 		emailCheckCode(session.auth.tempUser.email, session.auth.tempUser.checkCode)
 		formaction = "checkCode"
+	}
+
+	public function isUniqueEmail(required string email) {
+		if ( !isObject(getUserFromEmail(arguments.email)) ) { return true }
+		return false
+	}
+
+	public function isUniqueUsername(required string username) {
+		if ( !isObject(getUserFromUsername(arguments.username)) ) { return true }
+		return false
 	}
 
 	public function checkCode(){
@@ -90,7 +113,7 @@ component extends="Controller" output="false" {
 		} else {
 			flashInsert(error="Try again")
 			codeconfirm(params.user)
-			renderPage(template="codeconfirm")
+			renderPage(template="confirmCode")
 		}
 	}
 
@@ -175,6 +198,9 @@ component extends="Controller" output="false" {
 <!---End of Basic CRUD--->
 
 
+<!------------------------------->
+<!-----Change Password Methods--->
+<!------------------------------->
 
 	public function changePassword(token=params.key){
 		user = model("Authuser").findOne(where="token='#arguments.token#'")
@@ -213,27 +239,6 @@ component extends="Controller" output="false" {
 
 	public function emailNotFound(){
 		rendertext("Email not found")
-	}
-
-	private function putInBasicGroup(required numeric userid, groupid=2){
-		var userGroup = {}
-		var check = model("Authusersgroup").findAll(where="auth_usersId = #arguments.userID# AND auth_groupsId = #arguments.groupId#")
-		if ( !check.recordCount ) {
-			userGroup = model("Authusersgroup").new()
-			userGroup.auth_usersid = arguments.userid
-			userGroup.auth_groupsid = arguments.groupid
-			usergroup.save()
-		}
-	}
-
-	private function checkUsername(required string username) {
-		var checkUsername = model("Authuser").findAll(where="username = '#arguments.username#'")
-		return checkUsername
-	}
-
-	private function checkEmailAsUsername(required string email) {
-		var checkUsername = model("Authuser").findAll(where="email = '#arguments.email#'")
-		return checkUsername
 	}
 
 
@@ -346,6 +351,27 @@ component extends="Controller" output="false" {
 		}
 	}
 
+	private function putInBasicGroup(required numeric userid, groupid=2){
+		var userGroup = {}
+		var check = model("Authusersgroup").findAll(where="auth_usersId = #arguments.userID# AND auth_groupsId = #arguments.groupId#")
+		if ( !check.recordCount ) {
+			userGroup = model("Authusersgroup").new()
+			userGroup.auth_usersid = arguments.userid
+			userGroup.auth_groupsid = arguments.groupid
+			usergroup.save()
+		}
+	}
+
+	private function checkUsername(required string username) {
+		var checkUsername = model("Authuser").findAll(where="username = '#arguments.username#'")
+		return checkUsername
+	}
+
+	private function checkEmailAsUsername(required string email) {
+		var checkUsername = model("Authuser").findAll(where="email = '#arguments.email#'")
+		return checkUsername
+	}
+
 	private void function redirectForFBLogin(){
 		try {
 			if (isDefined("params.submit") and params.submit is "facebook") {
@@ -384,11 +410,26 @@ component extends="Controller" output="false" {
 		return user
 	}
 
+	private function getUserFromUsername (required string username) {
+		var user = model("Authuser").findOne(where="username='#arguments.username#'")
+		return user
+	}
+
 	public function loginAsUser(username=params.username, email=params.email, userid=params.userid) {
 		if ( gotRights("superadmin") ) {
 			loginUser(username, email, userid,5)
 		} else { renderText("You do not have permission to do this?") }
 	}
+
+	private void function sendLoginErrorNotice(required string subject) {
+		if ( !isLocalMachine() ) {
+			sendEmail(from=getSetting("errorEmailAddress"), to=getSettingerrorEmailAddress, template="loginerroremail.cfm", subject=arguments.subject)			
+		}
+	}
+
+<!------------------------------------->
+<!----Adding a user to an auth group--->
+<!------------------------------------->
 
 	public function addToGroup( userId=params.key, groupId=params.groupId, username=params.username ) {
 		var userGroup
@@ -414,11 +455,9 @@ component extends="Controller" output="false" {
 		returnBack()
 	}
 
-	private void function sendLoginErrorNotice(required string subject) {
-		if ( !isLocalMachine() ) {
-			sendEmail(from=getSetting("errorEmailAddress"), to=getSettingerrorEmailAddress, template="loginerroremail.cfm", subject=arguments.subject)			
-		}
-	}
+<!---------------------->	
+<!-----Miscellaneous---->
+<!---------------------->	
 
 	public function findDuplicatesByEmail(orderBy="lastLoginAt", direction="ASC") {
 		if ( isDefined("params.orderBy") ) { arguments.orderBy=params.orderBy }
