@@ -1,125 +1,91 @@
-<cfcomponent extends="Controller" output="false">
-	
-	<cffunction name="init">
-		<cfset filters(through="isSuperadmin", only="index,edit,show,new,delete")>
-	</cffunction>
+component extends="Controller" output="false" {
+
+	function init(){
+		filters(through="isSuperadmin", only="index,edit,show,new,delete")
+	}
 
 <!-------------------------------------->
 <!---------------Basic CRUD------------->
 <!-------------------------------------->
 
 	<!--- -groups/index --->
-	<cffunction name="index">
-		<cfset groups = model("Authgroup").findAll(order="name")>
-	</cffunction>
+	public function index(){
+		groups = model("Authgroup").findAll(order="name")
+	}
 	
 	<!--- -groups/show/key --->
-	<cffunction name="show">
-		
-		<!--- Find the record --->
-    	<cfset group = model("Authgroup").findByKey(key=params.key)>
-		<cfset rights = model("Authgroupsright").findAll(where="auth_groupsId = #params.key#", include="right", order="name")>
-		<cfset allrights = model("Authright").findAll(order="name")>
-    	
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(group)>
-	        <cfset flashInsert(error="Group #params.key# was not found")>
-	        <cfset redirectTo(action="index")>
-	    </cfif>
-			
-	</cffunction>
+	public function show() {
+		group = model("Authgroup").findByKey(key=params.key)
+		rights = model("Authgroupsright").findAll(where="auth_groupsId = #params.key#", include="right", order="name")
+		allrights = model("Authright").findAll(order="name")
+		if ( !isObject(group) ) {
+			redirectTo(action="index", error="Group #params.key# was not found")
+		}
+	}
 	
 	<!--- -groups/new --->
-	<cffunction name="new">
-		<cfset group = model("Authgroup").new()>
-	</cffunction>
-	
+	public function new(){
+		group = model("Authgroup").new()
+	}	
+
 	<!--- -groups/edit/key --->
-	<cffunction name="edit">
-	
-		<!--- Find the record --->
-    	<cfset group = model("Authgroup").findByKey(params.key)>
-    	
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(group)>
-	        <cfset flashInsert(error="Group #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-		
-	</cffunction>
+	public function edit(key=params.key) {
+		group = model("Authgroup").findByKey(arguments.key)
+		if ( !IsObject(group) ) {
+			redirectTo(action="index", error="Group #arguments.key# was not found")
+		}
+	}
 	
 	<!--- -groups/create --->
-	<cffunction name="create">
-		<cfset group = model("Authgroup").new(params.group)>
-		
-		<!--- Verify that the group creates successfully --->
-		<cfif group.save()>
-			<cfset flashInsert(success="The group was created successfully.")>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error creating the group.")>
-			<cfset renderPage(action="new")>
-		</cfif>
-	</cffunction>
-	
+	public function create(group=params.group) {
+		group = model("Authgroup").new(arguments.group)
+		if ( group.save() ) {
+			redirectTo(action="index", success="The group was created successfully.")
+		} else {
+			renderPage(action="new", error="There was an error creating the group.")
+		}
+	}
+
 	<!--- -groups/update --->
-	<cffunction name="update">
-		<cfset group = model("Authgroup").findByKey(params.key)>
-		
-		<!--- Verify that the group updates successfully --->
-		<cfif group.update(params.group)>
-			<cfset flashInsert(success="The group was updated successfully.")>	
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the group.")>
-			<cfset renderPage(action="edit")>
-		</cfif>
-	</cffunction>
+	private function update(key=params.key) {
+		group = model("Authgroup").findByKey(arguments.key)
+		if ( group.update(params.group) ) {
+			redirectTo(action="index", success="The group was updated successfully.")
+		} else {
+			renderPage(action="edit", error="There was an error updating the group.")
+		}
+	}
 	
 	<!--- -groups/delete/key --->
-	<cffunction name="delete">
-		<cfset group = model("Authgroup").findByKey(params.key)>
-		
-		<!--- Verify that the group deletes successfully --->
-		<cfif group.delete()>
-			<cfset flashInsert(success="The group was deleted successfully.")>	
-			<cfset groupsright = model("Authgroupsright").deleteAll(where="auth_groupsid=#params.key#")>
-			<cfset usergroups = model("Authusersgroup").deleteAll(where="auth_groupsid=#params.key#")>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error deleting the group.")>
-			<cfset redirectTo(action="index")>
-		</cfif>
-	</cffunction>
+	public function delete(key=params.key) {
+		group = model("Authgroup").findByKey(arguments.key)
+		if ( group.delete() ) {
+			groupsright = model("Authgroupsright").deleteAll(where="auth_groupsid=#arguments.key#")
+			usergroups = model("Authusersgroup").deleteAll(where="auth_groupsid=#params.key#")
+			redirectTo(action="index", success="The group was deleted successfully.")
+		}
+	}
 
 <!------------END of CRUD---------------->	
 	
-	<cffunction name="addARight">
-	<cfargument name="rightId" default='#params.rightid#'>
-	<cfargument name="groupId" default='#params.key#'>
-		<cfset check = model("Authgroupsright").findAll(where="auth_rightsId = #arguments.rightID# AND auth_groupsId = #arguments.groupId#")>
-		<cfif not check.recordcount>
-			<cfset Groupsright = model("Authgroupsright").new()>
-			<cfset Groupsright.auth_rightsid = arguments.rightid>
-			<cfset Groupsright.auth_groupsid = arguments.groupid>
-			<cfif Groupsright.save()>
-				<cfset redirectTo(back=true)>
-			</cfif>	
-				<cfset redirectTo(back=true)>
-		</cfif>	
-				<cfset redirectTo(back=true)>
-	</cffunction>
+	private function addARight(rightId=params.rightid, groupId=params.key) {
+		var check = model("Authgroupsright").findAll(where="auth_rightsId = #arguments.rightID# AND auth_groupsId = #arguments.groupId#")
+		if ( !check.recordcount ) {
+			Groupsright = model("Authgroupsright").new()
+			Groupsright.auth_rightsid = arguments.rightid
+			Groupsright.auth_groupsid = arguments.groupid
+			if ( Groupsright.save() ) {
+				redirectTo(back=true)
+			}
+			renderText("Not saved - something went wrong!")
+		}
+		renderText("This group already has this right")
+	}
 
-	<cffunction name="removeRight">
-	<cfargument name="rightId" default='#params.rightid#'>
-	<cfargument name="groupId" default='#params.groupid#'>
+	public function removeRight(rightId=params.rightid, groupId=params.groupid) {
+		model("Authgroupsright").deleteAll(where="auth_rightsid='#arguments.rightid#' AND auth_groupsid='#arguments.groupid#'")>
+		redirectTo(back=true)
+	}
 
-		<cfset user = model("Authgroupsright").deleteAll(where="auth_rightsid='#arguments.rightid#' AND auth_groupsid='#arguments.groupid#'")>
-
-		<cfset redirectTo(back=true)>
-	</cffunction>
-
-</cfcomponent>
+}
+	

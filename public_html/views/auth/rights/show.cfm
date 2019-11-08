@@ -1,19 +1,15 @@
 <div class="container">
 
-<h1>Showing right</h1>
 
 	<cfoutput>
+		<h1>Showing the right named "#right.name#"</h1>
 
-		<p><label>Name: </label>
-			#right.name#</p>
-
-		<p><label>Description: </label>
-			#right.description#</p>
+		<p>Description: #right.description#</p>
 
 		<p>Groups:
 			<cfloop query="groups">
-				#linkTo(text=name, controller="groups", action="show", key=id)#-
-				#linkTo(text="x", controller="groups", action="remove-right", params="groupid=#id#&rightid=#params.key#")#, 
+				#linkTo(text=name, controller="auth.groups", action="show", key=auth_groupsid)#-
+				#linkTo(text="x", controller="auth.groups", action="remove-right", params="groupid=#auth_groupsid#&rightid=#params.key#")#, 
 			</cfloop>
 		
 		</p>				

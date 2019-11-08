@@ -17,7 +17,6 @@ component extends="Controller" output="false" {
 			flashInsert(error="Right #arguments.key# was not found")
 			redirectTo(action="index")
 		}
-		renderPage(layout="/layoutadmin")
 	}
 
 	<!--- rights/new --->
@@ -32,7 +31,6 @@ component extends="Controller" output="false" {
 			flashInsert(error="Right #params.key# was not found")
 			redirectTo(action="index")			
 		}
-		renderPage(layout="/layoutadmin")
 	}
 	
 	<!--- rights/create --->
@@ -50,7 +48,7 @@ component extends="Controller" output="false" {
 	<!--- rights/update --->
 	public function update(key=params.key) {
 		right = model("Authright").findByKey(arguments.key)
-		if ( right.update() ) {
+		if ( right.update(params.right) ) {
 			redirectTo(action="index")
 		} else {
 			flashInsert(error="There was an error updating the right.")
