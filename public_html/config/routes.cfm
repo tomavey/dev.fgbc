@@ -132,6 +132,9 @@
 
 			.post(name="addARight", pattern="/groups/addARight/[key]", controller="groups", action="addARight")
 			.get(name="removeRight", pattern="/groups/removeRight/", controller="groups", action="removeRight")
+			.controller("groups")
+				.get(name="removeRight", pattern="/removeRight/")
+			.end()	
 			.resources("groups")
 
 			.controller("rights")
