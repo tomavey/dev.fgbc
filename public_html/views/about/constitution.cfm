@@ -1,6 +1,6 @@
 <cfoutput>
 
-<div class="row-fluid well contentStart contentBg">
+<div class="row-fluid well contentStart contentBg container">
 	<div class="span3">
 		#includePartial(partial="whoweare", selected="constitution")#
 	</div>
