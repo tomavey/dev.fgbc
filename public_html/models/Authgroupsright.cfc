@@ -1,9 +1,9 @@
-<cfcomponent extends="Model" output="false">
+component extends="Model" output="false" {
 
-	<cffunction name="init">
-		<cfset table("auth_groupsrights")>
-		<cfset belongsTo(modelName="Authgroup", name="Group", foreignKey="auth_groupsId")>
-		<cfset belongsTo(modelName="Authright", name="Right", foreignKey="auth_rightsId")>
-	</cffunction>
+	function init(){
+		table("auth_groupsrights")
+		belongsTo(modelName="Authgroup", name="Group", foreignKey="auth_groupsId")
+		belongsTo(modelName="Authright", name="Right", foreignKey="auth_rightsId")
+	}
 
-</cfcomponent>
+}

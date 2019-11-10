@@ -1,101 +1,75 @@
 <cfcomponent extends="Controller" output="false">
 
-	<!--- filters --->
-	<cffunction name="init">
-		<cfset filters(through="showContent", except="contactUs,cci,cci_es,commoncommitment,ccm")>
-		<cfreturn this>
-	</cffunction>
+<cfscript>
+	function init(){
+		filters(through="showContent", except="contactUs,cci,cci_es,commoncommitment,ccm")
+		return this
+	}
 
-	<cffunction name="commonCommitment">
-		<cfset redirectTo(controller="page", action="64")>
-	</cffunction>
+	function commonCommitment(){
+		redirectTo(controller="page", action="64")
+	}
 
-	<cffunction name="ccm">
+	function ccm(){}
+	function contactUs(){}
+	function manualOfProcedure(){}
+	function ourConstitution(){}
+	function ourStory(){}
+	function statementOfFaith(){}
+	function messageOfTheBrethrenMinistry(){}
 
-	</cffunction>
-
-	<cffunction name="contactUs">
-
-	</cffunction>
-
-	<cffunction name="manualOfProcedure">
-
-	</cffunction>
-
-	<cffunction name="ourConstitution">
-
-	</cffunction>
-
-	<cffunction name="ourStory">
-
-	</cffunction>
-
-	<cffunction name="statementOfFaith">
-
-	</cffunction>
-
-	<cffunction name="messageOfTheBrethrenMinistry">
-
-	</cffunction>
-
-	<cffunction name="showContent">
-		<cfset setReturn()>
-
-		<cfswitch expression="#params.action#">
-			<cfcase value = "constitution">
-				<cfset params.key = 18>
-			</cfcase>
-			<cfcase value = "commoncommitment">
-				<cfset params.key = 64>
-			</cfcase>
-			<cfcase value = "ccm">
-				<cfset params.key = 64>
-			</cfcase>
-			<cfcase value = "manualOfProcedure">
-				<cfset params.key = 19>
-			</cfcase>
-			<cfcase value = "statementOfFaith">
-				<cfset params.key = 30>
-			</cfcase>
-			<cfcase value = "ourStory">
-				<cfset params.key = 33>
-			</cfcase>
-			<cfcase value = "messageOfTheBrethrenMinistry">
-				<cfset params.key = 59>
-			</cfcase>
-		</cfswitch>
-
-		<!--- find record --->
-		<cfset variables.content = model("Maincontent").findByKey(params.key)>
-
-		<!--- check if the record exists --->
-		<cfif not isObject(content)>
-			<cfset flashInsert(error="Content #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-		</cfif>
-	</cffunction>
-
-	<cfscript>
-		public function cci(){
+	function showContent (){
+		setreturn()
+		switch(params.action) {
+			case "constitution":
+				params.key=18
+				break;
+			case "commoncommitment":
+				params.key=64
+				break;
+			case "ccm":
+				params.key=64
+				break;
+			case "manualOfProcedure":
+				params.key=19
+				break;
+			case "statementOfFaith":
+				params.key=30
+				break;
+			case "ourStory":
+				params.key=33
+				break;
+			case "messageOfTheBrethrenMinistry":
+				params.key=59
+				break;	 	
 		}
-
-		public function cci_es(){
+		content = model("Maincontent").findByKey(params.key)
+		if ( !isObject(content) ) {
+			flashInsert(error="Content #params.key# was not found")
+			redirectTo(action="index")
 		}
+	}
 
-		public function getFootnote(id){
-				if ( isDefined('params.noFootnotes') ) {
-						return "";
-				}
-		    var footnote = "";
-		    var footnotes = getFootnotesAsStruct();
+	public function cci(){
+	}
 
-		    footnote  = "<a href='###id#'><sup>" & id & "</sup></a><span class='popup'>" & footnotes[id] & "</span>";
-		    return footnote;
-		}
+	public function cci_es(){
+	}
 
-		public function getFootnotesAsStruct(){
-		    var footnotes = model("Maincontent").findFootnotesAsStruct();
-		    return footnotes;
-		}
+	public function getFootnote(id){
+			if ( isDefined('params.noFootnotes') ) {
+					return "";
+			}
+			var footnote = "";
+			var footnotes = getFootnotesAsStruct();
+
+			footnote  = "<a href='###id#'><sup>" & id & "</sup></a><span class='popup'>" & footnotes[id] & "</span>";
+			return footnote;
+	}
+
+	public function getFootnotesAsStruct(){
+			var footnotes = model("Maincontent").findFootnotesAsStruct();
+			return footnotes;
+	}
 	</cfscript>
 </cfcomponent>
