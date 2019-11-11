@@ -92,66 +92,19 @@
                       <!-- Footer Content -->
                       <div class="col-lg-3 col-md-6 g-mb-40 g-mb-0--lg">
                         <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
-                          <h2 class="u-heading-v2__title h6 text-uppercase mb-0">MINISTRIES</h2>
+                          <h2 class="u-heading-v2__title h6 text-uppercase mb-0">CHURCH PLANTING</h2>
                         </div>
 
                         <nav class="text-uppercase1">
                           <ul class="list-unstyled g-mt-minus-10 mb-0">
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.encompassworldpartners.org/" target="_blank">Encompass World Partners</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.eaglecommission.org/" target="_new">Eagle Commission</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.cenational.org/" target="_new">CE National</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.gbif.com/" target="_new">Grace Brethren Investment Foundation</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.grace.edu" target="_new">Grace College and Seminary</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-
-							  <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.graceconnect.us/" target="_new">Grace Connect</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-							  <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.wgusa.org" target="_new">Women of Grace</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-							  <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://www.inspirepastors.org/" target="_new">Inspire: Charis Pastors Network</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-							  <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/equippingnetwork" target="_new">The Equipping Church Nework</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
+                            <cfoutput query="churchPlantingMinistries">
+                              <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                                <h4 class="h6 g-pr-20 mb-0">
+                                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#webaddress#" target="_blank">#name#</a>
+                                  <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                                </h4>
+                              </li>
+                            </cfoutput>
                           </ul>
                         </nav>
                       </div>
@@ -160,60 +113,19 @@
                       <!-- Footer Content -->
                       <div class="col-lg-3 col-md-6 g-mb-40 g-mb-0--lg">
                         <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
-                          <h2 class="u-heading-v2__title h6 text-uppercase mb-0">MINISTRIES</h2>
+                          <h2 class="u-heading-v2__title h6 text-uppercase mb-0">LEADERSHIP TRAINING</h2>
                         </div>
 
                         <nav class="text-uppercase1">
                           <ul class="list-unstyled g-mt-minus-10 mb-0">
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.assistcx.org/" target="_blank">Assist Church Expansion</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.grownewengland.net/" target="_new">Grow New England</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.metrograce.org/" target="_new">Metro Grace</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.goseednet.com/" target="_new">SeedNet</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-
-							  <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.visionusa.org/" target="_new">Vision USA</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-							  <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.visionalaska.org/" target="_new">Vision Alaska</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-							  <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.kalahariretreat.com/" target="_new">Kalahari Retreat</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-							  <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://keepaneyetothesky.org/" target="_new">Skywatchers</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
+                            <cfoutput query="leadershipTrainingMinistries">
+                              <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                                <h4 class="h6 g-pr-20 mb-0">
+                                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#webaddress#" target="_blank">#name#</a>
+                                  <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                                </h4>
+                              </li>
+                            </cfoutput>
                           </ul>
                         </nav>
                       </div>
@@ -222,66 +134,19 @@
                       <!-- Footer Content -->
                       <div class="col-lg-3 col-md-6 g-mb-40 g-mb-0--lg">
                         <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
-                          <h2 class="u-heading-v2__title h6 text-uppercase mb-0">MINISTRIES</h2>
+                          <h2 class="u-heading-v2__title h6 text-uppercase mb-0">DOING GOOD FOR THE SAKE OF THE GOSPEL</h2>
                         </div>
 
                         <nav class="text-uppercase1">
                           <ul class="list-unstyled g-mt-minus-10 mb-0">
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.asiashope.org/" target="_blank">Asia's Hope</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://www.three-strands.org/" target="_blank">Three Strands</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.caribbeanvisionministries.org/" target="_new">Caribbean Vision</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.doutreach.org/" target="_new">Design Outreach</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.grow-worldwide.com/" target="_new">Grace Refuge Outreach Worldwide</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-
-							  <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.gracevillage.org/" target="_new">Grace Village</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-							  <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://www.waterforgood.org/" target="_new">Water For Good</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-							  <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://breathepartners.com/" target="_new">Breathe Partners</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-							  <li class="g-pos-rel g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="http://gcbi.net/" target="_new">Great Commission Bible Institute</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
+                            <cfoutput query="doingGoodMinistries">
+                              <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                                <h4 class="h6 g-pr-20 mb-0">
+                                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#webaddress#" target="_blank">#name#</a>
+                                  <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                                </h4>
+                              </li>
+                            </cfoutput>
                           </ul>
                         </nav>
                       </div>
