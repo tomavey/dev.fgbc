@@ -1,15 +1,22 @@
 <cfcomponent extends="Wheels">
 
-		<!--- <cfset user=model('auth_users').new()>
-		<cfset dropdownlinks = model('fgbc_ministries').findall()>
-		<cfset menus= model('menu').findall(order="category,name")>
-		--->
-		<cfset user = model("Authuser").new()>
-		<cfset myself=cgi.SCRIPT_NAME>
-		<cfset feedcount=3>
-		<cfset churchPlantingMinistries = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Church Planting Ministries'", order="category,name")>
-		<cfset leadershipTrainingMinistries = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Leadership Training Ministries'", order="category,name")>
-		<cfset doingGoodMinistries = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Doing Good'", order="category,name")>
+<cfscript>
+
+	setUserObjectForHeader()
+	getMinistriesForFooter()
+	dsn="fgbc_main_3"
+
+	function setUserObjectForHeader(){
+		user = model("Authuser").new()
+	}
+
+	function getMinistriesForFooter(){
+		churchPlantingMinistries = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Church Planting Ministries'", order="category,name")
+		leadershipTrainingMinistries = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Leadership Training Ministries'", order="category,name")
+		doingGoodMinistries = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Doing Good'", order="category,name")
+	}
+</cfscript>	
+
 
 	<cffunction name="getCaptcha" output="no">
 	<cfset var arrValidChars = "">
