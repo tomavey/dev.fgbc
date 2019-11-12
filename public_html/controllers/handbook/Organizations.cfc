@@ -48,9 +48,9 @@
 
 <!---Basic CRUD--->	
 
-	public function index(page=1){
+	public function index(){
 		var loc = {}
-		params=arguments
+		param(name="page" default=1)
 		request.showpagination = true
 		if ( isDefined("params.page") ) { page=params.page }
 		states = model("Handbookorganization").findStatesWithOrganizations()
