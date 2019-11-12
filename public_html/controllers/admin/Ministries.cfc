@@ -38,19 +38,17 @@
 		<cfset ministry = model("Mainministry").new()>
 	</cffunction>
 
+<cfscript>
+
 	<!--- ministries/edit/key --->
-	<cffunction name="edit">
+	function edit( key=params.key ) {
+		ministry = model("Mainministry").findByKey(params.key)
+		if ( !isObject(ministry) ) {
+			redirectTo(action="index", error="ministry #params.key# was not found")
+		}
+	}
 
-		<!--- Find the record --->
-			<cfset ministry = model("Mainministry").findByKey(params.key)>
-
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(ministry)>
-	        <cfset flashInsert(error="ministry #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-
-	</cffunction>
+</cfscript>
 
 	<!--- ministries/create --->
 	<cffunction name="create">
@@ -112,7 +110,10 @@
 
 <cfscript>
 	function getministryCategories(){
-		return application.wheels.ministryCategories;
+		var activeMinistries = model("Mainministry").findAll(where="status <>'inactive'")
+		var categories = listSort(valueList(activeMinistries.category,","),"text")
+		categories = removeDuplicatesFromList(categories)
+		return categories;
 	}
 </cfscript>	
 

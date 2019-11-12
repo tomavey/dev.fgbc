@@ -106,7 +106,13 @@
                                 </h4>
                               </li>
                             </cfoutput>
-                          </ul>
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="/index.cfm?controller=ministries&action=index&category=church+planting+ministries">More Church Planting Ministries</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
+                        </ul>
                         </nav>
                       </div>
                       <!-- End Footer Content -->
@@ -127,6 +133,12 @@
                                 </h4>
                               </li>
                             </cfoutput>
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="/index.cfm?controller=ministries&action=index&category=Leadership+Training+Ministries">More Leadership Training Ministries</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
                           </ul>
                         </nav>
                       </div>
@@ -148,6 +160,12 @@
                                 </h4>
                               </li>
                             </cfoutput>
+                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                              <h4 class="h6 g-pr-20 mb-0">
+                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="/index.cfm?controller=ministries&action=index&category=Doing+Good">More Doing Good Ministries</a>
+                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                              </h4>
+                            </li>
                           </ul>
                         </nav>
                       </div>
@@ -200,9 +218,23 @@
 --->
 
                       <!-- Footer Content -->
-                      <div class="col-lg-12 col-md-12 text-center" id="socialIcons">
+                      <div class="col-lg-12 col-md-12 text-center" style="margin-top:20px">
+                          <h3>Communication</h3>
+
+                            <cfoutput query="ministriesForFooter.communication">
+                              <a class="g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="#webAddress#">#name#
+                              </a>
+                              <cfif currentRow NEQ ministriesForFooter.communication.recordCount>
+                                &nbsp;&middot;&nbsp;
+                              </cfif>
+                            </cfoutput>
+
+                            
+                      </div>
+
+                      <div class="col-lg-12 col-md-12 text-center" id="socialIcons" style="margin-top:20px">
                         <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
-                          <h2 class="u-heading-v2__title h6 text-uppercase mb-0">Follow Us</h2>
+                          <h2 class="u-heading-v2__title h6 text-uppercase mb-0">Follow Us On...</h2>
                         </div>
 
                         <ul class="list-inline mb-0">
@@ -211,14 +243,19 @@
                               <i class="fa fa-vimeo"></i>
                             </a>
                           </li>
-                          <li class="list-inline-item g-mr-10">
+                          <!--- <li class="list-inline-item g-mr-10">
                             <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="#">
                               <i class="fa fa-instagram"></i>
                             </a>
-                          </li>
+                          </li> --->
                           <li class="list-inline-item g-mr-10">
                             <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://twitter.com/charischurches">
                               <i class="fa fa-twitter"></i>
+                            </a>
+                          </li>
+                          <li class="list-inline-item g-mr-10">
+                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://www.facebook.com/charischurches/">
+                              <i class="fa fa-facebook"></i>
                             </a>
                           </li>
                           <!---

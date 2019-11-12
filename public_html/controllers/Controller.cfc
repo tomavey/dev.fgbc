@@ -10,6 +10,7 @@
 		ministries.churchPlanting = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Church Planting Ministries' AND includeInFooter = 'Yes'", order="category,name")
 		ministries.leadershipTraining = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Leadership Training Ministries' AND includeInFooter = 'Yes'", order="category,name")
 		ministries.doingGood = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Doing Good' AND includeInFooter = 'Yes'", order="category,name")
+		ministries.communication = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Communication' AND includeInFooter = 'Yes'", order="category,name")
 		return ministries
 	}
 

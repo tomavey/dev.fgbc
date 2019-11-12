@@ -14,7 +14,7 @@
 			Name
 		</th>
 		<th>
-			Web/Phone/Email
+			Web/Phone/Email/Footer
 		</th>
 		<th>
 			Summary
@@ -43,7 +43,10 @@
 				#fixphone(phone)#<br/>
 			</cfif>
 			<cfif len(email)>
-				#mailto(lcase(email))#
+				#mailto(lcase(email))#<br/>
+			</cfif>
+			<cfif includeInFooter>
+				Will show in main footer
 			</cfif>
 		</td>
 		<td>

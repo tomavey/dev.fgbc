@@ -22,13 +22,8 @@
 	Search by Ministry name or Description
 	</p>
 
-	<p v-if="showCategoriesFilter">
-		<a href="" v-on:click.prevent="setSearch('Doing Good')">Doing Good</a> | 
-		<a href="" v-on:click.prevent="setSearch('Church Planting Ministries')">Church Planting Ministries</a> | 
-		<a href="" v-on:click.prevent="setSearch('Leadership Training Ministries')">Leadership Training Ministries</a> | 
-		<a href="" v-on:click.prevent="setSearch('Districts')">Districts</a> | 
-		<a href="" v-on:click.prevent="setSearch('Communication')">Communication</a> | 
-		
+  <p v-if="showCategoriesFilter">
+    <button v-for="filter in categoryFilters" :ref=filter type="button" class="btn btn-outline-primary" v-on:click.prevent="setSearch(filter)">{{filter}}</button>
 	</p>
 
 	<div v-for="ministry in filteredMinistries" class="card card-charis-sub" v-cloak>
@@ -47,11 +42,12 @@
 var vm = new Vue({
     el: "##ministrieslist",
     data: {
-        welcome: "Hello",
-        ministries: #queryToJson(ministry)#,
-        searchString: "",
-        filterString: "",
-		category: "#params.category#"
+      welcome: "Hello",
+      ministries: #queryToJson(ministry)#,
+      searchString: "",
+      filterString: "",
+      category: "#params.category#",
+      categoryFilters: ['Doing Good','Leadership Training','Church Planting','Districts','Communication']
     },
     methods: {
         fixurl: function(website){
