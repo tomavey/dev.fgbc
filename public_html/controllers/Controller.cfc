@@ -2,19 +2,17 @@
 
 <cfscript>
 
-	setUserObjectForHeader()
-	getMinistriesForFooter()
 	dsn="fgbc_main_3"
 
-	function setUserObjectForHeader(){
-		user = model("Authuser").new()
+	private function footer(){
+		//data function for footer partial called from layout
+		var ministries = {}
+		ministries.churchPlanting = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Church Planting Ministries'", order="category,name")
+		ministries.leadershipTraining = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Leadership Training Ministries'", order="category,name")
+		ministries.doingGood = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Doing Good'", order="category,name")
+		return ministries
 	}
 
-	function getMinistriesForFooter(){
-		churchPlantingMinistries = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Church Planting Ministries'", order="category,name")
-		leadershipTrainingMinistries = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Leadership Training Ministries'", order="category,name")
-		doingGoodMinistries = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Doing Good'", order="category,name")
-	}
 </cfscript>	
 
 

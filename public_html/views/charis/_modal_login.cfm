@@ -1,4 +1,5 @@
-      <!-- Login modal window -->
+<cfset user = model("Authuser").new()>
+  <!-- Login modal window -->
       <div id="login" class="text-left g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20" style="display: none;">
         <button type="button" class="close" onclick="Custombox.modal.close();">
           <i class="hs-icon hs-icon-close"></i>

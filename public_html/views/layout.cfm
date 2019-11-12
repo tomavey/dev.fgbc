@@ -4,7 +4,7 @@
 
     #includePartial("/charis/head")#
 
-    #includePartial("/charis/modal_login")#
+    #includePartial(partial="/charis/modal_login", dataFunction="setUserObjectForHeader")#
 
     #includePartial("/charis/modal_rebrand")#
 
@@ -12,12 +12,12 @@
 
             <main>
 
-                #includePartial("/charis/header")#
+                #includePartial(partial="/charis/header", dataFunction="setUserObjectForHeader")#
 
                 #contentForLayout()#
 
                 <cfif !isDefined("params.noFooter")>
-                    #includePartial("/charis/footer")#
+                    #includePartial(partial="/charis/footer", dataFunction="footer")#
                 </cfif>
 
             </main>

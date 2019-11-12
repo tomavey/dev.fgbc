@@ -1,4 +1,4 @@
-    <!-- Header -->
+  <!-- Header -->
     <header id="js-header" class="u-header u-header--static">
       <!-- Top Bar -->
       <div class="u-header__section u-header__section--hidden u-header__section--dark g-bg-black g-py-13">
