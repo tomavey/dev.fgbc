@@ -157,7 +157,59 @@
 	<cfset set(ministryCategories=listSort("Church Planting Ministries, Communication, Districts, Doing Good, Leadership Training Ministries, none","text"))>
 	<cfset set(inspireCategories = "1,2,3")>
 	<cfset set(inspireCommissions = "by a local church, in process of ordination, as a missionary, as a miltary chaplain")>
-
+	<cfset set(aboutItemsForFooter = [
+				{
+					name: 'Our Common Identity',
+					link: 'https://charisfellowship.us/cci'
+				},
+				{
+					name: 'Position Statements',
+					link: 'https://charisfellowship.us/page/positionstatements'
+				},
+				{
+					name: 'Our Common Identity',
+					link: 'https://charisfellowship.us/cci'
+				},
+				{
+					name: 'Our Common Mission',
+					link: 'https://charisfellowship.us/page/ccm-en'
+				},
+				{
+					name: 'Resolutions 2019',
+					link: 'https://charisfellowship.us/page/resolutions2019'
+				},
+				{
+					name: 'Graphical Resources',
+					link: 'https://charisfellowship.us/page/charisgraphics'
+				},
+				{
+					name: 'Other Resources',
+					link: 'https://charisfellowship.us/resources'
+				},
+				{
+					name: 'the Fellowship Council',
+					link: 'https://charisfellowship.us/page/fellowshipcouncil'
+				},
+				{
+					name: 'Online Handbook',
+					link: 'https://charisfellowship.us/handbook'
+				},
+				{
+					name: 'Constitution',
+					link: 'https://charisfellowship.us/page/constitution'
+				},
+				{
+					name: 'Manual of Procedure',
+					link: 'https://charisfellowship.us/page/manualofprocedure'
+				},
+				{
+					name: 'Contact Us',
+					link: 'https://charisfellowship.us/messages/new/'
+				}
+			]
+		)
+	>
+				
 <!---email addresses used--->
 	<cfset set(registrarEmail="sharmion@charisfellowship.us")>
 	<cfset set(registrarEmailBackup="tomavey@charisfellowship.us")>

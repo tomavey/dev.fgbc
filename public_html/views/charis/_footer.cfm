@@ -1,4 +1,5 @@
               <cfparam name="ministriesForFooter" default="#arguments#">
+              <cfparam name="aboutItemsArray" default="#getSetting('aboutItemsForFooter')#">
               <div class="shortcode-html">
                 <!-- Footer -->
                 <div class="g-bg-black-opacity-0_9 g-color-white-opacity-0_8 g-py-60">
@@ -10,72 +11,16 @@
                           <h2 class="u-heading-v2__title h6 text-uppercase mb-0">About Us</h2>
                         </div>
                           <ul class="list-unstyled g-mt-minus-10 mb-0">
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/cci">Our Common Identity</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/positionstatements">Position Statements</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/ccm-en">Our Common Mission</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/resolutions2019">Resolutions 2019</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/charisgraphics">Graphical Resources</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/resources">Other Resources</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/fellowshipcouncil">the Fellowship Council</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/handbook">Online Handbook</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/constitution">Constitution</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/page/manualofprocedure">Manual of Procedure</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
-                            <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                              <h4 class="h6 g-pr-20 mb-0">
-                                <a class="g-color-white-opacity-0_8 g-color-white--hover" href="https://charisfellowship.us/messages/new/">Contact Us</a>
-                                <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                              </h4>
-                            </li>
+                            <cfoutput>
+                              <cfloop array="#aboutItemsArray#" index="item" >
+                                <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
+                                  <h4 class="h6 g-pr-20 mb-0">
+                                    <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#item.link#">#item.name#</a>
+                                    <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
+                                  </h4>
+                                </li>
+                              </cfloop>
+                            </cfoutput>
                           </ul>
 <!---
                         <p>Subscribe below to stay up to date about what is happening within the Charis Fellowship.</p>
@@ -170,52 +115,6 @@
                         </nav>
                       </div>
                       <!-- End Footer Content -->
-<!---                      
-                      <!-- Footer Content -->
-                      <div class="col-lg-3 col-md-6 g-mb-40 g-mb-0--lg">
-                        <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
-                          <h2 class="u-heading-v2__title h6 text-uppercase mb-0">Latest Tweets</h2>
-                        </div>
-
-                        <article class="media">
-                          <div class="d-flex g-mt-3 mr-3">
-                            <span class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-color-white-opacity-0_6 rounded-circle" href="#">
-                              <i class="fa fa-twitter"></i>
-                            </span>
-                          </div>
-
-                          <div class="media-body">
-                            <h3 class="h6 g-line-height-1_6 mb-0">
-                              <a href="#">@htmlstream</a>
-                              Top 7 luxury places to visit around Victoria, BC
-                              <a href="#">https://goo.gl/Zjd6Bj</a>
-                            </h3>
-                            <small>2 hours ago</small>
-                          </div>
-                        </article>
-
-                        <hr class="g-brd-white-opacity-0_1 g-my-15">
-                        <article class="media g-mb-20">
-                          <div class="d-flex g-mt-3 mr-3">
-                            <span class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-color-white-opacity-0_6 rounded-circle" href="#">
-                              <i class="fa fa-twitter"></i>
-                            </span>
-                          </div>
-
-                          <div class="media-body">
-                            <h3 class="h6 g-line-height-1_6 mb-0">
-                              Coding week, best
-                              <a href="#">#premium</a>
-                              templates
-                              <a href="#">https://goo.gl/Zjd6Bj</a>
-                            </h3>
-                            <small>4 hours ago</small>
-                          </div>
-                        </article>
-                      </div>
-                      <!-- End Footer Content -->
-
---->
 
                       <!-- Footer Content -->
                       <div class="col-lg-12 col-md-12 text-center" style="margin-top:20px">
@@ -243,11 +142,6 @@
                               <i class="fa fa-vimeo"></i>
                             </a>
                           </li>
-                          <!--- <li class="list-inline-item g-mr-10">
-                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="#">
-                              <i class="fa fa-instagram"></i>
-                            </a>
-                          </li> --->
                           <li class="list-inline-item g-mr-10">
                             <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://twitter.com/charischurches">
                               <i class="fa fa-twitter"></i>
@@ -258,13 +152,6 @@
                               <i class="fa fa-facebook"></i>
                             </a>
                           </li>
-                          <!---
-                          <li class="list-inline-item g-mr-10">
-                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="#">
-                              <i class="fa fa-dribbble"></i>
-                            </a>
-                          </li>
-                          --->
                         </ul>
                       </div>
                       <!-- End Footer Content -->
