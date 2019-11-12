@@ -7,10 +7,13 @@
 		filters(through="gotBasicHandbookRights,logview", except="memberChurches,findChurches,findChurchWithStaff,groupRoster")
 		filters(through="getStates,getDistricts,getStatus", only="new,edit,update,index,create,downloadguidelines")
 		filters(through="setWillNotShowString,getGroupRosterOptions", only="new,edit")
+		filters(through="setReturn", only="show")
 		provides("json")
 	}
 
-<!---Filters--->
+<!------------------------>
+<!---------Filters-------->
+<!------------------------>
 
 	private function getStates(){
 		states = model("Handbookstate").findall(order="state")
@@ -46,28 +49,29 @@
 		groupsRosterOptions = "Yes,No,#year(now())#,#year(now())-1#,#year(now())-2#"
 	}
 
-<!---Basic CRUD--->	
+<!------------------------>
+<!-------Basic CRUD------->	
+<!------------------------>
 
+	<!--- handbook-organizations/index --->
 	public function index(){
-		var loc = {}
-		param(name="page" default=1)
+		param name="params.page" default="1";
 		request.showpagination = true
 		if ( isDefined("params.page") ) { page=params.page }
 		states = model("Handbookorganization").findStatesWithOrganizations()
 
-		loc.whereString = "show_in_handbook = 1"
-		loc.includeString="handbookstate,handbookstatus"
-		loc.orderString="state,org_city"
-		loc.pageCount = 0
-		loc.perpageCount = 10000000
-		loc.returnAsString = "query"
-		loc.returnAsString = "query"
-		loc.selectString = ""
+		whereString = "show_in_handbook = 1"
+		includeString="handbookstate,handbookstatus"
+		orderString="state,org_city"
+		pageCount = 0
+		perpageCount = 10000000
+		returnAsString = "query"
+		selectString = ""
 
 		if ( isdefined("params.status") ) {
-			loc. whereString = "status='#params.status#'"
+			whereString = "status='#params.status#'"
 		} else if ( isdefined("params.state") ) {
-			loc.whereString = whereString & " AND state_mail_abbrev = '#params.state#'"
+			whereString = whereString & " AND state_mail_abbrev = '#params.state#'"
 			request.showpagination = false
 		} else if ( isDefined("params.district") AND isDefined("params.membersonly") ) {
 			includeString = includeString & ",handbookdistrict"
@@ -79,268 +83,162 @@
 			returnAsString = "structs"
 			selectString = "name,org_city,listed_as_city,meetingplace,state,id,address1,address2,phone,email,website,fname"
 		} else {
-			pageCount = arguments.page
+			pageCount = params.page
 			perpageCount = 50
 		}
 
 		handbookorganizations = model("Handbookorganization").findAll(
-			select=loc.selectString, 
-			where=loc.whereString, 
-			include=loc.includeString, 
-			page=loc.pageCount, 
-			perPage=loc.perPageCount, 
-			order=loc.orderString, 
-			returnAs=loc.returnAsString
+			select=selectString, 
+			where=whereString, 
+			include=includeString, 
+			page=pageCount, 
+			perPage=perPageCount, 
+			order=orderString, 
+			returnAs=returnAsString
 			)
 
 			renderWith(data=handbookorganizations)
 		}
 
-
-</cfscript>	
-
-
-
-
-	<!--- handbook-organizations/index --->
-	<cffunction name="Xindex">
-		<cfparam name="params.page" default="1">
-		<cfset request.showpagination = true>
-		<cfset states = model("Handbookorganization").findStatesWithOrganizations()>
-
-		<cfset whereString = "show_in_handbook = 1">
-		<cfset includeString="handbookstate,handbookstatus">
-		<cfset orderString="state,org_city">
-		<cfset pageCount = 0>
-		<cfset perpageCount = 10000000>
-		<cfset returnAsString = "query">
-		<cfset selectString = "">
-
-		<cfif isdefined("params.status")>
-			<cfset whereString = "status='#params.status#'">
-		<cfelseif isdefined("params.state")>
-			<cfset whereString = whereString & " AND state_mail_abbrev = '#params.state#'">
-		<cfelseif isDefined("params.district") AND isDefined("params.membersonly")>
-			<cfset includeString = includeString & ",handbookdistrict">
-			<cfset whereString = whereString & " AND districtid = #params.district# AND statusID = 1">
-		<cfelseif isDefined("params.district")>
-			<cfset includeString = includeString & ",handbookdistrict">
-			<cfset whereString = whereString & " AND districtid = #params.district#">
-		<cfelseif isDefined("params.format") and params.format is "json">
-			<cfset returnAsString = "structs">
-			<cfset selectString = "name,org_city,listed_as_city,meetingplace,state,id,address1,address2,phone,email,website,fname">
-		<cfelse>
-			<cfset pageCount = params.page>
-			<cfset perpageCount = 50>
-		</cfif>
-
-		<cfset handbookorganizations = model("Handbookorganization").findAll(select=selectString, where=whereString, include=includeString, page=pageCount, perPage=perPageCount, order=orderString, returnAs=returnAsString)>
-
-		<cfif isDefined("params.state")>
-			<cfset request.showpagination = false>
-		</cfif>
-		<cfif isDefined("params.district")>
-			<cfset request.showpagination = false>
-		</cfif>
-
-		<cfset renderWith(data=handbookorganizations)>
-
-	</cffunction>
-
 	<!--- handbook-organizations/show/key --->
-	<cffunction name="show">
-
-		<cfset setReturn()>
-		<!--- Find the record --->
-    	<cfset handbookorganization = model("Handbookorganization").findByKey(key=params.key, include="Handbookstate,Handbookstatus,Handbookdistrict")>
-		<cfset tags=model("Handbooktag").findMyTagsForId(params.key,"organization")>
-		<cfset positions = model("Handbookperson").findall(where="organizationid='#params.key#' AND p_sortorder < #getNonStaffSortOrder()#", include="Handbookpositions,Handbookstate", order="p_sortorder,updatedAt")>
-
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(handbookorganization)>
-	        <cfset flashInsert(error="Handbookorganization #params.key# was not found")>
-	        <cfset redirectTo(action="index")>
-	    </cfif>
-
-   		<cfif isdefined("params.ajax")>
-			<cfset renderPartial("show")>
-		</cfif>
-
-	</cffunction>
-
-	<cffunction name="showInPanel">
-
-		<cfset setReturn()>
-		<!--- Find the record --->
-    	<cfset handbookorganization = model("Handbookorganization").findByKey(key=params.key, include="Handbookstate,Handbookstatus,Handbookdistrict")>
-		<cfset tags=model("Handbooktag").findMyTagsForId(params.key,"organization")>
-		<cfset positions = model("Handbookperson").findall(where="organizationid='#params.key#' AND p_sortorder < #getNonStaffSortOrder()#", include="Handbookpositions,Handbookstate", order="p_sortorder,lname")>
-
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(handbookorganization)>
-	        <cfset flashInsert(error="Handbookorganization #params.key# was not found")>
-	        <cfset redirectTo(action="index")>
-	    </cfif>
-
-		<cfset renderPartial("show")>
-
-	</cffunction>
+	public function show( key=params.key ){
+			handbookorganization = model("Handbookorganization").findByKey(key=params.key, include="Handbookstate,Handbookstatus,Handbookdistrict")
+			tags=model("Handbooktag").findMyTagsForId(params.key,"organization")
+			positions = model("Handbookperson").findall(where="organizationid='#params.key#' AND p_sortorder < #getNonStaffSortOrder()#", include="Handbookpositions,Handbookstate", order="p_sortorder,updatedAt")
+	
+			if ( !isObject(handbookorganization) ) {
+				redirectTo(action="index", error="Handbookorganization #params.key# was not found")
+			}
+			
+			if ( isDefined("params.ajax") ) { renderPartial("show") }
+		}
 
 	<!--- handbook-organizations/new --->
-	<cffunction name="new">
-		<cfset handbookorganization = model("Handbookorganization").new()>
-		<cfset var paramslist = structKeyList(params)>
-		<cfset paramslist = replace(paramslist,"ROUTE,","")>
-		<cfset paramslist = replace(paramslist,"CONTROLLER,","")>
-		<cfset paramslist = replace(paramslist,"CONTROLLER","")>
-		<cfset paramslist = replace(paramslist,"ACTION,","")>
-		<cfset paramslist = replace(paramslist,"ACTION","")>
-		<cfloop list="#paramslist#" index="i">
-			<cfif isDefined("params[i]")>
-				<cfset handbookorganization[i] = params[i]>
-			</cfif>
-		</cfloop>
-	</cffunction>
+	public function new(){
+			handbookorganization = model("Handbookorganization").new()
+		}
 
 	<!--- handbook-organizations/edit/key --->
-	<cffunction name="edit">
-
-		<!--- Find the record --->
-    	<cfset handbookorganization = model("Handbookorganization").findByKey(key=params.key, include="handbookstate")>
-
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(handbookorganization)>
-	        <cfset flashInsert(error="Handbookorganization #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-
-	</cffunction>
+	public function edit(key=params.key){
+		handbookorganization = model("Handbookorganization").findByKey(key=arguments.key, include="handbookstate")
+		if ( !IsObject(handbookorganization) ) {
+			redirectTo(action="index", error="Handbookorganization #params.key# was not found")
+		}
+	}
 
 	<!--- handbook-organizations/create --->
-	<cffunction name="create">
-		<cfset handbookorganization = model("Handbookorganization").new(params.handbookorganization)>
-
-		<!--- Verify that the handbookorganization creates successfully --->
-		<cfif handbookorganization.save()>
-			<cfset flashInsert(success="The handbookorganization was created successfully.")>
-			<cfset $updateNewChurchOrApplication(handbookorganization)>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error creating the handbookorganization.")>
-			<cfset renderPage(action="new")>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="$updateNewChurchOrApplication">
-	<cfargument name="handbookorganization" required="true" type="object">
-		<cfif isDefined("handbookorganization.applicationUUID")>
-			<cfset $connectApplicationToHandbook(handbookorganization.applicationUUID,handbookorganization.id)>
-		</cfif>		
-		<cfif isDefined("handbookorganization.newchurchUUID")>
-			<cfset $connectNewChurchToHandbook(handbookorganization.newchurchUUID,handbookorganization.id)>
-		</cfif>		
-	</cffunction>
-
-<cfscript>
-
-<!---Methods for Handbook Review Emailing--->
-
-public function handbookReviewOptions(reviewedBefore = dateAdd("d",1,now()),orderby="id",go=false,refresh=true){
-	args = $$useParamsForDefaults(params,arguments);
-	if (args.refresh){
-		session.churches = [];
-		session.churches = model("Handbookorganization").findChurchesForEmailing(reviewedBefore='#args.reviewedBefore#',go="true",orderby=args.orderby);
+	private function create(newOrganization=params.handbookorganization){
+		handbookorganization = model("Handbookorganization").new(arguments.newOrganization)
+		if ( handbookorganization.save() ) {
+			$updateNewChurchOrApplication(handbookorganization)
+			redirectTo(action="index", success="The handbookorganization was created successfully.")
+		} else {
+			renderPage(action="new", error="There was an error creating the handbookorganization.")
+		}
 	}
-	churches=session.churches;
-	testchurches = model("Handbookorganization").findChurchesForEmailing(reviewedBefore='#args.reviewedBefore#',go="false",orderby=args.orderby);
-	renderPage(layout="/handbook/layout_handbook2");
-}
 
-public function EmailChurchesForHandbookReview(){
-	allemails = "";
-	i=0;
-	if (!isDefined("session.churches")){redirectTo(action="handbookReviewOptions")}
-	if (isDefined("params.go") && params.go){
-			churches = session.churches;
+	private function $updateNewChurchOrApplication(required object handbookorganization){
+		if ( isDefined("handbookorganization.applicationUUID") ) {
+			$connectApplicationToHandbook(handbookorganization.applicationUUID,handbookorganization.id)
+		}
+		if ( isDefined("handbookorganization.newchurchUUID") ) {
+			$connectNewChurchToHandbook(handbookorganization.newchurchUUID,handbookorganization.id)			
+		}
+	}	
+
+		<!--- handbook-organizations/update --->
+		function update(key=params.key){
+			handbookorganization = model("Handbookorganization").findByKey(key=arguments.key, include="Handbookstate", order="selectname")
+			if ( handbookorganization.update(params.handbookorganization)	){
+				flashInsert(success="The handbookorganization was updated successfully.")
+				returnBack()
+			} else {
+				renderPage(action="edit", error="There was an error updating the handbookorganization.")
+			}
+		}
+	
+		<!--- handbook-organizations/delete/key --->
+		function delete() {
+			handbookorganization = model("Handbookorganization").findByKey(key=params.key, include="handbookState")
+			if ( handbookorganization.delete() ) {
+				redirectTo(action="index", success="The handbookorganization was deleted successfully.")
+			} else {
+				redirectTo(action="index", error="There was an error deleting the handbookorganization.")
+			}
+		}
+
+	<!------------------------>
+	<!----- END OF CRUD ------>	
+	<!------------------------>
+	
+	<!------------------------------------------>
+	<!---Methods for Handbook Review Emailing--->
+	<!------------------------------------------>
+
+	public function handbookReviewOptions(reviewedBefore = dateAdd("d",1,now()),orderby="id",go=false,refresh=true){
+		args = $$useParamsForDefaults(params,arguments);
+		if (args.refresh){
+			session.churches = [];
+			session.churches = model("Handbookorganization").findChurchesForEmailing(reviewedBefore='#args.reviewedBefore#',go="true",orderby=args.orderby);
+		}
+		churches=session.churches;
+		testchurches = model("Handbookorganization").findChurchesForEmailing(reviewedBefore='#args.reviewedBefore#',go="false",orderby=args.orderby);
+		renderPage(layout="/handbook/layout_handbook2");
+	}
+
+	public function EmailChurchesForHandbookReview(){
+		allemails = "";
+		i=0;
+		if (!isDefined("session.churches")){redirectTo(action="handbookReviewOptions")}
+		if (isDefined("params.go") && params.go){
+				churches = session.churches;
+			}
+			else {
+				churches = model("Handbookorganization").findChurchesForEmailing();
+			}
+		for (i=1; i LTE arrayLen(churches); i=i+1){
+			sendEmail(to=churches[i].email, from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
+			allemails = allemails & "; " & churches[i].email;
+		};
+		allemails = replace(allemails,"; ","","one");
+		i = arrayLen(churches);
+		structDelete(session,"churches");
+		renderPage(template="emailChurchesForHandbookReviewReport", layout="/handbook/layout_handbook2");
+	}
+
+	public function removeChurchFromSessionArray(item){
+		ArrayDeleteAt(session.churches,item);
+		redirectTo(action="handbookReviewOptions", params="refresh=false");
+	}
+
+	<!------------------------------------>
+
+	private function $connectApplicationToHandbook(applicationUUID, handbookId){
+		var loc = arguments;
+		loc.application = model("Membershipapplication").findApp(loc.applicationUUID);
+		loc.application.handbookid = loc.handbookid;
+		if (loc.application.update()){
+			return true;
+		}	
+		else {
+			return false;
+		}
+	}
+
+	private function $connectNewChurchToHandbook(newchurchUUID, handbookId){
+		var loc = arguments;
+		loc.newchurch = model("Membershipnewchurch").findOne(where="uuid='#loc.newchurchUUID#'");
+		loc.newchurch.handbookid = loc.handbookid;
+		if (loc.newchurch.update()){
+			return true;
 		}
 		else {
-			churches = model("Handbookorganization").findChurchesForEmailing();
+			return false;
 		}
-	for (i=1; i LTE arrayLen(churches); i=i+1){
-		sendEmail(to=churches[i].email, from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
-		allemails = allemails & "; " & churches[i].email;
-	};
-	allemails = replace(allemails,"; ","","one");
-	i = arrayLen(churches);
-	structDelete(session,"churches");
-	renderPage(template="emailChurchesForHandbookReviewReport", layout="/handbook/layout_handbook2");
-}
-
-public function removeChurchFromSessionArray(item){
-	ArrayDeleteAt(session.churches,item);
-	redirectTo(action="handbookReviewOptions", params="refresh=false");
-}
-
-<!------------------------------------>
-
-private function $connectApplicationToHandbook(applicationUUID, handbookId){
-	var loc = arguments;
-	loc.application = model("Membershipapplication").findApp(loc.applicationUUID);
-	loc.application.handbookid = loc.handbookid;
-	if (loc.application.update()){
-		return true;
-	}	
-	else {
-		return false;
 	}
-}
-
-private function $connectNewChurchToHandbook(newchurchUUID, handbookId){
-	var loc = arguments;
-	loc.newchurch = model("Membershipnewchurch").findOne(where="uuid='#loc.newchurchUUID#'");
-	loc.newchurch.handbookid = loc.handbookid;
-	if (loc.newchurch.update()){
-		return true;
-	}
-	else {
-		return false;
-	}
-}
 
 </cfscript>
 
-
-	<!--- handbook-organizations/update --->
-	<cffunction name="update">
-
-		<cfset handbookorganization = model("Handbookorganization").findByKey(key=params.key, include="Handbookstate", order="selectname")>
-
-		<!--- Verify that the handbookorganization updates successfully --->
-		<cfif handbookorganization.update(params.handbookorganization)>
-			<cfset flashInsert(success="The handbookorganization was updated successfully.")>
-            <cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the handbookorganization.")>
-			<cfset renderPage(action="edit")>
-		</cfif>
-	</cffunction>
-
-	<!--- handbook-organizations/delete/key --->
-	<cffunction name="delete">
-		<cfset handbookorganization = model("Handbookorganization").findByKey(key=params.key, include="handbookState")>
-
-		<!--- Verify that the handbookorganization deletes successfully --->
-		<cfif handbookorganization.delete()>
-			<cfset flashInsert(success="The handbookorganization was deleted successfully.")>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error deleting the handbookorganization.")>
-			<cfset redirectTo(action="index")>
-		</cfif>
-	</cffunction>
 
 <!---Variations on "show"--->
 
@@ -733,6 +631,145 @@ public function websites(){
 		<cfset rosterChurches = model("Handbookorganization").findAll(where="ingrouproster <> 'no' OR ingrouproster IS NOT NULL", include="State", order="#arguments.orderBy#")>
 		<cfset renderPage(layout="/handbook/layout_handbook2")>
 	</cffunction>
+
+
+
+
+
+
+
+
+
+
+
+	
+<!---TRASH--->	
+	<cffunction name="Xindex">
+		<cfparam name="params.page" default="1">
+		<cfset request.showpagination = true>
+		<cfset states = model("Handbookorganization").findStatesWithOrganizations()>
+
+		<cfset whereString = "show_in_handbook = 1">
+		<cfset includeString="handbookstate,handbookstatus">
+		<cfset orderString="state,org_city">
+		<cfset pageCount = 0>
+		<cfset perpageCount = 10000000>
+		<cfset returnAsString = "query">
+		<cfset selectString = "">
+
+		<cfif isdefined("params.status")>
+			<cfset whereString = "status='#params.status#'">
+		<cfelseif isdefined("params.state")>
+			<cfset whereString = whereString & " AND state_mail_abbrev = '#params.state#'">
+		<cfelseif isDefined("params.district") AND isDefined("params.membersonly")>
+			<cfset includeString = includeString & ",handbookdistrict">
+			<cfset whereString = whereString & " AND districtid = #params.district# AND statusID = 1">
+		<cfelseif isDefined("params.district")>
+			<cfset includeString = includeString & ",handbookdistrict">
+			<cfset whereString = whereString & " AND districtid = #params.district#">
+		<cfelseif isDefined("params.format") and params.format is "json">
+			<cfset returnAsString = "structs">
+			<cfset selectString = "name,org_city,listed_as_city,meetingplace,state,id,address1,address2,phone,email,website,fname">
+		<cfelse>
+			<cfset pageCount = params.page>
+			<cfset perpageCount = 50>
+		</cfif>
+
+		<cfset handbookorganizations = model("Handbookorganization").findAll(select=selectString, where=whereString, include=includeString, page=pageCount, perPage=perPageCount, order=orderString, returnAs=returnAsString)>
+
+		<cfif isDefined("params.state")>
+			<cfset request.showpagination = false>
+		</cfif>
+		<cfif isDefined("params.district")>
+			<cfset request.showpagination = false>
+		</cfif>
+
+		<cfset renderWith(data=handbookorganizations)>
+
+	</cffunction>
+
+	<cffunction name="Xshow">
+
+		<cfset setReturn()>
+		<!--- Find the record --->
+    	<cfset handbookorganization = model("Handbookorganization").findByKey(key=params.key, include="Handbookstate,Handbookstatus,Handbookdistrict")>
+		<cfset tags=model("Handbooktag").findMyTagsForId(params.key,"organization")>
+		<cfset positions = model("Handbookperson").findall(where="organizationid='#params.key#' AND p_sortorder < #getNonStaffSortOrder()#", include="Handbookpositions,Handbookstate", order="p_sortorder,updatedAt")>
+
+    	<!--- Check if the record exists --->
+	    <cfif NOT IsObject(handbookorganization)>
+	        <cfset flashInsert(error="Handbookorganization #params.key# was not found")>
+	        <cfset redirectTo(action="index")>
+	    </cfif>
+
+   		<cfif isdefined("params.ajax")>
+			<cfset renderPartial("show")>
+		</cfif>
+
+	</cffunction>
+
+	<cffunction name="XshowInPanel">
+
+		<cfset setReturn()>
+		<!--- Find the record --->
+    	<cfset handbookorganization = model("Handbookorganization").findByKey(key=params.key, include="Handbookstate,Handbookstatus,Handbookdistrict")>
+		<cfset tags=model("Handbooktag").findMyTagsForId(params.key,"organization")>
+		<cfset positions = model("Handbookperson").findall(where="organizationid='#params.key#' AND p_sortorder < #getNonStaffSortOrder()#", include="Handbookpositions,Handbookstate", order="p_sortorder,lname")>
+
+    	<!--- Check if the record exists --->
+	    <cfif NOT IsObject(handbookorganization)>
+	        <cfset flashInsert(error="Handbookorganization #params.key# was not found")>
+	        <cfset redirectTo(action="index")>
+	    </cfif>
+
+		<cfset renderPartial("show")>
+
+	</cffunction>
+
+	<cffunction name="Xnew">
+		<cfset handbookorganization = model("Handbookorganization").new()>
+		<cfset var paramslist = structKeyList(params)>
+		<cfset paramslist = replace(paramslist,"ROUTE,","")>
+		<cfset paramslist = replace(paramslist,"CONTROLLER,","")>
+		<cfset paramslist = replace(paramslist,"CONTROLLER","")>
+		<cfset paramslist = replace(paramslist,"ACTION,","")>
+		<cfset paramslist = replace(paramslist,"ACTION","")>
+		<cfloop list="#paramslist#" index="i">
+			<cfif isDefined("params[i]")>
+				<cfset handbookorganization[i] = params[i]>
+			</cfif>
+		</cfloop>
+	</cffunction>
+
+	<cffunction name="Xedit">
+
+		<!--- Find the record --->
+    	<cfset handbookorganization = model("Handbookorganization").findByKey(key=params.key, include="handbookstate")>
+
+    	<!--- Check if the record exists --->
+	    <cfif NOT IsObject(handbookorganization)>
+	        <cfset flashInsert(error="Handbookorganization #params.key# was not found")>
+			<cfset redirectTo(action="index")>
+	    </cfif>
+
+	</cffunction>
+
+	<cffunction name="Xcreate">
+		<cfset handbookorganization = model("Handbookorganization").new(params.handbookorganization)>
+
+		<!--- Verify that the handbookorganization creates successfully --->
+		<cfif handbookorganization.save()>
+			<cfset flashInsert(success="The handbookorganization was created successfully.")>
+			<cfset $updateNewChurchOrApplication(handbookorganization)>
+            <cfset redirectTo(action="index")>
+		<!--- Otherwise --->
+		<cfelse>
+			<cfset flashInsert(error="There was an error creating the handbookorganization.")>
+			<cfset renderPage(action="new")>
+		</cfif>
+	</cffunction>
+
+
 
 </cfcomponent>
 
