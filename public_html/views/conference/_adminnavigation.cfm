@@ -94,7 +94,7 @@
 						<li>
 							#linkto(
 								text="Mail List for Posters",
-								controller="handbook.admin",
+								controller="handbook.organizations",
 								action="downloadMemberChurches",
 								key="includecampusesandnewchurches"
 								)#

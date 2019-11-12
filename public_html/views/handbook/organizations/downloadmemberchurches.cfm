@@ -1,21 +1,67 @@
-<cfif !isdefined("params.format") OR params.format NEQ "excel">
+<cfset count = 1>
+<cfif not isDefined("params.download")>
 	<cfoutput>
-		#linkTo(text="Download as Excel", route="handbookDownloadmembers", params="format=excel")# |
-		<cfif isDefined("params.dba")>
-			#linkTo(text="Use Public Names", controller=params.controller, action=params.action)#
+		<cfif not isDefined("params.key")>
+			#linkTo(text="Download as excel", controller="handbook.admin", action="downloadmemberchurches", params="download&#cgi.query_string#", class="btn")#
+			<cfif isDefined("params.dba")>
+				#linkTo(text="Use Official Names", controller=params.controller, action=params.action, class="btn")#
+			<cfelse>
+				#linkTo(text="Use Public Names", controller=params.controller, action=params.action, params="dba=true", class="btn")#
+			</cfif>
 		<cfelse>
-			#linkTo(text="Use Official Names", controller=params.controller, action=params.action, params="dba=true")#
+			#linkTo(text="Download as excel", key=params.key, controller="handbook.admin", action="downloadmemberchurches", params="download&#cgi.query_string#", class="btn")#
+			<cfif isDefined("params.dba")>
+				#linkTo(text="Use Official Names", controller=params.controller, action=params.action, key=params.key, class="btn")#
+			<cfelse>
+				#linkTo(text="Use Public Names", controller=params.controller, action=params.action, key=params.key, params="dba=true", class="btn")#
+			</cfif>
 		</cfif>
 	</cfoutput>
 </cfif>
-
-<cfsavecontent variable = "request.data">
 <table>
-	<cfoutput query="memberChurches">
+	<thead>
+		<th>
+			<cfif isDefined("params.dba")>
+				Public Name
+			<cfelse>
+				Name
+			</cfif>
+		</th>
+		<th>
+			Address1
+		</th>
+		<th>
+			Address2
+		</th>
+		<th>
+			City
+		</th>
+		<th>
+			State
+		</th>
+		<th>
+			Zip
+		</th>
+		<th>
+			Phone
+		</th>
+		<th>
+			Email
+		</th>
+		<th>
+			Email
+		</th>
+		<th>
+			Attendance
+		</th>
+		<th>
+			Status
+		</th>
+
+	</thead>
+<cfoutput query="churches">
+<cfset seniorPastorEmail = getSeniorPastorEmail(id)>
 	<tr>
-		<td>
-			#id#
-		</td>
 		<td>
 			<cfif isDefined("params.dba") && len(alt_name)>
 				#alt_name#
@@ -33,7 +79,7 @@
 			#org_city#
 		</td>
 		<td>
-			#state_mail_abbrev#
+			#state#
 		</td>
 		<td>
 			#zip#
@@ -44,41 +90,29 @@
 		<td>
 			#email#
 		</td>
+	<cfif len(seniorpastoremail) and email NEQ seniorpastoremail>
 		<td>
-			#district#
+			#seniorpastoremail#
+		</td>
+	<cfelse>
+		<td>
+			&nbsp;
+		</td>
+	</cfif>
+		<td>
+			#getLastAtt(id)#
 		</td>
 		<td>
 			#status#
 		</td>
-		<td>
-			#website#
-		</td>
-		<cfset seniorpastor = getSeniorPastor(id)>
-		<td>
-			#seniorpastor.lname#
-		</td>
-		<td>
-			#seniorpastor.fname#
-		</td>
-		<td>
-			<cfif len(seniorpastor.email)>
-				#seniorpastor.email#
-			<cfelse>
-				#email#
-			</cfif>
-		</td>
-		<td>
-			#seniorpastor.phone#
-		</td>
-		<cfif gotrights("superadmin")>
-		<td>
-			#linkto(route="reviewhandbook", orgid=simpleEncode(id), onlyPath=false)#
-		</td>
-		</cfif>
 	</tr>
-	</cfoutput>
+	<cfset count = count + 1>
+</cfoutput>
 </table>
-
-<cfoutput>Count:#memberChurches.recordcount# </cfoutput>
-</cfsavecontent>
-<cfoutput>#request.data#</cfoutput>
+<cfif NOT isDefined("params.download")>
+	<cfoutput>
+		Count = #count#
+	</cfoutput>
+</cfif>
+<div>
+</div>

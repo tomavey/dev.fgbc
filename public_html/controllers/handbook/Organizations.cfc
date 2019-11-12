@@ -318,10 +318,43 @@ private function $connectNewChurchToHandbook(newchurchUUID, handbookId){
 
 <!---Downloads--->
 	<!---handbookDownloadmembers	GET	/handbook/organizations/downloadmemberchurches--->
-	<cffunction name="downloadMemberChurches">
+	<cffunction name="XdownloadMemberChurches">
 		<cfset memberChurches = model("Handbookorganization").findAll(where="statusId in (1,8,9)",include="Handbookstate,Handbookdistrict,Handbookstatus")>
 		<cfset setDownloadLayout()>
 	</cffunction>
+
+	<cffunction name="downloadMemberChurches">
+		<cfif isDefined("params.include") && params.include is "campuses">
+			<cfset wherestring = "statusid = 1 OR statusid = 8 OR statusid = 9">
+		<cfelseif isDefined("params.include") && params.include is "campusesandnewchurches">
+			<cfset wherestring = "statusid = 1 OR statusid = 8 OR statusid = 2 OR statusid = 9">
+		<cfelse>
+			<cfset wherestring = "statusid = 1">
+		</cfif>
+			<cfset churches = model("Handbookorganization").findAll(where=wherestring, include="Handbookstate,Handbookdistrict,Handbookstatus", order="state_mail_abbrev,org_city,name")>
+			<cfset memberChurches = churches>
+			<cfset setDownloadLayout()>
+			<cfset renderPage(layout="/handbook/layout_admin")>
+	</cffunction>
+
+	<cffunction name="getSeniorPastorEmail">
+		<cfargument name="churchid" required="true" type="numeric">
+		<cfset var loc=structNew()>
+		<cfset loc.return = "">
+			<cfset pastor = model("Handbookposition").findAll(where="organizationid=#arguments.churchid# AND p_sortorder=1", include="Handbookperson,Handbookorganization(Handbookstate)")>
+			<cfif pastor.recordcount and len(pastor.email)>
+				<cfset loc.return = pastor.email>
+			</cfif>
+		<cfreturn loc.return>
+	</cffunction>
+
+	<cffunction name="getLastAtt">
+	<cfargument name="churchid" required="true" type="numeric">
+	<cfset var loc= structNew()>
+		<cfset loc.lastAtt = model("Handbookstatistic").findLastAtt(arguments.churchid)>
+		<cfreturn loc.lastatt>
+	</cffunction>
+
 
 	<!---handbookDownloadMemberChurchesForBrotherhood	GET	/handbook/organizations/brotherhood--->
 	<cffunction name="downloadMemberChurchesForBrotherhood">
