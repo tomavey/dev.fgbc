@@ -13,6 +13,8 @@
 
 						#select(objectName='ministry', property='status', label='Status', options="active,dropdown,inactive")#
 
-						#select(objectName='ministry', property='category', label='Category', options=getministryCategories(), includeBlank="----select ministry category---")#
+						#select(objectName='ministry', property='category', label='Category', options=getministryCategories())#
+
+						#select(objectName='ministry', property='includeInFooter', label='Show in footer?', options="No,Yes")#
 
 </cfoutput>

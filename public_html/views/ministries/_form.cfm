@@ -11,6 +11,8 @@
 
 						#select(objectName='ministry', property='status', label='Status', options="active,dropdown,inactive")#
 
+						<!--- #select(objectName='ministry', property='includeInFooter', label='Include in footer?', options="Yes,No")# --->
+
 						#textField(objectName='ministry', property='category', label='Category')#
 
 </cfoutput>

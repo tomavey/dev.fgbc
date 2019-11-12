@@ -1013,6 +1013,14 @@ function XputFormTag() {
 	return	returnString;
 }
 
+function binaryToYesNo(required bin) {
+	if (val(bin) is 0) { return "No" } else { return "Yes"}
+}
+
+function binaryToTrueFalse(required numeric bin) {
+	if (val(bin) is 0) { return "False" } else { return "True"}
+}
+
 </cfscript>
 
 <cffunction name="putFormTag">

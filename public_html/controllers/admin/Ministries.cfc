@@ -42,7 +42,7 @@
 	<cffunction name="edit">
 
 		<!--- Find the record --->
-    	<cfset ministry = model("Mainministry").findByKey(params.key)>
+			<cfset ministry = model("Mainministry").findByKey(params.key)>
 
     	<!--- Check if the record exists --->
 	    <cfif NOT IsObject(ministry)>
@@ -67,6 +67,12 @@
 		</cfif>
 	</cffunction>
 
+<cfscript>
+	private function includeInFooterToBinary(required string includeInFooter) {
+		if ( includeInFooter is "Yes" ) { return 1 } else { return 0}
+	}
+</cfscript>	
+
 	<cffunction name="show">
 		<cfset wherestring = "id=#params.key#">
 	   	<cfset ministry = model("Mainministry").findAll(where=whereString, order="category,name")>
@@ -79,7 +85,7 @@
 		<!--- Verify that the ministry updates successfully --->
 		<cfif ministry.update(params.ministry)>
 			<cfset flashInsert(success="The ministry was updated successfully.")>
-            <cfset redirectTo(action="index")>
+      <cfset returnBack()>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the ministry.")>

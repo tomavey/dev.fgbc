@@ -1,4 +1,4 @@
-              <cfparam name="ministries" default="#arguments#">
+              <cfparam name="ministriesForFooter" default="#arguments#">
               <div class="shortcode-html">
                 <!-- Footer -->
                 <div class="g-bg-black-opacity-0_9 g-color-white-opacity-0_8 g-py-60">
@@ -98,7 +98,7 @@
 
                         <nav class="text-uppercase1">
                           <ul class="list-unstyled g-mt-minus-10 mb-0">
-                            <cfoutput query="ministries.churchPlanting">
+                            <cfoutput query="ministriesForFooter.churchPlanting">
                               <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                                 <h4 class="h6 g-pr-20 mb-0">
                                   <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#webaddress#" target="_blank">#name#</a>
@@ -119,7 +119,7 @@
 
                         <nav class="text-uppercase1">
                           <ul class="list-unstyled g-mt-minus-10 mb-0">
-                            <cfoutput query="ministries.leadershipTraining">
+                            <cfoutput query="ministriesForFooter.leadershipTraining">
                               <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                                 <h4 class="h6 g-pr-20 mb-0">
                                   <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#webaddress#" target="_blank">#name#</a>
@@ -140,7 +140,7 @@
 
                         <nav class="text-uppercase1">
                           <ul class="list-unstyled g-mt-minus-10 mb-0">
-                            <cfoutput query="ministries.doingGood">
+                            <cfoutput query="ministriesForFooter.doingGood">
                               <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
                                 <h4 class="h6 g-pr-20 mb-0">
                                   <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#webaddress#" target="_blank">#name#</a>

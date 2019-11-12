@@ -7,9 +7,9 @@
 	private function footer(){
 		//data function for footer partial called from layout
 		var ministries = {}
-		ministries.churchPlanting = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Church Planting Ministries'", order="category,name")
-		ministries.leadershipTraining = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Leadership Training Ministries'", order="category,name")
-		ministries.doingGood = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Doing Good'", order="category,name")
+		ministries.churchPlanting = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Church Planting Ministries' AND includeInFooter = 'Yes'", order="category,name")
+		ministries.leadershipTraining = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Leadership Training Ministries' AND includeInFooter = 'Yes'", order="category,name")
+		ministries.doingGood = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Doing Good' AND includeInFooter = 'Yes'", order="category,name")
 		return ministries
 	}
 
