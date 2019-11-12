@@ -4,7 +4,7 @@
 
     #includePartial("/charis/head")#
 
-    #includePartial(partial="/charis/modal_login", dataFunction="setUserObjectForHeader")#
+    #includePartial(partial="/charis/modal_login")#
 
     #includePartial("/charis/modal_rebrand")#
 
@@ -12,7 +12,7 @@
 
             <main>
 
-                #includePartial(partial="/charis/header", dataFunction="setUserObjectForHeader")#
+                #includePartial(partial="/charis/header")#
 
                 #contentForLayout()#
 
