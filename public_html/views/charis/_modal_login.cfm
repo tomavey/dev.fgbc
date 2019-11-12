@@ -1,4 +1,4 @@
-<cfset user = model("Authuser").new()>
+<cfset user = model("Authuser").new()><---TODO: Find a way to do this in a controller--->
   <!-- Login modal window -->
       <div id="login" class="text-left g-max-width-600 g-bg-white g-overflow-y-auto g-pa-20" style="display: none;">
         <button type="button" class="close" onclick="Custombox.modal.close();">

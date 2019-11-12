@@ -2,7 +2,7 @@
 
 <cfscript>
 
-	dsn="fgbc_main_3"
+	dsn=getSetting("dataSourceName")
 
 	private function footer(){
 		//data function for footer partial called from layout
