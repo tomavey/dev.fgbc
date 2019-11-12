@@ -1,65 +1,109 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
-		<cfset usesLayout("/handbook/layout_handbook")>
-		<cfset filters(through="gotBasicHandbookRights,logview", except="memberChurches,findChurches,findChurchWithStaff,groupRoster")>
-		<cfset filters(through="getStates,getDistricts,getStatus", only="new,edit,update,index,create,downloadguidelines")>
-		<cfset filters(through="noShowString,getGroupRosterOptions", only="new,edit")>
-		<cfset provides("json")>
-	</cffunction>
+<cfscript>
+
+	function init(){
+		usesLayout("/handbook/layout_handbook")
+		filters(through="gotBasicHandbookRights,logview", except="memberChurches,findChurches,findChurchWithStaff,groupRoster")
+		filters(through="getStates,getDistricts,getStatus", only="new,edit,update,index,create,downloadguidelines")
+		filters(through="setWillNotShowString,getGroupRosterOptions", only="new,edit")
+		provides("json")
+	}
 
 <!---Filters--->
-	<cffunction name="getStates">
-		<cfset states = model("Handbookstate").findall(order="state")>
-	</cffunction>
 
-	<cffunction name="getDistricts">
-		<cfset districts = model("Handbookdistrict").findall(order="district")>
-	</cffunction>
+	private function getStates(){
+		states = model("Handbookstate").findall(order="state")
+	}
 
-	<cffunction name="getStatus">
-		<cfset status = model("Handbookstatus").findall(order="status")>
-	</cffunction>
+	private function getDistricts(){
+		districts = model("Handbookdistrict").findall(order="district")
+	}
 
-	<cffunction name="isOnStaffHere">
-	<cfset var loc=structNew()>
-	<cfset loc.return = false>
+	private function getStatus(){
+		status = model("Handbookstatus").findall(order="status")
+	}
 
-	<cfif gotRights("superadmin,office")>
-		  <cfset loc.return = true>
-	</cfif>
+	private function setWillNotShowString(){
+		//used by 'status' dropdown in organization form to shwow which status will dissapear
+		var NoShow = model("Handbookstatus").findall(where="show_in_handbook = 0")
+		willNotShowString = ""
+		for ( item in NoShow ) {
+			willNotShowString = willNotShowString & ", " & item.status
+		}
+		willNotShowString = replace(willNotShowString,", ","","one")
+	}
 
-	<cfif isDefined("session.auth.handbook.review") and session.auth.handbook.review>
-		  <cfset loc.return = true>
-	</cfif>
+	private function XisOnStaffHere(){
+		if ( gotRights("superadmin,office") ) { return true }
+		if ( isDefined("session.auth.handbook.review") and session.auth.handbook.review ) { return true }
+		if ( isDefined("params.key") and isDefined("session.auth.handbook.organizations") and find(params.key,session.auth.handbook.organizations) ) { return true }
+		renderText("You do not have permission to view this page")
+	}
 
-	<cfif isDefined("params.key") and isDefined("session.auth.handbook.organizations") and find(params.key,session.auth.handbook.organizations)>
-		  <cfset loc.return = true>
-	</cfif>
+	private function getGroupRosterOptions() {
+		//used by 'group roster' dropdown in organization form to select a group roster status/date
+		groupsRosterOptions = "Yes,No,#year(now())#,#year(now())-1#,#year(now())-2#"
+	}
 
-	<cfif loc.return>
-	<cfelse>
-		  <cfset renderText("You do not have permission to view this page")>
-	</cfif>
-	</cffunction>
+<!---Basic CRUD--->	
 
-	<cffunction name="NoShowString">
-		<cfset var NoShow = model("Handbookstatus").findall(where="show_in_handbook = 0")>
-		<cfset NoShowString = "">
-		<cfloop query="NoShow">
-			<cfset NoShowString = NoShowString & ", " & status>
-		</cfloop>
-		<cfset noShowString = replace(NoShowString,", ","","one")>
-	</cffunction>
+	public function index(page=1){
+		var loc = {}
+		params=arguments
+		request.showpagination = true
+		if ( isDefined("params.page") ) { page=params.page }
+		states = model("Handbookorganization").findStatesWithOrganizations()
 
-	<cffunction name="getGroupRosterOptions">
-		<cfset groupsRosterOptions = "Yes,No,#year(now())#,#year(now())-1#,#year(now())-2#">
-	</cffunction>
+		loc.whereString = "show_in_handbook = 1"
+		loc.includeString="handbookstate,handbookstatus"
+		loc.orderString="state,org_city"
+		loc.pageCount = 0
+		loc.perpageCount = 10000000
+		loc.returnAsString = "query"
+		loc.returnAsString = "query"
+		loc.selectString = ""
 
-<!---Basic CRUD--->
+		if ( isdefined("params.status") ) {
+			loc. whereString = "status='#params.status#'"
+		} else if ( isdefined("params.state") ) {
+			loc.whereString = whereString & " AND state_mail_abbrev = '#params.state#'"
+			request.showpagination = false
+		} else if ( isDefined("params.district") AND isDefined("params.membersonly") ) {
+			includeString = includeString & ",handbookdistrict"
+			request.showpagination = false
+		} else if ( isDefined("params.district") ) {
+			includeString = includeString & ",handbookdistrict"
+			request.showpagination = false
+		} else if ( isDefined("params.format") and params.format is "json" ) {
+			returnAsString = "structs"
+			selectString = "name,org_city,listed_as_city,meetingplace,state,id,address1,address2,phone,email,website,fname"
+		} else {
+			pageCount = arguments.page
+			perpageCount = 50
+		}
+
+		handbookorganizations = model("Handbookorganization").findAll(
+			select=loc.selectString, 
+			where=loc.whereString, 
+			include=loc.includeString, 
+			page=loc.pageCount, 
+			perPage=loc.perPageCount, 
+			order=loc.orderString, 
+			returnAs=loc.returnAsString
+			)
+
+			renderWith(data=handbookorganizations)
+		}
+
+
+</cfscript>	
+
+
+
 
 	<!--- handbook-organizations/index --->
-	<cffunction name="index">
+	<cffunction name="Xindex">
 		<cfparam name="params.page" default="1">
 		<cfset request.showpagination = true>
 		<cfset states = model("Handbookorganization").findStatesWithOrganizations()>
