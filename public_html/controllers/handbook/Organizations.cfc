@@ -312,6 +312,7 @@
 <!---Handbook Pages--->
 
 	public function handbookpages(key=params.key){
+		if ( isDefined("params.move") ) { $move() }
 		organization = model("Handbookorganization").findByKey(key=arguments.key, include="Handbookstate,Handbookstatus,Handbookdistrict")
 		$reSort(arguments.key)
 		var whereString = "organizationid='#params.key#' AND position NOT LIKE '%Removed%' AND position NOT LIKE '%AGBM Only%'"
@@ -338,7 +339,7 @@
 	}
 
 	//used by handbookpages view to reorder staff in an organization
-	public function move(
+	public function $move(
 		thisId=params.positionId,
 		thisSortorder=params.sortOrder,
 		otherId=params.otherId,
@@ -353,118 +354,79 @@
 			othersortorder = #arguments.othersortorder#
 			)
 
-			returnBack()	
+			redirectTo(action="handbookpages", key=arguments.orgid)	
 	}
 
 
+
+	function $getNextPosition(required numeric positionid){
+		var watch = 0
+		var position
+		var nextposition = {}
+		for ( position in positions ) {
+			if ( watch ) {
+				nextposition.id = position.handbookpositionid
+				nextposition.sortorder = position.p_sortorder
+				return nextPosition
+			}
+			if ( position.handbookpositionid IS arguments.positionid ) {
+				watch = 1
+			}
+		}
+		return false
+	}
+
+	<!---Removes any gaps in staff sortorders--->
+	function $reSort(orgId=params.orgId){
+		return model("Handbookperson").resort(arguments.orgid)		
+	}
+		
+	function $getPreviousPerson(required numeric personId,required numeric organizationId){
+		staff = model("Handbookperson").findOne(where="id=#arguments.personid#")
+		previousstaff = model("Handbookperson").findAll(where="sortorder = #staff.sortoder-1# AND organizationid = #arguments.organizationid#", include="Handbookpositions,Handbookstate")
+	}
+
+	public function notStaff(){
+		var loc = arguments;
+		loc.positionid = params.key;
+		loc.personid = model("Handbookposition").findOne(where="id=#loc.positionid#").personid;
+		loc.isAgbmMember = model("Handbookagbminfo").isAgbmMember(loc.personid);
+		loc.isAgbm = isAgbm(loc.personid);
+		if (loc.isAgbmMember || loc.isAGBM){
+			loc.position = "AGBM Only";
+			loc.positiontypeid = 32 //position type 32 is AGBM Only - position type does not show in handbook
+		}
+		else {
+			loc.position = "Removed From Staff";
+			loc.positiontypeid = 13 //position type 13 is 'later'
+		};
+		model("Handbookorganization").removeFromStaff(loc.positionid, loc.position, loc.positiontypeid);
+		redirectTo(back=true);
+	}
+
+	public function websites(){
+		var whereString = "website IS NOT NULL AND website <> ' ' AND statusid IN '1,4,2,8,9,10,11,12'"
+		var selectString = "id, website, selectName"
+		var maxrows = 999999999999
+		var order = "selectName"
+		var includeString = "State"
+		if ( isLocalMachine() ) { maxrows = 1000 }
+		websites = model("Handbookorganization").findAll(
+			where = whereString,
+			select = selectString,
+			include = includeString,
+			maxrows = maxrows,
+			order = order
+			)
+	}
 
 </cfscript>
 
 
 
 
-<!---Downloads--->
 
 
-
-	<cffunction name="Xmove">
-	<cfargument name="thisId" default="#params.positionid#">
-	<cfargument name="thisSortorder" default="#params.sortorder#">
-	<cfargument name="otherId" default="#params.otherId#">
-	<cfargument name="otherSortorder" default="#params.otherSortorder#">
-	<cfargument name="orgid" default="#params.orgid#">
-
-	<cfset move = model("Handbookperson").swapSortorder(
-		   thisid = #arguments.thisid#,
-		   thisSortorder = #arguments.thisSortOrder#,
-		   otherid = #arguments.otherid#,
-		   othersortorder = #arguments.othersortorder#
-		   )>
-
-		<cfset redirectTo(back=true)>
-	</cffunction>
-
-	<cffunction name="$getNextPosition">
-	<cfargument name="positionid" required="true" type="numeric">
-	<cfset var watch = 0>
-	<cfloop query="positions">
-		<cfif watch>
-			  <cfset nextposition.id = handbookpositionid>
-			  <cfset nextposition.sortorder = p_sortorder>
-			  <cfreturn nextposition>
-		</cfif>
-		<cfif handbookpositionid is arguments.positionid>
-			  <cfset watch = 1>
-		</cfif>
-	</cfloop>
-	<cfreturn false>
-
-	</cffunction>
-
-	<cffunction name="$reSort"><!---Removes any gaps in staff sortorders--->
-	<cfargument name="orgid" default="#params.orgid#">
-		<cfset staff = model("Handbookperson").findAll(where="p_sortorder < #getNonStaffSortOrder()# AND organizationid = #arguments.orgid#", include="Handbookpositions,Handbookstate", cache=false, order="p_sortorder, updatedAt")>
-		<cfloop query="staff">
-			<cfquery datasource="fgbc_main_3" result="res">
-    			UPDATE handbookpositions
-    			SET p_sortorder = #currentrow#
-    			WHERE personid = #id#
-    				AND organizationid = #organizationid#
-			</cfquery>
-		</cfloop>
-		<cfreturn true>
-	</cffunction>
-
-	<cffunction name="$getPreviousPerson">
-	<cfargument name="personid" required="true" type="numeric">
-	<cfargument name="organizationid" required="true" type="numeric">
-		<cfset staff = model("Handbookperson").findOne(where="id=#arguments.personid#")>
-		<cfset previousstaff = model("Handbookperson").findAll(where="sortorder = #staff.sortoder-1# AND organizationid = #arguments.organizationid#", include="Handbookpositions,Handbookstate")>
-
-	</cffunction>
-
-<cfscript>
-
-public function notStaff(){
-	var loc = arguments;
-	loc.positionid = params.key;
-	loc.personid = model("Handbookposition").findOne(where="id=#loc.positionid#").personid;
-	loc.isAgbmMember = model("Handbookagbminfo").isAgbmMember(loc.personid);
-	loc.isAgbm = isAgbm(loc.personid);
-	if (loc.isAgbmMember || loc.isAGBM){
-		loc.position = "AGBM Only";
-		loc.positiontypeid = 32 //position type 32 is AGBM Only - position type does not show in handbook
-	}
-	else {
-		loc.position = "Removed From Staff";
-		loc.positiontypeid = 13 //position type 13 is 'later'
-	};
-	model("Handbookorganization").removeFromStaff(loc.positionid, loc.position, loc.positiontypeid);
-	redirectTo(back=true);
-}
-
-public function websites(){
-	var whereString = "website IS NOT NULL AND website <> ' ' AND statusid IN '1,4,2,8,9,10,11,12'"
-	var selectString = "id, website, selectName"
-	var maxrows = 999999999999
-	var order = "selectName"
-	var includeString = "State"
-	if ( isLocalMachine() ) { maxrows = 1000 }
-	websites = model("Handbookorganization").findAll(
-		where = whereString,
-		select = selectString,
-		include = includeString,
-		maxrows = maxrows,
-		order = order
-		)
-}
-
-</cfscript>
-
-	<cffunction name="testReSort">
-	<cfargument name="organizationid" default="#params.key#">
-		<cfset test = reSort(arguments.organizationid)>
-	</cffunction>
 
 	<!--- handbookUpdatelinks	GET	/handbook/organization/updatelinks --->
 	<cffunction name="updateLinks">
@@ -561,55 +523,10 @@ public function websites(){
 		</cfif>
 	</cffunction>
 
-	<cffunction name="showparams">
-		<cfloop collection="#params#" item="i">
-			<cfdump var="#i#"><cfdump var="#params[i]#">
-		</cfloop>
-		<cfdump var="#params#"><cfabort>
-	</cffunction>
-
 	<cffunction name="getAtt">
 	<cfargument name="churchid" required="true" type="numeric">
 		<cfset att = model("Handbookstatistic").findLastAtt(#arguments.churchid#)>
 		<cfreturn att>
-	</cffunction>
-
-	<cffunction name="speedDating">
-	<cfset var loc= structNew()>
-		<cfif isDefined("params.groupscount")>
-			<cfset params.groups = structNew()>
-			<cfloop from="1" to="#params.groupscount#" index="loc.session">
-				<cfloop from="1" to="#params.groupscount#" index="loc.host">
-					<cfloop from="1" to="#params.groupscount#" index="loc.guest">
-						<cfif availableForSpeedDate(loc.host,loc.guest)>
-							<cfset params.groups[loc.session][loc.host]=loc.guest>
-						<cfbreak>
-						</cfif>
-					</cfloop>
-				</cfloop>
-			</cfloop>
-		</cfif>
-		<cfdump var="#params#"><cfabort>
-		<cfset renderPage(layout="/handbook/layout_handbook2")>
-	</cffunction>
-
-	<cffunction name="availableForSpeedDate">
-	<cfargument name="host" required="true" type="numeric">
-	<cfargument name="guest" required="true" type="numeric">
-	<cfset var loc= structNew()>
-	<cfset loc = arguments>
-	<cfset loc.return = true>
-	<cfset loc.groups = params.groups>
-	<cfset loc.groupscount = structCount(loc.groups)>
-		<cfloop from="1" to="#loc.groupscount#" index="loc.session">
-			<cftry>
-				<cfif val(loc.groups[loc.session][loc.host]) EQ loc.guest OR val(loc.groups[loc.session][loc.guest]) EQ loc.host or loc.host EQ loc.guest>
-					<cfset loc.return = false>
-					<cfreturn loc.return>
-				</cfif>
-			<cfcatch></cfcatch></cftry>
-		</cfloop>
-	<cfreturn loc.return>
 	</cffunction>
 
 	<cffunction name="json">
@@ -830,7 +747,70 @@ public function websites(){
 	
 			<cfset renderPage(layout="/Handbook/layout_handbook2")>
 		</cffunction>
-	
+
+		<cffunction name="Xmove">
+			<cfargument name="thisId" default="#params.positionid#">
+			<cfargument name="thisSortorder" default="#params.sortorder#">
+			<cfargument name="otherId" default="#params.otherId#">
+			<cfargument name="otherSortorder" default="#params.otherSortorder#">
+			<cfargument name="orgid" default="#params.orgid#">
+		
+			<cfset move = model("Handbookperson").swapSortorder(
+					 thisid = #arguments.thisid#,
+					 thisSortorder = #arguments.thisSortOrder#,
+					 otherid = #arguments.otherid#,
+					 othersortorder = #arguments.othersortorder#
+					 )>
+		
+				<cfset redirectTo(back=true)>
+			</cffunction>
+		
+			<cffunction name="XavailableForSpeedDate">
+				<cfargument name="host" required="true" type="numeric">
+				<cfargument name="guest" required="true" type="numeric">
+				<cfset var loc= structNew()>
+				<cfset loc = arguments>
+				<cfset loc.return = true>
+				<cfset loc.groups = params.groups>
+				<cfset loc.groupscount = structCount(loc.groups)>
+					<cfloop from="1" to="#loc.groupscount#" index="loc.session">
+						<cftry>
+							<cfif val(loc.groups[loc.session][loc.host]) EQ loc.guest OR val(loc.groups[loc.session][loc.guest]) EQ loc.host or loc.host EQ loc.guest>
+								<cfset loc.return = false>
+								<cfreturn loc.return>
+							</cfif>
+						<cfcatch></cfcatch></cftry>
+					</cfloop>
+				<cfreturn loc.return>
+				</cffunction>
+			
+				<cffunction name="Xshowparams">
+					<cfloop collection="#params#" item="i">
+						<cfdump var="#i#"><cfdump var="#params[i]#">
+					</cfloop>
+					<cfdump var="#params#"><cfabort>
+				</cffunction>
+			
+				<cffunction name="XspeedDating">
+					<cfset var loc= structNew()>
+						<cfif isDefined("params.groupscount")>
+							<cfset params.groups = structNew()>
+							<cfloop from="1" to="#params.groupscount#" index="loc.session">
+								<cfloop from="1" to="#params.groupscount#" index="loc.host">
+									<cfloop from="1" to="#params.groupscount#" index="loc.guest">
+										<cfif availableForSpeedDate(loc.host,loc.guest)>
+											<cfset params.groups[loc.session][loc.host]=loc.guest>
+										<cfbreak>
+										</cfif>
+									</cfloop>
+								</cfloop>
+							</cfloop>
+						</cfif>
+						<cfdump var="#params#"><cfabort>
+						<cfset renderPage(layout="/handbook/layout_handbook2")>
+					</cffunction>
+				
+				
 
 </cfcomponent>
 
