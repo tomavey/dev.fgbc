@@ -59,6 +59,7 @@
 		</cfif>
 		<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId='#params.retreatid#' AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price DESC")>
 		<cfset retreat = model("Focusretreat").findByKey(params.retreatid)>
+		<cfset formaction="create">
 		<cfset renderPage(layout="/focus/layout2")>
 	</cffunction>
 

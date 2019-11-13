@@ -1,9 +1,10 @@
+<cfparam name="formaction" default="create">
 <cfoutput>
 <h1>Register for #retreat.title#:</h1>
 <div id="#params.controller#" ng-controller="registerController">
 			#errorMessagesFor("shoppingcart")#
 
-			#startFormTag(action="create")#
+			#startFormTag(action=formaction)#
 
 						#hiddenField(objectName='shoppingcart', property='retreat')#
 
@@ -14,6 +15,8 @@
 						#textField(objectName='shoppingcart', property='email', label='Email: ')#
 
 						#textField(objectName='shoppingcart', property='phone', label='Phone: ')#
+
+						#select(objectName='shoppingcart', property='firstTime', label='Is this your first focus retreat: ', options="No,Yes")#
 
 						#textField(objectName='shoppingcart', property='roommate', label='Roommate: ')#
 

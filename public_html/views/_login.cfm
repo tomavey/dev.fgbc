@@ -1,3 +1,5 @@
+<cfset user = model("Authuser").new()>
+<!---TODO:need to find a better way to provide a new user object--->
 <cfoutput>
 
 

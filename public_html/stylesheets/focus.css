@@ -21,6 +21,12 @@ div.post {
     font-weight: bold;
     line-height: 1.2em;
 }
+.regpersoninfo > span {
+    margin-left: 10px;
+    font-size: .8em;
+    font-weight: normal;
+    line-height: 1.2em;
+}
 .focusinvoicename {
     font-weight: bold;
     line-height: 1.2em;

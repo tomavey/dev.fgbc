@@ -6,13 +6,16 @@
 <cfoutput query="shoppingCart">
 <div class="well">
 					<p class="regpersoninfo">	#fname# #lname#<br/>
-						#email#<br/>
-						#phone#<br/>
+						<span>#email#<br/></span>
+						<span>#phone#<br/></span>
+						<cfif shoppingcart.firstTime>
+							<span>This is my first focus retreat!</span>
+						</cfif>
 						<cfif len(shoppingcart.roommate)>
-							Roommate: #roommate#
+							<span>Roommate: #roommate#</span>
 						</cfif>
 					</p>
-				
+				<p>Items Selected:</p>
 				<ul>
 				<cfloop list="#items#" index="i">
 					<li>

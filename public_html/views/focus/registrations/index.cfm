@@ -3,6 +3,7 @@
 <cfset countPaid = 0>
 <cfset amountUnPaid = 0>
 <cfset amountPaid = 0>
+<cfset countFirstTime = 0>
 <cfset counts = {}>
 <cfset amounts = {}>
 <!--- <cfdump var='#registrations#'><cfabort> --->
@@ -69,7 +70,13 @@ public function countRegItems(ccstatus,cost){
 	<cfoutput query="registrations" group="registrantid">
 		<tr>
 			<td colspan="5">
-					<h2>#linkTo(controller="focus.registrants", action="show", key=registrantid, text="#fname# #lname#", title="View this person.", class="tooltip2", officeOnly=!isOffice)# </h2>
+					<h2>
+						#linkTo(controller="focus.registrants", action="show", key=registrantid, text="#fname# #lname#", title="View this person.", class="tooltip2", officeOnly=!isOffice)# 
+						<cfif firstTime>
+							<span style="font-size:.5em;font-weight:normal;color:red">First Timer!</span>
+							<cfset countFirstTime = countFirstTime + 1>
+						</cfif>
+					</h2>
 			</td>
 			<td>
 				 <cfif len(roommate)>
@@ -144,6 +151,11 @@ public function countRegItems(ccstatus,cost){
 				<td>#description#</td><td class="text-right">#getCount(itemid)#</td>
 			</tr>
 		</cfoutput>
+		<cfoutput>
+				<tr>
+					<td>First Timers</td><td class="text-right">#countFirstTime#</td>
+				</tr>
+		</cfoutput>		
 		</table>
 		<cfoutput>
 		<p>

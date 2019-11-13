@@ -17,6 +17,9 @@
 					<p><span>Roommate: </span> 
 						#registrant.roommate#</p>
 				
+					<p><span>First Time? </span> 
+						#registrant.firstTime#</p>
+
 					<p><span>Comment: </span> <br />
 						#registrant.comment#</p>
 				
