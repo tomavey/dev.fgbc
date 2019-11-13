@@ -79,7 +79,7 @@
 					<p class="sortByLname">#linkto(text="Sort staff by pecking order", action="handbookpages", key=params.key, params="")#<p>
 				</cfif>
   		  <cfloop query="positions">
-      		  <cfset nextposition = getNextPosition(handbookpositionid)>
+      		  <cfset nextposition = $getNextPosition(handbookpositionid)>
 						<li>&middot;#alias('fname',fname,id)# #alias('lname',lname,id)#: #left(position,75)#
 							<cfif p_sortorder GTE getNonStaffSortOrder()>*</cfif>
 								<span> 	  

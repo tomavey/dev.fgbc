@@ -278,7 +278,7 @@
 
 	<cffunction name="downloadStaff">
 		<cfset allHandbookPeople = model("Handbookperson").findAll(where="p_sortorder <= #getNonStaffSortOrder()#", include="Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict))", order="lname,fname")>
-		<cfset setDownloadLayout()>
+		<cfset $setDownloadLayout()>
 	</cffunction>
 
 	<cffunction name="handbookInfo">
@@ -561,7 +561,7 @@
   	<cfset agbmmembers = model("Handbookperson").findAll(where="membershipfeeyear = #loc.currentmembershipyear# AND p_sortorder <= 500", include="Handbookstate,Handbookagbminfo,Handbookpositions,Handbookprofile", order=loc.orderString)>
 
 	<!---cfdump var="#agbmmembers.columnlist#"><cfabort--->  
-	<cfset setDownloadLayout()>
+	<cfset $setDownloadLayout()>
   </cffunction>
 
   <cffunction name="wifesbirthday">

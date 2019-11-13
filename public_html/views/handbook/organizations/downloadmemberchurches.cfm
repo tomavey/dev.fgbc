@@ -2,14 +2,14 @@
 <cfif not isDefined("params.download")>
 	<cfoutput>
 		<cfif not isDefined("params.key")>
-			#linkTo(text="Download as excel", controller="handbook.organizations", action="downloadmemberchurches", params="download&#cgi.query_string#", class="btn")#
+			#linkTo(text="Download as excel", controller="handbook.organizations", action="downloadmemberchurches", params="download=1", class="btn")#
 			<cfif isDefined("params.dba")>
 				#linkTo(text="Use Official Names", controller=params.controller, action=params.action, class="btn")#
 			<cfelse>
 				#linkTo(text="Use Public Names", controller=params.controller, action=params.action, params="dba=true", class="btn")#
 			</cfif>
 		<cfelse>
-			#linkTo(text="Download as excel", key=params.key, controller="handbook.organizations", action="downloadmemberchurches", params="download&#cgi.query_string#", class="btn")#
+			#linkTo(text="Download as excel", key=params.key, controller="handbook.organizations", action="downloadmemberchurches", params="download=1", class="btn")#
 			<cfif isDefined("params.dba")>
 				#linkTo(text="Use Official Names", controller=params.controller, action=params.action, key=params.key, class="btn")#
 			<cfelse>

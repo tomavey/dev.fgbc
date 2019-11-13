@@ -7,7 +7,7 @@
 		filters(through="gotBasicHandbookRights,logview", except="memberChurches,findChurches,findChurchWithStaff,groupRoster")
 		filters(through="getStates,getDistricts,getStatus", only="new,edit,update,index,create,downloadguidelines")
 		filters(through="setWillNotShowString,getGroupRosterOptions", only="new,edit")
-		filters(through="setReturn", only="show")
+		filters(through="setReturn", only="show,handbookpages")
 		provides("json")
 	}
 
@@ -259,8 +259,103 @@
 		}
 		churches = model("Handbookorganization").findAll(where=wherestring, include=includeString, order=orderString)
 		memberChurches = churches
+		$setDownloadLayout()
+	}
+
+	function $getSeniorPastorEmail(required numeric churchid){
+		var whereString = "organizationid=#arguments.churchid# AND p_sortorder=1"
+		var includeString = "Handbookperson,Handbookorganization(Handbookstate)"
+		pastor = model("Handbookposition").findAll(where=whereString, include=includeString)
+		if ( pastor.recordcount and len(pastor.email) ) {
+			return pastor.email			
+		}
+		return ""
+	}
+
+	function $getLastAtt(required numeric churchid) {
+		var lastAtt = model("Handbookstatistic").findLastAtt(arguments.churchid)
+		return lastAtt
+	}
+
+	<!---handbookDownloadMemberChurchesForBrotherhood	GET	/handbook/organizations/brotherhood--->
+	function downloadMemberChurchesForBrotherhood(){
+		var whereString = "statusId in (1,2,8,9,10,11)"
+		var includeString = "Handbookstate,Handbookdistrict,Handbookstatus"
+		memberChurches = model("Handbookorganization").findAll(where=whereString,include=includeString)
+		$setDownloadLayout()
+	}
+
+<!---Reports--->
+	public function memberChurches(){
+		//used for annual delegates report of member churches
+		var statNotesArray = []
+		var whereString = "statusid = 1"
+		var includeString = "Handbookstate"
+		var orderString = "state_mail_abbrev,org_city,name"
+		churches = model("Handbookorganization").findall(where=whereString, include=includeString, order=orderString)
+		for ( church in churches ) {
+			arrayAppend(statNotesArray,$addStatNote(church.id))
+		}
+		queryAddColumn(churches,"statNote",statNotesArray)
 		renderPage(layout="/handbook/layout_admin")
 	}
+
+	function $addStatNote(required numeric churchid, year=year(now())-1){
+		if ( isDefined("params.year") ) { arguments.year = params.year }
+		var stat = model("Handbookstatistic").findOne(where="organizationid = #arguments.churchid# AND year = '#arguments.year#'")
+		if ( isObject(stat) ) {
+			return stat.att & "/" & stat.members
+		}
+		return '*'
+	}
+
+<!---Handbook Pages--->
+
+	public function handbookpages(key=params.key){
+		organization = model("Handbookorganization").findByKey(key=arguments.key, include="Handbookstate,Handbookstatus,Handbookdistrict")
+		$reSort(arguments.key)
+		var whereString = "organizationid='#params.key#' AND position NOT LIKE '%Removed%' AND position NOT LIKE '%AGBM Only%'"
+		if ( !isDefined("params.showall") ) {
+			whereString = whereString & " AND p_sortorder < #getNonStaffSortOrder()#"
+		}
+
+		var orderString = "p_sortorder,lname"		
+		if ( isDefined("params.sortByLname") ) {
+			orderString = "lname,fname,p_sortorder"
+		}
+
+		var includeString = "Handbookpositions,Handbookstate"
+		positions = model("Handbookperson").findall(where=whereString, include=includeString, order=orderString)
+
+		positionsAlpha = model("Handbookperson").findall(where=whereString, include=includeString, order="lname,fname")
+
+		if ( positions.recordcount ) {
+			newSortOrder = positions.p_sortorder + 1
+		}
+
+		renderPage(layout="/Handbook/layout_handbook2")
+
+	}
+
+	//used by handbookpages view to reorder staff in an organization
+	public function move(
+		thisId=params.positionId,
+		thisSortorder=params.sortOrder,
+		otherId=params.otherId,
+		otherSortorder=params.otherSortorder,
+		orgId=params.orgid
+	){
+
+		model("Handbookperson").swapSortorder(
+			thisid = #arguments.thisid#,
+			thisSortorder = #arguments.thisSortOrder#,
+			otherid = #arguments.otherid#,
+			othersortorder = #arguments.othersortorder#
+			)
+
+			returnBack()	
+	}
+
 
 
 </cfscript>
@@ -270,81 +365,9 @@
 
 <!---Downloads--->
 
-	<cffunction name="$getSeniorPastorEmail">
-		<cfargument name="churchid" required="true" type="numeric">
-		<cfset var loc=structNew()>
-		<cfset loc.return = "">
-			<cfset pastor = model("Handbookposition").findAll(where="organizationid=#arguments.churchid# AND p_sortorder=1", include="Handbookperson,Handbookorganization(Handbookstate)")>
-			<cfif pastor.recordcount and len(pastor.email)>
-				<cfset loc.return = pastor.email>
-			</cfif>
-		<cfreturn loc.return>
-	</cffunction>
-
-	<cffunction name="$getLastAtt">
-	<cfargument name="churchid" required="true" type="numeric">
-	<cfset var loc= structNew()>
-		<cfset loc.lastAtt = model("Handbookstatistic").findLastAtt(arguments.churchid)>
-		<cfreturn loc.lastatt>
-	</cffunction>
 
 
-	<!---handbookDownloadMemberChurchesForBrotherhood	GET	/handbook/organizations/brotherhood--->
-	<cffunction name="downloadMemberChurchesForBrotherhood">
-		<cfset memberChurches = model("Handbookorganization").findAll(where="statusId in (1,2,8,9,10,11)",include="Handbookstate,Handbookdistrict,Handbookstatus")>
-		<cfset setDownloadLayout()>
-	</cffunction>
-
-<!---Reports--->
-	<cffunction name="memberChurches">
-		<cfset churches = model("Handbookorganization").findall(where="statusid = 1", include="Handbookstate", order="state_mail_abbrev,org_city,name")>
-		<cfset renderPage(layout="/handbook/layout_admin")>
-	</cffunction>
-
-	<cffunction name="$addStatNote">
-	<cfargument name="churchid" required="true" type="numeric">
-	<cfset var loc=structNew()>
-		<cfset loc.stat = model("Handbookstatistic").findOne(where="organizationid = #arguments.churchid# AND year = '#year(now())-1#'")>
-		<cftry>
-			<cfset loc.return = loc.stat.att & "/" & loc.stat.members>
-		<cfcatch>
-			<cfset loc.return = '*'>
-		</cfcatch>
-		</cftry>
-		<cfreturn loc.return>
-	</cffunction>
-
-	<cffunction name="handbookpages">
-		<cfset setReturn()>
-
-    <cfset organization = model("Handbookorganization").findByKey(key=params.key, include="Handbookstate,Handbookstatus,Handbookdistrict")>
-
-		<cfset reSort(params.key)>
-
-		<cfset whereString = "organizationid='#params.key#' AND position NOT LIKE '%Removed%' AND position NOT LIKE '%AGBM Only%'">
-
-		<cfif !isDefined("params.showall")>
-			<cfset whereString = whereString & " AND p_sortorder < #getNonStaffSortOrder()#">
-		</cfif>
-
-		<cfset orderString = "p_sortorder,lname">
-
-		<cfif isDefined("params.sortByLname")>
-			<cfset orderString = "lname,fname,p_sortorder">
-		</cfif>
-
-		<cfset positions = model("Handbookperson").findall(where=whereString, include="Handbookpositions,Handbookstate", order=orderString)>
-
-		<cfset positionsalpha = model("Handbookperson").findall(where=whereString, include="Handbookpositions,Handbookstate", order="lname,fname")>
-
-		<cfif positions.recordcount>
-		   <cfset newSortOrder = positions.p_sortorder + 1>
-		</cfif>
-
-		<cfset renderPage(layout="/Handbook/layout_handbook2")>
-	</cffunction>
-
-	<cffunction name="$move">
+	<cffunction name="Xmove">
 	<cfargument name="thisId" default="#params.positionid#">
 	<cfargument name="thisSortorder" default="#params.sortorder#">
 	<cfargument name="otherId" default="#params.otherId#">
@@ -378,7 +401,7 @@
 
 	</cffunction>
 
-	<cffunction name="$resort"><!---Removes any gaps in staff sortorders--->
+	<cffunction name="$reSort"><!---Removes any gaps in staff sortorders--->
 	<cfargument name="orgid" default="#params.orgid#">
 		<cfset staff = model("Handbookperson").findAll(where="p_sortorder < #getNonStaffSortOrder()# AND organizationid = #arguments.orgid#", include="Handbookpositions,Handbookstate", cache=false, order="p_sortorder, updatedAt")>
 		<cfloop query="staff">
@@ -504,7 +527,7 @@ public function websites(){
 		</cfif>
 	</cffunction>
 
-	<cffunction name="hasNoStaff">
+	<cffunction name="$hasNoStaff"><!---not currently used--->	
 	<cfargument name="churchId" required="true" type="numeric">
 	<cfset var loc = structNew()>
 
@@ -762,10 +785,52 @@ public function websites(){
 
 	<cffunction name="XdownloadMemberChurches">
 		<cfset memberChurches = model("Handbookorganization").findAll(where="statusId in (1,8,9)",include="Handbookstate,Handbookdistrict,Handbookstatus")>
-		<cfset setDownloadLayout()>
+		<cfset $setDownloadLayout()>
 	</cffunction>
 
-
+	<cffunction name="X$addStatNote">
+		<cfargument name="churchid" required="true" type="numeric">
+		<cfset var loc=structNew()>
+			<cfset loc.stat = model("Handbookstatistic").findOne(where="organizationid = #arguments.churchid# AND year = '#year(now())-1#'")>
+			<cftry>
+				<cfset loc.return = loc.stat.att & "/" & loc.stat.members>
+			<cfcatch>
+				<cfset loc.return = '*'>
+			</cfcatch>
+			</cftry>
+			<cfreturn loc.return>
+		</cffunction>
+	
+		<cffunction name="Xhandbookpages">
+			<cfset setReturn()>
+	
+			<cfset organization = model("Handbookorganization").findByKey(key=params.key, include="Handbookstate,Handbookstatus,Handbookdistrict")>
+	
+			<cfset reSort(params.key)>
+	
+			<cfset whereString = "organizationid='#params.key#' AND position NOT LIKE '%Removed%' AND position NOT LIKE '%AGBM Only%'">
+	
+			<cfif !isDefined("params.showall")>
+				<cfset whereString = whereString & " AND p_sortorder < #getNonStaffSortOrder()#">
+			</cfif>
+	
+			<cfset orderString = "p_sortorder,lname">
+	
+			<cfif isDefined("params.sortByLname")>
+				<cfset orderString = "lname,fname,p_sortorder">
+			</cfif>
+	
+			<cfset positions = model("Handbookperson").findall(where=whereString, include="Handbookpositions,Handbookstate", order=orderString)>
+	
+			<cfset positionsalpha = model("Handbookperson").findall(where=whereString, include="Handbookpositions,Handbookstate", order="lname,fname")>
+	
+			<cfif positions.recordcount>
+				 <cfset newSortOrder = positions.p_sortorder + 1>
+			</cfif>
+	
+			<cfset renderPage(layout="/Handbook/layout_handbook2")>
+		</cffunction>
+	
 
 </cfcomponent>
 

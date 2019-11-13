@@ -1,6 +1,6 @@
 <cfif not isdefined("params.format") OR not params.format is "excel" or not params.key is "excel">
 	<cfoutput>
-		#linkTo(text="Download as Excel", route="handbookDownloadMemberChurchesForBrotherhood", key="excel", params=#cgi.query_string#)# |
+		#linkTo(text="Download as Excel", route="handbookDownloadMemberChurchesForBrotherhood", key="excel", params="download=1")# |
 		<cfif isDefined("params.dba")>
 			#linkTo(text="Use Public Names", controller=params.controller, action=params.action)#
 		<cfelse>
