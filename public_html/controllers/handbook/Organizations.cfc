@@ -141,15 +141,6 @@ component extends="Controller" output="false"{
 		}
 	}
 
-	private function $updateNewChurchOrApplication(required object handbookorganization){
-		if ( isDefined("handbookorganization.applicationUUID") ) {
-			$connectApplicationToHandbook(handbookorganization.applicationUUID,handbookorganization.id)
-		}
-		if ( isDefined("handbookorganization.newchurchUUID") ) {
-			$connectNewChurchToHandbook(handbookorganization.newchurchUUID,handbookorganization.id)			
-		}
-	}	
-
 		<!--- handbook-organizations/update --->
 		function update(key=params.key){
 			handbookorganization = model("Handbookorganization").findByKey(key=arguments.key, include="Handbookstate", order="selectname")
@@ -346,7 +337,6 @@ component extends="Controller" output="false"{
 		renderPage(layout="/handbook/layout_handbook2")
 	}
 	
-
 <!----------------------------->
 <!-----------END OF REPORTS --->
 <!----------------------------->
@@ -357,29 +347,39 @@ component extends="Controller" output="false"{
 <!----------------------------->
 <!------Utilities-------------->	
 <!----------------------------->
-private function $connectApplicationToHandbook(applicationUUID, handbookId){
-	var loc = arguments;
-	loc.application = model("Membershipapplication").findApp(loc.applicationUUID);
-	loc.application.handbookid = loc.handbookid;
-	if (loc.application.update()){
-		return true;
-	}	
-	else {
-		return false;
-	}
-}
 
-private function $connectNewChurchToHandbook(newchurchUUID, handbookId){
-	var loc = arguments;
-	loc.newchurch = model("Membershipnewchurch").findOne(where="uuid='#loc.newchurchUUID#'");
-	loc.newchurch.handbookid = loc.handbookid;
-	if (loc.newchurch.update()){
-		return true;
+	private function $updateNewChurchOrApplication(required object handbookorganization){
+		if ( isDefined("handbookorganization.applicationUUID") ) {
+			$connectApplicationToHandbook(handbookorganization.applicationUUID,handbookorganization.id)
+		}
+		if ( isDefined("handbookorganization.newchurchUUID") ) {
+			$connectNewChurchToHandbook(handbookorganization.newchurchUUID,handbookorganization.id)			
+		}
+	}	
+
+	private function $connectApplicationToHandbook(applicationUUID, handbookId){
+		var loc = arguments;
+		loc.application = model("Membershipapplication").findApp(loc.applicationUUID);
+		loc.application.handbookid = loc.handbookid;
+		if (loc.application.update()){
+			return true;
+		}	
+		else {
+			return false;
+		}
 	}
-	else {
-		return false;
+
+	private function $connectNewChurchToHandbook(newchurchUUID, handbookId){
+		var loc = arguments;
+		loc.newchurch = model("Membershipnewchurch").findOne(where="uuid='#loc.newchurchUUID#'");
+		loc.newchurch.handbookid = loc.handbookid;
+		if (loc.newchurch.update()){
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
-}
 
 	function $getSeniorPastorEmail(required numeric churchid){
 		var whereString = "organizationid=#arguments.churchid# AND p_sortorder=1"
