@@ -237,49 +237,40 @@
 		}
 	}
 
+
+<!---------------------->
+<!---Various Reports"--->
+<!---------------------->
+
+	<!--------handbookDownloadguidelines	GET	/handbook/downloadguidelines----------->
+	function downloadguidelines(){
+		renderPage(layout="/handbook/layout_handbook1")
+	}
+
+	<!---handbookDownloadmembers	GET	/handbook/organizations/downloadmemberchurches--->
+	function downloadMemberChurches(){
+		var whereString = "statusid = 1"
+		var includeString = "Handbookstate,Handbookdistrict,Handbookstatus"
+		var orderString = "state_mail_abbrev,org_city,name"
+		if ( isDefined("params.include") && params.include is "campuses" ){
+			whereString = whereString & " OR statusid = 8 OR statusid = 9"
+		} else if ( isDefined("params.include") && params.include is "campuses" ) {
+			whereString = whereString & " OR statusid = 8 OR statusid = 2 OR statusid = 9"
+		}
+		churches = model("Handbookorganization").findAll(where=wherestring, include=includeString, order=orderString)
+		memberChurches = churches
+		renderPage(layout="/handbook/layout_admin")
+	}
+
+
 </cfscript>
 
 
-<!---Variations on "show"--->
-
-	<cffunction name="mychurch">
-		<cfset myChurches = model("handbookPerson").findAll(where="email='#params.key#' AND sortorder < 900", include="Handbookstate,Handbookpositions")>
-		<cfloop query="myChurches">
-			<cfset myChurch[mychurches.currentrow] = model("handbookOrganization").findall(where="Id = #organizationId#", include="handbookState")>
-		</cfloop>
-		<cfdump var="#myChurches#">
-	<cfdump var="#myChurch#"><cfabort>
-
-	</cffunction>">
-
-	<!--------handbookDownloadguidelines	GET	/handbook/downloadguidelines----------->
-	<cffunction name="downloadguidelines">
-		<cfset renderPage(layout="/handbook/layout_handbook1")>
-	</cffunction>
 
 
 <!---Downloads--->
-	<!---handbookDownloadmembers	GET	/handbook/organizations/downloadmemberchurches--->
-	<cffunction name="XdownloadMemberChurches">
-		<cfset memberChurches = model("Handbookorganization").findAll(where="statusId in (1,8,9)",include="Handbookstate,Handbookdistrict,Handbookstatus")>
-		<cfset setDownloadLayout()>
-	</cffunction>
 
-	<cffunction name="downloadMemberChurches">
-		<cfif isDefined("params.include") && params.include is "campuses">
-			<cfset wherestring = "statusid = 1 OR statusid = 8 OR statusid = 9">
-		<cfelseif isDefined("params.include") && params.include is "campusesandnewchurches">
-			<cfset wherestring = "statusid = 1 OR statusid = 8 OR statusid = 2 OR statusid = 9">
-		<cfelse>
-			<cfset wherestring = "statusid = 1">
-		</cfif>
-			<cfset churches = model("Handbookorganization").findAll(where=wherestring, include="Handbookstate,Handbookdistrict,Handbookstatus", order="state_mail_abbrev,org_city,name")>
-			<cfset memberChurches = churches>
-			<cfset setDownloadLayout()>
-			<cfset renderPage(layout="/handbook/layout_admin")>
-	</cffunction>
-
-	<cffunction name="getSeniorPastorEmail">
+	<cffunction name="$getSeniorPastorEmail">
 		<cfargument name="churchid" required="true" type="numeric">
 		<cfset var loc=structNew()>
 		<cfset loc.return = "">
@@ -290,7 +281,7 @@
 		<cfreturn loc.return>
 	</cffunction>
 
-	<cffunction name="getLastAtt">
+	<cffunction name="$getLastAtt">
 	<cfargument name="churchid" required="true" type="numeric">
 	<cfset var loc= structNew()>
 		<cfset loc.lastAtt = model("Handbookstatistic").findLastAtt(arguments.churchid)>
@@ -310,7 +301,7 @@
 		<cfset renderPage(layout="/handbook/layout_admin")>
 	</cffunction>
 
-	<cffunction name="addStatNote">
+	<cffunction name="$addStatNote">
 	<cfargument name="churchid" required="true" type="numeric">
 	<cfset var loc=structNew()>
 		<cfset loc.stat = model("Handbookstatistic").findOne(where="organizationid = #arguments.churchid# AND year = '#year(now())-1#'")>
@@ -353,7 +344,7 @@
 		<cfset renderPage(layout="/Handbook/layout_handbook2")>
 	</cffunction>
 
-	<cffunction name="move">
+	<cffunction name="$move">
 	<cfargument name="thisId" default="#params.positionid#">
 	<cfargument name="thisSortorder" default="#params.sortorder#">
 	<cfargument name="otherId" default="#params.otherId#">
@@ -370,7 +361,7 @@
 		<cfset redirectTo(back=true)>
 	</cffunction>
 
-	<cffunction name="getNextPosition">
+	<cffunction name="$getNextPosition">
 	<cfargument name="positionid" required="true" type="numeric">
 	<cfset var watch = 0>
 	<cfloop query="positions">
@@ -387,7 +378,7 @@
 
 	</cffunction>
 
-	<cffunction name="resort"><!---Removes any gaps in staff sortorders--->
+	<cffunction name="$resort"><!---Removes any gaps in staff sortorders--->
 	<cfargument name="orgid" default="#params.orgid#">
 		<cfset staff = model("Handbookperson").findAll(where="p_sortorder < #getNonStaffSortOrder()# AND organizationid = #arguments.orgid#", include="Handbookpositions,Handbookstate", cache=false, order="p_sortorder, updatedAt")>
 		<cfloop query="staff">
@@ -401,7 +392,7 @@
 		<cfreturn true>
 	</cffunction>
 
-	<cffunction name="getPreviousPerson">
+	<cffunction name="$getPreviousPerson">
 	<cfargument name="personid" required="true" type="numeric">
 	<cfargument name="organizationid" required="true" type="numeric">
 		<cfset staff = model("Handbookperson").findOne(where="id=#arguments.personid#")>
@@ -767,6 +758,11 @@ public function websites(){
 			<cfset flashInsert(error="There was an error creating the handbookorganization.")>
 			<cfset renderPage(action="new")>
 		</cfif>
+	</cffunction>
+
+	<cffunction name="XdownloadMemberChurches">
+		<cfset memberChurches = model("Handbookorganization").findAll(where="statusId in (1,8,9)",include="Handbookstate,Handbookdistrict,Handbookstatus")>
+		<cfset setDownloadLayout()>
 	</cffunction>
 
 
