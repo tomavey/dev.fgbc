@@ -60,7 +60,7 @@
 
 						<cfif gotRights("superadmin,office,handbookedit")>
 							#select(objectName='handbookorganization', property='statusid', label='Status: ', options=status)#
-							The following status' will not show in the online handbook: #noShowString#
+							The following status' will not show in the online handbook: #willNotShowString#
 							<br/><br/><br/>
 
 							#select(objectName='handbookorganization', property='joinedAt', label='Year Joined: ', options=yearRange, includeBlank="-Select Year-")#

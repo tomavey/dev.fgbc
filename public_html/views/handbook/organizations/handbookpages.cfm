@@ -79,17 +79,31 @@
 					<p class="sortByLname">#linkto(text="Sort staff by pecking order", action="handbookpages", key=params.key, params="")#<p>
 				</cfif>
   		  <cfloop query="positions">
-      		  <cfset nextposition = getNextPosition(handbookpositionid)>
+      		  <cfset nextposition = $getNextPosition(handbookpositionid)>
 						<li>&middot;#alias('fname',fname,id)# #alias('lname',lname,id)#: #left(position,75)#
 							<cfif p_sortorder GTE getNonStaffSortOrder()>*</cfif>
 								<span> 	  
 								<cfif !isDefined("params.sortByLname") && !showAll>
 									<cfif previousid>	  
-										#linkto(text='<i class="icon-arrow-up"></i>', action="move", params="positionid=#handbookpositionid#&sortorder=#p_sortorder#&otherID=#previousid#&otherSortOrder=#previousSortOrder#&orgid=#organization.id#", class="tooltipside", title="Move #fname# Up")#
+										#linkto(
+											text='<i class="icon-arrow-up"></i>',
+											controller=params.controller,
+											action=params.action,
+											params="move=1&positionid=#handbookpositionid#&sortorder=#p_sortorder#&otherID=#previousid#&otherSortOrder=#previousSortOrder#&orgid=#organization.id#&key=#organization.id#", 
+											class="tooltipside", 
+											title="Move #fname# Up"
+											)#
 									</cfif>				
 									
 									<cfif isStruct(nextposition) && !showAll>
-										#linkto(text='<i class="icon-arrow-down"></i>', action="move", params="positionid=#handbookpositionid#&sortorder=#p_sortorder#&otherID=#nextposition.id#&otherSortOrder=#nextposition.sortorder#&orgid=#organization.id#", class="tooltipside", title="Move #fname# Down")#
+										#linkto(
+											text='<i class="icon-arrow-down"></i>', 
+											controller=params.controller,
+											action=params.action, 
+											params="move=1&positionid=#handbookpositionid#&sortorder=#p_sortorder#&otherID=#nextposition.id#&otherSortOrder=#nextposition.sortorder#&orgid=#organization.id#&key=#organization.id#", 
+											class="tooltipside", 
+											title="Move #fname# Down"
+											)#
 									</cfif>
 
 								</cfif>

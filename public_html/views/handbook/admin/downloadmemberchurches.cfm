@@ -100,7 +100,7 @@
 		</td>
 	</cfif>
 		<td>
-			#getLastAtt(id)#
+			#$getLastAtt(id)#
 		</td>
 		<td>
 			#status#

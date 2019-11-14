@@ -2,7 +2,7 @@
 
 <!---this controller is only used for the main admin page
 and for downloading a basic list of member churches.
-Most related actions are in handbook-statictis--->
+Most related actions are in handbook-statistics--->
 
 	<cffunction name="init">
 		<cfset usesLayout(template="/handbook/layout_admin")>
@@ -18,7 +18,7 @@ Most related actions are in handbook-statictis--->
 	<cfelse>
 		<cfset wherestring = "statusid = 1">
 	</cfif>
-		<cfset churches = model("Handbookorganization").findAll(where=wherestring, include="Handbookstate,Handbookstatus", order="state_mail_abbrev,org_city,name")>
+		<cfset churches = model("Handbookorganization").findAll(where=wherestring, include="Handbookstate,Handbookdistrict,Handbookstatus", order="state_mail_abbrev,org_city,name")>
 		<cfif isdefined("params.download")>
 			<cfset renderPage(layout="/layout_download")>
 		</cfif>

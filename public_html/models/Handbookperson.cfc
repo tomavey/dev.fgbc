@@ -782,6 +782,20 @@ private function $peopleQueryToArray(peopleQuery){
 	<cfreturn loc.newarray>
 	</cffunction>
 
+	<cffunction name="reSort">
+	<cfargument name="orgId" required=true type="numeric">	
+		<cfset var staff = findAll(where="p_sortorder < #getNonStaffSortOrder()# AND organizationid = #arguments.orgid#", include="Handbookpositions,Handbookstate", cache=false, order="p_sortorder, updatedAt")>
+		<cfloop query="staff">
+			<cfquery datasource="fgbc_main_3" result="res">
+					UPDATE handbookpositions
+					SET p_sortorder = #currentrow#
+					WHERE personid = #id#
+						AND organizationid = #organizationid#
+			</cfquery>
+		</cfloop>
+		<cfreturn true>
+	</cffunction>
+
 <!---Not sure where this is used--->
 	<cffunction name="handbookReport">
 

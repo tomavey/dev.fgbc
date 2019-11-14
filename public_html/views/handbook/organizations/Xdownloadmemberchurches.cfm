@@ -1,6 +1,6 @@
-<cfif not isdefined("params.format") OR not params.format is "excel" or not params.key is "excel">
+<cfif !isdefined("params.format") OR params.format NEQ "excel">
 	<cfoutput>
-		#linkTo(text="Download as Excel", route="handbookDownloadMemberChurchesForBrotherhood", key="excel", params="download=1")# |
+		#linkTo(text="Download as Excel", route="handbookDownloadmembers", params="format=excel")# |
 		<cfif isDefined("params.dba")>
 			#linkTo(text="Use Public Names", controller=params.controller, action=params.action)#
 		<cfelse>
@@ -11,23 +11,11 @@
 
 <cfsavecontent variable = "request.data">
 <table>
-	<tr>
-		<td>Name of Ministry/Church</td>
-		<td>Physical Address Street</td>
-		<td>Physical Address City</td>
-		<td>Physical Address State</td>
-		<td>Physical Address Zip</td>
-		<td>Mailing Address Street</td>
-		<td>Mailing Address City</td>
-		<td>Mailing Address State</td>
-		<td>Mailing Address Zip</td>
-		<td>Ministry Phone Number</td>
-		<td>Pastor's First Name</td>
-		<td>Pastor's Last Name</td>
-		<td>Pastor's Email Address</td>
-	</tr>
 	<cfoutput query="memberChurches">
 	<tr>
+		<td>
+			#id#
+		</td>
 		<td>
 			<cfif isDefined("params.dba") && len(alt_name)>
 				#alt_name#
@@ -36,23 +24,10 @@
 			</cfif>
 		</td>
 		<td>
-			#address1# #address2#
+			#address1#
 		</td>
 		<td>
-			#org_city#
-		</td>
-		<td>
-			#state_mail_abbrev#
-		</td>
-		<td>
-			#zip#
-		</td>
-		<td>
-			<cfif address2 contains "box">
 			#address2#
-			<cfelse>
-			#address1# #address2#
-			</cfif>
 		</td>
 		<td>
 			#org_city#
@@ -66,12 +41,24 @@
 		<td>
 			#phone#
 		</td>
-		<cfset seniorpastor = getSeniorPastor(id)>
 		<td>
-			#seniorpastor.fname#
+			#email#
 		</td>
 		<td>
+			#district#
+		</td>
+		<td>
+			#status#
+		</td>
+		<td>
+			#website#
+		</td>
+		<cfset seniorpastor = getSeniorPastor(id)>
+		<td>
 			#seniorpastor.lname#
+		</td>
+		<td>
+			#seniorpastor.fname#
 		</td>
 		<td>
 			<cfif len(seniorpastor.email)>
@@ -80,6 +67,14 @@
 				#email#
 			</cfif>
 		</td>
+		<td>
+			#seniorpastor.phone#
+		</td>
+		<cfif gotrights("superadmin")>
+		<td>
+			#linkto(route="reviewhandbook", orgid=simpleEncode(id), onlyPath=false)#
+		</td>
+		</cfif>
 	</tr>
 	</cfoutput>
 </table>

@@ -119,14 +119,14 @@
 						<li>
 							#linkto(
 								text="Member Churches",
-								controller="handbook.admin",
+								controller="handbook.organizations",
 								action="downloadMemberChurches"
 								)#
 						</li>
 						<li>
 							#linkto(
 								text="Member Churches w/Campuses",
-								controller="handbook.admin",
+								controller="handbook.organizations",
 								action="downloadMemberChurches",
 								key="includecampuses"
 								)#
@@ -134,7 +134,7 @@
 						<li>
 							#linkto(
 								text="Member Churches w/Campuses and New Churches",
-								controller="handbook.admin",
+								controller="handbook.organizations",
 								action="downloadMemberChurches",
 								key="includecampusesandnewchurches"
 								)#

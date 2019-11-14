@@ -302,13 +302,20 @@
   		<cfreturn loc.returnValue>
 	</cffunction>
 
-	<cffunction name="setDownloadLayout">
-			<cfif (isdefined("params.key") && params.key is "excel") || (isdefined("params.format") && params.format is "excel")>
-				<cfset renderPage(layout='/layout_download', showDebugOutput="No")>
-			<cfelse>
-				<cfset renderPage(layout='/layout_naked', showDebugOutput="No")>
-			</cfif>
-	</cffunction>
+<cfscript>
+
+	function $setDownloadLayout(){
+		if ( (isdefined("params.key") && params.key is "excel") || (isdefined("params.format") && params.format is "excel") || (isDefined("params.download")) ) {
+			renderPage(layout='/layout_download', showDebugOutput="No")
+		} else {
+			renderPage(layout='/layout_naked', showDebugOutput="No")
+		}
+	}	
+
+</cfscript>
+
+
+	
 
 	<cffunction name="getcounts">
 	<cfargument name="key" default="#params.key#">
