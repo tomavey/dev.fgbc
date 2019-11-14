@@ -1,7 +1,7 @@
 <cfoutput>
-<cfif isDefined("params.showupdate")>
+<cfif isDefined("params.showupdate") && isDefined("params.key")>
 #linkTo(text="Hide Updated Date", params="key=params.key")#
-<cfelse>
+<cfelseif isDefined("params.key")>
 #linkTo(text="Show Updated Date", params="key=#params.key#&showupdate=1")#
 </cfif>
 <br/><br/>

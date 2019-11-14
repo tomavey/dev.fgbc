@@ -86,6 +86,13 @@
 <cfreturn loc.return2>
 </cffunction>
 
+<cffunction name="getEmailSubject">
+  <cfset var loc=structNew()>
+    <cfset loc.return="The online Charis Fellowship Handbook goes mobile!">
+  <cfreturn loc.return>
+</cffunction>
+
+
 <cfscript>
 
 public function getDaysInMonth(month){

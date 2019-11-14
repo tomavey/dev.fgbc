@@ -173,8 +173,7 @@ component extends="Controller" output="false" {
 			}
 		}
 		if ( user.update(params.user) ) {
-			flashInsert(success="The user was updated successfully.")
-			redirectTo(action="index")
+			returnBack(error="The user was updated successfully.")
 		} else {
 			flashInsert(error="There was an error updating the user.")
 			renderPage(action="edit")

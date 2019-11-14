@@ -183,20 +183,22 @@
 
 	</cffunction>
 
-	<cffunction name="returnBack">
-		<cftry>
-		 <cfset var backURL = session.originalURL>
-		 <cfset session.originalURL = "">
-
-		 <cfif Len(backURL) GT 0>
-			<cflocation url="#backURL#" addtoken="false">
-		 <cfelse>
-		 	<cfset redirectTo(argumentCollection=arguments)>
-		 </cfif>
-		 <cfcatch>
-			 <cfset redirectTo(argumentCollection=arguments)>
-		 </cfcatch>
-		</cftry>
+<cfscript>
+	function returnBack(string controller, string action, string error){
+		if ( isDefined('arguments.error') ) { flashInsert(error = arguments.error) }
+		try {
+			var backURL = session.originalURL
+			session.originalURL = ""
+			IF ( Len(backURL) GT 0 ) {
+				location(url="#backURL#", addtoken="false")
+			} ELSE {
+				redirectTo(argumentCollection=arguments)
+			}
+		} catch (any e) {
+			redirectTo(argumentCollection=arguments)
+		}
+	}
+</cfscript>
 
 	</cffunction>
 

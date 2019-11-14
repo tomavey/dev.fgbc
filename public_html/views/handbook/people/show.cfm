@@ -101,8 +101,6 @@
     					<p>#linkTo(text="Add a picture of #handbookperson.fname#", route="newHandbookPicture", params="personid=#params.key#", class="btn")#</p>
     				</cfif>
 
-						<p>#linkTo(text="Import into outlook", controller="handbook.people", action="vcard", key=params.key, class="btn")#</p>
-
     				<cfif NOT flashIsEmpty()>
     					<p class="success-message alert alert-error">
     						#flash("notpresent")#

@@ -16,7 +16,7 @@
 
 <cfif not isdefined("params.go") OR params.go is not "send">
 	<table>
-		<cfoutput query="distinctemail">
+		<cfoutput query="distinctemails">
 			<cfif isValid("email",emailsend)>
 				<tr>
 					<td>#name#</td>

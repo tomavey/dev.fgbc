@@ -1,4 +1,4 @@
-<cfparam name="showdownloadbutton" default="true">
+<cfparam name="showdownloadbutton" default="false">
 <cfif isdefined("params.key") and params.key is "excel">
 	<cfset showdownloadbutton = false>
 </cfif>
@@ -10,7 +10,7 @@
 </cfif>
 
 <cfif showdownloadbutton>
-	<cfoutput>#linkTo(text="Download as excel", key="download", class="btn")#</cfoutput>
+	<cfoutput>#linkTo(text="Download as excel", action="downloadstaff", params="download=true", class="btn")#</cfoutput>
 </cfif>
 
 <table>

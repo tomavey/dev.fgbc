@@ -360,6 +360,34 @@
 			}
 			return replace(titleIncludes,"OR ","","one")
 		}
+
+		function $getAllEmails(required numeric maxsortorder, required numeric maxrows){
+			var allemails
+			var distinctemails
+			var peopleEmails1 = findAll(select="handbookpeople.email as emailsend, fname as name", where="p_sortorder <= #maxsortorder# AND statusid IN (1,8,3,4,2,9,10,11)", maxrows=maxrows, include="Handbookstate,Handbookpositions(Handbookorganization)");
+			var peopleEmails2 = findAll(select="handbookpeople.email2 as emailsend, fname as name", where="p_sortorder <= #maxsortorder# AND statusid IN (1,8,3,4,2,9,10,11)", maxrows=maxrows, include="Handbookstate,Handbookpositions(Handbookorganization)");
+			var churchEmails1 = model("Handbookorganization").findAll(where='statusid IN (1,8,3,4,2,9,10,11)', select="handbookorganizations.email as emailsend, name as name", maxrows=maxrows, include="Handbookstate");
+			cfquery( dbtype="query", name="allemails" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+	
+				writeOutput("SELECT *
+					FROM peopleEmails1
+					UNION
+					SELECT *
+					FROM peopleEmails2
+					UNION
+					SELECT *
+					FROM churchEmails1");
+			}
+			cfquery( dbtype="query", name="distinctemails" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+	
+				writeOutput("SELECT DISTINCT emailsend, name
+					FROM allemails
+					ORDER BY emailsend,name");
+			}
+			return distinctemails
+		}
+		
+	
 	</cfscript>
 
 	<cffunction name="isAGBMMember">
@@ -795,6 +823,7 @@ private function $peopleQueryToArray(peopleQuery){
 		</cfloop>
 		<cfreturn true>
 	</cffunction>
+
 
 <!---Not sure where this is used--->
 	<cffunction name="handbookReport">

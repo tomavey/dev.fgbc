@@ -61,8 +61,8 @@
 		<cfelse>  
 	      	#trim(email)#
 		</cfif>  
-         <cfset message = urlEncodedFormat("#fname# - We are updating information in the online FGBC handbook which is used each year for the printed handbook. Can you review this for me?  Today?  Be sure to click the 'This information is correct' button when you are finished. Thanks so much! #urlFor(controller="handbook.welcome", action="welcome", params='id=#encrypt(email,getSetting("passwordkey"),'CFMX_COMPAT','HEX')#', onlyPath=false)#")>
-         <cfset subject = urlEncodedFormat("Please review your personal FGBC Handbook listing")>
+         <cfset message = urlEncodedFormat("#fname# - #getSetting('emailUpdateMessageFromBluepages')# #urlFor(controller="handbook.welcome", action="welcome", params='id=#encrypt(email,getSetting("passwordkey"),'CFMX_COMPAT','HEX')#', onlyPath=false)#")>
+         <cfset subject = urlEncodedFormat(getSetting("emailUpdateSubjectFromBluepages"))>
 		<cfif isDefined("params.showupdatedat")>
 		 	#mailTo(
 				name='<i class="icon-envelope"></i>',

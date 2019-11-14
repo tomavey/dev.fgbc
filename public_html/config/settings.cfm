@@ -111,6 +111,8 @@
 		"3615":{"lname":"Y."},
 		"1754":{"lname":"B."}
 	})>
+	<cfset set(emailUpdateMessageFromBluepages = "We are updating information in the online Charis Fellowship handbook which is used each year for the printed handbook. Can you review this for me?  Today?  Be sure to click the 'This information is correct' button when you are finished. Thanks so much!")>
+	<cfset set(emailUpdateSubjectFromBluepages = "Please review your personal Charis Fellowship Handbook listing")>
 
 	<!---Used by Focus MVC--->
 	<cfset set(registrant = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")>
