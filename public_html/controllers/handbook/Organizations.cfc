@@ -79,9 +79,11 @@ component extends="Controller" output="false"{
 			request.showpagination = false
 		} else if ( isDefined("params.district") AND isDefined("params.membersonly") ) {
 			includeString = includeString & ",handbookdistrict"
+			whereString = whereString & " AND districtid = #params.district# AND statusID = 1"			
 			request.showpagination = false
 		} else if ( isDefined("params.district") ) {
 			includeString = includeString & ",handbookdistrict"
+			whereString = whereString & " AND districtid = #params.district# AND statusID = 1"			
 			request.showpagination = false
 		} else if ( isDefined("params.format") and params.format is "json" ) {
 			returnAsString = "structs"
