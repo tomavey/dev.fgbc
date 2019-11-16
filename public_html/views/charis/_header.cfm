@@ -94,7 +94,7 @@
                       </li>
                       <li>#linkTo(text="Focus Retreats", controller="focus.main", action="welcome")#</li>
                       <li class="list-inline-item g-mx-4 g-mt-10">
-                      <li>#linkTo(text="Access2020", href="http://www.access2020.us")#</li>
+                      <li>#linkTo(text="Access2020", href="https://charisfellowship.us/page/access2020")#</li>
                     </ul>
                   </li>
                 <li class="nav-item dropdown g-mx-20--lg">
