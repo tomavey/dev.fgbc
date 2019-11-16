@@ -276,11 +276,7 @@ component extends="Controller" output="false" {
 		}
 		people = model("Handbookperson").findAll(where=loc.whereString, order="lname,fname,id", include="Handbookstate,Handbookpositions(Handbookorganization)");
 		if ( isDefined("params.showHandbookLinkColumn") ) { showHandbookLinkColumn = true }
-		if ( isDefined("params.download") ) {
-			renderPage(layout="/layout_download");
-		} else {
-			renderPage(layout="/layout_naked");
-		}
+		$setDownloadLayout()
 	}
 
 	// Used for birthday and anniversary reports
@@ -309,11 +305,7 @@ component extends="Controller" output="false" {
 			params.key = params.keyy;
 		}
 		people = model("Handbookperson").findFocus(params.key);
-		if ( isDefined("params.download") && params.download == "excel" ) {
-			renderPage(layout="/layout_download");
-		} else {
-			renderPage(layout="/layout_naked");
-		}
+		$setDownloadLayout()
 	}
 
 	public function downloadAGBM() {
@@ -327,6 +319,7 @@ component extends="Controller" output="false" {
 		$setDownloadLayout()
 	}
 
+	//handbook/people/review - route = handbookPeopleReview
 	public function handbookReviewOptions(
 		string type='everyone',
 		string lastReviewedBefore=dateformat(dateAdd('d',1,now())),
@@ -336,32 +329,32 @@ component extends="Controller" output="false" {
 		string tag="",
 		string username=$getThisUserName(),
 		){
-	var i = 0;		
-	args = $$useParamsForDefaults(params,arguments);
-	if (args.refresh){
-		session.people = [];
-		session.people = model("Handbookperson").getHandbookReviewStruct(
+		var i = 0;		
+		args = $$useParamsForDefaults(params,arguments);
+		if (args.refresh){
+			session.people = [];
+			session.people = model("Handbookperson").getHandbookReviewStruct(
+				lastReviewedBefore=lastReviewedBefore,
+				orderby=orderby, 
+				type=type, 
+				tag=tag,
+				username=username,
+				go=true
+				);	
+		}
+		people = session.people;
+		// writeOutput(serialize(people));abort;
+		testpeople = model("Handbookperson").getHandbookReviewStruct(
 			lastReviewedBefore=lastReviewedBefore,
 			orderby=orderby, 
 			type=type, 
 			tag=tag,
-			username=username,
-			go=true
+			go=false
 			);	
+		emailMessage = $getEmailMessageForPeopleReview();
+		tags = model("Handbooktag").findAll(where="username='#$getThisUserName()#'", group="tag");
+		renderPage(layout="/handbook/layout_handbook2")
 	}
-	people = session.people;
-	// writeOutput(serialize(people));abort;
-	testpeople = model("Handbookperson").getHandbookReviewStruct(
-		lastReviewedBefore=lastReviewedBefore,
-		orderby=orderby, 
-		type=type, 
-		tag=tag,
-		go=false
-		);	
-	emailMessage = $getEmailMessageForPeopleReview();
-	tags = model("Handbooktag").findAll(where="username='#$getThisUserName()#'", group="tag");
-	renderPage(layout="/handbook/layout_handbook2")
-}
 
 	// Sends an email to every person and organization email address - edit email in _message.cfm - does not have a menu option
 	function sendToHandbookPeople() {
@@ -394,11 +387,7 @@ component extends="Controller" output="false" {
 		var onlyIfEmail = false
 		if ( isDefined('params.onlyIfEmail') ) { onlyIfEmail = true }
 		pastorsWives = model("Handbookperson").findPastorsWives(titleIncludesList = 'pastor,chaplain', onlyIfEmail = onlyIfEmail)
-		if (isDefined('params.download') || isDefined('params.excel')){
-			renderPage(template="downloadWives", layout = "/layout_download")
-		} else {
-			renderPage(template="downloadWives", layout = "/layout_naked")
-		}
+		$setDownloadLayout(template='downloadwives')
 	}
 
 	public function emailPeopleForHandbookReview(

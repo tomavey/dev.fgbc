@@ -200,8 +200,6 @@
 	}
 </cfscript>
 
-	</cffunction>
-
 	<cffunction name="$GetCurrentURL" output="No" access="public">
 	   <cfset var theURL = getPageContext().getRequest().GetRequestUrl()>
 	   <cfif len( CGI.query_string )><cfset theURL = theURL & "?" & CGI.query_string></cfif>
@@ -306,11 +304,11 @@
 
 <cfscript>
 
-	function $setDownloadLayout(){
+	function $setDownloadLayout(defaultLayout='/layout_naked', template=''){
 		if ( (isdefined("params.key") && params.key is "excel") || (isdefined("params.format") && params.format is "excel") || (isDefined("params.download")) ) {
-			renderPage(layout='/layout_download', showDebugOutput="No")
+			renderPage(template=arguments.template, layout='/layout_download', showDebugOutput="No")
 		} else {
-			renderPage(layout='/layout_naked', showDebugOutput="No")
+			renderPage(template=arguments.template, layout=arguments.defaultLayout, showDebugOutput="No")
 		}
 	}	
 
