@@ -289,13 +289,13 @@
 	<cfset var loc=structNew()>
 	<cfset loc.currentMembershipYear = model("Handbookperson").currentMembershipYear(params)>
 	<cfset params.currentmembershipyear = loc.currentMembershipYear>
-		  <cfset dataThisYear = model("Handbookperson").getDashboardInfo(params)>
+		  <cfset dataThisYear = model("Handbookperson").getAGBMDashboardInfo(params)>
 		  <cfset dataThisYear.Year = params.currentMembershipYear>
 	<cfset params.currentmembershipyear = loc.currentMembershipYear - 1>
-		  <cfset dataPreviousYear = model("Handbookperson").getDashboardInfo(params)>
+		  <cfset dataPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params)>
 		  <cfset dataPreviousYear.Year = params.currentMembershipYear>
 	<cfset params.currentmembershipyear = loc.currentMembershipYear - 2>
-		  <cfset dataPreviousPreviousYear = model("Handbookperson").getDashboardInfo(params)>
+		  <cfset dataPreviousPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params)>
 		  <cfset dataPreviousPreviousYear.Year = params.currentMembershipYear>
 	</cffunction>
 
@@ -318,23 +318,23 @@
 
 		<cfset currentMembershipYear = model("Handbookperson").currentMembershipYear(params)>
 
-		<cfset cat1Ordained = model("Handbookperson").findAllAGBMcat1Ordained(params).people>
+		<cfset cat1Ordained = model("Handbookperson").findAllAgbmByCat(params,'cat1Ordained').people>
 
-		<cfset cat0Ordained = model("Handbookperson").findAllAgbmCat0Ordained(params).people>
+		<cfset cat0Ordained = model("Handbookperson").findAllAgbmByCat(params,'Cat0Ordained').people>
 
-		<cfset cat1Licensed = model("Handbookperson").findAllAGBMcat1Licensed(params).people>
+		<cfset cat1Licensed = model("Handbookperson").findAllAgbmByCat(params,'cat1Licensed').people>
 
-		<cfset cat0Commissioned = model("Handbookperson").findAllAGBMCat0Commissioned(params).people>
+		<cfset cat0Commissioned = model("Handbookperson").findAllAgbmByCat(params,'Cat0Commissioned').people>
 
-		<cfset cat1Mentored = model("Handbookperson").findAllAGBMcat1Mentored(params).people>
+		<cfset cat1Mentored = model("Handbookperson").findAllAgbmByCat(params,'cat1Mentored').people>
 
-		<cfset cat2Ordained = model("Handbookperson").findAllAGBMcat2Ordained(params).people>
+		<cfset cat2Ordained = model("Handbookperson").findAllAgbmByCat(params,'cat2Ordained').people>
 
-		<cfset cat2Licensed = model("Handbookperson").findAllAgbmCat2Licensed(params).people>
+		<cfset cat2Licensed = model("Handbookperson").findAllAgbmByCat(params,'Cat2Licensed').people>
 
-		<cfset cat2Mentored = model("Handbookperson").findAllAgbmCat2Mentored(params).people>
+		<cfset cat2Mentored = model("Handbookperson").findAllAgbmByCat(params,'Cat2Mentored').people>
 
-		<cfset cat3 = model("Handbookperson").findAllAgbmCat3(params).people>
+		<cfset cat3 = model("Handbookperson").findAllAgbmByCat(params,'Cat3').people>
 
 		<cfif isDefined("params.plain")>
 			 <cfset renderPage(layout="/layout_naked")>

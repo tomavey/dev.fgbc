@@ -296,18 +296,6 @@ private function $cleanUpEmailArray(required emailArray){
 	return returnedArray;
 }
 
-private function $removeDuplicates(emailArray){
-	var emailArray = arguments.emailArray;
-	var returnedArray = [];
-	var thisStruct = {};
-	for(i=1; i LTE arrayLen(emailArray); i=i+1){
-		if (!arrayFind(returnedArray,emailArray[i])){
-			arrayAppend(returnedArray,emailArray[i]);
-		}
-	}
-	return returnedArray;
-}
-
 </cfscript>
 
 	<cffunction name="removeFromStaff">
