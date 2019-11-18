@@ -543,7 +543,6 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 			whereString = $buildWhereString(whereString,loc.type)
 			selectString = "handbookpeople.id,lname,concat(lname,', ',fname) AS SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') AS reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') AS updatedAt"
 			loc.peopleQ = findAll(select=selectString, where = whereString, include="State,Handbookpositions,Handbooktags", maxrows=maxrows, order=orderby)
-			writeDump(loc);abort;
 			loc.people = $peopleQueryToArray(loc.peopleQ)
 			loc.people = $removeInValidEmail(loc.people)
 			loc.people = $addLastEmailToConfirm(loc.people)
