@@ -31,17 +31,17 @@
 				#includePartial("/captcha")#	
 			</cfif>
 
+			<p v-if=showMessage class="submitHelp">
+				Enter the correct 5 letter word for "charis" below inorder to submit this form.<br/>
+				<span class="why">Why? To discourage webbots!</span>
+			</p>
+
 			<p>What does the greek word "charis" mean?
 			<input type=text v-model="charis">
 			</p>
 
 			<div @mouseover="mouseover"  class="mouseover">
 				<input type="submit" value="Create Your New Account" :disabled=captchaPass()>
-				<p v-if=showMessage>
-					Enter the correct 5 letter word for "charis" inorder to submit this form.<br/>
-					<span>Why? To discourage webbots!</span>
-
-				</p>
 			</div>
 				
 			#endFormTag()#
@@ -88,7 +88,21 @@ var app = new Vue({
 		padding: 5px
 	}
 
-	.mouseover span {
+	.why {
 		font-size: .8em
+	}
+
+	input[type="submit"]:disabled {
+  	background: rgb(92, 64, 64);
+	}
+
+	input[type="submit"] {
+		width:75%;
+		height:50px;
+		border-radius:10px;
+		font-size:1.3em
+	}
+
+	.submitHelp {
 	}
 </style>
