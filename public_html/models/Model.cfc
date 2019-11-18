@@ -166,6 +166,41 @@
 		return application.wheels.typeOfRegOptions;
 	}
 
+	private function $buildMysqlLikeString(likeList){
+		var i = ''
+		var likeList = listToArray(likeList)
+		var titleIncludes = ''
+		for (like in likeList) {
+			titleIncludes = titleIncludes & " OR position LIKE '%#like#%'"
+		}
+		return replace(titleIncludes,"OR ","","one")
+	}
+	
+	function $removeDuplicates(required array handbookReviewStruct) {
+		var loc = arguments
+		loc.newArray = []
+		for ( loc.i=1;  loc.i<=arraylen(loc.handbookReviewStruct); loc.i++ ) {
+			if ( !arrayFind(loc.newArray,loc.handbookReviewStruct[loc.i]) ) {
+				arrayAppend(loc.newArray,loc.handbookReviewStruct[loc.i])
+			}
+		}
+		return loc.newarray
+	}
+
+	function currentMembershipYear(struct params) {
+		var loc = structNew()
+		loc.return = year(now())
+		if ( isDefined("params.currentMembershipyear") ) {
+			loc.return = params.currentMembershipYear
+		} else if ( isDefined("session.agbm.currentmembershipyear") ) {
+			loc.return = session.agbm.currentmembershipyear
+		} else {
+			if ( dateCompare(createODBCDate(now()),createODBCDate(getSetting("agbmDeadlineDate"))) == -1 ) {
+				loc.return = loc.return-1
+			}
+		}
+		return loc.return
+	}	
 </cfscript>	
 
 

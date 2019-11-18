@@ -366,7 +366,7 @@ component extends="Controller" output="false" {
 		if ( isDefined("params.test") ) {
 			maxrows = 5;
 		}
-		distinctEmails = model('Handbookperson').$getAllEmails(maxsortorder,maxrows)
+		distinctEmails = model('Handbookperson').getAllEmails(maxsortorder,maxrows)
 		for ( distinctemail in distinctemails) {
 			if ( isValid("email",distinctemail.emailsend) ) {
 				emailall = emailall & "; " & distinctemail.emailsend

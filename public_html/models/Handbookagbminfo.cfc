@@ -240,20 +240,6 @@ private function $arrayOfStructsSort(aOfS,key){
 		<cfreturn loc.return>
 	</cffunction>
 
-	<cffunction name="currentMembershipYear">
-	<cfargument name="params" required="false" type="struct">
-	<cfset var loc = structNew()>
-	  <cfset loc.return = year(now())>
-	   	<cfif isDefined("params.currentMembershipyear")>
-	   		 <cfset loc.return = params.currentMembershipYear>
-		<cfelse>
-			<cfif dateCompare(createODBCDate(now()),createODBCDate(application.wheels.agbmDeadlineDate)) EQ -1>
-		 		  <cfset loc.return = loc.return-1>
-			</cfif>
-		</cfif>
-		<cfreturn loc.return>
-	</cffunction>
-
 	<cffunction name="isAgbmMember">
 	<cfargument name="personid" required="true" type="numeric">
 	<cfargument name="currentMembershipYear" default="#currentMembershipYear()#">

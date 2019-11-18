@@ -1,835 +1,690 @@
-<cfcomponent extends="Model" output="false">
+component extends="Model" output="false" {
 
-	<cffunction name="init">
-		<cfset table("handbookpeople")>
-		<!---Associations--->
-		<cfset belongsTo(name="Handbookstate", modelName="Handbookstate", foreignKey="stateid")>
-		<cfset belongsTo(name="State", modelName="Handbookstate", foreignkey="stateid")>
-		<cfset hasMany(name="Handbookpositions", modelName="Handbookposition", foreignKey="personid", dependent="delete", joinType="outer")>
-		<cfset hasMany(name="Handbooktags", foreignKey="itemid", dependent="delete")>
-		<cfset hasMany(name="Handbookgroup", foreignKey="personid", joinType="outer", dependent="delete")>
-		<cfset hasMany(name="Handbookagbminfo", foreignKey="personid", dependent="delete")>
-		<cfset hasMany(name="Handbookpictures", foreignKey="personid", dependent="delete")>
-		<cfset hasMany(name="Handbooknotes", foreignKey="personid", dependent="delete")>
-		<cfset hasOne(name="Handbookprofile", foreignKey="personid", dependent="delete")>
-
-		<!---Nested Properties--->
-		<cfset nestedProperties(
-            associations="Handbookpositions",
-            allowDelete=true
-        )>
-		<cfset nestedProperties(
-            associations="Handbookprofile",
-            allowDelete=true
-        )>
-
-
-		<!---Call backs--->
-		<cfset afterCreate("logCreates")>
-		<cfset beforeUpdate("logUpdates")>
-		<cfset afterDelete("logDeletes")>
-<!---
-		<cfset beforeSave("htmlEdit")>
---->
-		<!---Properties--->
-		<cfset property(name="alpha", sql="left(lname,1)")>
-		<cfset property(
-			name="state_mail_abbrev",
-			sql="SELECT state_mail_abbrev FROM handbookstates where handbookstates.id = handbookpeople.stateid"
-			)>
-		<cfset property(
-			name="state",
-			sql="SELECT state FROM handbookstates where handbookstates.id = handbookpeople.stateid"
-			)>
-		<cfset property(
-			name="selectName",
-			sql="CONCAT_WS(', ',lname,fname,city,state_mail_abbrev)"
-			)>
-		<cfset property(
-			name="selectNameID",
-			sql="CONCAT_WS(', ',lname,fname,city,state_mail_abbrev,handbookpeople.ID)"
-			)>
-		<cfset property(
-			name="fullname",
-			sql="TRIM(CONCAT_WS(' ',fname,lname,suffix))"
-			)>
-		<cfset property(
-			name="spousefullname",
-			sql="TRIM(CONCAT_WS(' ',spouse,lname,suffix))"
-			)>
-		<cfset property(
-			name="file",
-			sql="SELECT file FROM handbookpictures where personid = handbookpeople.id AND usefor = 'default' LIMIT 1"
-			)>
-
-	</cffunction>
-
-<!---CallBack Functions--->
-
-	<cffunction name="logUpdates">
-	<cfargument name="modelName" default="Handbookperson">
-	<cfargument name="createdBy" default="na">
-	<cfif isDefined("session.auth.email")>
-		<cfset arguments.createdBy = session.auth.email>
-	</cfif>
-
-		<cfset old = model("#arguments.modelName#").findByKey(key=this.id, include="Handbookstate")>
-		<cfset new = this>
-		<cfset changes= new.changedProperties()>
-		<cfoutput>
-		<cfloop list="#changes#" index="i">
-			<cfif not i is "updatedAt" AND not i is "sendhandbook">
-				<cfset newupdate.modelName = arguments.modelName>
-				<cfset newupdate.recordId = this.id>
-				<cfset newupdate.columnName = i>
-				<cfset newupdate.datatype = "update">
-				<cfset newupdate.olddata = old[i]>
-				<cfset newupdate.newData = new[i]>
-				<cfset newupdate.createdBy = "#arguments.createdBy#">
-				<cfset update = model("Handbookupdate").create(newupdate)>
-			</cfif>
-		</cfloop>
-		</cfoutput>
-		<cfreturn true>
-	</cffunction>
-
-	<cffunction name="XlogCreates">
-	<cfargument name="modelName" default="Handbookperson">
-	<cfargument name="createdBy" default="#session.auth.email#">
-
-		<cfset newSave.modelName = arguments.modelName>
-		<cfset newSave.recordId = this.id>
-		<cfset newSave.datatype = "new">
-		<cfset newSave.createdBy = "#arguments.createdBy#">
-		<cfset update = model("Handbookupdate").create(newSave)>
-
-		<cfreturn true>
-
-	</cffunction>
-
-	<cffunction name="logCreates">
-		<cfset person = model("HandbookPerson").findByKey(key=this.id, include="handbookState")>
-		<cfif isObject(person)>
-			  <cfset superLogCreates('HandbookPerson',person.selectName)>
-		</cfif>
-	</cffunction>
+	function init() {
+		table("handbookpeople")
+		// Associations
+		belongsTo(name="Handbookstate", modelName="Handbookstate", foreignKey="stateid")
+		belongsTo(name="State", modelName="Handbookstate", foreignkey="stateid")
+		hasMany(name="Handbookpositions", modelName="Handbookposition", foreignKey="personid", dependent="delete", joinType="outer")
+		hasMany(name="Handbooktags", foreignKey="itemid", dependent="delete")
+		hasMany(name="Handbookgroup", foreignKey="personid", joinType="outer", dependent="delete")
+		hasMany(name="Handbookagbminfo", foreignKey="personid", dependent="delete")
+		hasMany(name="Handbookpictures", foreignKey="personid", dependent="delete")
+		hasMany(name="Handbooknotes", foreignKey="personid", dependent="delete")
+		hasOne(name="Handbookprofile", foreignKey="personid", dependent="delete")
+		// Nested Properties
+		nestedProperties(
+							associations="Handbookpositions",
+							allowDelete=true
+					)
+		nestedProperties(
+							associations="Handbookprofile",
+							allowDelete=true
+					)
+		// Call backs
+		afterCreate("logCreates")
+		beforeUpdate("logUpdates")
+		afterDelete("logDeletes")
+		// Properties
+		property(name="alpha", sql="left(lname,1)")
+		property(
+				name="state_mail_abbrev",
+				sql="SELECT state_mail_abbrev FROM handbookstates where handbookstates.id = handbookpeople.stateid"
+				)
+		property(
+				name="state",
+				sql="SELECT state FROM handbookstates where handbookstates.id = handbookpeople.stateid"
+				)
+		property(
+				name="selectName",
+				sql="CONCAT_WS(', ',lname,fname,city,state_mail_abbrev)"
+				)
+		property(
+				name="selectNameID",
+				sql="CONCAT_WS(', ',lname,fname,city,state_mail_abbrev,handbookpeople.ID)"
+				)
+		property(
+				name="fullname",
+				sql="TRIM(CONCAT_WS(' ',fname,lname,suffix))"
+				)
+		property(
+				name="spousefullname",
+				sql="TRIM(CONCAT_WS(' ',spouse,lname,suffix))"
+				)
+		property(
+				name="file",
+				sql="SELECT file FROM handbookpictures where personid = handbookpeople.id && usefor = 'default' LIMIT 1"
+				)
+	}
 
 
-	<cffunction name="logDeletes">
-		<cfset person = model("HandbookPerson").findByKey(key=this.id, include="handbookState")>
-		<cfif isObject(person)>
-			  <cfset superLogDeletes('HandbookPerson',person.selectName)>
-		</cfif>
-	</cffunction>
 
-<!---Finders--->
-	<cffunction name="findAgbm">
-	<cfargument name="params" required="true" type="struct">
-	<cfset var loc=structNew()>
-	<cfset loc.return = structNew()>
 
-		<cfparam name="session.params.key" default="members">
-		<cfparam name="params.page" default="1">
-		<cfparam name="params.maxpage" default="1000000">
-		<cfparam name="params.maxrows" default="-1">
 
-			<!---Set up query strings for model call--->
-		<cfset loc.includeString = "Handbookgroup(Handbookgrouptype),Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict)),Handbookagbminfo,Handbookprofile">
 
-		<cfset loc.orderString = "Lname,Fname,positionTypeId DESC">
 
-		<!---If no search, use a grouptypeid--->
-		<cfif not isDefined("params.search")>
-			<cfswitch expression="#session.params.key#">
-				<cfcase value="members">
-					<cfset loc.whereString = "membershipfeeyear = #currentMembershipYear(params)#">
-				</cfcase>
-				<cfcase value="mail">
-					<cfset loc.whereString = "membershipfeeyear < #currentMembershipYear(params)# OR groupTypeId = 16">
-				</cfcase>
-				<cfcase value="handbook">
-					<cfset loc.whereString = "p_sortorder < 500">
-				</cfcase>
-				<cfcase value="all">
-					<cfset loc.whereString = "p_sortorder < 1000">
-				</cfcase>
-				<cfdefaultcase>
-					<cfset loc.whereString = "0=0">
-				</cfdefaultcase>
-			</cfswitch>
+<!------------------------------------------>
+<!---CALLBACKS FOR UPDATE AND CREATE LOGS--->
+<!------------------------------------------>
 
-			<!---For Handbook Membership Report--->
-			<cfif isDefined("params.category")>
-				  <cfset loc.wherestring = "membershipfeeyear = #currentMembershipYear(params)# AND category = #params.category#">
-			</cfif>
-
-			<cfif isDefined("params.ordained") and params.ordained>
-				  <cfset loc.wherestring = loc.wherestring & " AND ordained = 1">
-			</cfif>
-
-			<cfif isDefined("params.licensed") and params.licensed>
-				  <cfset loc.wherestring = loc.wherestring & " AND licensed = 1">
-			</cfif>
-
-			<cfif isDefined("params.commissioned") and params.commissioned>
-				<cfset loc.wherestring = loc.wherestring & " AND commissioned = 1">
-			</cfif>
-
-			<cfif isDefined("params.mentored") and params.mentored>
-				  <cfset loc.wherestring = loc.wherestring & " AND mentored = 1">
-			</cfif>
-
-			<!---For district grouping--->
-			<cfif isDefined("params.groupby") and params.groupby is "District">
-				  <cfset loc.orderString = "District," & loc.orderString>
-			<cfelseif isDefined("params.groupby") and params.groupby is "category">
-				  <cfset loc.orderString = "Category," & loc.orderString>
-			<cfelseif isDefined("params.groupby") and params.groupby is "age">
-				  <cfset loc.orderString = "birthdayasstring">
-			</cfif>
-
-			<cfif isDefined("params.district")>
-				<cfset params.groupby = "District">
-				<cfset loc.whereString = "districtid=#params.district#">
-			 	<cfset loc.orderString = "District," & loc.orderString>
-			</cfif>
-
-		<cfelse>
-		<!---If a search string is provided--->
-			<cfset loc.whereString ="lname like '#params.search#%' OR
-							fname like '#params.search#%' OR
-							city like '#params.search#%' OR
-							state_mail_abbrev like '#params.search#%' OR
-							district like '#params.search#%'">
-			<cfset loc.orderString="lname,fname,positionTypeId DESC">
-
-		</cfif>
-		<!---Run the model method using where, order, include and pagination data--->
-		<cfset loc.return.people = findAll(
-				   		where=loc.whereString,
-						order=loc.orderstring,
-						include=loc.includeString,
-						page=params.page,
-						perPage=params.maxpage,
-						distinct = true,
-						maxrows=params.maxrows
-						)>
-
-		<cfset loc.return.params = params>
-		<cfreturn loc.return>
-
-	</cffunction>
-
-	<cffunction name="findAllAgbmCat1Ordained">
-	<cfargument name="params" required="true" type="struct">
-	<cfset var loc=structNew()>
-		<cfset params.category = 1>
-		<cfset params.ordained = 1>
-		<cfset params.licensed = 0>
-		<cfset params.mentored = 0>
-		<cfset loc.people = findAGBM(params)>
-		<cfreturn loc.people>
-	</cffunction>
-
-	<cffunction name="findAllAgbmCat0Ordained">
-		<cfargument name="params" required="true" type="struct">
-		<cfset var loc=structNew()>
-			<cfset params.category = 0>
-			<cfset params.ordained = 1>
-			<cfset params.licensed = 0>
-			<cfset params.mentored = 0>
-			<cfset loc.people = findAGBM(params)>
-			<cfreturn loc.people>
-		</cffunction>
-
-	<cffunction name="findAllAgbmCat1Licensed">
-	<cfargument name="params" required="true" type="struct">
-	<cfset var loc=structNew()>
-		<cfset params.category = 1>
-		<cfset params.ordained = 0>
-		<cfset params.licensed = 1>
-		<cfset params.mentored = 0>
-		<cfset loc.peopleAndParams = findAGBM(params)>
-		<cfreturn loc.peopleAndParams>
-	</cffunction>
-
-	<cffunction name="findAllAGBMCat0Commissioned">
-		<cfargument name="params" required="true" type="struct">
-		<cfset var loc=structNew()>
-			<cfset params.category = 0>
-			<cfset params.ordained = 0>
-			<cfset params.licensed = 0>
-			<cfset params.mentored = 0>
-			<cfset params.commissioned = 1>
-			<cfset loc.peopleAndParams = findAGBM(params)>
-			<cfreturn loc.peopleAndParams>
-		</cffunction>
-
-		<cffunction name="findAllAgbmCat2Ordained">
-	<cfargument name="params" required="true" type="struct">
-	<cfset var loc=structNew()>
-		<cfset params.category = 2>
-		<cfset params.ordained = 1>
-		<cfset params.licensed = 0>
-		<cfset params.mentored = 0>
-		<cfset loc.peopleAndParams = findAGBM(params)>
-		<cfreturn loc.peopleAndParams>
-	</cffunction>
-
-	<cffunction name="findAllAgbmCat2Licensed">
-	<cfargument name="params" required="true" type="struct">
-	<cfset var loc=structNew()>
-		<cfset params.category = 2>
-		<cfset params.ordained = 0>
-		<cfset params.licensed = 1>
-		<cfset params.mentored = 0>
-		<cfset loc.peopleAndParams = findAGBM(params)>
-		<cfreturn loc.peopleAndParams>
-	</cffunction>
-
-	<cffunction name="findAllAgbmCat1Mentored">
-	<cfargument name="params" required="true" type="struct">
-	<cfset var loc=structNew()>
-		<cfset params.category = 1>
-		<cfset params.ordained = 0>
-		<cfset params.licensed = 0>
-		<cfset params.mentored = 1>
-		<cfset loc.peopleAndParams = findAGBM(params)>
-		<cfreturn loc.peopleAndParams>
-	</cffunction>
-
-	<cffunction name="findAllAgbmCat2Mentored">
-	<cfargument name="params" required="true" type="struct">
-	<cfset var loc=structNew()>
-		<cfset params.category = 2>
-		<cfset params.ordained = 0>
-		<cfset params.licensed = 0>
-		<cfset params.mentored = 1>
-		<cfset loc.peopleAndParams = findAGBM(params)>
-		<cfreturn loc.peopleAndParams>
-	</cffunction>
-
-	<cffunction name="findAllAgbmCat3">
-	<cfargument name="params" required="true" type="struct">
-	<cfset var loc=structNew()>
-		<cfset params.category = 3>
-		<cfset params.ordained = 0>
-		<cfset params.licensed = 0>
-		<cfset params.mentored = 0>
-		<cfset loc.peopleAndParams = findAGBM(params)>
-		<cfreturn loc.peopleAndParams>
-	</cffunction>
-
-	<cffunction name="findAGBMInAgeOrder">
-	<cfargument name="params" required="true" type="struct">
-	<cfset var loc=structNew()>
-		<cfset params.groupby = "age">
-		<cfset loc.peopleAndParams = findAGBM(params)>
-		<cfreturn loc.peopleAndParams>
-	</cffunction>
-
-	<cfscript>
-		function findPastorsWives(string titleIncludesList = 'pastor,chaplain', string onlyIfEmail = false){
-			var titleIncludes = $buildMysqlLikeString(titleIncludesList)
-			var selectString = "handbookpeople.id, spouse, lname, spouse_email, handbookpeople.address1, handbookpeople.address2, city, state_mail_abbrev, handbookpeople.zip, position AS hisPosition, (CONCAT_WS(', ',org_city,state_mail_abbrev,handbookorganizations.name)) AS churchNameCity"
-			var whereString = "deletedAt IS NULL AND fnameGender = 'M' AND spouse IS NOT NULL AND (#titleIncludes#)"
-			if ( onlyIfEmail ) {
-				whereString = whereString & " AND spouse_email IS NOT NULL"
+	function logUpdates(modelName="Handbookperson", createdBy="na") {
+		if ( isDefined("session.auth.email") ) {
+			arguments.createdBy = session.auth.email
+		}
+		old = model("#arguments.modelName#").findByKey(key=this.id, include="Handbookstate")
+		new = this
+		changes= new.changedProperties()
+		for ( i in changes ) {
+			if ( !i == "updatedAt" && !i == "sendhandbook" ) {
+				newupdate.modelName = arguments.modelName
+				newupdate.recordId = this.id
+				newupdate.columnName = i
+				newupdate.datatype = "update"
+				newupdate.olddata = old[i]
+				newupdate.newData = new[i]
+				newupdate.createdBy = "#arguments.createdBy#"
+				update = model("Handbookupdate").create(newupdate)
 			}
-			var includeString = "State,Handbookpositions(Handbookorganization)"
-			var orderString = "lname, spouse"
-			var maxRows = 1000000
-			var pastorsWives = model("Handbookperson").findAll(
-				select = selectString,
-				where = whereString,
-				maxRows = maxRows,
-				include = includeString,
-				order = orderString
+		}
+		return true
+	}
 
-			)
-			// writeDump(pastorsWives);abort;
-			return pastorsWives
+	function logCreates() {
+		person = model("HandbookPerson").findByKey(key=this.id, include="handbookState")
+		if ( isObject(person) ) {
+			superLogCreates('HandbookPerson',person.selectName)
+		}
+	}
+	
+	function logDeletes() {
+		person = model("HandbookPerson").findByKey(key=this.id, include="handbookState")
+		if ( isObject(person) ) {
+			superLogDeletes('HandbookPerson',person.selectName)
+		}
+	}
+<!------------------------------------------------->
+<!---END OF CALLBACKS FOR UPDATE AND CREATE LOGS--->
+<!------------------------------------------------->
+
+
+
+
+
+<!----------------------->
+<!------AGBM FINDERS----->
+<!----------------------->
+	
+	function findAgbm(required struct params) {
+		var loc=structNew()
+		loc.return = structNew()
+		cfparam( default="members", name="session.params.key" )
+		cfparam( default=1, name="params.page" )
+		cfparam( default=1000000, name="params.maxpage" )
+		cfparam( default=-1, name="params.maxrows" )
+		// Set up query strings for model call
+		loc.includeString = "Handbookgroup(Handbookgrouptype),Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict)),Handbookagbminfo,Handbookprofile"
+		loc.orderString = "Lname,Fname,positionTypeId DESC"
+		// If no search, use a grouptypeid
+		if ( !isDefined("params.search") ) {
+			switch ( session.params.key ) {
+				case  "members":
+					loc.whereString = "membershipfeeyear = #currentMembershipYear(params)#"
+					break
+				case  "mail":
+					loc.whereString = "membershipfeeyear < #currentMembershipYear(params)# OR groupTypeId = 16"
+					break
+				case  "handbook":
+					loc.whereString = "p_sortorder < 500"
+					break
+				case  "all":
+					loc.whereString = "p_sortorder < 1000"
+					break
+				default:
+					loc.whereString = "0=0"
+					break
+			}
+			// For Handbook Membership Report
+			if ( isDefined("params.category") ) {
+				loc.wherestring = "membershipfeeyear = #currentMembershipYear(params)# AND category = #params.category#"
+			}
+			if ( isDefined("params.ordained") && params.ordained ) {
+				loc.wherestring = loc.wherestring & " AND ordained = 1"
+			}
+			if ( isDefined("params.licensed") && params.licensed ) {
+				loc.wherestring = loc.wherestring & " AND licensed = 1"
+			}
+			if ( isDefined("params.commissioned") && params.commissioned ) {
+				loc.wherestring = loc.wherestring & " AND commissioned = 1"
+			}
+			if ( isDefined("params.mentored") && params.mentored ) {
+				loc.wherestring = loc.wherestring & " AND mentored = 1"
+			}
+			// For district grouping
+			if ( isDefined("params.groupby") && params.groupby == "District" ) {
+				loc.orderString = "District," & loc.orderString
+			} else if ( isDefined("params.groupby") && params.groupby == "category" ) {
+				loc.orderString = "Category," & loc.orderString
+			} else if ( isDefined("params.groupby") && params.groupby == "age" ) {
+				loc.orderString = "birthdayasstring"
+			}
+			if ( isDefined("params.district") ) {
+				params.groupby = "District"
+				loc.whereString = "districtid=#params.district#"
+				loc.orderString = "District," & loc.orderString
+			}
+			// writeDump(loc.whereString);abort;
+		} else {
+			// If a search string is provided
+			loc.whereString ="lname like '#params.search#%' OR
+								fname like '#params.search#%' OR
+								city like '#params.search#%' OR
+								state_mail_abbrev like '#params.search#%' OR
+								district like '#params.search#%'"
+			loc.orderString="lname,fname,positionTypeId DESC"
 		}
 
-		private function $buildMysqlLikeString(likeList){
-			var i = ''
-			var likeList = listToArray(likeList)
-			var titleIncludes = ''
-			for (like in likeList) {
-				titleIncludes = titleIncludes & " OR position LIKE '%#like#%'"
+		// Run the model method using where, order, include and pagination data
+		loc.return.people = findAll(
+							where=loc.whereString,
+							order=loc.orderstring,
+							include=loc.includeString,
+							page=params.page,
+							perPage=params.maxpage,
+							distinct = true,
+							maxrows=params.maxrows
+							)
+		loc.return.params = params
+		return loc.return
+	}
+
+	private function $getCatCodes(required string catCode){
+		var codesStruct = {
+			Cat1Ordained: { category: "1", ordained: "1", licensed: "0", mentored: "0" },
+			Cat0Ordained: { category: "0", ordained: "1", licensed: "0", mentored: "0" },
+			Cat1Licensed: { category: "1", ordained: "0", licensed: "1", mentored: "0" },
+			Cat0Commissioned: { category: "0", ordained: "0", licensed: "0", mentored: "0" },
+			Cat2Ordained: { category: "2", ordained: "1", licensed: "0", mentored: "0" },
+			Cat2Licensed: { category: "2", ordained: "1", licensed: "1", mentored: "0" },
+			Cat1Mentored: { category: "1", ordained: "0", licensed: "0", mentored: "1" },
+			Cat2Mentored: { category: "2", ordained: "0", licensed: "0", mentored: "1" },
+			Cat3: { category: "3", ordained: "0", licensed: "0", mentored: "0" }
+		}
+		return codesStruct[arguments.catCode]
+	}
+
+	private function $findAllAgbmByCat( required struct params, required struct catCodes ){
+		structAppend( arguments.params,arguments.catCodes )
+		return findAGBM( arguments.params )
+	}
+
+	function findAllAgbmByCat( required struct params, required string catCode){
+		return $findAllAgbmByCat( params,$getCatCodes(arguments.catCode) )
+	}
+
+	function findAGBMInAgeOrder(required struct params) {
+		var loc=structNew()
+		params.groupby = "age"
+		loc.peopleAndParams = findAGBM(params)
+		return loc.peopleAndParams
+	}
+
+	function findPastorsWives(string titleIncludesList = 'pastor,chaplain', string onlyIfEmail = false){
+		var titleIncludes = $buildMysqlLikeString(titleIncludesList)
+		var selectString = "handbookpeople.id, spouse, lname, spouse_email, handbookpeople.address1, handbookpeople.address2, city, state_mail_abbrev, handbookpeople.zip, position AS hisPosition, (CONCAT_WS(', ',org_city,state_mail_abbrev,handbookorganizations.name)) AS churchNameCity"
+		var whereString = "deletedAt IS NULL AND fnameGender = 'M' AND spouse IS NOT NULL AND (#titleIncludes#)"
+		if ( onlyIfEmail ) {
+			whereString = whereString & " AND spouse_email IS NOT NULL"
+		}
+		var includeString = "State,Handbookpositions(Handbookorganization)"
+		var orderString = "lname, spouse"
+		var maxRows = 1000000
+		var pastorsWives = model("Handbookperson").findAll(
+			select = selectString,
+			where = whereString,
+			maxRows = maxRows,
+			include = includeString,
+			order = orderString
+		)
+		return pastorsWives
+	}
+
+	function isAGBMMember(required numeric personid, required struct params) {
+		var loc = structNew()
+		loc.check = model("Handbookagbminfo").findOne(where="personid=#arguments.personid# && membershipfeeyear = #currentMembershipYear(params)#")
+		if ( isObject(loc.check) ) {
+			loc.return = true
+		} else {
+			loc.return = false
+		}
+		return loc.return
+	}
+	
+	function getAGBMDashboardInfo(required struct params) {
+		var loc=structNew()
+		loc.return.totalFees = 0
+		loc.return.membersCount = 0
+		loc.members = model("Handbookperson").findAGBM(params).people
+		for ( var i in members ) {
+			loc.return.totalFees = loc.return.totalFees + i.membershipfee
+			loc.return.membersCount = loc.return.membersCount +1
+		}
+		return loc.return
+	}
+<!------------------------------>
+<!------END OF AGBM FINDERS----->
+<!------------------------------>
+
+
+
+
+
+
+<!--------------------->
+<!---GENERAL FINDERS--->
+<!--------------------->
+
+	function getAllEmails(required numeric maxsortorder, maxrows = 1000000){
+		//Get all emails connected with active churches and staff
+		var allemails
+		var distinctemails
+		var peopleEmails1 = findAll(select="handbookpeople.email as emailsend, fname as name", where="p_sortorder <= #maxsortorder# AND statusid IN (1,8,3,4,2,9,10,11)", maxrows=maxrows, include="Handbookstate,Handbookpositions(Handbookorganization)")
+		var peopleEmails2 = findAll(select="handbookpeople.email2 as emailsend, fname as name", where="p_sortorder <= #maxsortorder# AND statusid IN (1,8,3,4,2,9,10,11)", maxrows=maxrows, include="Handbookstate,Handbookpositions(Handbookorganization)")
+		var churchEmails1 = model("Handbookorganization").findAll(where='statusid IN (1,8,3,4,2,9,10,11)', select="handbookorganizations.email as emailsend, name as name", maxrows=maxrows, include="Handbookstate")
+		cfquery( dbtype="query", name="allemails" ) {
+
+			writeOutput("SELECT *
+				FROM peopleEmails1
+				UNION
+				SELECT *
+				FROM peopleEmails2
+				UNION
+				SELECT *
+				FROM churchEmails1")
+		}
+		cfquery( dbtype="query", name="distinctemails" ) {
+
+			writeOutput("SELECT DISTINCT emailsend, name
+				FROM allemails
+				ORDER BY emailsend,name")
+		}
+		return distinctemails
+	}
+
+	function findHandbookPeople(required struct params) {
+		var loc = structNew()
+		cfparam( default=1, name="arguments.params.page" )
+		cfparam( default=100000, name="arguments.params.maxrows" )
+		cfparam( default=100000, name="arguments.params.perpage" )
+		whereString = "p_sortorder <= #getNonStaffSortOrder()#"
+		if ( isdefined("arguments.params.alpha") ) {
+			whereString = whereString & " && alpha = '#arguments.params.alpha#'"
+			orderString = "lname,fname,state"
+			includeString = "Handbookstate,Handbookpositions"
+		} else if ( isDefined("arguments.params.position") ) {
+			orderString = "Handbookpositiontypeposition,lname,fname,state"
+			includeString = "Handbookstate,Handbookpositions(Handbookpositiontype)"
+		} else if ( isDefined("arguments.params.all") ) {
+			orderString = "lname,fname,state"
+			includeString = "Handbookstate,Handbookpositions"
+		} else {
+			orderString = "lname,fname,state"
+			includeString = "Handbookstate,Handbookpositions"
+			params.perpage = 30
+		}
+		handbookpeople = model("Handbookperson").findAll(
+						 where=whereString,
+						 order=orderString,
+						 include=includeString,
+						 maxRows=arguments.params.maxrows,
+						 page=arguments.params.page,
+						 perPage=arguments.params.perpage
+						 )
+		return handbookpeople
+	}
+
+	function findAllStaff() {
+		staff = findAll(select="id, selectname", where="p_sortorder <= 500 && position <> 'Removed From Staff' && (private = 'NO' || private == NULL)", include="Handbookpositions,Handbookstate", order="selectname")
+		cfquery( dbtype="query", name="staff" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+
+			writeOutput("select DISTINCT *
+				from staff
+				order by selectname")
+		}
+		staff = queryToJson(staff)
+		return staff
+	}
+
+	function findStaff(required numeric staffid) {
+		staff = findAll(select="id,fname,lname,spouse,file,address1,address2,city,state,zip,phone,phone2,email,name,position,birthdayasstring,anniversaryasstring,organizationid",where="id=#arguments.staffid# && (private = 'NO' || private == NULL)", include="Handbookpositions(Handbookorganization),Handbookstate,Handbookprofile")
+		staff = queryToJson(staff)
+		return staff
+	}
+<!---------------------------->
+<!---END OF GENERAL FINDERS--->
+<!---------------------------->
+	
+
+
+
+
+<!------------------------------------------------->
+<!---MODELS FOR BIRTHDAY AND ANNIVERSARY REPORTS--->	
+<!------------------------------------------------->
+	
+function findDatesSorted(required string datetype, orderby="birthdayMonthNumber,birthdayDayNumber,fullname") {
+	var loc=structNew()
+	if ( arguments.datetype == "birthday" ) {
+		loc.person = $findDatesByType(arguments.dateType)
+		loc.spouse = $findDatesByType("wifesbirthday")
+
+		for ( var i=1; i LTE loc.spouse.recordCount; i=i+1 ) {
+			querySetCell(loc.spouse,"fullname",loc.spouse['spousefullname'],i)
+			querySetCell(loc.spouse,"fname",loc.spouse['spouse'],i)
+			querySetCell(loc.spouse,"birthdayDayNumber",loc.spouse['wifesbirthdayDayNumber'],i)
+			querySetCell(loc.spouse,"birthdayMonthNumber",loc.spouse['wifesbirthdayMonthNumber'],i)
+			querySetCell(loc.spouse,"birthdayWeekNumber",loc.spouse['wifesbirthdayWeekNumber'],i)
+			querySetCell(loc.spouse,"birthdayDayOfYearNumber",loc.spouse['wifesbirthdayDayOfYearNumber'],i)
+			querySetCell(loc.spouse,"birthdayAsString",loc.spouse['wifesbirthdayAsString'],i)
+			if ( len(loc.spouse['spouse_email']) ) {
+				querySetCell(loc.spouse,"handbookpersonemail",loc.spouse['spouse_email'],i)
 			}
-			return replace(titleIncludes,"OR ","","one")
 		}
 
-		function $getAllEmails(required numeric maxsortorder, required numeric maxrows){
-			var allemails
-			var distinctemails
-			var peopleEmails1 = findAll(select="handbookpeople.email as emailsend, fname as name", where="p_sortorder <= #maxsortorder# AND statusid IN (1,8,3,4,2,9,10,11)", maxrows=maxrows, include="Handbookstate,Handbookpositions(Handbookorganization)");
-			var peopleEmails2 = findAll(select="handbookpeople.email2 as emailsend, fname as name", where="p_sortorder <= #maxsortorder# AND statusid IN (1,8,3,4,2,9,10,11)", maxrows=maxrows, include="Handbookstate,Handbookpositions(Handbookorganization)");
-			var churchEmails1 = model("Handbookorganization").findAll(where='statusid IN (1,8,3,4,2,9,10,11)', select="handbookorganizations.email as emailsend, name as name", maxrows=maxrows, include="Handbookstate");
-			cfquery( dbtype="query", name="allemails" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
-	
-				writeOutput("SELECT *
-					FROM peopleEmails1
-					UNION
-					SELECT *
-					FROM peopleEmails2
-					UNION
-					SELECT *
-					FROM churchEmails1");
-			}
-			cfquery( dbtype="query", name="distinctemails" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
-	
-				writeOutput("SELECT DISTINCT emailsend, name
-					FROM allemails
-					ORDER BY emailsend,name");
-			}
-			return distinctemails
-		}
-		
-	
-	</cfscript>
+		cfquery( dbtype="query", name="loc.profiles" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
 
-	<cffunction name="isAGBMMember">
-	<cfargument name="personid" required="true" type="numeric">
-	<cfargument name="params" required="true" type="struct">
-	<cfset var loc = structNew()>
-	<cfset loc.check = model("Handbookagbminfo").findOne(where="personid=#arguments.personid# AND membershipfeeyear = #currentMembershipYear(params)#")>
-	<cfif isObject(loc.check)>
-		<cfset loc.return = true>
-	<cfelse>
-		<cfset loc.return = false>
-	</cfif>
-	<cfreturn loc.return>
-	</cffunction>
-
-	<cffunction name="findHandbookPeople">
-	<cfargument name="params" required="true" type="struct">
-	<cfset var loc = structNew()>
-
-		<cfparam name="arguments.params.page" default="1">
-		<cfparam name="arguments.params.maxrows" default="100000">
-		<cfparam name="arguments.params.perpage" default="100000">
-
-			<cfset whereString = "p_sortorder <= #getNonStaffSortOrder()#">
-		<cfif isdefined("arguments.params.alpha")>
-			<cfset whereString = whereString & " AND alpha = '#arguments.params.alpha#'">
-			<cfset orderString = "lname,fname,state">
-			<cfset includeString = "Handbookstate,Handbookpositions">
-		<cfelseif isDefined("arguments.params.position")>
-			<cfset orderString = "Handbookpositiontypeposition,lname,fname,state">
-			<cfset includeString = "Handbookstate,Handbookpositions(Handbookpositiontype)">
-		<cfelseif isDefined("arguments.params.all")>
-			<cfset orderString = "lname,fname,state">
-			<cfset includeString = "Handbookstate,Handbookpositions">
-		<cfelse>
-			<cfset orderString = "lname,fname,state">
-			<cfset includeString = "Handbookstate,Handbookpositions">
-			<cfset params.perpage = 30>
-		</cfif>
-			<cfset handbookpeople = model("Handbookperson").findAll(
-				   where=whereString,
-				   order=orderString,
-				   include=includeString,
-				   maxRows=arguments.params.maxrows,
-				   page=arguments.params.page,
-				   perPage=arguments.params.perpage
-				   )>
-		<cfreturn handbookpeople>
-	</cffunction>
-
-	<cffunction name="getDashboardInfo">
-	<cfargument name="params" required="true" type="struct">
-	<cfset var loc=structNew()>
-		<cfset loc.return.totalFees = 0>
-		<cfset loc.return.membersCount = 0>
-		<cfset loc.members = model("Handbookperson").findAGBM(params).people>
-		<cfoutput query="loc.members" group="id">
-			<cfset loc.return.totalFees = loc.return.totalFees + membershipfee>
-			<cfset loc.return.membersCount = loc.return.membersCount +1>
-		</cfoutput>
-		<cfreturn loc.return>
-	</cffunction>
-
-<!---Getter--->
-	<cffunction name="currentMembershipYear">
-	<cfargument name="params" required="false" type="struct">
-	<cfset var loc = structNew()>
-	  <cfset loc.return = year(now())>
-
-	   	<cfif isDefined("params.currentMembershipyear")>
-	   		<cfset loc.return = params.currentMembershipYear>
-	   	<cfelseif isDefined("session.agbm.currentmembershipyear")>
-	   		<cfset loc.return = session.agbm.currentmembershipyear>
-		<cfelse>
-			<cfif dateCompare(createODBCDate(now()),createODBCDate(application.wheels.agbmDeadlineDate)) EQ -1>
-		 		  <cfset loc.return = loc.return-1>
-			</cfif>
-		</cfif>
-		<cfreturn loc.return>
-	</cffunction>
-
-<!---Misc Actions--->
-	<cffunction name="swapSortOrder">
-	<cfargument name="thisSortorder" required="true" type="numeric">
-	<cfargument name="thisId" required="true" type="numeric">
-	<cfargument name="otherSortorder" required="true" type="numeric">
-	<cfargument name="otherId" required="true" type="numeric">
-	<cfargument name="dsn" default="#application.wheels.dataSourceName#">
-
-		<cfquery datasource="#arguments.dsn#">
-    		UPDATE handbookpositions
-    		SET p_sortorder = #arguments.otherSortorder#
-    		WHERE id = #arguments.thisid#
-		</cfquery>
-
-		<cfquery datasource="#arguments.dsn#">
-    		UPDATE handbookpositions
-    		SET p_sortorder = #arguments.thisSortorder#
-    		WHERE id = #arguments.otherid#
-		</cfquery>
-
-		<cfreturn true>
-
-	</cffunction>
-
-	<cffunction name="findDatesByType">
-	<cfargument name="datetype" required="true" type="string">
-
-	<cfset var loc=structNew()>
-
-	<cfif arguments.datetype contains "birthday">
-		  <cfset loc.orderstring = "birthdayMonthNumber,birthdayDayNumber">
-	<cfelseif arguments.datetype contains "anniversary">
-		  <cfset loc.orderstring = "anniversaryMonthNumber,anniversaryDayNumber">
-	</cfif>
-
-<!---Remove personid after--->
-	<cfset loc.whereString = "#arguments.datetype#AsString IS NOT NULL">
-
-	<!---Remove spouse birthdays and anniversaries where spouse name is blank - probably deceased--->
-	<cfif arguments.datetype is "wifesbirthday" OR arguments.datetype is "anniversary">
-		<cfset loc.whereString = loc.wherestring & " AND spouse IS NOT NULL">
-	</cfif>
-
-	<cfset arguments.datetype = arguments.datetype & "asstring">
-
-		<cfset loc.profiles = model("Handbookprofile").findAll(
-			   include="Handbookperson(Handbookstate)",
-			   where=loc.whereString,
-			   order=loc.orderstring
-			   )>
-
-		<cfreturn loc.profiles>
-
-	</cffunction>
-
-	<cffunction name="findDatesSorted">
-	<cfargument name="datetype" required="true" type="string">
-	<cfargument name="orderby" default="birthdayMonthNumber,birthdayDayNumber,fullname">
-	<cfset var loc=structNew()>
-	<cfif arguments.datetype is "birthday">
-		<cfset loc.person = findDatesByType(arguments.dateType)>
-		<cfset loc.spouse = findDatesByType("wifesbirthday")>
-
-		<cfloop query="loc.spouse">
-			<cfset querySetCell(loc.spouse,"fullname",spousefullname,currentRow)>
-			<cfset querySetCell(loc.spouse,"fname",spouse,currentRow)>
-			<cfset querySetCell(loc.spouse,"birthdayDayNumber",wifesbirthdayDayNumber,currentRow)>
-			<cfset querySetCell(loc.spouse,"birthdayMonthNumber",wifesbirthdayMonthNumber,currentRow)>
-			<cfset querySetCell(loc.spouse,"birthdayWeekNumber",wifesbirthdayWeekNumber,currentRow)>
-			<cfset querySetCell(loc.spouse,"birthdayDayOfYearNumber",wifesbirthdayDayOfYearNumber,currentRow)>
-			<cfset querySetCell(loc.spouse,"birthdayAsString",wifesbirthdayAsString,currentRow)>
-			<cfif len(spouse_email)>
-				<cfset querySetCell(loc.spouse,"handbookpersonemail","#spouse_email#",currentRow)>
-			</cfif>
-		</cfloop>
-
-		<cfquery dbtype="query" name="loc.profiles">
-			SELECT *
+			writeOutput("SELECT *
 			FROM loc.person
 			UNION
 			SELECT *
-			FROM loc.spouse
-		</cfquery>
+			FROM loc.spouse")
+		}
+		cfquery( dbtype="query", name="loc.profiles" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
 
-		<cfquery dbtype="query" name="loc.profiles">
-			SELECT *
+			writeOutput("SELECT *
 			FROM loc.profiles
-			ORDER BY #arguments.orderby#
-		</cfquery>
-
-	<cfelse>
-		<cfset loc.profiles = findDatesByType(arguments.dateType)>
-	</cfif>
-
-	<cfreturn loc.profiles>
-	</cffunction>
-
-	<cffunction name="findDatesThisWeek" hint="I get findDatesSorted and then filter for this week">
-	<cfargument name="type" required="true" type="string">
-	<cfargument name="today" default="#dayOfYear(now())#">
-	<cfargument name="until" default="#dayOfYear(now())+7#">
-
-		<cfset datesSorted = findDatesSorted(arguments.type)>
-
-		<cfset thisweek = week(now())>
-		<cfquery dbtype="query" name="datesthisweek">
-			SELECT *
-			FROM datesSorted
-			WHERE #arguments.type#DayOfYearNumber BETWEEN #arguments.today-1# AND #arguments.until#
-			ORDER BY #arguments.type#MonthNumber,#arguments.type#daynumber
-		</cfquery>
-
-		<cfreturn datesThisWeek>
-
-	</cffunction>
-
-	<cffunction name="findDatesToday">
-	<cfargument name="type" required="true" type="string">
-	<cfargument name="now" required="true" type="string">
-	<cfargument name="today" default="#dayOfYear(arguments.now)#">
-	<cfargument name="monthnumber" default="#month(arguments.now)#">
-	<cfargument name="daynumber" default="#day(arguments.now)#">
-
-		<cfset datesSorted = findDatesSorted(arguments.type)>
-
-		<cfquery dbtype="query" name="datestoday">
-			SELECT *
-			FROM datesSorted
-			WHERE #arguments.type#MonthNumber = #arguments.monthnumber# AND #arguments.type#dayNumber = #arguments.daynumber#
-			ORDER BY #arguments.type#daynumber
-		</cfquery>
-
-		<cfreturn datestoday>
-
-	</cffunction>
-
-	<cffunction name="findFocus">
-	<cfargument name="region" required="true" type="string">
-	<cfset var loc = structNew()>
-
-		<!--- Get names from handbook people with positions in organizations in districts in regions --->
-		<cfset loc.handbookpeople = findAll(select="fname, lname, handbookpeople.email, region", where="p_sortorder < 500 AND focusretreat = '#arguments.region#' AND fnamegender = 'm'", include="Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict))", order="lname,fname,email")>
-
-		<!--- Get names from past focus registrations in that region --->
-		<cfquery datasource="#application.wheels.datasourcename#" name="loc.focuspeople">
-			SELECT fname, lname, p.email, menuname as region
-			FROM focus_registrants p
-			JOIN focus_registrations r
-				ON r.registrantid = p.id
-			JOIN focus_items i
-				ON r.itemid = i.id
-			JOIN focus_retreats s
-				ON i.retreatid = s.id
-			WHERE s.menuname = '#arguments.region#'
-			ORDER BY lname,fname,email
-		</cfquery>
-
-		<!--- Combine both queries --->
-		<cfset loc.allpeople = combineTwoQueries(loc.handbookpeople, loc.focuspeople)>	
-
-		<cftry>
-			<cfset loc.addedpeople = focusEmailAdds(arguments.region)>
-			<cfset loc.allpeople = combineTwoQueries(loc.allpeople, loc.addedpeople)>	
-			<cfcatch>
-			</cfcatch>
-		</cftry>
-
-		<!--- remove duplicates --->
-		<cfset loc.people = distinctsFromQuery(loc.allpeople)>
-
-		<cfreturn loc.people>
-
-	</cffunction>
-
-<cfscript>
-	function focusEmailAdds(retreat){
-		var path =  CGI.http_host;
-		var file = '/files/focus/mailListAddOns/' & #retreat# & ".txt";
-		var filePath = expandPath(file);
-		cffile(action="read" file=filepath variable="list");
-		return listToQuery(list, "email");
+			ORDER BY #arguments.orderby#")
+		}
+	} else {
+		loc.profiles = $findDatesByType(arguments.dateType)
 	}
-
-</cfscript>
-
-	<cffunction name="addFocusEmails">
-		<cfargument name="">
-	</cffunction>
-
-	<cffunction name="findAllStaff">
-		<cfset staff = findAll(select="id, selectname", where="p_sortorder <= 500 AND position <> 'Removed From Staff' AND (private = 'NO' OR private IS NULL)", include="Handbookpositions,Handbookstate", order="selectname")>
-		<cfquery dbtype="query" name="staff">
-			select DISTINCT *
-			from staff
-			order by selectname
-		</cfquery>
-		<cfset staff = queryToJson(staff)>
-		<cfreturn staff>
-	</cffunction>
-
-	<cffunction name="findStaff">
-	<cfargument name="staffid" required="true" type="numeric">
-		<cfset staff = findAll(select="id,fname,lname,spouse,file,address1,address2,city,state,zip,phone,phone2,email,name,position,birthdayasstring,anniversaryasstring,organizationid",where="id=#arguments.staffid# AND (private = 'NO' OR private IS NULL)", include="Handbookpositions(Handbookorganization),Handbookstate,Handbookprofile")>
-		<cfset staff = queryToJson(staff)>
-		<cfreturn staff>
-	</cffunction>
-
-	<cffunction name="clearSendHandbooks">
-		<cfquery datasource="#application.wheels.dataSourceName#" name="cleared" result="whatever">
-			UPDATE handbookpeople
-			SET sendhandbook = ""
-			WHERE id > 0
-		</cfquery>
-		<cfreturn true>
-	</cffunction>
-
-<cfscript>
-
-public function getHandbookReviewStruct(
-	type = "Everyone",
-	lastReviewedBefore = dateFormat(now()+1),
-	orderby = "lname",
-	go = false,
-	tag="",
-	username="none",
-	maxrows = 10000000
-){
-	var loc=arguments;
-	var whereString = "id > 0 AND (reviewedAt < '#loc.lastReviewedBefore#' OR reviewedAt IS NULL) AND (updatedAt < '#loc.lastReviewedBefore#')";
-	if (len(tag)){whereString = whereString & " AND tag='#tag#' AND username = '#username#'"};
-	loc.people = {};
-	loc.rowcount = 0;
-	loc.previousid = 0;
-	if (loc.go) {
-		whereString = $buildWhereString(whereString,loc.type);
-		selectString = "handbookpeople.id,lname,concat(lname,', ',fname) as SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') as reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') as updatedAt";
-		loc.peopleQ = findAll(select=selectString, where = whereString, include="State,Handbookpositions,Handbooktags", maxrows=maxrows, order=orderby);
-		loc.people = $peopleQueryToArray(loc.peopleQ);
-		loc.people = $removeInValidEmail(loc.people);
-		loc.people = $addLastEmailToConfirm(loc.people);
-		loc.people = $removeDuplicates(loc.people);
-		return loc.people;		
-	}
-	else {
-		return $testPeople();
-	}
+	return loc.profiles
 }
 
-private function $buildWhereString(required string whereString,required string type){
-	var loc = arguments;
-	switch (loc.type) {
-		case "Staff":
-			loc.newWhereString = loc.whereString & " AND p_sortorder < 500";
-			break;
-		case "Non-Staff":
-			loc.newWhereString = loc.wherestring & " AND p_sortorder => 500 AND p_sortorder < 900";
-			break;
-		case "Everyone":
-			loc.newWhereString = loc.wherestring & " AND p_sortorder < 900";
-			break;				
-	};
-	return loc.newWhereString;
+
+function findDatesThisWeek(required string type, today="#dayOfYear(now())#", until="#dayOfYear(now())+7#") {
+		datesSorted = findDatesSorted(arguments.type)
+		thisweek = week(now())
+		cfquery( dbtype="query", name="datesthisweek" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+	
+			writeOutput("SELECT *
+				FROM datesSorted
+				WHERE #arguments.type#DayOfYearNumber BETWEEN #arguments.today-1# AND #arguments.until#
+				ORDER BY #arguments.type#MonthNumber,#arguments.type#daynumber")
+		}
+		return datesThisWeek
+	}
+	
+	function findDatesToday(required string type, required string now, today="#dayOfYear(arguments.now)#", monthnumber="#month(arguments.now)#", daynumber="#day(arguments.now)#") {
+		datesSorted = findDatesSorted(arguments.type)
+		cfquery( dbtype="query", name="datestoday" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+	
+			writeOutput("SELECT *
+				FROM datesSorted
+				WHERE #arguments.type#MonthNumber = #arguments.monthnumber# AND #arguments.type#dayNumber = #arguments.daynumber#
+				ORDER BY #arguments.type#daynumber")
+		}
+		return datestoday
+	}
+
+	function $findDatesByType(required string datetype) {
+		var loc=structNew()
+		if ( arguments.datetype contains "birthday" ) {
+			loc.orderstring = "birthdayMonthNumber,birthdayDayNumber"
+		} else if ( arguments.datetype contains "anniversary" ) {
+			loc.orderstring = "anniversaryMonthNumber,anniversaryDayNumber"
+		}
+		// Remove personid after
+		loc.whereString = "#arguments.datetype#AsString != NULL"
+		// Remove spouse birthdays and anniversaries where spouse name is blank - probably deceased
+		if ( arguments.datetype == "wifesbirthday" || arguments.datetype == "anniversary" ) {
+			loc.whereString = loc.wherestring & " && spouse != NULL"
+		}
+		arguments.datetype = arguments.datetype & "asstring"
+		loc.profiles = model("Handbookprofile").findAll(
+					 include="Handbookperson(Handbookstate)",
+					 where=loc.whereString,
+					 order=loc.orderstring
+					 )
+		return loc.profiles
+	}
+<!-------------------------------------------------------->
+<!---END OF MODELS FOR BIRTHDAY AND ANNIVERSARY REPORTS--->	
+<!-------------------------------------------------------->
+
+
+
+
+
+
+<!----------------------------------------->	
+<!---USED FOR FOCUS RETREAT MAILING LIST--->
+<!----------------------------------------->	
+	function findFocus(required string region) {
+		var loc = structNew()
+		//  Get names from handbook people with positions in organizations in districts in regions 
+		loc.handbookpeople = findAll(select="fname, lname, handbookpeople.email, region", where="p_sortorder < 500 AND focusretreat = '#arguments.region#' AND fnamegender = 'm'", include="Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict))", order="lname,fname,email")
+		loc.focuspeople = $findAllRegional(arguments.region)
+		//  Get names from past focus registrations in that region 
+		//  Combine both queries 
+		loc.allpeople = combineTwoQueries(loc.handbookpeople, loc.focuspeople)
+		try {
+			loc.addedpeople = $focusEmailAdds(arguments.region)
+			loc.allpeople = combineTwoQueries(loc.allpeople, loc.addedpeople)
+		} catch (any cfcatch) {
+		}
+		//  remove duplicates 
+		loc.people = distinctsFromQuery(loc.allpeople)
+		return loc.people
+	}
+
+	function $findAllRegional(required string region){
+		var loc={}
+		cfquery( name="loc.focuspeople", datasource=application.wheels.datasourcename ) {
+	
+			writeOutput("SELECT fname, lname, p.email, menuname as region
+				FROM focus_registrants p
+				JOIN focus_registrations r
+					ON r.registrantid = p.id
+				JOIN focus_items i
+					ON r.itemid = i.id
+				JOIN focus_retreats s
+					ON i.retreatid = s.id
+				WHERE s.menuname = '#arguments.region#'
+				ORDER BY lname,fname,email")
+		}
+		return loc.focuspeople
+	}
+	
+	function $focusEmailAdds(retreat){
+		var path =  CGI.http_host
+		var file = '/files/focus/mailListAddOns/' & #retreat# & ".txt"
+		var filePath = expandPath(file)
+		cffile(action="read" file=filepath variable="list")
+		return listToQuery(list, "email")
+	}
+<!------------------------------------------------>	
+<!---END OF USED FOR FOCUS RETREAT MAILING LIST--->
+<!------------------------------------------------>	
+
+
+
+
+
+<!----------------------------->
+<!---HANDBOOK REVIEW ACTIONS--->
+<!----------------------------->
+
+	public function getHandbookReviewStruct(
+		type = "Everyone",
+		lastReviewedBefore = dateFormat(now()+1),
+		orderby = "lname",
+		go = false,
+		tag="",
+		username="none",
+		maxrows = 10000000
+	){
+		var loc=arguments
+		var whereString = "id > 0 AND (reviewedAt < '#loc.lastReviewedBefore#' OR reviewedAt IS NULL) AND (updatedAt < '#loc.lastReviewedBefore#')"
+		if (len(tag)){whereString = whereString & " AND tag='#tag#' AND username = '#username#'"}
+		loc.people = {}
+		loc.rowcount = 0
+		loc.previousid = 0
+		if (loc.go) {
+			whereString = $buildWhereString(whereString,loc.type)
+			selectString = "handbookpeople.id,lname,concat(lname,', ',fname) as SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') as reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') as updatedAt"
+			loc.peopleQ = findAll(select=selectString, where = whereString, include="State,Handbookpositions,Handbooktags", maxrows=maxrows, order=orderby)
+			loc.people = $peopleQueryToArray(loc.peopleQ)
+			loc.people = $removeInValidEmail(loc.people)
+			loc.people = $addLastEmailToConfirm(loc.people)
+			loc.people = $removeDuplicates(loc.people)
+			return loc.people		
+		}
+		else {
+			return $testPeople()
+		}
+	}
+
+	private function $buildWhereString(required string whereString,required string type){
+		var loc = arguments
+		switch (loc.type) {
+			case "Staff":
+				loc.newWhereString = loc.whereString & " AND p_sortorder < 500"
+				break
+			case "Non-Staff":
+				loc.newWhereString = loc.wherestring & " AND p_sortorder => 500 AND p_sortorder < 900"
+				break
+			case "Everyone":
+				loc.newWhereString = loc.wherestring & " AND p_sortorder < 900"
+				break				
+		}
+		return loc.newWhereString
+	}
+
+	private function $peopleQueryToArray(peopleQuery){
+		var loc = arguments
+		loc.peopleArray = queryToArray(loc.peopleQuery)
+		return loc.peopleArray
+	}
+
+	function $addLastEmailToConfirm(required thisArray) {
+		var loc = arguments
+		writeDump(loc);abort;
+		loc.newkey = arraylen(loc.thisArray) +1
+		loc.thisarray[loc.newkey].email = "tomavey@fgbc.org"
+		loc.thisarray[loc.newkey].email2 = "tomavey@fgbc.org"
+		loc.thisarray[loc.newkey].id = 233
+		loc.thisarray[loc.newkey].selectname = "Test Person - ###arrayLen(loc.thisarray)# at end of list"
+		loc.thisarray[loc.newkey].lname = "Avey"
+		loc.thisarray[loc.newkey].reviewedAt = "2016-09-01"
+		loc.thisarray[loc.newkey].reviewedBy = "tomavey@fgbc.org"
+		loc.thisarray[loc.newkey].updatedAt = "2016-09-01"
+		return loc.thisarray
+	}
+	
+	function $testPeople() {
+		var emails = "tomavey@fgbc.org,tomavey@comcast.net"
+		var testPeople = []
+		thisPerson = {}
+		var loc=structNew()
+		for ( loc.i in emails ) {
+			thisperson.selectName = "Tom Avey"
+			thisperson.lname = "Avey"
+			thisperson.id = 100
+			thisperson.email = loc.i
+			thisperson.email2 = loc.i
+			thisperson.reviewedAt = "September 1, 2016"
+			thisperson.updatedAt = "September 1, 2016"
+			thisperson.reviewedBy = loc.i
+			arrayAppend(testPeople,thisPerson)
+			thisperson = {}
+		}
+		thisperson.selectName = "Tom Avey"
+		thisperson.lname = "Avey"
+		thisperson.id = 100
+		thisperson.email = "tomavey@fgbc.orgtomavey@comcast.net"
+		thisperson.email2 = loc.i
+		thisperson.reviewedAt = "September 1, 2016"
+		thisperson.updatedAt = "September 1, 2016"
+		thisperson.reviewedBy = loc.i
+		arrayAppend(testPeople,thisPerson)
+		thisperson = {}
+		return testPeople
+	}
+	
+	function clearSendHandbooks() {
+		cfquery( name="cleared", datasource=application.wheels.dataSourceName, result="whatever" ) {
+
+			writeOutput("UPDATE handbookpeople
+				SET sendhandbook = """"
+				WHERE id > 0")
+		}
+		return true
+	}
+
+	function $removeInValidEmail(required array handbookReviewArray) {
+		var loc = arguments
+		loc.newArray = []
+		for ( loc.i=1; loc.i<=arraylen(loc.handbookReviewArray); loc.i++ ) {
+			if ( isvalid("email",loc.handbookReviewArray[loc.i].email) ) {
+				arrayAppend(loc.newArray,loc.handbookReviewArray[loc.i])
+			}
+		}
+		return loc.newarray
+	}
+	
+	function reSort(required numeric orgId) {
+		var staff = findAll(where="p_sortorder < #getNonStaffSortOrder()# AND organizationid = #arguments.orgid#", include="Handbookpositions,Handbookstate", cache=false, order="p_sortorder, updatedAt")
+		for ( var i=1; i LTE staff.recordCount; i=i+1 ) {
+			var row = queryGetRow(staff,i)
+			var qry = new Query(
+				datasource = "fgbc_main_3",
+				sql = "UPDATE handbookpositions
+				SET p_sortorder = #i#
+				WHERE personid = #row.id#
+					AND organizationid = #row.organizationid#" 			
+			)
+			qry.execute()
+		}
+		return true
+	}
+<!------------------------------------>
+<!---END OF HANDBOOK REVIEW ACTIONS--->
+<!------------------------------------>
+
+
+
+
+
+
+<!------------------>
+<!---Misc Actions--->
+<!------------------>
+
+function swapSortOrder(required numeric thisSortorder, required numeric thisId, required numeric otherSortorder, required numeric otherId, dsn="#application.wheels.dataSourceName#") {
+	cfquery( datasource=arguments.dsn ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+
+		writeOutput("UPDATE handbookpositions
+				SET p_sortorder = #arguments.otherSortorder#
+				WHERE id = #arguments.thisid#")
+	}
+	cfquery( datasource=arguments.dsn ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+
+		writeOutput("UPDATE handbookpositions
+				SET p_sortorder = #arguments.thisSortorder#
+				WHERE id = #arguments.otherid#")
+	}
+	return true
 }
 
-private function $peopleQueryToArray(peopleQuery){
-	var loc = arguments;
-	loc.peopleArray = queryToArray(loc.peopleQuery);
-	return loc.peopleArray;
+
 }
-
-</cfscript>	
-
-	<cffunction name="$addLastEmailToConfirm">
-	<cfargument name="thisArray" required="true">
-	<cfset var loc = arguments>
-	<cfset loc.newkey = arraylen(loc.thisarray) +1>
-			<cfset loc.thisarray[loc.newkey].email = "tomavey@fgbc.org">
-			<cfset loc.thisarray[loc.newkey].email2 = "tomavey@fgbc.org">
-			<cfset loc.thisarray[loc.newkey].id = 233>
-			<cfset loc.thisarray[loc.newkey].selectname = "Test Person - ###arrayLen(loc.thisarray)# at end of list">
-			<cfset loc.thisarray[loc.newkey].lname = "Avey">
-			<cfset loc.thisarray[loc.newkey].reviewedAt = "2016-09-01">
-			<cfset loc.thisarray[loc.newkey].reviewedBy = "tomavey@fgbc.org">
-			<cfset loc.thisarray[loc.newkey].updatedAt = "2016-09-01">
-	<cfreturn loc.thisarray>	
-	</cffunction>
-
-	<cffunction name="$testPeople">
-	<cfset var emails = "tomavey@fgbc.org,tomavey@comcast.net">
-	<cfset var testPeople = []>
-	<cfset thisPerson = {}>
-	<cfset var loc=structNew()>
-	<cfloop list='#emails#' index="loc.i">
-		<cfset thisperson.selectName = "Tom Avey">
-		<cfset thisperson.lname = "Avey">
-		<cfset thisperson.id = 100>
-		<cfset thisperson.email = loc.i>
-		<cfset thisperson.email2 = loc.i>
-		<cfset thisperson.reviewedAt = "September 1, 2016">
-		<cfset thisperson.updatedAt = "September 1, 2016">
-		<cfset thisperson.reviewedBy = loc.i>
-		<cfset arrayAppend(testPeople,thisPerson)>
-		<cfset thisperson = {}>
-	</cfloop>
-		<cfset thisperson.selectName = "Tom Avey">
-		<cfset thisperson.lname = "Avey">
-		<cfset thisperson.id = 100>
-		<cfset thisperson.email = "tomavey@fgbc.org;tomavey@comcast.net">
-		<cfset thisperson.email2 = loc.i>
-		<cfset thisperson.reviewedAt = "September 1, 2016">
-		<cfset thisperson.updatedAt = "September 1, 2016">
-		<cfset thisperson.reviewedBy = loc.i>
-		<cfset arrayAppend(testPeople,thisPerson)>
-		<cfset thisperson = {}>
-	<cfreturn testPeople>
-	</cffunction>
-
-	<cffunction name="$removeDuplicates">
-	<cfargument name="handbookReviewStruct" required='true' type="array">
-	<cfset var loc = arguments>
-	<cfset loc.newArray = []>
-	<cfloop from="1" to="#arraylen(loc.handbookReviewStruct)#" index="loc.i">
-		<cfif !arrayFind(loc.newArray,loc.handbookReviewStruct[loc.i])>
-			<cfset arrayAppend(loc.newArray,loc.handbookReviewStruct[loc.i])>
-		</cfif>	
-	</cfloop>
-	<cfreturn loc.newarray>
-	</cffunction>
-
-	<cffunction name="$removeInValidEmail">
-	<cfargument name="handbookReviewArray" required='true' type="array">
-	<cfset var loc = arguments>
-	<cfset loc.newArray = []>
-	<cfloop from="1" to="#arraylen(loc.handbookReviewArray)#" index="loc.i">
-		<cfif isvalid("email",loc.handbookReviewArray[loc.i].email)>
-			<cfset arrayAppend(loc.newArray,loc.handbookReviewArray[loc.i])>
-		</cfif>	
-	</cfloop>
-	<cfreturn loc.newarray>
-	</cffunction>
-
-	<cffunction name="reSort">
-	<cfargument name="orgId" required=true type="numeric">	
-		<cfset var staff = findAll(where="p_sortorder < #getNonStaffSortOrder()# AND organizationid = #arguments.orgid#", include="Handbookpositions,Handbookstate", cache=false, order="p_sortorder, updatedAt")>
-		<cfloop query="staff">
-			<cfquery datasource="fgbc_main_3" result="res">
-					UPDATE handbookpositions
-					SET p_sortorder = #currentrow#
-					WHERE personid = #id#
-						AND organizationid = #organizationid#
-			</cfquery>
-		</cfloop>
-		<cfreturn true>
-	</cffunction>
-
-
-<!---Not sure where this is used--->
-	<cffunction name="handbookReport">
-
-	</cffunction>
-
-
-
-</cfcomponent>
