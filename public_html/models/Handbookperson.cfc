@@ -531,18 +531,19 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		go = false,
 		tag="",
 		username="none",
-		maxrows = 10000000
+		maxrows = 10
 	){
 		var loc=arguments
 		var whereString = "id > 0 AND (reviewedAt < '#loc.lastReviewedBefore#' OR reviewedAt IS NULL) AND (updatedAt < '#loc.lastReviewedBefore#')"
-		if (len(tag)){whereString = whereString & " AND tag='#tag#' AND username = '#username#'"}
+		if ( len(tag) ){ whereString = whereString & " AND tag='#tag#' AND username = '#username#'" }
 		loc.people = {}
 		loc.rowcount = 0
 		loc.previousid = 0
 		if (loc.go) {
 			whereString = $buildWhereString(whereString,loc.type)
-			selectString = "handbookpeople.id,lname,concat(lname,', ',fname) as SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') as reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') as updatedAt"
+			selectString = "handbookpeople.id,lname,concat(lname,', ',fname) AS SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') AS reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') AS updatedAt"
 			loc.peopleQ = findAll(select=selectString, where = whereString, include="State,Handbookpositions,Handbooktags", maxrows=maxrows, order=orderby)
+			writeDump(loc);abort;
 			loc.people = $peopleQueryToArray(loc.peopleQ)
 			loc.people = $removeInValidEmail(loc.people)
 			loc.people = $addLastEmailToConfirm(loc.people)
@@ -559,13 +560,13 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		switch (loc.type) {
 			case "Staff":
 				loc.newWhereString = loc.whereString & " AND p_sortorder < 500"
-				break
+				break;
 			case "Non-Staff":
 				loc.newWhereString = loc.wherestring & " AND p_sortorder => 500 AND p_sortorder < 900"
-				break
+				break;
 			case "Everyone":
 				loc.newWhereString = loc.wherestring & " AND p_sortorder < 900"
-				break				
+				break;				
 		}
 		return loc.newWhereString
 	}
@@ -578,7 +579,6 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 
 	function $addLastEmailToConfirm(required thisArray) {
 		var loc = arguments
-		writeDump(loc);abort;
 		loc.newkey = arraylen(loc.thisArray) +1
 		loc.thisarray[loc.newkey].email = "tomavey@fgbc.org"
 		loc.thisarray[loc.newkey].email2 = "tomavey@fgbc.org"
