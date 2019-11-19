@@ -531,7 +531,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		go = false,
 		tag="",
 		username="none",
-		maxrows = 10
+		maxrows = 1000000
 	){
 		var loc=arguments
 		var whereString = "id > 0 AND (reviewedAt < '#loc.lastReviewedBefore#' OR reviewedAt IS NULL) AND (updatedAt < '#loc.lastReviewedBefore#')"
