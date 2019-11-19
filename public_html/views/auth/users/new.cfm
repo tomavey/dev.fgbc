@@ -37,7 +37,7 @@
 			</p>
 
 			<p>What does the greek word "charis" mean?
-			<input type=text v-model="charis">
+			<input type=text v-model="charis" name="charis">
 			</p>
 
 			<div @mouseover="mouseover"  class="mouseover">

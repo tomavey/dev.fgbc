@@ -80,6 +80,10 @@ component extends="Controller" output="false" {
 
 	public function confirmCode(){
 		session.auth.tempUser = params.user
+		if ( params.charis != "grace" ) {
+			flashInsert(usedEmail='Please answer the "charis" security question')
+			returnBack() 
+		}
 		if ( !isUniqueEmail(params.user.email) ) { 
 			flashInsert(usedEmail='We already have a user account with this email. Use a new email or use the "Forgot Password" option to reset.')
 			returnBack() 
