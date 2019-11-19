@@ -1,5 +1,6 @@
 component extends="Model" output="false" {
 
+
 	function init() {
 		table("handbookpeople")
 		// Associations
@@ -14,13 +15,13 @@ component extends="Model" output="false" {
 		hasOne(name="Handbookprofile", foreignKey="personid", dependent="delete")
 		// Nested Properties
 		nestedProperties(
-							associations="Handbookpositions",
-							allowDelete=true
-					)
+			associations="Handbookpositions",
+			allowDelete=true
+		)
 		nestedProperties(
-							associations="Handbookprofile",
-							allowDelete=true
-					)
+			associations="Handbookprofile",
+			allowDelete=true
+		)
 		// Call backs
 		afterCreate("logCreates")
 		beforeUpdate("logUpdates")
@@ -28,35 +29,34 @@ component extends="Model" output="false" {
 		// Properties
 		property(name="alpha", sql="left(lname,1)")
 		property(
-				name="state_mail_abbrev",
-				sql="SELECT state_mail_abbrev FROM handbookstates where handbookstates.id = handbookpeople.stateid"
-				)
+			name="state_mail_abbrev",
+			sql="SELECT state_mail_abbrev FROM handbookstates where handbookstates.id = handbookpeople.stateid"
+		)
 		property(
-				name="state",
-				sql="SELECT state FROM handbookstates where handbookstates.id = handbookpeople.stateid"
-				)
+			name="state",
+			sql="SELECT state FROM handbookstates where handbookstates.id = handbookpeople.stateid"
+		)
 		property(
-				name="selectName",
-				sql="CONCAT_WS(', ',lname,fname,city,state_mail_abbrev)"
-				)
+			name="selectName",
+			sql="CONCAT_WS(', ',lname,fname,city,state_mail_abbrev)"
+		)
 		property(
-				name="selectNameID",
-				sql="CONCAT_WS(', ',lname,fname,city,state_mail_abbrev,handbookpeople.ID)"
-				)
+			name="selectNameID",
+			sql="CONCAT_WS(', ',lname,fname,city,state_mail_abbrev,handbookpeople.ID)"
+		)
 		property(
-				name="fullname",
-				sql="TRIM(CONCAT_WS(' ',fname,lname,suffix))"
-				)
+			name="fullname",
+			sql="TRIM(CONCAT_WS(' ',fname,lname,suffix))"
+		)
 		property(
-				name="spousefullname",
-				sql="TRIM(CONCAT_WS(' ',spouse,lname,suffix))"
-				)
+			name="spousefullname",
+			sql="TRIM(CONCAT_WS(' ',spouse,lname,suffix))"
+		)
 		property(
-				name="file",
-				sql="SELECT file FROM handbookpictures where personid = handbookpeople.id && usefor = 'default' LIMIT 1"
-				)
+			name="file",
+			sql="SELECT file FROM handbookpictures where personid = handbookpeople.id && usefor = 'default' LIMIT 1"
+		)
 	}
-
 
 
 
@@ -67,40 +67,16 @@ component extends="Model" output="false" {
 <!---CALLBACKS FOR UPDATE AND CREATE LOGS--->
 <!------------------------------------------>
 
-	function logUpdates(modelName="Handbookperson", createdBy="na") {
-		if ( isDefined("session.auth.email") ) {
-			arguments.createdBy = session.auth.email
-		}
-		old = model("#arguments.modelName#").findByKey(key=this.id, include="Handbookstate")
-		new = this
-		changes= new.changedProperties()
-		for ( i in changes ) {
-			if ( !i == "updatedAt" && !i == "sendhandbook" ) {
-				newupdate.modelName = arguments.modelName
-				newupdate.recordId = this.id
-				newupdate.columnName = i
-				newupdate.datatype = "update"
-				newupdate.olddata = old[i]
-				newupdate.newData = new[i]
-				newupdate.createdBy = "#arguments.createdBy#"
-				update = model("Handbookupdate").create(newupdate)
-			}
-		}
-		return true
+	function logUpdates(modelName="Handbookperson"){
+		superLogUpdates(arguments.modelName)
 	}
 
-	function logCreates() {
-		person = model("HandbookPerson").findByKey(key=this.id, include="handbookState")
-		if ( isObject(person) ) {
-			superLogCreates('HandbookPerson',person.selectName)
-		}
+	function logCreates(modelName="Handbookperson") {
+			superLogCreates(arguments.modelName)
 	}
 	
-	function logDeletes() {
-		person = model("HandbookPerson").findByKey(key=this.id, include="handbookState")
-		if ( isObject(person) ) {
-			superLogDeletes('HandbookPerson',person.selectName)
-		}
+	function logDeletes(modelName="Handbookperson") {
+			superLogDeletes(arguments.modelName)
 	}
 <!------------------------------------------------->
 <!---END OF CALLBACKS FOR UPDATE AND CREATE LOGS--->

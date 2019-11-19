@@ -1,103 +1,72 @@
 <cfcomponent extends="Model" output="false">
 
-	<cffunction name="init">
-		<cfset table("handbookorganizations")>
-
-		<!---Associations--->
-		<cfset hasMany(name="Handbookpositions", foreignKey="organizationId", joinType="inner")>
-		<cfset hasMany(name="Positions", modelName="Handbookposition", foreignKey="organizationId", joinType="outer")>
-		<cfset hasMany(name="Handbookstatistics", foreignKey="organizationId")>
-		<cfset belongsTo(name="Handbookstate", foreignkey="stateid")>
-		<cfset belongsTo(name="State", modelName="Handbookstate", foreignkey="stateid")>
-		<cfset belongsTo(name="ListeAsState", modelName="Handbookstate", foreignkey="listed_as_stateid")>
-		<cfset belongsTo(name="Handbookstatus", foreignkey="statusid")>
-		<cfset belongsTo(name="Handbookdistrict", foreignkey="districtid")>
-		<cfset belongsTo(name="District",  modelName="Handbookdistrict", foreignkey="districtid")>
-		<cfset hasMany(name="Handbooktags", foreignKey="itemid")>
-
-		<!---CallBacks--->
-		<cfset beforeUpdate("logUpdates,doListedAS")>
-		<cfset beforeCreate("doListedAs")>
-		<cfset beforeSave("doListedAs")>
-		<cfset afterCreate("logCreates")>
-		<cfset afterDelete("logDeletes")>
-		<cfset afterFind("doListedAs")>
-
-		<!---Properties--->
-
-		<cfset property(
+<cfscript>
+	
+	function init() {
+		table("handbookorganizations")
+		// Associations
+		hasMany(name="Handbookpositions", foreignKey="organizationId", joinType="inner")
+		hasMany(name="Positions", modelName="Handbookposition", foreignKey="organizationId", joinType="outer")
+		hasMany(name="Handbookstatistics", foreignKey="organizationId")
+		belongsTo(name="Handbookstate", foreignkey="stateid")
+		belongsTo(name="State", modelName="Handbookstate", foreignkey="stateid")
+		belongsTo(name="ListeAsState", modelName="Handbookstate", foreignkey="listed_as_stateid")
+		belongsTo(name="Handbookstatus", foreignkey="statusid")
+		belongsTo(name="Handbookdistrict", foreignkey="districtid")
+		belongsTo(name="District",  modelName="Handbookdistrict", foreignkey="districtid")
+		hasMany(name="Handbooktags", foreignKey="itemid")
+		// CallBacks
+		beforeUpdate("logUpdates,doListedAS")
+		beforeCreate("doListedAs")
+		beforeSave("doListedAs")
+		afterCreate("logCreates")
+		afterDelete("logDeletes")
+		afterFind("doListedAs")
+		// Properties
+		property(
 			name="state_mail_abbrev",
 			sql="(SELECT handbookstates.state_mail_abbrev FROM handbookstates WHERE handbookstates.id = handbookorganizations.stateid)"
-			)>
-
-		<cfset property(
+		)
+		property(
 			name="selectName",
 			sql="CONCAT_WS(', ',handbookorganizations.name,org_city,state_mail_abbrev)"
-			)>
-		<cfset property(
+		)
+		property(
 			name="selectNameCity",
 			sql="CONCAT_WS(', ',org_city,state_mail_abbrev,handbookorganizations.name)"
-			)>
-		<cfset property(
+		)
+		property(
 			name="selectNameCity2",
 			sql="CONCAT_WS('-',handbookorganizations.name,org_city,state_mail_abbrev)"
-			)>
-
-	</cffunction>
+		)
+	}
 
 	<!---CallBack Functions--->
-	<cffunction name="logUpdates">
-	<cfargument name="modelName" default="Handbookorganization">
-	<cfargument name="createdBy" default="#session.auth.email#">
 
-		<cfset old = model("#arguments.modelName#").findByKey(key=this.id, include="Handbookstate")>
-		<cfset new = this>
-		<cfset changes= new.changedProperties()>
-		<cfoutput>
-		<cfloop list="#changes#" index="i">
-			<cfif not i is "updatedAt">
-				<cfset newupdate.modelName = arguments.modelName>
-				<cfset newupdate.recordId = this.id>
-				<cfset newupdate.columnName = i>
-				<cfset newupdate.datatype = "update">
-				<cfset newupdate.olddata = old[i]>
-				<cfset newupdate.newData = new[i]>
-				<cfset newupdate.createdBy = "#arguments.createdBy#">
-				<cfset update = model("Handbookupdate").create(newupdate)>
-			</cfif>
-		</cfloop>
-		</cfoutput>
-		<cfreturn true>
-	</cffunction>
+	
+	function logUpdates(modelName="Handbookorganization"){
+		superLogUpdates(arguments.modelName)
+	}
 
-	<cffunction name="logCreates">
-	<cfargument name="modelName" default="Handbookorganization">
-	<cfargument name="createdBy" default="#session.auth.email#">
+	function logCreates(modelName="Handbookorganization") {
+			superLogCreates(arguments.modelName)
+	}
+	
+	function logDeletes(modelName="Handbookorganization") {
+			superLogDeletes(arguments.modelName)
+	}
+	
+	function doListedAs() {
+		if ( isDefined("this.org_city") && !len(this.listed_as_city) ) {
+			this.listed_as_city = this.org_city
+		}
+		if ( isDefined("this.stateid") && (!len(this.listed_as_stateid) || this.listed_as_stateid == 60) ) {
+			this.listed_as_stateid = this.stateid
+		}
+	}
+	
+</cfscript>
 
-		<cfset newSave.modelName = arguments.modelName>
-		<cfset newSave.recordId = this.id>
-		<cfset newSave.datatype = "new">
-		<cfset newSave.createdBy = "#arguments.createdBy#">
-		<cfset update = model("Handbookupdate").create(newSave)>
-
-		<cfreturn true>
-
-	</cffunction>
-
-
-	<cffunction name="logDeletes">
-		<cfset person = model("handbookOrganization").findByKey(key=this.id, include="handbookState")>
-		<cfset superLogDeletes('handbookOrganization',person.selectName)>
-	</cffunction>
-
-	<cffunction name="doListedAs">
-		<cfif isDefined("this.org_city") AND !len(this.listed_as_city)>
-			<cfset this.listed_as_city = this.org_city>
-		</cfif>	
-		<cfif isDefined("this.stateid") AND (!len(this.listed_as_stateid) OR this.listed_as_stateid is 60)>
-			<cfset this.listed_as_stateid = this.stateid>
-		</cfif>	
-	</cffunction>
 
 <!---Finders--->
 
