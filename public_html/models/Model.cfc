@@ -5,56 +5,53 @@
 --->
 <cfcomponent extends="Wheels">
 
-	<cffunction name="superLogUpdates">
-	<cfargument name="modelName" required="true" type="string">
-	<cfargument name="createdBy" default="#session.auth.email#">
 
-		<cfset old = model("#arguments.modelName#").findByKey(this.id)>
-		<cfset new = this>
-		<cfset changes= new.changedProperties()>
-		<cfoutput>
-		<cfloop list="#changes#" index="i">
-			<cfif not i is "updatedAt">
-				<cfset newupdate.modelName = arguments.modelName>
-				<cfset newupdate.recordId = this.id>
-				<cfset newupdate.columnName = i>
-				<cfset newupdate.datatype = "update">
-				<cfset newupdate.olddata = old[i]>
-				<cfset newupdate.newData = new[i]>
-				<cfset newupdate.createdBy = "#arguments.createdBy#">
-				<cfset update = model("Handbookupdate").create(newupdate)>
-			</cfif>
-		</cfloop>
-		</cfoutput>
-	</cffunction>
+<cfscript>
 
-	<cffunction name="superLogCreates">
-	<cfargument name="modelName" required="true" type="string">
-	<cfargument name="olddata" default="#this.id#">
-	<cfargument name="createdBy" default="#session.auth.email#">
+	function superLogUpdates(required string modelName, createdBy=session.auth.email) {
+		var old = model(arguments.modelName).findByKey(key=this.id, include="Handbookstate")
+		var new = this
+		var changes = new.changedProperties()
+		for ( i in changes ) {
+			if ( !i == "updatedAt" && !i == "sendhandbook" && !i == "private" ) {
+				var newupdate = {
+					modelName: arguments.modelName,
+					recordId: this.id,
+					columnName: i,
+					datatype: "update",
+					olddata: old[i],
+					newData: new[i],
+					createdBy: arguments.createdBy
+				}
+				model("Handbookupdate").create(newupdate)
+			}
+		}
+		return true
+	}
 
-		<cfset newSave.modelName = arguments.modelName>
-		<cfset newSave.recordId = this.id>
-		<cfset newSave.datatype = "new">
-		<cfset newSave.olddata = arguments.olddata>
-		<cfset newSave.createdBy = "#arguments.createdBy#">
-		<cfset update = model("Handbookupdate").create(newSave)>
+	function superLogCreates(required string modelName, createdBy=session.auth.email) {
+		var newSave = {
+			modelName: arguments.modelName,
+			recordId: this.id,
+			datatype: "new",
+			createdBy = arguments.createdBy,
+		}
+		model("Handbookupdate").create(newSave);
+	}
+	
+	function superLogDeletes(required string modelName, createdBy=session.auth.email) {
+		var newSave = {
+			modelName: arguments.modelName,
+			recordId: this.id,
+			datatype: "deleted",
+			createdBy: arguments.createdBy
+		}
+		model("Handbookupdate").create(newSave);
+	}
+	
 
-	</cffunction>
+</cfscript>	
 
-	<cffunction name="superLogDeletes">
-	<cfargument name="modelName" required="true" type="string">
-	<cfargument name="olddata" default="NA">
-	<cfargument name="createdBy" default="#session.auth.email#">
-
-		<cfset newSave.modelName = arguments.modelName>
-		<cfset newSave.recordId = this.id>
-		<cfset newSave.datatype = "deleted">
-		<cfset newSave.olddata = arguments.olddata>
-		<cfset newSave.createdBy = arguments.createdBy>
-		<cfset update = model("Handbookupdate").create(newSave)>
-
-	</cffunction>
 
 	<cffunction name="htmlEdit">
 	<cfset var loc=StructNew()>
