@@ -156,11 +156,11 @@
 <cfscript>
 
 	public function getDataSourceName(){
-		return application.wheels.datasourcename;
+		return getDatasource()
 	}
 
 	private function getTypeOfRegOptions(){
-		return application.wheels.typeOfRegOptions;
+		return getSetting("typeOfRegOptions")
 	}
 
 	private function $buildMysqlLikeString(likeList){
@@ -198,6 +198,7 @@
 		}
 		return loc.return
 	}	
+
 </cfscript>	
 
 

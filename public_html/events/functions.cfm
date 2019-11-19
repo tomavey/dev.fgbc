@@ -46,23 +46,30 @@
 		</cfscript>
 	</cffunction>
 
-	<cffunction name="queryToJson">
-	<cfargument name="Data" type="query" required="yes" />
-	<cfset var loc = structNew()>
-	<cfset loc.columnnames = data.columnList>
-	<cfset loc.jsonObject = "[">
-		<cftry>
-		<cfoutput query="data">
-			<cfset loc.thisitem = "{">
-			<cfloop list="#loc.columnNames#" index="loc.i">
-				<cfset loc.thisdata = '"#escapeString(data[loc.i])#"'>
-				<cfset loc.thisitem = loc.thisitem & '"' & lcase(loc.i) & '"' & ":" & loc.thisdata & ",">
-			</cfloop>
-			<cfset loc.thisitem = left(loc.thisitem,len(loc.thisitem)-1) & "},">
-			<cfset loc.jsonObject = loc.jsonObject & loc.thisitem>
-		</cfoutput>
-		<cfset loc.jsonObject = left(loc.jsonObject,Len(loc.jsonObject)-1)>
-		<cfcatch></cfcatch></cftry>
+<cfscript>
+	function queryToJson(required query data){
+		return serializeJSON(arguments.data,"struct")
+	}
+</cfscript>	
+
+
+	<cffunction name="XqueryToJson">
+		<cfargument name="Data" type="query" required="yes" />
+		<cfset var loc = structNew()>
+		<cfset loc.columnnames = data.columnList>
+		<cfset loc.jsonObject = "[">
+			<cftry>
+			<cfoutput query="data">
+				<cfset loc.thisitem = "{">
+				<cfloop list="#loc.columnNames#" index="loc.i">
+					<cfset loc.thisdata = '"#escapeString(data[loc.i])#"'>
+					<cfset loc.thisitem = loc.thisitem & '"' & lcase(loc.i) & '"' & ":" & loc.thisdata & ",">
+				</cfloop>
+				<cfset loc.thisitem = left(loc.thisitem,len(loc.thisitem)-1) & "},">
+				<cfset loc.jsonObject = loc.jsonObject & loc.thisitem>
+			</cfoutput>
+			<cfset loc.jsonObject = left(loc.jsonObject,Len(loc.jsonObject)-1)>
+			<cfcatch></cfcatch></cftry>
 		<cfset loc.jsonObject = loc.jsonObject & "]">
 		<cfreturn loc.jsonObject>
 	</cffunction>

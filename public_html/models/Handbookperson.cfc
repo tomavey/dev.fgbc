@@ -622,7 +622,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		for ( var i=1; i LTE staff.recordCount; i=i+1 ) {
 			var row = queryGetRow(staff,i)
 			var qry = new Query(
-				datasource = "fgbc_main_3",
+				datasource = getDataSource(),
 				sql = "UPDATE handbookpositions
 				SET p_sortorder = #i#
 				WHERE personid = #row.id#
@@ -645,7 +645,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 <!---Misc Actions--->
 <!------------------>
 
-function swapSortOrder(required numeric thisSortorder, required numeric thisId, required numeric otherSortorder, required numeric otherId, dsn="#application.wheels.dataSourceName#") {
+function swapSortOrder(required numeric thisSortorder, required numeric thisId, required numeric otherSortorder, required numeric otherId, dsn=getDatasource()) {
 	cfquery( datasource=arguments.dsn ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
 
 		writeOutput("UPDATE handbookpositions
