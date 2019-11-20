@@ -249,7 +249,7 @@ public function getSetting(name, useSessionSetting=true){
 		<cfoutput query="data">
 			<cfset loc.thisitem = "{">
 			<cfloop list="#loc.columnNames#" index="loc.i">
-				<cfset loc.thisdata = '"#escapeString(data[loc.i])#"'>
+				<cfset loc.thisdata = '"#$escapeString(data[loc.i])#"'>
 				<cfset loc.thisitem = loc.thisitem & '"' & lcase(loc.i) & '"' & ":" & loc.thisdata & ",">
 			</cfloop>
 			<cfset loc.thisitem = left(loc.thisitem,len(loc.thisitem)-1) & "},">
