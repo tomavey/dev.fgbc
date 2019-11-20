@@ -14,143 +14,153 @@
 		return ministries
 	}
 
-</cfscript>	
+<!-------------->
+<!---CAPTCHA---->
+<!-------------->
 
-
-	<cffunction name="getCaptcha" output="no">
-	<cfset var arrValidChars = "">
-	<cfset var strCaptcha = arraynew(1)>
-	<cfset var captchaForm = "">
-		<!---
+function getCaptcha() output=false {
+	var arrValidChars = "";
+	var strCaptcha = arraynew(1);
+	var captchaForm = "";
+	/* 
 			Create the array of valid characters. Leave out the
 			numbers 0 (zero) and 1 (one) as they can be easily
 			confused with the characters o and l (respectively).
-		--->
-		<cfset arrValidChars = ListToArray(
+		*/
+	arrValidChars = ListToArray(
 			"A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z," &
 			"2,3,4,5,6,7,8,9"
-			) />
-
-		<!--- Now, shuffle the array. --->
-		<cfset CreateObject(
+			);
+	//  Now, shuffle the array. 
+	CreateObject(
 			"java",
 			"java.util.Collections"
 			).Shuffle(
 				arrValidChars
-				)
-			/>
-
-		<!---
+				);
+	/* 
 			Now that we have a shuffled array, let's grab the
 			first 4 characters as our CAPTCHA text string.
-		--->
-		<cfset strCaptcha = (
+		*/
+	strCaptcha = (
 			arrValidChars[ 1 ] &
 			arrValidChars[ 2 ] &
 			arrValidChars[ 3 ] &
 			arrValidChars[ 4 ] &
 			arrValidChars[ 5 ]
-			) />
+			);
+	return strCaptcha;
+}
+
+function checkCaptcha() {
+	if ( len(params.captcha) && params.captcha == decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX") ) {
+		flashInsert(message="Type one adult (ie: 'John''), couple (ie:'John && Jane') || child (ie:'Johnny') on the left then select the appropriate registration options below before click 'Add To Cart'");
+		redirectTo(action="selectoptions");
+	} else {
+		flashInsert(error="Please try again.");
+		redirectTo(action="new");
+	}
+}
+
+<!------------------>
+<!-----SECRURITY---->
+<!------------------>
+
+function getKey(required string email) output=false {
+	var key="";
+	key = encrypt(arguments.email,getSetting("passwordkey"),"CFMX_COMPAT","Hex");
+	return key;
+}
+
+<!--------------------------->
+<!---AUTHORIZATION METHODS--->
+<!--------------------------->
+
+function isSuperadmin() {
+	try {
+		if ( !listFind(session.auth.rightslist,"superadmin") ) {
+			redirectto(controller="home", action="loggedOut");
+			abort;
+		}
+	} catch (any cfcatch) {
+		redirectto(controller="home", action="loggedOut");
+	}
+}
+
+function isOffice() {
+	try {
+		if ( !gotRights("superadmin,office,handbookedit") ) {
+			redirectto(controller="home", action="loggedOut");
+			abort;
+		}
+	} catch (any cfcatch) {
+		redirectto(controller="home", action="loggedOut");
+	}
+}
+
+function gotAgbmRights() {
+	if ( !gotRights("superadmin,agbmadmin,agbm") ) {
+		renderText("You do !have permission to access the AGBM Membership List");
+	}
+}
+
+function gotBasicHandbookRights() {
+	cfcookie( name="handbookLastRequest_url", value=cgi.request_url );
+	if ( isDefined("params.action") && params.action == "sendHandbook" ) {
+		return true;
+	}
+	if ( gotrights("superadmin,office,handbook,agbmadmin") ) {
+		return true;
+	}
+	if ( isdefined("session.auth.email") && userInHandbook() ) {
+		return true;
+	}
+	if ( isdefined("params.email") && userInHandbook(params.email) ) {
+		return true;
+	}
+	if ( isDefined("session.auth.handbook.basic") && session.auth.handbook.basic ) {
+		return true;
+	}
+	try {
+		if ( session.auth.handbook.basic || gotrights("superadmin,office,handbook") ) {
+			return true;
+		} else {
+			redirectTo(controller="handbook.welcome", action="checkin");
+		}
+	} catch (any cfcatch) {
+		if ( isDefined("params.route") && params.route == "handbookPerson" ) {
+			redirectTo(route="handbookviewperson", key=params.key);
+		}
+		redirectTo(controller="handbook.welcome", action="checkin");
+	}
+}
+
+function isPageEditor() {
+	if ( gotRights("office,pageEditor,agbm") ) {
+		return true;
+	} else {
+		renderText("You do !have persmission to view this page");
+	}
+}
 
 
-	<cfreturn strCaptcha>
+function userInHandbook(email="#session.auth.email#") {
+	check = model("Handbookperson").findOne(where="email = '#arguments.email#' || email2='#arguments.email#'", include="Handbookstate");
+	if ( isObject(check) ) {
+		return true;
+	} else {
+		return false;
+	}
+}
 
-</cffunction>
-
-	<cffunction name="checkCaptcha">
-
-		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
-			<cfset flashInsert(message="Type one adult (ie: 'John''), couple (ie:'John and Jane') or child (ie:'Johnny') on the left then select the appropriate registration options below before click 'Add To Cart'")>
-			<cfset redirectTo(action="selectoptions")>
-		<cfelse>
-			<cfset flashInsert(error="Please try again.")>
-			<cfset redirectTo(action="new")>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="getKey" output="no">
-	<cfargument name="email" required="yes" type="string">
-	<cfset var key="">
-		<cfset key = encrypt(arguments.email,getSetting("passwordkey"),"CFMX_COMPAT","Hex")>
-	    <cfreturn key>
-	</cffunction>
-
-<!-------------------------->
-<!---Authoriztion methods--->
-<!-------------------------->
-
-	<cffunction name="isSuperadmin">
-		<cftry>
-			<cfif not listFind(session.auth.rightslist,"superadmin")>
-				<cfset redirectto(controller="home", action="loggedOut")>
-				<cfabort>
-			</cfif>
-		<cfcatch>
-				<cfset redirectto(controller="home", action="loggedOut")>
-		</cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="isOffice">
-		<cftry>
-			<cfif not gotRights("superadmin,office,handbookedit")>
-				<cfset redirectto(controller="home", action="loggedOut")>
-				<cfabort>
-			</cfif>
-		<cfcatch>
-				<cfset redirectto(controller="home", action="loggedOut")>
-		</cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="gotAgbmRights">
-			<cfif not gotRights("superadmin,agbmadmin,agbm")>
-				<cfset renderText("You do not have permission to access the AGBM Membership List")>
-			</cfif>
-	</cffunction>
-
-	<cffunction name="gotBasicHandbookRights">
-		<cfcookie name="handbookLastRequest_url" value=#cgi.request_url#>		
-		<cfif isDefined("params.action") and params.action is "sendHandbook">
-			<cfreturn true>
-		</cfif>
-		<cfif gotrights("superadmin,office,handbook,agbmadmin")>
-			<cfreturn true>
-		</cfif>
- 		<cfif isdefined("session.auth.email") and userInHandbook()>
-			<cfreturn true>
-		</cfif>
- 		<cfif isdefined("params.email") and userInHandbook(params.email)>
-			<cfreturn true>
-		</cfif>
-		<cfif isDefined("session.auth.handbook.basic") and session.auth.handbook.basic>
-			<cfreturn true>
-		</cfif>
-		<cftry>
-			<cfif session.auth.handbook.basic OR gotrights("superadmin,office,handbook")>
-				<cfreturn true>
-			<cfelse>
-				<cfset redirectTo(controller="handbook.welcome", action="checkin")>
-			</cfif>
-		<cfcatch>
-			<cfif isDefined("params.route") && params.route is "handbookPerson">
-				<cfset redirectTo(route="handbookviewperson", key=params.key)>
-			</cfif>
-			<cfset redirectTo(controller="handbook.welcome", action="checkin")>
-		</cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="isPageEditor">
-		<cfif gotRights("office,pageEditor,agbm")>
-			<cfreturn true>
-		<cfelse>
-			<cfset renderText("You do not have persmission to view this page")>
-		</cfif>
-	</cffunction>
+<!---------------------------------->
+<!---END OF AUTHORIZATION METHODS--->
+<!---------------------------------->
 
 
-<!----End of authorization methods---->
+
+</cfscript>
+
 
 
 	<cffunction name="setOrgId">
@@ -162,28 +172,20 @@
 	</cfif>
 	</cffunction>
 
-	<cffunction name="userInHandbook">
-	<cfargument name="email" default="#session.auth.email#">
-		<cfset check = model("Handbookperson").findOne(where="email = '#arguments.email#' OR email2='#arguments.email#'", include="Handbookstate")>
-		<cfif isObject(check)>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction> --->
-
-	<cffunction name="setReturn">
-
-		<cfif not isDefined("params.ajax")>
-		 <cfif params.action is "index" or params.action is "list">
-			 <cfset session.listingURL = $GetCurrentURL()>
-		 </cfif>
-		 <cfset session.originalURL = $GetCurrentURL()>
-		</cfif>
-
-	</cffunction>
-
 <cfscript>
+
+<!------------------------------>	
+<!-------NAVIGATION AIDS-------->	
+<!------------------------------>	
+	function setReturn() {
+		if ( !isDefined("params.ajax") ) {
+			if ( params.action == "index" || params.action == "list" ) {
+				session.listingURL = $GetCurrentURL();
+			}
+			session.originalURL = $GetCurrentURL();
+		}
+	}
+
 	function returnBack(string controller, string action, string error){
 		if ( isDefined('arguments.error') ) { flashInsert(error = arguments.error) }
 		try {
@@ -198,22 +200,23 @@
 			redirectTo(argumentCollection=arguments)
 		}
 	}
+
+	public function $GetCurrentURL() output=false {
+		var theURL = getPageContext().getRequest().GetRequestUrl();
+		if ( len( CGI.query_string ) ) {
+			theURL = theURL & "?" & CGI.query_string;
+		}
+		if ( cgi.http_host == "localhost:8080" || cgi.http_host == "localhost:8888" ) {
+		} else {
+			try {
+				theURL = replace(theUrl,"/rewrite.cfm","","one");
+			} catch (any cfcatch) {
+			}
+		}
+		return theURL;
+	}
+	
 </cfscript>
-
-	<cffunction name="$GetCurrentURL" output="No" access="public">
-	   <cfset var theURL = getPageContext().getRequest().GetRequestUrl()>
-	   <cfif len( CGI.query_string )><cfset theURL = theURL & "?" & CGI.query_string></cfif>
-
-	<cfif cgi.http_host is "localhost:8080" OR cgi.http_host is "localhost:8888">
-	<cfelse>
-	   <cftry>
-	   	<cfset theURL = replace(theUrl,"/rewrite.cfm","","one")>
-	   <cfcatch></cfcatch>
-	   </cftry>
-	</cfif>
-
-	   <cfreturn theURL>
-	</cffunction>
 
 	<cffunction name="getThisForumName">
 		<cftry>
@@ -387,15 +390,6 @@
 		<cfelse>
 			<cfreturn false>
 		</cfif>
-	</cffunction>
-
-	<cffunction name="linkToX">
-	<cfset var loc=structNew()>
-	<cfset var i="">
-	<cfloop list="#structKeylist(arguments)#" index="i">
-		<cfset loc[replace(i,"_","-","all")] = arguments[i]>
-	</cfloop>
-	<cfreturn super.linkTo(argumentCollection=loc)>
 	</cffunction>
 
 <cfscript>
