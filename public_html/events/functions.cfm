@@ -115,7 +115,7 @@ public function getSetting(name, useSessionSetting=true){
 			return( LOCAL.QueryArray )
 	}
 
-	function queryToJson(required query data){
+	function XqueryToJson(required query data){
 		return serializeJSON(arguments.data,"struct")
 	}
 
@@ -240,7 +240,7 @@ public function getSetting(name, useSessionSetting=true){
 		
 
 <!---TRASH--->
-<cffunction name="XqueryToJson">
+<cffunction name="queryToJson">
 	<cfargument name="Data" type="query" required="yes" />
 	<cfset var loc = structNew()>
 	<cfset loc.columnnames = data.columnList>
