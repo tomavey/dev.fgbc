@@ -11,7 +11,7 @@
 
 <cfif !isDefined("params.retreatid") && !isDefined("params.key")>
 	<cftry>
-		<cfloop query="showRegsFor">
+		<cfloop query="showRegsFor()">
 			<cfset reportTitle = reportTitle & " " & linkto(text=regid, action='index', params='retreatid=#id#')>
 		</cfloop>
 	<cfcatch>

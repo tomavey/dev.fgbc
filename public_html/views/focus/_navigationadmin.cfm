@@ -20,7 +20,7 @@
     			<li class="dropdown">
 					#linkToData(text="Options<b class='caret'></b>", href="##", data_toggle="dropdown", class="dropdown-toggle")#
         				<ul class="dropdown-menu">
-        					<cfloop query="showOptionsFor">
+        					<cfloop query="showOptionsFor()">
         					<li>
         						#linkTo(controller="focus.items", action="index", text=regid, params="retreatid=#id#")#
         					</li>
@@ -57,7 +57,7 @@
     			<li class="dropdown">
         			#linkToData(href="##", text="Registrations<b class='caret'></b>", data_toggle="dropdown", class="dropdown-toggle")#
         				<ul class="dropdown-menu">
-        					<cfloop query="showRegsFor">
+        					<cfloop query="showRegsFor()">
         						<li>#linkTo(controller="focus.registrations", action="index", params="retreatid=#id#", text=regid, retreatid=id)#</li>
         					</cfloop>
                             <li>#linkTo(controller="focus.registrations", action="summary", text="Summary")#</li>

@@ -315,84 +315,70 @@ function userInHandbook(email="#session.auth.email#") {
 		}
 	}	
 
-</cfscript>
 
-
+	function getcounts(key="#params.key#", action="#params.action#", controller="#params.controller#", email="#session.auth.email#", show="all") {
+		var loc = structNew();
+		loc.votes = model("Forumvote").findAll(where="postid = #arguments.key#");
+		loc.views = model('Userview').findAll(where="controller = '#arguments.controller#' AND action = '#arguments.action#' AND paramskey = '#arguments.key#'");
+		loc.comments = model("Forumpost").findall(where="parentid = #arguments.key#");
+		savecontent variable="loc.showcount" {
+			cfoutput(  ) {
+				if ( arguments.show == "all" || arguments.show == "views" ) {
 	
-
-	<cffunction name="getcounts">
-	<cfargument name="key" default="#params.key#">
-	<cfargument name="action" default="#params.action#">
-	<cfargument name="controller" default="#params.controller#">
-	<cfargument name="email" default="#session.auth.email#">
-	<cfargument name="show" default="all">
-	<cfset var loc = structNew()>
-
-		<cfset loc.votes = model("Forumvote").findAll(where="postid = #arguments.key#")>
-
-		<cfset loc.views = model('Userview').findAll(where="controller = '#arguments.controller#' AND action = '#arguments.action#' AND paramskey = '#arguments.key#'")>
-
-		<cfset loc.comments = model("Forumpost").findall(where="parentid = #arguments.key#")>
-
-		<cfsavecontent variable="loc.showcount">
-			<cfoutput>
-				<cfif arguments.show is "all" or arguments.show is "views">
-					Views:#loc.views.recordcount#
-				</cfif>
-				<cfif arguments.show is "all" or arguments.show is "comments">
-					Comments:#loc.comments.recordcount#
-				</cfif>
-				<cfif arguments.show is "all" or arguments.show is "votes">
-					Votes:#loc.votes.recordcount#
-				</cfif>
-			</cfoutput>
-		</cfsavecontent>
-
-		<cfreturn loc.showcount>
-
-	</cffunction>
-
-	<cffunction name="logout">
-		<cfset structDelete(session,"auth")>
-		<cfset structDelete(session,"params")>
-		<cfset redirectTo(action="index")>
-	</cffunction>
-
-	<cffunction name="BirthDayAnniversary">
-	<cfargument name="personid" required="true" type="numeric">
-	<cfset var loc = structNew()>
-		<cfset loc.profile = model("Handbookprofile").findOne(where="personid = #arguments.personid#")>
-		<cfif isObject(loc.profile)>
-    		<cfset loc.return.birthday = dateformat(loc.profile.birthday,"medium")>
-    		<cfset loc.return.anniversary = dateformat(loc.profile.anniversary,"medium")>
-		<cfelse>
-    		<cfset loc.return.birthday = "?">
-    		<cfset loc.return.anniversary = "?">
-		</cfif>
-		<cfreturn loc.return>
-	</cffunction>
-
-	<cffunction name="isFellowshipCouncil" access="private">
-		<cfif isDefined("session.auth.fellowshipcouncil") AND session.auth.fellowshipcouncil>
-			<cfreturn true>
-		<cfelseif gotRights("superadmin,office,fellowshipcouncil")>
-			<cfreturn true>
-		<cfelseif isDefined("params.fc") and params.fc>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="isMembershipApp">
-		<cfif isDefined("session.membershipapplication.id") and session.membershipapplication.id>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction>
-
-<cfscript>
+					writeOutput("Views:#loc.views.recordcount#");
+				}
+				if ( arguments.show == "all" || arguments.show == "comments" ) {
+	
+					writeOutput("Comments:#loc.comments.recordcount#");
+				}
+				if ( arguments.show == "all" || arguments.show == "votes" ) {
+	
+					writeOutput("Votes:#loc.votes.recordcount#");
+				}
+			}
+		}
+		return loc.showcount;
+	}
+	
+	function logout() {
+		structDelete(session,"auth");
+		structDelete(session,"params");
+		redirectTo(action="index");
+	}
+	
+	function BirthDayAnniversary(required numeric personid) {
+		var loc = structNew();
+		loc.profile = model("Handbookprofile").findOne(where="personid = #arguments.personid#");
+		if ( isObject(loc.profile) ) {
+			loc.return.birthday = dateformat(loc.profile.birthday,"medium");
+			loc.return.anniversary = dateformat(loc.profile.anniversary,"medium");
+		} else {
+			loc.return.birthday = "?";
+			loc.return.anniversary = "?";
+		}
+		return loc.return;
+	}
+	
+	private function isFellowshipCouncil() {
+		if ( isDefined("session.auth.fellowshipcouncil") && session.auth.fellowshipcouncil ) {
+			return true;
+		} else if ( gotRights("superadmin,office,fellowshipcouncil") ) {
+			return true;
+		} else if ( isDefined("params.fc") && params.fc ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function isMembershipApp() {
+		if ( isDefined("session.membershipapplication.id") && session.membershipapplication.id ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	function linkTo(){
 		var loc = structNew();
 		for (var arg in arguments) {
@@ -405,6 +391,17 @@ function userInHandbook(email="#session.auth.email#") {
 			};
 		return super.linkTo(argumentCollection=loc);
 	}
+
+	<!---Probably should move to focus controller--->
+	function showRegsFor(){
+		return model("Focusretreat").findAll(where="showregs = 'yes'", order="startAt DESC")
+	}
+
+	function showOptionsFor(){
+		return model("Focusretreat").findAll(where="active = 'yes'", order="startAt DESC")
+	}
+
+
 </cfscript>
 
 	<cffunction name="linkToList">
@@ -496,9 +493,7 @@ function userInHandbook(email="#session.auth.email#") {
 		<cfreturn status>
 	</cffunction>
 
-	<cfset showRegsFor = model("Focusretreat").findAll(where="showregs = 'yes'", order="startAt DESC")>
 
-	<cfset showOptionsFor = model("Focusretreat").findAll(where="active = 'yes'", order="startAt DESC")>
 
 	<cffunction name="useDesktopLayout">
 		<cfif isDefined("session.handbook.isMobile") and session.handbook.isMobile>
@@ -687,24 +682,24 @@ function userInHandbook(email="#session.auth.email#") {
 		}
 	}
 
+
+	function getDistinctColumnValuesFromQuery(required oldquery, required column) {
+		cfquery( dbtype="query", name="newQuery" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+	
+			writeOutput("SELECT DISTINCT #column#
+			FROM oldquery");
+		}
+		return newQuery;
+	}
+	
+	function setAccessControlHeaders() {
+		cfheader( name="Access-Control-Allow-Origin", value="https://access2018.app" );
+		cfheader( name="Access-Control-Allow-Methods", value="GET,PUT,POST,DELETE" );
+		cfheader( name="Access-Control-Allow-Headers", value="Content-Type" );
+		cfheader( name="Access-Control-Allow-Credentials", value=true );
+		cfheader( name="Content-Type", value="application/json" );
+	}
+	
 </cfscript>		
-
-<cffunction name="getDistinctColumnValuesFromQuery">
-	<cfargument name='oldquery' required='true'>
-	<cfargument name='column' required='true'>
-	<cfquery dbtype="query" name="newQuery">
-		SELECT DISTINCT #column#
-		FROM oldquery
-	</cfquery>
-	<cfreturn newQuery>
-</cffunction>
-
-<cffunction name="setAccessControlHeaders">
-	<cfheader name="Access-Control-Allow-Origin" value="https://access2018.app" />
-	<cfheader name="Access-Control-Allow-Methods" value="GET,PUT,POST,DELETE" />
-	<cfheader name="Access-Control-Allow-Headers" value="Content-Type" />
-	<cfheader name="Access-Control-Allow-Credentials" value="true" />
-	<cfheader name="Content-Type" value="application/json">
-</cffunction>
 
 </cfcomponent>
