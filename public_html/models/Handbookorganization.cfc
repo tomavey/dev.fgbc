@@ -1,3 +1,8 @@
+//
+//Written by Tom Avey for the Charis Fellowship
+//Refactored October 2019 to use cfscript
+//Used by the online handbook application - organizations (churches and ministries)
+//
 component extends="Model" output="false" {
 
 	function init() {
