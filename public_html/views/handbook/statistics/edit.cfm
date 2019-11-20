@@ -1,10 +1,12 @@
+<cfparam name="formaction" default="update">
+
 <h1>Editing handbookstatistic</h1>
 
 <cfoutput>
 
 			#errorMessagesFor("handbookstatistic")#
 	
-			#startFormTag(action="update", key=params.key)#
+			#startFormTag(action=formaction, key=params.key)#
 
 			#putFormTag()#
 

@@ -160,9 +160,8 @@
 
 	<!--- handbook-statistics/edit/key --->
 	<cffunction name="edit">
-
 		<!--- Find the record --->
-    	<cfset handbookstatistic = model("Handbookstatistic").findByKey(params.key)>
+   	<cfset handbookstatistic = model("Handbookstatistic").findByKey(params.key)>
 		<cfset organizations = model("Handbookorganization").findall(include="Handbookstate", order="selectName")>
 
     	<!--- Check if the record exists --->
@@ -170,7 +169,7 @@
 	        <cfset flashInsert(error="HandbookStatistic #params.key# was not found")>
 			<cfset returnBack()>
 	    </cfif>
-
+			<cfset formaction = "update">
 	</cffunction>
 
 	<!--- handbook-statistics/create --->
