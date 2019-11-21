@@ -159,20 +159,15 @@ function userInHandbook(email="#session.auth.email#") {
 
 
 
-</cfscript>
+function setOrgId() {
+	if ( isDefined("session.auth.email") ) {
+		org = model("Handbookorganization").findAll(where="Handbookpersonemail = '#session.auth.email#'", include="Handbookposition(Handbookorganization(Handbookstate))");
+		if ( org.recordcount ) {
+			session.auth.orgid = org.id;
+		}
+	}
+}
 
-
-
-	<cffunction name="setOrgId">
-	<cfif isDefined("session.auth.email")>
-		  <cfset org = model("Handbookorganization").findAll(where="Handbookpersonemail = '#session.auth.email#'", include="Handbookposition(Handbookorganization(Handbookstate))")>
-		  <cfif org.recordcount>
-		  		<cfset session.auth.orgid = org.id>
-		  </cfif>
-	</cfif>
-	</cffunction>
-
-<cfscript>
 
 <!------------------------------>	
 <!-------NAVIGATION AIDS-------->	
@@ -216,96 +211,74 @@ function userInHandbook(email="#session.auth.email#") {
 		return theURL;
 	}
 	
-</cfscript>
 
-	<cffunction name="getThisForumName">
-		<cftry>
-		<cfset thisForumName = model("Forumforum").findOne(where="id=#session.auth.forumid#").forum>
-		<cfreturn thisForumName>
-		<cfcatch><cfreturn "Login to the Forum"></cfcatch>
-		</cftry>
-	</cffunction>
+	function getActive(required category) {
+		var loc = structNew();
+		loc.return = "inactive";
+		if ( !structKeyExists(params,"key") && category == "home" ) {
+			loc.return = "active";
+		} else if ( structKeyExists(params,"key") && params.key == arguments.category ) {
+			loc.return = "active";
+		} else if ( structKeyExists(params,"action") && params.action == arguments.category ) {
+			loc.return = "active";
+		} else if ( structKeyExists(params,"controller") && params.controller == arguments.category ) {
+			loc.return = "active";
+		}
+		return loc.return;
+	}
+	
 
-	<cffunction name="getThisTeamName">
-		<cftry>
-		<cfset thisTeamName = model("Teamteam").findOne(where="id=#session.auth.teamid#").name>
-		<cfreturn thisTeamName>
-		<cfcatch><cfreturn "Check-in to the Team Site"></cfcatch>
-		</cftry>
-	</cffunction>
+	function logview() {
+		return true;
+		if ( isDefined("params.email") && len(params.email) ) {
+		} else if ( isDefined("session.auth.email") ) {
+			params.email = session.auth.email;
+		} else {
+			params.email = "not logged in";
+		}
+		if ( isDefined("params.key") ) {
+			params.paramskey = params.key;
+		}
+		params.browser = cgi.http_user_agent;
+		if ( isdefined("params.key") ) {
+			params.paramskey = params.key;
+			check = model('Userview').findOne(where="email = '#params.email#' && controller = '#params.controller#' && action = '#params.action#' && paramskey = '#params.key#'");
+		} else {
+			check = model('Userview').findOne(where="email = '#params.email#' && controller = '#params.controller#' && action = '#params.action#' && paramskey == NULL");
+		}
+		if ( !isObject(check) ) {
+			thisview = model('Userview').create(params);
+		} else {
+			params.updatedAt = now();
+			test = check.update(params);
+		}
+	}
 
-	<cffunction name="getActive">
-		<cfargument name="category" required="true">
-		<cfset var loc = structNew()>
-		<cfset loc.return = "inactive">
-
-			<cfif NOT structKeyExists(params,"key") AND category is "home">
-				<cfset loc.return = "active">
-			<cfelseif structKeyExists(params,"key") AND params.key is arguments.category>
-				<cfset loc.return = "active">
-			<cfelseif structKeyExists(params,"action") AND params.action is arguments.category>
-				<cfset loc.return = "active">
-			<cfelseif structKeyExists(params,"controller") AND params.controller is arguments.category>
-				<cfset loc.return = "active">
-			</cfif>
-
-		<cfreturn loc.return>
-	</cffunction>
-
-	<cffunction name="logview">
-
-		<cfreturn true>
-
-		<cfif isDefined("params.email") and len(params.email)>
-		<cfelseif isDefined("session.auth.email")>
-			<cfset params.email = session.auth.email>
-		<cfelse>
-			<cfset params.email = "not logged in">
-		</cfif>
-
-		<cfif isDefined("params.key")>
-			<cfset params.paramskey = params.key>
-		</cfif>
-
-
-
-		<cfset params.browser = cgi.http_user_agent>
-
-
-		<cfif isdefined("params.key")>
-			<cfset params.paramskey = params.key>
-			<cfset check = model('Userview').findOne(where="email = '#params.email#' AND controller = '#params.controller#' AND action = '#params.action#' AND paramskey = '#params.key#'")>
-		<cfelse>
-			<cfset check = model('Userview').findOne(where="email = '#params.email#' AND controller = '#params.controller#' AND action = '#params.action#' AND paramskey IS NULL")>
-		</cfif>
-		<cfif not isObject(check)>
-
-			<cfset thisview = model('Userview').create(params)>
-		<cfelse>
-			<cfset params.updatedAt = now()>
-			<cfset test = check.update(params)>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="stripTags" returntype="string" access="public" output="false">
-	  <cfargument name="html" type="string" required="true">
-	  <cfargument name="BBCode" type="boolean" required="false" default="false">
-	  <cfscript>
-	    var loc = {};
-	    loc.BBCode = arguments.BBCode;
-	    StructDelete(arguments, "BBCode");
-	    loc.returnValue = super.stripTags(argumentCollection=arguments);
-	    if (loc.BBCode)
-	    {
-	      loc.returnValue = REReplaceNoCase(loc.returnValue, "\[img\].*\[\/img\]", "", "all");
-	      loc.returnValue = REReplaceNoCase(loc.returnValue, "\[\ *[a-z].*?\]", "", "all");
-	      loc.returnValue = REReplaceNoCase(loc.returnValue, "\[\ */\ *[a-z].*?\]", "", "all");
-	    }
-	  </cfscript>
-  		<cfreturn loc.returnValue>
-	</cffunction>
-
-<cfscript>
+	function logview() {
+		return true;
+		if ( isDefined("params.email") && len(params.email) ) {
+		} else if ( isDefined("session.auth.email") ) {
+			params.email = session.auth.email;
+		} else {
+			params.email = "not logged in";
+		}
+		if ( isDefined("params.key") ) {
+			params.paramskey = params.key;
+		}
+		params.browser = cgi.http_user_agent;
+		if ( isdefined("params.key") ) {
+			params.paramskey = params.key;
+			check = model('Userview').findOne(where="email = '#params.email#' && controller = '#params.controller#' && action = '#params.action#' && paramskey = '#params.key#'");
+		} else {
+			check = model('Userview').findOne(where="email = '#params.email#' && controller = '#params.controller#' && action = '#params.action#' && paramskey == NULL");
+		}
+		if ( !isObject(check) ) {
+			thisview = model('Userview').create(params);
+		} else {
+			params.updatedAt = now();
+			test = check.update(params);
+		}
+	}
 
 	function $setDownloadLayout(defaultLayout='/layout_naked', template=''){
 		if ( (isdefined("params.key") && params.key is "excel") || (isdefined("params.format") && params.format is "excel") || (isDefined("params.download")) ) {
@@ -315,31 +288,6 @@ function userInHandbook(email="#session.auth.email#") {
 		}
 	}	
 
-
-	function getcounts(key="#params.key#", action="#params.action#", controller="#params.controller#", email="#session.auth.email#", show="all") {
-		var loc = structNew();
-		loc.votes = model("Forumvote").findAll(where="postid = #arguments.key#");
-		loc.views = model('Userview').findAll(where="controller = '#arguments.controller#' AND action = '#arguments.action#' AND paramskey = '#arguments.key#'");
-		loc.comments = model("Forumpost").findall(where="parentid = #arguments.key#");
-		savecontent variable="loc.showcount" {
-			cfoutput(  ) {
-				if ( arguments.show == "all" || arguments.show == "views" ) {
-	
-					writeOutput("Views:#loc.views.recordcount#");
-				}
-				if ( arguments.show == "all" || arguments.show == "comments" ) {
-	
-					writeOutput("Comments:#loc.comments.recordcount#");
-				}
-				if ( arguments.show == "all" || arguments.show == "votes" ) {
-	
-					writeOutput("Votes:#loc.votes.recordcount#");
-				}
-			}
-		}
-		return loc.showcount;
-	}
-	
 	function logout() {
 		structDelete(session,"auth");
 		structDelete(session,"params");
@@ -401,184 +349,188 @@ function userInHandbook(email="#session.auth.email#") {
 		return model("Focusretreat").findAll(where="active = 'yes'", order="startAt DESC")
 	}
 
+	function linkToList(text="Go Back") {
+		var loc=structNew();
+		if ( isDefined("session.listingURL") && len(session.listingURL) ) {
+			loc.text = arguments.text;
+			loc.href = session.listingURL;
+			session.listingURL = "";
+		} else {
+			loc = arguments;
+		}
+		return super.linkTo(argumentCollection=loc);
+	}
+	
+	function startFormTag() {
+		var loc=structNew();
+		for ( i in structKeylist(arguments) ) {
+			loc[replace(i,"_","-","all")] = arguments[i];
+		}
+		return super.startFormTag(argumentCollection=loc);
+	}
+
+	function isOffice() {
+		if ( gotRights("superadmin,office") ) {
+			return true;
+		}
+		if ( isDefined("params.controller") && params.controller contains "handbook" ) {
+			return true;
+		}
+		try {
+			if ( structkeyexists(session.auth,"office") ) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (any cfcatch) {
+			return false;
+		}
+	}
+	
+	function checkOffice() {
+		if ( !isoffice() ) {
+			rendertext("You do !have permission to view this page");
+		}
+	}
+	
+	function getRegions() {
+		regions = model("Handbookdistrict").findall(order="region");
+	}
+	
+	function getRetreats() {
+		retreats = model("Focusretreat").findAll(where="active='yes' && startAt > now()", order="startAt");
+	}
+	
+	function getFocusContent(required id) {
+		if ( isnumeric("arguments.id") ) {
+			content = model("Focuscontent").findOne(where="id=#arguments.id#");
+		} else {
+			content = model("Focuscontent").findOne(where="name='#arguments.id#'");
+		}
+		if ( isObject(content) ) {
+			return content.content;
+		} else {
+			return "no Content";
+		}
+	}
+		
+
+	function getStatus(required id) {
+		var status = val(arguments.id);
+		if ( len(arguments.id) >= 2 ) {
+			status = arguments.id;
+		} else if ( status == 0 ) {
+			status = "Pending";
+		} else if ( status == 1 ) {
+			status = "Paid";
+		} else if ( status == 2 ) {
+			status = "Comp";
+		} else {
+			status = "NA";
+		}
+		return status;
+	}
+	
+	function useDesktopLayout() {
+		if ( isDefined("session.handbook.isMobile") && session.handbook.isMobile ) {
+			return false;
+		} else if ( isMobile() ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	function isMobile() {
+		if ( isDefined("params.isMobile") || isDefined("session.isMobile") ) {
+			session.isMobile = true;
+			return true;
+		}
+		return super.isMobile();
+	}
+	
+	function isLoggedIn() {
+		var loc = structNew();
+		if ( isDefined("session.auth.login") && session.auth.login ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function simpleEncode(required numeric numbertoEncode, factor="3") {
+		var loc=structNew();
+		loc = arguments;
+		loc.return = (loc.numbertoencode * loc.factor) + loc.factor;
+		return loc.return;
+	}
+	
+	function simpleDecode(required numeric numbertoDecode, factor="3") {
+		var loc=structNew();
+		loc = arguments;
+		loc.return = (loc.numbertoDecode-loc.factor)/loc.factor;
+		return loc.return;
+	}
+	
+
+	function isMinistryStaff(userid) {
+		try {
+			checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) && itemId= #arguments.userid# && tag='ministrystaff'");
+			if ( isObject(checkForTag) ) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (any cfcatch) {
+			return false;
+		}
+	}
+	
+	function facebookloginisopen() {
+		if ( isDefined("session.auth.fblogin") && !session.auth.fblogin ) {
+			return false;
+		} else if ( get("facebookloginisopen") || isDefined("params.fblogin") || (isDefined("session.auth.fblogin") && session.auth.fblogin) ) {
+			session.auth.fblogin = true;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function forcecfcatch() {
+		if ( isDefined("params.forcecfcatch") || isDefined("params.forceerror") || isDefined("params.error") ) {
+			test = nosuchvariable;
+		}
+	}
+	
+	function paramsKeyRequired() {
+		if ( !isDefined("params.key") ) {
+			renderText("This page cannot display - wrong parameters");
+		}
+	}
+
+	function gotRights(required string rightsRequired){
+		var permission = "no"
+		var rightsRequiredArray = listToArray(arguments.rightsRequired)
+		if ( structKeyExists(session.auth,'email') ) { arguments.email = session.auth.email }
+		for ( right in rightsRequiredArray ){
+			if ( isdefined("arguments.email") and listFindNoCase(session.auth.rightslist,right) ) {
+				permission = "yes"
+			}
+			if ( right == 'handbook' && emailIsInHandbook(arguments.email) ) {
+				permission = "yes"
+			}
+		}
+		return permission
+	}
+
+	function emailIsInHandbook(required string email){
+		var check = model("Handbookperson").findOne(where="email = '#arguments.email#' OR email2 = '#arguments.email#'", include="state")
+		if ( isObject(check) ) { return true } else { return false }
+	}
 
 </cfscript>
-
-	<cffunction name="linkToList">
-	<cfargument name="text" default="Go Back">
-	<cfset var loc=structNew()>
-	<cfif isDefined("session.listingURL") and len(session.listingURL)>
-		<cfset loc.text = arguments.text>
-		<cfset loc.href = session.listingURL>
-		<cfset session.listingURL = "">
-	<cfelse>
-		<cfset loc = arguments>
-	</cfif>
-		<cfreturn super.linkTo(argumentCollection=loc)>
-	</cffunction>
-
-	<cffunction name="startFormTag">
-	<cfset var loc=structNew()>
-	<cfloop list="#structKeylist(arguments)#" index="i">
-		<cfset loc[replace(i,"_","-","all")] = arguments[i]>
-	</cfloop>
-	<cfreturn super.startFormTag(argumentCollection=loc)>
-	</cffunction>
-
-	<!---Used by Focus MVC --->
-
-	<cffunction name="isOffice">
-		<cfif gotRights("superadmin,office")>
-				<cfreturn true>
-		</cfif>
-		<cfif isDefined("params.controller") AND params.controller contains "handbook">
-			<cfreturn true>
-		</cfif>
-		<cftry>
-			<cfif structkeyexists(session.auth,"office")>
-				<cfreturn true>
-			<cfelse>
-				<cfreturn false>
-			</cfif>
-
-			<cfcatch>
-				<cfreturn false>
-			</cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="checkOffice">
-		<cfif not isoffice()>
-			<cfset rendertext("You do not have permission to view this page")>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="getRegions">
-		<cfset regions = model("Handbookdistrict").findall(order="region")>
-	</cffunction>
-
-	<cffunction name="getRetreats">
-		<cfset retreats = model("Focusretreat").findAll(where="active='yes' and startAt > now()", order="startAt")>
-	</cffunction>
-
-	<cffunction name="getFocusContent">
-	<cfargument name="id" required="true">
-		<cfif isnumeric("arguments.id")>
-			<cfset content = model("Focuscontent").findOne(where="id=#arguments.id#")>
-		<cfelse>
-			<cfset content = model("Focuscontent").findOne(where="name='#arguments.id#'")>
-		</cfif>
-		<cfif isObject(content)>
-			<cfreturn content.content>
-		<cfelse>
-			<cfreturn "no Content">
-		</cfif>
-	</cffunction>
-
-	<cffunction name="getStatus">
-	<cfargument name="id" required="true">
-	<cfset var status = val(arguments.id)>
-
-		<cfif len(arguments.id) gte 2>
-			<cfset status = arguments.id>
-		<cfelseif status is 0>
-			<cfset status = "Pending">
-		<cfelseif status is 1>
-			<cfset status = "Paid">
-		<cfelseif status is 2>
-			<cfset status = "Comp">
-		<cfelse>
-			<cfset status = "NA">
-		</cfif>
-		<cfreturn status>
-	</cffunction>
-
-
-
-	<cffunction name="useDesktopLayout">
-		<cfif isDefined("session.handbook.isMobile") and session.handbook.isMobile>
-			<cfreturn false>
-		<cfelseif isMobile()>
-			<cfreturn false>
-		<cfelse>
-			<cfreturn true>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="isMobile">
-		<cfif isDefined("params.isMobile") || isDefined("session.isMobile")>
-			<cfset session.isMobile = true>
-			<cfreturn true>	
-		</cfif>
-		<cfreturn super.isMobile()>
-	</cffunction>
-
-	<cffunction name="isLoggedIn">
-	<cfset var loc = structNew()>
-		<cfif isDefined("session.auth.login") AND session.auth.login>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="simpleEncode">
-	<cfargument name="numbertoEncode" required="true" type="numeric">
-	<cfargument name="factor" default=3>
-	<cfset var loc=structNew()>
-		<cfset loc = arguments>
-		<cfset loc.return = (loc.numbertoencode * loc.factor) + loc.factor>
-	<cfreturn loc.return>
-	</cffunction>
-
-	<cffunction name="simpleDecode">
-	<cfargument name="numbertoDecode" required="true" type="numeric">
-	<cfargument name="factor" default=3>
-	<cfset var loc=structNew()>
-		<cfset loc = arguments>
-		<cfset loc.return = (loc.numbertoDecode-loc.factor)/loc.factor>
-	<cfreturn loc.return>
-	</cffunction>
-
-	<cffunction name="isMinistryStaff">
-	<cfargument name="userid" required="false">
-		<cftry>
-			<cfset checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) AND itemId= #arguments.userid# AND tag='ministrystaff'")>
-			<cfif isObject(checkForTag)>
-				<cfreturn true>
-			<cfelse>
-				<cfreturn false>
-			</cfif>
-		<cfcatch>
-			<cfreturn false>
-		</cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="facebookloginisopen">
-		<cfif isDefined("session.auth.fblogin") AND !session.auth.fblogin>
-			<cfreturn false>
-		<cfelseif get("facebookloginisopen") OR isDefined("params.fblogin") or (isDefined("session.auth.fblogin") and session.auth.fblogin)>
-			<cfset session.auth.fblogin = true>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="forcecfcatch">
-		<cfif isDefined("params.forcecfcatch") OR isDefined("params.forceerror") OR isDefined("params.error")>
-			<cfset test = nosuchvariable>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="paramsKeyRequired">
-		<cfif !isDefined("params.key")>
-			<cfset renderText("This page cannot display - wrong parameters")>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="GotRights">
+<cffunction name="XGotRights">
 	<cfargument name="rightRequired" required="yes">
 		<cfset var permission = "no">
 			<cfloop list="#rightrequired#" index="i">
@@ -598,25 +550,22 @@ function userInHandbook(email="#session.auth.email#") {
 			</cfloop>
 	<cfreturn permission>
 	</cffunction>
-	
-    <cffunction name="urlExists">
-    <cfargument name="url" required="true" type="string">
-    <cfset var test = "">
-        <cfif len(arguments.url)>
-        <cfhttp url='#arguments.url#' method="head" result="test">
-        <cfif isDefined("test.responseheader.status_code") && test.responseheader.status_code is 200>
-            <cfreturn true>
-        <cfelse>
-            <cfreturn false>
-        </cfif>        
-        <cfelse>
-            <cfreturn false>
-        </cfif>    
-    </cffunction>
-
-
 <cfscript>
-
+	
+		function urlExists(required string url) {
+			var test = "";
+			if ( len(arguments.url) ) {
+				cfhttp( url=arguments.url, result="test", method="head" );
+				if ( isDefined("test.responseheader.status_code") && test.responseheader.status_code == 200 ) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+	
 	public function isConferenceErrorEmailOn(){
 		return application.wheels.sendConferenceEmailOnError;
 	}

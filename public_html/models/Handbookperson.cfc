@@ -11,6 +11,7 @@ component extends="Model" output="false" {
 		// Associations
 		belongsTo(name="Handbookstate", modelName="Handbookstate", foreignKey="stateid")
 		belongsTo(name="State", modelName="Handbookstate", foreignkey="stateid")
+		hasMany(name="Positions", modelName="Handbookposition", foreignKey="personid", dependent="delete", joinType="outer")
 		hasMany(name="Handbookpositions", modelName="Handbookposition", foreignKey="personid", dependent="delete", joinType="outer")
 		hasMany(name="Handbooktags", foreignKey="itemid", dependent="delete")
 		hasMany(name="Handbookgroup", foreignKey="personid", joinType="outer", dependent="delete")
