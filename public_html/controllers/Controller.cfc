@@ -1,6 +1,4 @@
-<cfcomponent extends="Wheels">
-
-<cfscript>
+component extends="Wheels" {
 
 	dsn=getSetting("dataSourceName")
 
@@ -18,59 +16,59 @@
 <!---CAPTCHA---->
 <!-------------->
 
-function getCaptcha() output=false {
-	var arrValidChars = "";
-	var strCaptcha = arraynew(1);
-	var captchaForm = "";
-	/* 
-			Create the array of valid characters. Leave out the
-			numbers 0 (zero) and 1 (one) as they can be easily
-			confused with the characters o and l (respectively).
-		*/
-	arrValidChars = ListToArray(
-			"A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z," &
-			"2,3,4,5,6,7,8,9"
-			);
-	//  Now, shuffle the array. 
-	CreateObject(
-			"java",
-			"java.util.Collections"
-			).Shuffle(
-				arrValidChars
+	function getCaptcha() output=false {
+		var arrValidChars = "";
+		var strCaptcha = arraynew(1);
+		var captchaForm = "";
+		/* 
+				Create the array of valid characters. Leave out the
+				numbers 0 (zero) and 1 (one) as they can be easily
+				confused with the characters o and l (respectively).
+			*/
+		arrValidChars = ListToArray(
+				"A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z," &
+				"2,3,4,5,6,7,8,9"
 				);
-	/* 
-			Now that we have a shuffled array, let's grab the
-			first 4 characters as our CAPTCHA text string.
-		*/
-	strCaptcha = (
-			arrValidChars[ 1 ] &
-			arrValidChars[ 2 ] &
-			arrValidChars[ 3 ] &
-			arrValidChars[ 4 ] &
-			arrValidChars[ 5 ]
-			);
-	return strCaptcha;
-}
-
-function checkCaptcha() {
-	if ( len(params.captcha) && params.captcha == decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX") ) {
-		flashInsert(message="Type one adult (ie: 'John''), couple (ie:'John && Jane') || child (ie:'Johnny') on the left then select the appropriate registration options below before click 'Add To Cart'");
-		redirectTo(action="selectoptions");
-	} else {
-		flashInsert(error="Please try again.");
-		redirectTo(action="new");
+		//  Now, shuffle the array. 
+		CreateObject(
+				"java",
+				"java.util.Collections"
+				).Shuffle(
+					arrValidChars
+					);
+		/* 
+				Now that we have a shuffled array, let's grab the
+				first 4 characters as our CAPTCHA text string.
+			*/
+		strCaptcha = (
+				arrValidChars[ 1 ] &
+				arrValidChars[ 2 ] &
+				arrValidChars[ 3 ] &
+				arrValidChars[ 4 ] &
+				arrValidChars[ 5 ]
+				);
+		return strCaptcha;
 	}
-}
+
+	function checkCaptcha() {
+		if ( len(params.captcha) && params.captcha == decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX") ) {
+			flashInsert(message="Type one adult (ie: 'John''), couple (ie:'John && Jane') || child (ie:'Johnny') on the left then select the appropriate registration options below before click 'Add To Cart'");
+			redirectTo(action="selectoptions");
+		} else {
+			flashInsert(error="Please try again.");
+			redirectTo(action="new");
+		}
+	}
 
 <!------------------>
-<!-----SECRURITY---->
+<!-----SECURITY---->
 <!------------------>
 
-function getKey(required string email) output=false {
-	var key="";
-	key = encrypt(arguments.email,getSetting("passwordkey"),"CFMX_COMPAT","Hex");
-	return key;
-}
+	function getKey(required string email) output=false {
+		var key="";
+		key = encrypt(arguments.email,getSetting("passwordkey"),"CFMX_COMPAT","Hex");
+		return key;
+	}
 
 <!--------------------------->
 <!---AUTHORIZATION METHODS--->
@@ -159,16 +157,6 @@ function userInHandbook(email="#session.auth.email#") {
 
 
 
-function setOrgId() {
-	if ( isDefined("session.auth.email") ) {
-		org = model("Handbookorganization").findAll(where="Handbookpersonemail = '#session.auth.email#'", include="Handbookposition(Handbookorganization(Handbookstate))");
-		if ( org.recordcount ) {
-			session.auth.orgid = org.id;
-		}
-	}
-}
-
-
 <!------------------------------>	
 <!-------NAVIGATION AIDS-------->	
 <!------------------------------>	
@@ -213,6 +201,7 @@ function setOrgId() {
 	
 
 	function getActive(required category) {
+		//used in layout - nav
 		var loc = structNew();
 		loc.return = "inactive";
 		if ( !structKeyExists(params,"key") && category == "home" ) {
@@ -228,8 +217,8 @@ function setOrgId() {
 	}
 	
 
+	//used in multiple controllers to log the view
 	function logview() {
-		return true;
 		if ( isDefined("params.email") && len(params.email) ) {
 		} else if ( isDefined("session.auth.email") ) {
 			params.email = session.auth.email;
@@ -252,9 +241,10 @@ function setOrgId() {
 			params.updatedAt = now();
 			test = check.update(params);
 		}
+		return true;
 	}
 
-	function logview() {
+	function Xlogview() {
 		return true;
 		if ( isDefined("params.email") && len(params.email) ) {
 		} else if ( isDefined("session.auth.email") ) {
@@ -529,30 +519,7 @@ function setOrgId() {
 		if ( isObject(check) ) { return true } else { return false }
 	}
 
-</cfscript>
-<cffunction name="XGotRights">
-	<cfargument name="rightRequired" required="yes">
-		<cfset var permission = "no">
-			<cfloop list="#rightrequired#" index="i">
-				<cfif isdefined("session.auth.rightslist") and listFindNoCase(session.auth.rightslist,"#i#")>
-					<cfset permission = "yes">
-				</cfif>
-
-				<cfif i is "handbook">
-					<cftry>
-						<cfinvoke component="_model.handbook.staff.cfc_handbook_staff" method="get" email="#session.auth.email#" maxSortOrder="900" returnvariable="handbook" />
-
-						<cfif handbook.recordcount>
-							<cfset permission = "yes">
-						</cfif>
-					<cfcatch></cfcatch></cftry>
-				</cfif>
-			</cfloop>
-	<cfreturn permission>
-	</cffunction>
-<cfscript>
-	
-		function urlExists(required string url) {
+	function urlExists(required string url) {
 			var test = "";
 			if ( len(arguments.url) ) {
 				cfhttp( url=arguments.url, result="test", method="head" );
@@ -648,7 +615,20 @@ function setOrgId() {
 		cfheader( name="Access-Control-Allow-Credentials", value=true );
 		cfheader( name="Content-Type", value="application/json" );
 	}
-	
-</cfscript>		
 
-</cfcomponent>
+
+<!---NOT USED ANYWHERE--->	
+
+	function XsetOrgId() {
+		if ( isDefined("session.auth.email") ) {
+			org = model("Handbookorganization").findAll(where="Handbookpersonemail = '#session.auth.email#'", include="Handbookposition(Handbookorganization(Handbookstate))");
+			if ( org.recordcount ) {
+				session.auth.orgid = org.id;
+			}
+		}
+	}
+	
+	
+	
+	
+}
