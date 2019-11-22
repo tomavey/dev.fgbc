@@ -11,6 +11,7 @@ component extends="Controller" output="false"{
 		filters(through="getStates,getDistricts,getStatus", only="new,edit,update,index,create,downloadguidelines")
 		filters(through="setWillNotShowString,getGroupRosterOptions", only="new,edit")
 		filters(through="setReturn", only="show,handbookpages")
+		filters(through="logview", type="after", only="show")
 		provides("json")
 	}
 
