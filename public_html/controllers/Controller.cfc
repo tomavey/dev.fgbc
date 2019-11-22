@@ -317,6 +317,7 @@
 
 	
 
+<<<<<<< HEAD
 	<cffunction name="getCounts">
 	<cfargument name="key" default="#params.key#">
 	<cfargument name="action" default="#params.action#">
@@ -349,6 +350,8 @@
 
 	</cffunction>
 
+=======
+>>>>>>> master
 	<cffunction name="logout">
 		<cfset structDelete(session,"auth")>
 		<cfset structDelete(session,"params")>
