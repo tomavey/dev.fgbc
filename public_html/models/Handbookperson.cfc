@@ -59,7 +59,7 @@ component extends="Model" output="false" {
 		)
 		property(
 			name="file",
-			sql="SELECT file FROM handbookpictures where personid = handbookpeople.id && usefor = 'default' LIMIT 1"
+			sql="SELECT file FROM handbookpictures where personid = handbookpeople.id AND usefor = 'default' LIMIT 1"
 		)
 	}
 
@@ -231,7 +231,7 @@ component extends="Model" output="false" {
 
 	function isAGBMMember(required numeric personid, required struct params) {
 		var loc = structNew()
-		loc.check = model("Handbookagbminfo").findOne(where="personid=#arguments.personid# && membershipfeeyear = #currentMembershipYear(params)#")
+		loc.check = model("Handbookagbminfo").findOne(where="personid=#arguments.personid# AND membershipfeeyear = #currentMembershipYear(params)#")
 		if ( isObject(loc.check) ) {
 			loc.return = true
 		} else {
@@ -298,7 +298,7 @@ component extends="Model" output="false" {
 		cfparam( default=100000, name="arguments.params.perpage" )
 		whereString = "p_sortorder <= #getNonStaffSortOrder()#"
 		if ( isdefined("arguments.params.alpha") ) {
-			whereString = whereString & " && alpha = '#arguments.params.alpha#'"
+			whereString = whereString & " AND alpha = '#arguments.params.alpha#'"
 			orderString = "lname,fname,state"
 			includeString = "Handbookstate,Handbookpositions"
 		} else if ( isDefined("arguments.params.position") ) {
@@ -324,7 +324,7 @@ component extends="Model" output="false" {
 	}
 
 	function findAllStaff() {
-		staff = findAll(select="id, selectname", where="p_sortorder <= 500 && position <> 'Removed From Staff' && (private = 'NO' || private == NULL)", include="Handbookpositions,Handbookstate", order="selectname")
+		staff = findAll(select="id, selectname", where="p_sortorder <= 500 AND position <> 'Removed From Staff' AND (private = 'NO' || private == NULL)", include="Handbookpositions,Handbookstate", order="selectname")
 		cfquery( dbtype="query", name="staff" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
 
 			writeOutput("select DISTINCT *
@@ -336,7 +336,7 @@ component extends="Model" output="false" {
 	}
 
 	function findStaff(required numeric staffid) {
-		staff = findAll(select="id,fname,lname,spouse,file,address1,address2,city,state,zip,phone,phone2,email,name,position,birthdayasstring,anniversaryasstring,organizationid",where="id=#arguments.staffid# && (private = 'NO' || private == NULL)", include="Handbookpositions(Handbookorganization),Handbookstate,Handbookprofile")
+		staff = findAll(select="id,fname,lname,spouse,file,address1,address2,city,state,zip,phone,phone2,email,name,position,birthdayasstring,anniversaryasstring,organizationid",where="id=#arguments.staffid# AND (private = 'NO' || private == NULL)", include="Handbookpositions(Handbookorganization),Handbookstate,Handbookprofile")
 		staff = queryToJson(staff)
 		return staff
 	}
@@ -428,7 +428,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		loc.whereString = "#arguments.datetype#AsString != NULL"
 		// Remove spouse birthdays and anniversaries where spouse name is blank - probably deceased
 		if ( arguments.datetype == "wifesbirthday" || arguments.datetype == "anniversary" ) {
-			loc.whereString = loc.wherestring & " && spouse != NULL"
+			loc.whereString = loc.wherestring & " AND spouse != NULL"
 		}
 		arguments.datetype = arguments.datetype & "asstring"
 		loc.profiles = model("Handbookprofile").findAll(
