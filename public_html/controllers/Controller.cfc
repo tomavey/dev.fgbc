@@ -317,7 +317,7 @@
 
 	
 
-	<cffunction name="getcounts">
+	<cffunction name="getCounts">
 	<cfargument name="key" default="#params.key#">
 	<cfargument name="action" default="#params.action#">
 	<cfargument name="controller" default="#params.controller#">
