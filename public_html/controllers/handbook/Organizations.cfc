@@ -214,7 +214,20 @@ component extends="Controller" output="false"{
 		ArrayDeleteAt(session.churches,item);
 		redirectTo(action="handbookReviewOptions", params="refresh=false");
 	}
-
+	
+	private object function BirthDayAnniversary(required numeric personid) {
+		var loc = structNew();
+		loc.profile = model("Handbookprofile").findOne(where="personid = #arguments.personid#");
+		if ( isObject(loc.profile) ) {
+			loc.return.birthday = dateformat(loc.profile.birthday,"medium");
+			loc.return.anniversary = dateformat(loc.profile.anniversary,"medium");
+		} else {
+			loc.return.birthday = "?";
+			loc.return.anniversary = "?";
+		}
+		return loc.return;
+	}
+	
 <!------------------------------------------------->
 <!---END OF Methods for Handbook Review Emailing--->
 <!------------------------------------------------->
@@ -562,5 +575,6 @@ component extends="Controller" output="false"{
 		return true
 	}
 
+	
 }
 

@@ -278,13 +278,15 @@ function userInHandbook(email="#session.auth.email#") {
 		}
 	}	
 
+	//called from some navbars - similar method also to auth.users.cfc
 	function logout() {
 		structDelete(session,"auth");
 		structDelete(session,"params");
 		redirectTo(action="index");
 	}
 	
-	function BirthDayAnniversary(required numeric personid) {
+	//only called from handbookpages - could move to organizations.cfc
+	function XBirthDayAnniversary(required numeric personid) {
 		var loc = structNew();
 		loc.profile = model("Handbookprofile").findOne(where="personid = #arguments.personid#");
 		if ( isObject(loc.profile) ) {
@@ -297,7 +299,8 @@ function userInHandbook(email="#session.auth.email#") {
 		return loc.return;
 	}
 	
-	private function isFellowshipCouncil() {
+	//called from views controlled my membership.applications.cfc - possibly could be moved
+	private function XisFellowshipCouncil() {
 		if ( isDefined("session.auth.fellowshipcouncil") && session.auth.fellowshipcouncil ) {
 			return true;
 		} else if ( gotRights("superadmin,office,fellowshipcouncil") ) {
