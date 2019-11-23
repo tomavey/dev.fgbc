@@ -247,57 +247,57 @@ component extends="Wheels" {
 			}
 		}
 
-		function isLoggedIn() {
-			var loc = structNew();
-			if ( isDefined("session.auth.login") && session.auth.login ) {
-				return true;
-			} else {
-				return false;
-			}
+	function isLoggedIn() {
+		var loc = structNew();
+		if ( isDefined("session.auth.login") && session.auth.login ) {
+			return true;
+		} else {
+			return false;
 		}
-		
-		function simpleEncode(required numeric numbertoEncode, factor="3") {
-			var loc=structNew();
-			loc = arguments;
-			loc.return = (loc.numbertoencode * loc.factor) + loc.factor;
-			return loc.return;
-		}
-		
-		function simpleDecode(required numeric numbertoDecode, factor="3") {
-			var loc=structNew();
-			loc = arguments;
-			loc.return = (loc.numbertoDecode-loc.factor)/loc.factor;
-			return loc.return;
-		}
-		
+	}
 	
-		function isMinistryStaff(userid) {
-			try {
-				checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) && itemId= #arguments.userid# && tag='ministrystaff'");
-				if ( isObject(checkForTag) ) {
-					return true;
-				} else {
-					return false;
-				}
-			} catch (any cfcatch) {
-				return false;
-			}
-		}
-		
-		function facebookloginisopen() {
-			if ( isDefined("session.auth.fblogin") && !session.auth.fblogin ) {
-				return false;
-			} else if ( get("facebookloginisopen") || isDefined("params.fblogin") || (isDefined("session.auth.fblogin") && session.auth.fblogin) ) {
-				session.auth.fblogin = true;
+	function simpleEncode(required numeric numbertoEncode, factor="3") {
+		var loc=structNew();
+		loc = arguments;
+		loc.return = (loc.numbertoencode * loc.factor) + loc.factor;
+		return loc.return;
+	}
+	
+	function simpleDecode(required numeric numbertoDecode, factor="3") {
+		var loc=structNew();
+		loc = arguments;
+		loc.return = (loc.numbertoDecode-loc.factor)/loc.factor;
+		return loc.return;
+	}
+
+	function isMinistryStaff(userid) {
+		try {
+			checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) && itemId= #arguments.userid# && tag='ministrystaff'");
+			if ( isObject(checkForTag) ) {
 				return true;
 			} else {
 				return false;
 			}
+		} catch (any cfcatch) {
+			return false;
 		}
+	}
+	
+	function facebookloginisopen() {
+		if ( isDefined("session.auth.fblogin") && !session.auth.fblogin ) {
+			return false;
+		} else if ( get("facebookloginisopen") || isDefined("params.fblogin") || (isDefined("session.auth.fblogin") && session.auth.fblogin) ) {
+			session.auth.fblogin = true;
+			return true;
+		} else {
+			return false;
+		}
+	}
 		
 <!---------------------------------->
 <!---END OF AUTHORIZATION METHODS--->
 <!---------------------------------->
+
 
 
 
@@ -388,6 +388,16 @@ component extends="Wheels" {
 		}
 		return super.linkTo(argumentCollection=loc);
 	}
+<!------------------------------------->	
+<!-------END OF NAVIGATION AIDS-------->	
+<!------------------------------------->	
+
+
+
+
+<!------------------------->	
+<!-------SET LAYOUTS------->	
+<!------------------------->	
 
 	function useDesktopLayout() {
 		if ( isDefined("session.handbook.isMobile") && session.handbook.isMobile ) {
@@ -406,9 +416,9 @@ component extends="Wheels" {
 			renderPage(template=arguments.template, layout=arguments.defaultLayout, showDebugOutput="No")
 		}
 	}	
-<!------------------------------------->	
-<!-------END OF NAVIGATION AIDS-------->	
-<!------------------------------------->	
+<!-------------------------------->	
+<!-------END OF SET LAYOUTS------->	
+<!-------------------------------->	
 
 
 
@@ -418,22 +428,6 @@ component extends="Wheels" {
 <!--------GETTERS FOR SETTINGS---------->
 <!-------------------------------------->
 
-	function getActive(required category) {
-		//used in layout - nav
-		var loc = structNew();
-		loc.return = "inactive";
-		if ( !structKeyExists(params,"key") && category == "home" ) {
-			loc.return = "active";
-		} else if ( structKeyExists(params,"key") && params.key == arguments.category ) {
-			loc.return = "active";
-		} else if ( structKeyExists(params,"action") && params.action == arguments.category ) {
-			loc.return = "active";
-		} else if ( structKeyExists(params,"controller") && params.controller == arguments.category ) {
-			loc.return = "active";
-		}
-		return loc.return;
-	}
-	
 	public function isConferenceErrorEmailOn(){
 		return application.wheels.sendConferenceEmailOnError;
 	}
@@ -470,9 +464,9 @@ component extends="Wheels" {
 <!-------------------------------------->
 	
 
-
 	//used in multiple controllers to log the view
 	function logview() {
+		if ( !getsetting("logviews") ) { return false }
 		if ( isDefined("params.email") && len(params.email) ) {
 		} else if ( isDefined("session.auth.email") ) {
 			params.email = session.auth.email;
@@ -482,18 +476,26 @@ component extends="Wheels" {
 		if ( isDefined("params.key") ) {
 			params.paramskey = params.key;
 		}
+		if ( isDefined("params.keyy") ) {
+			params.paramskey = params.keyy;
+		}
 		params.browser = cgi.http_user_agent;
+		writeDump(params)
+		//Check to see if this userView already exists so I don't duplicate
 		if ( isdefined("params.key") ) {
 			params.paramskey = params.key;
-			check = model('Userview').findOne(where="email = '#params.email#' && controller = '#params.controller#' && action = '#params.action#' && paramskey = '#params.key#'");
+			log = model('Viewlog').findOne(where="email = '#params.email#' AND controller = '#params.controller#' AND action = '#params.action#' AND paramskey = '#params.key#'");
 		} else {
-			check = model('Userview').findOne(where="email = '#params.email#' && controller = '#params.controller#' && action = '#params.action#' && paramskey == NULL");
+			log = model('Viewlog').findOne(where="email = '#params.email#' AND controller = '#params.controller#' AND action = '#params.action#' AND paramskey IS NULL");
 		}
-		if ( !isObject(check) ) {
-			thisview = model('Userview').create(params);
-		} else {
+		if ( !isObject(log) ) {
+			//if not, create a new userView
+			log = model('Viewlog').new(params)
+			test = log.save()
+			} else {
+			//else update the updatedField on the one that already exists
 			params.updatedAt = now();
-			test = check.update(params);
+			log.update(params);
 		}
 		return true;
 	}

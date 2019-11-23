@@ -7,7 +7,7 @@ component extends="Controller" output="false"{
 
 	function init(){
 		usesLayout("/handbook/layout_handbook")
-		filters(through="gotBasicHandbookRights,logview", except="memberChurches,findChurches,findChurchWithStaff,groupRoster")
+		filters(through="gotBasicHandbookRights", except="memberChurches,findChurches,findChurchWithStaff,groupRoster")
 		filters(through="getStates,getDistricts,getStatus", only="new,edit,update,index,create,downloadguidelines")
 		filters(through="setWillNotShowString,getGroupRosterOptions", only="new,edit")
 		filters(through="setReturn", only="show,handbookpages")

@@ -48,6 +48,7 @@
 	<!---cfset set(obfuscateURLs=true)--->
 	<cfset set(allowUserAccountCreation = false)>
 	<cfset set(requireUserCreateCodeConfirm = true)>
+	<cfset set(logViews = false)>
 
 <!---application.wheels Variables--->
 	<cfset set(passwordKey="j316fgsltwj11itbwtwp16hwbagwiy")> <!---PasswordKey is not accessible via getSetting()--->

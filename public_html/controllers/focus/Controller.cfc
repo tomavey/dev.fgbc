@@ -40,6 +40,22 @@ component extends="controllers.Controller" {
 		} else {
 			return "no Content";
 		}
+  }
+  
+	function getActive(required category) {
+		//used in layout - nav
+		var loc = structNew();
+		loc.return = "inactive";
+		if ( !structKeyExists(params,"key") && category == "home" ) {
+			loc.return = "active";
+		} else if ( structKeyExists(params,"key") && params.key == arguments.category ) {
+			loc.return = "active";
+		} else if ( structKeyExists(params,"action") && params.action == arguments.category ) {
+			loc.return = "active";
+		} else if ( structKeyExists(params,"controller") && params.controller == arguments.category ) {
+			loc.return = "active";
+		}
+		return loc.return;
 	}
 
 }
