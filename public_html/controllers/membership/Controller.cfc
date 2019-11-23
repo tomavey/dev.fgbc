@@ -12,5 +12,13 @@ component extends="controllers.Controller"{
 		}
 	}
 
+	function isMembershipApp() {
+		if ( isDefined("session.membershipapplication.id") && session.membershipapplication.id ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }
 

@@ -285,41 +285,9 @@ function userInHandbook(email="#session.auth.email#") {
 		redirectTo(action="index");
 	}
 	
-	//only called from handbookpages - could move to organizations.cfc
-	function XBirthDayAnniversary(required numeric personid) {
-		var loc = structNew();
-		loc.profile = model("Handbookprofile").findOne(where="personid = #arguments.personid#");
-		if ( isObject(loc.profile) ) {
-			loc.return.birthday = dateformat(loc.profile.birthday,"medium");
-			loc.return.anniversary = dateformat(loc.profile.anniversary,"medium");
-		} else {
-			loc.return.birthday = "?";
-			loc.return.anniversary = "?";
-		}
-		return loc.return;
-	}
-	
-	//called from views controlled my membership.applications.cfc - possibly could be moved
-	private function XisFellowshipCouncil() {
-		if ( isDefined("session.auth.fellowshipcouncil") && session.auth.fellowshipcouncil ) {
-			return true;
-		} else if ( gotRights("superadmin,office,fellowshipcouncil") ) {
-			return true;
-		} else if ( isDefined("params.fc") && params.fc ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	function isMembershipApp() {
-		if ( isDefined("session.membershipapplication.id") && session.membershipapplication.id ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
+	// For custom data attributes we convert underscores and camel case to hyphens.
+	// E.g. "dataDomCache" and "data_dom_cache" becomes "data-dom-cache".
+	// This is to get around the issue with not being able to use a hyphen in an argument name in CFML.
 	function linkTo(){
 		var loc = structNew();
 		for (var arg in arguments) {
