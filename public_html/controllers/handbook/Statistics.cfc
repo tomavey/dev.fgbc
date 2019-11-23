@@ -26,6 +26,16 @@
 		<cfabort>
 	</cffunction>
 
+<cfscript>
+
+	function paramsKeyRequired() {
+		if ( !isDefined("params.key") ) {
+			renderText("This page cannot display - wrong parameters");
+		}
+	}
+
+</cfscript>	
+
 	<!---fgbcdelegates/getChurchId--->
 	<cffunction name="getChurchid">
 		<cfset churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="org_city,state_mail_abbrev")>

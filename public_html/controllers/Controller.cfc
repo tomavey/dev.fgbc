@@ -12,6 +12,9 @@ component extends="Wheels" {
 		return ministries
 	}
 
+
+
+
 <!-------------->
 <!---CAPTCHA---->
 <!-------------->
@@ -59,9 +62,16 @@ component extends="Wheels" {
 			redirectTo(action="new");
 		}
 	}
+<!--------------------->
+<!---END OF CAPTCHA---->
+<!--------------------->
+
+
+
+
 
 <!------------------>
-<!-----SECURITY---->
+<!-----SECURITY----->
 <!------------------>
 
 	function getKey(required string email) output=false {
@@ -70,264 +80,97 @@ component extends="Wheels" {
 		return key;
 	}
 
+	private function requiresToken() {
+		if (!isDefined('params.token') || params.token NEQ getSetting("requiredToken")) {
+			reDirectTo(action="summary")
+		}
+	}
+<!------------------------->
+<!-----END OF SECURITY----->
+<!------------------------->
+
+
+
+
+
 <!--------------------------->
 <!---AUTHORIZATION METHODS--->
 <!--------------------------->
 
-function isSuperadmin() {
-	try {
-		if ( !listFind(session.auth.rightslist,"superadmin") ) {
+	function isSuperadmin() {
+		try {
+			if ( !listFind(session.auth.rightslist,"superadmin") ) {
+				redirectto(controller="home", action="loggedOut");
+				abort;
+			}
+		} catch (any cfcatch) {
 			redirectto(controller="home", action="loggedOut");
-			abort;
 		}
-	} catch (any cfcatch) {
-		redirectto(controller="home", action="loggedOut");
 	}
-}
 
-function isOffice() {
-	try {
-		if ( !gotRights("superadmin,office,handbookedit") ) {
+	function isOffice() {
+		try {
+			if ( !gotRights("superadmin,office,handbookedit") ) {
+				redirectto(controller="home", action="loggedOut");
+				abort;
+			}
+		} catch (any cfcatch) {
 			redirectto(controller="home", action="loggedOut");
-			abort;
 		}
-	} catch (any cfcatch) {
-		redirectto(controller="home", action="loggedOut");
 	}
-}
 
-function gotAgbmRights() {
-	if ( !gotRights("superadmin,agbmadmin,agbm") ) {
-		renderText("You do !have permission to access the AGBM Membership List");
+	function gotAgbmRights() {
+		if ( !gotRights("superadmin,agbmadmin,agbm") ) {
+			renderText("You do !have permission to access the AGBM Membership List");
+		}
 	}
-}
 
-function gotBasicHandbookRights() {
-	cfcookie( name="handbookLastRequest_url", value=cgi.request_url );
-	if ( isDefined("params.action") && params.action == "sendHandbook" ) {
-		return true;
-	}
-	if ( gotrights("superadmin,office,handbook,agbmadmin") ) {
-		return true;
-	}
-	if ( isdefined("session.auth.email") && userInHandbook() ) {
-		return true;
-	}
-	if ( isdefined("params.email") && userInHandbook(params.email) ) {
-		return true;
-	}
-	if ( isDefined("session.auth.handbook.basic") && session.auth.handbook.basic ) {
-		return true;
-	}
-	try {
-		if ( session.auth.handbook.basic || gotrights("superadmin,office,handbook") ) {
+	function gotBasicHandbookRights() {
+		cfcookie( name="handbookLastRequest_url", value=cgi.request_url );
+		if ( isDefined("params.action") && params.action == "sendHandbook" ) {
 			return true;
-		} else {
+		}
+		if ( gotrights("superadmin,office,handbook,agbmadmin") ) {
+			return true;
+		}
+		if ( isdefined("session.auth.email") && userInHandbook() ) {
+			return true;
+		}
+		if ( isdefined("params.email") && userInHandbook(params.email) ) {
+			return true;
+		}
+		if ( isDefined("session.auth.handbook.basic") && session.auth.handbook.basic ) {
+			return true;
+		}
+		try {
+			if ( session.auth.handbook.basic || gotrights("superadmin,office,handbook") ) {
+				return true;
+			} else {
+				redirectTo(controller="handbook.welcome", action="checkin");
+			}
+		} catch (any cfcatch) {
+			if ( isDefined("params.route") && params.route == "handbookPerson" ) {
+				redirectTo(route="handbookviewperson", key=params.key);
+			}
 			redirectTo(controller="handbook.welcome", action="checkin");
 		}
-	} catch (any cfcatch) {
-		if ( isDefined("params.route") && params.route == "handbookPerson" ) {
-			redirectTo(route="handbookviewperson", key=params.key);
-		}
-		redirectTo(controller="handbook.welcome", action="checkin");
-	}
-}
-
-function isPageEditor() {
-	if ( gotRights("office,pageEditor,agbm") ) {
-		return true;
-	} else {
-		renderText("You do !have persmission to view this page");
-	}
-}
-
-
-function userInHandbook(email="#session.auth.email#") {
-	check = model("Handbookperson").findOne(where="email = '#arguments.email#' || email2='#arguments.email#'", include="Handbookstate");
-	if ( isObject(check) ) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
-<!---------------------------------->
-<!---END OF AUTHORIZATION METHODS--->
-<!---------------------------------->
-
-
-
-<!------------------------------>	
-<!-------NAVIGATION AIDS-------->	
-<!------------------------------>	
-	function setReturn() {
-		if ( !isDefined("params.ajax") ) {
-			if ( params.action == "index" || params.action == "list" ) {
-				session.listingURL = $GetCurrentURL();
-			}
-			session.originalURL = $GetCurrentURL();
-		}
 	}
 
-	function returnBack(string controller, string action, string error){
-		if ( isDefined('arguments.error') ) { flashInsert(error = arguments.error) }
-		try {
-			var backURL = session.originalURL
-			session.originalURL = ""
-			IF ( Len(backURL) GT 0 ) {
-				location(url="#backURL#", addtoken="false")
-			} ELSE {
-				redirectTo(argumentCollection=arguments)
-			}
-		} catch (any e) {
-			redirectTo(argumentCollection=arguments)
-		}
-	}
-
-	public function $GetCurrentURL() output=false {
-		var theURL = getPageContext().getRequest().GetRequestUrl();
-		if ( len( CGI.query_string ) ) {
-			theURL = theURL & "?" & CGI.query_string;
-		}
-		if ( cgi.http_host == "localhost:8080" || cgi.http_host == "localhost:8888" ) {
+	function isPageEditor() {
+		if ( gotRights("office,pageEditor,agbm") ) {
+			return true;
 		} else {
-			try {
-				theURL = replace(theUrl,"/rewrite.cfm","","one");
-			} catch (any cfcatch) {
-			}
-		}
-		return theURL;
-	}
-	
-
-	function getActive(required category) {
-		//used in layout - nav
-		var loc = structNew();
-		loc.return = "inactive";
-		if ( !structKeyExists(params,"key") && category == "home" ) {
-			loc.return = "active";
-		} else if ( structKeyExists(params,"key") && params.key == arguments.category ) {
-			loc.return = "active";
-		} else if ( structKeyExists(params,"action") && params.action == arguments.category ) {
-			loc.return = "active";
-		} else if ( structKeyExists(params,"controller") && params.controller == arguments.category ) {
-			loc.return = "active";
-		}
-		return loc.return;
-	}
-	
-
-	//used in multiple controllers to log the view
-	function logview() {
-		if ( isDefined("params.email") && len(params.email) ) {
-		} else if ( isDefined("session.auth.email") ) {
-			params.email = session.auth.email;
-		} else {
-			params.email = "not logged in";
-		}
-		if ( isDefined("params.key") ) {
-			params.paramskey = params.key;
-		}
-		params.browser = cgi.http_user_agent;
-		if ( isdefined("params.key") ) {
-			params.paramskey = params.key;
-			check = model('Userview').findOne(where="email = '#params.email#' && controller = '#params.controller#' && action = '#params.action#' && paramskey = '#params.key#'");
-		} else {
-			check = model('Userview').findOne(where="email = '#params.email#' && controller = '#params.controller#' && action = '#params.action#' && paramskey == NULL");
-		}
-		if ( !isObject(check) ) {
-			thisview = model('Userview').create(params);
-		} else {
-			params.updatedAt = now();
-			test = check.update(params);
-		}
-		return true;
-	}
-
-	function Xlogview() {
-		return true;
-		if ( isDefined("params.email") && len(params.email) ) {
-		} else if ( isDefined("session.auth.email") ) {
-			params.email = session.auth.email;
-		} else {
-			params.email = "not logged in";
-		}
-		if ( isDefined("params.key") ) {
-			params.paramskey = params.key;
-		}
-		params.browser = cgi.http_user_agent;
-		if ( isdefined("params.key") ) {
-			params.paramskey = params.key;
-			check = model('Userview').findOne(where="email = '#params.email#' && controller = '#params.controller#' && action = '#params.action#' && paramskey = '#params.key#'");
-		} else {
-			check = model('Userview').findOne(where="email = '#params.email#' && controller = '#params.controller#' && action = '#params.action#' && paramskey == NULL");
-		}
-		if ( !isObject(check) ) {
-			thisview = model('Userview').create(params);
-		} else {
-			params.updatedAt = now();
-			test = check.update(params);
+			renderText("You do !have persmission to view this page");
 		}
 	}
 
-	function $setDownloadLayout(defaultLayout='/layout_naked', template=''){
-		if ( (isdefined("params.key") && params.key is "excel") || (isdefined("params.format") && params.format is "excel") || (isDefined("params.download")) ) {
-			renderPage(template=arguments.template, layout='/layout_download', showDebugOutput="No")
+	function userInHandbook(email="#session.auth.email#") {
+		check = model("Handbookperson").findOne(where="email = '#arguments.email#' || email2='#arguments.email#'", include="Handbookstate");
+		if ( isObject(check) ) {
+			return true;
 		} else {
-			renderPage(template=arguments.template, layout=arguments.defaultLayout, showDebugOutput="No")
+			return false;
 		}
-	}	
-
-	//called from some navbars - similar method also to auth.users.cfc
-	function logout() {
-		structDelete(session,"auth");
-		structDelete(session,"params");
-		redirectTo(action="index");
-	}
-	
-	// For custom data attributes we convert underscores and camel case to hyphens.
-	// E.g. "dataDomCache" and "data_dom_cache" becomes "data-dom-cache".
-	// This is to get around the issue with not being able to use a hyphen in an argument name in CFML.
-	function linkTo(){
-		var loc = structNew();
-		for (var arg in arguments) {
-			if (arg is "officeOnly" && arguments.officeOnly) { return arguments.text }
-			loc[replace(arg,"_","-","all")] = arguments[arg];
-		}
-		if (isDefined('loc.key')) { 
-			if (isDefined('loc.params')) { loc.params = loc.params & '&' & 'keyy=#loc.key#' }
-			else { loc.params = 'keyy=#loc.key#' }
-			};
-		return super.linkTo(argumentCollection=loc);
-	}
-
-	<!---Probably should move to focus controller--->
-	function showRegsFor(){
-		return model("Focusretreat").findAll(where="showregs = 'yes'", order="startAt DESC")
-	}
-
-	function showOptionsFor(){
-		return model("Focusretreat").findAll(where="active = 'yes'", order="startAt DESC")
-	}
-
-	function linkToList(text="Go Back") {
-		var loc=structNew();
-		if ( isDefined("session.listingURL") && len(session.listingURL) ) {
-			loc.text = arguments.text;
-			loc.href = session.listingURL;
-			session.listingURL = "";
-		} else {
-			loc = arguments;
-		}
-		return super.linkTo(argumentCollection=loc);
-	}
-	
-	function startFormTag() {
-		var loc=structNew();
-		for ( i in structKeylist(arguments) ) {
-			loc[replace(i,"_","-","all")] = arguments[i];
-		}
-		return super.startFormTag(argumentCollection=loc);
 	}
 
 	function isOffice() {
@@ -347,61 +190,13 @@ function userInHandbook(email="#session.auth.email#") {
 			return false;
 		}
 	}
-	
+
 	function checkOffice() {
 		if ( !isoffice() ) {
 			rendertext("You do !have permission to view this page");
 		}
 	}
-	
-	function getRegions() {
-		regions = model("Handbookdistrict").findall(order="region");
-	}
-	
-	function getRetreats() {
-		retreats = model("Focusretreat").findAll(where="active='yes' && startAt > now()", order="startAt");
-	}
-	
-	function getFocusContent(required id) {
-		if ( isnumeric("arguments.id") ) {
-			content = model("Focuscontent").findOne(where="id=#arguments.id#");
-		} else {
-			content = model("Focuscontent").findOne(where="name='#arguments.id#'");
-		}
-		if ( isObject(content) ) {
-			return content.content;
-		} else {
-			return "no Content";
-		}
-	}
-		
 
-	function getStatus(required id) {
-		var status = val(arguments.id);
-		if ( len(arguments.id) >= 2 ) {
-			status = arguments.id;
-		} else if ( status == 0 ) {
-			status = "Pending";
-		} else if ( status == 1 ) {
-			status = "Paid";
-		} else if ( status == 2 ) {
-			status = "Comp";
-		} else {
-			status = "NA";
-		}
-		return status;
-	}
-	
-	function useDesktopLayout() {
-		if ( isDefined("session.handbook.isMobile") && session.handbook.isMobile ) {
-			return false;
-		} else if ( isMobile() ) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-	
 	function isMobile() {
 		if ( isDefined("params.isMobile") || isDefined("session.isMobile") ) {
 			session.isMobile = true;
@@ -409,65 +204,13 @@ function userInHandbook(email="#session.auth.email#") {
 		}
 		return super.isMobile();
 	}
-	
-	function isLoggedIn() {
-		var loc = structNew();
-		if ( isDefined("session.auth.login") && session.auth.login ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	function simpleEncode(required numeric numbertoEncode, factor="3") {
-		var loc=structNew();
-		loc = arguments;
-		loc.return = (loc.numbertoencode * loc.factor) + loc.factor;
-		return loc.return;
-	}
-	
-	function simpleDecode(required numeric numbertoDecode, factor="3") {
-		var loc=structNew();
-		loc = arguments;
-		loc.return = (loc.numbertoDecode-loc.factor)/loc.factor;
-		return loc.return;
-	}
-	
 
-	function isMinistryStaff(userid) {
-		try {
-			checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) && itemId= #arguments.userid# && tag='ministrystaff'");
-			if ( isObject(checkForTag) ) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (any cfcatch) {
-			return false;
-		}
-	}
-	
-	function facebookloginisopen() {
-		if ( isDefined("session.auth.fblogin") && !session.auth.fblogin ) {
-			return false;
-		} else if ( get("facebookloginisopen") || isDefined("params.fblogin") || (isDefined("session.auth.fblogin") && session.auth.fblogin) ) {
-			session.auth.fblogin = true;
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	function forcecfcatch() {
-		if ( isDefined("params.forcecfcatch") || isDefined("params.forceerror") || isDefined("params.error") ) {
-			test = nosuchvariable;
-		}
-	}
-	
-	function paramsKeyRequired() {
-		if ( !isDefined("params.key") ) {
-			renderText("This page cannot display - wrong parameters");
-		}
+	function setAccessControlHeaders() {
+		cfheader( name="Access-Control-Allow-Origin", value="https://access2018.app" );
+		cfheader( name="Access-Control-Allow-Methods", value="GET,PUT,POST,DELETE" );
+		cfheader( name="Access-Control-Allow-Headers", value="Content-Type" );
+		cfheader( name="Access-Control-Allow-Credentials", value=true );
+		cfheader( name="Content-Type", value="application/json" );
 	}
 
 	function gotRights(required string rightsRequired){
@@ -503,6 +246,193 @@ function userInHandbook(email="#session.auth.email#") {
 				return false;
 			}
 		}
+
+		function isLoggedIn() {
+			var loc = structNew();
+			if ( isDefined("session.auth.login") && session.auth.login ) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+		function simpleEncode(required numeric numbertoEncode, factor="3") {
+			var loc=structNew();
+			loc = arguments;
+			loc.return = (loc.numbertoencode * loc.factor) + loc.factor;
+			return loc.return;
+		}
+		
+		function simpleDecode(required numeric numbertoDecode, factor="3") {
+			var loc=structNew();
+			loc = arguments;
+			loc.return = (loc.numbertoDecode-loc.factor)/loc.factor;
+			return loc.return;
+		}
+		
+	
+		function isMinistryStaff(userid) {
+			try {
+				checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) && itemId= #arguments.userid# && tag='ministrystaff'");
+				if ( isObject(checkForTag) ) {
+					return true;
+				} else {
+					return false;
+				}
+			} catch (any cfcatch) {
+				return false;
+			}
+		}
+		
+		function facebookloginisopen() {
+			if ( isDefined("session.auth.fblogin") && !session.auth.fblogin ) {
+				return false;
+			} else if ( get("facebookloginisopen") || isDefined("params.fblogin") || (isDefined("session.auth.fblogin") && session.auth.fblogin) ) {
+				session.auth.fblogin = true;
+				return true;
+			} else {
+				return false;
+			}
+		}
+		
+<!---------------------------------->
+<!---END OF AUTHORIZATION METHODS--->
+<!---------------------------------->
+
+
+
+
+<!------------------------------>	
+<!-------NAVIGATION AIDS-------->	
+<!------------------------------>	
+	//Used in conjunction with returnBack() to return to referring page
+	private void function setReturn() {
+		if ( !isDefined("params.ajax") ) {
+			if ( params.action == "index" || params.action == "list" ) {
+				session.listingURL = $GetCurrentURL();
+			}
+			session.originalURL = $GetCurrentURL();
+		}
+	}
+
+	//Used in conjunction with setReturn() to return to referring page
+	private void	function returnBack(string controller, string action, string error){
+		if ( isDefined('arguments.error') ) { flashInsert(error = arguments.error) }
+		try {
+			var backURL = session.originalURL
+			session.originalURL = ""
+			IF ( Len(backURL) GT 0 ) {
+				location(url="#backURL#", addtoken="false")
+			} ELSE {
+				redirectTo(argumentCollection=arguments)
+			}
+		} catch (any e) {
+			redirectTo(argumentCollection=arguments)
+		}
+	}
+
+	//used by setReturn()
+	private string function $GetCurrentURL() output=false {
+		var theURL = getPageContext().getRequest().GetRequestUrl();
+		if ( len( CGI.query_string ) ) {
+			theURL = theURL & "?" & CGI.query_string;
+		}
+		if ( cgi.http_host == "localhost:8080" || cgi.http_host == "localhost:8888" ) {
+		} else {
+			try {
+				theURL = replace(theUrl,"/rewrite.cfm","","one");
+			} catch (any cfcatch) {
+			}
+		}
+		return theURL;
+	}
+
+	// Overflow method
+	// For custom data attributes we convert underscores and camel case to hyphens.
+	// E.g. "dataDomCache" and "data_dom_cache" becomes "data-dom-cache".
+	// This is to get around the issue with not being able to use a hyphen in an argument name in CFML.
+	function linkTo(){
+		var loc = structNew();
+		for (var arg in arguments) {
+			if (arg is "officeOnly" && arguments.officeOnly) { return arguments.text }
+			loc[replace(arg,"_","-","all")] = arguments[arg];
+		}
+		if (isDefined('loc.key')) { 
+			if (isDefined('loc.params')) { loc.params = loc.params & '&' & 'keyy=#loc.key#' }
+			else { loc.params = 'keyy=#loc.key#' }
+			};
+		return super.linkTo(argumentCollection=loc);
+	}
+
+	// Overflow method
+	// For custom data attributes we convert underscores and camel case to hyphens.
+	// E.g. "dataDomCache" and "data_dom_cache" becomes "data-dom-cache".
+	// This is to get around the issue with not being able to use a hyphen in an argument name in CFML.
+	function startFormTag() {
+		var loc=structNew();
+		for ( i in structKeylist(arguments) ) {
+			loc[replace(i,"_","-","all")] = arguments[i];
+		}
+		return super.startFormTag(argumentCollection=loc);
+	}
+
+	//Used when linking back to a list of things. . ie action=index
+	function linkToList(text="Go Back") {
+		var loc=structNew();
+		if ( isDefined("session.listingURL") && len(session.listingURL) ) {
+			loc.text = arguments.text;
+			loc.href = session.listingURL;
+			session.listingURL = "";
+		} else {
+			loc = arguments;
+		}
+		return super.linkTo(argumentCollection=loc);
+	}
+
+	function useDesktopLayout() {
+		if ( isDefined("session.handbook.isMobile") && session.handbook.isMobile ) {
+			return false;
+		} else if ( isMobile() ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private void function $setDownloadLayout(defaultLayout='/layout_naked', template=''){
+		if ( (isdefined("params.key") && params.key is "excel") || (isdefined("params.format") && params.format is "excel") || (isDefined("params.download")) ) {
+			renderPage(template=arguments.template, layout='/layout_download', showDebugOutput="No")
+		} else {
+			renderPage(template=arguments.template, layout=arguments.defaultLayout, showDebugOutput="No")
+		}
+	}	
+<!------------------------------------->	
+<!-------END OF NAVIGATION AIDS-------->	
+<!------------------------------------->	
+
+
+
+
+
+<!-------------------------------------->
+<!--------GETTERS FOR SETTINGS---------->
+<!-------------------------------------->
+
+	function getActive(required category) {
+		//used in layout - nav
+		var loc = structNew();
+		loc.return = "inactive";
+		if ( !structKeyExists(params,"key") && category == "home" ) {
+			loc.return = "active";
+		} else if ( structKeyExists(params,"key") && params.key == arguments.category ) {
+			loc.return = "active";
+		} else if ( structKeyExists(params,"action") && params.action == arguments.category ) {
+			loc.return = "active";
+		} else if ( structKeyExists(params,"controller") && params.controller == arguments.category ) {
+			loc.return = "active";
+		}
+		return loc.return;
+	}
 	
 	public function isConferenceErrorEmailOn(){
 		return application.wheels.sendConferenceEmailOnError;
@@ -527,28 +457,6 @@ function userInHandbook(email="#session.auth.email#") {
 		}
 	}
 
-	public function removeDuplicatesFromList(list,delimiter,case=true){
-		var i = 0;
-		var listitem = "";
-		var newlist = "";
-
-		if(!isDefined("delimiter")){delimiter=","};
-		for (i=1; i LTE listLen(list,delimiter); i=i+1){
-			listItem = listGetAt(list,i,delimiter);
-			if (case is true){
-			if (!listFind(newlist,listitem,delimiter)){
-				newlist = newlist & delimiter & listitem;
-				}
-			}
-			else {
-			if (!listFindNoCase(newlist,listitem,delimiter)){
-				newlist = newlist & delimiter & listitem;
-				}
-			}	
-		};
-		return replace(newlist,',','','one');
-	}
-
 	public function onLocalHost(){
 		if( getSetting('onLocalHost')){
 			return true;
@@ -557,34 +465,72 @@ function userInHandbook(email="#session.auth.email#") {
 			return false;
 		}
 	}
+<!-------------------------------------->
+<!-----END OF GETTERS FOR SETTINGS------>
+<!-------------------------------------->
+	
 
+
+	//used in multiple controllers to log the view
+	function logview() {
+		if ( isDefined("params.email") && len(params.email) ) {
+		} else if ( isDefined("session.auth.email") ) {
+			params.email = session.auth.email;
+		} else {
+			params.email = "not logged in";
+		}
+		if ( isDefined("params.key") ) {
+			params.paramskey = params.key;
+		}
+		params.browser = cgi.http_user_agent;
+		if ( isdefined("params.key") ) {
+			params.paramskey = params.key;
+			check = model('Userview').findOne(where="email = '#params.email#' && controller = '#params.controller#' && action = '#params.action#' && paramskey = '#params.key#'");
+		} else {
+			check = model('Userview').findOne(where="email = '#params.email#' && controller = '#params.controller#' && action = '#params.action#' && paramskey == NULL");
+		}
+		if ( !isObject(check) ) {
+			thisview = model('Userview').create(params);
+		} else {
+			params.updatedAt = now();
+			test = check.update(params);
+		}
+		return true;
+	}
+
+	//called from some navbars - similar method also to auth.users.cfc
+	function logout() {
+		structDelete(session,"auth");
+		structDelete(session,"params");
+		redirectTo(action="index");
+	}
+	
+	
+	function getStatus(required id) {
+		var status = val(arguments.id);
+		if ( len(arguments.id) >= 2 ) {
+			status = arguments.id;
+		} else if ( status == 0 ) {
+			status = "Pending";
+		} else if ( status == 1 ) {
+			status = "Paid";
+		} else if ( status == 2 ) {
+			status = "Comp";
+		} else {
+			status = "NA";
+		}
+		return status;
+	}
+	
+	function forcecfcatch() {
+		if ( isDefined("params.forcecfcatch") || isDefined("params.forceerror") || isDefined("params.error") ) {
+			test = nosuchvariable;
+		}
+	}
+	
 	<!--- This is also run in onRequestStart - using url.keyy and url.key. might not be needed here --->
-	function setKeyToKeyy() {
+	function XsetKeyToKeyy() {
 		if (isDefined("params.keyy") && len(params.keyy)) { params.key = params.keyy};
-	}
-
-	private function requiresToken() {
-		if (!isDefined('params.token') || params.token NEQ getSetting("requiredToken")) {
-			reDirectTo(action="summary")
-		}
-	}
-
-
-	function getDistinctColumnValuesFromQuery(required oldquery, required column) {
-		cfquery( dbtype="query", name="newQuery" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
-	
-			writeOutput("SELECT DISTINCT #column#
-			FROM oldquery");
-		}
-		return newQuery;
-	}
-	
-	function setAccessControlHeaders() {
-		cfheader( name="Access-Control-Allow-Origin", value="https://access2018.app" );
-		cfheader( name="Access-Control-Allow-Methods", value="GET,PUT,POST,DELETE" );
-		cfheader( name="Access-Control-Allow-Headers", value="Content-Type" );
-		cfheader( name="Access-Control-Allow-Credentials", value=true );
-		cfheader( name="Content-Type", value="application/json" );
 	}
 
 
