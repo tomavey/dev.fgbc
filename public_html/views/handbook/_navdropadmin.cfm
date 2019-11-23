@@ -12,7 +12,7 @@
         					#linkto(text="New Read Only Person", controller="handbook.people", action="new", params="simple", id="navsearch", title="Add a new person.", class="tooltip2")#
         				</li>
         				<li>
-        					#linkto(text="Stats", controller="handbook.admin", action="index", title="Handbook Administration", class="tooltip2")#
+        					#linkto(text="Stats", controller="handbook.statistics", action="index", title="Handbook Administration", class="tooltip2")#
         				</li>
                         <li>
                             #linkto(text="Districts", controller="handbook.districts", action="index", id="navsearch", title="Districts", class="tooltip2")#
