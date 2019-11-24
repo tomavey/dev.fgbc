@@ -59,6 +59,8 @@ component extends="Controller" output="false"{
 
 
 
+
+
 <!------------------------>
 <!-------Basic CRUD------->	
 <!------------------------>
@@ -175,6 +177,9 @@ component extends="Controller" output="false"{
 	<!------------------------>
 
 	
+
+
+
 	<!------------------------------------------>
 	<!---Methods for Handbook Review Emailing--->
 	<!------------------------------------------>
@@ -201,7 +206,9 @@ component extends="Controller" output="false"{
 				churches = model("Handbookorganization").findChurchesForEmailing();
 			}
 		for (i=1; i LTE arrayLen(churches); i=i+1){
-			sendEmail(to=churches[i].email, from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
+			if ( !isLocalMachine() ){
+				sendEmail(to=churches[i].email, from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
+			}
 			allemails = allemails & "; " & churches[i].email;
 		};
 		allemails = replace(allemails,"; ","","one");
@@ -231,6 +238,8 @@ component extends="Controller" output="false"{
 <!------------------------------------------------->
 <!---END OF Methods for Handbook Review Emailing--->
 <!------------------------------------------------->
+
+
 
 
 
@@ -361,6 +370,8 @@ component extends="Controller" output="false"{
 <!----------------------------->
 <!-----------END OF REPORTS --->
 <!----------------------------->
+
+
 
 
 

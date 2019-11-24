@@ -148,34 +148,34 @@
 
 <cfscript>
 
-  public function test_handbookChurchReviewArray(){
-    test = model("Handbookorganization").findChurchesForEmailing(go="true");
-    results = test[arrayLen(test)].email;
-    expectedResults = "tomavey@fgbc.org";
-    assert("results EQ expectedResults");
-  }
+  // public function test_handbookChurchReviewArray(){
+  //   test = model("Handbookorganization").findChurchesForEmailing(go="true");
+  //   results = test[arrayLen(test)].email;
+  //   expectedResults = "tomavey@fgbc.org";
+  //   assert("results EQ expectedResults");
+  // }
 
-  public function test_handbookChurchReviewOptions(){
-    loc.params = {controller="handbook.organizations", action="handbookReviewOptions", message="Show Last Reviewed Before this Date"};
-    $run_view_test();
-    }
+  // public function test_handbookChurchReviewOptions(){
+  //   loc.params = {controller="handbook.organizations", action="handbookReviewOptions", message="Show Last Reviewed Before this Date"};
+  //   $run_view_test();
+  //   }
 
-  public function test_handbookChurchReviewEmailing(){
-    loc.params = {controller="handbook.organizations", action="emailChurchesForHandbookReview", message="FGBC Handbook is in production"};
-    $run_view_test();
-    }
+  // public function test_handbookChurchReviewEmailing(){
+  //   loc.params = {controller="handbook.organizations", action="emailChurchesForHandbookReview", message="FGBC Handbook is in production"};
+  //   $run_view_test();
+  //   }
 
-  public function test_handbookPeopleReviewArray(){
-    test = model("Handbookperson").getHandbookReviewStruct(go="true");
-    results = test[arrayLen(test)].email;
-    expectedResults = "tomavey@fgbc.org";
-    assert("results EQ expectedResults");
-  }
+  // public function test_handbookPeopleReviewArray(){
+  //   test = model("Handbookperson").getHandbookReviewStruct(go="true");
+  //   results = test[arrayLen(test)].email;
+  //   expectedResults = "tomavey@fgbc.org";
+  //   assert("results EQ expectedResults");
+  // }
 
-  public function test_handbookPeopleReviewOptions(){
-    loc.params = {controller="handbook.people", action="handbookReviewOptions", message="Show Last Reviewed Before this Date"};
-    $run_view_test();
-    }
+  // public function test_handbookPeopleReviewOptions(){
+  //   loc.params = {controller="handbook.people", action="handbookReviewOptions", message="Show Last Reviewed Before this Date"};
+  //   $run_view_test();
+  //   }
 
 </cfscript>  
 
