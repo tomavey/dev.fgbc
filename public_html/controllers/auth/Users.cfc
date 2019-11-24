@@ -331,6 +331,7 @@ component extends="Controller" output="false" {
 
 	public function logout() {
 		structDelete(session,"auth")
+		structDelete(session,"params");
 		location(url="/", addToken="no")
 	}
 

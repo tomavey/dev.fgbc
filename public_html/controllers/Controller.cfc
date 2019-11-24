@@ -395,6 +395,7 @@ component extends="Wheels" {
 
 
 
+
 <!------------------------->	
 <!-------SET LAYOUTS------->	
 <!------------------------->	
@@ -464,6 +465,13 @@ component extends="Wheels" {
 <!-------------------------------------->
 	
 
+
+
+
+<!-------------------------------------->
+<!---------GENERAL METHODS-------------->
+<!-------------------------------------->
+
 	//used in multiple controllers to log the view
 	function logview() {
 		if ( !getsetting("logviews") ) { return false }
@@ -499,18 +507,11 @@ component extends="Wheels" {
 		}
 		return true;
 	}
-
-	//called from some navbars - similar method also to auth.users.cfc
-	function logout() {
-		structDelete(session,"auth");
-		structDelete(session,"params");
-		redirectTo(action="index");
-	}
 	
-	
+	//Used by conference and focus registration system to interpret payment return codes
 	function getStatus(required id) {
 		var status = val(arguments.id);
-		if ( len(arguments.id) >= 2 ) {
+		if ( len(arguments.id) >= 3 ) {
 			status = arguments.id;
 		} else if ( status == 0 ) {
 			status = "Pending";
@@ -529,25 +530,5 @@ component extends="Wheels" {
 			test = nosuchvariable;
 		}
 	}
-	
-	<!--- This is also run in onRequestStart - using url.keyy and url.key. might not be needed here --->
-	function XsetKeyToKeyy() {
-		if (isDefined("params.keyy") && len(params.keyy)) { params.key = params.keyy};
-	}
 
-
-<!---NOT USED ANYWHERE--->	
-
-	function XsetOrgId() {
-		if ( isDefined("session.auth.email") ) {
-			org = model("Handbookorganization").findAll(where="Handbookpersonemail = '#session.auth.email#'", include="Handbookposition(Handbookorganization(Handbookstate))");
-			if ( org.recordcount ) {
-				session.auth.orgid = org.id;
-			}
-		}
-	}
-	
-	
-	
-	
 }
