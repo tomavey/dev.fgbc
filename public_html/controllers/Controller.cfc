@@ -1,6 +1,4 @@
-<cfcomponent extends="Wheels">
-
-<cfscript>
+component extends="Wheels" {
 
 	dsn=getSetting("dataSourceName")
 
@@ -14,177 +12,311 @@
 		return ministries
 	}
 
-</cfscript>	
 
 
-	<cffunction name="getCaptcha" output="no">
-	<cfset var arrValidChars = "">
-	<cfset var strCaptcha = arraynew(1)>
-	<cfset var captchaForm = "">
-		<!---
-			Create the array of valid characters. Leave out the
-			numbers 0 (zero) and 1 (one) as they can be easily
-			confused with the characters o and l (respectively).
-		--->
-		<cfset arrValidChars = ListToArray(
-			"A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z," &
-			"2,3,4,5,6,7,8,9"
-			) />
 
-		<!--- Now, shuffle the array. --->
-		<cfset CreateObject(
-			"java",
-			"java.util.Collections"
-			).Shuffle(
-				arrValidChars
-				)
-			/>
+<!-------------->
+<!---CAPTCHA---->
+<!-------------->
 
-		<!---
-			Now that we have a shuffled array, let's grab the
-			first 4 characters as our CAPTCHA text string.
-		--->
-		<cfset strCaptcha = (
-			arrValidChars[ 1 ] &
-			arrValidChars[ 2 ] &
-			arrValidChars[ 3 ] &
-			arrValidChars[ 4 ] &
-			arrValidChars[ 5 ]
-			) />
+	function getCaptcha() output=false {
+		var arrValidChars = "";
+		var strCaptcha = arraynew(1);
+		var captchaForm = "";
+		/* 
+				Create the array of valid characters. Leave out the
+				numbers 0 (zero) and 1 (one) as they can be easily
+				confused with the characters o and l (respectively).
+			*/
+		arrValidChars = ListToArray(
+				"A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z," &
+				"2,3,4,5,6,7,8,9"
+				);
+		//  Now, shuffle the array. 
+		CreateObject(
+				"java",
+				"java.util.Collections"
+				).Shuffle(
+					arrValidChars
+					);
+		/* 
+				Now that we have a shuffled array, let's grab the
+				first 4 characters as our CAPTCHA text string.
+			*/
+		strCaptcha = (
+				arrValidChars[ 1 ] &
+				arrValidChars[ 2 ] &
+				arrValidChars[ 3 ] &
+				arrValidChars[ 4 ] &
+				arrValidChars[ 5 ]
+				);
+		return strCaptcha;
+	}
 
-
-	<cfreturn strCaptcha>
-
-</cffunction>
-
-	<cffunction name="checkCaptcha">
-
-		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
-			<cfset flashInsert(message="Type one adult (ie: 'John''), couple (ie:'John and Jane') or child (ie:'Johnny') on the left then select the appropriate registration options below before click 'Add To Cart'")>
-			<cfset redirectTo(action="selectoptions")>
-		<cfelse>
-			<cfset flashInsert(error="Please try again.")>
-			<cfset redirectTo(action="new")>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="getKey" output="no">
-	<cfargument name="email" required="yes" type="string">
-	<cfset var key="">
-		<cfset key = encrypt(arguments.email,getSetting("passwordkey"),"CFMX_COMPAT","Hex")>
-	    <cfreturn key>
-	</cffunction>
-
-<!-------------------------->
-<!---Authoriztion methods--->
-<!-------------------------->
-
-	<cffunction name="isSuperadmin">
-		<cftry>
-			<cfif not listFind(session.auth.rightslist,"superadmin")>
-				<cfset redirectto(controller="home", action="loggedOut")>
-				<cfabort>
-			</cfif>
-		<cfcatch>
-				<cfset redirectto(controller="home", action="loggedOut")>
-		</cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="isOffice">
-		<cftry>
-			<cfif not gotRights("superadmin,office,handbookedit")>
-				<cfset redirectto(controller="home", action="loggedOut")>
-				<cfabort>
-			</cfif>
-		<cfcatch>
-				<cfset redirectto(controller="home", action="loggedOut")>
-		</cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="gotAgbmRights">
-			<cfif not gotRights("superadmin,agbmadmin,agbm")>
-				<cfset renderText("You do not have permission to access the AGBM Membership List")>
-			</cfif>
-	</cffunction>
-
-	<cffunction name="gotBasicHandbookRights">
-		<cfcookie name="handbookLastRequest_url" value=#cgi.request_url#>		
-		<cfif isDefined("params.action") and params.action is "sendHandbook">
-			<cfreturn true>
-		</cfif>
-		<cfif gotrights("superadmin,office,handbook,agbmadmin")>
-			<cfreturn true>
-		</cfif>
- 		<cfif isdefined("session.auth.email") and userInHandbook()>
-			<cfreturn true>
-		</cfif>
- 		<cfif isdefined("params.email") and userInHandbook(params.email)>
-			<cfreturn true>
-		</cfif>
-		<cfif isDefined("session.auth.handbook.basic") and session.auth.handbook.basic>
-			<cfreturn true>
-		</cfif>
-		<cftry>
-			<cfif session.auth.handbook.basic OR gotrights("superadmin,office,handbook")>
-				<cfreturn true>
-			<cfelse>
-				<cfset redirectTo(controller="handbook.welcome", action="checkin")>
-			</cfif>
-		<cfcatch>
-			<cfif isDefined("params.route") && params.route is "handbookPerson">
-				<cfset redirectTo(route="handbookviewperson", key=params.key)>
-			</cfif>
-			<cfset redirectTo(controller="handbook.welcome", action="checkin")>
-		</cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="isPageEditor">
-		<cfif gotRights("office,pageEditor,agbm")>
-			<cfreturn true>
-		<cfelse>
-			<cfset renderText("You do not have persmission to view this page")>
-		</cfif>
-	</cffunction>
+	function checkCaptcha() {
+		if ( len(params.captcha) && params.captcha == decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX") ) {
+			flashInsert(message="Type one adult (ie: 'John''), couple (ie:'John && Jane') || child (ie:'Johnny') on the left then select the appropriate registration options below before click 'Add To Cart'");
+			redirectTo(action="selectoptions");
+		} else {
+			flashInsert(error="Please try again.");
+			redirectTo(action="new");
+		}
+	}
+<!--------------------->
+<!---END OF CAPTCHA---->
+<!--------------------->
 
 
-<!----End of authorization methods---->
 
 
-	<cffunction name="setOrgId">
-	<cfif isDefined("session.auth.email")>
-		  <cfset org = model("Handbookorganization").findAll(where="Handbookpersonemail = '#session.auth.email#'", include="Handbookposition(Handbookorganization(Handbookstate))")>
-		  <cfif org.recordcount>
-		  		<cfset session.auth.orgid = org.id>
-		  </cfif>
-	</cfif>
-	</cffunction>
 
-	<cffunction name="userInHandbook">
-	<cfargument name="email" default="#session.auth.email#">
-		<cfset check = model("Handbookperson").findOne(where="email = '#arguments.email#' OR email2='#arguments.email#'", include="Handbookstate")>
-		<cfif isObject(check)>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction> --->
+<!------------------>
+<!-----SECURITY----->
+<!------------------>
 
-	<cffunction name="setReturn">
+	function getKey(required string email) output=false {
+		var key="";
+		key = encrypt(arguments.email,getSetting("passwordkey"),"CFMX_COMPAT","Hex");
+		return key;
+	}
 
-		<cfif not isDefined("params.ajax")>
-		 <cfif params.action is "index" or params.action is "list">
-			 <cfset session.listingURL = $GetCurrentURL()>
-		 </cfif>
-		 <cfset session.originalURL = $GetCurrentURL()>
-		</cfif>
+	private function requiresToken() {
+		if (!isDefined('params.token') || params.token NEQ getSetting("requiredToken")) {
+			reDirectTo(action="summary")
+		}
+	}
+<!------------------------->
+<!-----END OF SECURITY----->
+<!------------------------->
 
-	</cffunction>
 
-<cfscript>
-	function returnBack(string controller, string action, string error){
+
+
+
+<!--------------------------->
+<!---AUTHORIZATION METHODS--->
+<!--------------------------->
+
+	function isSuperadmin() {
+		try {
+			if ( !listFind(session.auth.rightslist,"superadmin") ) {
+				redirectto(controller="home", action="loggedOut");
+				abort;
+			}
+		} catch (any cfcatch) {
+			redirectto(controller="home", action="loggedOut");
+		}
+	}
+
+	function isOffice() {
+		try {
+			if ( !gotRights("superadmin,office,handbookedit") ) {
+				redirectto(controller="home", action="loggedOut");
+				abort;
+			}
+		} catch (any cfcatch) {
+			redirectto(controller="home", action="loggedOut");
+		}
+	}
+
+	function gotAgbmRights() {
+		if ( !gotRights("superadmin,agbmadmin,agbm") ) {
+			renderText("You do !have permission to access the AGBM Membership List");
+		}
+	}
+
+	function gotBasicHandbookRights() {
+		cfcookie( name="handbookLastRequest_url", value=cgi.request_url );
+		if ( isDefined("params.action") && params.action == "sendHandbook" ) {
+			return true;
+		}
+		if ( gotrights("superadmin,office,handbook,agbmadmin") ) {
+			return true;
+		}
+		if ( isdefined("session.auth.email") && userInHandbook() ) {
+			return true;
+		}
+		if ( isdefined("params.email") && userInHandbook(params.email) ) {
+			return true;
+		}
+		if ( isDefined("session.auth.handbook.basic") && session.auth.handbook.basic ) {
+			return true;
+		}
+		try {
+			if ( session.auth.handbook.basic || gotrights("superadmin,office,handbook") ) {
+				return true;
+			} else {
+				redirectTo(controller="handbook.welcome", action="checkin");
+			}
+		} catch (any cfcatch) {
+			if ( isDefined("params.route") && params.route == "handbookPerson" ) {
+				redirectTo(route="handbookviewperson", key=params.key);
+			}
+			redirectTo(controller="handbook.welcome", action="checkin");
+		}
+	}
+
+	function isPageEditor() {
+		if ( gotRights("office,pageEditor,agbm") ) {
+			return true;
+		} else {
+			renderText("You do !have persmission to view this page");
+		}
+	}
+
+	function userInHandbook(email="#session.auth.email#") {
+		check = model("Handbookperson").findOne(where="email = '#arguments.email#' || email2='#arguments.email#'", include="Handbookstate");
+		if ( isObject(check) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	function isOffice() {
+		if ( gotRights("superadmin,office") ) {
+			return true;
+		}
+		if ( isDefined("params.controller") && params.controller contains "handbook" ) {
+			return true;
+		}
+		try {
+			if ( structkeyexists(session.auth,"office") ) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (any cfcatch) {
+			return false;
+		}
+	}
+
+	function checkOffice() {
+		if ( !isoffice() ) {
+			rendertext("You do !have permission to view this page");
+		}
+	}
+
+	function isMobile() {
+		if ( isDefined("params.isMobile") || isDefined("session.isMobile") ) {
+			session.isMobile = true;
+			return true;
+		}
+		return super.isMobile();
+	}
+
+	function setAccessControlHeaders() {
+		cfheader( name="Access-Control-Allow-Origin", value="https://access2018.app" );
+		cfheader( name="Access-Control-Allow-Methods", value="GET,PUT,POST,DELETE" );
+		cfheader( name="Access-Control-Allow-Headers", value="Content-Type" );
+		cfheader( name="Access-Control-Allow-Credentials", value=true );
+		cfheader( name="Content-Type", value="application/json" );
+	}
+
+	function gotRights(required string rightsRequired){
+		var permission = "no"
+		var rightsRequiredArray = listToArray(arguments.rightsRequired)
+		if ( structKeyExists(session.auth,'email') ) { arguments.email = session.auth.email }
+		for ( right in rightsRequiredArray ){
+			if ( isdefined("arguments.email") and listFindNoCase(session.auth.rightslist,right) ) {
+				permission = "yes"
+			}
+			if ( right == 'handbook' && emailIsInHandbook(arguments.email) ) {
+				permission = "yes"
+			}
+		}
+		return permission
+	}
+
+	function emailIsInHandbook(required string email){
+		var check = model("Handbookperson").findOne(where="email = '#arguments.email#' OR email2 = '#arguments.email#'", include="state")
+		if ( isObject(check) ) { return true } else { return false }
+	}
+
+	function urlExists(required string url) {
+			var test = "";
+			if ( len(arguments.url) ) {
+				cfhttp( url=arguments.url, result="test", method="head" );
+				if ( isDefined("test.responseheader.status_code") && test.responseheader.status_code == 200 ) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+
+	function isLoggedIn() {
+		var loc = structNew();
+		if ( isDefined("session.auth.login") && session.auth.login ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	function simpleEncode(required numeric numbertoEncode, factor="3") {
+		var loc=structNew();
+		loc = arguments;
+		loc.return = (loc.numbertoencode * loc.factor) + loc.factor;
+		return loc.return;
+	}
+	
+	function simpleDecode(required numeric numbertoDecode, factor="3") {
+		var loc=structNew();
+		loc = arguments;
+		loc.return = (loc.numbertoDecode-loc.factor)/loc.factor;
+		return loc.return;
+	}
+
+	function isMinistryStaff(userid) {
+		try {
+			checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) && itemId= #arguments.userid# && tag='ministrystaff'");
+			if ( isObject(checkForTag) ) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (any cfcatch) {
+			return false;
+		}
+	}
+	
+	function facebookloginisopen() {
+		if ( isDefined("session.auth.fblogin") && !session.auth.fblogin ) {
+			return false;
+		} else if ( get("facebookloginisopen") || isDefined("params.fblogin") || (isDefined("session.auth.fblogin") && session.auth.fblogin) ) {
+			session.auth.fblogin = true;
+			return true;
+		} else {
+			return false;
+		}
+	}
+		
+<!---------------------------------->
+<!---END OF AUTHORIZATION METHODS--->
+<!---------------------------------->
+
+
+
+
+
+<!------------------------------>	
+<!-------NAVIGATION AIDS-------->	
+<!------------------------------>	
+	//Used in conjunction with returnBack() to return to referring page
+	private void function setReturn() {
+		if ( !isDefined("params.ajax") ) {
+			if ( params.action == "index" || params.action == "list" ) {
+				session.listingURL = $GetCurrentURL();
+			}
+			session.originalURL = $GetCurrentURL();
+		}
+	}
+
+	//Used in conjunction with setReturn() to return to referring page
+	private void	function returnBack(string controller, string action, string error){
 		if ( isDefined('arguments.error') ) { flashInsert(error = arguments.error) }
 		try {
 			var backURL = session.originalURL
@@ -198,207 +330,27 @@
 			redirectTo(argumentCollection=arguments)
 		}
 	}
-</cfscript>
 
-	<cffunction name="$GetCurrentURL" output="No" access="public">
-	   <cfset var theURL = getPageContext().getRequest().GetRequestUrl()>
-	   <cfif len( CGI.query_string )><cfset theURL = theURL & "?" & CGI.query_string></cfif>
-
-	<cfif cgi.http_host is "localhost:8080" OR cgi.http_host is "localhost:8888">
-	<cfelse>
-	   <cftry>
-	   	<cfset theURL = replace(theUrl,"/rewrite.cfm","","one")>
-	   <cfcatch></cfcatch>
-	   </cftry>
-	</cfif>
-
-	   <cfreturn theURL>
-	</cffunction>
-
-	<cffunction name="getThisForumName">
-		<cftry>
-		<cfset thisForumName = model("Forumforum").findOne(where="id=#session.auth.forumid#").forum>
-		<cfreturn thisForumName>
-		<cfcatch><cfreturn "Login to the Forum"></cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="getThisTeamName">
-		<cftry>
-		<cfset thisTeamName = model("Teamteam").findOne(where="id=#session.auth.teamid#").name>
-		<cfreturn thisTeamName>
-		<cfcatch><cfreturn "Check-in to the Team Site"></cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="getActive">
-		<cfargument name="category" required="true">
-		<cfset var loc = structNew()>
-		<cfset loc.return = "inactive">
-
-			<cfif NOT structKeyExists(params,"key") AND category is "home">
-				<cfset loc.return = "active">
-			<cfelseif structKeyExists(params,"key") AND params.key is arguments.category>
-				<cfset loc.return = "active">
-			<cfelseif structKeyExists(params,"action") AND params.action is arguments.category>
-				<cfset loc.return = "active">
-			<cfelseif structKeyExists(params,"controller") AND params.controller is arguments.category>
-				<cfset loc.return = "active">
-			</cfif>
-
-		<cfreturn loc.return>
-	</cffunction>
-
-	<cffunction name="logview">
-
-		<cfreturn true>
-
-		<cfif isDefined("params.email") and len(params.email)>
-		<cfelseif isDefined("session.auth.email")>
-			<cfset params.email = session.auth.email>
-		<cfelse>
-			<cfset params.email = "not logged in">
-		</cfif>
-
-		<cfif isDefined("params.key")>
-			<cfset params.paramskey = params.key>
-		</cfif>
-
-
-
-		<cfset params.browser = cgi.http_user_agent>
-
-
-		<cfif isdefined("params.key")>
-			<cfset params.paramskey = params.key>
-			<cfset check = model('Userview').findOne(where="email = '#params.email#' AND controller = '#params.controller#' AND action = '#params.action#' AND paramskey = '#params.key#'")>
-		<cfelse>
-			<cfset check = model('Userview').findOne(where="email = '#params.email#' AND controller = '#params.controller#' AND action = '#params.action#' AND paramskey IS NULL")>
-		</cfif>
-		<cfif not isObject(check)>
-
-			<cfset thisview = model('Userview').create(params)>
-		<cfelse>
-			<cfset params.updatedAt = now()>
-			<cfset test = check.update(params)>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="stripTags" returntype="string" access="public" output="false">
-	  <cfargument name="html" type="string" required="true">
-	  <cfargument name="BBCode" type="boolean" required="false" default="false">
-	  <cfscript>
-	    var loc = {};
-	    loc.BBCode = arguments.BBCode;
-	    StructDelete(arguments, "BBCode");
-	    loc.returnValue = super.stripTags(argumentCollection=arguments);
-	    if (loc.BBCode)
-	    {
-	      loc.returnValue = REReplaceNoCase(loc.returnValue, "\[img\].*\[\/img\]", "", "all");
-	      loc.returnValue = REReplaceNoCase(loc.returnValue, "\[\ *[a-z].*?\]", "", "all");
-	      loc.returnValue = REReplaceNoCase(loc.returnValue, "\[\ */\ *[a-z].*?\]", "", "all");
-	    }
-	  </cfscript>
-  		<cfreturn loc.returnValue>
-	</cffunction>
-
-<cfscript>
-
-	function $setDownloadLayout(defaultLayout='/layout_naked', template=''){
-		if ( (isdefined("params.key") && params.key is "excel") || (isdefined("params.format") && params.format is "excel") || (isDefined("params.download")) ) {
-			renderPage(template=arguments.template, layout='/layout_download', showDebugOutput="No")
-		} else {
-			renderPage(template=arguments.template, layout=arguments.defaultLayout, showDebugOutput="No")
+	//used by setReturn()
+	private string function $GetCurrentURL() output=false {
+		var theURL = getPageContext().getRequest().GetRequestUrl();
+		if ( len( CGI.query_string ) ) {
+			theURL = theURL & "?" & CGI.query_string;
 		}
-	}	
+		if ( cgi.http_host == "localhost:8080" || cgi.http_host == "localhost:8888" ) {
+		} else {
+			try {
+				theURL = replace(theUrl,"/rewrite.cfm","","one");
+			} catch (any cfcatch) {
+			}
+		}
+		return theURL;
+	}
 
-</cfscript>
-
-
-	
-
-	<cffunction name="getCounts">
-	<cfargument name="key" default="#params.key#">
-	<cfargument name="action" default="#params.action#">
-	<cfargument name="controller" default="#params.controller#">
-	<cfargument name="email" default="#session.auth.email#">
-	<cfargument name="show" default="all">
-	<cfset var loc = structNew()>
-
-		<cfset loc.votes = model("Forumvote").findAll(where="postid = #arguments.key#")>
-
-		<cfset loc.views = model('Userview').findAll(where="controller = '#arguments.controller#' AND action = '#arguments.action#' AND paramskey = '#arguments.key#'")>
-
-		<cfset loc.comments = model("Forumpost").findall(where="parentid = #arguments.key#")>
-
-		<cfsavecontent variable="loc.showcount">
-			<cfoutput>
-				<cfif arguments.show is "all" or arguments.show is "views">
-					Views:#loc.views.recordcount#
-				</cfif>
-				<cfif arguments.show is "all" or arguments.show is "comments">
-					Comments:#loc.comments.recordcount#
-				</cfif>
-				<cfif arguments.show is "all" or arguments.show is "votes">
-					Votes:#loc.votes.recordcount#
-				</cfif>
-			</cfoutput>
-		</cfsavecontent>
-
-		<cfreturn loc.showcount>
-
-	</cffunction>
-
-	<cffunction name="logout">
-		<cfset structDelete(session,"auth")>
-		<cfset structDelete(session,"params")>
-		<cfset redirectTo(action="index")>
-	</cffunction>
-
-	<cffunction name="BirthDayAnniversary">
-	<cfargument name="personid" required="true" type="numeric">
-	<cfset var loc = structNew()>
-		<cfset loc.profile = model("Handbookprofile").findOne(where="personid = #arguments.personid#")>
-		<cfif isObject(loc.profile)>
-    		<cfset loc.return.birthday = dateformat(loc.profile.birthday,"medium")>
-    		<cfset loc.return.anniversary = dateformat(loc.profile.anniversary,"medium")>
-		<cfelse>
-    		<cfset loc.return.birthday = "?">
-    		<cfset loc.return.anniversary = "?">
-		</cfif>
-		<cfreturn loc.return>
-	</cffunction>
-
-	<cffunction name="isFellowshipCouncil" access="private">
-		<cfif isDefined("session.auth.fellowshipcouncil") AND session.auth.fellowshipcouncil>
-			<cfreturn true>
-		<cfelseif gotRights("superadmin,office,fellowshipcouncil")>
-			<cfreturn true>
-		<cfelseif isDefined("params.fc") and params.fc>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="isMembershipApp">
-		<cfif isDefined("session.membershipapplication.id") and session.membershipapplication.id>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="linkToX">
-	<cfset var loc=structNew()>
-	<cfset var i="">
-	<cfloop list="#structKeylist(arguments)#" index="i">
-		<cfset loc[replace(i,"_","-","all")] = arguments[i]>
-	</cfloop>
-	<cfreturn super.linkTo(argumentCollection=loc)>
-	</cffunction>
-
-<cfscript>
+	// Overflow method
+	// For custom data attributes we convert underscores and camel case to hyphens.
+	// E.g. "dataDomCache" and "data_dom_cache" becomes "data-dom-cache".
+	// This is to get around the issue with not being able to use a hyphen in an argument name in CFML.
 	function linkTo(){
 		var loc = structNew();
 		for (var arg in arguments) {
@@ -411,222 +363,71 @@
 			};
 		return super.linkTo(argumentCollection=loc);
 	}
-</cfscript>
 
-	<cffunction name="linkToList">
-	<cfargument name="text" default="Go Back">
-	<cfset var loc=structNew()>
-	<cfif isDefined("session.listingURL") and len(session.listingURL)>
-		<cfset loc.text = arguments.text>
-		<cfset loc.href = session.listingURL>
-		<cfset session.listingURL = "">
-	<cfelse>
-		<cfset loc = arguments>
-	</cfif>
-		<cfreturn super.linkTo(argumentCollection=loc)>
-	</cffunction>
+	// Overflow method
+	// For custom data attributes we convert underscores and camel case to hyphens.
+	// E.g. "dataDomCache" and "data_dom_cache" becomes "data-dom-cache".
+	// This is to get around the issue with not being able to use a hyphen in an argument name in CFML.
+	function startFormTag() {
+		var loc=structNew();
+		for ( i in structKeylist(arguments) ) {
+			loc[replace(i,"_","-","all")] = arguments[i];
+		}
+		return super.startFormTag(argumentCollection=loc);
+	}
 
-	<cffunction name="startFormTag">
-	<cfset var loc=structNew()>
-	<cfloop list="#structKeylist(arguments)#" index="i">
-		<cfset loc[replace(i,"_","-","all")] = arguments[i]>
-	</cfloop>
-	<cfreturn super.startFormTag(argumentCollection=loc)>
-	</cffunction>
-
-	<!---Used by Focus MVC --->
-
-	<cffunction name="isOffice">
-		<cfif gotRights("superadmin,office")>
-				<cfreturn true>
-		</cfif>
-		<cfif isDefined("params.controller") AND params.controller contains "handbook">
-			<cfreturn true>
-		</cfif>
-		<cftry>
-			<cfif structkeyexists(session.auth,"office")>
-				<cfreturn true>
-			<cfelse>
-				<cfreturn false>
-			</cfif>
-
-			<cfcatch>
-				<cfreturn false>
-			</cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="checkOffice">
-		<cfif not isoffice()>
-			<cfset rendertext("You do not have permission to view this page")>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="getRegions">
-		<cfset regions = model("Handbookdistrict").findall(order="region")>
-	</cffunction>
-
-	<cffunction name="getRetreats">
-		<cfset retreats = model("Focusretreat").findAll(where="active='yes' and startAt > now()", order="startAt")>
-	</cffunction>
-
-	<cffunction name="getFocusContent">
-	<cfargument name="id" required="true">
-		<cfif isnumeric("arguments.id")>
-			<cfset content = model("Focuscontent").findOne(where="id=#arguments.id#")>
-		<cfelse>
-			<cfset content = model("Focuscontent").findOne(where="name='#arguments.id#'")>
-		</cfif>
-		<cfif isObject(content)>
-			<cfreturn content.content>
-		<cfelse>
-			<cfreturn "no Content">
-		</cfif>
-	</cffunction>
-
-	<cffunction name="getStatus">
-	<cfargument name="id" required="true">
-	<cfset var status = val(arguments.id)>
-
-		<cfif len(arguments.id) gte 2>
-			<cfset status = arguments.id>
-		<cfelseif status is 0>
-			<cfset status = "Pending">
-		<cfelseif status is 1>
-			<cfset status = "Paid">
-		<cfelseif status is 2>
-			<cfset status = "Comp">
-		<cfelse>
-			<cfset status = "NA">
-		</cfif>
-		<cfreturn status>
-	</cffunction>
-
-	<cfset showRegsFor = model("Focusretreat").findAll(where="showregs = 'yes'", order="startAt DESC")>
-
-	<cfset showOptionsFor = model("Focusretreat").findAll(where="active = 'yes'", order="startAt DESC")>
-
-	<cffunction name="useDesktopLayout">
-		<cfif isDefined("session.handbook.isMobile") and session.handbook.isMobile>
-			<cfreturn false>
-		<cfelseif isMobile()>
-			<cfreturn false>
-		<cfelse>
-			<cfreturn true>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="isMobile">
-		<cfif isDefined("params.isMobile") || isDefined("session.isMobile")>
-			<cfset session.isMobile = true>
-			<cfreturn true>	
-		</cfif>
-		<cfreturn super.isMobile()>
-	</cffunction>
-
-	<cffunction name="isLoggedIn">
-	<cfset var loc = structNew()>
-		<cfif isDefined("session.auth.login") AND session.auth.login>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="simpleEncode">
-	<cfargument name="numbertoEncode" required="true" type="numeric">
-	<cfargument name="factor" default=3>
-	<cfset var loc=structNew()>
-		<cfset loc = arguments>
-		<cfset loc.return = (loc.numbertoencode * loc.factor) + loc.factor>
-	<cfreturn loc.return>
-	</cffunction>
-
-	<cffunction name="simpleDecode">
-	<cfargument name="numbertoDecode" required="true" type="numeric">
-	<cfargument name="factor" default=3>
-	<cfset var loc=structNew()>
-		<cfset loc = arguments>
-		<cfset loc.return = (loc.numbertoDecode-loc.factor)/loc.factor>
-	<cfreturn loc.return>
-	</cffunction>
-
-	<cffunction name="isMinistryStaff">
-	<cfargument name="userid" required="false">
-		<cftry>
-			<cfset checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) AND itemId= #arguments.userid# AND tag='ministrystaff'")>
-			<cfif isObject(checkForTag)>
-				<cfreturn true>
-			<cfelse>
-				<cfreturn false>
-			</cfif>
-		<cfcatch>
-			<cfreturn false>
-		</cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="facebookloginisopen">
-		<cfif isDefined("session.auth.fblogin") AND !session.auth.fblogin>
-			<cfreturn false>
-		<cfelseif get("facebookloginisopen") OR isDefined("params.fblogin") or (isDefined("session.auth.fblogin") and session.auth.fblogin)>
-			<cfset session.auth.fblogin = true>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="forcecfcatch">
-		<cfif isDefined("params.forcecfcatch") OR isDefined("params.forceerror") OR isDefined("params.error")>
-			<cfset test = nosuchvariable>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="paramsKeyRequired">
-		<cfif !isDefined("params.key")>
-			<cfset renderText("This page cannot display - wrong parameters")>
-		</cfif>
-	</cffunction>
-
-	<cffunction name="GotRights">
-	<cfargument name="rightRequired" required="yes">
-		<cfset var permission = "no">
-			<cfloop list="#rightrequired#" index="i">
-				<cfif isdefined("session.auth.rightslist") and listFindNoCase(session.auth.rightslist,"#i#")>
-					<cfset permission = "yes">
-				</cfif>
-
-				<cfif i is "handbook">
-					<cftry>
-						<cfinvoke component="_model.handbook.staff.cfc_handbook_staff" method="get" email="#session.auth.email#" maxSortOrder="900" returnvariable="handbook" />
-
-						<cfif handbook.recordcount>
-							<cfset permission = "yes">
-						</cfif>
-					<cfcatch></cfcatch></cftry>
-				</cfif>
-			</cfloop>
-	<cfreturn permission>
-	</cffunction>
-	
-    <cffunction name="urlExists">
-    <cfargument name="url" required="true" type="string">
-    <cfset var test = "">
-        <cfif len(arguments.url)>
-        <cfhttp url='#arguments.url#' method="head" result="test">
-        <cfif isDefined("test.responseheader.status_code") && test.responseheader.status_code is 200>
-            <cfreturn true>
-        <cfelse>
-            <cfreturn false>
-        </cfif>        
-        <cfelse>
-            <cfreturn false>
-        </cfif>    
-    </cffunction>
+	//Used when linking back to a list of things. . ie action=index
+	function linkToList(text="Go Back") {
+		var loc=structNew();
+		if ( isDefined("session.listingURL") && len(session.listingURL) ) {
+			loc.text = arguments.text;
+			loc.href = session.listingURL;
+			session.listingURL = "";
+		} else {
+			loc = arguments;
+		}
+		return super.linkTo(argumentCollection=loc);
+	}
+<!------------------------------------->	
+<!-------END OF NAVIGATION AIDS-------->	
+<!------------------------------------->	
 
 
-<cfscript>
+
+
+
+<!------------------------->	
+<!-------SET LAYOUTS------->	
+<!------------------------->	
+
+	function useDesktopLayout() {
+		if ( isDefined("session.handbook.isMobile") && session.handbook.isMobile ) {
+			return false;
+		} else if ( isMobile() ) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	private void function $setDownloadLayout(defaultLayout='/layout_naked', template=''){
+		if ( (isdefined("params.key") && params.key is "excel") || (isdefined("params.format") && params.format is "excel") || (isDefined("params.download")) ) {
+			renderPage(template=arguments.template, layout='/layout_download', showDebugOutput="No")
+		} else {
+			renderPage(template=arguments.template, layout=arguments.defaultLayout, showDebugOutput="No")
+		}
+	}	
+<!-------------------------------->	
+<!-------END OF SET LAYOUTS------->	
+<!-------------------------------->	
+
+
+
+
+
+<!-------------------------------------->
+<!--------GETTERS FOR SETTINGS---------->
+<!-------------------------------------->
 
 	public function isConferenceErrorEmailOn(){
 		return application.wheels.sendConferenceEmailOnError;
@@ -651,28 +452,6 @@
 		}
 	}
 
-	public function removeDuplicatesFromList(list,delimiter,case=true){
-		var i = 0;
-		var listitem = "";
-		var newlist = "";
-
-		if(!isDefined("delimiter")){delimiter=","};
-		for (i=1; i LTE listLen(list,delimiter); i=i+1){
-			listItem = listGetAt(list,i,delimiter);
-			if (case is true){
-			if (!listFind(newlist,listitem,delimiter)){
-				newlist = newlist & delimiter & listitem;
-				}
-			}
-			else {
-			if (!listFindNoCase(newlist,listitem,delimiter)){
-				newlist = newlist & delimiter & listitem;
-				}
-			}	
-		};
-		return replace(newlist,',','','one');
-	}
-
 	public function onLocalHost(){
 		if( getSetting('onLocalHost')){
 			return true;
@@ -681,36 +460,75 @@
 			return false;
 		}
 	}
+<!-------------------------------------->
+<!-----END OF GETTERS FOR SETTINGS------>
+<!-------------------------------------->
+	
 
-	<!--- This is also run in onRequestStart - using url.keyy and url.key. might not be needed here --->
-	function setKeyToKeyy() {
-		if (isDefined("params.keyy") && len(params.keyy)) { params.key = params.keyy};
+
+
+
+<!-------------------------------------->
+<!---------GENERAL METHODS-------------->
+<!-------------------------------------->
+
+	//used in multiple controllers to log the view
+	function logview() {
+		if ( !getsetting("logviews") ) { return false }
+		if ( isDefined("params.email") && len(params.email) ) {
+		} else if ( isDefined("session.auth.email") ) {
+			params.email = session.auth.email;
+		} else {
+			params.email = "not logged in";
+		}
+		if ( isDefined("params.key") ) {
+			params.paramskey = params.key;
+		}
+		if ( isDefined("params.keyy") ) {
+			params.paramskey = params.keyy;
+		}
+		params.browser = cgi.http_user_agent;
+		writeDump(params)
+		//Check to see if this userView already exists so I don't duplicate
+		if ( isdefined("params.key") ) {
+			params.paramskey = params.key;
+			log = model('Viewlog').findOne(where="email = '#params.email#' AND controller = '#params.controller#' AND action = '#params.action#' AND paramskey = '#params.key#'");
+		} else {
+			log = model('Viewlog').findOne(where="email = '#params.email#' AND controller = '#params.controller#' AND action = '#params.action#' AND paramskey IS NULL");
+		}
+		if ( !isObject(log) ) {
+			//if not, create a new userView
+			log = model('Viewlog').new(params)
+			test = log.save()
+			} else {
+			//else update the updatedField on the one that already exists
+			params.updatedAt = now();
+			log.update(params);
+		}
+		return true;
 	}
-
-	private function requiresToken() {
-		if (!isDefined('params.token') || params.token NEQ getSetting("requiredToken")) {
-			reDirectTo(action="summary")
+	
+	//Used by conference and focus registration system to interpret payment return codes
+	function getStatus(required id) {
+		var status = val(arguments.id);
+		if ( len(arguments.id) >= 3 ) {
+			status = arguments.id;
+		} else if ( status == 0 ) {
+			status = "Pending";
+		} else if ( status == 1 ) {
+			status = "Paid";
+		} else if ( status == 2 ) {
+			status = "Comp";
+		} else {
+			status = "NA";
+		}
+		return status;
+	}
+	
+	function forcecfcatch() {
+		if ( isDefined("params.forcecfcatch") || isDefined("params.forceerror") || isDefined("params.error") ) {
+			test = nosuchvariable;
 		}
 	}
 
-</cfscript>		
-
-<cffunction name="getDistinctColumnValuesFromQuery">
-	<cfargument name='oldquery' required='true'>
-	<cfargument name='column' required='true'>
-	<cfquery dbtype="query" name="newQuery">
-		SELECT DISTINCT #column#
-		FROM oldquery
-	</cfquery>
-	<cfreturn newQuery>
-</cffunction>
-
-<cffunction name="setAccessControlHeaders">
-	<cfheader name="Access-Control-Allow-Origin" value="https://access2018.app" />
-	<cfheader name="Access-Control-Allow-Methods" value="GET,PUT,POST,DELETE" />
-	<cfheader name="Access-Control-Allow-Headers" value="Content-Type" />
-	<cfheader name="Access-Control-Allow-Credentials" value="true" />
-	<cfheader name="Content-Type" value="application/json">
-</cffunction>
-
-</cfcomponent>
+}

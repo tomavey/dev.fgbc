@@ -226,6 +226,39 @@ public function getSetting(name, useSessionSetting=true){
 		}
 		return data
 	}
+
+	function getDistinctColumnValuesFromQuery(required oldquery, required column) {
+		cfquery( dbtype="query", name="newQuery" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+	
+			writeOutput("SELECT DISTINCT #column#
+			FROM oldquery");
+		}
+		return newQuery;
+	}
+
+	public function removeDuplicatesFromList(list,delimiter,case=true){
+		var i = 0;
+		var listitem = "";
+		var newlist = "";
+
+		if(!isDefined("delimiter")){delimiter=","};
+		for (i=1; i LTE listLen(list,delimiter); i=i+1){
+			listItem = listGetAt(list,i,delimiter);
+			if (case is true){
+			if (!listFind(newlist,listitem,delimiter)){
+				newlist = newlist & delimiter & listitem;
+				}
+			}
+			else {
+			if (!listFindNoCase(newlist,listitem,delimiter)){
+				newlist = newlist & delimiter & listitem;
+				}
+			}	
+		};
+		return replace(newlist,',','','one');
+	}
+
+	
 <!------------------------>	
 <!---END OF CONVERSIONS--->	
 <!------------------------>	

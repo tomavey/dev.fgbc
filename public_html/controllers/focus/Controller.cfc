@@ -1,22 +1,63 @@
-<cfcomponent extends="controllers.Controller">
+component extends="controllers.Controller" {
 
-	<cffunction name="getRetreatRegions">
-		<cfset retreatRegions = model("Handbookdistrict").findall(order="focusretreat")>
-	</cffunction>
+  function getRetreatRegions(){
+    retreatRegions = model("Handbookdistrict").findall(order="focusretreat")
+  }
 
-    <cffunction name="itemIsSoldOut" hint="used by view-helper to determine if a specific reg item should show">
-    <cfargument name="itemid" required="false" type="numeric">
-        <cfif isDefined("params.itemid")>
-            <cfset arguments.itemid = params.itemid>
-        </cfif>
-        <cfset item = model("Focusitem").findOne(where="id=#arguments.itemid#")>
-        <cfset itemCount = model("Focusitem").findCountSold(arguments.itemid)>
+  function itemIsSoldOut(required numeric itemId){
+    if ( isDefined("params.itemid") ) {
+      arguments.itemid = params.itemid
+    }
+    item = model("Focusitem").findOne(where="id=#arguments.itemid#")
+    itemCount = model("Focusitem").findCountSold(arguments.itemid)
+    if ( val(item.maxToSell) == 0 || item.maxToSell GT itemCount ) {
+      return false
+    } else {
+      return true
+    }
+  }
 
-        <cfif val(item.maxtosell) is 0 OR item.maxtosell gt itemCount>
-            <cfreturn false>
-        <cfelse>
-            <cfreturn true>
-        </cfif>
-    </cffunction>
+	function showRegsFor(){
+		return model("Focusretreat").findAll(where="showregs = 'yes'", order="startAt DESC")
+	}
 
-</cfcomponent>
+	function showOptionsFor(){
+		return model("Focusretreat").findAll(where="active = 'yes'", order="startAt DESC")
+  }
+  
+	function getRetreats() {
+		retreats = model("Focusretreat").findAll(where="active='yes' && startAt > now()", order="startAt");
+  }
+  
+  function getFocusContent(required id) {
+		if ( isnumeric("arguments.id") ) {
+			content = model("Focuscontent").findOne(where="id=#arguments.id#");
+		} else {
+			content = model("Focuscontent").findOne(where="name='#arguments.id#'");
+		}
+		if ( isObject(content) ) {
+			return content.content;
+		} else {
+			return "no Content";
+		}
+  }
+  
+	function getActive(required category) {
+		//used in layout - nav
+		var loc = structNew();
+		loc.return = "inactive";
+		if ( !structKeyExists(params,"key") && category == "home" ) {
+			loc.return = "active";
+		} else if ( structKeyExists(params,"key") && params.key == arguments.category ) {
+			loc.return = "active";
+		} else if ( structKeyExists(params,"action") && params.action == arguments.category ) {
+			loc.return = "active";
+		} else if ( structKeyExists(params,"controller") && params.controller == arguments.category ) {
+			loc.return = "active";
+		}
+		return loc.return;
+	}
+
+}
+
+ 

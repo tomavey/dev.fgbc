@@ -11,6 +11,7 @@ component extends="Model" output="false" {
 		// Associations
 		belongsTo(name="Handbookstate", modelName="Handbookstate", foreignKey="stateid")
 		belongsTo(name="State", modelName="Handbookstate", foreignkey="stateid")
+		hasMany(name="Positions", modelName="Handbookposition", foreignKey="personid", dependent="delete", joinType="outer")
 		hasMany(name="Handbookpositions", modelName="Handbookposition", foreignKey="personid", dependent="delete", joinType="outer")
 		hasMany(name="Handbooktags", foreignKey="itemid", dependent="delete")
 		hasMany(name="Handbookgroup", foreignKey="personid", joinType="outer", dependent="delete")
@@ -512,9 +513,9 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		go = false,
 		tag="",
 		username="none",
-		maxrows = 1000000
+		maxrows = -1
 	){
-		if ( isLocalMachine ) { maxrows = 10 }
+		if ( isLocalMachine() ) { arguments.maxrows = 10 }
 		var loc=arguments
 		var whereString = "id > 0 AND (reviewedAt < '#loc.lastReviewedBefore#' OR reviewedAt IS NULL) AND (updatedAt < '#loc.lastReviewedBefore#')"
 		if ( len(tag) ){ whereString = whereString & " AND tag='#tag#' AND username = '#username#'" }
@@ -525,7 +526,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 			whereString = $buildWhereString(whereString,loc.type)
 			selectString = "handbookpeople.id,lname,concat(lname,', ',fname) AS SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') AS reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') AS updatedAt"
 
-			loc.peopleQ = findAll(select=selectString, where = whereString, include="State,Handbookpositions,Handbooktags", maxrows=maxrows, order=orderby)
+			loc.peopleQ = findAll(select=selectString, where = whereString, include="State,Handbookpositions,Handbooktags", maxRows=maxrows, order=orderby)
 
 			loc.people = $peopleQueryToArray(loc.peopleQ)
 			loc.people = $removeInValidEmail(loc.people)

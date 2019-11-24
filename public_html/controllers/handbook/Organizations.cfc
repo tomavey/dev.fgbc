@@ -7,10 +7,11 @@ component extends="Controller" output="false"{
 
 	function init(){
 		usesLayout("/handbook/layout_handbook")
-		filters(through="gotBasicHandbookRights,logview", except="memberChurches,findChurches,findChurchWithStaff,groupRoster")
+		filters(through="gotBasicHandbookRights", except="memberChurches,findChurches,findChurchWithStaff,groupRoster")
 		filters(through="getStates,getDistricts,getStatus", only="new,edit,update,index,create,downloadguidelines")
 		filters(through="setWillNotShowString,getGroupRosterOptions", only="new,edit")
 		filters(through="setReturn", only="show,handbookpages")
+		filters(through="logview", type="after", only="show")
 		provides("json")
 	}
 
@@ -55,6 +56,8 @@ component extends="Controller" output="false"{
 <!------------------------>
 <!------END OF FILTERS---->
 <!------------------------>
+
+
 
 
 
@@ -174,6 +177,9 @@ component extends="Controller" output="false"{
 	<!------------------------>
 
 	
+
+
+
 	<!------------------------------------------>
 	<!---Methods for Handbook Review Emailing--->
 	<!------------------------------------------>
@@ -200,7 +206,9 @@ component extends="Controller" output="false"{
 				churches = model("Handbookorganization").findChurchesForEmailing();
 			}
 		for (i=1; i LTE arrayLen(churches); i=i+1){
-			sendEmail(to=churches[i].email, from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
+			if ( !isLocalMachine() ){
+				sendEmail(to=churches[i].email, from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
+			}
 			allemails = allemails & "; " & churches[i].email;
 		};
 		allemails = replace(allemails,"; ","","one");
@@ -213,10 +221,25 @@ component extends="Controller" output="false"{
 		ArrayDeleteAt(session.churches,item);
 		redirectTo(action="handbookReviewOptions", params="refresh=false");
 	}
-
+	
+	private object function BirthDayAnniversary(required numeric personid) {
+		var loc = structNew();
+		loc.profile = model("Handbookprofile").findOne(where="personid = #arguments.personid#");
+		if ( isObject(loc.profile) ) {
+			loc.return.birthday = dateformat(loc.profile.birthday,"medium");
+			loc.return.anniversary = dateformat(loc.profile.anniversary,"medium");
+		} else {
+			loc.return.birthday = "?";
+			loc.return.anniversary = "?";
+		}
+		return loc.return;
+	}
+	
 <!------------------------------------------------->
 <!---END OF Methods for Handbook Review Emailing--->
 <!------------------------------------------------->
+
+
 
 
 
@@ -347,6 +370,8 @@ component extends="Controller" output="false"{
 <!----------------------------->
 <!-----------END OF REPORTS --->
 <!----------------------------->
+
+
 
 
 
@@ -561,5 +586,6 @@ component extends="Controller" output="false"{
 		return true
 	}
 
+	
 }
 
