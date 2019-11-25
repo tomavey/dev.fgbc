@@ -2,7 +2,7 @@ component extends="Wheels" {
 
 	dsn=getSetting("dataSourceName")
 
-	private function footer(){
+	private function footerData(){
 		//data function for footer partial called from layout
 		var ministries = {}
 		ministries.churchPlanting = model("Mainministry").findAll(where="status <> 'inactive' AND category = 'Church Planting Ministries' AND includeInFooter = 'Yes'", order="category,name")
