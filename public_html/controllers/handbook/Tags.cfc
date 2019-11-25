@@ -4,7 +4,7 @@
 		<cfset usesLayout(template="/handbook/layout_handbook1", except="download,show,search")>
 		<cfset filters(through="gotBasicHandbookRights")>
 		<cfset provides("html,xml,json")>
-		<cfset filters(through="logview")>
+		<cfset filters(through="logview", type="after")>
 		<cfset filters(through="setreturn", only="index,show")>
 	</cffunction>
 

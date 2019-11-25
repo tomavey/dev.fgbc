@@ -4,7 +4,7 @@
 		<cfset filters(through="gotBasicHandbookRights")>
 		<cfset filters(through="setreturn", only="show,index")>
 		<cfset usesLayout(template="/handbook/layout_handbook2")>
-		<cfset filters(through="logview")>
+		<cfset filters(through="logview", type="after")>
 	</cffunction>
 	
 	<!--- handbook-notes/index --->

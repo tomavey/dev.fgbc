@@ -1,7 +1,7 @@
 <cfcomponent extends="Controller" output="false">
 
 	<cffunction name="init">
-		<!---cfset filters(through="logview")--->
+		<!--- <cfset filters(through="logview", type="after")> --->
 	</cffunction>
 
 	<cffunction name="index">

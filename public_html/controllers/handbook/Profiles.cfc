@@ -5,7 +5,7 @@
 		<cfset filters(through="gotAgbmRights", only="index,delete")>
 		<cfset filters(through="gotBasicHandbookRights", except="create,update")>
 		<cfset filters(through="setreturn", only="index,show")>
-		<cfset filters(through="logview")>
+		<cfset filters(through="logview", type="after")>
 	</cffunction>
 	
 	<!--- handbookprofiles/index --->

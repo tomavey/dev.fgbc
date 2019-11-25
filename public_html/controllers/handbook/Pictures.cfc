@@ -3,7 +3,7 @@
 	<cffunction name="init">
 		<cfset usesLayout("/handbook/layout_handbook1")>
 		<cfset filters(through="setreturn", only="index,show,new")>
-		<cfset filters(through="logview")>
+		<cfset filters(through="logview", type="after")>
 	</cffunction>
 
 <!---Basic CRUD--->
