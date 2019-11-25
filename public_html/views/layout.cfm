@@ -17,7 +17,10 @@
                 #contentForLayout()#
 
                 <cfif !isDefined("params.noFooter")>
-                    #includePartial(partial="/charis/footer", dataFunction="footer")#
+                    <cftry>
+                        #includePartial(partial="/charis/footer", dataFunction="footer")#
+                    <cfcatch></cfcatch>    
+                    </cftry>
                 </cfif>
 
             </main>
