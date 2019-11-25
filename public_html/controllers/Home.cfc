@@ -3,6 +3,7 @@
 	<cffunction name="init">
 		<!--- <cfset filters(through="getbasicinfo,logview")>--->
 		<cfset filters(through="setReturn", only="index")>
+		<cfset filters(through="logview", type="after")>
 	</cffunction>
 
 <!---Filters--->

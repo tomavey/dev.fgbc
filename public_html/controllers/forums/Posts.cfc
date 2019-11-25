@@ -1,9 +1,10 @@
 <cfcomponent extends="Controller" output="false">
 	
 	<cffunction name="init">
-		<cfset filters("getForums,logview")>
+		<cfset filters("getForums")>
 		<cfset usesLayout("/forums/layout")>
 		<cfset filters(through="forumCheckin", except="login,authorize,logmein")>
+		<cfset filters(through="logview", type="after")>
 	</cffunction>
 	
 	<cffunction name="logmein">

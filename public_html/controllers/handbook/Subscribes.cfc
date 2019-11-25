@@ -2,7 +2,7 @@
 
 	<cffunction name="init">
 		<cfset usesLayout("/handbook/layout_handbook1")>
-		<cfset filters(through="logview")>
+		<cfset filters(through="logview", type="after")>
 		<cfset filters(through="gotBasicHandbookRights", only="index,show,new,edit")>
 	</cffunction>
 
