@@ -26,7 +26,7 @@ component extends="controllers.Controller" {
   }
   
 	function getRetreats() {
-		retreats = model("Focusretreat").findAll(where="active='yes' && startAt > now()", order="startAt");
+		retreats = model("Focusretreat").findAll(where="active='yes' AND startAt > now()", order="startAt");
   }
   
   function getFocusContent(required id) {

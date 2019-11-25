@@ -2,7 +2,7 @@
 	<cffunction name="init">
 		<cfset filters(through="setReturn", only="show,index")>
 		<!---
-		<cfset filters(through="logview")>
+		<cfset filters(through="logview", type="after")>
 		--->
 	</cffunction>
 
