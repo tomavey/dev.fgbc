@@ -5,13 +5,14 @@
 //
 component extends="Controller" output="false" {
 
-	private function init(){
+	function init(){
 		usesLayout("/handbook/layout_handbook")
-		filters(through="gotBasicHandbookRights,getStates,getPositionTypes,logview", except="focus,sendhandbook,inspire,findstaff,findallstaff")
+		filters(through="gotBasicHandbookRights,getStates,getPositionTypes", except="focus,sendhandbook,inspire,findstaff,findallstaff")
 		filters(through="getPositions", only="edit,show,view")
 		filters(through="getChurches", only="new,edit,create,update")
 		filters(through="setReturn", only="show,bluepages,distribution")
 		filters(through="setIsAgbmAdmin")
+		filters(through="logview", type="after", only="show")
 		provides("json")
 	}	
 
