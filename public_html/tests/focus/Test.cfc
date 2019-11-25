@@ -1,5 +1,22 @@
 <cfcomponent extends="wheelsMapping.Test">
 
+  <cffunction name="setup">
+    <cfset session.authback = duplicate(session.auth)>
+    <!---login a test user--->
+    <cfset session.auth.login = true>
+    <cfset session.auth.username = "Tester">
+    <cfset session.auth.email = "tester@fgbc.org">
+    <cfset session.auth.userid = 7>
+  <cfset session.auth.rightslist = "basic,handbook,office">
+
+  </cffunction>
+
+  <cffunction name="teardown">
+    <cfset structDelete(session,"auth")>
+    <cfset session.auth = duplicate(session.authback)>
+    <cfset structDelete(session,"authback")>
+  </cffunction>
+
   <cffunction name="$run_view_test">
     <!--- create an instance of the controller ---> 
     <cfset loc.controller = controller(loc.params.controller, loc.params)>

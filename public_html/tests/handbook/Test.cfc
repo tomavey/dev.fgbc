@@ -1,152 +1,130 @@
-<cfcomponent extends="wheelsMapping.Test">
+component extends="wheelsMapping.Test" {
 
-   <cffunction name="setup">
-   		<cfset session.authback = duplicate(session.auth)>
-  	<!---login a test user--->
-		<cfset session.auth.login = true>
-		<cfset session.auth.username = "Tester">
-		<cfset session.auth.email = "tester@fgbc.org">
-		<cfset session.auth.userid = 7>
-		<cfset session.auth.rightslist = "basic">
-   </cffunction>
+  function setup() {
+    session.authback = duplicate(session.auth);
+    // login a test user
+    session.auth.login = true;
+    session.auth.username = "Tester";
+    session.auth.email = "tester@fgbc.org";
+    session.auth.userid = 7;
+    session.auth.rightslist = "basic,handbook,office";
+  }
+  
+  function teardown() {
+    structDelete(session,"auth");
+    session.auth = duplicate(session.authback);
+    structDelete(session,"authback");
+  }
+  
+  function $run_view_test() {
+    //  create an instance of the controller 
+    loc.controller = controller(loc.params.controller, loc.params);
+    //  process the create action of the controller 
+    loc.controller.$processAction();
+    //  get copy of the code the view generated 
+    loc.response = loc.controller.response();
+    // Set the text we are looking for defaulting to </body>
+    if ( isDefined("loc.params.message") ) {
+      loc.message = loc.params.message;
+    } else {
+      loc.message = "</body>";
+    }
+    //  make sure the message was displayed somewhere on the page
+    assert('loc.response contains loc.message');
+  }
+  
+  function test_welcome() {
+    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+    loc.params = {controller="handbook.Welcome", action="checkin", message="welcome"};
+    $run_view_test();
+  }
+  
+  function test_handbookChangeLog() {
+    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+    loc.params = {controller="handbook.updates", action="index", message="updates"};
+    $run_view_test();
+  }
+  
+  function test_handbookSendYesterdaysUpdates() {
+    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+    loc.params = {controller="handbook.subscribes", action="sendYesterdaysUpdates", message="updates"};
+    $run_view_test();
+  }
+  
+  function test_personIndex() {
+    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+    loc.params = {controller="handbook.People", action="index"};
+    $run_view_test();
+  }
+  
+  function test_personShow() {
+    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+    loc.params = {controller="handbook.People", action="show", key="233", message="Avey"};
+    $run_view_test();
+  }
+  
+  function test_personEdit() {
+    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+    loc.params = {controller="handbook.People", action="edit", key="233", message="Avey"};
+    $run_view_test();
+  }
 
-   <cffunction name="teardown">
-   		<cfset structDelete(session,"auth")>
-   		<cfset session.auth = duplicate(session.authback)>
-   		<cfset structDelete(session,"authback")>
-   </cffunction>
+  function test_organizationindex() {
+    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+    loc.params = {controller="handbook.Organizations", action="index"};
+    $run_view_test();
+  }
+  
+  function test_organizationshow() {
+    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+    loc.params = {controller="handbook.Organizations", action="show", key=1, message="Lititz"};
+    $run_view_test();
+  }
+  
+  function test_tagsIndex() {
+    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+    loc.params = {controller="handbook.Tags", action="index"};
+    $run_view_test();
+  }
+  
+  function test_tagsShow() {
+    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+    loc.params = {controller="handbook.Tags", action="show", key="fc", message="fc"};
+    $run_view_test();
+  }
+  
+  function test_picturesIndex() {
+    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+    loc.params = {controller="handbook.Pictures", action="index", message="Pictures"};
+    $run_view_test();
+  }
+  
+  function test_birthdaysIndex() {
+    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+    loc.params = {controller="handbook.People", action="dates", key="birthday", message="Birthdays"};
+    $run_view_test();
+  }
+  
+  function test_anniversariesIndex() {
+    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+    loc.params = {controller="handbook.People", action="dates", key="anniversary", message="Anniversaries"};
+    $run_view_test();
+  }
+  
+  public function test_handbookStatisticsIndex(){
+    loc.params = {controller="handbook.statistics", action="index", message="Listing Statistics"};
+    $run_view_test();
+  }
 
-  <cffunction name="$run_view_test">
-    <!--- create an instance of the controller --->
-    <cfset loc.controller = controller(loc.params.controller, loc.params)>
+  public function test_handbookStatisticsNew(){
+    loc.params = {controller="handbook.statistics", action="new", message="Create new stat"};
+    $run_view_test();
+  }
 
-    <!--- process the create action of the controller --->
-    <cfset loc.controller.$processAction()>
-
-    <!--- get copy of the code the view generated --->
-    <cfset loc.response = loc.controller.response()>
-
-	<!---Set the text we are looking for defaulting to </body>--->
-    <cfif isDefined("loc.params.message")>
-       <cfset loc.message = loc.params.message>
-    <cfelse>
-       <cfset loc.message = "</body>">
-    </cfif>
-
-    <!--- make sure the message was displayed somewhere on the page--->
-    <cfset assert('loc.response contains loc.message')>
-
-  </cffunction>
-
-  <cffunction name="test_welcome">
-
-    <!--- setup some default params for the tests plus the text we are looking for. Defaults to "</body>"--->
-    <cfset loc.params = {controller="handbook.Welcome", action="checkin", message="welcome"}>
-
-    <cfset $run_view_test()>
-
-  </cffunction>
-
-  <cffunction name="test_handbookChangeLog">
-
-    <!--- setup some default params for the tests plus the text we are looking for. Defaults to "</body>"--->
-    <cfset loc.params = {controller="handbook.updates", action="index", message="updates"}>
-
-    <cfset $run_view_test()>
-
-  </cffunction>
-
-  <cffunction name="test_handbookSendYesterdaysUpdates">
-
-    <!--- setup some default params for the tests plus the text we are looking for. Defaults to "</body>"--->
-    <cfset loc.params = {controller="handbook.subscribes", action="sendYesterdaysUpdates", message="updates"}>
-
-    <cfset $run_view_test()>
-
-  </cffunction>
-
-  <cffunction name="test_personIndex">
-
-    <!--- setup some default params for the tests plus the text we are looking for. Defaults to "</body>"--->
-    <cfset loc.params = {controller="handbook.People", action="index"}>
-
-    <cfset $run_view_test()>
-
-  </cffunction>
-
-  <cffunction name="test_personShow">
-
-    <!--- setup some default params for the tests plus the text we are looking for. Defaults to "</body>"--->
-    <cfset loc.params = {controller="handbook.People", action="show", key="233", message="Avey"}>
-
-    <cfset $run_view_test()>
-
-  </cffunction>
-
-  <cffunction name="test_organizationindex">
-
-    <!--- setup some default params for the tests plus the text we are looking for. Defaults to "</body>"--->
-    <cfset loc.params = {controller="handbook.Organizations", action="index"}>
-
-    <cfset $run_view_test()>
-
-  </cffunction>
-
-  <cffunction name="test_organizationshow">
-
-    <!--- setup some default params for the tests plus the text we are looking for. Defaults to "</body>"--->
-    <cfset loc.params = {controller="handbook.Organizations", action="show", key=1, message="Lititz"}>
-
-    <cfset $run_view_test()>
-
-  </cffunction>
-
-  <cffunction name="test_tagsIndex">
-
-    <!--- setup some default params for the tests plus the text we are looking for. Defaults to "</body>"--->
-    <cfset loc.params = {controller="handbook.Tags", action="index"}>
-
-    <cfset $run_view_test()>
-
-  </cffunction>
-
-  <cffunction name="test_tagsShow">
-
-    <!--- setup some default params for the tests plus the text we are looking for. Defaults to "</body>"--->
-    <cfset loc.params = {controller="handbook.Tags", action="show", key="fc", message="fc"}>
-
-    <cfset $run_view_test()>
-
-  </cffunction>
-
-  <cffunction name="test_picturesIndex">
-
-    <!--- setup some default params for the tests plus the text we are looking for. Defaults to "</body>"--->
-    <cfset loc.params = {controller="handbook.Pictures", action="index", message="Pictures"}>
-
-    <cfset $run_view_test()>
-
-  </cffunction>
-
-  <cffunction name="test_birthdaysIndex">
-
-    <!--- setup some default params for the tests plus the text we are looking for. Defaults to "</body>"--->
-    <cfset loc.params = {controller="handbook.People", action="dates", key="birthday", message="Birthdays"}>
-
-    <cfset $run_view_test()>
-
-  </cffunction>
-
-  <cffunction name="test_anniversariesIndex">
-
-    <!--- setup some default params for the tests plus the text we are looking for. Defaults to "</body>"--->
-    <cfset loc.params = {controller="handbook.People", action="dates", key="anniversary", message="Anniversaries"}>
-
-    <cfset $run_view_test()>
-
-  </cffunction>
-
-<cfscript>
+  public function test_handbookStatisticsEdit(){
+    loc.params = {controller="handbook.statistics", action="edit", key=4021, message="Editing"};
+    $run_view_test();
+  }
 
   // public function test_handbookChurchReviewArray(){
   //   test = model("Handbookorganization").findChurchesForEmailing(go="true");
@@ -177,6 +155,4 @@
   //   $run_view_test();
   //   }
 
-</cfscript>  
-
-</cfcomponent>
+  }
