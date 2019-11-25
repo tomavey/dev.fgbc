@@ -21,6 +21,12 @@
 		</cfif>
 	</cffunction>
 
+<cfscript>
+	function setKeyToKeyy() {
+    if (isDefined("params.keyy") && len(params.keyy)) { params.key = params.keyy};
+	}
+</cfscript>
+
 <!---CCRUD methods--->
 
 	<!--- options/index --->
