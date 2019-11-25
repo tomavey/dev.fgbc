@@ -1,53 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<cfoutput>
 
-    #includePartial("/charis/head")#
+  <cfoutput>
 
-    #includePartial(partial="/charis/modal_login")#
+  #includePartial("/charis/head")#
 
-    #includePartial("/charis/modal_rebrand")#
+  #includePartial(partial="/charis/modal_login")#
 
-        <body>
+  <!--- #includePartial("/charis/modal_rebrand")# --->
 
-            <main>
+  <body>
 
-                #includePartial(partial="/charis/header")#
+    <main>
 
-                #contentForLayout()#
+      #includePartial(partial="/charis/header")#
 
-                <cfif !isDefined("params.noFooter")>
-                    <cftry>
-                        #includePartial(partial="/charis/footer", dataFunction="footerData")#
-                    <cfcatch></cfcatch>    
-                    </cftry>
-                </cfif>
+      #contentForLayout()#
 
-            </main>
+      <cfif !isDefined("params.noFooter")>
+        <cftry>
+          #includePartial(partial="/charis/footer", dataFunction="footerData")#
+        <cfcatch></cfcatch>    
+        </cftry>
+      </cfif>
 
-        <div class="u-outer-spaces-helper"></div>
+    </main>
 
-        #includePartial("/charis/jsIncludeTags")#
+    <div class="u-outer-spaces-helper"></div>
 
-<cfif application.wheels.environment NEQ "production">
-    <cftry>
-    <cfdump var="#session.auth#" label="session auth">
-    #session.auth.rightslist#
-    #gotrights("handbook")#
-    <cfdump var="#cgi#" label="Cgi">
-    <cfcatch>
-    </cfcatch>
-    </cftry>
-</cfif>
+    #includePartial("/charis/jsIncludeTags")#
 
-<!--- <cfif isDefined("params.showRightsList")>
-    <p>#session.auth.rightslist#</p>
-    <p>#gotrights("office,conferenceEditor")#</p>
-</cfif> --->
+    <cfif application.wheels.environment NEQ "production">
+        <cftry>
+          <cfdump var="#session.auth#" label="session auth">
+          #session.auth.rightslist#
+          #gotrights("handbook")#
+          <cfdump var="#cgi#" label="Cgi">
+        <cfcatch>
+        </cfcatch>
+        </cftry>
+    </cfif>
 
 
-    </body>
 
-</cfoutput>
+  </body>
+
+  </cfoutput>
 
 </html>
