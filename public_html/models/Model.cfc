@@ -149,11 +149,12 @@
 	<cfreturn loc.newquery>
 	</cffunction>
 
-	<cffunction name="getEvent">
-        <cfreturn getSetting("event")>
-	</cffunction>
-
 <cfscript>
+
+	function getEvent(params){
+		if ( isDefined("params.event" )) { return params.event }
+		return getSetting("event")
+	}
 
 	public function getDataSourceName(){
 		return getDatasource()
