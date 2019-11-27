@@ -1,5 +1,5 @@
 <cfparam name="title" default="Churches and Campuses in the Charis Fellowship">
-
+<cfdump var="#churchesjson#"><cfabort>
       <!-- Promo Block -->
     <section class="g-pos-rel">
       <div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll" data-options='{direction: "reverse", settings_mode_oneelement_max_offset: "150"}'>
@@ -21,7 +21,6 @@
 </cfoutput>
 
 <div class="container card card-charis card-charis-square text-center" v-cloak id="churches1">
-
 <p>
 <span>| </span>
 <span v-for="state in states"><a href="" v-on:click.prevent="setSearch(state.state)">{{state.state}} | </a></span>
