@@ -1,4 +1,4 @@
-<div class="postbox span8 container">
+<div class="postbox span12 container">
 <cfoutput>	
 
 	<cfif params.controller is "handbookwelcome">
@@ -9,8 +9,8 @@
 			<h2>
 				#flash("success")#	
 			</h2>
-	
-			#startFormTag(controller="auth.users", action="checkLogin")#
+
+			#startFormTag(controller="auth.users", action="checkLogin", class="text-center")#
 		
 				
 						<p>
@@ -26,7 +26,7 @@
 				
 			#endFormTag()#
 
-		<p>
+		<p class="text-center">
 			#linkto(text="Forgot your password or username?", controller="auth.users", action="getEmailForChangePasswordLink")#
 		</p>	
 </cfoutput>
