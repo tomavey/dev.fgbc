@@ -1,7 +1,7 @@
 <cfcomponent extends="Controller" output="false">
 	
 	<cffunction name="init">
-		<cfset useslayout('/layoutadmin')>
+		<cfset useslayout('/focus/layoutadmin')>
 		<cfset filters('checkOffice')>
 		<cfset filters(through="setReturn", only="index,show")>
 		<cfset filters(through="getRetreatRegions")>
