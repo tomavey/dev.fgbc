@@ -63,9 +63,27 @@ component extends="wheelsMapping.Test" {
 	// 	$run_view_test();
 	// }
 
-  public function test_index() {
+  public function test_retreats_index() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
 		loc.params = {controller="focus.Retreats", action="index"};
+		$run_view_test();
+	}
+
+  public function test_retreats_show() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="focus.Retreats", action="show", key=50};
+		$run_view_test();
+	}
+
+  public function test_retreats_edit() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="focus.Retreats", action="edit", key=50};
+		$run_view_test();
+	}
+
+  public function test_retreats_new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="focus.Retreats", action="new", key=50};
 		$run_view_test();
 	}
 
@@ -105,7 +123,31 @@ component extends="wheelsMapping.Test" {
 		$run_view_test();
 	}
 
-	public function test_newshoppingcart() {
+	public function test_items_index() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="focus.items", action="index"};
+		$run_view_test();
+	}
+
+	public function test_items_show() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="focus.items", action="index", key=297};
+		$run_view_test();
+	}
+
+	public function test_items_edit() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="focus.items", action="index", key=297};
+		$run_view_test();
+	}
+
+	public function test_items_new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="focus.items", action="new", retreatId=46};
+		$run_view_test();
+	}
+
+  public function test_newshoppingcart() {
 		loc.params = {controller="focus.Shoppingcarts", action="new", retreatid=18};
 		$run_view_test();
 	}
