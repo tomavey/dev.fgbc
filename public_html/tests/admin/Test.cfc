@@ -183,5 +183,129 @@ component extends="wheelsMapping.Test" {
 		$run_view_test();
 	}
 
+  //MESSAGES
+	public function test_messages_index() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.messages", action="index"};
+		$run_view_test();
+	}
+
+	public function test_messages_new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.messages", action="new"};
+		$run_view_test();
+	}
+
+	public function test_messages_show() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.messages", action="show", key=1035};
+		$run_view_test();
+	}
+
+	public function test_messages_edit() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.messages", action="edit", key=1035};
+		$run_view_test();
+	}
+
+  //MINISTRIES
+	public function test_ministries_index() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.ministries", action="index"};
+		$run_view_test();
+	}
+
+	public function test_ministries_new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.ministries", action="new"};
+		$run_view_test();
+	}
+
+	public function test_ministries_show() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.ministries", action="show", key=48};
+		$run_view_test();
+	}
+
+	public function test_ministries_edit() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.ministries", action="edit", key=48};
+		$run_view_test();
+	}
+
+  //RESOURCES
+	public function test_resources_index() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.resources", action="index"};
+		$run_view_test();
+	}
+
+	public function test_resources_new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.resources", action="new"};
+		$run_view_test();
+	}
+
+	public function test_resources_show() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.resources", action="show", key=22};
+		$run_view_test();
+	}
+
+	public function test_resources_edit() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.resources", action="edit", key=22};
+		$run_view_test();
+	}
+
+  //SENDEMAILS
+	public function test_send_emails_index() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.sendemails", action="index"};
+		$run_view_test();
+	}
+
+	public function test_send_emails_new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.sendemails", action="new"};
+		$run_view_test();
+	}
+
+	public function test_send_emails_show() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.sendemails", action="show", key=1};
+		$run_view_test();
+	}
+
+	public function test_send_emails_edit() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.sendemails", action="edit", key=1};
+		$run_view_test();
+	}
+
+  //SETTINGS
+	public function test_settings_index() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.settings", action="index"};
+		$run_view_test();
+	}
+
+	public function test_send_emails_new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.settings", action="new"};
+		$run_view_test();
+	}
+
+	public function test_send_emails_show() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.settings", action="show", key=54};
+		$run_view_test();
+	}
+
+	public function test_send_emails_edit() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="admin.settings", action="edit", key=54};
+		$run_view_test();
+	}
 
 }
