@@ -5,8 +5,8 @@
 	If you have a user account on www.fgbc.org and the email address on that account matches your email address in this online handbook, you can use this login form to access the online handbook.
 	</p>
 	</cfif>
-			#flash("success")#
-			<div class="text-center">AASDASD
+			<div class="text-center">
+				#flash("success")#
 				#startFormTag(controller="auth.users", action="checkLogin")#
 		
 				
@@ -21,7 +21,7 @@
 					#submitTag("Submit")#
 				</p>
 		
-	#endFormTag()#
+				#endFormTag()#
 
 			</div>
 
