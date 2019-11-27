@@ -173,13 +173,13 @@ component extends="wheelsMapping.Test" {
 
 	public function test_menus_show() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="admin.menus", action="show", key=51};
+		loc.params = {controller="admin.menus", action="show", key=4};
 		$run_view_test();
 	}
 
 	public function test_menus_edit() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="admin.menus", action="edit", key=51};
+		loc.params = {controller="admin.menus", action="edit", key=4};
 		$run_view_test();
 	}
 
