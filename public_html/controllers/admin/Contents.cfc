@@ -12,6 +12,7 @@ component extends="Controller" output="false" {
 		rights = model("Authright").findAll(order="name")
 	}
 
+	
 <!--------------------------------->
 <!------------CRUD----------------->
 <!--------------------------------->
