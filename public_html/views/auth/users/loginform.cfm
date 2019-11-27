@@ -1,4 +1,4 @@
-<div class="container card card-charis text-center">
+<div class="postbox span8 container">
 <cfoutput>	
 
 	<cfif params.controller is "handbookwelcome">

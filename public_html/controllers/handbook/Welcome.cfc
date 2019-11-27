@@ -262,6 +262,7 @@
 	</cffunction>
 
 	<cffunction name="loginform">
+		<cfset user = model("Authuser").new()>
 		<cfset renderPage(controller="auth.users", action="loginform")>
 	</cffunction>
 
