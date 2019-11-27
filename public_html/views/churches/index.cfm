@@ -42,7 +42,7 @@
       {{church.org_city}}, {{church.state}} {{church.zip}}</br>
       <span v-if="church.org_city !== church.listed_as_city">Listed as: {{church.listed_as_city}}</br></span>
       <span >Meeting at: {{church.meetingplace}}</br></span>
-      <span v-if="church.website.length"><a v-bind:href="fixUrlLink(church.website)">{{ fixUrlLook(church.website) }}</a></br></span>
+      <span ><a v-bind:href="fixUrlLink(church.website)">{{ fixUrlLook(church.website) }}</a></br></span>
       {{church.phone}}</br>
     </p>
   </div>
