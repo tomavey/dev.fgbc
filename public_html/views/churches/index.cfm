@@ -38,8 +38,8 @@
       <h3 class="alert alert-warning">{{church.STATE}}</h3>
     </div>
     <p class="card">
-      <h4>{{church.name}}</h4>
-      {{church.org_city}}, {{church.state}} {{church.zip}}</br>
+      <h4>{{church.NAME}}</h4>
+      {{church.ORG_CITY}}, {{church.STATE}} {{church.ZIP}}</br>
       <span v-if="church.ORG_CITY !== church.LISTED_AS_CITY">Listed as: {{church.LISTED_AS_CITY}}</br></span>
       <span v-if="church.MEETINGPLACE.length">Meeting at: {{church.MEETINGPLACE}}</br></span>
       <span v-if="church.WEBSITE.length"><a v-bind:href="fixUrlLink(church.WEBSITE)">{{ fixUrlLook(church.WEBSITE) }}</a></br></span>
@@ -121,8 +121,6 @@ var vm = new Vue({
 
 
 </script>
-
-<h1 class="text-center">Web page under repair.  Check back later.</h1>
 
 </cfoutput>
 
