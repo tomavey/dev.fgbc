@@ -1,4 +1,5 @@
 <cfparam name="title" default="Churches and Campuses in the Charis Fellowship">
+<cfdump var="#churchesjson#"><cfabort>
       <!-- Promo Block -->
     <section class="g-pos-rel">
       <div class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll" data-options='{direction: "reverse", settings_mode_oneelement_max_offset: "150"}'>
@@ -22,7 +23,7 @@
 <div class="container card card-charis card-charis-square text-center" v-cloak id="churches1">
 <p>
 <span>| </span>
-<span v-for="state in states"><a href="" v-on:click.prevent="setSearch(state.state)">{{state.state}} | </a></span>
+<span v-for="state in states"><a href="" v-on:click.prevent="setSearch(state.STATE)">{{state.STATE}} | </a></span>
 </p>
 
 <p>
@@ -35,14 +36,14 @@
   <div v-for="(church, index) in filteredChurches">
     <div v-if="isNewState(index,church.state,filteredChurches)">
       <hr/>
-      <h3 class="alert alert-warning">{{church.state}}</h3>
+      <h3 class="alert alert-warning">{{church.STATE}}</h3>
     </div>
     <p class="card">
       <h4>{{church.name}}</h4>
       {{church.org_city}}, {{church.state}} {{church.zip}}</br>
-      <span v-if="church.org_city !== church.listed_as_city">Listed as: {{church.listed_as_city}}</br></span>
-      <span v-if="church.meetingplace.length">Meeting at: {{church.meetingplace}}</br></span>
-      <span v-if="church.website.length"><a v-bind:href="fixUrlLink(church.website)">{{ fixUrlLook(church.website) }}</a></br></span>
+      <span v-if="church.ORG_CITY !== church.LISTED_AS_CITY">Listed as: {{church.LISTED_AS_CITY}}</br></span>
+      <span v-if="church.MEETINGPLACE.length">Meeting at: {{church.MEETINGPLACE}}</br></span>
+      <span v-if="church.WEBSITE.length"><a v-bind:href="fixUrlLink(church.WEBSITE)">{{ fixUrlLook(church.WEBSITE) }}</a></br></span>
       {{church.phone}}</br>
     </p>
   </div>
