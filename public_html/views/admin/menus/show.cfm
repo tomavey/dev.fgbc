@@ -1,6 +1,8 @@
 <cfoutput>
 <div class="container">
 
+	<!--- <cfdump var="#menu.properties()#"><cfabort> --->
+
 <h1>Showing menu</h1>
 
 					<p><span>Name</span>:
@@ -22,10 +24,10 @@
 						#menu.link#</p>
 				
 					<p><span>Controller</span>:
-						#menu.controller#</p>
+						#menu.controllerr#</p>
 
 					<p><span>Action</span>:
-						#menu.action#</p>
+						#menu.actionn#</p>
 
 					<p><span>Key</span>:
 						#menu.keyy#</p>
