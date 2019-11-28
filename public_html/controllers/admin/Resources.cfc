@@ -1,100 +1,94 @@
-<cfcomponent extends="Controller" output="false">
+component extends="Controller" output="false" {
 
-	<cffunction name="init">
-		<cfset filters(through="logview", type="after")>
-	</cffunction>
+	public function init() {
+		filters(through="logview", type="after");
+	}
 
-	<!--- resources/index --->
-	<cffunction name="index">
-		<cfset resources = model("Mainresource").findAll()>
-		<cfset setReturn()>
-	</cffunction>
+<!------------------------->
+<!------CRUD--------------->
+<!------------------------->
 
-	<cffunction name="list">
-		<cfset resources = model("Mainresource").findAll(order="description")>
-	</cffunction>
+	//  resources/index 
+	public function index() {
+		resources = model("Mainresource").findAll();
+		setReturn();
+	}
 
-	<!--- resources/show/key --->
-	<cffunction name="show">
-		<cfif isdefined("params.key")>
+	public function list() {
+		resources = model("Mainresource").findAll(order="description");
+	}
 
-			<!--- Find the record --->
-	    	<cfset resource = model("Mainresource").findByKey(params.key)>
+	//  resources/show/key 
+	public function show() {
+		if ( isdefined("params.key") ) {
+			//  Find the record 
+			resource = model("Mainresource").findByKey(params.key);
+			//  Check if the record exists 
+			if ( !IsObject(resource) ) {
+				flashInsert(error="Resource #params.key# was !found");
+				redirectTo(action="index");
+			}
+		} else {
+			resource = model("Mainresource").findAll();
+		}
+	}
 
-	    	<!--- Check if the record exists --->
-		    <cfif NOT IsObject(resource)>
-		        <cfset flashInsert(error="Resource #params.key# was not found")>
-		        <cfset redirectTo(action="index")>
-		    </cfif>
+	//  resources/new 
+	public function new() {
+		resource = model("Mainresource").new();
+	}
 
-	    <cfelse>
-	    	<cfset resource = model("Mainresource").findAll()>
-	    </cfif>
+	//  resources/edit/key 
+	public function edit() {
+		//  Find the record 
+		resource = model("Mainresource").findByKey(params.key);
+		//  Check if the record exists 
+		if ( !IsObject(resource) ) {
+			flashInsert(error="Resource #params.key# was !found");
+			redirectTo(action="index");
+		}
+	}
 
-	</cffunction>
+	//  resources/create 
+	public function create() {
+		resource = model("Mainresource").new(params.resource);
+		//  Verify that the resource creates successfully 
+		if ( resource.save() ) {
+			flashInsert(success="The resource was created successfully.");
+			returnback();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error creating the resource.");
+			renderPage(action="new");
+		}
+	}
 
-	<!--- resources/new --->
-	<cffunction name="new">
-		<cfset resource = model("Mainresource").new()>
-	</cffunction>
+	//  resources/update 
+	public function update() {
+		resource = model("Mainresource").findByKey(params.key);
+		//  Verify that the resource updates successfully 
+		if ( resource.update(params.resource) ) {
+			flashInsert(success="The resource was updated successfully.");
+			returnback();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error updating the resource.");
+			renderPage(action="edit");
+		}
+	}
 
-	<!--- resources/edit/key --->
-	<cffunction name="edit">
+	//  resources/delete/key 
+	public function delete() {
+		resource = model("Mainresource").findByKey(params.key);
+		//  Verify that the resource deletes successfully 
+		if ( resource.delete() ) {
+			flashInsert(success="The resource was deleted successfully.");
+			redirectTo(action="index");
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error deleting the resource.");
+			redirectTo(action="index");
+		}
+	}
 
-		<!--- Find the record --->
-    	<cfset resource = model("Mainresource").findByKey(params.key)>
-
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(resource)>
-	        <cfset flashInsert(error="Resource #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-
-	</cffunction>
-
-	<!--- resources/create --->
-	<cffunction name="create">
-		<cfset resource = model("Mainresource").new(params.resource)>
-
-		<!--- Verify that the resource creates successfully --->
-		<cfif resource.save()>
-			<cfset flashInsert(success="The resource was created successfully.")>
-			<cfset returnback()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error creating the resource.")>
-			<cfset renderPage(action="new")>
-		</cfif>
-	</cffunction>
-
-	<!--- resources/update --->
-	<cffunction name="update">
-		<cfset resource = model("Mainresource").findByKey(params.key)>
-
-		<!--- Verify that the resource updates successfully --->
-		<cfif resource.update(params.resource)>
-			<cfset flashInsert(success="The resource was updated successfully.")>
-			<cfset returnback()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the resource.")>
-			<cfset renderPage(action="edit")>
-		</cfif>
-	</cffunction>
-
-	<!--- resources/delete/key --->
-	<cffunction name="delete">
-		<cfset resource = model("Mainresource").findByKey(params.key)>
-
-		<!--- Verify that the resource deletes successfully --->
-		<cfif resource.delete()>
-			<cfset flashInsert(success="The resource was deleted successfully.")>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error deleting the resource.")>
-			<cfset redirectTo(action="index")>
-		</cfif>
-	</cffunction>
-
-</cfcomponent>
+}
