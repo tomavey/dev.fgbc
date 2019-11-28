@@ -8,3 +8,6 @@
 
 <cfset this.mappings["/admin"] = "#variables.thispath#/controllers/" />
 --->
+<cfscript>
+  this.serialization.preservecaseforstructkey = false
+</cfscript>
