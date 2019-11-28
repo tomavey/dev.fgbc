@@ -98,7 +98,7 @@ component extends="wheelsMapping.Test" {
 
 	public function test_applications_show() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="membership.applications", action="show", keyy="83FE0CAD-DAA3-4F13-A0004ADF2B90AEA6"};
+		loc.params = {controller="membership.applications", action="show", keyy=183};
 		$run_view_test();
 	}
 
