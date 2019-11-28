@@ -1,44 +1,38 @@
-<cfcomponent extends="Controller" output="false">
-	<cffunction name="init">
-		<cfset filters(through="setReturn", only="show,index")>
-		<!---
+component extends="Controller" output="false" {
+
+	public function init() {
+		filters(through="setReturn", only="show,index");
+		/* 
 		<cfset filters(through="logview", type="after")>
-		--->
-	</cffunction>
+		*/
+	}
 
-	<!--- ministries/index --->
-	<cffunction name="index">
-		<cfset ministries = model("Mainministry").findAll(order="category,name")>
-	</cffunction>
+<!------------------------->
+<!------CRUD--------------->
+<!------------------------->
 
-	<!--- ministries/list --->
-	<cffunction name="list">
+	//  ministries/index 
+	public function index() {
+		ministries = model("Mainministry").findAll(order="category,name");
+	}
 
-		<cfif isdefined("params.key")>
-			<cfset wherestring = "id=#params.key#">
-		<cfelseif isDefined("params.category")>
-			<cfset wherestring = "category='#params.category#'">
-		<cfelse>
-			<cfset wherestring = "">
-		</cfif>
+	//  ministries/list 
+	public function list() {
+		if ( isdefined("params.key") ) {
+			wherestring = "id=#params.key#";
+		} else if ( isDefined("params.category") ) {
+			wherestring = "category='#params.category#'";
+		} else {
+			wherestring = "";
+		}
+		ministry = model("Mainministry").findAll(where=whereString, order="category,name");
+		categories = model("Mainministry").findAll(where="category <> 'none'", order="category,name");
+	}
 
-    	<cfset ministry = model("Mainministry").findAll(where=whereString, order="category,name")>
-    	<cfset categories = model("Mainministry").findAll(where="category <> 'none'", order="category,name")>
-
-	</cffunction>
-
-	<cffunction name="simpleList">
-	<!---used for insider cover of handbook--->
-		<cfset wherestring = "status <>'inactive' AND category in ('Church Planting Ministries','Doing Good', 'Communication', 'Leadership Training Ministries') AND name NOT LIKE 'Camp%'">
-    	<cfset ministries = model("Mainministry").findAll(where=whereString, order="name")>
-	</cffunction>
-
-	<!--- ministries/new --->
-	<cffunction name="new">
-		<cfset ministry = model("Mainministry").new()>
-	</cffunction>
-
-<cfscript>
+	//  ministries/new 
+	public function new() {
+		ministry = model("Mainministry").new();
+	}
 
 	<!--- ministries/edit/key --->
 	function edit( key=params.key ) {
@@ -48,73 +42,76 @@
 		}
 	}
 
-</cfscript>
+	//  ministries/create 
+	public function create() {
+		ministry = model("Mainministry").new(params.ministry);
+		//  Verify that the ministry creates successfully 
+		if ( ministry.save() ) {
+			flashInsert(success="The ministry was created successfully.");
+			redirectTo(action="index");
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error creating the ministry.");
+			renderPage(action="new");
+		}
+	}
 
-	<!--- ministries/create --->
-	<cffunction name="create">
-		<cfset ministry = model("Mainministry").new(params.ministry)>
+	//  ministries/show 
+	public function show() {
+		wherestring = "id=#params.key#";
+		ministry = model("Mainministry").findAll(where=whereString, order="category,name");
+	}
 
-		<!--- Verify that the ministry creates successfully --->
-		<cfif ministry.save()>
-			<cfset flashInsert(success="The ministry was created successfully.")>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error creating the ministry.")>
-			<cfset renderPage(action="new")>
-		</cfif>
-	</cffunction>
+	//  ministries/update 
+	public function update() {
+		ministry = model("Mainministry").findByKey(params.key);
+		//  Verify that the ministry updates successfully 
+		if ( ministry.update(params.ministry) ) {
+			flashInsert(success="The ministry was updated successfully.");
+			returnBack();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error updating the ministry.");
+			renderPage(action="edit");
+		}
+	}
 
-<cfscript>
+	//  ministries/delete/key 
+	public function delete() {
+		ministry = model("Mainministry").findByKey(params.key);
+		//  Verify that the ministry deletes successfully 
+		if ( ministry.delete() ) {
+			flashInsert(success="The ministry was deleted successfully.");
+			redirectTo(action="index");
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error deleting the ministry.");
+			redirectTo(action="index");
+		}
+	}
+<!------------------------->
+<!------END OF CRUD-------->
+<!------------------------->
+
+
+
 	private function includeInFooterToBinary(required string includeInFooter) {
 		if ( includeInFooter is "Yes" ) { return 1 } else { return 0}
 	}
-</cfscript>	
 
-	<cffunction name="show">
-		<cfset wherestring = "id=#params.key#">
-	   	<cfset ministry = model("Mainministry").findAll(where=whereString, order="category,name")>
-	</cffunction>
-
-	<!--- ministries/update --->
-	<cffunction name="update">
-		<cfset ministry = model("Mainministry").findByKey(params.key)>
-
-		<!--- Verify that the ministry updates successfully --->
-		<cfif ministry.update(params.ministry)>
-			<cfset flashInsert(success="The ministry was updated successfully.")>
-      <cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the ministry.")>
-			<cfset renderPage(action="edit")>
-		</cfif>
-	</cffunction>
-
-	<!--- ministries/delete/key --->
-	<cffunction name="delete">
-		<cfset ministry = model("Mainministry").findByKey(params.key)>
-
-		<!--- Verify that the ministry deletes successfully --->
-		<cfif ministry.delete()>
-			<cfset flashInsert(success="The ministry was deleted successfully.")>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error deleting the ministry.")>
-			<cfset redirectTo(action="index")>
-		</cfif>
-	</cffunction>
-
-<!---Get Settings--->
-
-<cfscript>
+	// Get Settings
 	function getministryCategories(){
 		var activeMinistries = model("Mainministry").findAll(where="status <>'inactive'")
 		var categories = listSort(valueList(activeMinistries.category,","),"text")
 		categories = removeDuplicatesFromList(categories)
 		return categories;
 	}
-</cfscript>	
 
-</cfcomponent>
+	public function simpleList() {
+		// used for insider cover of handbook
+		wherestring = "status <>'inactive' && category in ('Church Planting Ministries','Doing Good', 'Communication', 'Leadership Training Ministries') && name !LIKE 'Camp%'";
+		ministries = model("Mainministry").findAll(where=whereString, order="name");
+	}
+
+
+}
