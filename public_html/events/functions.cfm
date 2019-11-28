@@ -116,7 +116,11 @@ public function getSetting(name, useSessionSetting=true){
 	}
 
 	function queryToJson(required query data){
-		return serializeJSON(arguments.data,"struct")
+		return serializeJSON(capitalizeColumnNameInQuery(arguments.data),"struct")
+	}
+
+	function capitalizeColumnNameInQuery(qry){
+		return qry
 	}
 
 	function structToJson(required struct Data) {
