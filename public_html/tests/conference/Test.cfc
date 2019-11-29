@@ -265,6 +265,32 @@ component extends="wheelsMapping.Test" {
 	}
 
 
+	//ANNOUNCEMENTS
+	public function test_announcements_index() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.announcements", action="index"};
+		$run_view_test();
+	}
+
+	public function test_announcements__new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.announcements", action="new"};
+		$run_view_test();
+	}
+
+	public function test_announcements__show() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.announcements", action="show", key=579};
+		$run_view_test();
+	}
+
+	public function test_announcements__edit() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.announcements", action="edit", key=579};
+		$run_view_test();
+	}
+
+
   //MISC VIEWS
   public function test_EmailBefore_Payment() {
 		loc.params = {controller="conference.Register", action="EmailBeforePayment", message="Invoice"};
