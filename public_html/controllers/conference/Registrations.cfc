@@ -9,6 +9,7 @@
 
 	<!--- registrations/index --->
 	<cffunction name="index">
+		<cfset var maxrows = $getMaxrows(params)>
 		<cfset var orderString = "createdAT DESC">
 		<cfif isDefined("params.status")>
 			<cfset whereString = "event='#getEvent()#' AND ccstatus = '#params.status#'">
@@ -21,7 +22,8 @@
 		<cfif isDefined("params.type")>
 			<cfset whereString = whereString & " AND equip_options.type = '#params.type#'">
 		</cfif>
-		<cfset registrations = model("Conferenceregistration").findAll(where=whereString, include="person(family),option,invoice", order=orderString)>
+
+		<cfset registrations = model("Conferenceregistration").findAll(where=whereString, include="person(family),option,invoice", order=orderString, maxrows="#maxrows#")>
 
 		<cfif isDefined("params.download")>
 			  <cfset renderPage(layout="/conference/layoutdownload")>
