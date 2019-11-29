@@ -537,6 +537,13 @@
         return true;
     }
 
+    private function $getMaxrows(args = params){
+		if ( isDefined("args.maxrows") ) {
+			return args.maxrows
+		} else {
+			return -1
+		}
+	}
 </cfscript>
 
 </cfcomponent>
