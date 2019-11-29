@@ -125,6 +125,10 @@
 	</cffunction>
 
 	<cffunction name="badges">
+		<cfargument name="maxrows" default=-1>
+		<cfif isDefined("params.maxrows")>
+			<cfset arguments.maxrows = params.maxrows>
+		</cfif>
 		<cfif isDefined("params.key")>
 			<cfset datestart = params.key>
 		<cfelseif isDefined("params.date")>
@@ -145,7 +149,7 @@
 			<cfset selectString = "id,fullname,fname,lname,fullnamelastfirst">
 		</cfif>	
 
-		<cfset badges = model("Conferenceperson").findall(select=selectString, where=whereString, include="family", order="lname,fname")>
+		<cfset badges = model("Conferenceperson").findall(select=selectString, where=whereString, include="family", order="lname,fname", maxrows='#arguments.maxrows#')>
 
 		<cfset count = QueryAddColumn(badges,"registered")>
 
@@ -263,7 +267,7 @@
 		<cfset whereString = whereString & " AND alpha='#params.alpha#'">
 	</cfif>
 
-			 <cfset envelopes = model("Conferencefamily").findAll(where=whereString, order="lname")>
+			 <cfset envelopes = model("Conferencefamily").findAll(where=whereString, order="lname", maxrows='#arguments.maxrows#')>
 			 
 		<cfset options = model("Conferenceoption").findAll(where="event='#getEvent()#'", order="name")>
 		<cfset listcounts = QuotedValueList("options.name")>
