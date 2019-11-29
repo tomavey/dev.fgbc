@@ -239,6 +239,32 @@ component extends="wheelsMapping.Test" {
 		$run_view_test();
 	}
 
+	//AGE_RANGES
+	public function test_age_ranges_index() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.age_ranges", action="index"};
+		$run_view_test();
+	}
+
+	public function test_age_ranges__new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.age_ranges", action="new"};
+		$run_view_test();
+	}
+
+	public function test_age_ranges__show() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.age_ranges", action="show", key=1};
+		$run_view_test();
+	}
+
+	public function test_age_ranges__edit() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.age_ranges", action="edit", key=1};
+		$run_view_test();
+	}
+
+
   //MISC VIEWS
   public function test_EmailBefore_Payment() {
 		loc.params = {controller="conference.Register", action="EmailBeforePayment", message="Invoice"};

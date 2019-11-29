@@ -98,13 +98,13 @@ component extends="wheelsMapping.Test" {
 
 	public function test_applications_show() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="membership.applications", action="show", keyy=183};
+		loc.params = {controller="membership.applications", action="show", keyy=69, uuid="43FA5480-A287-464C-9F88E3C719732364"};
 		$run_view_test();
 	}
 
 	public function test_applications_edit() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="membership.applications", action="edit", keyy="83FE0CAD-DAA3-4F13-A0004ADF2B90AEA6"};
+		loc.params = {controller="membership.applications", action="edit", key="43FA5480-A287-464C-9F88E3C719732364"};
 		$run_view_test();
 	}
 
