@@ -53,7 +53,7 @@ component extends="wheelsMapping.Test" {
   //REGISTRATION VIEWS
   public function test_registrations_Index() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="conference.Registrations", action="index", message="Registrations"};
+		loc.params = {controller="conference.Registrations", action="index", message="Registrations", maxrows=10};
 		$run_view_test();
 	}
 
@@ -192,7 +192,7 @@ component extends="wheelsMapping.Test" {
   //FAMILIES VIEWS
   public function test_families_Index() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="conference.families", action="index"};
+		loc.params = {controller="conference.families", action="index", maxrows=10};
 		$run_view_test();
 	}
 
@@ -210,13 +210,13 @@ component extends="wheelsMapping.Test" {
 
 	public function test_families_Envelopes() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="conference.families", action="envelopes"};
+		loc.params = {controller="conference.families", action="envelopes", maxrows=10};
 		$run_view_test();
 	}
 
 	public function test_families_Badges() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="conference.families", action="badges"};
+		loc.params = {controller="conference.families", action="badges", maxrows=10};
 		$run_view_test();
 	}
 
@@ -298,7 +298,7 @@ component extends="wheelsMapping.Test" {
 	}
 
 	public function test_backup_list() {
-		loc.params = {controller="conference.Backups", action="list", message="Table Name"};
+		loc.params = {controller="conference.Backups", action="list", message="Table Name", maxrows=10};
 		$run_view_test();
   }
   
