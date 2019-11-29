@@ -1,104 +1,106 @@
-<cfcomponent extends="Controller" output="false">
+component extends="Controller" output="false" {
+	dsn = "fgbc_main_3";
 
-	<cfset dsn = "fgbc_main_3">
+	public function init() {
+		usesLayout("/conference/adminlayout");
+		filters(through="officeOnly", except="backupall");
+	}
 
-	<cffunction name="init">
-		<cfset usesLayout("/conference/adminlayout")>
-		<cfset filters(through="officeOnly", except="backupall")>
-	</cffunction>
-	
-	<cffunction name="list">
-		<cfset alltables = Model("Conferencebackup").getTables()>
-	</cffunction>
-	
-	<cffunction name="xbackup">
-	<cfset var results = structNew()>
-		<cfset results = backupTable(params.key)>
-		<cfif isdefined("results.message")>
-		<cfdump var="#results#"><cfabort>
-		<cfelse>
-		<cfset redirectTo(controller="conference.backups", action="list")>
-		</cfif>
-	</cffunction>
-	
-	<cffunction name="backupall">
-		<cfset alltables = model("Conferencebackup").getTables()>
-		<cfloop query="alltables">
+	public function list() {
+		alltables = Model("Conferencebackup").getTables();
+	}
+
+	public function xbackup() {
+		var results = structNew();
+		results = backupTable(params.key);
+		if ( isdefined("results.message") ) {
+			writeDump( var=results );
+			abort;
+		} else {
+			redirectTo(controller="conference.backups", action="list");
+		}
+	}
+
+	public function backupall() {
+		alltables = model("Conferencebackup").getTables();
+
+		/* toScript ERROR: Unimplemented cfloop condition:  query="alltables" 
+
+				<cfloop query="alltables">
 			<cfset loc.newtable = model("Conferencebackup").backupTable(tables_in_fgbc_main_3)>
 		</cfloop>
-		<cfset redirectTo(controller="conference.backups", action="list")>
-	</cffunction>
-	
-	<cffunction name="backup">
-	<cfargument name="tablename" required="false" type="string">
-	<cfset var loc = structNew()>
-	<cfif isDefined("arguments.tablename")>
-		<cfset loc.table = arguments.tablename>
-	<cfelse>
-		<cfset loc.table = params.key>
-	</cfif>
-	<cfset loc.newtable = model("Conferencebackup").backupTable(loc.table)>
 
-	<cfset redirectTo(controller="conference.backups", action="list")>
+		*/
 
-	</cffunction>
-	
-	<cffunction name="getLastBackup">
-	<cfargument name="table" required="true">
-	<cftry>
-	<cfset lastBackup = model("Conferencebackup").findAll(where="name='#arguments.table#'", order="ID DESC")>
-	<cfcatch>
-		<cfset lastBackup.records="NA">	
-		<cfset lastBackup.createdAt="NA">	
-	</cfcatch>
-	</cftry>
-	<cfreturn lastBackup>	
-	</cffunction>
-	
-	<cffunction name="dump">
-		<!---Get Column Info from Selected Table--->
-			<cfquery datasource="#dsn#" name="columns">
-				SHOW columns
-				FROM #params.key#
-			</cfquery>
-			<cfquery datasource="#dsn#" name="data">
-				SELECT *
-				FROM #params.key#	
-			</cfquery>
-	</cffunction>
+		redirectTo(controller="conference.backups", action="list");
+	}
 
-	<cffunction name="testGetLastBackup">
-	<cfset test = getLastBackup("equip_prayer_triplets")>
-	<cfdump var="#test#"><cfabort>
-	</cffunction>
-	
-	<cffunction name="fieldSQL">
-	<cfargument name="fieldName" required="true" type="string">
-	<cfargument name="fieldData" required="true">
-	<cfset var sqltxt = "">	
-	<cfset var data = "">	
-	<cfset var columns = "">	
-	<cfset var columnInfo = "">	
-	
-			<cfquery datasource="#dsn#" name="columns">
-				SHOW columns
-				FROM #params.key#
-			</cfquery>
-			<cfquery dbtype="query" name="columninfo">
-				SELECT * FROM columns
-				WHERE upper(field) = '#ucase(arguments.fieldname)#'
-			</cfquery>	
+	public function backup(string tablename) {
+		var loc = structNew();
+		if ( isDefined("arguments.tablename") ) {
+			loc.table = arguments.tablename;
+		} else {
+			loc.table = params.key;
+		}
+		loc.newtable = model("Conferencebackup").backupTable(loc.table);
+		redirectTo(controller="conference.backups", action="list");
+	}
 
-			<cfif columnInfo.type contains "int">
-				<cfset sqltxt = arguments.fieldData & ", ">
-			<cfelseif columnInfo.type contains "decimal">
-				<cfset sqltxt = arguments.fieldData & ", ">
-			<cfelseif columnInfo.type contains "text">
-				<cfset sqltxt = "'" & arguments.fieldData & "'', ">
-			<cfelseif columnInfo.type contains "char">
-				<cfset sqltxt = "'" & arguments.fieldData & "'', ">
-			</cfif>	
-		<cfreturn sqltxt>	
-	</cffunction>
+	public function getLastBackup(required table) {
+		try {
+			lastBackup = model("Conferencebackup").findAll(where="name='#arguments.table#'", order="ID DESC");
+		} catch (any cfcatch) {
+			lastBackup.records="NA";
+			lastBackup.createdAt="NA";
+		}
+		return lastBackup;
+	}
 
-</cfcomponent>
+	public function dump() {
+		// Get Column Info from Selected Table
+		cfquery( name="columns", datasource=dsn ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+
+			writeOutput("SHOW columns
+				FROM #params.key#");
+		}
+		cfquery( name="data", datasource=dsn ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+
+			writeOutput("SELECT *
+				FROM #params.key#");
+		}
+	}
+
+	public function testGetLastBackup() {
+		test = getLastBackup("equip_prayer_triplets");
+		writeDump( var=test );
+		abort;
+	}
+
+	public function fieldSQL(required string fieldName, required fieldData) {
+		var sqltxt = "";
+		var data = "";
+		var columns = "";
+		var columnInfo = "";
+		cfquery( name="columns", datasource=dsn ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+
+			writeOutput("SHOW columns
+				FROM #params.key#");
+		}
+		cfquery( dbtype="query", name="columninfo" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+
+			writeOutput("SELECT * FROM columns
+				WHERE upper(field) = '#ucase(arguments.fieldname)#'");
+		}
+		if ( columnInfo.type contains "int" ) {
+			sqltxt = arguments.fieldData & ", ";
+		} else if ( columnInfo.type contains "decimal" ) {
+			sqltxt = arguments.fieldData & ", ";
+		} else if ( columnInfo.type contains "text" ) {
+			sqltxt = "'" & arguments.fieldData & "'', ";
+		} else if ( columnInfo.type contains "char" ) {
+			sqltxt = "'" & arguments.fieldData & "'', ";
+		}
+		return sqltxt;
+	}
+
+}
