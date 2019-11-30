@@ -22,16 +22,11 @@ component extends="Controller" output="false" {
 	}
 
 	public function backupall() {
-		alltables = model("Conferencebackup").getTables();
-
-		/* toScript ERROR: Unimplemented cfloop condition:  query="alltables" 
-
-				<cfloop query="alltables">
-			<cfset loc.newtable = model("Conferencebackup").backupTable(tables_in_fgbc_main_3)>
-		</cfloop>
-
-		*/
-
+		var loc = {}
+		loc.alltables = model("Conferencebackup").getTables();
+		for ( loc.table in loc.alltables ) {
+			model("Conferencebackup").backupTable(loc.table.Tables_in_fgbc_main_3)
+		}
 		redirectTo(controller="conference.backups", action="list");
 	}
 
