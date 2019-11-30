@@ -34,7 +34,7 @@ component extends="Controller" output="false" {
 			inCategory = "#inCategory# || category = '#i#'";
 		}
 		inCategory = replace(inCategory,"OR","");
-		whereString = "event='#getEvent()#' && (#inCategory#)";
+		whereString = "event='#getEvent()#' AND category IN (#inCategory#)";
 		events = model("Conferenceevent").findAll(where=whereString, include="Location", order="selectName");
 	}
 
@@ -89,9 +89,9 @@ component extends="Controller" output="false" {
 	}
 // End of Filters
 
-// ---------
-//  CURD
-// ---------
+// ---------------------------------
+//  CRUD
+// ---------------------------------
 
 	//  Courses/index 
 	public function index() {
@@ -201,7 +201,7 @@ component extends="Controller" output="false" {
 	//  Courses/view/key route="conferenceCoursesView"
 	public function view() {
 		//  Find the record 
-		course = model("Conferencecourse").findOne(where="id=#params.key# && event='#getEvent()#'", include="Agenda");
+		course = model("Conferencecourse").findOne(where="id=#params.key# AND event='#getEvent()#'", include="Agenda");
 		instructors = model("Conferencecourseinstructor").findAll(where="courseId = #params.key#", include="InstructorInfo");
 		questions = model("Conferencecoursequestion").findAll(where="courseid=#params.key#", order="createdAt DESC", include="person(family)");
 		introTitle = "Workshop...";
@@ -232,7 +232,7 @@ component extends="Controller" output="false" {
 			redirectTo(route="conferenceCoursesSelectPersonToSelectCohorts", params="type=#arguments.type#");
 		}
 		// Get Workshops
-		workshops = model("Conferencecourse").findAll(where="event='#getEvent()#' && category = '#translateType(arguments.type)#'", include="Agenda", order="radioButtonGroup,eventDate,title");
+		workshops = model("Conferencecourse").findAll(where="event='#getEvent()#' AND category = '#translateType(arguments.type)#'", include="Agenda", order="radioButtonGroup,eventDate,title");
 		//  get this person - not sure why I need to check for personid
 		if ( isDefined("params.personid") ) {
 			person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family");
@@ -283,9 +283,9 @@ component extends="Controller" output="false" {
 		if ( isDefined("params.orderby") ) {
 			orderBy = params.orderby;
 		}
-		whereStringAll = "event='#getEvent()#' && (type='cohort' || type = 'workshop')";
+		whereStringAll = "event='#getEvent()#' AND (type='cohort' || type = 'workshop')";
 		if ( isDefined("params.key") ) {
-			whereString = whereStringAll & " && equip_coursesid = #params.key#";
+			whereString = whereStringAll & " AND equip_coursesid = #params.key#";
 		} else {
 			whereString = whereStringAll;
 		}
@@ -293,6 +293,8 @@ component extends="Controller" output="false" {
 		loc.workshopsSignedUPFor = ValueList(workshops.title);
 		allWorkshops = model("Conferencecourse").findAll(where=whereStringAll);
 		emptyWorkshops = "";
+
+
 
 		/* toScript ERROR: Unimplemented cfloop condition:  query="allWorkshops" 
 
@@ -345,9 +347,9 @@ component extends="Controller" output="false" {
 	}
 
 	public function showAllSelectedExcursions() {
-		whereString = "event='#getEvent()#' && type='excursion'";
+		whereString = "event='#getEvent()#' AND type='excursion'";
 		if ( isDefined("params.key") ) {
-			whereString = whereString & " && equip_coursesid = #params.key#";
+			whereString = whereString & " AND equip_coursesid = #params.key#";
 		}
 		workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order="eventDate");
 		renderPage(action="showAllSelectedWorkshops");
@@ -373,7 +375,14 @@ component extends="Controller" output="false" {
 		}
 		courses = model("Conferencecourse").findList(order=arguments.orderby, type="#arguments.type#");
 	}
+	// --------------------
 	// End of Public Pages
+	// --------------------
+
+
+
+
+
 	// --------------------
 	// Get Text for Content
 	// --------------------
@@ -395,18 +404,26 @@ component extends="Controller" output="false" {
 	}
 
 	public function getCohortsDescription() {
-		var description = '<p>Cohorts are peer learning groups focused around various areas of ministries. Participants will have lots of time to talk about what == working, what == not, ask questions, discuss best practices && even work through issues together. Each cohort will be guided by trained facilitators.<br/> People who are registered for #getEventAsText()# can select three cohorts. </p>Each cohort meets once on either Tuesday, Wednesday || Thursday from 11:00 - 12:30. 
+		var description = '<p>Cohorts are peer learning groups focused around various areas of ministries. Participants will have lots of time to talk about what == working, what == not, ask questions, discuss best practices AND even work through issues together. Each cohort will be guided by trained facilitators.<br/> People who are registered for #getEventAsText()# can select three cohorts. </p>Each cohort meets once on either Tuesday, Wednesday || Thursday from 11:00 - 12:30. 
       </p>
       <p>
 			We are also offering a workshops each day during the same times as cohorts.  Workshops are designed for larger groups, are more didactic with a teacher rather than a facilitator.  Workshops are marked.
       </p>';
 		return description;
 	}
+// ------------------------------
+// END OF Get Text for Content
+// ------------------------------
+
+	
+	
+	
+	
 	// ------------
 	// Redirections
 	// ------------
-	// Courses/workshops
 
+	// Courses/workshops
 	public function workshops() {
 		redirectTo(controller="conference.courses", action="list", params="type=workshop");
 	}
@@ -430,8 +447,8 @@ component extends="Controller" output="false" {
 		}
 	}
 	// -------End of Redirections--------------
-	//  Courses/rss 
 
+	//  Courses/rss 
 	public function rss() {
 		courses = model("Conferencecourse").findList();
 		title = "#getEventAsText()# Workshops";
@@ -513,7 +530,7 @@ component extends="Controller" output="false" {
 	}
 
 	public function isInWorkshop(required numeric personid, required numeric workshopid) {
-		thisPersonsWorkshops = model("Conferenceregistration").findOne(where="equip_peopleid=#arguments.personid# && equip_coursesid=#arguments.workshopid#", include="Workshop");
+		thisPersonsWorkshops = model("Conferenceregistration").findOne(where="equip_peopleid=#arguments.personid# AND equip_coursesid=#arguments.workshopid#", include="Workshop");
 		if ( isObject(thisPersonsWorkshops) ) {
 			return true;
 		} else {
@@ -557,7 +574,7 @@ component extends="Controller" output="false" {
 		//  <cfset arguments.type = translateType(arguments.type)> 
 		if ( isDefined("params.personid") ) {
 			try {
-				workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# && (type = 'cohort' || type='workshop')", include="Workshop(Agenda)", order="eventDate");
+				workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# AND (type = 'cohort' || type='workshop')", include="Workshop(Agenda)", order="eventDate");
 				person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family");
 			} catch (any cfcatch) {
 
@@ -608,7 +625,7 @@ component extends="Controller" output="false" {
 			flashInsert(success="Please provide a valid email address to send this list to.");
 			redirectTo(action="showSelectedWorkshops", params="personid=#params.personid#&type=#params.type#");
 		}
-		workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#arguments.personid# && (type = 'cohort' || type='workshop')", include="Workshop(Agenda)", order="eventDate");
+		workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#arguments.personid# AND (type = 'cohort' || type='workshop')", include="Workshop(Agenda)", order="eventDate");
 		person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family");
 		if ( !isLocalMachine() ) {
 			sendEMail(to=arguments.sendToEmail, from="tomavey@fgbc.org", layout="/conference/layout_for_email", template="showSelectedWorkshops", subject="Access2017 #params.type# selections");
@@ -624,9 +641,9 @@ component extends="Controller" output="false" {
 		if ( isDefined("params.orderby") ) {
 			orderBy = params.orderby;
 		}
-		whereString = "event='#getEvent()#' && type='cohort'";
+		whereString = "event='#getEvent()#' AND type='cohort'";
 		if ( isDefined("params.key") ) {
-			whereString = whereString & " && equip_coursesid = #params.key#";
+			whereString = whereString & " AND equip_coursesid = #params.key#";
 		}
 		workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order=orderby);
 		countpeopleregistered = countPeopleRegistered();
@@ -662,7 +679,7 @@ component extends="Controller" output="false" {
 		var loc = structNew();
 		loc=arguments;
 		loc.optionid = getOptionIdFromName(translatetype(loc.type));
-		loc.workshops = model("Conferenceregistration").deleteAll(where="equip_peopleid = #loc.personid# && equip_optionsid = #loc.optionid#");
+		loc.workshops = model("Conferenceregistration").deleteAll(where="equip_peopleid = #loc.personid# AND equip_optionsid = #loc.optionid#");
 		return true;
 	}
 

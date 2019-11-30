@@ -95,6 +95,12 @@ component extends="wheelsMapping.Test" {
 	}
 
   //LOCATIONS VIEWS
+  public function test_locations_list() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.locations", action="list"};
+		$run_view_test();
+	}
+
   public function test_locations_Index() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
 		loc.params = {controller="conference.locations", action="index", message="Listing locations"};
@@ -126,13 +132,25 @@ component extends="wheelsMapping.Test" {
 		$run_view_test();
 	}
 
+  public function test_courses_select_person_to_select_cohort() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.courses", action="selectPersonToSelectWorkshop", type="cohort"};
+		$run_view_test();
+	}
+
+	public function test_courses_View() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.courses", action="view", key=269};
+		$run_view_test();
+	}
+
 	public function test_courses_Show() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
 		loc.params = {controller="conference.courses", action="show", key=269, message="Showing"};
 		$run_view_test();
 	}
 
-  public function test_courses_Edit() {
+	public function test_courses_Edit() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
 		loc.params = {controller="conference.courses", action="edit", key=269, message="Editing"};
 		$run_view_test();
