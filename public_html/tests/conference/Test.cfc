@@ -120,7 +120,13 @@ component extends="wheelsMapping.Test" {
 		$run_view_test();
 	}
 
-  public function test_courses_Show() {
+  public function test_courses_new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.courses", action="new"};
+		$run_view_test();
+	}
+
+	public function test_courses_Show() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
 		loc.params = {controller="conference.courses", action="show", key=269, message="Showing"};
 		$run_view_test();
@@ -315,6 +321,32 @@ component extends="wheelsMapping.Test" {
 		loc.params = {controller="conference.coursequestions", action="edit", key=116};
 		$run_view_test();
 	}
+
+
+//COURSE RESOURCES
+	public function test_course_resources_index() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.courseresources", action="index"};
+		$run_view_test();
+	}
+
+	public function test_course_resources__new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.courseresources", action="new"};
+		$run_view_test();
+	}
+
+	// public function test_course_resources__show() {
+	// 	//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+	// 	loc.params = {controller="conference.courseresources", action="show", key=139};
+	// 	$run_view_test();
+	// }
+
+	// public function test_course_resources__edit() {
+	// 	//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+	// 	loc.params = {controller="conference.courseresources", action="edit", key=139};
+	// 	$run_view_test();
+	// }
 
 
 //COURSE INSTRUCTORS
