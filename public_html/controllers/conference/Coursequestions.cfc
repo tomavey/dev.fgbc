@@ -1,6 +1,4 @@
-<cfcomponent extends="Controller" output="false">
-
-<cfscript>
+component extends="Controller" output="false" {
   
   function init(){
     usesLayout(template="/conference/adminlayout", only="index");
@@ -143,4 +141,4 @@
 		renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)
   }
   
-</cfscript></cfcomponent>
+}

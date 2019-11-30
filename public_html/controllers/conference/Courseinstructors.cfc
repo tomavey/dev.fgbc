@@ -1,59 +1,52 @@
-<cfcomponent extends="controller">
+component extends="controller" {
 
-	<cffunction name="init">
-		<cfset usesLayout("/conference/adminlayout")>
-	</cffunction>
+	public function init() {
+		usesLayout("/conference/adminlayout");
+	}
 
-<!-------------------------------------------->	
-<!-------------CRUD--------------------------->	
-<!-------------------------------------------->	
+// --------------------------------------
+// ----------CRUD------------------------
+// --------------------------------------
 
-	<cffunction name="new">
-		<cfset newcourse = false>
-		<cfset newinstructor = false>
-		<cfset courseinstructor = model("Conferencecourseinstructor").new()>
-		<cfif isDefined("params.courseid")>
-			<cfset courseinstructor.courseid = params.courseid>
-			<cfset newInstructor = true>
-			<cfset instructors = model("Conferenceinstructor").findAll(where="event='#getEvent()#'", order="fname, lname")>
-		<cfelseif isDefined("params.instructorid")>
-			<cfset courseinstructor.instructorid = params.instructorid>
-			<cfset newCourse = true>
-			<cfset courses = model("Conferencecourse").findAll(where="event='#getevent()#'", order="title")>
-		</cfif>
-	</cffunction>
+	public function new() {
+		newcourse = false;
+		newinstructor = false;
+		courseinstructor = model("Conferencecourseinstructor").new();
+		if ( isDefined("params.courseid") ) {
+			courseinstructor.courseid = params.courseid;
+			newInstructor = true;
+			instructors = model("Conferenceinstructor").findAll(where="event='#getEvent()#'", order="fname, lname");
+		} else if ( isDefined("params.instructorid") ) {
+			courseinstructor.instructorid = params.instructorid;
+			newCourse = true;
+			courses = model("Conferencecourse").findAll(where="event='#getevent()#'", order="title");
+		}
+	}
 
-	<!--- -instructors/create --->
-	<cffunction name="create">
+	//  -instructors/create 
+	public function create() {
+		courseInstructor = model("Conferencecourseinstructor").new(params.courseInstructor);
+		//  Verify that the instructor creates successfully 
+		if ( courseInstructor.save() ) {
+			flashInsert(success="The course was connected successfully.");
+			returnBack();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error creating the connection.");
+			renderPage(action="new");
+		}
+	}
 
-		<cfset courseInstructor = model("Conferencecourseinstructor").new(params.courseInstructor)>
+	//  -instructors/delete/key 
+	public function delete() {
+		model("Conferencecourseinstructor").delete(params.courseid,params.instructorid);
+		returnBack();
+	}
 
-		<!--- Verify that the instructor creates successfully --->
-		<cfif courseInstructor.save()>
-			<cfset flashInsert(success="The course was connected successfully.")>
-            <cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error creating the connection.")>
-			<cfset renderPage(action="new")>
-		</cfif>
-	</cffunction>
-
-	<!--- -instructors/delete/key --->
-	<cffunction name="delete">
-
-		<cfset model("Conferencecourseinstructor").delete(params.courseid,params.instructorid)>
-        <cfset returnBack()>
-
-	</cffunction>
-
-	<!--- Courses/copyAllToCurrentEvent --->
-
-	<cfscript>
-		public function copyAllToCurrentEvent(){
+	//  Courses/copyAllToCurrentEvent 
+	public function copyAllToCurrentEvent(){
 			super.copyAllToCurrentEvent( tableName = "Conferenceinstructor" );
 			returnBack();
 		}
-	</cfscript>
 
-</cfcomponent>
+}

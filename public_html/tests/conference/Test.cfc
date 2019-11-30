@@ -291,6 +291,55 @@ component extends="wheelsMapping.Test" {
 	}
 
 
+//COURSE QUESTIONS
+	public function test_course_questions_index() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.coursequestions", action="index"};
+		$run_view_test();
+	}
+
+	public function test_course_questions__new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.coursequestions", action="new"};
+		$run_view_test();
+	}
+
+	public function test_course_questions__show() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.coursequestions", action="show", key=116};
+		$run_view_test();
+	}
+
+	public function test_course_questions__edit() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.coursequestions", action="edit", key=116};
+		$run_view_test();
+	}
+
+
+//COURSE INSTRUCTORS
+	public function test_course_instructors__new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.courseinstructors", action="new"};
+		$run_view_test();
+	}
+
+
+	//CHILDCARE WORKERS
+	public function test_childcare_workers_index() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.childcareworkers", action="index"};
+		$run_view_test();
+	}
+
+	public function test_childcare_workers__new() {
+		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
+		loc.params = {controller="conference.childcareworkers", action="new"};
+		$run_view_test();
+	}
+
+
+
   //MISC VIEWS
   public function test_EmailBefore_Payment() {
 		loc.params = {controller="conference.Register", action="EmailBeforePayment", message="Invoice"};
