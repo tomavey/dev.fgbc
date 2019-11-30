@@ -20,7 +20,7 @@ component extends="wheelsMapping.Test" {
 	public function test_home() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
 		loc.params = {controller="Home", action="index"};
-		$run_view_test();
+		$run_view_test;
 	}
 
 	public function test_statementOfFaith() {

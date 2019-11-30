@@ -31,7 +31,7 @@ component extends="Controller" output="false" {
 		var i = 0;
 		var whereString = "";
 		for ( i in typesOfCoursesForDropdown() ) {
-			inCategory = "#inCategory# || category = '#i#'";
+			inCategory = "#inCategory# OR category = '#i#'";
 		}
 		inCategory = replace(inCategory,"OR","");
 		whereString = "event='#getEvent()#' AND category IN (#inCategory#)";
@@ -294,17 +294,11 @@ component extends="Controller" output="false" {
 		allWorkshops = model("Conferencecourse").findAll(where=whereStringAll);
 		emptyWorkshops = "";
 
-
-
-		/* toScript ERROR: Unimplemented cfloop condition:  query="allWorkshops" 
-
-				<cfloop query="allWorkshops">
-			<cfif !listFind(loc.workshopsSignedUPFor,title)>
-				<cfset emptyWorkshops = emptyWorkshops & "," & title>
-			</cfif>
-		</cfloop>
-
-		*/
+		for ( var workshop in allWorkshops ) {
+			if ( !listFind(loc.workshopsSignedUPFor,workshop.title) ) {
+				emptyWorkshops = emptyWorkshops & "," & workshop.title
+			}
+		}
 
 		emptyWorkshops = replace(emptyWorkshops,",","","one");
 		countpeopleregistered = countPeopleRegistered();

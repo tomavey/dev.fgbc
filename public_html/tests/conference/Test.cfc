@@ -1,50 +1,4 @@
-component extends="wheelsMapping.Test" {
-
-	public function setup() {
-		session.authback = duplicate(session.auth);
-		// login a test user
-		session.auth.login = true;
-		session.auth.username = "Tester";
-		session.auth.email = "tester@fgbc.org";
-		session.auth.userid = 7;
-		session.auth.rightslist = "superadmin,office,basic";
-	}
-
-	public function teardown() {
-		structDelete(session,"auth");
-		session.auth = duplicate(session.authback);
-		structDelete(session,"authback");
-	}
-
-	public function $run_view_test() {
-		//  create an instance of the controller 
-		loc.controller = controller(loc.params.controller, loc.params);
-		//  process the create action of the controller 
-		loc.controller.$processAction();
-		//  get copy of the code the view generated 
-		loc.response = loc.controller.response();
-		// Set the text we are looking for defaulting to </body>
-		if ( isDefined("loc.params.message") ) {
-			loc.message = loc.params.message;
-		} else {
-			loc.message = "</body>";
-		}
-		//  make sure the message was displayed somewhere on the page
-		assert('loc.response contains loc.message');
-	}
-
-	public function $run_controller_test() {
-		//  create an instance of the controller 
-		loc.controller = controller(loc.params.controller, loc.params);
-		//  process the create action of the controller 
-		loc.controller.$processAction();
-		//  get the information about the redirect that should have happened 
-		loc.redirect = loc.controller.$getRedirect();
-		//  make sure that the redirect happened 
-		assert('StructKeyExists(loc.redirect, "$args")');
-		assert('loc.redirect.$args.action == loc.redirectToaction');
-  }
-  
+component extends="tests.Test" {
 
 <!----------------------------------->
 <!--------VIEW TESTS----------------->  
@@ -95,12 +49,6 @@ component extends="wheelsMapping.Test" {
 	}
 
   //LOCATIONS VIEWS
-  public function test_locations_list() {
-		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="conference.locations", action="list"};
-		$run_view_test();
-	}
-
   public function test_locations_Index() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
 		loc.params = {controller="conference.locations", action="index", message="Listing locations"};
@@ -116,43 +64,6 @@ component extends="wheelsMapping.Test" {
   public function test_locations_Edit() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
 		loc.params = {controller="conference.locations", action="edit", key=254, message="Editing Location"};
-		$run_view_test();
-	}
-
-  //COURSES VIEWS
-  public function test_courses_Index() {
-		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="conference.courses", action="index", message="Listing"};
-		$run_view_test();
-	}
-
-  public function test_courses_new() {
-		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="conference.courses", action="new"};
-		$run_view_test();
-	}
-
-  public function test_courses_select_person_to_select_cohort() {
-		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="conference.courses", action="selectPersonToSelectWorkshop", type="cohort"};
-		$run_view_test();
-	}
-
-	public function test_courses_View() {
-		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="conference.courses", action="view", key=269};
-		$run_view_test();
-	}
-
-	public function test_courses_Show() {
-		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="conference.courses", action="show", key=269, message="Showing"};
-		$run_view_test();
-	}
-
-	public function test_courses_Edit() {
-		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="conference.courses", action="edit", key=269, message="Editing"};
 		$run_view_test();
 	}
 
