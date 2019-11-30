@@ -1,797 +1,704 @@
-<cfcomponent extends="Controller" output="false">
+component extends="Controller" output="false" {
 
-	<cffunction name="init">
-		<cfset usesLayout(template="/conference/layout2018/")>
-		<cfset filters(through="getevents", only="edit,new,copy")>
-		<cfset filters(through="setreturn", only="index,show,showallselectedworkshops,showallselectedcohorts,list")>
-		<cfset filters(through="openWorkshops")>
-		<cfset filters(through="getCourses", only="list,listCohorts")>
-		<cfset filters(through="getSubtypes", only="list,listCohorts,selectcohorts,showSelectedWorkshops,sendSelectedWorkshops")>
-		<cfset filters(through="setPublicLayout")>
-		<cfset filters(through="isAuthorized", only="copy,create,update,copyAllToCurrentEvent")>
-		<!--- <cfset filters(through="setKeyFromKeyy")> --->
-	</cffunction>
+	public function init() {
+		usesLayout(template="/conference/layout2018/");
+		filters(through="getevents", only="edit,new,copy");
+		filters(through="setreturn", only="index,show,showallselectedworkshops,showallselectedcohorts,list");
+		filters(through="openWorkshops");
+		filters(through="getCourses", only="list,listCohorts");
+		filters(through="getSubtypes", only="list,listCohorts,selectcohorts,showSelectedWorkshops,sendSelectedWorkshops");
+		filters(through="setPublicLayout");
+		filters(through="isAuthorized", only="copy,create,update,copyAllToCurrentEvent");
+		//  <cfset filters(through="setKeyFromKeyy")> 
+	}
 
-<!------------->
-<!---Filters--->
-<!------------->
+// -------
+// Filters
+// -------
 
-	<cffunction name="setPublicLayout">
-		<cfset publicLayout = "/conference/layout2018">
-	</cffunction>
+	public function setPublicLayout() {
+		publicLayout = "/conference/layout2018";
+	}
 
-	<cffunction name="isAuthorized">
-		<cfif !gotRights('office')>
-			<cfset renderText("You do not have permission to view this page")>
-		</cfif>
-	</cffunction>
+	public function isAuthorized() {
+		if ( !gotRights('office') ) {
+			renderText("You do !have permission to view this page");
+		}
+	}
 
-	<cffunction name="getEvents">
-		<cfset var inCategory = "">
-		<cfset var i = 0>
-		<cfset var whereString = "">
-		<cfloop list="#typesOfCoursesForDropdown()#" index="i">
-			<cfset inCategory = "#inCategory# OR category = '#i#'" >
-		</cfloop>
-		<cfset inCategory = replace(inCategory,"OR","")>
-		<cfset whereString = "event='#getEvent()#' AND (#inCategory#)">
+	public function getEvents() {
+		var inCategory = "";
+		var i = 0;
+		var whereString = "";
+		for ( i in typesOfCoursesForDropdown() ) {
+			inCategory = "#inCategory# || category = '#i#'";
+		}
+		inCategory = replace(inCategory,"OR","");
+		whereString = "event='#getEvent()#' && (#inCategory#)";
+		events = model("Conferenceevent").findAll(where=whereString, include="Location", order="selectName");
+	}
 
-		<cfset events = model("Conferenceevent").findAll(where=whereString, include="Location", order="selectName")>
-	</cffunction>
+	public function openWorkshops() {
+		if ( isDefined("params.opeworkshops") || isDefined("params.openCohorts") ) {
+			session.auth.openWorkshops = true;
+		}
+		return;
+	}
 
-	<cffunction name="openWorkshops">
-		<cfif isDefined("params.opeworkshops") || isDefined("params.openCohorts")>
-			<cfset session.auth.openWorkshops = true>
-		</cfif>
-		<cfreturn>
-	</cffunction>
+	public function getCourses(type="all", orderBy="date,title,lname", recorded="no", courseid="0") {
+		// Overwrite argument defaults based on params
+		if ( isDefined("params.key") ) {
+			arguments.type = params.key;
+		}
+		if ( isDefined("params.type") ) {
+			arguments.type = params.type;
+		}
+		if ( isDefined("params.orderBy") ) {
+			arguments.orderBy = params.orderBy;
+		}
+		if ( isDefined("params.recorded") ) {
+			arguments.recorded = "yes";
+		}
+		if ( isDefined("params.event") ) {
+			arguments.event = params.event;
+		} else {
+			arguments.event = getEvent();
+		}
+		if ( isDefined("params.courseid") ) {
+			arguments.courseid = params.courseid;
+		}
+		if ( isDefined("params.NoQ") ) {
+			showQuestionsPostLink = false;
+		} else {
+			showQuestionsPostLink = false;
+		}
+		introTitle = "Cohorts";
+		courses = model("Conferencecourse").findList(order=arguments.orderby, type="#arguments.type#", recorded="#arguments.recorded#", event=arguments.event, courseid=arguments.courseid);
+	}
 
-	<cffunction name="getCourses">
-	<cfargument name="type" default="all">
-	<cfargument name="orderBy" default="date,title,lname">
-	<cfargument name="recorded" default="no">
-	<cfargument name="courseid" default=0>
+	public function getSubtypes() {
+		subtypes = structNew();
+		subtypes.A = "Tuesday, July 23";
+		subtypes.B = "Wednesday, July 24";
+		subtypes.C = "Thursday, July 25";
+		subtypes.D = "NA";
+	}
 
-
-		<!---Overwrite argument defaults based on params--->
-		<cfif isDefined("params.key")>
-			<cfset arguments.type = params.key>
-		</cfif>
-		<cfif isDefined("params.type")>
-			<cfset arguments.type = params.type>
-		</cfif>
-		<cfif isDefined("params.orderBy")>
-			<cfset arguments.orderBy = params.orderBy>
-		</cfif>
-		<cfif isDefined("params.recorded")>
-			<cfset arguments.recorded = "yes">
-		</cfif>
-		<cfif isDefined("params.event")>
-			<cfset arguments.event = params.event>
-		<cfelse>
-			<cfset arguments.event = getEvent()>
-		</cfif>	
-		<cfif isDefined("params.courseid")>
-			<cfset arguments.courseid = params.courseid>
-		</cfif>	
-		<cfif isDefined("params.NoQ")>
-			<cfset showQuestionsPostLink = false>
-		<cfelse>
-			<cfset showQuestionsPostLink = false>
-		</cfif>
-
-		<cfset introTitle = "Cohorts">
-
-		<cfset courses = model("Conferencecourse").findList(order=arguments.orderby, type="#arguments.type#", recorded="#arguments.recorded#", event=arguments.event, courseid=arguments.courseid)>
-	<!---cfdump var="#courses#"><cfabort--->
-	</cffunction>
-
-	<cffunction name="getSubtypes">
-		<cfset subtypes = structNew()>
-		<cfset subtypes.A = "Tuesday, July 23">
-		<cfset subtypes.B = "Wednesday, July 24">
-		<cfset subtypes.C = "Thursday, July 25">
-		<cfset subtypes.D = "NA">
-	</cffunction>	
-
-<cfscript>
 	private function setKeyFromKeyy(){
 		if (isDefined('params.keyy')) { params.key = params.keyy };
 	}
-</cfscript>	
+// End of Filters
 
-<!---End of Filters--->
+// ---------
+//  CURD
+// ---------
 
+	//  Courses/index 
+	public function index() {
+		courses = model("Conferencecourse").findAllCourses(params);
+		renderPage(layout="/conference/adminlayout");
+	}
 
-<!--------------->
-<!--- C.R.U.D.--->
-<!--------------->
+	//  Courses/show/key 
+	public function show() {
+		//  Find the record 
+		course = model("Conferencecourse").findOne(where="id=#params.key#", include="Agenda");
+		instructors = model("Conferencecourseinstructor").findAll(where="courseId = #params.key#", include="InstructorInfo");
+		//  Check if the record exists 
+		if ( !IsObject(course) ) {
+			flashInsert(error="Course/Workshop #params.key# was !found");
+			redirectTo(action="index");
+		}
+		renderPage(layout="/conference/adminlayout");
+	}
 
-	<!--- Courses/index --->
-	<cffunction name="index">
-		<cfset courses = model("Conferencecourse").findAllCourses(params)>
-		<cfset renderPage(layout="/conference/adminlayout")>
-	</cffunction>
+	//  Courses/create 
+	public function create() {
+		course = model("Conferencecourse").new(params.course);
+		//  Verify that the Conferencecourse creates successfully 
+		if ( course.save() ) {
+			flashInsert(success="The Course was created successfully.");
+			returnBack();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error creating the course.");
+			renderPage(action="new");
+		}
+	}
 
-	<!--- Courses/show/key --->
-	<cffunction name="show">
+	//  Courses/update 
+	public function update() {
+		course = model("Conferencecourse").findByKey(params.key);
+		//  Verify that the Conferencecourse updates successfully 
+		if ( course.update(params.course) ) {
+			flashInsert(success="The course was updated successfully.");
+			returnBack();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error updating the course.");
+			renderPage(action="edit");
+		}
+	}
 
-		<!--- Find the record --->
-	    	<cfset course = model("Conferencecourse").findOne(where="id=#params.key#", include="Agenda")>
-	    	<cfset instructors = model("Conferencecourseinstructor").findAll(where="courseId = #params.key#", include="InstructorInfo")>
+	//  Courses/delete/key 
+	public function delete() {
+		course = model("Conferencecourse").findOne(where="id=#params.key#");
+		//  Verify that the Conferencecourse deletes successfully 
+		if ( course.delete() ) {
+			flashInsert(success="The course was deleted successfully.");
+			returnBack();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error deleting the course.");
+			redirectTo(action="index");
+		}
+	}
 
-	    	<!--- Check if the record exists --->
-		    <cfif NOT IsObject(course)>
-		        <cfset flashInsert(error="Course/Workshop #params.key# was not found")>
-		        <cfset redirectTo(action="index")>
-		    </cfif>
+	//  Courses/new 
+	public function new() {
+		course = model("Conferencecourse").new();
+		course.event = getEvent();
+		renderPage(layout="/conference/adminlayout");
+	}
 
-		<cfset renderPage(layout="/conference/adminlayout")>
+	//  Courses/edit/key 
+	public function edit() {
+		//  Find the record 
+		course = model("Conferencecourse").findByKey(params.key);
+		//  Check if the record exists 
+		if ( !IsObject(course) ) {
+			flashInsert(error="Course #params.key# was !found");
+			redirectTo(action="index");
+		}
+		renderPage(layout="/conference/adminlayout");
+	}
 
-	</cffunction>
+	//  Courses/copy/key 
+	public function copy() {
+		//  Find the record 
+		course = model("Conferencecourse").findByKey(params.key);
+		//  Check if the record exists 
+		if ( !IsObject(course) ) {
+			flashInsert(error="Course #params.key# was !found");
+			redirectTo(action="index");
+		}
+		renderPage(controller="conference.courses", action="new");
+	}
 
-	<!--- Courses/create --->
-	<cffunction name="create">
-		<cfset course = model("Conferencecourse").new(params.course)>
-
-		<!--- Verify that the Conferencecourse creates successfully --->
-		<cfif course.save()>
-			<cfset flashInsert(success="The Course was created successfully.")>
-	            <cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error creating the course.")>
-			<cfset renderPage(action="new")>
-		</cfif>
-	</cffunction>
-
-	<!--- Courses/update --->
-	<cffunction name="update">
-
-		<cfset course = model("Conferencecourse").findByKey(params.key)>
-
-		<!--- Verify that the Conferencecourse updates successfully --->
-		<cfif course.update(params.course)>
-			<cfset flashInsert(success="The course was updated successfully.")>
-            		<cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the course.")>
-			<cfset renderPage(action="edit")>
-		</cfif>
-	</cffunction>
-
-	<!--- Courses/delete/key --->
-	<cffunction name="delete">
-
-    	<cfset course = model("Conferencecourse").findOne(where="id=#params.key#")>
-
-		<!--- Verify that the Conferencecourse deletes successfully --->
-		<cfif course.delete()>
-			<cfset flashInsert(success="The course was deleted successfully.")>
-            		<cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error deleting the course.")>
-			<cfset redirectTo(action="index")>
-		</cfif>
-	</cffunction>
-
-	<!--- Courses/new --->
-	<cffunction name="new">
-		<cfset course = model("Conferencecourse").new()>
-		<cfset course.event = getEvent()>
-		<cfset renderPage(layout="/conference/adminlayout")>
-	</cffunction>
-
-	<!--- Courses/edit/key --->
-	<cffunction name="edit">
-
-		<!--- Find the record --->
-		<cfset course = model("Conferencecourse").findByKey(params.key)>
-
-		<!--- Check if the record exists --->
-		<cfif NOT IsObject(course)>
-				<cfset flashInsert(error="Course #params.key# was not found")>
-		<cfset redirectTo(action="index")>
-		</cfif>
-
-		<cfset renderPage(layout="/conference/adminlayout")>
-
-	</cffunction>
-
-	<!--- Courses/copy/key --->
-	<cffunction name="copy">
-
-		<!--- Find the record --->
-    		<cfset course = model("Conferencecourse").findByKey(params.key)>
-
-    		<!--- Check if the record exists --->
-	    	<cfif NOT IsObject(course)>
-	        		<cfset flashInsert(error="Course #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    	</cfif>
-
-	    <cfset renderPage(controller="conference.courses", action="new")>
-
-	</cffunction>
-	
-
-	<!--- Courses/copyAllToCurrentEvent --->
-	<!--- Turned off for now - 6/5/18 --->
-	<cfscript>
-		public function copyAllToCurrentEventX(){
+	//  Courses/copyAllToCurrentEvent 
+	//  Turned off for now - 6/5/18 
+<!--- 
+	public function copyAllToCurrentEventX(){
 			super.copyAllToCurrentEvent( tableName = "Conferencecourse" );
 			returnBack();
+		} --->
+	// END OF CRUD
+
+// ------------
+// Public Pages
+// ------------
+
+	//  Courses/view/key route="conferenceCoursesView"
+	public function view() {
+		//  Find the record 
+		course = model("Conferencecourse").findOne(where="id=#params.key# && event='#getEvent()#'", include="Agenda");
+		instructors = model("Conferencecourseinstructor").findAll(where="courseId = #params.key#", include="InstructorInfo");
+		questions = model("Conferencecoursequestion").findAll(where="courseid=#params.key#", order="createdAt DESC", include="person(family)");
+		introTitle = "Workshop...";
+		//  Check if the record exists 
+		if ( !IsObject(course) ) {
+			flashInsert(error="Course/Workshop #params.key# was !found");
+			redirectTo(action="index");
 		}
-	</cfscript>
+	}
 
-<!---END OF CRUD--->
+	//  Courses/list route="conferenceCoursesList"
+	public function list() {
+		if ( isDefined("params.print") ) {
+			renderPage(layout="/conference/layout_naked", template="listprint");
+		} else {
+			setreturn();
+		}
+	}
 
+	// Courses/select-workshops route="conferenceCoursesSelectWorkshops"
+	public function selectWorkshops(type="cohort") {
+		// over write default arguments based on params
+		if ( isDefined("params.type") ) {
+			arguments.type = params.type;
+		}
+		// if a personid is not provide go to the select person page
+		if ( !isDefined("params.personid") || !len(params.personid) ) {
+			redirectTo(route="conferenceCoursesSelectPersonToSelectCohorts", params="type=#arguments.type#");
+		}
+		// Get Workshops
+		workshops = model("Conferencecourse").findAll(where="event='#getEvent()#' && category = '#translateType(arguments.type)#'", include="Agenda", order="radioButtonGroup,eventDate,title");
+		//  get this person - not sure why I need to check for personid
+		if ( isDefined("params.personid") ) {
+			person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family");
+		}
+		// Set action to be used in the form
+		formaction = "saveSelectedWorkshops";
+	}
 
-<!------------------>
-<!---Public Pages--->
-<!------------------>
+	// Courses/select-cohorts route="conferenceCoursesSelectCohorts"
+	public function selectCohorts(type="cohort") {
+		var loc=arguments;
+		loc.whereString = "event='#getEvent()#'";
+		if ( isDefined("params.type") ) {
+			loc.whereString = "event='#getEvent()#' AND type IN ('cohort','workshop') AND (display = 'Yes' || display = 'Full')";
+		}
+		cohorts = model("Conferencecourse").findAll(where=loc.whereString, order="subtype title");
+		if ( isDefined("params.personid") ) {
+			selectedcohorts = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# AND equip_optionsid = #getOptionIdFromName(translatetype(arguments.type))#");
+			coursesIdList = "";
+			for ( loc.selectedCohort in selectedCohorts ) {
+				coursesIdList = coursesIdList & "," & loc.selectedCohort.equip_coursesid
+			}
 
-	<!--- Courses/view/key route="conferenceCoursesView"--->
-	<cffunction name="view">
+			coursesIdList = replace(coursesIdList,",","");
+			headerSubTitle = "Select Cohorts || Workshops for #getPersonFromId(params.personid)# Here";
+			if ( !len(getPersonFromId(params.personid)) ) {
+				//  if these is no person at this id go to select person page
+				redirectTo(route="conferenceCoursesSelectPersonToSelectCohorts", params="type=#arguments.type#");
+			}
+			formaction = "saveSelectedCohorts";
+		} else {
+			redirectTo(route="conferenceCoursesSelectPersonToSelectCohorts", params="type=#arguments.type#");
+		}
+	}
 
-		<!--- Find the record --->
-    	<cfset course = model("Conferencecourse").findOne(where="id=#params.key# AND event='#getEvent()#'", include="Agenda")>
-    	<cfset instructors = model("Conferencecourseinstructor").findAll(where="courseId = #params.key#", include="InstructorInfo")>
-		<cfset questions = model("Conferencecoursequestion").findAll(where="courseid=#params.key#", order="createdAt DESC", include="person(family)")>
+	public function showAllSelectedWorkshops() {
+		whereString = "event='#getEvent()#' AND type='workshop'";
+		if ( isDefined("params.key") ) {
+			whereString = whereString & " AND id = #params.key#";
+		}
+		workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order="eventDate");
+		countpeopleregistered = countPeopleRegistered();
+	}
 
-		<cfset introTitle = "Workshop...">
+	public function showAllSelectedCohorts() {
+		var orderby = "title";
+		var loc = StructNew();
+		if ( isDefined("params.orderby") ) {
+			orderBy = params.orderby;
+		}
+		whereStringAll = "event='#getEvent()#' && (type='cohort' || type = 'workshop')";
+		if ( isDefined("params.key") ) {
+			whereString = whereStringAll & " && equip_coursesid = #params.key#";
+		} else {
+			whereString = whereStringAll;
+		}
+		workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order=orderby);
+		loc.workshopsSignedUPFor = ValueList(workshops.title);
+		allWorkshops = model("Conferencecourse").findAll(where=whereStringAll);
+		emptyWorkshops = "";
 
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(course)>
-	        <cfset flashInsert(error="Course/Workshop #params.key# was not found")>
-	        <cfset redirectTo(action="index")>
-	    </cfif>
-	</cffunction>
+		/* toScript ERROR: Unimplemented cfloop condition:  query="allWorkshops" 
 
-	<!--- Courses/list route="conferenceCoursesList"--->
-	<cffunction name="list">
-
-		<cfif isDefined("params.print")>
-			<cfset renderPage(layout="/conference/layout_naked", template="listprint")>
-		<cfelse>
-			<cfset setreturn()>
-		</cfif>
-
-	</cffunction>
-
-	<!---Courses/select-workshops route="conferenceCoursesSelectWorkshops"--->
-	<cffunction name="selectWorkshops">
-	<cfargument name="type" default="cohort">
-		<!---over write default arguments based on params--->
-		<cfif isDefined("params.type")>
-			<cfset arguments.type = params.type>
-		</cfif>
-
-		<!---if a personid is not provide go to the select person page--->
-		<cfif not isDefined("params.personid") or not len(params.personid)>
-			<cfset redirectTo(route="conferenceCoursesSelectPersonToSelectCohorts", params="type=#arguments.type#")>
-		</cfif>
-
-		<!---Get Workshops--->
-		<cfset workshops = model("Conferencecourse").findAll(where="event='#getEvent()#' AND category = '#translateType(arguments.type)#'", include="Agenda", order="radioButtonGroup,eventDate,title")>
-
-		<!--- get this person - not sure why I need to check for personid--->
-		<cfif isDefined("params.personid")>
-			<cfset person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family")>
-		</cfif>
-		<!---Set action to be used in the form--->
-		<cfset formaction = "saveSelectedWorkshops">
-
-	</cffunction>
-
-	<!---Courses/select-cohorts route="conferenceCoursesSelectCohorts"--->
-	<cffunction name="selectCohorts">
-	<cfargument name="type" default="cohort">
-	<cfset var loc=arguments>
-
-	<cfset whereString = "event='#getEvent()#'">
-
-		<cfif isDefined("params.type")>
-			<cfset whereString = "event='#getEvent()#' AND type IN ('cohort','workshop') AND (display = 'Yes' OR display = 'Full')">
-		</cfif>	 
-
-
-		<cfset cohorts = model("Conferencecourse").findAll(where=whereString, order="subtype title")>
-
-		<cfif isDefined("params.personid")>
-			<cfset selectedcohorts = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# AND equip_optionsid = #getOptionIdFromName(translatetype(arguments.type))#")>
-			<cfset coursesIdList = "">
-			<cfloop query="selectedCohorts">
-				<cfset coursesIdList = coursesIdList & "," & equip_coursesid>
-			</cfloop>
-			<cfset coursesIdList = replace(coursesIdList,",","")>
-
-			<cfset headerSubTitle = "Select Cohorts or Workshops for #getPersonFromId(params.personid)# Here">
-
-			<cfif !len(getPersonFromId(params.personid))> <!--- if these is no person at this id go to select person page--->
-				<cfset redirectTo(route="conferenceCoursesSelectPersonToSelectCohorts", params="type=#arguments.type#")>
-			</cfif>
-
-		<cfset formaction = "saveSelectedCohorts">
-
-		<cfelse>	
-
-			<cfset redirectTo(route="conferenceCoursesSelectPersonToSelectCohorts", params="type=#arguments.type#")>
-
-		</cfif>
-		
-	</cffunction>
-
-	<cffunction name="showAllSelectedWorkshops">
-		<cfset whereString = "event='#getEvent()#' AND type='workshop'">
-		<cfif isDefined("params.key")>
-			<cfset whereString = whereString & " AND id = #params.key#">
-		</cfif>
-		<cfset workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order="eventDate")>
-		<cfset countpeopleregistered = countPeopleRegistered()>
-	</cffunction>
-
-	<cffunction name="showAllSelectedCohorts">
-		<cfset var orderby = "title">
-		<cfset var loc = StructNew()>
-		<cfif isDefined("params.orderby")>
-			<cfset orderBy = params.orderby>
-		</cfif>
-		<cfset whereStringAll = "event='#getEvent()#' AND (type='cohort' OR type = 'workshop')">
-		<cfif isDefined("params.key")>
-			<cfset whereString = whereStringAll & " AND equip_coursesid = #params.key#">
-		<cfelse>
-			<cfset whereString = whereStringAll>	
-		</cfif>
-		<cfset workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order=orderby)>
-		<cfset loc.workshopsSignedUPFor = ValueList(workshops.title)>
-		<cfset allWorkshops = model("Conferencecourse").findAll(where=whereStringAll)>
-		<cfset emptyWorkshops = "">
-		<cfloop query="allWorkshops">
+				<cfloop query="allWorkshops">
 			<cfif !listFind(loc.workshopsSignedUPFor,title)>
 				<cfset emptyWorkshops = emptyWorkshops & "," & title>
 			</cfif>
 		</cfloop>
-		<cfset emptyWorkshops = replace(emptyWorkshops,",","","one")>
-		<cfset countpeopleregistered = countPeopleRegistered()>
-		<cfif isDefined("params.json")>
-			<cfquery dbtype="query" name="data">
-				SELECT fullname, coursetitle, eventday, eventroom
+
+		*/
+
+		emptyWorkshops = replace(emptyWorkshops,",","","one");
+		countpeopleregistered = countPeopleRegistered();
+		if ( isDefined("params.json") ) {
+			cfquery( dbtype="query", name="data" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+
+				writeOutput("SELECT fullname, coursetitle, eventday, eventroom
 				FROM workshops
-				ORDER BY fullname
-			</cfquery>
+				ORDER BY fullname");
+			}
+			data = queryToJson(data);
+			renderPage(layout="/layout_json", template="/json", hideDebugInformation=true);
+		} else {
+			renderPage(action="showAllSelectedWorkshops");
+		}
+	}
+	// Courses/select-person-to-select-cohorts/
 
-			<cfset data = queryToJson(data)>
-			<cfset renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)>
-		<cfelse>	
-			<cfset renderPage(action="showAllSelectedWorkshops")>
-		</cfif>
-</cffunction>
+	public function selectPersonToSelectCohorts() {
+		var loc=structNew();
+		if ( !isDefined("params.type") ) {
+			params.type = 'cohort';
+		}
+		loc.datelimit = createDateTime(year(now())-1,10,01,01,01,01);
+		registrations = model("Conferenceperson").findAllPeopleRegistered();
+		formaction = "ConferenceCoursesSelectCohorts";
+		headerSubTitle = "Sign up for a Cohort || Workshop";
+		renderPage(template="selectPersonToSelectWorkshops");
+	}
+	// Courses/select-person-to-select-cohorts/
 
-	<!---Courses/select-person-to-select-cohorts/--->
-	<cffunction name="selectPersonToSelectCohorts">
-	<cfset var loc=structNew()>
-		<cfif !isDefined("params.type")>
-			<cfset params.type = 'cohort'>
-		</cfif>	
-		<cfset loc.datelimit = createDateTime(year(now())-1,10,01,01,01,01)>
-		<cfset registrations = model("Conferenceperson").findAllPeopleRegistered()>
-		<cfset formaction = "ConferenceCoursesSelectCohorts">
-		<cfset headerSubTitle = "Sign up for a Cohort or Workshop">
-		<cfset renderPage(template="selectPersonToSelectWorkshops")>
-	</cffunction>
+	public function selectPersonToShowCohorts() {
+		var loc=structNew();
+		loc.datelimit = createDateTime(year(now())-1,10,01,01,01,01);
+		registrations = model("Conferenceperson").findAllPeopleRegistered();
+		formaction = "showSelectedWorkshops";
+		headerSubTitle = "Show My Cohorts";
+		instructions = "";
+		renderPage(template="selectPersonToSelectWorkshops");
+	}
 
-	<!---Courses/select-person-to-select-cohorts/--->
-	<cffunction name="selectPersonToShowCohorts">
-	<cfset var loc=structNew()>
-		<cfset loc.datelimit = createDateTime(year(now())-1,10,01,01,01,01)>
-		<cfset registrations = model("Conferenceperson").findAllPeopleRegistered()>
-		<cfset formaction = "showSelectedWorkshops">
-		<cfset headerSubTitle = "Show My Cohorts">
-		<cfset instructions = "">
-		<cfset renderPage(template="selectPersonToSelectWorkshops")>
-	</cffunction>
+	public function showAllSelectedExcursions() {
+		whereString = "event='#getEvent()#' && type='excursion'";
+		if ( isDefined("params.key") ) {
+			whereString = whereString & " && equip_coursesid = #params.key#";
+		}
+		workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order="eventDate");
+		renderPage(action="showAllSelectedWorkshops");
+	}
+	//  Courses/table 
 
-	<cffunction name="showAllSelectedExcursions">
-		<cfset whereString = "event='#getEvent()#' AND type='excursion'">
-		<cfif isDefined("params.key")>
-			<cfset whereString = whereString & " AND equip_coursesid = #params.key#">
-		</cfif>
-		<cfset workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order="eventDate")>
-		<cfset renderPage(action="showAllSelectedWorkshops")>
-	</cffunction>
+	public function table(type="all", orderBy="room,date") {
+		introTitle = "Workshops";
+		// Overwrite argument defaults based on params
+		if ( isDefined("params.key") ) {
+			arguments.type = params.key;
+		}
+		if ( isDefined("params.type") ) {
+			arguments.type = params.type;
+		}
+		if ( isDefined("params.orderby") ) {
+			arguments.orderby = params.orderby;
+			if ( params.orderby == "track" ) {
+				arguments.orderBy = "track,date";
+			}
+			firstcolumnname = "Track";
+			firstlevelgroup = "track";
+		}
+		courses = model("Conferencecourse").findList(order=arguments.orderby, type="#arguments.type#");
+	}
+	// End of Public Pages
+	// --------------------
+	// Get Text for Content
+	// --------------------
 
-	<!--- Courses/table --->
-	<cffunction name="table">
-	<cfargument name="type" default="all">
-	<cfargument name="orderBy" default="room,date">
+	public function getSubtypeDesc(required string subtype) {
+		if ( subtype == "A" ) {
+			return "This cohort meets on Tuesday, July 23 from 11:00 am - 12:30 pm";
+		}
+		if ( subtype == "B" ) {
+			return "This cohort meets on Wednesday, July 24 from 11:00 am - 12:30 pm.";
+		}
+		if ( subtype == "C" ) {
+			return "This cohort meets on Thursday, July 25 from 11:00 am - 12:30 pm.";
+		}
+		if ( subtype == "D" ) {
+			return "NA";
+		}
+		return "NA";
+	}
 
-		<cfset introTitle = "Workshops">
-
-		<!---Overwrite argument defaults based on params--->
-		<cfif isDefined("params.key")>
-			<cfset arguments.type = params.key>
-		</cfif>
-		<cfif isDefined("params.type")>
-			<cfset arguments.type = params.type>
-		</cfif>
-		<cfif isDefined("params.orderby")>
-			<cfset arguments.orderby = params.orderby>
-			<cfif params.orderby is "track">
-				<cfset arguments.orderBy = "track,date">
-			</cfif>
-			<cfset firstcolumnname = "Track">
-			<cfset firstlevelgroup = "track">
-		</cfif>
-
-		<cfset courses = model("Conferencecourse").findList(order=arguments.orderby, type="#arguments.type#")>
-	</cffunction>
-
-
-<!---End of Public Pages--->
-
-
-<!-------------------------->
-<!---Get Text for Content--->
-<!-------------------------->
-
-	<cffunction name="getSubtypeDesc">
-	<cfargument name="subtype" required="true" type="string">
-		<cfif subtype is "A">
-			<cfreturn "This cohort meets on Tuesday, July 23 from 11:00 am - 12:30 pm">
-		</cfif>
-		<cfif subtype is "B">
-			<cfreturn "This cohort meets on Wednesday, July 24 from 11:00 am - 12:30 pm.">
-		</cfif>
-		<cfif subtype is "C">
-			<cfreturn "This cohort meets on Thursday, July 25 from 11:00 am - 12:30 pm.">
-		</cfif>
-		<cfif subtype is "D">
-			<cfreturn "NA">
-		</cfif>
-	<cfreturn "NA">
-	</cffunction>
-
-	<cffunction name="getCohortsDescription">
-	<cfset var description = '<p>Cohorts are peer learning groups focused around various areas of ministries. Participants will have lots of time to talk about what is working, what is not, ask questions, discuss best practices and even work through issues together. Each cohort will be guided by trained facilitators.<br/> People who are registered for #getEventAsText()# can select three cohorts. </p>Each cohort meets once on either Tuesday, Wednesday or Thursday from 11:00 - 12:30. 
+	public function getCohortsDescription() {
+		var description = '<p>Cohorts are peer learning groups focused around various areas of ministries. Participants will have lots of time to talk about what == working, what == not, ask questions, discuss best practices && even work through issues together. Each cohort will be guided by trained facilitators.<br/> People who are registered for #getEventAsText()# can select three cohorts. </p>Each cohort meets once on either Tuesday, Wednesday || Thursday from 11:00 - 12:30. 
       </p>
       <p>
 			We are also offering a workshops each day during the same times as cohorts.  Workshops are designed for larger groups, are more didactic with a teacher rather than a facilitator.  Workshops are marked.
-      </p>'>
-		<cfreturn description>
-	</cffunction>
+      </p>';
+		return description;
+	}
+	// ------------
+	// Redirections
+	// ------------
+	// Courses/workshops
 
+	public function workshops() {
+		redirectTo(controller="conference.courses", action="list", params="type=workshop");
+	}
+	//  Courses/workshopstable .get(name="conferenceworkshopstable", pattern="/workshops/table/", controller="courses", action="workshopstable") 
 
-<!------------------>
-<!---Redirections--->
-<!------------------>
+	public function workshopstable() {
+		redirectTo(controller="conference.courses", action="table", params="type=workshop");
+	}
+	// Courses/riskursions
 
-	<!---Courses/workshops--->
-	<cffunction name="workshops">
-		<cfset redirectTo(controller="conference.courses", action="list", params="type=workshop")>
-	</cffunction>
+	public function riskursions() {
+		redirectTo(controller="conference.courses", action="list", params="type=excursion");
+	}
 
-	<!--- Courses/workshopstable .get(name="conferenceworkshopstable", pattern="/workshops/table/", controller="courses", action="workshopstable") --->
-	<cffunction name="workshopstable">
-		<cfset redirectTo(controller="conference.courses", action="table", params="type=workshop")>
-	</cffunction>
+	public function listCohorts() {
+		if ( isDefined("params.print") ) {
+			renderPage(action="list", key="cohort", layout="/conference/layout_naked", template="listprint");
+		} else {
+			setreturn();
+			renderPage(action="list", key="cohort");
+		}
+	}
+	// -------End of Redirections--------------
+	//  Courses/rss 
 
-	<!---Courses/riskursions--->
-	<cffunction name="riskursions">
-		<cfset redirectTo(controller="conference.courses", action="list", params="type=excursion")>
-	</cffunction>
+	public function rss() {
+		courses = model("Conferencecourse").findList();
+		title = "#getEventAsText()# Workshops";
+		description= "#getEventAsText()# will include a number of workshops.";
+		if ( application.wheels.environment != "production" ) {
+			set(environment="production");
+		}
+		renderPage(template="rss.cfm", layout="rsslayout");
+	}
 
-	<cffunction name="listCohorts">
-		<cfif isDefined("params.print")>
-			<cfset renderPage(action="list", key="cohort", layout="/conference/layout_naked", template="listprint")>
-		<cfelse>
-			<cfset setreturn()>
-			<cfset renderPage(action="list", key="cohort")>
-		</cfif>
-	</cffunction>
+	public function getInstructors(required numeric courseid) {
+		var loc=structNew();
+		loc = arguments;
+		loc.instructors = model("Conferencecourseinstructor").findAll(where="courseId = #loc.courseid#", include="Instructor");
+		return loc.instructors;
+	}
 
-<!----------End of Redirections----------------->
+	public function getInstructorNamesAsString(required courseid) {
+		var loc=structNew();
+		loc = arguments;
+		loc.instructors = getInstructors(val(loc.courseid));
+		loc.names = "";
 
+		/* toScript ERROR: Unimplemented cfloop condition:  query="loc.instructors" 
 
-
-	<!--- Courses/rss --->
-	<cffunction name="rss">
-		<cfset courses = model("Conferencecourse").findList()>
-
-		<cfset title = "#getEventAsText()# Workshops">
-
-		<cfset description= "#getEventAsText()# will include a number of workshops.">
-
-		<cfif application.wheels.environment is not "production">
-			<cfset set(environment="production")>
-		</cfif>
-
-		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
-	</cffunction>
-
-	<cffunction name="getInstructors">
-	<cfargument name="courseid" required="true" type="numeric">
-	<cfset var loc=structNew()>
-	<cfset loc = arguments>
-    	<cfset loc.instructors = model("Conferencecourseinstructor").findAll(where="courseId = #loc.courseid#", include="Instructor")>
-	<cfreturn loc.instructors>
-	</cffunction>
-
-	<cffunction name="getInstructorNamesAsString">
-	<cfargument name="courseid" required="true">
-	<cfset var loc=structNew()>
-	<cfset loc = arguments>
-		<cfset loc.instructors = getInstructors(val(loc.courseid))>
-		<cfset loc.names = "">
-		<cfloop query="loc.instructors">
+				<cfloop query="loc.instructors">
 			<cfset loc.names = loc.names & ", " & "#linkto(text=selectName, controller='conference.instructors', action='show', key=id)#">
 		</cfloop>
-		<cfset loc.names = replace(loc.names,", ","","one")>
-	<cfreturn loc.names>
-	</cffunction>
 
-	<cffunction name="getPersonFromId">
-	<cfargument name="id" required="true" type="numeric">
-		<cfset personName = model("Conferenceperson").findAll(where="id=#arguments.id#", include="family").fullname>
-	<cfreturn personName>
-	</cffunction>
+		*/
 
-	<cffunction name="saveSelectedCohorts">
-	<cfargument name="type"  default="cohort">
-	<cfset var i = 0>
-		<cfif isDefined("params.type")>
-			<cfset arguments.type = params.type>
-		</cfif>
-		
-		<cfset deletedSelectedWorshopsForPersonid(params.personid,params.type)>
+		loc.names = replace(loc.names,", ","","one");
+		return loc.names;
+	}
 
-		<cfif isDefined("params.cohorts") && listlen(params.cohorts) LTE getSetting('maxCohorts')>
-			<cfloop list="#params.cohorts#" index="i">
-				<cfset registration = model("Conferenceregistration").new()>
-				<cfset registration.equip_peopleid = params.personid>
-				<cfset registration.equip_coursesid = i>
-				<cfset registration.equip_optionsid = getOptionIdFromName(translatetype(arguments.type))>
-				<cfset registration.equip_invoicesid = 1115>
-				<cfset registration.quantity = 1>
-				<cfset check = registration.save()>
-			</cfloop>
-			<cfset redirectTo(action="showSelectedWorkshops", params="type=#params.type#&personid=#personid#")>
-		<cfelse>
-			<cfset flashInsert(toomany="Too many cohorts were selected. Please pick 2.")>
-			<cfset redirectTo(action="selectCohorts", personid=params.personid, params="type=#params.type#&personid=#personid#")>
-		</cfif>
-	</cffunction>
+	public function getPersonFromId(required numeric id) {
+		personName = model("Conferenceperson").findAll(where="id=#arguments.id#", include="family").fullname;
+		return personName;
+	}
 
-	<cffunction name="translateType" hint="allows variable in type that is called for">
-	<cfargument name="type" required="true" type="string">
-	<cfset var loc=structNew()>
-		<cfset loc.workshops = "workshop">
-		<cfset loc.workshop = "workshop">
-		<cfset loc.excursion = "excursion">
-		<cfset loc.riskursion = "excursion">
-		<cfset loc.riskursions = "excursion">
-		<cfset loc.riscursion = "excursion">
-		<cfset loc.riscursions = "excursion">
-		<cfset loc.cohorts = "cohort">
-		<cfset loc.cohort = "cohort">
-	<cfreturn type>
-	</cffunction>
+	public function saveSelectedCohorts(type="cohort") {
+		var i = 0;
+		if ( isDefined("params.type") ) {
+			arguments.type = params.type;
+		}
+		deletedSelectedWorshopsForPersonid(params.personid,params.type);
+		if ( isDefined("params.cohorts") && listlen(params.cohorts) <= getSetting('maxCohorts') ) {
+			for ( i in params.cohorts ) {
+				registration = model("Conferenceregistration").new();
+				registration.equip_peopleid = params.personid;
+				registration.equip_coursesid = i;
+				registration.equip_optionsid = getOptionIdFromName(translatetype(arguments.type));
+				registration.equip_invoicesid = 1115;
+				registration.quantity = 1;
+				check = registration.save();
+			}
+			redirectTo(action="showSelectedWorkshops", params="type=#params.type#&personid=#personid#");
+		} else {
+			flashInsert(toomany="Too many cohorts were selected. Please pick 2.");
+			redirectTo(action="selectCohorts", personid=params.personid, params="type=#params.type#&personid=#personid#");
+		}
+	}
 
-	<cffunction name="isInWorkshop">
-	<cfargument name="personid" required="true" type="numeric">
-	<cfargument name="workshopid" required="true" type="numeric">
-		<cfset thisPersonsWorkshops = model("Conferenceregistration").findOne(where="equip_peopleid=#arguments.personid# AND equip_coursesid=#arguments.workshopid#", include="Workshop")>
-		<cfif isObject(thisPersonsWorkshops)>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction>
+	/**
+	 * allows variable in type that is called for
+	 */
+	public function translateType(required string type) {
+		var loc=structNew();
+		loc.workshops = "workshop";
+		loc.workshop = "workshop";
+		loc.excursion = "excursion";
+		loc.riskursion = "excursion";
+		loc.riskursions = "excursion";
+		loc.riscursion = "excursion";
+		loc.riscursions = "excursion";
+		loc.cohorts = "cohort";
+		loc.cohort = "cohort";
+		return type;
+	}
 
-	<cffunction name="saveSelectedWorkshops">
-	<cfargument name="type"  default="#params.type#">
-		<cfset deletedSelectedWorshopsForPersonid(params.personid,params.type)>
-		<cfset dates = model("Conferencecourse").getCourseDates(translateType(arguments.type))>
-		<cfloop list="#dates#" index="i">
-				<cfloop list="#params.radioButtonGroups#" index="ii">
-				<cfif ii is "0">
-					<cfset iii = i>
-				<cfelse>
-					<cfset iii = i&ii>
-				</cfif>
-					<cfset registration = model("Conferenceregistration").new()>
-					<cfset registration.equip_peopleid = params.personid>
-					<cfset registration.equip_coursesid = params[#iii#]>
-					<cfset registration.equip_optionsid = getOptionIdFromName(translatetype(arguments.type))>
-					<cfset registration.equip_invoicesid = 1115>
-					<cfset registration.quantity = 1>
-					<cfset registration.save()>
-			</cfloop>
-		</cfloop>
-		<cfset redirectTo(action="showSelectedWorkshops", params="personid=#params.personid#&type=#arguments.type#")>
-	</cffunction>
+	public function isInWorkshop(required numeric personid, required numeric workshopid) {
+		thisPersonsWorkshops = model("Conferenceregistration").findOne(where="equip_peopleid=#arguments.personid# && equip_coursesid=#arguments.workshopid#", include="Workshop");
+		if ( isObject(thisPersonsWorkshops) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-	<cffunction name="showSelectedWorkshops">
-	<cfargument name="type"  default="cohorts,workshops">
-		<!--- <cfif isDefined("params.type")>
+	public function saveSelectedWorkshops(type="#params.type#") {
+		deletedSelectedWorshopsForPersonid(params.personid,params.type);
+		dates = model("Conferencecourse").getCourseDates(translateType(arguments.type));
+		for ( i in dates ) {
+			for ( ii in params.radioButtonGroups ) {
+				if ( ii == "0" ) {
+					iii = i;
+				} else {
+					iii = i&ii;
+				}
+				registration = model("Conferenceregistration").new();
+				registration.equip_peopleid = params.personid;
+				registration.equip_coursesid = params[#iii#];
+				registration.equip_optionsid = getOptionIdFromName(translatetype(arguments.type));
+				registration.equip_invoicesid = 1115;
+				registration.quantity = 1;
+				registration.save();
+			}
+		}
+		redirectTo(action="showSelectedWorkshops", params="personid=#params.personid#&type=#arguments.type#");
+	}
+
+	public function showSelectedWorkshops(type="cohorts,workshops") {
+		/*  <cfif isDefined("params.type")>
 			<cfset arguments.type = params.type>
 		<cfelse>
 			<cfset params.type = arguments.type>	
-		</cfif> --->
-		<!--- <cfif !isDefined("params.personid")>
+		</cfif> */
+		/*  <cfif !isDefined("params.personid")>
 			<cfset redirectTo(route="conferenceCoursesSelectPersonToSelectCohorts")>
-		</cfif> --->
-	<cfset var loc = arguments>
-	<cfset loc.sendString = "from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your cohort or workshop selections...'">
-	<!--- <cfset arguments.type = translateType(arguments.type)> --->
-		<cfif isDefined("params.personid")>
-			<cftry>
+		</cfif> */
+		var loc = arguments;
+		loc.sendString = "from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your cohort || workshop selections...'";
+		//  <cfset arguments.type = translateType(arguments.type)> 
+		if ( isDefined("params.personid") ) {
+			try {
+				workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# && (type = 'cohort' || type='workshop')", include="Workshop(Agenda)", order="eventDate");
+				person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family");
+			} catch (any cfcatch) {
 
-				<cfset workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#params.personid# AND (type = 'cohort' OR type='workshop')", include="Workshop(Agenda)", order="eventDate")>
-				<cfset person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family")>
-				<cfcatch>
-					//TODO - Set up a flash for redirect
-					<cfset redirectTo(route="mycohorts")>
-				</cfcatch>
-			</cftry>	
-		<cfelse>
-			<cfset redirectTo(action="selectPersonToShowCohorts", params="type=#arguments.type#&encodePersonId=false")>
-			Need to get personid<cfabort>	
-		</cfif>
-		<cftry>
-			<cfif isValid("email",person.email) && workshops.recordcount>
-				<cfset loc.sendString = loc.sendString & ", to=person.email">
-				<cfif workshopNotificationsOpen()>
+				writeOutput("//TODO - Set up a flash for redirect");
+				redirectTo(route="mycohorts");
+			}
+		} else {
+			redirectTo(action="selectPersonToShowCohorts", params="type=#arguments.type#&encodePersonId=false");
 
-					<cfset sendEmail(from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your cohort selections...', to=person.email, bcc=workshopnotifications())>
+			writeOutput("Need to get personid");
+			abort;
+		}
+		try {
+			if ( isValid("email",person.email) && workshops.recordcount ) {
+				loc.sendString = loc.sendString & ", to=person.email";
+				if ( workshopNotificationsOpen() ) {
+					sendEmail(from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your cohort selections...', to=person.email, bcc=workshopnotifications());
+				} else {
+					sendEmail(from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your cohort selections...', to=person.email);
+				}
+				flashInsert(success="#capitalize(arguments.type)# selections were sent to #person.email#");
+			}
+		} catch (any cfcatch) {
+		}
+		try {
+			if ( isValid("email",person.family.email) && person.family.email != person.email ) {
+				if ( application.wheels.workshopNotificationsOpen ) {
+					sendEmail(from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your cohort selections...', to=person.family.email, bcc=application.wheels.workshopnotifications);
+				} else {
+					sendEmail(from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your cohort selections...', to=person.family.email);
+				}
+				flashInsert(success="#capitalize(arguments.type)# selections were sent to #person.family.email#");
+			}
+		} catch (any cfcatch) {
+		}
+		if ( isMobile() ) {
+			renderPage(layout="/conference/layout_mobile");
+		}
+		setreturn();
+		headerSubTitle = "Selected Cohorts";
+	}
 
-				<cfelse>
-					<cfset sendEmail(from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your cohort selections...', to=person.email)>
-				</cfif>
-		 		<cfset flashInsert(success="#capitalize(arguments.type)# selections were sent to #person.email#")>
-			</cfif>
-		<cfcatch></cfcatch></cftry>
+	public function sendSelectedWorkshops(type="", personid="#params.personid#", sendToEmail="tomavey@fgbc.org") {
+		arguments.type = translateType(arguments.type);
+		if ( isDefined("params.email") && isValid("email",params.email) ) {
+			arguments.sendToEmail = params.email;
+		} else {
+			flashInsert(success="Please provide a valid email address to send this list to.");
+			redirectTo(action="showSelectedWorkshops", params="personid=#params.personid#&type=#params.type#");
+		}
+		workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#arguments.personid# && (type = 'cohort' || type='workshop')", include="Workshop(Agenda)", order="eventDate");
+		person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family");
+		if ( !isLocalMachine() ) {
+			sendEMail(to=arguments.sendToEmail, from="tomavey@fgbc.org", layout="/conference/layout_for_email", template="showSelectedWorkshops", subject="Access2017 #params.type# selections");
+			flashInsert(success="The email was sent to #arguments.sendToEmail#");
+		} else {
+			flashInsert(success="The email was !sent to #arguments.sendToEmail# from this local server");
+		}
+		redirectTo(action="showSelectedWorkshops", params="personid=#params.personid#&type=#params.type#");
+	}
 
-		<cftry>
-			<cfif isValid("email",person.family.email) and person.family.email NEQ person.email>
-				<cfif application.wheels.workshopNotificationsOpen>
-					<cfset sendEmail(from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your cohort selections...', to=person.family.email, bcc=application.wheels.workshopnotifications)>
-				<cfelse>
-					<cfset sendEmail(from='tomavey@fgbc.org', layout='/conference/layout_for_email', template='showSelectedWorkshops', subject='Your cohort selections...', to=person.family.email)>
-				</cfif>
-		 		<cfset flashInsert(success="#capitalize(arguments.type)# selections were sent to #person.family.email#")>
-			</cfif>
-		<cfcatch></cfcatch></cftry>
+	public function downloadAllSelectedCohorts() {
+		var orderby = "title";
+		if ( isDefined("params.orderby") ) {
+			orderBy = params.orderby;
+		}
+		whereString = "event='#getEvent()#' && type='cohort'";
+		if ( isDefined("params.key") ) {
+			whereString = whereString & " && equip_coursesid = #params.key#";
+		}
+		workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order=orderby);
+		countpeopleregistered = countPeopleRegistered();
+		renderPage(action="downloadallselectedworkshops", layout="/layout_download");
+	}
 
-		<cfif isMobile()>
-			<cfset renderPage(layout="/conference/layout_mobile")>
-		</cfif>
+	public function countPeopleRegistered() {
+		var return = model("Conferenceregistration").countRegsByType(ccstatus="All",includeFree="true") + model("Conferenceregistration").countRegsByType(type="Couple", ccstatus="All",includeFree="true");
+		return return;
+	}
 
-		<cfset setreturn()>
+	public function countEligibleToSignup() {
+		var regs = structNew();
+		regs.vTORcouples = model("Conferenceregistration").countRegs(348,params) + model("Conferenceregistration").countRegs(354,params);
+		regs.vTORsingles = model("Conferenceregistration").countRegs(349,params) + model("Conferenceregistration").countRegs(351,params);
+		regs.vTORdaysingle = model("Conferenceregistration").countRegs(350,params);
+		regs.vTORprepaid = model("Conferenceregistration").countRegs(360,params)*2 + model("Conferenceregistration").countRegs(361,params);
+		regs.vTORFreeYoung = model("Conferenceregistration").countRegs(352,params) + (model("Conferenceregistration").countRegs(355,params) * 2);
+		regs.vTORFreeOld = model("Conferenceregistration").countRegs(356,params) + (model("Conferenceregistration").countRegs(359,params) * 2);
+		regs.vTORFree = regs.vTORFreeYoung + regs.vTORFreeOld;
+		regs.vTORall = (regs.vTORcouples*2) + regs.vTORsingles + regs.vTORdaysingle + regs.vTORprepaid + regs.vTORFree;
+		return regs.vTORall;
+	}
 
-		<cfset headerSubTitle = "Selected Cohorts">
+	public function getEventEquipmentForThisCourse(eventid="716") {
+		var loc = structNew();
+		loc.eventinfo = model("Conferenceevent").findOne(where="id = #arguments.eventid#");
+		//  <cfdump var="#loc.eventinfo.properties()#"><cfabort> 
+		return loc.eventinfo;
+	}
 
-	</cffunction>
+	public function deletedSelectedWorshopsForPersonid(required numeric personid, required string type) {
+		var loc = structNew();
+		loc=arguments;
+		loc.optionid = getOptionIdFromName(translatetype(loc.type));
+		loc.workshops = model("Conferenceregistration").deleteAll(where="equip_peopleid = #loc.personid# && equip_optionsid = #loc.optionid#");
+		return true;
+	}
 
-	<cffunction name="sendSelectedWorkshops">
-	<cfargument name="type" default="">
-	<cfargument name="personid" default="#params.personid#">
-	<cfargument name="sendToEmail" default="tomavey@fgbc.org">
-	<cfset arguments.type = translateType(arguments.type)>
-	<cfif isDefined("params.email") && isValid("email",params.email)>
-		<cfset arguments.sendToEmail = params.email>
-	<cfelse>
-		<cfset flashInsert(success="Please provide a valid email address to send this list to.")>
-		<cfset redirectTo(action="showSelectedWorkshops", params="personid=#params.personid#&type=#params.type#")>
-	</cfif>
-		<cfset workshops = model("Conferenceregistration").findAll(where="equip_peopleid=#arguments.personid# AND (type = 'cohort' OR type='workshop')", include="Workshop(Agenda)", order="eventDate")>
-		<cfset person = model("Conferenceperson").findOne(where="id=#params.personid#", include="family")>
-			<cfif !isLocalMachine()>
-				<cfset sendEMail(to=arguments.sendToEmail, from="tomavey@fgbc.org", layout="/conference/layout_for_email", template="showSelectedWorkshops", subject="Access2017 #params.type# selections")>
-				<cfset flashInsert(success="The email was sent to #arguments.sendToEmail#")>
-			<cfelse>
-				<cfset flashInsert(success="The email was NOT sent to #arguments.sendToEmail# from this local server")>
-			</cfif>	
-		<cfset redirectTo(action="showSelectedWorkshops", params="personid=#params.personid#&type=#params.type#")>
-	</cffunction>
+	public function deletedSelectedWorshopsForRegId() {
+		worshops = model("Conferenceregistration").deleteAll(where="id = #params.key#");
+		returnBack();
+	}
 
-	<cffunction name="downloadAllSelectedCohorts">
-		<cfset var orderby = "title">
-		<cfif isDefined("params.orderby")>
-			<cfset orderBy = params.orderby>
-		</cfif>
-		<cfset whereString = "event='#getEvent()#' AND type='cohort'">
-		<cfif isDefined("params.key")>
-			<cfset whereString = whereString & " AND equip_coursesid = #params.key#">
-		</cfif>
-		<cfset workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order=orderby)>
-		<cfset countpeopleregistered = countPeopleRegistered()>
-		<cfset renderPage(action="downloadallselectedworkshops", layout="/layout_download")>
-	</cffunction>
+	public function isSignedUpForCourse() {
+	}
 
-	<cffunction name="countPeopleRegistered">
-		<cfset var return = model("Conferenceregistration").countRegsByType(ccstatus="All",includeFree="true") + model("Conferenceregistration").countRegsByType(type="Couple", ccstatus="All",includeFree="true")>
-		<cfreturn return>
-	</cffunction>
+	public function alsoSignedUpFor(required numeric courseId) {
+		var loc = arguments;
+		loc.alsoSignedUpFor = model("Conferencecourse").alsoSignedUpFor(courseId);
+		return loc.alsoSignedUpFor;
+	}
 
-	<cffunction name="countEligibleToSignup">
-	<cfset var regs = structNew()>
-		<cfset regs.vTORcouples = model("Conferenceregistration").countRegs(348,params) + model("Conferenceregistration").countRegs(354,params)>
-		<cfset regs.vTORsingles = model("Conferenceregistration").countRegs(349,params) + model("Conferenceregistration").countRegs(351,params)>
-		<cfset regs.vTORdaysingle = model("Conferenceregistration").countRegs(350,params)>
-		<cfset regs.vTORprepaid = model("Conferenceregistration").countRegs(360,params)*2 + model("Conferenceregistration").countRegs(361,params)>
-		<cfset regs.vTORFreeYoung = model("Conferenceregistration").countRegs(352,params) + (model("Conferenceregistration").countRegs(355,params) * 2)>
-		<cfset regs.vTORFreeOld = model("Conferenceregistration").countRegs(356,params) + (model("Conferenceregistration").countRegs(359,params) * 2)>
-		<cfset regs.vTORFree = regs.vTORFreeYoung + regs.vTORFreeOld>
-		<cfset regs.vTORall = (regs.vTORcouples*2) + regs.vTORsingles + regs.vTORdaysingle + regs.vTORprepaid + regs.vTORFree>
-		<cfreturn regs.vTORall>
-	</cffunction>
+	public function getCourseResources(required numeric courseId) {
+		var resources = model("Conferencecourseresource").findall(where="id=#arguments.courseId#", order="createdAt DESC");
+		return resources;
+	}
 
-	<cffunction name="getEventEquipmentForThisCourse">
-	<cfargument name="eventid" default="716">
-	<cfset var loc = structNew()>
-		<cfset loc.eventinfo = model("Conferenceevent").findOne(where="id = #arguments.eventid#")>
-		<!--- <cfdump var="#loc.eventinfo.properties()#"><cfabort> --->
-		<cfreturn loc.eventinfo>
-	</cffunction>
+	public function json() {
+		data = model("Conferencecourse").findAllAsJson(params);
+		renderPage(layout="/layout_json", template="/json", hideDebugInformation=true);
+	}
+	//  MArked for Deletion
 
-	<cffunction name="deletedSelectedWorshopsForPersonid">
-	<cfargument name="personid" required="true" type="numeric">
-	<cfargument name="type" required="true" type="string">
-	<cfset var loc = structNew()>
-	<cfset loc=arguments>
-		<cfset loc.optionid = getOptionIdFromName(translatetype(loc.type))>
-		<cfset loc.workshops = model("Conferenceregistration").deleteAll(where="equip_peopleid = #loc.personid# AND equip_optionsid = #loc.optionid#")>
-		<cfreturn true>
-	</cffunction>
+	public function XgetRadioButtonGroups() {
+		radioButtonTypes = "";
+		for ( i in params ) {
+		}
+	}
 
-	<cffunction name="deletedSelectedWorshopsForRegId">
-		<cfset worshops = model("Conferenceregistration").deleteAll(where="id = #params.key#")>
-		<cfset returnBack()>
-	</cffunction>
-
-	<cffunction name="isSignedUpForCourse">
-	</cffunction>
-
-	<cffunction name="alsoSignedUpFor">
-	<cfargument name="courseId" required="true" type="numeric">
-	<cfset var loc = arguments>
-		<cfset loc.alsoSignedUpFor = model("Conferencecourse").alsoSignedUpFor(courseId)>
-		<cfreturn loc.alsoSignedUpFor>
-	</cffunction>
-
-	<cffunction name="getCourseResources">
-	<cfargument name="courseId" required="true" type="numeric">
-		<cfset var resources = model("Conferencecourseresource").findall(where="id=#arguments.courseId#", order="createdAt DESC")>
-	<cfreturn resources>
-	</cffunction>
-
-	<cffunction name="json">
-		<cfset data = model("Conferencecourse").findAllAsJson(params)>
-		<cfset renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)>
-	</cffunction>
-
-<!--- MArked for Deletion--->
-
-
-	<cffunction name="XgetRadioButtonGroups">
-	<cfset radioButtonTypes = "">
-	<cfloop collection="#params#" item="i">
-
-	</cfloop>
-
-	</cffunction>
-
-	<cfscript>
-
-		function gotRightsForEmailLinks() {
+	function gotRightsForEmailLinks() {
 			return gotRights("basic")
 		}
-	
-	</cfscript>
 
-
-
-</cfcomponent>
+}
