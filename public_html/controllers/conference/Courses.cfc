@@ -7,7 +7,7 @@ component extends="Controller" output="false" {
 		filters(through="openWorkshops");
 		filters(through="getCourses", only="list,listCohorts");
 		filters(through="getSubtypes", only="list,listCohorts,selectcohorts,showSelectedWorkshops,sendSelectedWorkshops");
-		filters(through="setPublicLayout");
+		// filters(through="setPublicLayout");
 		filters(through="isAuthorized", only="copy,create,update,copyAllToCurrentEvent");
 		//  <cfset filters(through="setKeyFromKeyy")> 
 	}
@@ -16,9 +16,9 @@ component extends="Controller" output="false" {
 // Filters
 // -------
 
-	public function setPublicLayout() {
-		publicLayout = "/conference/layout2018";
-	}
+	// public function setPublicLayout() {
+	// 	publicLayout = "/conference/layout2018";
+	// }
 
 	public function isAuthorized() {
 		if ( !gotRights('office') ) {
@@ -88,6 +88,9 @@ component extends="Controller" output="false" {
 		if (isDefined('params.keyy')) { params.key = params.keyy };
 	}
 // End of Filters
+
+
+
 
 // ---------------------------------
 //  CRUD
@@ -192,35 +195,14 @@ component extends="Controller" output="false" {
 			super.copyAllToCurrentEvent( tableName = "Conferencecourse" );
 			returnBack();
 		} --->
-	// END OF CRUD
+// END OF CRUD
 
-// ------------
-// Public Pages
-// ------------
 
-	//  Courses/view/key route="conferenceCoursesView"
-	public function view() {
-		//  Find the record 
-		course = model("Conferencecourse").findOne(where="id=#params.key# AND event='#getEvent()#'", include="Agenda");
-		instructors = model("Conferencecourseinstructor").findAll(where="courseId = #params.key#", include="InstructorInfo");
-		questions = model("Conferencecoursequestion").findAll(where="courseid=#params.key#", order="createdAt DESC", include="person(family)");
-		introTitle = "Workshop...";
-		//  Check if the record exists 
-		if ( !IsObject(course) ) {
-			flashInsert(error="Course/Workshop #params.key# was !found");
-			redirectTo(action="index");
-		}
-	}
 
-	//  Courses/list route="conferenceCoursesList"
-	public function list() {
-		if ( isDefined("params.print") ) {
-			renderPage(layout="/conference/layout_naked", template="listprint");
-		} else {
-			setreturn();
-		}
-	}
 
+//-----------------------------------
+//SELECTING COHORTS/WORKSHOPS?COURSES
+//-----------------------------------
 	// Courses/select-workshops route="conferenceCoursesSelectWorkshops"
 	public function selectWorkshops(type="cohort") {
 		// over write default arguments based on params
@@ -315,8 +297,8 @@ component extends="Controller" output="false" {
 			renderPage(action="showAllSelectedWorkshops");
 		}
 	}
-	// Courses/select-person-to-select-cohorts/
 
+	// Courses/select-person-to-select-cohorts/
 	public function selectPersonToSelectCohorts() {
 		var loc=structNew();
 		if ( !isDefined("params.type") ) {
@@ -328,8 +310,8 @@ component extends="Controller" output="false" {
 		headerSubTitle = "Sign up for a Cohort || Workshop";
 		renderPage(template="selectPersonToSelectWorkshops");
 	}
-	// Courses/select-person-to-select-cohorts/
 
+	// Courses/select-person-to-select-cohorts/
 	public function selectPersonToShowCohorts() {
 		var loc=structNew();
 		loc.datelimit = createDateTime(year(now())-1,10,01,01,01,01);
@@ -338,6 +320,38 @@ component extends="Controller" output="false" {
 		headerSubTitle = "Show My Cohorts";
 		instructions = "";
 		renderPage(template="selectPersonToSelectWorkshops");
+	}
+//END OF SELECTING WORKSHOPS/COHORTS/COURSES
+
+
+
+
+
+// ------------
+// Public Pages
+// ------------
+
+	//  Courses/view/key route="conferenceCoursesView"
+	public function view() {
+		//  Find the record 
+		course = model("Conferencecourse").findOne(where="id=#params.key# AND event='#getEvent()#'", include="Agenda");
+		instructors = model("Conferencecourseinstructor").findAll(where="courseId = #params.key#", include="InstructorInfo");
+		questions = model("Conferencecoursequestion").findAll(where="courseid=#params.key#", order="createdAt DESC", include="person(family)");
+		introTitle = "Workshop...";
+		//  Check if the record exists 
+		if ( !IsObject(course) ) {
+			flashInsert(error="Course/Workshop #params.key# was !found");
+			redirectTo(action="index");
+		}
+	}
+
+	//  Courses/list route="conferenceCoursesList"
+	public function list() {
+		if ( isDefined("params.print") ) {
+			renderPage(layout="/conference/layout_naked", template="listprint");
+		} else {
+			setreturn();
+		}
 	}
 
 	public function showAllSelectedExcursions() {
@@ -348,8 +362,8 @@ component extends="Controller" output="false" {
 		workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order="eventDate");
 		renderPage(action="showAllSelectedWorkshops");
 	}
-	//  Courses/table 
 
+	//  Courses/table 
 	public function table(type="all", orderBy="room,date") {
 		introTitle = "Workshops";
 		// Overwrite argument defaults based on params
@@ -413,9 +427,9 @@ component extends="Controller" output="false" {
 	
 	
 	
-	// ------------
-	// Redirections
-	// ------------
+// ------------
+// Redirections
+// ------------
 
 	// Courses/workshops
 	public function workshops() {
@@ -442,6 +456,9 @@ component extends="Controller" output="false" {
 	}
 	// -------End of Redirections--------------
 
+
+
+
 	//  Courses/rss 
 	public function rss() {
 		courses = model("Conferencecourse").findList();
@@ -465,15 +482,9 @@ component extends="Controller" output="false" {
 		loc = arguments;
 		loc.instructors = getInstructors(val(loc.courseid));
 		loc.names = "";
-
-		/* toScript ERROR: Unimplemented cfloop condition:  query="loc.instructors" 
-
-				<cfloop query="loc.instructors">
-			<cfset loc.names = loc.names & ", " & "#linkto(text=selectName, controller='conference.instructors', action='show', key=id)#">
-		</cfloop>
-
-		*/
-
+		for ( var instructor in loc.instructors ) {
+			loc.names = loc.names & ", " & "#linkto(text=instructor.selectName, controller='conference.instructors', action='show', key=instructor.id)#"
+		}
 		loc.names = replace(loc.names,", ","","one");
 		return loc.names;
 	}
@@ -523,7 +534,7 @@ component extends="Controller" output="false" {
 		return type;
 	}
 
-	public function isInWorkshop(required numeric personid, required numeric workshopid) {
+	public function isInWorkkshop(required numeric personid, required numeric workshopid) {
 		thisPersonsWorkshops = model("Conferenceregistration").findOne(where="equip_peopleid=#arguments.personid# AND equip_coursesid=#arguments.workshopid#", include="Workshop");
 		if ( isObject(thisPersonsWorkshops) ) {
 			return true;
