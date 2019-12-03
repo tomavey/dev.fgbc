@@ -11,7 +11,7 @@
     <p style="font-size:.8em;color:gray">
     #linkto(text="Official Charis Fellowship Ministries should use this link", action="info", params="natmin=1")#
     </cfif>
-    <p>#getEventAsText()# is at <a href="http://auburngrace.com/">the Auburn Grace Community Church in Auburn, California</a>.</p>
+    <p>#getEventAsText()# is at <a href="http://grace.due">the Grace College campus in Winon Lake, Indiana</a>.</p>
     </p>
     <p>8' TABLES with floor length cover will be provided as requested.</p>
     <p>6' TABLES are available if requested using the special request section of the form. These table will allow space for narrow floor stand.</p>
