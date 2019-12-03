@@ -1,6 +1,7 @@
-<cfcomponent extends="Model" output="false">
+component extends="Model" output="false" {
 
-	<cffunction name="init">
-	</cffunction>
+	public void function init() {
+		table('equip_homes')
+  }
 
-</cfcomponent>
+}
