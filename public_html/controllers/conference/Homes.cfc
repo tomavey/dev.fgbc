@@ -23,7 +23,8 @@ component extends="Controller" output="false" {
   
   // Conferencehomes/new
   public void function new(){
-    Home = model("Conferencehome").new();
+    Home = model("Conferencehome").new()
+    formaction="create"
   }
   
   //Conferencehomes/edit/key
@@ -34,6 +35,7 @@ component extends="Controller" output="false" {
 	    flashInsert(error="Conferencehome #params.key# was not found");
 			redirectTo(action="index");
 	  }
+    formaction="update"
   }
   
   // Conferencehomes/create
@@ -44,11 +46,11 @@ component extends="Controller" output="false" {
 		
 		if (Home.save()){
 			flashInsert(success="The Conferencehome was created successfully.");
-      redirectTo(action="index");
+      returnBack()
 		} else {
 		  flashInsert(error="There was an error creating the Conferencehome.");
 		  renderPage(action="new");
-		}
+    }
   }
   
   // Conferencehomes/update
@@ -57,7 +59,7 @@ component extends="Controller" output="false" {
 		
 		if (Home.update(params.home)){
 		  flashInsert(success="The host home was updated successfully.");
-      redirectTo(action="index");
+      returnBack()
 		} else {
 		  flashInsert(error="There was an error updating the home.");
 			renderPage(action="edit");
