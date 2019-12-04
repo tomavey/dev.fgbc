@@ -42,19 +42,15 @@
 <div class="container">
 <cfoutput>
 
-	<h1>Showing home</h1>
-
-	#includePartial("showFlash")#
-
-	<!--- <cfdump var="#home.properties()#"><cfabort> --->
-
-	#includePartial("contactinfo")#
-
-	#includePartial("availabilityinfo")#
-
-	#includePartial("detailsinfo")#
-
-	#includePartial("office")#
+  <!--- <cfdump var="#homes#"><cfabort> --->
+  
+  <cfscript>
+    for ( home in homes ) {
+        writeOutput(includePartial("list"))
+    }
+  </cfscript>
+    
+  
 
 </cfoutput>
 </div>

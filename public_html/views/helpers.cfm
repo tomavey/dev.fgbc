@@ -292,15 +292,18 @@
 </cffunction>
 
 <cffunction name="listTag">
+<cfargument name="id" default='#id#'>
 <cfargument name="controller" default="#params.controller#">
-<cfargument name="title" default="delete">
+<cfargument name="title" default="list">
+<cfargument name="action" default="list">
 <cfset arguments.controller = lCase(arguments.controller)>
 	<cfreturn "#linkTo(
-					text='<i class="fa fa-list" aria-hidden="true"></i>',
-					controller=arguments.controller,
-					action='index',
-					title=arguments.title
-					)#">
+		key=arguments.ID,
+		text='<i class="fa fa-list" aria-hidden="true"></i>',
+		controller=arguments.controller,
+		action=arguments.action,
+		title=arguments.title
+	)#">
 </cffunction>
 
 <cffunction name="editTag">

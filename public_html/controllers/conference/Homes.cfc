@@ -13,9 +13,19 @@ component extends="Controller" output="false" {
   
   // Conferencehomes/show/key
   public void function show(){
-    Home = model("Conferencehome").findByKey(params.key);
+    Home = model("Conferencehome").findByKey(key=params.key, returnAs="query");
     	
-    if (!IsObject(Home)){
+    if (!Home.recordcount){
+      flashInsert(error="Conferencehome #params.key# was not found");
+      redirectTo(action="index");
+    }
+  }
+  
+  // Conferencehomes/list/key
+  public void function list(){
+    Homes = model("Conferencehome").findAll();
+    	
+    if (!Homes.recordcount){
       flashInsert(error="Conferencehome #params.key# was not found");
       redirectTo(action="index");
     }

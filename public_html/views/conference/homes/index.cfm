@@ -32,6 +32,7 @@
 			
 		
 	<cfcol header="" text="#showTag()#" />
+	<cfcol header="" text="#listTag()#" />
 	<cfcol header="" text="#editTag()#" />
 	<cfcol header="" text="#deleteTag()#" />
 </cftable>
