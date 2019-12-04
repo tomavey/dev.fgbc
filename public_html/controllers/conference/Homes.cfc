@@ -1,6 +1,9 @@
 component extends="Controller" output="false" {
   
   public void function init(){
+    usesLayout("/conference/adminlayout")
+    filters(through="officeOnly", except="new,show,list")
+    filters(through="setReturn", only="index,show,list")
   }
   
   // Conferencehomes/index
@@ -35,7 +38,9 @@ component extends="Controller" output="false" {
   
   // Conferencehomes/create
   public void function create(){
-    Home = model("Conferencehome").new(params.Conferencehome);
+    // writeDump(params);abort;
+    Home = model("Conferencehome").new(params.home);
+    // writeDump(home.properties());abort;
 		
 		if (Home.save()){
 			flashInsert(success="The Conferencehome was created successfully.");
@@ -50,8 +55,8 @@ component extends="Controller" output="false" {
   public void function update(){
     Home = model("Conferencehome").findByKey(params.key);
 		
-		if (Home.update(params.Conferencehome)){
-		  flashInsert(success="The Conferencehome was updated successfully.");
+		if (Home.update(params.home)){
+		  flashInsert(success="The host home was updated successfully.");
       redirectTo(action="index");
 		} else {
 		  flashInsert(error="There was an error updating the home.");

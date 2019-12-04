@@ -4,6 +4,8 @@
 
 <cfoutput>#includePartial("showFlash")#</cfoutput>
 
+<!--- <cfdump var="#home.properties()#"><cfabort> --->
+
 <cfoutput>
 
 			
@@ -27,7 +29,7 @@
 						#home.howmany#</p>
 				
 					<p><span>For Families</span> <br />
-						#home.forFamiilies#</p>
+						#home.forFamilies#</p>
 				
 					<p><span>For Couples</span> <br />
 						#home.forCouples#</p>
@@ -48,7 +50,7 @@
 						#home.arrangements#</p>
 				
 					<p><span>Describe</span> <br />
-						#home.describe#</p>
+						#home.description#</p>
 				
 					<p><span>Other</span> <br />
 						#home.other#</p>
@@ -56,8 +58,8 @@
 					<p><span>Airconditioning</span> <br />
 						#home.airconditioning#</p>
 				
-					<p><span>Towells</span> <br />
-						#home.towells#</p>
+					<p><span>Towels</span> <br />
+						#home.towels#</p>
 				
 					<p><span>Linens</span> <br />
 						#home.linens#</p>
@@ -104,7 +106,7 @@
 			
 		
 
-#linkTo(text="Return to the listing", action="index")# | #linkTo(text="Edit this home", action="edit", key=equip_home.id)#
+#linkTo(text="Return to the listing", action="index")# | #linkTo(text="Edit this home", action="edit", key=home.id)#
 </cfoutput>
 
 </div>
