@@ -17,7 +17,7 @@
         					#linkto(text="Member Churches and their campuses", route="handbookDownloadmembers", id="navsearch", title="Download Spreadsheet of Member Churches with their campuses", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
         				</li>
 						<li>
-							#linkto(text="Member Churches, their campuses and new churches", route="handbookDownloadmemberchurchesadmin", params="download=1&include=campusesandnewchurches", id="navsearch", title="Download Spreadsheet of Member Churches, with campuses PLUS new churches", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+							#linkto(text="Member Churches, their campuses and new churches", route="handbookDownloadmembers", params="download=1&include=campusesandnewchurches", id="navsearch", title="Download Spreadsheet of Member Churches, with campuses PLUS new churches", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
 						</li>
 						<li>&nbsp;</li>
         				<li>

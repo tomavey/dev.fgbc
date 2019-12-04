@@ -259,7 +259,7 @@ component extends="Controller" output="false" {
 		var orderString = "state_mail_abbrev,org_city,name"
 		if ( isDefined("params.include") && params.include is "campuses" ){
 			whereString = whereString & " OR statusid = 8 OR statusid = 9"
-		} else if ( isDefined("params.include") && params.include is "campuses" ) {
+		} else if ( isDefined("params.include") && params.include is "campusesandnewchurches" ) {
 			whereString = whereString & " OR statusid = 8 OR statusid = 2 OR statusid = 9"
 		}
 		churches = model("Handbookorganization").findAll(where=wherestring, include=includeString, order=orderString)
