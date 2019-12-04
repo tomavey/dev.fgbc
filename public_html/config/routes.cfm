@@ -6,7 +6,7 @@
 	So put routes with [key] before the same route without.
 	So put specific routes before "resource()" routes
 
-	Sometimes .resources() does not work. Somehow it gives a key required but not found error.  
+	Sometimes .resources() does not work. Somehow it gives a "key required but not found" error.  
 	This appears to work instead but you have to using something other than the key for selecting records
 	also need to put #hiddenTagForKeyy()# in the edit form
 			.controller(??controllerName??)
