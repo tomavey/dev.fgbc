@@ -4,7 +4,8 @@
     padding:20px;
     margin: 20px;
     border-radius:10px;
-    font-size:20px
+    font-size:20px;
+    font-weight: bold
   }
   .homes-section {
     border: 1px solid black;
@@ -15,6 +16,12 @@
     font-size: 110%;
     font-weight: bold;
     border-radius: 5px
+  }
+  .homes span {
+    padding-right:10px;
+    width:50%;
+    font-style: italic;
+    font-weight: normal
   }
   .homes-question {
     margin-bottom:40px
@@ -36,6 +43,10 @@
   }
   .homes-input-short {
     width: 100px
+  }
+  .homes-status {
+    float:right;
+    font-size: 1.3em
   }
 </style>
 

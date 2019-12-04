@@ -54,7 +54,11 @@
 
 	#includePartial("detailsinfo")#
 
-	#includePartial("office")#
+  #includePartial("office")#
+  
+	<cfif gotRights("office")>
+		#listTag()# #editTag(home.id)#
+	</cfif>
 
 </cfoutput>
 </div>

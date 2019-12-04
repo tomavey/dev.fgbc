@@ -71,9 +71,9 @@
     
     <p>My home is best for (select all that apply)</p>
     <div class="homes-multi">
-      #checkBox(objectName='home', property='forFamilies', checkedValue="Yes")#
-      #checkBox(objectName='home', property='forCouples', checkedValue="Yes")#
-      #checkBox(objectName='home', property='forSingles', checkedValue="Yes")#
+      #checkBox(objectName='home', property='forFamilies', label="Families", checkedValue="Yes")#
+      #checkBox(objectName='home', property='forCouples', label="Couples", checkedValue="Yes")#
+      #checkBox(objectName='home', property='forSingles', label="Singles", checkedValue="Yes")#
     </div>
                         
   </div>
@@ -81,7 +81,7 @@
   <div class="homes homes-detailsinfo">
     <p class="homes-section">Details</p>
     
-    #textField(objectName='home', property='bedrooms', label='How many bedrooms are available')#
+    #textField(objectName='home', property='bedrooms', label='How many bedrooms are available?')#
                       
     #textArea(objectName='home', property='beds', label='How many beds are available? (please list sizes: king, queen, double, bunk, etc.)', class="homes-input-wide")#
     
@@ -97,14 +97,14 @@
       Amenities available: (select all that apply)
     </p>
     <div class="homes-multi">
-      #checkBox(objectName='home', property='airconditioning', checkedValue="Yes")#
+      #checkBox(objectName='home', property='airconditioning', label="Air Conditioner", checkedValue="Yes")#
       #checkBox(objectName='home', property='towels', checkedValue="Yes")#
       #checkBox(objectName='home', property='linens', checkedValue="Yes")#
       #checkBox(objectName='home', property='wifi', checkedValue="Yes")#
       #checkBox(objectName='home', property='kitchen', checkedValue="Yes")#
       #checkBox(objectName='home', property='breakfast', checkedValue="Yes")#
       #checkBox(objectName='home', property='refrigerator', checkedValue="Yes")#
-      #checkBox(objectName='home', property='washerdryer', checkedValue="Yes")#
+      #checkBox(objectName='home', property='washerdryer', label="Washer Dryer", checkedValue="Yes")#
     </div>
 
   </div>
@@ -130,6 +130,12 @@
       #radioButton(objectName='home', property='approved', tagValue="Yes", label='Yes')#
       #radioButton(objectName='home', property='approved', tagValue="No", label='No')#
     </div>
+    #textField(objectName='home', property='homeId', label='Host Home ID', class="homes-input-short")#
+    #textField(objectName='home', property='status', label='Status', class="homes-input-short")#
+    #textField(objectName='home', property='AssignedToName', label='Name assigned to: ', class="homes-input-half")#
+    #textField(objectName='home', property='AssignedToEmail', label='Email: ', class="homes-input-half")#
+    #textArea(objectName='home', property='officecomments', label='Office Comments', class="homes-input-wide")#
+
     
   </div>
 
