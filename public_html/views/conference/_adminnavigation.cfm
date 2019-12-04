@@ -74,23 +74,19 @@
     				#linkToData(href="##", class="dropdown-toggle", data_toggle="dropdown", text="Misc<b class='caret'></b>")#
 					<ul class="dropdown-menu">
 						<li>#linkto(text="Conference Announcements", controller="conference.announcements", action="index")#</li>
-						<li>#linkto(text="Exhibitors", action="info", controller="conference.exhibits")#</li>
-						<li>#linkto(text="Child Care Worker Apps", action="index", controller="conference.childcareworkers")#</li>
-						<li>#linkto(text="Slides", action="preSessionSlidePics", controller="conference.promo")#</li>
-						<li>#linkto(text="www.flinchconference.com", href="http://www.flinchconference.com")#</li>
+						<li>#linkto(text="Hosts", action="index", controller="conference.homes")#</li>
 						<li>#linkto(text="Backup Tables", controller="conference.backups", action="list")#</li>
 						<li>#linkto(text="Clear Session", controller="conference.options", action="clearsession")#</li>
 						<li>#linkto(text="Mail List - People", controller="conference.people", action="mailList")#</li>
 						<li>#linkto(text="Email List - People", controller="conference.people", action="emailList")#</li>
 						<li>#linkto(text="Mail List - Churches", controller="handbook.organizations", action="download-member-churches	")#</li>
 						<li>#linkto(text="Workshop Email List", controller="conference.families", action="badges", params="forWorkshops")#</li>
-						<li>#linkto(text="User Accounts", controller="conference.users", action="index")#</li>
-						<li>#linkto(text="Group Rate for 1", controller="conference.register", action="selectOptions", params="group=1&useoptionscount")#</li>
+						<!--- <li>#linkto(text="Group Rate for 1", controller="conference.register", action="selectOptions", params="group=1&useoptionscount")#</li> --->
 						<li>#linkto(text="Settings", controller="admin.settings", action="index", params="category=conference")#</li>
 						<li>#linkto(text="Change to Previous Event", controller="conference.register", action="changeSessionSettingsToPreviousConference")#</li>
 						<li>#linkto(text="Clear Temp Event", controller="conference.register", action="clearSessionSettingsForEvent")#</li>
-						<li>#linkto(text="Show Childcare Prices in Price List", controller="admin.settings", action="showGraceKidsPrices")#</li>
-						<li>#linkto(text="Hide Childcare Prices in Price List", controller="admin.settings", action="hideGraceKidsPrices")#</li>
+						<!--- <li>#linkto(text="Show Childcare Prices in Price List", controller="admin.settings", action="showGraceKidsPrices")#</li>
+						<li>#linkto(text="Hide Childcare Prices in Price List", controller="admin.settings", action="hideGraceKidsPrices")#</li> --->
 						<li>
 							#linkto(
 								text="Mail List for Posters",
