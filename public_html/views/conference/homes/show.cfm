@@ -1,112 +1,65 @@
 <div class="container">
-
-<h1>Showing home</h1>
-
-<cfoutput>#includePartial("showFlash")#</cfoutput>
-
-<!--- <cfdump var="#home.properties()#"><cfabort> --->
-
 <cfoutput>
 
-			
-				
-					<p><span>Id</span> <br />
-						#home.id#</p>
-				
-					<p><span>Name</span> <br />
-						#home.name#</p>
-				
-					<p><span>Phone</span> <br />
-						#home.phone#</p>
-				
-					<p><span>Email</span> <br />
-						#home.email#</p>
-				
-					<p><span>Available</span> <br />
-						#home.available#</p>
-				
-					<p><span>How Many?</span> <br />
-						#home.howmany#</p>
-				
-					<p><span>For Families</span> <br />
-						#home.forFamilies#</p>
-				
-					<p><span>For Couples</span> <br />
-						#home.forCouples#</p>
-				
-					<p><span>For Singles</span> <br />
-						#home.forSingles#</p>
-				
-					<p><span>Bedrooms</span> <br />
-						#home.bedrooms#</p>
-				
-					<p><span>Beds</span> <br />
-						#home.beds#</p>
-				
-					<p><span>Bathrooms</span> <br />
-						#home.bathrooms#</p>
-				
-					<p><span>Arrangements</span> <br />
-						#home.arrangements#</p>
-				
-					<p><span>Describe</span> <br />
-						#home.description#</p>
-				
-					<p><span>Other</span> <br />
-						#home.other#</p>
-				
-					<p><span>Airconditioning</span> <br />
-						#home.airconditioning#</p>
-				
-					<p><span>Towels</span> <br />
-						#home.towels#</p>
-				
-					<p><span>Linens</span> <br />
-						#home.linens#</p>
-				
-					<p><span>Tv</span> <br />
-						#home.tv#</p>
-				
-					<p><span>Wifi</span> <br />
-						#home.wifi#</p>
-				
-					<p><span>Kitchen</span> <br />
-						#home.kitchen#</p>
-				
-					<p><span>Breakfast</span> <br />
-						#home.breakfast#</p>
-				
-					<p><span>Refrigerator</span> <br />
-						#home.refrigerator#</p>
-				
-					<p><span>Washerdryer</span> <br />
-						#home.washerdryer#</p>
-				
-					<p><span>Address</span> <br />
-						#home.address#</p>
-				
-					<p><span>Distance</span> <br />
-						#home.distance#</p>
-				
-					<p><span>Cost</span> <br />
-						#home.cost#</p>
-				
-					<p><span>Approved</span> <br />
-						#home.approved#</p>
-				
-					<p><span>Created At</span> <br />
-						#home.createdAt#</p>
-				
-					<p><span>Deleted At</span> <br />
-						#home.deletedAt#</p>
-				
-					<p><span>Updated At</span> <br />
-						#home.updatedAt#</p>
-				
-			
-		
+	<h1>Showing home</h1>
 
-#linkTo(text="Return to the listing", action="index")# | #linkTo(text="Edit this home", action="edit", key=home.id)#
+	#includePartial("showFlash")#
+
+	<!--- <cfdump var="#home.properties()#"><cfabort> --->
+
+	<div class="homes homes-contactinfo">
+		<p>
+			<span>Name: </span> #home.name#
+		</p>
+		<p>
+			<span>Phone: </span> #home.phone#
+		</p>
+		<p>
+			<span>Email: </span> #home.email#
+		</p>
+		<p>
+			<span>Email: </span> #home.email#
+		</p>
+	</div>
+
+	<div class="homes homes-availabilityinfo">
+		<p><span>Is your home available July 22-26, 2019?</span>#home.available#</p>
+		<p><span>How many people?</span>#home.howmany#</p>
+		<p><span>My home is best for: </span>
+			<cfif home.forFamilies>Families |</cfif> 
+			<cfif home.forCouples>Couples |</cfif> 
+			<cfif home.forSingles>Singles</cfif>
+		</p>
+	</div>
+
+	<div class="homes homes-detailsinfo">
+		<p><span>How many bedrooms are available?</span>#home.bedrooms#</p>
+		<p><span>How many beds are available?</span>#home.beds#</p>
+		<p><span>How many bathrooms are available?</span>#home.bathrooms#</p>
+		<p><span>What are the sleeping arrangements?</span>#home.arrangements#</p>
+		<p><span>Other details to note:</span>#home.other#</p>
+		<p><span>Amenities available:</span>
+			<cfif home.airconditioning>A/C |</cfif>
+			<cfif home.towels>Towels |</cfif>
+			<cfif home.linens>Linens</cfif>
+			<cfif home.tv>TV</cfif>
+			<cfif home.wifi>WiFi</cfif>
+			<cfif home.kitchen>Kitchen</cfif>
+			<cfif home.breakfast>Breakfast</cfif>
+			<cfif home.refrigerator>Refrigerator</cfif>
+			<cfif home.washerdryer>Washerdryer</cfif>
+		</p>
+		<p><span>What are the sleeping arrangements?</span>#home.arrangements#</p>
+		<p><span>Distance from Grace College campus?</span>#home.distance#</p>
+		<p><span>Cost (per night)?</span>#home.cost#</p>
+		<p><span>Date this home was added?</span>#dateformat(home.createdAt)#</p>
+	</div>	
+
+	<div class="homes homes-office">
+		<p><span>Approved?</span>#home.approved#</p>
+	</div>
+
+	#linkTo(text="Return to the listing", action="index")# | #linkTo(text="Edit this home", action="edit", key=home.id)#
+
 </cfoutput>
-
 </div>
