@@ -636,6 +636,7 @@
 				.put(name="create", pattern="create/")
 				.get(name="copy", pattern="copy")
 				.get(name="list", pattern="list")
+				.get(name="approve", pattern="approve")
 			.end()	
 
 
