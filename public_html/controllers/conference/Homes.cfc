@@ -8,7 +8,13 @@ component extends="Controller" output="false" {
   
   // Conferencehomes/index
   public void function index(){
-    Homes = model("Conferencehome").findAll();
+    sortby = "createdAt"
+    direction = "DESC"
+    if ( isDefined("params.sortby") ) { sortby = params.sortby }
+    if ( isDefined("params.direction") ) { direction = params.direction }
+    var orderString = sortby & " " & direction
+    var whereString = ""
+    Homes = model("Conferencehome").findAll(where = whereString, order=orderString);
   }
   
   // Conferencehomes/show/key
@@ -23,7 +29,10 @@ component extends="Controller" output="false" {
   
   // Conferencehomes/list/key
   public void function list(){
-    Homes = model("Conferencehome").findAll();
+    var whereString = "approved='yes'"
+    if ( isDefined('params.showAll') ) { whereString = "" }
+    if ( isDefined('params.status') ) { whereString = whereString & " AND status='#params.status#'"}
+    Homes = model("Conferencehome").findAll(where=whereString);
     	
     if (!Homes.recordcount){
       flashInsert(error="Conferencehome #params.key# was not found");
@@ -89,4 +98,17 @@ component extends="Controller" output="false" {
     }
   }
   
+  public void function approve(id=params.key){
+    Home = model("Conferencehome").findByKey(arguments.id);
+    if ( home.approved == "Yes") { 
+      home.approved = "No"
+      home.update()
+      returnBack()
+     }
+     if ( home.approved == "No") { 
+      home.approved = "Yes"
+      home.update()
+      returnBack()
+     }
+  }
 }
