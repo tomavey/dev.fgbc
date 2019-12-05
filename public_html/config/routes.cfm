@@ -638,7 +638,7 @@
 				.get(name="list", pattern="list")
 				.get(name="approve", pattern="approve")
 				.get(name="thankyou", pattern="thankyou")
-				.get(name="sendEmailNoticeToOffice", pattern="sendEmailNoticeToOffice")
+				.get(name="sendEmailNoticeToOffice", pattern="sendEmailNoticeToOffice/[key]")
 			.end()	
 
 
