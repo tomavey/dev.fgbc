@@ -59,11 +59,10 @@
     #includePartial("detailsinfo")#
   
     #includePartial("office")#
+
+    #linkto(text="View", controller="conference.homes", action="show", key=home.id, onlyPath=false)#
     
-    <cfif gotRights("office")>
-      #listTag()# #editTag(home.id)#
-    </cfif>
-    </cfoutput>
+  </cfoutput>
 </div>
 
 </body>

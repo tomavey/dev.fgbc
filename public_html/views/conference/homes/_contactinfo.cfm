@@ -7,10 +7,7 @@
       <span>Phone: </span> #home.phone#
     </p>
     <p>
-      <span>Email: </span> #home.email#
-    </p>
-    <p>
-      <span>Email: </span> #home.email#
+      <span>Email: </span> #mailto(home.email)#
     </p>
   </div>
   
