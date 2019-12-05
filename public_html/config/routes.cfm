@@ -637,6 +637,11 @@
 				.get(name="copy", pattern="copy")
 				.get(name="list", pattern="list")
 				.get(name="approve", pattern="approve")
+<<<<<<< Updated upstream
+=======
+				.get(name="thankyou", pattern="thankyou")
+				.get(name="sendEmailNoticeToOffice", pattern="sendEmailNoticeToOffice/[key]")
+>>>>>>> Stashed changes
 			.end()	
 
 
