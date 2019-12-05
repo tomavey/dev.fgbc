@@ -13,7 +13,7 @@
 	<p>Sorted by #direction# on #sortby#</p>
 	#includePartial("showFlash")#
 
-	<p>#linkTo(text="Add a new host home", action="new", class="btn")#</p>
+	<p>#linkTo(text="Add a new host home", route="accessHostHomes", class="btn")#</p>
 	<p>#linkTo(text="Show Public List of Approved Host Homes", action="list", class="btn")#</p>
 </cfoutput>
 
