@@ -44,6 +44,11 @@ component extends="Controller" output="false" {
   public void function new(){
     Home = model("Conferencehome").new()
     formaction="create"
+    var instructionsObj  = model('Maincontent').findOne(where="shortLink='AccessHostInstructions'")
+    if ( isObject(instructionsObj) ) {
+      instructions = instructionsObj.content
+      instructionsId = instructionsObj.id
+    }
     if ( !gotRights('office') ) {
       renderPage(layout="/conference/layout2019invoice")
     }

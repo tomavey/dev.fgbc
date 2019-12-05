@@ -1,14 +1,17 @@
 <cfparam name="formaction" default="create">
+<cfparam name="instructions" default="instructions go here">
+<cfparam name="instructionsId" default=0>
+
 <div class="container" style="background-color:white;padding:20px;border-radius:10px">
 <cfoutput>
 
 	<cfif gotRights("office")>
 		<p class="pull-right">
-			#linkto(text="<i class='fa fa-pencil-square'></i>", controller="admin.contents", action="edit", key="#getContent('accessHost').id#")#
+			#linkto(text="<i class='fa fa-pencil-square'></i>", controller="admin.contents", action="edit", key=instructionsId)#
 		</p>
 	</cfif>
 
-	<p>#getContent('accessHost').content#</p>
+	<p>#instructions#</p>
 
 
 	#includePartial("showFlash")#
