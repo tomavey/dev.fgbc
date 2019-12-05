@@ -120,6 +120,8 @@
   
   </div>
                       
+<cfif gotRights("office")>
+
   <div class="homes homes-office">
     <p class="homes-section">For Office:</p>
 
@@ -138,6 +140,8 @@
 
     
   </div>
+
+</cfif>
 
 </div>
 

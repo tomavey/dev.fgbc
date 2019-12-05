@@ -59,7 +59,7 @@
     <cfparam name="headerSubTitle" default="">
 </head>
 
-<body>
+<body style="background-image: linear-gradient(240deg,#289CEF 0%,#5B2AEF 100%)!important;">
 
 <div class="main">
 

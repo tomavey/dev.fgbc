@@ -3,7 +3,7 @@ component extends="Controller" output="false" {
   public void function init(){
     usesLayout("/conference/adminlayout")
     filters(through="officeOnly", except="new,show,list")
-    filters(through="setReturn", only="index,show,list")
+    filters(through="setReturn", only="index,show,list,new")
   }
   
   // Conferencehomes/index
@@ -44,6 +44,9 @@ component extends="Controller" output="false" {
   public void function new(){
     Home = model("Conferencehome").new()
     formaction="create"
+    if ( !gotRights('office') ) {
+      renderPage(layout="/conference/layout2019invoice")
+    }
   }
   
   //Conferencehomes/edit/key
