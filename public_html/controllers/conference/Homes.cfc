@@ -151,7 +151,9 @@ component extends="Controller" output="false" {
       thankyouMessage = thankyouObj.content
       thankyouId = thankyouObj.id
     }
-    renderPage(layout="/conference/layout2019invoice")
+    if ( !gotRights('office') ) {
+      renderPage(layout="/conference/layout2019invoice")
+    }
   }
 
   public void function sendEmailNoticeToOffice(id=params.key) {
