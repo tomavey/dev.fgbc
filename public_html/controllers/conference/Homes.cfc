@@ -3,7 +3,7 @@ component extends="Controller" output="false" {
   public void function init(){
     usesLayout("/conference/adminlayout")
     filters(through="officeOnly", except="new,show,list")
-    filters(through="setReturn", only="index,show,list,new")
+    filters(through="setReturn", only="index,show,list,new,thankyou")
   }
   
   // Conferencehomes/index
@@ -72,8 +72,12 @@ component extends="Controller" output="false" {
     // writeDump(home.properties());abort;
 		
 		if (Home.save()){
-			flashInsert(success="The Conferencehome was created successfully.");
-      returnBack()
+      flashInsert(success="The Conferencehome was created successfully.");
+      if ( gotRights("office") ) {
+        returnBack()
+      } else {
+        redirectTo(action="ThankYou")
+      }
 		} else {
 		  flashInsert(error="There was an error creating the Conferencehome.");
 		  renderPage(action="new");
@@ -118,5 +122,14 @@ component extends="Controller" output="false" {
       home.update()
       returnBack()
      }
+  }
+
+  public void function thankYou(){
+    var thankyouObj = model('Maincontent').findOne(where="shortLink='AccessHostThankYou'")
+    if ( isObject(thankyouObj) ) {
+      thankyouMessage = thankyouObj.content
+      thankyouId = thankyouObj.id
+    }
+    renderPage(layout="/conference/layout2019invoice")
   }
 }
