@@ -163,7 +163,7 @@ component extends="Controller" output="false" {
     if ( isObject(home) ) {
       var subjectText = "#getEventAsText()# Host Home Application"
       if ( !isLocalMachine() ) {
-        sendEmail(from=home.email, to='tomavey@fgbc.org', subject=subjectText, template='sendEmailNoticeToOffice')
+        sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
       } else {
         renderText("An Email would have been sent")
       }
