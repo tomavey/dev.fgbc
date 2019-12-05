@@ -90,7 +90,7 @@ component extends="Controller" output="false" {
       if ( gotRights("office") ) {
         redirectTo(action="Index")
       } else {
-        redirectTo(action="sendEmailNoticeToOffice", key=home.id)
+        redirectTo(action="sendEmailNoticeToOffice", params="homeid=#home.id#")
       }
 		} else {
 		  flashInsert(error="There was an error creating the Conferencehome.");
@@ -156,7 +156,7 @@ component extends="Controller" output="false" {
     }
   }
 
-  public void function sendEmailNoticeToOffice(id=params.key) {
+  public void function sendEmailNoticeToOffice(id=params.homeid) {
     writeDump(params);abort;
     home = model("Conferencehome").findByKey(arguments.id)
     writeDump(home.properties());abort;
