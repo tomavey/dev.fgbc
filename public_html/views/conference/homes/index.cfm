@@ -20,7 +20,6 @@
 <div class="table table-striped">
 
 <cftable query="homes" colHeaders="true" HTMLTable="true">
-	
 				
 				<cfcol header="#linkto(text="ID", action="index", params='sortby=homeid&direction=#direction#')#" text="#homeid#" />
 
@@ -34,10 +33,11 @@
 				
 				<cfcol header="Approved" text="#linkTo(text=approved, action="approve", key=#id#)#" />
 				
+				<cfcol header="Guest Assigned To" text="#AssignedToName#" />
+
+				<cfcol header="Guest Email" text="#AssignedToEmail#" />
+
 				<cfcol header="#linkto(text="Date", action="index", params='sortby=createdAt&direction=#direction#')#" text="#dateFormat(createdAt)#" />
-				
-				
-			
 		
 	<cfcol header="" text="#showTag()#" />
 	<cfcol header="" text="#editTag()#" />
