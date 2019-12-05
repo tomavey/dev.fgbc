@@ -137,12 +137,12 @@ component extends="Controller" output="false" {
     if ( home.approved == "Yes") { 
       home.approved = "No"
       home.update()
-      sendEmailNoticeToHost(home.id)
       returnBack()
      }
      if ( home.approved == "No") { 
       home.approved = "Yes"
       home.update()
+      sendEmailNoticeToHost(home.id)
       returnBack()
      }
   }
