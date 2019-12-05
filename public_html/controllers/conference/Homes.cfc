@@ -90,7 +90,8 @@ component extends="Controller" output="false" {
       if ( gotRights("office") ) {
         redirectTo(action="Index")
       } else {
-        redirectTo(action="sendEmailNoticeToOffice", params="homeid=#home.id#")
+        sendEmailNoticeToOffice(home.id)
+        redirectTo(action="ThankYou")
       }
 		} else {
 		  flashInsert(error="There was an error creating the Conferencehome.");
@@ -156,17 +157,15 @@ component extends="Controller" output="false" {
     }
   }
 
-  public void function sendEmailNoticeToOffice(id=params.homeid) {
-    writeDump(params);abort;
+  public function sendEmailNoticeToOffice(required numeric id) {
     home = model("Conferencehome").findByKey(arguments.id)
-    writeDump(home.properties());abort;
+    // writeDump(home.properties());abort;
     if ( isObject(home) ) {
       var subjectText = "#getEventAsText()# Host Home Application"
       if ( !isLocalMachine() ) {
         sendEmail(from=home.email, to=getSetting('registrarEmail'), subject=subjectText, template='sendEmailNoticeToOffice')
-        redirectTo(action="thankyou")
       } else {
-        renderPage(action="sendEmailNoticeToOffice")
+        renderText("An Email would have been sent")
       }
     } else {
       renderText("Oops. Something went wrong!")
