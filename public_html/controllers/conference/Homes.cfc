@@ -143,6 +143,7 @@ component extends="Controller" output="false" {
       home.approved = "Yes"
       home.update()
       sendEmailNoticeToHost(home.id)
+      setApprovedAt(home.id)
       returnBack()
      }
   }
@@ -158,7 +159,7 @@ component extends="Controller" output="false" {
     }
   }
 
-  public function sendEmailNoticeToOffice(required numeric id) {
+  private function sendEmailNoticeToOffice(required numeric id) {
     home = model("Conferencehome").findByKey(arguments.id)
     // writeDump(home.properties());abort;
     if ( isObject(home) ) {
@@ -174,7 +175,7 @@ component extends="Controller" output="false" {
     }
   }
 
-  public function sendEmailNoticeToHost(required numeric id) {
+  private function sendEmailNoticeToHost(required numeric id) {
     home = model("Conferencehome").findByKey(arguments.id)
     // writeDump(home.properties());abort;
     if ( isObject(home) ) {
@@ -188,6 +189,12 @@ component extends="Controller" output="false" {
     } else {
       renderText("Oops. Something went wrong!")
     }
+  }
+
+  private void function setApprovedAt(required numeric id) {
+    var home = model("Conferencehome").findByKey(arguments.id);
+    home.approvedAt = now()
+    home.update()
   }
 
 }

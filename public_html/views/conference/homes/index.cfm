@@ -31,8 +31,17 @@
 				<cfcol header="Email" text="#mailto(email)#" />
 				
 				<cfcol header="#linkto(text="Status", action="index", params='sortby=status&direction=#direction#')#" text="#status#" />
-				
-				<cfcol header="Approved" text="#linkTo(text=approved, action="approve", key=#id#)#" />
+				<cfif len(approvedAt)>
+					<cfset approvedText = dateFormat(approvedAt)>
+				<cfelse>	
+					<cfset approvedText = approved>
+				</cfif>
+				<cfcol header="Approved" text=
+					"#linkTo(
+						text=approvedText, 
+						action="approve", 
+						key=#id#)#
+					" />
 				
 				<cfcol header="Guest Assigned To" text="#AssignedToName#" />
 
