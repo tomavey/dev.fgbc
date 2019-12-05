@@ -8,7 +8,7 @@
     <div>
 		<cfif gotRights("handbook,ministrystaff,natminstaff")>
 			<h2>
-				FGBC Ministry Staff Menu:
+				Charis Fellowship Ministry Staff Menu:
 			</h2>
 		<cfelse>
 			<h2>
