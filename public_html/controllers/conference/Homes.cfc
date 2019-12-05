@@ -5,6 +5,13 @@ component extends="Controller" output="false" {
     filters(through="officeOnly", except="new,show,list")
     filters(through="setReturn", only="index,show,list,new,thankyou")
   }
+
+
+
+
+//-------------------
+//---CRUD------------  
+//-------------------
   
   // Conferencehomes/index
   public void function index(){
@@ -33,10 +40,17 @@ component extends="Controller" output="false" {
     if ( isDefined('params.showAll') ) { whereString = "" }
     if ( isDefined('params.status') ) { whereString = whereString & " AND status='#params.status#'"}
     Homes = model("Conferencehome").findAll(where=whereString);
-    	
     if (!Homes.recordcount){
       flashInsert(error="Conferencehome #params.key# was not found");
       redirectTo(action="index");
+    }
+    var instructionsObj  = model('Maincontent').findOne(where="shortLink='AccessHostRequestInstructions'")
+    if ( isObject(instructionsObj) ) {
+      instructions = instructionsObj.content
+      instructionsId = instructionsObj.id
+    }
+    if ( !gotRights('office') ) {
+      renderPage(layout="/conference/layout2019invoice")
     }
   }
   
@@ -76,7 +90,7 @@ component extends="Controller" output="false" {
       if ( gotRights("office") ) {
         redirectTo(action="Index")
       } else {
-        redirectTo(action="ThankYou")
+        redirectTo(action="sendEmailNoticeToOffice", key=home.id)
       }
 		} else {
 		  flashInsert(error="There was an error creating the Conferencehome.");
@@ -109,7 +123,14 @@ component extends="Controller" output="false" {
 			redirectTo(action="index");
     }
   }
+//----END OF CRUD-------
   
+
+
+//--------------------
+//---PROCESSES--------
+//--------------------
+
   public void function approve(id=params.key){
     Home = model("Conferencehome").findByKey(arguments.id);
     if ( home.approved == "Yes") { 
@@ -131,5 +152,20 @@ component extends="Controller" output="false" {
       thankyouId = thankyouObj.id
     }
     renderPage(layout="/conference/layout2019invoice")
+  }
+
+  public void function sendEmailNoticeToOffice(id=params.key) {
+    home = model("Conferencehome").findByKey(arguments.id)
+    if ( isObject(home) ) {
+      var subjectText = "#getEventAsText()# Host Home Application"
+      if ( !isLocalMachine() ) {
+        sendEmail(from=home.from, to=getSetting('registrarEmail'), subject=subjectText, template='sendEmailNoticeToOffice.cfm')
+        redirectTo(action="thankyou")
+      } else {
+        renderPage(action="sendEmailNoticeToOffice")
+      }
+    } else {
+      renderText("Oops. Something went wrong!")
+    }
   }
 }
