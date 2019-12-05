@@ -157,6 +157,7 @@ component extends="Controller" output="false" {
   }
 
   public void function sendEmailNoticeToOffice(id=params.key) {
+    writeDump(params);abort;
     home = model("Conferencehome").findByKey(arguments.id)
     writeDump(home.properties());abort;
     if ( isObject(home) ) {
