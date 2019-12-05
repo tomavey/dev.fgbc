@@ -2,7 +2,7 @@ component extends="Controller" output="false" {
   
   public void function init(){
     usesLayout("/conference/adminlayout")
-    filters(through="officeOnly", except="new,show,list,create")
+    filters(through="officeOnly", except="new,show,list,create,sendEmailNoticeToOffice")
     filters(through="setReturn", only="index,show,list,new,thankyou")
   }
 
@@ -156,10 +156,11 @@ component extends="Controller" output="false" {
 
   public void function sendEmailNoticeToOffice(id=params.key) {
     home = model("Conferencehome").findByKey(arguments.id)
+    // writeDump(home.properties());abort;
     if ( isObject(home) ) {
       var subjectText = "#getEventAsText()# Host Home Application"
       if ( !isLocalMachine() ) {
-        sendEmail(from=home.from, to=getSetting('registrarEmail'), subject=subjectText, template='sendEmailNoticeToOffice.cfm')
+        sendEmail(from=home.email, to=getSetting('registrarEmail'), subject=subjectText, template='sendEmailNoticeToOffice')
         redirectTo(action="thankyou")
       } else {
         renderPage(action="sendEmailNoticeToOffice")
