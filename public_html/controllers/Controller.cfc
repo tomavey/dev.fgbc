@@ -216,7 +216,6 @@ component extends="Wheels" {
 	function gotRights(required string rightsRequired){
 		var permission = "no"
 		var rightsRequiredArray = listToArray(arguments.rightsRequired)
-		try {
 			if ( structKeyExists(session.auth,'email') ) { arguments.email = session.auth.email }
 			for ( right in rightsRequiredArray ){
 				if ( isdefined("arguments.email") and listFindNoCase(session.auth.rightslist,right) ) {
@@ -226,9 +225,6 @@ component extends="Wheels" {
 					permission = "yes"
 				}
 			} 
-		} catch (any e) {
-				permission = "no"
-		}
 		return permission
 	}
 
