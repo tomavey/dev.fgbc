@@ -74,7 +74,7 @@ component extends="Controller" output="false" {
 		if (Home.save()){
       flashInsert(success="The Conferencehome was created successfully.");
       if ( gotRights("office") ) {
-        returnBack()
+        redirectTo(action="Index")
       } else {
         redirectTo(action="ThankYou")
       }
