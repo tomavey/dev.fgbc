@@ -173,23 +173,23 @@ component extends="Wheels" {
 		}
 	}
 
-	function isOffice() {
-		if ( gotRights("superadmin,office") ) {
-			return true;
-		}
-		if ( isDefined("params.controller") && params.controller contains "handbook" ) {
-			return true;
-		}
-		try {
-			if ( structkeyexists(session.auth,"office") ) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (any cfcatch) {
-			return false;
-		}
-	}
+	// function isOffice() {
+	// 	if ( gotRights("superadmin,office") == 'yes' ) {
+	// 		return true;
+	// 	}
+	// 	if ( isDefined("params.controller") && params.controller contains "handbook" ) {
+	// 		return true;
+	// 	}
+	// 	try {
+	// 		if ( structkeyexists(session.auth,"office") ) {
+	// 			return true;
+	// 		} else {
+	// 			return false;
+	// 		}
+	// 	} catch (any cfcatch) {
+	// 		return false;
+	// 	}
+	// }
 
 	function checkOffice() {
 		if ( !isoffice() ) {
@@ -216,7 +216,7 @@ component extends="Wheels" {
 	function gotRights(required string rightsRequired){
 		var permission = "no"
 		var rightsRequiredArray = listToArray(arguments.rightsRequired)
-			if ( structKeyExists(session.auth,'email') ) { arguments.email = session.auth.email }
+			if ( structKeyExists(session,'auth') && structKeyExists(session.auth,'email') ) { arguments.email = session.auth.email }
 			for ( right in rightsRequiredArray ){
 				if ( isdefined("arguments.email") and listFindNoCase(session.auth.rightslist,right) ) {
 					permission = "yes"
