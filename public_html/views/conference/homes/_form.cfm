@@ -104,7 +104,7 @@
       #checkBox(objectName='home', property='kitchen', checkedValue="Yes")#
       #checkBox(objectName='home', property='breakfast', checkedValue="Yes")#
       #checkBox(objectName='home', property='refrigerator', checkedValue="Yes")#
-      #checkBox(objectName='home', property='washerdryer', label="Washer Dryer", checkedValue="Yes")#
+      #checkBox(objectName='home', property='washerdryer', label="Washer/Dryer", checkedValue="Yes")#
     </div>
 
   </div>

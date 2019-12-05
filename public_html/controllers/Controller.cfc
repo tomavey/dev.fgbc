@@ -216,14 +216,18 @@ component extends="Wheels" {
 	function gotRights(required string rightsRequired){
 		var permission = "no"
 		var rightsRequiredArray = listToArray(arguments.rightsRequired)
-		if ( structKeyExists(session.auth,'email') ) { arguments.email = session.auth.email }
-		for ( right in rightsRequiredArray ){
-			if ( isdefined("arguments.email") and listFindNoCase(session.auth.rightslist,right) ) {
-				permission = "yes"
-			}
-			if ( right == 'handbook' && emailIsInHandbook(arguments.email) ) {
-				permission = "yes"
-			}
+		try {
+			if ( structKeyExists(session.auth,'email') ) { arguments.email = session.auth.email }
+			for ( right in rightsRequiredArray ){
+				if ( isdefined("arguments.email") and listFindNoCase(session.auth.rightslist,right) ) {
+					permission = "yes"
+				}
+				if ( right == 'handbook' && emailIsInHandbook(arguments.email) ) {
+					permission = "yes"
+				}
+			} 
+		} catch (any e) {
+				permission = "no"
 		}
 		return permission
 	}

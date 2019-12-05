@@ -23,7 +23,7 @@
 			
 				#includePartial("form")#				
 																	
-				#submitTag(class="btn btn-primary btn-lg btn-block")#
+				#submitTag(value="Submit", class="btn btn-primary btn-lg btn-block")#
 					
 				#endFormTag()#
 				
