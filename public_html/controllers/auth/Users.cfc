@@ -438,7 +438,6 @@ component extends="Controller" output="false" {
 	public function addToGroup( userId=params.key, groupId=params.groupId, username=params.username ) {
 		var userGroup
 		var check = model("Authusersgroup").findAll(where="auth_usersId = #arguments.userID# AND auth_groupsId = #arguments.groupId#")
-		writeDump(check);abort;
 		if ( !check.recordCount ) {
 			userGroup = model("Authusersgroup").new()
 			userGroup.auth_usersid = arguments.userid
