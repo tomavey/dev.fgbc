@@ -637,6 +637,7 @@
 				.get(name="copy", pattern="copy")
 				.get(name="list", pattern="list")
 				.get(name="approve", pattern="approve")
+				.get(name="thankyou", pattern="thankyou")
 			.end()	
 
 
@@ -820,6 +821,7 @@
 		.get(name="focusMobile", pattern="/focusmobile/", controller="focus.main", action="mobile")
 		.get(name="inspire", pattern="/inspire/", controller="handbook.people", action="inspire")
 		.get(name="selectCohorts", pattern="selectcohorts", controller="conference.courses", action="selectcohorts")
+		.get(name="accessHostHomes", pattern="accessHost", controller="conference.homes", action="new")
 
 
 <!---------------------------------->
