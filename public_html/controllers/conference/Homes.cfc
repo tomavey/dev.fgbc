@@ -137,6 +137,7 @@ component extends="Controller" output="false" {
     if ( home.approved == "Yes") { 
       home.approved = "No"
       home.update()
+      sendEmailNoticeToHost(home.id)
       returnBack()
      }
      if ( home.approved == "No") { 
@@ -165,6 +166,22 @@ component extends="Controller" output="false" {
       if ( !isLocalMachine() ) {
         // sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
         sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
+      } else {
+        renderText("An Email would have been sent")
+      }
+    } else {
+      renderText("Oops. Something went wrong!")
+    }
+  }
+
+  public function sendEmailNoticeToHost(required numeric id) {
+    home = model("Conferencehome").findByKey(arguments.id)
+    // writeDump(home.properties());abort;
+    if ( isObject(home) ) {
+      var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
+      if ( !isLocalMachine() ) {
+        // sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
+        sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToHost')
       } else {
         renderText("An Email would have been sent")
       }
