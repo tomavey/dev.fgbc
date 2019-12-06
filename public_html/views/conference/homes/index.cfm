@@ -16,7 +16,7 @@
 	<p>Sorted by #direction# on #sortby#</p>
 	#includePartial("showFlash")#
 	<div style="float:right">
-		#startFormTag(route="ConferenceHomesIndex")#
+		#startFormTag(route="ConferenceHomesIndex", onlyPath=false)#
 		#textFieldTag(name='search', placeholder="Search")#
 		#endFormTag()#
 	</div>
