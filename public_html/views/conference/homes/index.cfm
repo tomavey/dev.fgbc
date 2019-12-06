@@ -58,6 +58,6 @@
 	<cfcol header="" text="#deleteTag()#" />
 
 </cftable>
-
+<cfdump var="#params#">
 </div>
 </div>
