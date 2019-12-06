@@ -4,8 +4,7 @@ component extends="Controller" output="false" {
     usesLayout("/conference/adminlayout")
     filters(through="isOffice", except="new,show,list,create,sendEmailNoticeToOffice,thankyou")
     filters(through="setReturn", only="index,show,list,new,thankyou")
-  }
-
+  }  
 
 
 
@@ -20,12 +19,9 @@ component extends="Controller" output="false" {
       if ( isDefined("params.sortby") ) { sortby = params.sortby }
       if ( isDefined("params.direction") ) { direction = params.direction }
     var orderString = sortby & " " & direction
-    var whereString = ""
-      if ( isDefined("params.search") ) { 
-        whereString = "name LIKE '%#params.search#%'" 
-      }
-    Homes = model("Conferencehome").findAllHosts(where = whereString, order=orderString);
-  }
+    var whereString = $getWhereStringForIndex()
+    Homes = model("Conferencehome").findAll(where = whereString, order=orderString);
+    }
   
   // Conferencehomes/show/key
   public void function show(){
@@ -35,41 +31,61 @@ component extends="Controller" output="false" {
       flashInsert(error="Conferencehome #params.key# was not found");
       redirectTo(action="index");
     }
+    showType="show#home.type#"
   }
-  
+
   // Conferencehomes/list/key
   public void function list(){
     var orderString = "homeid"
-    var whereString = "approved='yes'"
-    if ( isDefined('params.showAll') ) { whereString = "" }
-    if ( isDefined('params.status') ) { whereString = whereString & " AND status='#params.status#'"}
-    Homes = model("Conferencehome").findAllHosts(where = whereString, order=orderString);
+    var whereString = $getWhereStringForList()
+    // writeDump(whereString);abort;
+    Homes = model("Conferencehome").findAll(where = whereString, order=orderString);
+    // writeDump(homes);abort;
     if (!Homes.recordcount){
       flashInsert(error="Conferencehome #params.key# was not found");
       redirectTo(action="index");
     }
-    var instructionsObj  = model('Maincontent').findOne(where="shortLink='AccessHostRequestInstructions'")
-    if ( isObject(instructionsObj) ) {
-      instructions = instructionsObj.content
-      instructionsId = instructionsObj.id
+    $setInstructions('AccessHostRequestInstructions')
+    setLayout()
+  }
+
+  private function $getWhereStringForList(whereString = "approved='yes' AND type='Host' AND homeid IS NOT NULL"){
+    return $getWhereStringForIndex(arguments.whereString)
+  }
+
+  private function $getWhereStringForIndex(whereString = "approved='yes' AND type='Host'"){
+    if ( isDefined('params.type') && params.type == "guest" ) { 
+      arguments.whereString = "type='guest'" 
     }
-    if ( !gotRights('office') ) {
-      renderPage(layout="/conference/layout2019invoice")
+    if ( isDefined('params.showAll') ) { 
+      arguments.whereString = "" 
     }
+    if ( isDefined('params.status') ) { 
+      arguments.whereString = arguments.whereString & " AND status='#params.status#'"
+    }
+    if ( isDefined("params.search") ) { 
+      arguments.whereString = "name LIKE '%#params.search#%'" 
+    }
+    return arguments.whereString
   }
   
   // Conferencehomes/new
   public void function new(){
     Home = model("Conferencehome").new()
+    if ( isDefined("params.type") && params.type=="Guest" ) {
+      home.type = params.type
+      if ( isDefined("params.requestedHomeId") ) {
+        home.requestedHomeId=params.requestedHomeId
+      } ELSE {
+        hostHomes = model("Conferencehome").findAll(where ="homeId IS NOT NULL", order="homeId")
+      }
+      formType="formForGuest" 
+    }  ELSE {
+      formType="formForHost" 
+    }
     formaction="create"
-    var instructionsObj  = model('Maincontent').findOne(where="shortLink='AccessHostInstructions'")
-    if ( isObject(instructionsObj) ) {
-      instructions = instructionsObj.content
-      instructionsId = instructionsObj.id
-    }
-    if ( !gotRights('office') ) {
-      renderPage(layout="/conference/layout2019invoice")
-    }
+    $setInstructions("AccessHostInstructions")
+    setLayout()
   }
   
   //Conferencehomes/edit/key
@@ -79,13 +95,14 @@ component extends="Controller" output="false" {
     if (!IsObject(Home)){
 	    flashInsert(error="Conferencehome #params.key# was not found");
 			redirectTo(action="index");
-	  }
+    }
+
+    formType="formFor#home.type#"
     formaction="update"
   }
   
   // Conferencehomes/create
   public void function create(){
-    // writeDump(params);abort;
     Home = model("Conferencehome").new(params.home);
     // writeDump(home.properties());abort;
 		
@@ -99,7 +116,8 @@ component extends="Controller" output="false" {
       }
 		} else {
 		  flashInsert(error="There was an error creating the Conferencehome.");
-		  renderPage(action="new");
+      formType="formFor#home.type#"
+  	  renderPage(action="new");
     }
   }
   
@@ -112,7 +130,13 @@ component extends="Controller" output="false" {
       returnBack()
 		} else {
 		  flashInsert(error="There was an error updating the home.");
-			renderPage(action="edit");
+      if (!IsObject(Home)){
+        flashInsert(error="Conferencehome #params.key# was not found");
+        redirectTo(action="index");
+      }
+  
+      formType="formFor#home.type#"
+      renderPage(action="edit");
 		}
   }
   
@@ -210,6 +234,28 @@ component extends="Controller" output="false" {
     } ELSE {
       return approved
     }
+  }
+
+  private function setLayout(){
+    if ( !gotRights('office') ) {
+      renderPage(layout="/conference/layout2019invoice")
+    }
+  }
+
+  private function $setInstructions(required string shortLink) {
+    var instructionsObj  = model('Maincontent').findOne(where="shortLink='#arguments.shortlink#'")
+    if ( isObject(instructionsObj) ) {
+      instructions = instructionsObj.content
+      instructionsId = instructionsObj.id
+    }
+  }
+
+  private function getHostSelectNameFromRequestedHomeId(required string requestedHomeId){
+    var selectName = model("Conferencehome").findOne(where="HomeId = '#arguments.requestedHomeId#'")
+    if ( isObject(selectName) ) {
+      return selectName.selectNameId
+    }
+    return "None"
   }
 
 }

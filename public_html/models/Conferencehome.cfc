@@ -2,15 +2,22 @@ component extends="Model" output="false" {
 
 	public void function init() {
 		table('equip_homes')
+		property(
+			name="selectNameId",
+			sql="CONCAT(equip_homes.homeid,'(',equip_homes.name,')')"
+		)
+		validatesUniquenessOf(property="homeid", condition="this.type != 'guest'", message="Sorry, this home id is already assigned.")
+		validatesLengthOf(property="homeid", condition="this.approved == 'yes'", message="A Home ID must be set for approved homes.")
 	}
 	
-	public function findAllHosts(required string where, required string order) {
+	public function findAllHosts(where="", order="") {
 		whereString = createWhereString(arguments.where,"Host")
+		writeDump(whereString);abort;
 		var orderString = arguments.order
 		return findAll(where=whereString, order=orderString)
 	}
 
-	public function findAllGuests(required string where, required string order) {
+	public function findAllGuests(where="", order="") {
 		whereString = createWhereString(arguments.where,"Guest")
 		var orderString = arguments.order
 		return findAll(where=whereString, order=orderString)

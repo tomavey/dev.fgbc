@@ -17,7 +17,7 @@
 
 			#hiddenTagForKeyy()#
 				
-			#includePartial("form")#												
+			#includePartial(formtype)#												
 				
 			#submitTag()#
 				
