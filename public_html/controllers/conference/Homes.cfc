@@ -21,7 +21,7 @@ component extends="Controller" output="false" {
     if ( isDefined("params.direction") ) { direction = params.direction }
     var orderString = sortby & " " & direction
     var whereString = ""
-    Homes = model("Conferencehome").findAll(where = whereString, order=orderString);
+    Homes = model("Conferencehome").findAllHosts(where = whereString, order=orderString);
   }
   
   // Conferencehomes/show/key
@@ -39,7 +39,7 @@ component extends="Controller" output="false" {
     var whereString = "approved='yes'"
     if ( isDefined('params.showAll') ) { whereString = "" }
     if ( isDefined('params.status') ) { whereString = whereString & " AND status='#params.status#'"}
-    Homes = model("Conferencehome").findAll(where=whereString);
+    Homes = model("Conferencehome").findAllHosts(where=whereString);
     if (!Homes.recordcount){
       flashInsert(error="Conferencehome #params.key# was not found");
       redirectTo(action="index");
@@ -142,8 +142,10 @@ component extends="Controller" output="false" {
      if ( home.approved == "No") { 
       home.approved = "Yes"
       home.update()
-      sendEmailNoticeToHost(home.id)
-      setApprovedAt(home.id)
+      if ( !len(home.approvedAt) ) {
+        sendEmailNoticeToHost(home.id)
+        setApprovedAt(home.id)
+      }
       returnBack()
      }
   }
@@ -195,6 +197,14 @@ component extends="Controller" output="false" {
     var home = model("Conferencehome").findByKey(arguments.id);
     home.approvedAt = now()
     home.update()
+  }
+
+  private function approvedText(required string approved, required string approvedAt){
+    if ( len(approvedAt) && approved ) {
+      return dateFormat(approvedAt)
+    } ELSE {
+      return approved
+    }
   }
 
 }
