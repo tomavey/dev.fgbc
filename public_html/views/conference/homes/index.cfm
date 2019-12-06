@@ -1,5 +1,8 @@
 <cfparam name="sortby"  default="createdAt">
 <cfparam name="direction" default="DESC">
+<style>
+	form {display:inline}
+</style>
 <cfif isDefined("params.direction") && params.direction == "ASC">
 	<cfset direction = "DESC">
 </cfif>
@@ -12,10 +15,16 @@
 	<h1>List of host homes</h1>
 	<p>Sorted by #direction# on #sortby#</p>
 	#includePartial("showFlash")#
+	<div style="float:right">
+		#startFormTag(route="ConferenceHomesIndex")#
+		#textFieldTag(name='search', placeholder="Search")#
+		#endFormTag()#
+	</div>
+	<p>#linkTo(text="Add a new host home", route="accessHostHomes", class="btn")#&nbsp;
+		#linkTo(text="Show Public List of Approved Host Homes", action="list", class="btn")#&nbsp;
+		#linkTo(text="View the Thank You Message", action="thankyou", class="btn")#
+	</p>
 
-	<p>#linkTo(text="Add a new host home", route="accessHostHomes", class="btn")#</p>
-	<p>#linkTo(text="Show Public List of Approved Host Homes", action="list", class="btn")#</p>
-	<p>#linkTo(text="Edit the Thank You Screen", action="thankyou", class="btn")#</p>
 </cfoutput>
 
 <div class="table table-striped">
@@ -38,7 +47,7 @@
 						key=#id#)#
 					" />
 				
-				<cfcol header="Guest Assigned To" text="#AssignedToName#" />
+				<cfcol header="Guest Assigned" text="#AssignedToName#" />
 
 				<cfcol header="Guest Email" text="#AssignedToEmail#" />
 
@@ -47,6 +56,7 @@
 	<cfcol header="" text="#showTag()#" />
 	<cfcol header="" text="#editTag()#" />
 	<cfcol header="" text="#deleteTag()#" />
+
 </cftable>
 
 </div>

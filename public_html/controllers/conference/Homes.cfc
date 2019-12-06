@@ -17,10 +17,13 @@ component extends="Controller" output="false" {
   public void function index(){
     sortby = "createdAt"
     direction = "DESC"
-    if ( isDefined("params.sortby") ) { sortby = params.sortby }
-    if ( isDefined("params.direction") ) { direction = params.direction }
+      if ( isDefined("params.sortby") ) { sortby = params.sortby }
+      if ( isDefined("params.direction") ) { direction = params.direction }
     var orderString = sortby & " " & direction
     var whereString = ""
+      if ( isDefined("params.search") ) { 
+        whereString = "name LIKE '%#params.search#%'" 
+      }
     Homes = model("Conferencehome").findAllHosts(where = whereString, order=orderString);
   }
   
@@ -36,10 +39,11 @@ component extends="Controller" output="false" {
   
   // Conferencehomes/list/key
   public void function list(){
+    var orderString = "homeid"
     var whereString = "approved='yes'"
     if ( isDefined('params.showAll') ) { whereString = "" }
     if ( isDefined('params.status') ) { whereString = whereString & " AND status='#params.status#'"}
-    Homes = model("Conferencehome").findAllHosts(where=whereString);
+    Homes = model("Conferencehome").findAllHosts(where = whereString, order=orderString);
     if (!Homes.recordcount){
       flashInsert(error="Conferencehome #params.key# was not found");
       redirectTo(action="index");
@@ -167,8 +171,8 @@ component extends="Controller" output="false" {
     if ( isObject(home) ) {
       var subjectText = "#getEventAsText()# Host Home Application"
       if ( !isLocalMachine() ) {
-        // sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
-        sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
+        sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
+        // sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
       } else {
         renderText("An Email would have been sent")
       }
@@ -183,8 +187,8 @@ component extends="Controller" output="false" {
     if ( isObject(home) ) {
       var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
       if ( !isLocalMachine() ) {
-        // sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
-        sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToHost')
+        sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
+        // sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToHost')
       } else {
         renderText("An Email would have been sent")
       }
@@ -199,7 +203,8 @@ component extends="Controller" output="false" {
     home.update()
   }
 
-  private function approvedText(required string approved, required string approvedAt){
+  //Used by view/conference/homes/index
+  private function approvedText(required string approved, required string approvedAt){    
     if ( len(approvedAt) && approved ) {
       return dateFormat(approvedAt)
     } ELSE {

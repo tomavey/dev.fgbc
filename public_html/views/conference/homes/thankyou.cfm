@@ -12,6 +12,10 @@
     </cfif>
   
     <p>#thankyouMessage#</p>
+
+    <cfif gotRights("office")>
+      #listTag(action="index")#
+    </cfif>
   
   </cfoutput>
 
