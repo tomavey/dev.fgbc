@@ -52,13 +52,13 @@
 <div class="container">
   <h1 class="text-center">THE FOLLOWING HOST HOME INFO HAS BEEN SUBMITTED</h1>
   <cfoutput>
-    #includePartial("contactinfo")#
+    #includePartial("includes/contactinfo")#
 
-    #includePartial("availabilityinfo")#
+    #includePartial("includes/availabilityinfo")#
   
-    #includePartial("detailsinfo")#
+    #includePartial("includes/detailsinfo")#
   
-    #includePartial("office")#
+    #includePartial("includes/office")#
 
     #linkto(text="View", controller="conference.homes", action="show", key=home.id, onlyPath=false)#
     
