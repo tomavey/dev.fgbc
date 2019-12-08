@@ -3,7 +3,7 @@
 <cfparam name="type" default="Host">
 
 <style>
-	form {display:inline}
+	.host-search-form {display:inline}
 </style>
 <cfif isDefined("params.direction") && params.direction == "ASC">
 	<cfset direction = "DESC">
@@ -12,26 +12,14 @@
 	<cfset direction = "ASC">
 </cfif>
 
-<div class="container">
+<div class="container" style="background-color:white;padding:20px;border-radius:10px">
 <cfoutput>
+	#includePartial("includes/navbar")#
 	<h1>List of #type# homes</h1>
-	<cfif type=="host">
-		#linkTo(text="Show Guest Requests", params="type=guest")#
-	<cfelse>	
-		#linkTo(text="Show Host Homes", params="type=host")#
-	</cfif>
 	<p>Sorted by #direction# on #sortby#</p>
+
 	#includePartial("includes/showFlash")#
-	<div style="float:right">
-		#startFormTag(route="ConferenceHomesIndex", onlyPath=false, method="get")#
-		#textFieldTag(name='search', placeholder="Search")#
-		#endFormTag()#
-	</div>
-	<p>#linkTo(text="Add a new host home", route="accessHostHomes", class="btn")#&nbsp;
-		#linkTo(text="Add a new guest request", route="accessHostHomes", params="type=guest", class="btn")#&nbsp;
-		#linkTo(text="Show Public List of Approved Host Homes", action="list", class="btn")#&nbsp;
-		#linkTo(text="View the Thank You Message", action="thankyou", class="btn")#
-	</p>
+
 
 </cfoutput>
 

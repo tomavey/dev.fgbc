@@ -45,6 +45,7 @@ component extends="Controller" output="false" {
       flashInsert(error="Conferencehome #params.key# was not found");
       redirectTo(action="index");
     }
+    type="host"
     $setInstructions('AccessHostRequestInstructions')
     setLayout()
   }
@@ -70,19 +71,23 @@ component extends="Controller" output="false" {
   }
   
   // Conferencehomes/new
+  public void function newAccessHost(){
+    redirectTo(action="new", params="type=host")
+  }
+
+  public void function newAccessGuest(){
+    redirectTo(action="new", params="type=guest")
+  }
+
   public void function new(){
     Home = model("Conferencehome").new()
-    if ( isDefined("params.type") && params.type=="Guest" ) {
-      home.type = params.type
-      if ( isDefined("params.requestedHomeId") ) {
-        home.requestedHomeId=params.requestedHomeId
-      } ELSE {
-        hostHomes = model("Conferencehome").findAll(where ="homeId IS NOT NULL", order="homeId")
-      }
-      formType="formForGuest" 
-    }  ELSE {
-      formType="formForHost" 
+    home.type = params.type
+    if ( isDefined("params.requestedHomeId") ) {
+      home.requestedHomeId=params.requestedHomeId
+    } ELSE {
+      hostHomes = model("Conferencehome").findAll(where ="homeId IS NOT NULL", order="homeId")
     }
+    formType="formFor#home.type#" 
     formaction="create"
     $setInstructions("AccessHostInstructions")
     setLayout()
@@ -111,11 +116,12 @@ component extends="Controller" output="false" {
       if ( gotRights("office") ) {
         if ( getSetting('isConferenceHomesTesting') ) {
           sendEmailNoticeToOffice(home.id)
+          redirectTo(action="ThankYou", params="type=#home.type#")
         }
         redirectTo(action="Index")
       } else {
         sendEmailNoticeToOffice(home.id)
-        redirectTo(action="ThankYou")
+        redirectTo(action="ThankYou", params="type=#home.type#")
       }
 		} else {
 		  flashInsert(error="There was an error creating the Conferencehome.");
@@ -181,8 +187,8 @@ component extends="Controller" output="false" {
      }
   }
 
-  public void function thankYou(){
-    var thankyouObj = model('Maincontent').findOne(where="shortLink='AccessHostThankYou'")
+  public void function thankYou(type=params.type){
+    var thankyouObj = model('Maincontent').findOne(where="shortLink='Access#arguments.type#ThankYou'")
     if ( isObject(thankyouObj) ) {
       thankyouMessage = thankyouObj.content
       thankyouId = thankyouObj.id

@@ -822,7 +822,8 @@
 		.get(name="focusMobile", pattern="/focusmobile/", controller="focus.main", action="mobile")
 		.get(name="inspire", pattern="/inspire/", controller="handbook.people", action="inspire")
 		.get(name="selectCohorts", pattern="selectcohorts", controller="conference.courses", action="selectcohorts")
-		.get(name="accessHostHomes", pattern="accessHost", controller="conference.homes", action="new")
+		.get(name="accessHomeHosts", pattern="accessHost", controller="conference.homes", action="newAccessHost")
+		.get(name="accessHomeGuests", pattern="accessGuest", controller="conference.homes", action="newAccessGuest")
 
 <!---------------------------------->
 <!----------API Routes---------->

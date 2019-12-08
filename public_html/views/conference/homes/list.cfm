@@ -6,6 +6,8 @@
 
 <div class="container" style="background-color:white;padding:20px;border-radius:10px">
 
+  #includePartial("includes/navbar")#
+
     <cfif gotRights("office")>
       <p class="pull-right">
         #linkto(text="<i class='fa fa-pencil-square'></i>", controller="admin.contents", action="edit", key=instructionsId)#
