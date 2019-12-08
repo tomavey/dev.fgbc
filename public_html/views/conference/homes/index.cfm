@@ -55,8 +55,15 @@
 	</cfif>	
 
 	<cfif type=="guest">
+		
+		<cftry>
+			<cfset headerText=getHostSelectNameFromRequestedHomeId(requestedHomeId)>
+		<cfcatch>
+			<cfset headerText="None">
+		</cfcatch>	
 
-		<cfcol header="Requested Home" text="#getHostSelectNameFromRequestedHomeId(requestedHomeId)#" />
+		</cftry>
+		<cfcol header="Requested Home" text="#headerText#" />
 
 	</cfif>
 
