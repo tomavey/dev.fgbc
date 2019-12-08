@@ -1,12 +1,13 @@
 <cfparam name="formaction" default="update">
+<cfoutput>
+
+#styleSheetLinkTag("conference/conferencehomes")#
 
 <div class="container">
 
 <h1>Editing home</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
-
-<cfoutput>
+#includePartial("includes/showFlash")#
 
 			
 			#errorMessagesFor("home")#
@@ -17,7 +18,7 @@
 
 			#hiddenTagForKeyy()#
 				
-			#includePartial(formtype)#												
+			#includePartial("includes/#formtype#")#												
 				
 			#submitTag()#
 				
@@ -26,6 +27,7 @@
 		
 
 #linkTo(text="Return to the listing", action="index")#
-</cfoutput>
 
 </div>
+
+</cfoutput>

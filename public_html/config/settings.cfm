@@ -228,6 +228,7 @@
 	set(sendContactUsTo = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")
 
 	set(focusForFinancialHelp="sharmion@charisfellowship.us")
+
 	// What is open and what is not for conference
 	set(registrationIsOpen = false)
 	set(regOpenPromiseDate = "2018-02-20")
@@ -247,6 +248,7 @@
 	set(showSubTypesOfCourses = false)
 	set(delegatesSubmitIsOpen = false)
 	set(videoStoriesIsOpen = false)
+	set(isConferenceHomesTesting = true)
 	// For Facebook OAuth
 	if ( cgi.http_host == "localhost:8080" || cgi.http_host == "localhost:8888" ) {
 		application.fbappid = "10152781512188290"

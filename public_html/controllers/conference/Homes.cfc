@@ -53,7 +53,7 @@ component extends="Controller" output="false" {
     return $getWhereStringForIndex(arguments.whereString)
   }
 
-  private function $getWhereStringForIndex(whereString = "approved='yes' AND type='Host'"){
+  private function $getWhereStringForIndex(whereString = "type='Host'"){
     if ( isDefined('params.type') && params.type == "guest" ) { 
       arguments.whereString = "type='guest'" 
     }
@@ -195,8 +195,12 @@ component extends="Controller" output="false" {
     if ( isObject(home) ) {
       var subjectText = "#getEventAsText()# Host Home Application"
       if ( !isLocalMachine() ) {
-        sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
-        // sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
+        if ( !getSetting('isConferenceHomesTesting') ) {
+          sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')    
+        } ELSE {
+          sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
+        }
+
       } else {
         renderText("An Email would have been sent")
       }
@@ -211,8 +215,11 @@ component extends="Controller" output="false" {
     if ( isObject(home) ) {
       var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
       if ( !isLocalMachine() ) {
-        sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
-        // sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToHost')
+        if ( !getSetting('isConferenceHomesTesting') ) {
+          sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
+        } ELSE {
+          sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToHost')
+        }
       } else {
         renderText("An Email would have been sent")
       }
