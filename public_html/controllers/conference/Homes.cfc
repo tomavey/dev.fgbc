@@ -194,13 +194,13 @@ component extends="Controller" output="false" {
     // writeDump(home.properties());abort;
     if ( isObject(home) ) {
       var subjectText = "#getEventAsText()# Host Home Application"
+      if ( getSetting('isConferenceHomesTesting') ) { subjectText = subjectText & " --TEST--" }
       if ( !isLocalMachine() ) {
         if ( !getSetting('isConferenceHomesTesting') ) {
           sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')    
         } ELSE {
           sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
         }
-
       } else {
         renderText("An Email would have been sent")
       }
@@ -214,6 +214,7 @@ component extends="Controller" output="false" {
     // writeDump(home.properties());abort;
     if ( isObject(home) ) {
       var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
+      if ( getSetting('isConferenceHomesTesting') ) { subjectText = subjectText & " --TEST--" }
       if ( !isLocalMachine() ) {
         if ( !getSetting('isConferenceHomesTesting') ) {
           sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
