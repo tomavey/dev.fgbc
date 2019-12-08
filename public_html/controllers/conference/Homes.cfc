@@ -109,6 +109,9 @@ component extends="Controller" output="false" {
 		if (Home.save()){
       flashInsert(success="The Conferencehome was created successfully.");
       if ( gotRights("office") ) {
+        if ( getSetting('isConferenceHomesTesting') ) {
+          sendEmailNoticeToOffice(home.id)
+        }
         redirectTo(action="Index")
       } else {
         sendEmailNoticeToOffice(home.id)
