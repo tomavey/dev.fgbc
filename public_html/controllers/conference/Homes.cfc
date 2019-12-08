@@ -102,6 +102,7 @@ component extends="Controller" output="false" {
 			redirectTo(action="index");
     }
 
+    type=home.type
     formType="formFor#home.type#"
     formaction="update"
   }
