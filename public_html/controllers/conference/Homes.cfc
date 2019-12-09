@@ -227,7 +227,7 @@ component extends="Controller" output="false" {
       if ( getSetting('isConferenceHomesTesting') ) { subjectText = subjectText & " --TEST--" }
       if ( !isLocalMachine() ) {
         if ( !getSetting('isConferenceHomesTesting') ) {
-          sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
+          sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToHost')
         } ELSE {
           sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToHost')
         }
