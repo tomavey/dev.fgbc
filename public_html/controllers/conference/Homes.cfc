@@ -199,17 +199,17 @@ component extends="Controller" output="false" {
     }
   }
 
-  private function sendEmailNoticeToOffice(required numeric id) {
+  private function sendEmailNoticeToOffice(required numeric id, type="Host") {
     home = model("Conferencehome").findByKey(arguments.id)
     // writeDump(home.properties());abort;
     if ( isObject(home) ) {
-      var subjectText = "#getEventAsText()# Host Home Application"
+      var subjectText = "#getEventAsText()# #arguments.type# Home Application"
       if ( getSetting('isConferenceHomesTesting') ) { subjectText = subjectText & " --TEST--" }
       if ( !isLocalMachine() ) {
         if ( !getSetting('isConferenceHomesTesting') ) {
-          sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')    
+          sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOfficeAbout#arguments.type#')    
         } ELSE {
-          sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
+          sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOfficeAbout#arguments.type#')
         }
       } else {
         renderText("An Email would have been sent")
