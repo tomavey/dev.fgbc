@@ -36,7 +36,7 @@ component extends="Controller" output="false" {
 
   // Conferencehomes/list/key/
   public void function list(){
-    writeDump(params);abort;
+    writeDump("hi");abort;
     var orderString = "homeid"
     var whereString = $getWhereStringForList()
     writeDump(whereString);abort;
