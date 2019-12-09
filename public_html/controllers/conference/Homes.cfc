@@ -2,7 +2,7 @@ component extends="Controller" output="false" {
   
   public void function init(){
     usesLayout("/conference/adminlayout")
-    filters(through="isOffice", except="new,newAccessHost,newAccessGuest,show,list,create,sendEmailNoticeToOffice,thankyou")
+    filters(through="isOffice", except="new,newAccessHost,newAccessGuest,show,list,create,sendEmailNoticeToOffice,sendEmailNoticeToHost, thankyou")
     filters(through="setReturn", only="index,show,list,new,thankyou")
   }  
 
@@ -223,21 +223,43 @@ component extends="Controller" output="false" {
   private function sendEmailNoticeToHost(required numeric id) {
     home = model("Conferencehome").findByKey(arguments.id)
     // writeDump(home.properties());abort;
+    var args = $createArgsForsendEmailNoticeToHost()
     if ( isObject(home) ) {
-      var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
-      if ( getSetting('isConferenceHomesTesting') ) { subjectText = subjectText & " --TEST--" }
       if ( !isLocalMachine() ) {
-        if ( !getSetting('isConferenceHomesTesting') ) {
-          sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToHost')
-        } ELSE {
-          sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToHost')
-        }
+          sendEmail(argumentCollection = args)
       } else {
-        renderText("An Email would have been sent")
+        writeOutPut("An Email would have been sent")
+        writeDump(args);abort;
       }
     } else {
       renderText("Oops. Something went wrong!")
     }
+  }
+
+  private function $createArgsForsendEmailNoticeToHost(){
+    var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
+    if ( getSetting('isConferenceHomesTesting') ) { 
+      var args = {
+        thisSubject: subjectText & " --TEST--", 
+        thisFrom: getSetting('registrarEmail'),
+        thisBcc: getSetting('registrarEmailBackup'),
+        thisFrom: getSetting('registrarEmail'),
+        thisTemplate: 'sendEmailNoticeToHost'
+      }
+      if ( gotRights("superadmin") ) { 
+        args.thisFrom = getSetting('registrarEmailBackup')
+        args.thisSubject= subjectText & " --TEST--SUPERADMIN--" 
+      }
+    } ELSE {
+      var args = {
+        thisSubject: subjectText, 
+        thisEmail: home.email,
+        thisBcc = getSetting('registrarEmailBackup'),
+        thisFrom = getSetting('registrarEmail'),
+        thisTemplate: 'sendEmailNoticeToHost'
+      }
+    }
+    return args
   }
 
   private void function setApprovedAt(required numeric id) {
