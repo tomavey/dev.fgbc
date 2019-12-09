@@ -116,12 +116,12 @@ component extends="Controller" output="false" {
       flashInsert(success="The Conferencehome was created successfully.");
       if ( gotRights("office") ) {
         if ( getSetting('isConferenceHomesTesting') ) {
-          sendEmailNoticeToOffice(home.id)
+          sendEmailNoticeToOffice(home.id,home.type)
           redirectTo(action="ThankYou", params="type=#home.type#")
         }
         redirectTo(action="Index")
       } else {
-        sendEmailNoticeToOffice(home.id)
+        sendEmailNoticeToOffice(home.id,home.type)
         redirectTo(action="ThankYou", params="type=#home.type#")
       }
 		} else {
@@ -199,7 +199,7 @@ component extends="Controller" output="false" {
     }
   }
 
-  private function sendEmailNoticeToOffice(required numeric id, type="Host") {
+  private function sendEmailNoticeToOffice(required numeric id, required string type) {
     home = model("Conferencehome").findByKey(arguments.id)
     // writeDump(home.properties());abort;
     if ( isObject(home) ) {
@@ -227,7 +227,7 @@ component extends="Controller" output="false" {
       if ( getSetting('isConferenceHomesTesting') ) { subjectText = subjectText & " --TEST--" }
       if ( !isLocalMachine() ) {
         if ( !getSetting('isConferenceHomesTesting') ) {
-          sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOffice')
+          sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToHost')
         } ELSE {
           sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToHost')
         }
