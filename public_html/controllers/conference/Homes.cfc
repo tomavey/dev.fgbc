@@ -219,6 +219,7 @@ component extends="Controller" output="false" {
   }
 
   private function sendEmailNoticeToHost(required numeric id) {
+    //sends when the host has been approved
     home = model("Conferencehome").findByKey(arguments.id)
     // writeDump(home.properties());abort;
     if ( isObject(home) ) {
@@ -226,7 +227,7 @@ component extends="Controller" output="false" {
       if ( !isLocalMachine() ) {
         if ( getSetting('isConferenceHomesTesting') ){
           subjectText = subjectText & "--TESTING--"
-          sendEmail(from=getSetting('registrarEmail'), to=getSetting('registrarEmail'), subject=subjectText, template="sendEmailNoticeToHost")
+          sendEmail(from=getSetting('registrarEmail'), to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'),subject=subjectText, template="sendEmailNoticeToHost")
         } ELSE {
           sendEmail(from=getSetting('registrarEmail'), to=home.email, bcc=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
         }
