@@ -223,13 +223,13 @@ component extends="Controller" output="false" {
   private function sendEmailNoticeToHost(required numeric id) {
     home = model("Conferencehome").findByKey(arguments.id)
     // writeDump(home.properties());abort;
-    var args = $createArgsForsendEmailNoticeToHost()
     if ( isObject(home) ) {
       if ( !isLocalMachine() ) {
-          sendEmail(argumentCollection = args)
+        var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
+        // sendEmail(from=home.email, to=getSetting('registrarEmail'), from=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
+        sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), from=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
       } else {
-        writeOutPut("An Email would have been sent")
-        writeDump(args);abort;
+        writeOutPut("An Email would have been sent");abort;
       }
     } else {
       renderText("Oops. Something went wrong!")
@@ -237,6 +237,7 @@ component extends="Controller" output="false" {
   }
 
   private function $createArgsForsendEmailNoticeToHost(){
+    //notworking correctly
     var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
     if ( getSetting('isConferenceHomesTesting') ) { 
       var args = {
