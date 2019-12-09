@@ -136,6 +136,9 @@ component extends="Controller" output="false" {
     Home = model("Conferencehome").findByKey(params.key);
 		
 		if (Home.update(params.home)){
+      if ( home.approved == "yes" ) {
+        approve(home.id)
+      }
 		  flashInsert(success="The host home was updated successfully.");
       returnBack()
 		} else {
@@ -209,7 +212,7 @@ component extends="Controller" output="false" {
         } 
         sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOfficeAbout#arguments.type#')
       } else {
-        renderText("An Email would have been sent")
+        renderText("A 'sendEmailNoticeToOffice' would have been sent")
       }
     } else {
       renderText("Oops. Something went wrong!")
