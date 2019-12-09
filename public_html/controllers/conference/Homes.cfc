@@ -228,9 +228,9 @@ component extends="Controller" output="false" {
       if ( !isLocalMachine() ) {
         if ( getSetting('isConferenceHomesTesting') ){
           subjectText = subjectText & "--TESTING--"
-          sendEmail(from=getSetting('registrarEmailBackup'), to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
+          sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
         } ELSE {
-          sendEmail(from=getSetting('registrarEmailBackup'), to=home.email, bcc=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
+          sendEmail(from=getSetting('registrarEmail'), to=home.email, bcc=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
         }
       } else {
         writeOutPut("An Email would have been sent");abort;
