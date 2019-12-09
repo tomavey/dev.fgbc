@@ -27,7 +27,7 @@
 			#name#
 		</td>
 		<td>
-			#linkTo(text=shortlink, route=shortlink)#
+			#shortlink#
 		</td>
 		<td>
 			#dateformat(updatedAt)#
