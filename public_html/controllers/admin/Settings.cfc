@@ -143,4 +143,13 @@ component extends="Controller" output="false" {
     returnBack();
   }
 
+  public void function toggleSetting( setting = params.setting ) {
+    var value = getSetting(arguments.setting)
+    if ( value == true ) {
+      setSetting(arguments.setting,false)
+    } elseif ( value == false ) {
+      setSetting(arguments.setting,true)
+    }
+    returnBack()
+  }
 }

@@ -12,6 +12,10 @@
         #linkTo(text="New host", route="accessHomeHosts", class="btn")#&nbsp;
         #linkTo(text="New guest", route="accessHomeGuests", class="btn")#&nbsp;
         #linkTo(text="Show Public List", route="conferenceHomesList", class="btn")#&nbsp;
+        #linkTo(text="Testing Mode? #getSetting('isConferenceHomesTesting')#", controller="admin.settings", action="toggleSetting", params="setting=isConferenceHomesTesting", class="btn")#
+        <cfif getSetting('isConferenceHomesTesting')>
+          Email notifications not sent to user!
+        </cfif>
         <!--- #linkTo(text="Thank You Message", action="thankyou", class="btn")# --->
       </p>
     </div>

@@ -205,13 +205,11 @@ component extends="Controller" output="false" {
     // writeDump(home.properties());abort;
     if ( isObject(home) ) {
       var subjectText = "#getEventAsText()# #arguments.type# Home Application"
-      if ( getSetting('isConferenceHomesTesting') ) { subjectText = subjectText & " --TEST--" }
       if ( !isLocalMachine() ) {
-        if ( !getSetting('isConferenceHomesTesting') ) {
-          sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOfficeAbout#arguments.type#')    
-        } ELSE {
-          sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOfficeAbout#arguments.type#')
-        }
+        if ( getSetting('isConferenceHomesTesting') ) {
+          subjectText = subjectText & " --TEST--"
+        } 
+        sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOfficeAbout#arguments.type#')
       } else {
         renderText("An Email would have been sent")
       }
@@ -228,7 +226,7 @@ component extends="Controller" output="false" {
       if ( !isLocalMachine() ) {
         if ( getSetting('isConferenceHomesTesting') ){
           subjectText = subjectText & "--TESTING--"
-          sendEmail(from=getSetting('registrarEmail'), to=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
+          sendEmail(from=getSetting('registrarEmail'), to=getSetting('registrarEmail'), subject=subjectText, template="sendEmailNoticeToHost")
         } ELSE {
           sendEmail(from=getSetting('registrarEmail'), to=home.email, bcc=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
         }
