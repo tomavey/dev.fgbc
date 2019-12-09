@@ -240,23 +240,22 @@ component extends="Controller" output="false" {
     var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
     if ( getSetting('isConferenceHomesTesting') ) { 
       var args = {
-        thisSubject: subjectText & " --TEST--", 
-        thisFrom: getSetting('registrarEmail'),
-        thisBcc: getSetting('registrarEmailBackup'),
-        thisFrom: getSetting('registrarEmail'),
-        thisTemplate: 'sendEmailNoticeToHost'
+        Subject: subjectText & " --TEST--", 
+        From: getSetting('registrarEmail'),
+        Bcc: getSetting('registrarEmailBackup'),
+        Template: 'sendEmailNoticeToHost'
       }
       if ( gotRights("superadmin") ) { 
-        args.thisFrom = getSetting('registrarEmailBackup')
-        args.thisSubject= subjectText & " --TEST--SUPERADMIN--" 
+        From = getSetting('registrarEmailBackup')
+        Subject= subjectText & " --TEST--SUPERADMIN--" 
       }
     } ELSE {
       var args = {
-        thisSubject: subjectText, 
-        thisEmail: home.email,
-        thisBcc = getSetting('registrarEmailBackup'),
-        thisFrom = getSetting('registrarEmail'),
-        thisTemplate: 'sendEmailNoticeToHost'
+        Subject: subjectText, 
+        Email: home.email,
+        Bcc = getSetting('registrarEmailBackup'),
+        From = getSetting('registrarEmail'),
+        Template: 'sendEmailNoticeToHost'
       }
     }
     return args
