@@ -226,10 +226,11 @@ component extends="Controller" output="false" {
     if ( isObject(home) ) {
       var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
       if ( !isLocalMachine() ) {
-        if ( !getSetting('isConferenceHomesTesting') ){
-          sendEmail(from=home.email, to=getSetting('registrarEmail'), from=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
+        if ( getSetting('isConferenceHomesTesting') ){
+          subjectText = subjectText & "--TESTING--"
+          sendEmail(from=getSetting('registrarEmailBackup'), to=getSetting('registrarEmailBackup'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
         } ELSE {
-          sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), from=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
+          sendEmail(from=getSetting('registrarEmailBackup'), to=home.email, bcc=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
         }
       } else {
         writeOutPut("An Email would have been sent");abort;
