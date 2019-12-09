@@ -42,7 +42,7 @@ component extends="Controller" output="false" {
     Homes = model("Conferencehome").findAll(where = whereString, order=orderString);
     // writeDump(homes);abort;
     if (!Homes.recordcount){
-      flashInsert(error="Conferencehome #params.key# was not found");
+      // flashInsert(error="Conferencehome #params.key# was not found");
       redirectTo(action="index");
     }
     type="host"
