@@ -38,11 +38,11 @@ component extends="Controller" output="false" {
   public void function list(){
     var orderString = "homeid"
     var whereString = $getWhereStringForList()
-    // writeDump(whereString);abort;
+    writeDump(whereString);abort;
     Homes = model("Conferencehome").findAll(where = whereString, order=orderString);
     // writeDump(homes);abort;
     if (!Homes.recordcount){
-      // flashInsert(error="Conferencehome #params.key# was not found");
+      flashInsert(error="Conferencehome #params.key# was not found");
       redirectTo(action="index");
     }
     type="host"
