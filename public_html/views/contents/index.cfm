@@ -23,7 +23,7 @@
 			#name#
 		</td>
 		<td>
-			#linkto(text=shortlink, controller="contents", action="show", key=shortlink)#
+			#shortlink#
 		</td>
 		<td>
 			#dateformat(updatedAt)#	
