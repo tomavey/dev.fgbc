@@ -6,8 +6,8 @@ component extends="Model" output="false" {
 			name="selectNameId",
 			sql="CONCAT(equip_homes.homeid,'(',equip_homes.name,')')"
 		)
-		validatesUniquenessOf(property="homeid", condition="isDefined('this.homeid') && len(this.homeid) != 0 && this.type != 'guest'", message="Sorry, this home id is already assigned.")
-		validatesLengthOf(property="homeid", condition="isDefined('this.homeid') && len(this.homeid) != 0 && this.approved == 'yes'", message="A Home ID must be set for approved homes.")
+		// validatesUniquenessOf(property="homeid", condition="isDefined('this.homeid') && len(this.homeid) != 0 && this.type != 'guest'", message="Sorry, this home id is already assigned.")
+		// validatesLengthOf(property="homeid", condition="isDefined('this.homeid') && len(this.homeid) != 0 && this.approved == 'yes'", message="A Home ID must be set for approved homes.")
 	}
 	
 	public function findAllHosts(where="", order="") {
