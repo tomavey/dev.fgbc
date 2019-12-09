@@ -6,6 +6,7 @@
 
 <div class="homes-form">
 
+    #hiddenFieldTag(name="home.type", value=type)#
 
     #includePartial("includes/contactfields")#
 
