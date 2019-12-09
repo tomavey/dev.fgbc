@@ -11,7 +11,7 @@
 		#includePartial("includes/navbar")#
 
 		<cfif gotRights("office")>
-			<p class="pull-right">
+			<p class="text-right">
 				#linkto(text="<i class='fa fa-pencil-square'></i>", controller="admin.contents", action="edit", key=instructionsId)#
 			</p>
 		</cfif>
