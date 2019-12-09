@@ -8,6 +8,9 @@
 			Name
 		</th>
 		<th>
+			Shortlink
+		</th>
+		<th>
 			Date
 		</th>
 		<th>
@@ -18,6 +21,9 @@
 	<tr>
 		<td>
 			#name#
+		</td>
+		<td>
+			#linkTo(text=shortlink, route=shortlink)#
 		</td>
 		<td>
 			#dateformat(updatedAt)#	
