@@ -180,6 +180,7 @@ component extends="Controller" output="false" {
      if ( home.approved == "No") { 
       home.approved = "Yes"
       home.update()
+      flashInsert(success="Host Homes won't show on the public list untill they have a home id.");
       if ( !len(home.approvedAt) ) {
         sendEmailNoticeToHost(home.id)
         setApprovedAt(home.id)
