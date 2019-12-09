@@ -18,10 +18,16 @@
   
   
   <!--- <cfdump var="#homes#"><cfabort> --->
-  
+
   <cfscript>
-    for ( home in homes ) {
+    if ( !Homes.recordcount ){
+      writeOutput(
+        "<h1 class='text-center'>There are no host homes ready for selection at this time.</h1>"
+      );
+    } else {
+      for ( home in homes ) {
         writeOutput(includePartial("includes/list"))
+      }
     }
   </cfscript>
 

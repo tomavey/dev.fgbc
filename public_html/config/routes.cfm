@@ -65,6 +65,7 @@
 				.get(name="list", pattern="list")
 				.get(name="showGraceKidsPrices", pattern="showGraceKidsPrices")
 				.get(name="hideGraceKidsPrices", pattern="hideGraceKidsPrices")
+				.get(name="toggleSetting", pattern="toggleSetting")
 			.end()	
 
 			.controller("events")

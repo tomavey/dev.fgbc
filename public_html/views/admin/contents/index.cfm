@@ -27,11 +27,7 @@
 			#name#
 		</td>
 		<td>
-<<<<<<< Updated upstream
 			#shortlink#
-=======
-			#linkto(text=shortlink, controller="contents", action="show", key=shortlink)#
->>>>>>> Stashed changes
 		</td>
 		<td>
 			#dateformat(updatedAt)#
