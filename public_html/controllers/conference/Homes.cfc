@@ -2,8 +2,8 @@ component extends="Controller" output="false" {
   
   public void function init(){
     usesLayout("/conference/adminlayout")
-    // filters(through="isOffice", except="new,newAccessHost,newAccessGuest,show,list,create,sendEmailNoticeToOffice,sendEmailNoticeToHost, thankyou")
-    // filters(through="setReturn", only="index,show,list,new,thankyou")
+    filters(through="isOffice", except="new,newAccessHost,newAccessGuest,show,list,create,sendEmailNoticeToOffice,sendEmailNoticeToHost, thankyou")
+    filters(through="setReturn", only="index,show,list,new,thankyou")
   }  
 
 
@@ -144,9 +144,7 @@ component extends="Controller" output="false" {
         flashInsert(error="Conferencehome #params.key# was not found");
         redirectTo(action="index");
       }
-  
       formType="formFor#home.type#"
-      returnBack()
 		}
   }
   
