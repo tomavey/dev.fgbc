@@ -34,7 +34,7 @@ component extends="Controller" output="false" {
     showType="show#home.type#"
   }
 
-  // Conferencehomes/list/key
+  // Conferencehomes/list/key/
   public void function list(){
     var orderString = "homeid"
     var whereString = $getWhereStringForList()
