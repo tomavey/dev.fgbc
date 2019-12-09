@@ -146,7 +146,7 @@ component extends="Controller" output="false" {
       }
   
       formType="formFor#home.type#"
-      renderPage(action="edit");
+      returnBack()
 		}
   }
   
