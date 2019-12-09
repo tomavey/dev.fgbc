@@ -3,9 +3,10 @@
 
 <div class="container" style="background-color:white;padding:20px;border-radius:10px">
 
-  #includePartial("includes/navbar")#
-
   <cfoutput>
+
+    #includePartial("includes/navbar")#
+
   
     <cfif gotRights("office")>
       <p class="pull-right">

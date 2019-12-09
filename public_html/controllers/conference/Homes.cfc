@@ -46,7 +46,7 @@ component extends="Controller" output="false" {
       redirectTo(action="index");
     }
     type="host"
-    $setInstructions('AccessHostRequestInstructions')
+    $setInstructions(type)
     setLayout()
   }
 
@@ -89,7 +89,7 @@ component extends="Controller" output="false" {
     }
     formType="formFor#home.type#" 
     formaction="create"
-    $setInstructions("AccessHostInstructions")
+    $setInstructions(home.type)
     setLayout()
   }
   
@@ -260,8 +260,9 @@ component extends="Controller" output="false" {
     }
   }
 
-  private function $setInstructions(required string shortLink) {
-    var instructionsObj  = model('Maincontent').findOne(where="shortLink='#arguments.shortlink#'")
+  private function $setInstructions(required string type) {
+    var shortlink = "Access#arguments.type#Instructions"
+    var instructionsObj  = model('Maincontent').findOne(where="shortLink='#shortlink#'")
     if ( isObject(instructionsObj) ) {
       instructions = instructionsObj.content
       instructionsId = instructionsObj.id
