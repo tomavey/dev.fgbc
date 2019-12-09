@@ -224,10 +224,13 @@ component extends="Controller" output="false" {
     home = model("Conferencehome").findByKey(arguments.id)
     // writeDump(home.properties());abort;
     if ( isObject(home) ) {
+      var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
       if ( !isLocalMachine() ) {
-        var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
-        // sendEmail(from=home.email, to=getSetting('registrarEmail'), from=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
-        sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), from=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
+        if ( !getSetting('isConferenceHomesTesting') ){
+          sendEmail(from=home.email, to=getSetting('registrarEmail'), from=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
+        } ELSE {
+          sendEmail(from=home.email, to=getSetting('registrarEmailBackup'), from=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
+        }
       } else {
         writeOutPut("An Email would have been sent");abort;
       }
