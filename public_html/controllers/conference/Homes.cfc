@@ -258,6 +258,7 @@ component extends="Controller" output="false" {
         Template: 'sendEmailNoticeToHost'
       }
     }
+    writeDump(args);abort;
     return args
   }
 
