@@ -2,8 +2,8 @@ component extends="Controller" output="false" {
   
   public void function init(){
     usesLayout("/conference/adminlayout")
-    filters(through="isOffice", except="new,newAccessHost,newAccessGuest,show,list,create,sendEmailNoticeToOffice,sendEmailNoticeToHost, thankyou")
-    filters(through="setReturn", only="index,show,list,new,thankyou")
+    // filters(through="isOffice", except="new,newAccessHost,newAccessGuest,show,list,create,sendEmailNoticeToOffice,sendEmailNoticeToHost, thankyou")
+    // filters(through="setReturn", only="index,show,list,new,thankyou")
   }  
 
 
@@ -36,7 +36,6 @@ component extends="Controller" output="false" {
 
   // Conferencehomes/list/key/
   public void function list(){
-    writeDump("hi");abort;
     var orderString = "homeid"
     var whereString = $getWhereStringForList()
     writeDump(whereString);abort;
