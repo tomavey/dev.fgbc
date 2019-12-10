@@ -2,7 +2,7 @@ component extends="Controller" output="false" {
   
   public void function init(){
     usesLayout("/conference/adminlayout")
-    filters(through="isOffice", except="new,newAccessHost,newAccessGuest,show,list,create,sendEmailNoticeToOffice,sendEmailNoticeToHost, thankyou")
+    filters(through="checkOffice", except="new,newAccessHost,newAccessGuest,show,list,create,sendEmailNoticeToOffice,sendEmailNoticeToHost, thankyou")
     filters(through="setReturn", only="index,show,list,new,thankyou")
   }  
 
