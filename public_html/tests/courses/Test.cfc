@@ -1,6 +1,5 @@
 component extends="tests.Test" {
 
-
   //COURSES VIEWS
   public function test_courses_Index() {
     //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
