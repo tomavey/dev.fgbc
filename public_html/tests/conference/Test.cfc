@@ -32,7 +32,7 @@ component extends="tests.Test" {
   //EVENTS VIEWS
   public function test_events_Index() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-		loc.params = {controller="conference.events", action="index", message="Conference Events"};
+		loc.params = {controller="conference.events", action="index"};
 		$run_view_test();
 	}
 

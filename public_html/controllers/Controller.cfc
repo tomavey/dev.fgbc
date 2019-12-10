@@ -108,16 +108,16 @@ component extends="Wheels" {
 		}
 	}
 
-	function isOffice() {
-		try {
-			if ( !gotRights("superadmin,office,handbookedit") ) {
-				redirectto(controller="home", action="loggedOut");
-				abort;
-			}
-		} catch (any cfcatch) {
-			redirectto(controller="home", action="loggedOut");
-		}
-	}
+	// function isOffice() {
+	// 	try {
+	// 		if ( !gotRights("superadmin,office,handbookedit") ) {
+	// 			redirectto(controller="home", action="loggedOut");
+	// 			abort;
+	// 		}
+	// 	} catch (any cfcatch) {
+	// 		redirectto(controller="home", action="loggedOut");
+	// 	}
+	// }
 
 	function gotAgbmRights() {
 		if ( !gotRights("superadmin,agbmadmin,agbm") ) {
@@ -173,23 +173,23 @@ component extends="Wheels" {
 		}
 	}
 
-	// function isOffice() {
-	// 	if ( gotRights("superadmin,office") == 'yes' ) {
-	// 		return true;
-	// 	}
-	// 	if ( isDefined("params.controller") && params.controller contains "handbook" ) {
-	// 		return true;
-	// 	}
-	// 	try {
-	// 		if ( structkeyexists(session.auth,"office") ) {
-	// 			return true;
-	// 		} else {
-	// 			return false;
-	// 		}
-	// 	} catch (any cfcatch) {
-	// 		return false;
-	// 	}
-	// }
+	function isOffice() {
+		if ( gotRights("superadmin,office") == 'yes' ) {
+			return true;
+		}
+		if ( isDefined("params.controller") && params.controller contains "handbook" ) {
+			return true;
+		}
+		try {
+			if ( structkeyexists(session.auth,"office") ) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (any cfcatch) {
+			return false;
+		}
+	}
 
 	function checkOffice() {
 		if ( !isoffice() ) {
