@@ -165,7 +165,7 @@ component extends="Controller" output="false" {
   }
 //----END OF CRUD-------
   
-
+              
 
 //--------------------
 //---PROCESSES--------
@@ -233,7 +233,7 @@ component extends="Controller" output="false" {
           sendEmail(from=getSetting('registrarEmail'), to=home.email, bcc=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
         }
       } else {
-        writeOutPut("An Email would have been sent");abort;
+        writeOutPut("An 'sendEmailNoticeToHost' would have been sent");abort;
       }
     } else {
       renderText("Oops. Something went wrong!")
