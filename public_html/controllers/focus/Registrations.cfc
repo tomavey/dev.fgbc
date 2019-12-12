@@ -25,15 +25,17 @@
 		</cfif>
 
 		<cfif isdefined("params.retreatid")>
-			<cfset registrations = model("Focusregistration").findAll(where="showregs='yes' AND retreatid='#params.retreatid#'", include="item(retreat),registrant,invoice", order=orderby)>
+			<cfset whereString = "showregs='yes' AND retreatid='#params.retreatid#'">
+			// AND createdAt < '2019-01-12'" will test summary report
+			<cfset registrations = model("Focusregistration").findAll(where=whereString, include="item(retreat),registrant,invoice", order=orderby)>
 			<cfset registrationCounts = model("Focusregistration").findAll(where="showregs='yes' AND retreatid='#params.retreatid#'", include="item(retreat),registrant,invoice", order="itemid DESC")>
 			<cfset retreat = model("Focusretreat").findbyKey(params.retreatid)>
 			<cfset reporttitle = "Listing Registrations for #retreat.regid#:">
 		<cfelseif isdefined("params.retreat")>
-			<cfset retreat = model("Focusretreat").findOne(where="regid='#params.retreat#'")>
-			<cfset params.retreatid = retreat.id>
 			<cfset registrations = model("Focusregistration").findAll(where="retreatid='#params.retreatid#'", include="item(retreat),registrant,invoice", order=orderby)>
 			<cfset registrationCounts = model("Focusregistration").findAll(where="retreatid='#params.retreatid#'", include="item(retreat),registrant,invoice", order="itemid DESC")>
+			<cfset retreat = model("Focusretreat").findOne(where="regid='#params.retreat#'")>
+			<cfset params.retreatid = retreat.id>
 			<cfset reporttitle = "Listing Registrations for #retreat.regid#:">
 		<cfelseif isdefined("params.search")>
 			<cfset registrations = model("Focusregistration").findAll(where="showregs='yes' AND (lname='#params.search#' OR fname='#params.search#')", include="item(retreat),registrant,invoice", order=orderby)>
@@ -315,6 +317,8 @@
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-7,asof))>
 		</cfloop>
 
+		<cfset regs.southwest20total = countRegsToDate("southwest20",0,asof)>
+
 		<cfloop list="SW19Single1,SW19Single2,SW19SinglePrivate" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,asof))>
 		</cfloop>
@@ -338,6 +342,8 @@
 		</cfloop>
 
 
+		<cfset regs.south20total = countRegsToDate("south20",0,asof)>
+
 		<cfloop list="South19Single,South19Double,South19Triple" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,asof))>
 		</cfloop>
@@ -359,6 +365,8 @@
 		<cfloop list="focusSouth2013Sgl,focusSouth2013Dbl" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-7,asof))>
 		</cfloop>
+
+		<cfset regs.northwest20total = countRegsToDate("northwest20",0,asof)>
 
 		<cfloop list="FocusNW19" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,asof))>

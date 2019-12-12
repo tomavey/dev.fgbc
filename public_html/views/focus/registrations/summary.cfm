@@ -19,9 +19,9 @@
 			<td>2019/20</td>
 			<td>#regs.central19total#</td>
 			<td>#regs.east19total#</td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td>#regs.southwest20total#</td>
+			<td>#regs.south20total#</td>
+			<td>#regs.northwest20total#</td>
 		</tr>
 		<tr>
 			<td>2018/19</td>
