@@ -6,7 +6,7 @@ Most related actions are in handbook-statistics--->
 
 	<cffunction name="init">
 		<cfset usesLayout(template="/handbook/layout_admin")>
-		<cfset filters(through="isoffice")>
+		<cfset filters(through="checkOffice")>
 	</cffunction>
 
 	<!---handbookDownloadmemberchurchesadmin	GET	/handbook/admin/downloadmemberchurches--->

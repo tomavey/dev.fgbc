@@ -2,7 +2,7 @@ component extends="Controller" output="false" {
 	
 	<!--- Initialize --->
 	function init(){
-		filters(through="isOffice", only="index,edit,show,new,delete")
+		filters(through="checkOffice", only="index,edit,show,new,delete")
 		filters(through="setReturn", only="list,index,show")
 		filters(through="getEvent", only="copy,edit,update")
 	}	

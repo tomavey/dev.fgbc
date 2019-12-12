@@ -1,7 +1,7 @@
 component extends="Controller" output="false" {
 
 	public function init() {
-		filters(through="isOffice", only="index,edit");
+		filters(through="checkOffice", only="index,edit");
 	}
 
 

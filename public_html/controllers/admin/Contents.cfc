@@ -1,7 +1,7 @@
 component extends="Controller" output="false" {
 
 	function init(){
-		filters(through="isOffice", only="index,new,delete")
+		filters(through="checkOffice", only="index,new,delete")
 		filters(through="isPageEditor", only="edit")
 		filters(through="getAllRights", only="new,edit")
 		filters(through="setReturn", only="show,index")

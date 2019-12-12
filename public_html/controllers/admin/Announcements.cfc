@@ -1,7 +1,7 @@
 <cfcomponent extends="Controller" output="false">
 
 	<cffunction name="init">
-		<cfset filters(through="isOffice", only="adminindex,edit,new,delete")>
+		<cfset filters(through="checkOffice", only="adminindex,edit,new,delete")>
 		<cfset filters(through="setReturn", only="index,show")>
 	</cffunction>
 
