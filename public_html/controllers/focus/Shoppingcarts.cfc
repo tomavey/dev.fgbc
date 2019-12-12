@@ -45,6 +45,7 @@
 		<cfelse>
 			<cfset message = "">
 		</cfif>
+		<cfset formaction="checkout">
 		<cfset setReturn()>
 		<cfset renderPage(layout="/focus/layout2")>
 	</cffunction>
