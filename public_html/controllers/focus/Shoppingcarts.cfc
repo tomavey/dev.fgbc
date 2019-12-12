@@ -229,7 +229,6 @@
 
 	<cffunction name="checkout">
 	<!---params.key must be availble--->
-	<cfdump var="#params#"><cfabort>
 	<cfset var i=0>
 	<cfset var thisitem=0>
 	<cfset var cart = {}>
