@@ -193,7 +193,7 @@ component extends="Wheels" {
 
 	function checkOffice() {
 		if ( !isoffice() ) {
-			rendertext("You do !have permission to view this page");
+			rendertext("You do !have permission to view this page...");
 		}
 	}
 

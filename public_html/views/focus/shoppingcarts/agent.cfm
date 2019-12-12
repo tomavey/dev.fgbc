@@ -1,3 +1,4 @@
+<cfparam name="formaction" default="checkout">
 <cfoutput>
 
 	<!--- <cfif gotRights("office")>	
@@ -25,7 +26,7 @@ You are logged in! Entering one of these email addresses will result in a regist
 			</div>
 		</cfif>
 
-			#startFormTag(action="checkout", key=params.key)#
+			#startFormTag(action=formaction, key=params.key)#
 
 			#textFieldTag(name="agent", label="Who do you want a receipt sent to? ", value='#agentemail#')#
 			#submitTag('Submit')#
