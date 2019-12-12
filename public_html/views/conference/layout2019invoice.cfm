@@ -46,6 +46,8 @@
     <meta name="msapplication-TileImage" content="https://access2018.com/images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
     <style>
         @media only screen and (max-width: 500px) {
             body {

@@ -2,11 +2,15 @@
 
   <div class="homes homes-contactinfo">
     <p class="homes-section">Contact Info</p>
-    #textField(objectName='home', property='name', label='Name', class="homes-input-wide")#
-            
-    #textField(objectName='home', property='phone', label='Phone', class="homes-input-half")#
-    
-    #textField(objectName='home', property='email', label='Email', class="homes-input-half")#
+    <p>
+      Name:<br/> <input type="text" name="home.name" class="homes-input-wide" v-model="name">
+    </p>    
+    <p>
+      Phone:<br/> <input type="text" name="home.phone" class="homes-input-wide" v-model="phone">
+    </p>
+    <p>
+      Email:<br/> <input type="text" name="home.email" class="homes-input-wide" v-model="email">
+    </p>
   </div>
 
 </cfoutput>

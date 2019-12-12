@@ -6,8 +6,8 @@
 
 	#styleSheetLinkTag("conference/conferencehomes")#
 
-	<div class="container" style="background-color:white;padding:20px;border-radius:10px">
-
+	<div id="app" class="container" style="background-color:white;padding:20px;border-radius:10px">
+		{{name}}
 		#includePartial("includes/navbar")#
 
 		<cfif gotRights("office")>
@@ -18,7 +18,6 @@
 
 		<p>#instructions#</p>
 
-
 		#includePartial("includes/showFlash")#
 
 					
@@ -28,15 +27,51 @@
 				
 					#includePartial('includes/#formtype#')#				
 																		
-					#submitTag(value="Submit", class="btn btn-primary btn-lg btn-block")#
-						
+					<!--- #submitTag(value="Submit", class="btn btn-primary btn-lg btn-block", id="submitButton")# --->
+					<div @mouseover="mouseOver">
+						<input type="submit" id="submitButton" class="btn btn-primary btn-lg btn-block" :disabled='submitDisabled' >
+					</div>
+						{{showRequired}}
 					#endFormTag()#
 					
 				
 
 		#linkTo(text="Return to the listing", action="index")#
+		<p>
+			{{message}}
+		</p>
 
+	
 	</div>
 
 </cfoutput>
+
+<script>
+	var app = new Vue({
+  el: '#app',
+  data: function () {
+		return {
+			message: 'vue loaded',
+			name: '',
+			phone: '',
+			email: '',
+			showRequired: ""
+		}
+	},
+	methods: {
+		mouseOver: function () {
+			this.message="moused over"
+		},
+	},
+	computed: {
+		submitDisabled: function () {
+			if ( this.name.length && this.phone.length && this.email.length ) {
+				return false
+			} else {
+				return true
+			}
+		},
+	}
+})
+</script>
 
