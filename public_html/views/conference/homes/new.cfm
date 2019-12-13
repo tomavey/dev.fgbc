@@ -28,10 +28,10 @@
 					#includePartial('includes/#formtype#')#				
 																		
 					<!--- #submitTag(value="Submit", class="btn btn-primary btn-lg btn-block", id="submitButton")# --->
-					<div @mouseover="mouseOver">
-						<input type="submit" id="submitButton" class="btn btn-primary btn-lg btn-block" :disabled='submitDisabled' >
+					<div @mouseover="mouseOver" @mouseleave="mouseLeave" :class="mouseOverDiv">
+						<input type="submit" id="submitButton" class="btn btn-primary btn-lg btn-block" :disabled='inValid'>
+						<div v-html="validationMessage" class="text-center"></div>
 					</div>
-						{{showRequired}}
 					#endFormTag()#
 					
 				
@@ -55,23 +55,55 @@
 			name: '',
 			phone: '',
 			email: '',
-			showRequired: ""
+			showRequired: "",
+			mouseOverDiv: "homes"
 		}
 	},
 	methods: {
 		mouseOver: function () {
-			this.message="moused over"
-		},
-	},
-	computed: {
-		submitDisabled: function () {
-			if ( this.name.length && this.phone.length && this.email.length ) {
-				return false
-			} else {
-				return true
+			if ( this.inValid ){
+				this.mouseOverDiv = "homes alert alert-danger"
 			}
 		},
+		mouseLeave: function () {},
+		submitClick: function (){
+			alert("clicked")
+		},
+		validEmail: function (email) {
+			let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+			return mailformat.test(email)
+		}
+	},
+	computed: {
+		inValid: function () {
+			if ( !this.name.length || !this.phone.length || !this.validEmail(this.email) ) {
+				return true
+			} else {
+				return false
+			}
+		},
+		validationMessage: function () {
+			if ( this.inValid ) {
+				return "Name, Phone and Email are required"
+			} else {
+				return ""
+			}
+		},
+		validEmailMessage: function () {
+			if ( this.validEmail(this.email) ) {
+				return ""
+			} else {
+				return "A valid email is required"
+			}
+		}	
 	}
 })
 </script>
+
+<style>
+ .required {
+	 font-size: .6em;
+	 font-weight: normal
+ }
+</style>
 
