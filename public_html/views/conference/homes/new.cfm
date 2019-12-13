@@ -7,7 +7,7 @@
 	#styleSheetLinkTag("conference/conferencehomes")#
 
 	<div id="app" class="container" style="background-color:white;padding:20px;border-radius:10px">
-		{{name}}
+
 		#includePartial("includes/navbar")#
 
 		<cfif gotRights("office")>
