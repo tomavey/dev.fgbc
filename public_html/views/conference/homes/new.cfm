@@ -28,17 +28,18 @@
 					#includePartial('includes/#formtype#')#				
 																		
 					<!--- #submitTag(value="Submit", class="btn btn-primary btn-lg btn-block", id="submitButton")# --->
-					<div @mouseover="mouseOver" @mouseleave="mouseLeave" :class="mouseOverDiv">
+					<div @mouseover="mouseOver" @mouseleave="mouseLeave" :class="mouseOverDivClass">
 						<input type="submit" id="submitButton" class="btn btn-primary btn-lg btn-block" :disabled='inValid'>
-						<div v-html="validationMessage" class="text-center"></div>
+						<div v-html="validationMessage" class="text-center" v-if="showRequired"></div>
 					</div>
 					#endFormTag()#
 					
 				
-
-		#linkTo(text="Return to the listing", action="index")#
-		<p>
-			{{message}}
+		<cfif isOffice()>
+			#linkTo(text="Return to the listing", action="index")#
+		</cfif>			
+		<p v-html="message">
+			-
 		</p>
 
 	
@@ -51,21 +52,24 @@
   el: '#app',
   data: function () {
 		return {
-			message: 'vue loaded',
+			message: 'o',
 			name: '',
 			phone: '',
 			email: '',
-			showRequired: "",
-			mouseOverDiv: "homes"
+			mouseOverDivClass: "homes",
+			showRequired: false
 		}
 	},
 	methods: {
 		mouseOver: function () {
 			if ( this.inValid ){
-				this.mouseOverDiv = "homes alert alert-danger"
+				this.mouseOverDivClass = "homes alert alert-danger"
+				this.showRequired = true
 			}
+		}, 
+		mouseLeave: function () {
+			this.showRequired = false
 		},
-		mouseLeave: function () {},
 		submitClick: function (){
 			alert("clicked")
 		},
@@ -84,7 +88,7 @@
 		},
 		validationMessage: function () {
 			if ( this.inValid ) {
-				return "Name, Phone and Email are required"
+				return "The submit button will not work until Name, Phone and a valid Email are provided"
 			} else {
 				return ""
 			}
@@ -95,7 +99,7 @@
 			} else {
 				return "A valid email is required"
 			}
-		}	
+		},
 	}
 })
 </script>
@@ -105,5 +109,6 @@
 	 font-size: .6em;
 	 font-weight: normal
  }
+
 </style>
 
