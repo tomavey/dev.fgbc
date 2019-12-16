@@ -15,8 +15,7 @@
     <!---Favicons--->
     <meta name="theme-color" content="#ffffff">
 
-    <!--- <script src="https://cdn.jsdelivr.net/npm/vue"></script> --->
-    <script src="/assets/js/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
     <style>
         @media only screen and (max-width: 500px) {

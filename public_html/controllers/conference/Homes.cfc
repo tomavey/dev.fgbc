@@ -163,20 +163,6 @@ component extends="Controller" output="false" {
 			redirectTo(action="index");
     }
   }
-
-  // Conferencehomes/delete/key
-  public void function deleteAll(){
-    Homes = model("Conferencehome").findAll();
-    var count = 0
-
-    for ( home in homes ) {
-      Home = model("Conferencehome").findByKey(home.id)
-      Home.deletedAt = now()
-      Home.update()
-      count = count + 1
-    }
-    redirectTo(action="index");
-  }
 //----END OF CRUD-------
   
               

@@ -632,7 +632,6 @@
 				.get(name="new", pattern="new/")
 				.get(name="delete", pattern="delete/")
 				.delete(name="delete", pattern="delete/")
-				.get(name="deleteAll", pattern="deleteAll/")
 				.post(name="update", pattern="update/")
 				.put(name="update", pattern="update/")
 				.post(name="create", pattern="create/")

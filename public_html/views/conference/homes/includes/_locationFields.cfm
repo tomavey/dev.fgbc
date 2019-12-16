@@ -6,7 +6,7 @@
 
     #textField(objectName='home', property='distance', label='Distance from Grace College Campus', class="homes-input-half")#
                         
-    #textField(objectName='home', property='cost', label='Cost per night? (Note: We hope to offer host homes for little or no cost)', class="homes-input-short")#
+    #textField(objectName='home', property='cost', label='Cost per night? (Note: We hope to offer host homes for little to no cost)', class="homes-input-short")#
   
   </div>
 </cfoutput>
