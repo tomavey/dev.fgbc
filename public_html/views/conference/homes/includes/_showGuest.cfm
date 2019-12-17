@@ -8,6 +8,8 @@
   
   #includePartial("includes/contactinfo")#
   
+  #includePartial("includes/office")#
+  
   <cfif gotRights("office")>
     #listTag()# #editTag(home.id)#
   </cfif>
