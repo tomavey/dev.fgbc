@@ -40,13 +40,8 @@ component extends="Controller" output="false" {
   public void function list(){
     var orderString = "homeid"
     var whereString = $getWhereStringForList()
-    // writeDump(whereString);abort;
     Homes = model("Conferencehome").findAll(where = whereString, order=orderString);
-    // writeDump(homes);abort;
-    if (!Homes.recordcount){
-      flashInsert(error="The are no approved homes with home id's to show");
-      redirectTo(action="index");
-    }
+
     type="host"
     $setInstructions(type)
     setLayout()

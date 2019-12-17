@@ -22,7 +22,7 @@
   <cfscript>
     if ( !Homes.recordcount ){
       writeOutput(
-        "<h1 class='text-center'>There are no host homes ready for selection at this time.</h1>"
+        "<div style='border:2px solid black; margin-bottom:30px; padding: 20px'><h1 class='text-center'>There are no host homes ready for selection at this time. Check back soon!</h1></div>"
       );
     } else {
       for ( home in homes ) {
