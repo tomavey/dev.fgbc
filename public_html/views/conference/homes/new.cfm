@@ -30,7 +30,7 @@
 					#includePartial('includes/#formtype#')#				
 																		
 					<!--- #submitTag(value="Submit", class="btn btn-primary btn-lg btn-block", id="submitButton")# --->
-					<div @mouseover="mouseOver" @mouseleave="mouseLeave" :class="mouseOverDiv">
+					<div @mouseover="mouseOver" @mouseleave="mouseLeave" :class="mouseOverDivClass">
 						<input type="submit" id="submitButton" class="btn btn-primary btn-lg btn-block" :disabled='inValid'>
 						<div v-html="validationMessage" class="text-center"></div>
 					</div>
@@ -59,7 +59,7 @@
 			phone: '',
 			email: '',
 			mouseOverDivClass: "homes",
-			showRequired: false
+			showRequired: false,
 		}
 	},
 	methods: {

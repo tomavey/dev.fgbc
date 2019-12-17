@@ -6,20 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Aviators - byaviators.com">
 
-    <link rel="stylesheet" href="https://www.access2018.com/assets/js/rs-plugin/css/settings.css" type="text/css">
-    <link rel="stylesheet" href="https://www.access2018.com/assets/js/rs-plugin/css/fullwidth.css" type="text/css">
-
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,300,700" rel="stylesheet" type="text/css">
-    <link href="https://www.access2018.com/assets/icons/pictopro-normal/style.css" rel="stylesheet" type="text/css">
-    <link href="https://www.access2018.com/assets/icons/pictopro-outline/style.css" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="https://www.access2018.com/assets/fancybox/jquery.fancybox.css" type="text/css">
-    <link rel="stylesheet" href="https://www.access2018.com/assets/css/infine.css" type="text/css">
-
-    <!--[if lt IE 9]>
-        <link rel="stylesheet" id="ie8-css"  href="https://www.access2018.com/assets/css/ie8.css" type="text/css" media="all">
-    <![endif]-->
-
     <link rel="stylesheet" href="/stylesheets/conference/bootstrap.css" type="text/css">
 
     <link rel="stylesheet" href="/stylesheets/conference/regstyle.css" type="text/css">
@@ -27,24 +13,10 @@
     <!--- <link rel="stylesheet" href="/stylesheets/conference/custom2017.css" type="text/css"> --->
 
     <!---Favicons--->
-    <link rel="shortcut icon" href="https://access2018.com/images/favicon.ico">
-    <link rel="apple-touch-icon" sizes="57x57" href="https://access2018.com/images/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="https://access2018.com/images/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="https://access2018.com/images/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="https://access2018.com/images/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="https://access2018.com/images/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="https://access2018.com/images/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="https://access2018.com/images/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="https://access2018.com/images/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://access2018.com/images/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="https://access2018.com/images/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://access2018.com/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="https://access2018.com/images/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://access2018.com/images/favicon-16x16.png">
-    <link rel="manifest" href="https://access2018.com/images/manifest.json">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="https://access2018.com/images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+
+    <!--- <script src="https://cdn.jsdelivr.net/npm/vue"></script> --->
+    <script src="/assets/js/vue.js"></script>
 
     <style>
         @media only screen and (max-width: 500px) {
@@ -55,7 +27,7 @@
     </style>
 
 
-    <title>Access2018 Conference...</title>
+    <title>Access2020 Conference...</title>
     <cfparam name="headerSubTitle" default="">
 </head>
 
@@ -211,11 +183,6 @@
 <cfdump var="#session#" label="The Full Session">
 </cfif>
 
-
-<!---<cfinclude template="includes2017/_javascripts.cfm" />--->
-<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
-<script type="text/javascript" src="/javascripts/conference/jquery.scrollTo-1.4.3.1-min.js"></script>
-<script type="text/javascript" src="/javascripts/conference/script.js"></script>
 
 </body>
 </html>
