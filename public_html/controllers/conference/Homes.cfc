@@ -6,7 +6,7 @@ component extends="Controller" output="false" {
     filters(through="setReturn", only="index,show,list,new,thankyou")
   }  
 
-
+devMode=true
 
 //-------------------
 //---CRUD------------  
@@ -283,7 +283,7 @@ component extends="Controller" output="false" {
   }
 
   private function setLayout(){
-    if ( !gotRights('office') ) {
+    if ( !gotRights('office') || devMode ) {
       renderPage(layout="/conference/layout2019invoice")
     }
   }

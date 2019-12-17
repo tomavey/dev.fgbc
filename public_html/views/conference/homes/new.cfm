@@ -8,7 +8,9 @@
 
 	<div id="app" class="container" style="background-color:white;padding:20px;border-radius:10px">
 
-		#includePartial("includes/navbar")#
+		<cfif isOffice() && !devMode>
+			#includePartial("includes/navbar")#
+		</cfif>
 
 		<cfif gotRights("office")>
 			<p class="text-right">
@@ -35,8 +37,12 @@
 					#endFormTag()#
 					
 				
-
-		#linkTo(text="Return to the listing", action="index")#
+					<cfif isOffice()>
+						#linkTo(text="Return to the listing", action="index")#
+					</cfif>			
+					<p v-html="message">
+						-
+					</p>
 
 	
 	</div>
