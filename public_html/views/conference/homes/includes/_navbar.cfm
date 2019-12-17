@@ -16,7 +16,7 @@
         <cfif getSetting('isConferenceHomesTesting')>
           Email notifications not sent to user!
         </cfif>
-        <!--- #linkTo(text="Thank You Message", action="thankyou", class="btn")# --->
+        #linkTo(text="Edit Instructions", controller="admin.contents", action="index", params="category=homes", class="btn")#
       </p>
     </div>
   </cfif>

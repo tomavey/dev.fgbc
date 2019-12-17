@@ -15,6 +15,8 @@
 
 						<p>Created: #dateformat(content.createdAt)#</p>
 
+						<p>Category: #content.category#</p>
+
 						#listTag()# | #editTag(content.id)#
 	</cfif>
 

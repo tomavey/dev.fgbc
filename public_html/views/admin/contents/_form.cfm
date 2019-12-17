@@ -12,6 +12,8 @@
 
 						#textField(objectName='content', property='shortlink', label='Short Link: ')#
 
+						#textField(objectName='content', property='category', label='Category: ')#
+
 						#textField(objectName='content', property='author', label='Author: ')#
 
 						#textField(objectName='content', property='redirectTo', label='Redirect to this url: ')#

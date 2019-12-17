@@ -19,7 +19,11 @@ component extends="Controller" output="false" {
 
 	<!--- contents/index --->
 	function index(){
-		contents = model("Maincontent").findAll(order="createdAt DESC")
+		var whereString = ""
+		if ( isDefined('params.category') ) {
+			whereString = "category = '#params.category#'"
+		}
+		contents = model("Maincontent").findAll(where=whereString, order="createdAt DESC")
 	}	
 
  	<!--- contents/show/key --->

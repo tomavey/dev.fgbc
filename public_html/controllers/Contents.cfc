@@ -11,7 +11,11 @@
 	<!--- contents/index --->
 	<cffunction name="index">
 		<cfset setreturn()>
-		<cfset contents = model("Maincontent").findAll(order="createdAt DESC")>
+		<cfset var whereString = "">
+		<cfif isDefined("params.category")>
+			<cfset whereString = "category = '#params.category#'">
+		</cfif>
+		<cfset contents = model("Maincontent").findAll(where = wherestring, order="createdAt DESC")>
 	</cffunction>
 
 	<!--- contents/show/key --->

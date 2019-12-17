@@ -12,6 +12,9 @@
 			Name
 		</th>
 		<th>
+			Category
+		</th>
+		<th>
 			Shortlink
 		</th>
 		<th>
@@ -25,6 +28,9 @@
 	<tr>
 		<td>
 			#name#
+		</td>
+		<td>
+			#category#
 		</td>
 		<td>
 			#shortlink#
