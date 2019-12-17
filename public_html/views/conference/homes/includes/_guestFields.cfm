@@ -2,7 +2,7 @@
 
    #hiddenField(objectName="home", property="type")#
 
-  <cfif isDefined("home.requestedHomeId")>
+   <cfif isDefined("home.requestedHomeId") && params.action != "edit">
     #hiddenField(objectName="home", property="requestedHomeId")#
     #hiddenFieldTag(name="home.approved", value="no")#
   <cfelse>
