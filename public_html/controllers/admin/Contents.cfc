@@ -24,6 +24,7 @@ component extends="Controller" output="false" {
 			whereString = "category = '#params.category#'"
 		}
 		contents = model("Maincontent").findAll(where=whereString, order="createdAt DESC")
+		categoriesList = removeDuplicatesFromList(ValueList(contents.category,","))
 	}	
 
  	<!--- contents/show/key --->

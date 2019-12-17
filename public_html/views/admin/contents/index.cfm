@@ -4,6 +4,17 @@
 
 <cfoutput>
 	<p>#linkTo(text="New page", action="new")#</p>
+
+		<p>
+			filter by:
+			<cfif !isDefined('params.category')>
+				<cfloop list="#categoriesList#" index="i">
+				#linkto(text=i, params="category=#i#")# | 
+			</cfloop>
+		</cfif>
+			#linkto(text='all')#
+
+		</p>
 </cfoutput>
 
 <table class="table">
