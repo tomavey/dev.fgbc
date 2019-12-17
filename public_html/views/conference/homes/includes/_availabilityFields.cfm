@@ -3,7 +3,7 @@
     <p class="homes-section">Availability</p>
     <div class="homes-question">
       <p>
-        Is your home available July 21-23, 2020?
+        Is your home available July 20-23, 2020?
       </p>
       <div class="homes-multi">
         #radioButton(objectName='home', property='available', tagValue="Yes", label='Yes')#

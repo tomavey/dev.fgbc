@@ -97,6 +97,7 @@ component extends="Controller" output="false" {
   //Conferencehomes/edit/key
   public void function edit(){
     Home = model("Conferencehome").findByKey(params.key);
+    hostHomes = model("Conferencehome").findAll(where ="homeId IS NOT NULL", order="homeId")
     	
     if (!IsObject(Home)){
 	    flashInsert(error="Conferencehome #params.key# was not found");
