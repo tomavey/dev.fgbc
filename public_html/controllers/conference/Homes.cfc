@@ -6,7 +6,7 @@ component extends="Controller" output="false" {
     filters(through="setReturn", only="index,show,list,new,thankyou")
   }  
 
-devMode=true
+  devMode=false
 
 //-------------------
 //---CRUD------------  
@@ -32,6 +32,7 @@ devMode=true
       redirectTo(action="index");
     }
     showType="show#home.type#"
+    setLayout()
   }
 
   // Conferencehomes/list/key/
@@ -173,11 +174,11 @@ devMode=true
 
   public void function approve(id=params.key){
     Home = model("Conferencehome").findByKey(arguments.id);
-    if ( home.approved == "Yes") { 
-      home.approved = "No"
-      home.update()
-      returnBack()
-     }
+      // if ( home.approved == "Yes") { 
+      //   home.approved = "No"
+      //   home.update()
+      //   returnBack()
+      //  }
      if ( home.approved == "No") { 
       home.approved = "Yes"
       home.update()

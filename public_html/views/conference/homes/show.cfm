@@ -6,7 +6,7 @@
 
   #styleSheetLinkTag("conference/conferencehomes")#
 
-  <div class="container">
+  <div class="container" style="background-color:white;padding:20px;border-radius:10px">
 
     #includePartial("includes/#showType#")#
 
