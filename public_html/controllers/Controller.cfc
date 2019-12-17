@@ -376,6 +376,19 @@ component extends="Wheels" {
 		return super.startFormTag(argumentCollection=loc);
 	}
 
+	// Overflow method
+	// For custom data attributes we convert underscores and camel case to hyphens.
+	// E.g. "dataDomCache" and "data_dom_cache" becomes "data-dom-cache".
+	// ie: v_model becomes v-model used in vue
+	// This is to get around the issue with not being able to use a hyphen in an argument name in CFML.
+	function textField() {
+		var loc=structNew();
+		for ( i in structKeylist(arguments) ) {
+			loc[replace(i,"_","-","all")] = arguments[i];
+		}
+		return super.textField(argumentCollection=loc)
+	}
+
 	//Used when linking back to a list of things. . ie action=index
 	function linkToList(text="Go Back") {
 		var loc=structNew();
