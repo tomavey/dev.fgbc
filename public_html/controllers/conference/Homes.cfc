@@ -21,6 +21,7 @@ component extends="Controller" output="false" {
     var orderString = sortby & " " & direction
     var whereString = $getWhereStringForIndex()
     Homes = model("Conferencehome").findAll(where = whereString, order=orderString);
+    writeDump()
     }
   
   // Conferencehomes/show/key
