@@ -826,6 +826,7 @@
 		.get(name="selectCohorts", pattern="selectcohorts", controller="conference.courses", action="selectcohorts")
 		.get(name="accessHomeHosts", pattern="accessHost", controller="conference.homes", action="newAccessHost")
 		.get(name="accessHomeGuests", pattern="accessGuest", controller="conference.homes", action="newAccessGuest")
+		.get(name="accessHomes", pattern="accesshomes", controller="conference.homes", action="list")
 
 <!---------------------------------->
 <!----------API Routes---------->
