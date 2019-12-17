@@ -26,13 +26,13 @@
 
     <ul>
         <li>
-          8' Table with floor length table cover: <cfif natmin>$350 <cfelse>$700 </cfif>per table.
+          8' Table with floor length table cover: <cfif natmin>$350 <cfelse>$700 </cfif>per table
         </li>
         <li>
-          Exhibit Space (8' X 3'): <cfif natmin>$300 <cfelse>$600 </cfif>.
+          Exhibit Space (8' X 3'): <cfif natmin>$300 <cfelse>$600 </cfif>
         </li>
         <li>
-          Electrical Hook-up: $25
+          Electrical hook-up: $25
         </li>  
     </ul>
 
