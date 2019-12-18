@@ -180,8 +180,8 @@
 	<cfset loc = arguments.params>
 		<cfset loc.whereString = "category in (#getSetting('eventCategoriesForJson')#) AND event = '#getEvent(params)#'">
 		<cfset loc.orderString = "dayofyear,timebegin">
-		<cfset loc.selectString = "id,starttime,timebegin,endtime,timeend,eventroom,description,descriptionschedule,descriptionprogram,dateOn,dayOn,dayofyear,dayOfWeek,coursetitle,category,cost,link,image">
-		<cfset loc.selectString = loc.selectString & ",buttondescription,descriptionlong,descriptionshort,optiondescription,coursedescription,commentpublic,eventid">
+		<cfset loc.selectString = "id,starttime,timebegin,endtime,timeend,eventroom,description,dateOn,dayOn,dayofyear,dayOfWeek,category,cost,link,image">
+		<cfset loc.selectString = loc.selectString & ",buttondescription,optiondescription,commentpublic,eventid">
 
 		<cfif isDefined('params.useOtherEvents') && params.useOtherEvents>
 			<cfset loc.whereString = "category = 'Other' AND event = '#getEvent()#'">
