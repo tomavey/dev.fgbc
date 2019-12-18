@@ -5,6 +5,8 @@
 
 						#textField(objectName='option', label="Button Description", property='buttondescription', placeholder='Short Description (used in list of options and invoice):', append="<br/>", class="input input-xxlarge")#
 
+						#textArea(objectName='option', property='description', label='Longer Description (used in public schedules)', style="width:600px", append="<br/>")#
+
 						#textField(objectName='option', label="SortOrder", property='sortorder', placeholder='Sort Order', append="<br/><br/>", class="input input-small")#
 
 						#textField(objectName='option', label="Event (most of the time, don't change this)", property='event', placeholder='Event: ', append="<br/>")#
@@ -34,9 +36,8 @@
 						#textField(objectName='option', property='selectquantitymax', Label='Number of tickets in dropdown available for each item: ', append="<br/>", class="input-small")#
 						</div>
 --->
-						#textArea(objectName='option', property='description', label='Longer Description (used in popup:)', style="width:600px", append="<br/>")#
 
-						#textArea(objectName='option', property='ad', label='Ad:', style="width:600px", append="<br/>")#
+						<!--- #textArea(objectName='option', property='ad', label='Ad:', style="width:600px", append="<br/>")# --->
 
 						#textField(objectName='option', label="", property='comment', placeholder='Comment (internal use only):', style="width:600px", append="<br/>")#
 

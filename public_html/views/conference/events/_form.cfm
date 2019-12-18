@@ -6,13 +6,14 @@
 						#textField(objectName='event', property='description', label='Event Title: ')#
 
 						#textField(objectName='event', property='descriptionschedule', label='Description for online schedules: ')#
+						<p style="font-size:.8em; margin-top:-15px; margin-left:20px">Note: public schedules will use the description used in the registration option (ie: meal) instead of this one.</p>
 
 						<!--- #textArea(objectName='event', property='descriptionprogram', label='Program description: ')# --->
 
 						<!--- #textField(objectName='event', property='beo', label='BEO##: ', append="<br/><br/>")# --->
 
 						#select(objectName='event', property='category', label='Category: ', options=eventCategories(), class="input-xl")#
-						<p class="font-size:.8em">Note: these categories will show in the online public schedules: #getSetting('eventCategoriesForJson')#</p>
+						<p style="font-size:.8em; margin-top:-15px; margin-left:20px">Note: these categories will show in the online public schedules: #getSetting('eventCategoriesForJson')#</p>
 
 						#textField(objectName='event', property='manager', label='Manager: ')#
 
