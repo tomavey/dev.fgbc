@@ -13,10 +13,11 @@
 
 					<p><span>Description for schedule: </span>
 						#event.descriptionschedule#</p>
+						<p style="font-size:.8em">note: Public schedules will use the option description if a registration option is connected to this event</p>
 
-					<p><span>Program Description: </span>
+					<!--- <p><span>Program Description: </span>
 						#event.descriptionprogram#</p>
-
+ --->
 				<cfif len(event.course.title)>			
 					<p><span>Course Title and Description: </span>
 						<p style="margin-left:10px">#linkto(text="<b>#event.course.title#</b>: #event.course.descriptionlong#</p>", controller="conference.courses", action="show", key=event.course.id, target="_new")#

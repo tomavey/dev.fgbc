@@ -199,10 +199,29 @@
 			<cfset loc.whereString = loc.whereString & " AND category='#loc.type#'">
 		</cfif>
 		<cfset loc.schedule = findAll(select=loc.selectString, where=loc.whereString, order=loc.orderString)>
+		<cfset loc.schedule = selectDescriptionForPublicSchedule(loc.schedule)>
 		<cfset loc.schedule = queryToJson(loc.schedule)>
 	<cfreturn loc.schedule>
 	</cffunction>
 
+<cfscript>
+
+	function selectDescriptionForPublicSchedule(required query schedule){
+		var useThisDescription = ""
+		for ( event in schedule ) {
+			if ( len(event.optiondescription) ) {
+				useThisDescription = event.optiondescription
+			} else {
+				useThisDescription = event.descriptionschedule
+			}
+			querySetCell(arguments.schedule,"optiondescription", useThisDescription, schedule.currentrow)
+		}
+		return arguments.schedule
+	}
+
+</cfscript>
+	
+	
 	<cffunction name="findInstructors">
 	<cfargument name="eventid" required="true" type="numeric">
 	<cfset var instructors = "">

@@ -3,15 +3,16 @@
 
 						#hiddenField(objectName="event", property="event")#
 
-						#textField(objectName='event', property='description', label='Description: ')#
+						#textField(objectName='event', property='description', label='Event Title: ')#
 
-						#textField(objectName='event', property='descriptionschedule', label='Description for schedule: ')#
+						#textField(objectName='event', property='descriptionschedule', label='Description for online schedules: ')#
 
-						#textArea(objectName='event', property='descriptionprogram', label='Program description: ')#
+						<!--- #textArea(objectName='event', property='descriptionprogram', label='Program description: ')# --->
 
-						#textField(objectName='event', property='beo', label='BEO##: ', append="<br/><br/>")#
+						<!--- #textField(objectName='event', property='beo', label='BEO##: ', append="<br/><br/>")# --->
 
 						#select(objectName='event', property='category', label='Category: ', options=eventCategories(), class="input-xl")#
+						<p class="font-size:.8em">Note: these categories will show in the online public schedules: #getSetting('eventCategoriesForJson')#</p>
 
 						#textField(objectName='event', property='manager', label='Manager: ')#
 
