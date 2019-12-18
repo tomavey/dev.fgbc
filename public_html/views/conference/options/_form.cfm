@@ -1,5 +1,8 @@
 <cfoutput>
 						#textField(objectName='option', label="Option Name", property='name', append="<br/>", placeholder="Option Name")#
+						<p style="font-size:.8em; margin-top:-15px; margin-left:20px">
+						Note: public schedules will use the event title listed in "events"
+						</p>
 
 						#textField(objectName='option', label="Cost", property='cost', class="input-small", Placeholder='Amount', append="<br/>")#
 
@@ -19,6 +22,7 @@
 
 						#select(objectName='option', property='discountType', Label='How to apply this discount', options="#getDiscountTypes()#", append="<br/>")#
 
+						<!---only shows if a type = discount, controlled by jquery--->
 						<div id="discountDependency">
 						#textField(objectName='option', label="", property='discountDependsOn', placeholder='Discount Depends on', append="<br/>")#
 						<p id="discountinstructions">(Comma delimited list of option names that this discount depends on. (ie: If this discount can only be used with a full registration enter 'V2020RegCouple,V2020RegSingle'.) If this discount does not depend on a specific option, leave blank.</p>
