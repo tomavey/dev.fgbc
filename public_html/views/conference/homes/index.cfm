@@ -20,7 +20,7 @@
 
 	#includePartial("includes/showFlash")#
 
-
+#hiddenMessagetoTestFor()#
 </cfoutput>
 
 <div class="table table-striped">
@@ -77,4 +77,5 @@
 </cftable>
 <!--- <cfdump var="#params#"> --->
 </div>
+
 </div>

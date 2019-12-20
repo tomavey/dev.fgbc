@@ -1022,6 +1022,10 @@ function binaryToTrueFalse(required numeric bin) {
 	if (val(bin) is 0) { return "False" } else { return "True"}
 }
 
+function hiddenMessagetoTestFor() {
+	return '<span style="display:none">for tests</span>'
+}
+
 </cfscript>
 
 <cffunction name="putFormTag">

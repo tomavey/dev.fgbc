@@ -46,7 +46,7 @@
 
 	
 	</div>
-
+#hiddenMessageToTestFor()#
 </cfoutput>
 
 <script>

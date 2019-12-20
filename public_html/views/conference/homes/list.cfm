@@ -29,6 +29,7 @@
         writeOutput(includePartial("includes/list"))
       }
     }
+    writeOutput(hiddenMessagetoTestFor())
   </cfscript>
 
 </div>

@@ -2,15 +2,15 @@ component extends="Controller" output="false" {
   
   public void function init(){
     usesLayout("/conference/adminlayout")
-    filters(through="checkOffice", except="new,newAccessHost,newAccessGuest,show,list,create,sendEmailNoticeToOffice,sendEmailNoticeToHost, thankyou")
+    filters(through="checkOffice", except="new,newAccessHost,newAccessGuest,show,list,create,$sendEmailNoticeToOffice,$sendEmailNoticeToHost, thankyou")
     filters(through="setReturn", only="index,show,list,new,thankyou")
   }  
 
   devMode=false
 
-//-------------------
-//---CRUD------------  
-//-------------------
+//---------------------------------
+//---CRUD-(plus thankyou)----------  
+//---------------------------------
   
   // Conferencehomes/index
   public void function index(){
@@ -33,7 +33,7 @@ component extends="Controller" output="false" {
       redirectTo(action="index");
     }
     showType="show#home.type#"
-    setLayout()
+    $setLayout()
   }
 
   // Conferencehomes/list/key/
@@ -44,29 +44,9 @@ component extends="Controller" output="false" {
 
     type="host"
     $setInstructions(type)
-    setLayout()
+    $setLayout()
   }
 
-  private function $getWhereStringForList(whereString = "approved='yes' AND type='Host' AND homeid IS NOT NULL"){
-    return $getWhereStringForIndex(arguments.whereString)
-  }
-
-  private function $getWhereStringForIndex(whereString = "type='Host'"){
-    if ( isDefined('params.type') && params.type == "guest" ) { 
-      arguments.whereString = "type='guest'" 
-    }
-    if ( isDefined('params.showAll') ) { 
-      arguments.whereString = "" 
-    }
-    if ( isDefined('params.status') ) { 
-      arguments.whereString = arguments.whereString & " AND status='#params.status#'"
-    }
-    if ( isDefined("params.search") ) { 
-      arguments.whereString = "name LIKE '%#params.search#%'" 
-    }
-    return arguments.whereString
-  }
-  
   // Conferencehomes/new
   public void function newAccessHost(){
     redirectTo(action="new", params="type=host")
@@ -87,7 +67,7 @@ component extends="Controller" output="false" {
     formType="formFor#home.type#" 
     formaction="create"
     $setInstructions(home.type)
-    setLayout()
+    $setLayout()
   }
   
   //Conferencehomes/edit/key
@@ -114,12 +94,12 @@ component extends="Controller" output="false" {
       flashInsert(success="The Conferencehome was created successfully.");
       if ( gotRights("office") ) {
         if ( getSetting('isConferenceHomesTesting') ) {
-          sendEmailNoticeToOffice(home.id,home.type)
+          $sendEmailNoticeToOffice(home.id,home.type)
           redirectTo(action="ThankYou", params="type=#home.type#")
         }
         redirectTo(action="Index")
       } else {
-        sendEmailNoticeToOffice(home.id,home.type)
+        $sendEmailNoticeToOffice(home.id,home.type)
         redirectTo(action="ThankYou", params="type=#home.type#")
       }
 		} else {
@@ -161,33 +141,8 @@ component extends="Controller" output="false" {
 			redirectTo(action="index");
     }
   }
-//----END OF CRUD-------
-  
-              
 
-//--------------------
-//---PROCESSES--------
-//--------------------
-
-  public void function approve(id=params.key){
-    Home = model("Conferencehome").findByKey(arguments.id);
-      // if ( home.approved == "Yes") { 
-      //   home.approved = "No"
-      //   home.update()
-      //   returnBack()
-      //  }
-     if ( home.approved == "No") { 
-      home.approved = "Yes"
-      home.update()
-      flashInsert(success="Host Homes won't show on the public list untill they have a home id.");
-      if ( !len(home.approvedAt) ) {
-        sendEmailNoticeToHost(home.id)
-        setApprovedAt(home.id)
-      }
-      returnBack()
-     }
-  }
-
+  // Conferencehomes/thankyou
   public void function thankYou(type=params.type){
     var thankyouObj = model('Maincontent').findOne(where="shortLink='Access#arguments.type#ThankYou'")
     if ( isObject(thankyouObj) ) {
@@ -199,7 +154,15 @@ component extends="Controller" output="false" {
     }
   }
 
-  private function sendEmailNoticeToOffice(required numeric id, required string type) {
+//----END OF CRUD-------
+  
+              
+
+//---------------------------------
+//---PROCESSES USED BY CRUD--------
+//---------------------------------
+
+  private function $sendEmailNoticeToOffice(required numeric id, required string type) {
     home = model("Conferencehome").findByKey(arguments.id)
     // writeDump(home.properties());abort;
     if ( isObject(home) ) {
@@ -217,7 +180,7 @@ component extends="Controller" output="false" {
     }
   }
 
-  private function sendEmailNoticeToHost(required numeric id) {
+  private function $sendEmailNoticeToHost(required numeric id) {
     //sends when the host has been approved
     home = model("Conferencehome").findByKey(arguments.id)
     // writeDump(home.properties());abort;
@@ -225,9 +188,11 @@ component extends="Controller" output="false" {
       var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
       if ( !isLocalMachine() ) {
         if ( getSetting('isConferenceHomesTesting') ){
+          //Puts "TESTING" in the subject and sends to registrar instead of the host
           subjectText = subjectText & "--TESTING--"
           sendEmail(from=getSetting('registrarEmail'), to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'),subject=subjectText, template="sendEmailNoticeToHost")
         } ELSE {
+          //Send notification to host
           sendEmail(from=getSetting('registrarEmail'), to=home.email, bcc=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
         }
       } else {
@@ -238,49 +203,13 @@ component extends="Controller" output="false" {
     }
   }
 
-  private function $createArgsForsendEmailNoticeToHost(){
-    //notworking correctly
-    var subjectText = "Your #getEventAsText()# Host Home Application Has Been Approved"
-    if ( getSetting('isConferenceHomesTesting') ) { 
-      var args = {
-        Subject: subjectText & " --TEST--", 
-        From: getSetting('registrarEmail'),
-        Bcc: getSetting('registrarEmailBackup'),
-        Template: 'sendEmailNoticeToHost'
-      }
-      if ( gotRights("superadmin") ) { 
-        From = getSetting('registrarEmailBackup')
-        Subject= subjectText & " --TEST--SUPERADMIN--" 
-      }
-    } ELSE {
-      var args = {
-        Subject: subjectText, 
-        Email: home.email,
-        Bcc = getSetting('registrarEmailBackup'),
-        From = getSetting('registrarEmail'),
-        Template: 'sendEmailNoticeToHost'
-      }
-    }
-    writeDump(args);abort;
-    return args
-  }
-
-  private void function setApprovedAt(required numeric id) {
+  private void function $setApprovedAt(required numeric id) {
     var home = model("Conferencehome").findByKey(arguments.id);
     home.approvedAt = now()
     home.update()
   }
 
-  //Used by view/conference/homes/index
-  private function approvedText(required string approved, required string approvedAt){    
-    if ( len(approvedAt) && approved ) {
-      return dateFormat(approvedAt)
-    } ELSE {
-      return approved
-    }
-  }
-
-  private function setLayout(){
+  private function $setLayout(){
     if ( !gotRights('office') || devMode ) {
       renderPage(layout="/conference/layout2019invoice")
     }
@@ -295,12 +224,58 @@ component extends="Controller" output="false" {
     }
   }
 
+  private function $getWhereStringForList(whereString = "approved='yes' AND type='Host' AND homeid IS NOT NULL"){
+    return $getWhereStringForIndex(arguments.whereString)
+  }
+
+  private function $getWhereStringForIndex(whereString = "type='Host'"){
+    if ( isDefined('params.type') && params.type == "guest" ) { 
+      arguments.whereString = "type='guest'" 
+    }
+    if ( isDefined('params.showAll') ) { 
+      arguments.whereString = "" 
+    }
+    if ( isDefined('params.status') ) { 
+      arguments.whereString = arguments.whereString & " AND status='#params.status#'"
+    }
+    if ( isDefined("params.search") ) { 
+      arguments.whereString = "name LIKE '%#params.search#%'" 
+    }
+    return arguments.whereString
+  }
+  
+
+//--------------------------------------------->
+//------Used by view/conference/homes/index---->
+//--------------------------------------------->
+
   private function getHostSelectNameFromRequestedHomeId(required string requestedHomeId){
     var selectName = model("Conferencehome").findOne(where="HomeId = '#arguments.requestedHomeId#'")
     if ( isObject(selectName) ) {
       return selectName.selectNameId
     }
     return "None"
+  }
+
+  private function approvedText(required string approved, required string approvedAt){   if ( len(approvedAt) && approved ) {
+    return dateFormat(approvedAt)
+    } ELSE {
+      return approved
+    }
+  }
+
+  public void function approve(id=params.key){
+    Home = model("Conferencehome").findByKey(arguments.id);
+    if ( home.approved == "No") { 
+      home.approved = "Yes"
+      home.update()
+      flashInsert(success="Host Homes won't show on the public list untill they have a home id.");
+      if ( !len(home.approvedAt) ) {
+        $sendEmailNoticeToHost(home.id)
+        $setApprovedAt(home.id)
+      }
+      returnBack()
+    }
   }
 
 }
