@@ -20,7 +20,7 @@
 
 	#includePartial("includes/showFlash")#
 
-#hiddenMessagetoTestFor()#
+
 </cfoutput>
 
 <div class="table table-striped">
@@ -41,12 +41,16 @@
 
 	<cfif type=="host">
 
-		<cfcol header="Approved" text=
-		"#linkTo(
-			text=approvedText(approved,approvedAt), 
-			action="approve", 
-			key=#id#)#
-		" />
+		<cfif status == "no">
+			<cfcol header="Approved" text=
+			"#linkTo(
+				text=approvedText(approved,approvedAt), 
+				action="approve", 
+				key=#id#)#
+			" />
+		<cfelse>	
+			<cfcol header="Approved" text=#approvedText(approved,approvedAt)#/>
+		</cfif>
 	
 		<cfcol header="Guest Assigned" text="#AssignedToName#" />
 
@@ -77,5 +81,4 @@
 </cftable>
 <!--- <cfdump var="#params#"> --->
 </div>
-
 </div>
