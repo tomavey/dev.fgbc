@@ -20,6 +20,7 @@
 
 	#includePartial("includes/showFlash")#
 
+	#hiddenMessagetoTestFor()#
 
 </cfoutput>
 
