@@ -41,11 +41,11 @@
 
 	<cfif type=="host">
 
-		<cfif status == "no">
+		<cfif approved == "No">
 			<cfcol header="Approved" text=
 			"#linkTo(
 				text=approvedText(approved,approvedAt), 
-				action="approve", 
+				action='approve', 
 				key=#id#)#
 			" />
 		<cfelse>	
