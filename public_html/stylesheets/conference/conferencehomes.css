@@ -46,3 +46,9 @@
 .homes-status {
   font-size: 1.3em
 }
+
+//for layout
+
+.footer-wrapper {
+  background-color: black !important;
+}

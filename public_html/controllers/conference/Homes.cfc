@@ -211,7 +211,7 @@ component extends="Controller" output="false" {
 
   private function $setLayout(){
     if ( !gotRights('office') || devMode ) {
-      renderPage(layout="/conference/layout2019invoice")
+      renderPage(layout="/conference/layout2020")
     }
   }
 
