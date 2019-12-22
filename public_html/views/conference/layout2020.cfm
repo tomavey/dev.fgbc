@@ -84,7 +84,7 @@
             <div class="xicon xicon-normal-mail"></div>
             <div class="address-content">
 
-                    <a href="mailto:tomavey@fgbc.org" class="e-mail">tomavey@charisfellowship.us</a>
+                    <a href="mailto:tomavey@fgbc.org" class="e-mail">sharmion@charisfellowship.us</a>
 
             </div>
             <br>
