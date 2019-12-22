@@ -59,7 +59,7 @@
 
 </div><!---.main--->
 
-<div id="nav-contact" class="footer-wrapper" style="background-color: black !important; color:white">
+<div id="nav-contact" class="footer-wrapper" style="background-color: black !important; color:white; margin-top:20px">
 
   <div class="footer container">
 
