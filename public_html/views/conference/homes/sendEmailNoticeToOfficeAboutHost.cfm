@@ -61,10 +61,10 @@
     #includePartial("includes/office")#
 
     <p>
-      #linkto(text="View", controller="conference.homes", action="show", key=home.id, onlyPath=false)#
+      #linkto(text="View this home", controller="conference.homes", action="show", key=home.id, onlyPath=false)#
     </p>
     <p>
-      #linkto(text="List", controller="conference.homes", action="index", onlyPath=false)#
+      #linkto(text="List all of the homes", controller="conference.homes", action="index", onlyPath=false)#
     </p>
     <p style="font-size:.8em">Note: You need to be logged in to access the list</p>
     
