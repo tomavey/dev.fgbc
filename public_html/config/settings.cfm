@@ -2,7 +2,7 @@
 
 	// DSN for database
 	set(dataSourceName="fgbc_main_3")
-		if (cgi.http_host is "localhost:8080" || cgi.http_host is "localhost:8888" || cgi.http_host is "fgbc:8080" || cgi.http_host is "fgbc:8888") {
+		if ( isLocalMachine() ) {
 			set(dataSourceUserName="root")
 			set(dataSourcePassword="j11itbwtw") 
 			set(OnLocalhost = "true")
@@ -25,8 +25,8 @@
 	set(functionName="timeSelect", labelPlacement="before", prependToLabel="<p>", append="</p>")
 
 	// Settings for rewriting, reloading and errors
-	if ( cgi.http_host contains ":8080" || cgi.http_host contains ":8888" ) {
-		set(URLRewriting="Off")
+	if ( isLocalMachine() ) {
+		set(URLRewriting="On")
 	} else {
 		set(URLRewriting="On")
 		set(reloadPassword="mack")

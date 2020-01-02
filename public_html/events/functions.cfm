@@ -60,7 +60,7 @@ public function getSetting(name, useSessionSetting=true){
 	}
 	
 	function isLocalMachine() {
-		if ( cgi.http_host contains ":8080" || cgi.http_host contains ":8888" ) {
+		if ( cgi.http_host contains ":8080" || cgi.http_host contains ":8888" || cgi.http_host contains "127.0.0.1" ) {
 			return true
 		} else {
 			return false
