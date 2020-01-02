@@ -92,16 +92,8 @@ component extends="Controller" output="false" {
 		
 		if (Home.save()){
       flashInsert(success="The Conferencehome was created successfully.");
-      if ( gotRights("office") ) {
-        if ( getSetting('isConferenceHomesTesting') ) {
-          $sendEmailNoticeToOffice(home.id,home.type)
-          redirectTo(action="ThankYou", params="type=#home.type#")
-        }
-        redirectTo(action="Index")
-      } else {
         $sendEmailNoticeToOffice(home.id,home.type)
         redirectTo(action="ThankYou", params="type=#home.type#")
-      }
 		} else {
 		  flashInsert(error="There was an error creating the Conferencehome.");
       formType="formFor#home.type#"
@@ -167,16 +159,15 @@ component extends="Controller" output="false" {
     // writeDump(home.properties());abort;
     if ( isObject(home) ) {
       var subjectText = "#getEventAsText()# #arguments.type# Home Application"
-      if ( !isLocalMachine() ) {
-        if ( getSetting('isConferenceHomesTesting') ) {
-          subjectText = subjectText & " --TEST--"
-        } 
-        sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOfficeAbout#arguments.type#')
-      } else {
-        renderText("A 'sendEmailNoticeToOffice' would have been sent")
-      }
+      if ( isLocalMachine() ) {
+        throw( message = "A 'sendEmailNoticeToOffice' would have been sent in production" )
+      } 
+      if ( getSetting('isConferenceHomesTesting') ) {
+        subjectText = subjectText & " --TEST--"
+      } 
+      sendEmail(from=home.email, to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template='sendEmailNoticeToOfficeAbout#arguments.type#')
     } else {
-      renderText("Oops. Something went wrong!")
+      throw( message = "ConferenceHome Object not found!" )
     }
   }
 
