@@ -60,8 +60,12 @@
   
     #includePartial("includes/office")#
 
-    #linkto(text="View", controller="conference.homes", action="show", key=home.id, onlyPath=false)#
-    #linkto(text="List", controller="conference.homes", action="index", onlyPath=false)#
+    <p>
+      #linkto(text="View", controller="conference.homes", action="show", key=home.id, onlyPath=false)#
+    </p>
+    <p>
+      #linkto(text="List", controller="conference.homes", action="index", onlyPath=false)#
+    </p>
     <p style="font-size:.8em">Note: You need to be logged in to access the list</p>
     
   </cfoutput>
