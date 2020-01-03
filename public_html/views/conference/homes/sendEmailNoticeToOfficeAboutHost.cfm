@@ -65,7 +65,7 @@
     </p>
   
     <p>
-      #buttonForEmail(text="List of Homes", action="index")#
+      #buttonForEmail(text="List Homes", action="index")#
     </p>
 
     <p style="font-size:.8em">Note: You need to be logged in to access the list</p>
