@@ -271,7 +271,7 @@ component extends="Controller" output="false" {
 
   public function emailButton(required string text, controller = homes, required string action, string key ) {
     savecontent variable="button" {
-      "<table width="100%" border="0" cellspacing="0" cellpadding="0">
+      '<table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
           <td>
             <table border="0" cellspacing="0" cellpadding="0">
@@ -285,7 +285,7 @@ component extends="Controller" output="false" {
             </table>
           </td>
         </tr>
-      </table>"
+      </table>'
     };
     return button    
   }
