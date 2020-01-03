@@ -60,6 +60,18 @@
   
     #includePartial("includes/office")#
 
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>
+          <table border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td bgcolor="##EB7035" style="padding: 12px 18px 12px 18px; border-radius:3px" align="center"><a href="/conference/homes/show/#home.id#" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: ##ffffff; text-decoration: none; display: inline-block;">View this home &rarr;</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
     <p>
       #linkto(text="View this home", controller="conference.homes", action="show", key=home.id, onlyPath=false)#
     </p>
