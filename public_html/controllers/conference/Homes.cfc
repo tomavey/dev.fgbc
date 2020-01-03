@@ -269,7 +269,7 @@ component extends="Controller" output="false" {
     }
   }
 
-  public function emailButton(required string text, controller = homes, required string action, string key ) {
+  public function emailButton(required string text, controller="homes"workom, required string action, string key ) {
     savecontent variable="button" {
       '<table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
