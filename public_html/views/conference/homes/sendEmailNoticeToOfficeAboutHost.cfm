@@ -60,28 +60,14 @@
   
     #includePartial("includes/office")#
 
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr>
-        <td>
-          <table border="0" cellspacing="0" cellpadding="0">
-            <tr>
-              <td 
-                bgcolor="##EB7035" 
-                style="padding: 12px 18px 12px 18px; border-radius:3px" align="center">
-                #linkto(text="View this home", controller="conference.homes", action="show", key=home.id, onlyPath=false, target="_blank", style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: ##ffffff; text-decoration: none; display: inline-block;")#
-              <td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-    #emailButton(text="View Home", action="show", key=home.id)#
     <p>
-      #linkto(text="View this home", controller="conference.homes", action="show", key=home.id, onlyPath=false)#
+      #buttonForEmail(text="View Home", action="show", key=home.id)#
     </p>
+  
     <p>
-      #linkto(text="List all of the homes", controller="conference.homes", action="index", onlyPath=false)#
+      #buttonForEmail(text="List of Homes", action="index")#
     </p>
+
     <p style="font-size:.8em">Note: You need to be logged in to access the list</p>
     
   </cfoutput>
