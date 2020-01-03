@@ -3,13 +3,14 @@
 <cfelse>
 	<cfset attribute.editable = "yes">
 </cfif>
-		
-    <cfoutput>
+
+<cfoutput>
 	<cfif not attribute.editable>
-	<p><h2>History: #dateformat(content.datetime)# by #content.author# (not editable)</h2></p>
+		<p><h2>History: #dateformat(content.datetime)# by #content.author# (not editable)</h2></p>
 	<cfelse>
 		<cfform action="#fbx('editcontent')#&id=#id#" id="editbutton"><cfinput type="submit" name="submit" value="Edit This Page"></cfform>
 	</cfif>
+
 	<cfif attribute.editable>
    		<p id="editlink"><a href="#fbx('editcontent')#&id=#id#"><img src="/images/edit-icon.png"></a></p>
 	</cfif>
@@ -45,17 +46,24 @@
 	<cfif attribute.editable>	
 		<cfform action="#fbx('editcontent')#&id=#id#" id="editbutton"><cfinput type="submit" name="submit" value="Edit This Page"></cfform>
 	</cfif>
-   <cfif isdefined("url.code")>
-   		<a id="buttonOne">Click here to Add this Page to Favourites</a>
-   </cfif> 
+
+	<cfif isdefined("url.code")>
+		<a id="buttonOne">Click here to Add this Page to Favourites</a>
+	</cfif> 
+
 	<cfif attribute.editable && history.recordcount && isDefined("url.showhistory")>
-	<p id="history"><span>History:</span>
-	<cfif isdefined('form.more')>
-	<cfoutput query="history"><a href="#fbx('content')#&id=#id#&originalid=#content.id#">#dateformat(datetime)# by #author#</a>
-	</cfoutput>
-	<cfelse>
-	<cfoutput query="history"><a href="#fbx('content')#&id=#id#&originalid=#content.id#">#dateformat(datetime)# by #author#</a>
-	</cfoutput>
+		<p id="history"><span>History:</span>
+			<cfif isdefined('form.more')>
+				<cfoutput query="history"><a href="#fbx('content')#&id=#id#&originalid=#content.id#">#dateformat(datetime)# by #author#</a>
+				</cfoutput>
+			<cfelse>
+				<cfoutput query="history">
+					<a href="#fbx('content')#&id=#id#&originalid=#content.id#">#dateformat(datetime)# by #author#</a>
+				</cfoutput>
+			</cfif>
+		</p>
 	</cfif>
-	</p>
-	</cfif>
+
+	<cfoutput>
+		<p><a href="/fc/index.cfm?fuseaction=content&id=#content.id#&showHistory">Show History</a></p>
+	</cfoutput>

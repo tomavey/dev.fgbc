@@ -37,6 +37,14 @@
 <cfreturn data.id>
 </cffunction>
 
+<cfscript>
+  private function hasParagraphChanged(required string oldPara, required string newPara){
+      if (arguments.oldPara == arguments.newPara) { return false } 
+      else { return true }       
+  }    
+</cfscript>
+
+
 <cffunction name="update_content_fc">
 <cfargument name="NAME" type="string">
 <cfargument name="DESCRIPTION" type="string">
@@ -51,7 +59,10 @@
 		SELECT *
 		FROM content_fc
 		WHERE id = #arguments.id#
-	</cfquery>
+      </cfquery>
+
+   <cfif hasParagraphChanged(oldData.paragraph,arguments.PARAGRAPH)>
+
 	<cfquery datasource="#dsn#">
 	      INSERT INTO content_fc
 	            ( ORIGINALID, NAME,DESCRIPTION,PARAGRAPH,AUTHOR,SORTORDER,DATETIME )
@@ -77,6 +88,9 @@
                   DATETIME = <cfqueryparam value='#arguments.DATETIME#' CFSQLType="CF_SQL_DATE">
             WHERE id = <cfqueryparam value='#form.id#' CFSQLType="CF_SQL_INTEGER">
       </cfquery>
+   
+   </cfif>
+
 </cffunction>
 
 <cffunction name="getAllContentFc">
