@@ -63,6 +63,8 @@
     <p>
       #buttonForEmail(text="View Home", action="show", key=home.id)#
     </p>
+
+    <p>&nbsp;</p>
   
     <p>
       #buttonForEmail(text="List Homes", action="index")#
