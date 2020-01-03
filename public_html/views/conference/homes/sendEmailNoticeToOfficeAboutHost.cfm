@@ -75,7 +75,7 @@
         </td>
       </tr>
     </table>
-
+    #emailButton(text="View Home", action="show", key=home.id)#
     <p>
       #linkto(text="View this home", controller="conference.homes", action="show", key=home.id, onlyPath=false)#
     </p>
