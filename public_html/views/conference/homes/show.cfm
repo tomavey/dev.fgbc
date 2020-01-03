@@ -12,6 +12,13 @@
 
   </div>
 
+  <!--- <p>
+    #buttonForEmail(text="View Home", action="show", key=home.id)#
+  </p>
+
+  <p>
+    #buttonForEmail(text="List of Homes", action="index")#
+  </p> --->
 
 </cfoutput>
 

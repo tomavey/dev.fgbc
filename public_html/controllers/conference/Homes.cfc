@@ -74,14 +74,15 @@ component extends="Controller" output="false" {
   public void function edit(){
     Home = model("Conferencehome").findByKey(params.key);
     hostHomes = model("Conferencehome").findAll(where ="homeId IS NOT NULL", order="homeId")
-    	
+
     if (!IsObject(Home)){
 	    flashInsert(error="Conferencehome #params.key# was not found");
 			redirectTo(action="index");
     }
 
     type=home.type
-    formType="formFor#home.type#"
+    formType="formFor#type#"
+    if ( isDefined("params.formType") ) { formType=params.formType }
     formaction="update"
   }
   
@@ -115,7 +116,7 @@ component extends="Controller" output="false" {
 		  flashInsert(error="There was an error updating the home.");
       if (!IsObject(Home)){
         flashInsert(error="Conferencehome #params.key# was not found");
-        redirectTo(action="index");
+        redirectTo(controller="conference.homes", action="index");
       }
       formType="formFor#home.type#"
 		}
@@ -187,7 +188,7 @@ component extends="Controller" output="false" {
           sendEmail(from=getSetting('registrarEmail'), to=home.email, bcc=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
         }
       } else {
-        writeOutPut("An 'sendEmailNoticeToHost' would have been sent");abort;
+        writeOutPut("An 'sendEmailNoticeToHost' would have been sent in production");
       }
     } else {
       renderText("Oops. Something went wrong!")
@@ -262,34 +263,14 @@ component extends="Controller" output="false" {
       home.update()
       flashInsert(success="Host Homes won't show on the public list untill they have a home id.");
       if ( !len(home.approvedAt) ) {
-        $sendEmailNoticeToHost(home.id)
         $setApprovedAt(home.id)
+        $sendEmailNoticeToHost(home.id)
+      }
+      if ( !len(home.homeId) ) {
+        redirectTo(action="edit", params="keyy=#arguments.id#&formType=formForOffice&approved=yes")
       }
       returnBack()
     }
-  }
-
-  public function buttonForEmail(required string text, controller="conference.homes", required string action, string key ) {
-    savecontent variable="button" {
-      writeOutPut('<table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td>
-            <table border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td 
-                  bgcolor="##EB7035" 
-                  style="padding: 12px 18px 12px 18px; border-radius:3px" align="center">
-
-                  #linkto(text=arguments.text, controller=arguments.controller, action=arguments.action, key=arguments.key, onlyPath=false, target="_blank", style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: ##ffffff; text-decoration: none; display: inline-block;")#
-
-                <td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>')
-    };
-    return  button    
   }
 
 }
