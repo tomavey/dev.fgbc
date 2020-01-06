@@ -46,6 +46,8 @@
 		<cfelseif isDefined("params.desc")>
 			<cfset params.desc = left(desc,5)>
 			<cfset events = model("Conferenceevent").findAll(where="event='#getEvent()#' AND description like '#params.desc#%'", include="location", order=loc.orderbyString)>
+		<cfelseif isDefined("params.locationid")>
+			<cfset events = model("Conferenceevent").findAll(where="event='#getEvent()#' AND locationid = #params.locationid#", include="location", order=loc.orderbyString)>
 		<cfelse>
 			<cfset events = model("Conferenceevent").findAll(where="event='#getEvent()#'", include="location", order=loc.orderbystring)>
 			<cfif isdefined("session.return")>

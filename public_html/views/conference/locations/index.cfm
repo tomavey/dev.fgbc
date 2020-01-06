@@ -28,5 +28,6 @@
 		Maps:
 		#includePartial("maps")#
 	</P>
+	<p>#linkto(text="View Simple List", action="list")#</p>
 
 </cfoutput>

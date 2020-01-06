@@ -11,6 +11,11 @@
 		<cfset locations = model("Conferencelocation").findAll(where="event='#getEvent()#'", order="roomnumber")>
 	</cffunction>
 	
+	<!--- locations/index --->
+	<cffunction name="list">
+		<cfset locations = model("Conferencelocation").findAll(where="event='#getEvent()#'", order="roomnumber")>
+	</cffunction>
+
 	<!--- locations/json --->
 	<cffunction name="json">
 		<cfset locations = model("Conferencelocation").findAll(where="event='#getEvent()#'", order="roomnumber")>
