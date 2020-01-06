@@ -4,9 +4,6 @@ body {
 
 .xregistration-center, .main {
     width: 100%;
-    background-position: center top;
-    background-repeat: repeat;
-    background-color: #D1D4C9;
     padding:20px;
     margin-top: 50px;
 }

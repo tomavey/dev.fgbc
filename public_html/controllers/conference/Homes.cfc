@@ -42,7 +42,7 @@ component extends="Controller" output="false" {
     var whereString = $getWhereStringForList()
     Homes = model("Conferencehome").findAll(where = whereString, order=orderString);
 
-    type="host"
+    type="home"
     $setInstructions(type)
     $setLayout()
   }
