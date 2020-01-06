@@ -24,15 +24,15 @@
 
 
 
-						#textArea(objectName='instructor', property='bioWeb', label='Bio Web', class="span10", rows="7")#
+						#textArea(objectName='instructor', property='bioWeb', label='Public Bio', class="span10", rows="7")#
+
+
+<!--- 
+						#textArea(objectName='instructor', property='bioPrint', label='Bio Print', class="span10", rows="7")# --->
 
 
 
-						#textArea(objectName='instructor', property='bioPrint', label='Bio Print', class="span10", rows="7")#
-
-
-
-						#textArea(objectName='instructor', property='bioOriginal', label='Bio Original', class="span10", rows="7")#
+						#textArea(objectName='instructor', property='bioOriginal', label='Original Bio (use this for the unedited bio - usually too long to use in public:', class="span10", rows="7")#
 
 
 
