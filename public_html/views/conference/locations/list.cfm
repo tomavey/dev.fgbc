@@ -18,6 +18,7 @@
       Manager: #manager#
     </p>
     #linkTo(text="Show events in this location", controller="conference.events", action="index", params="locationid=#id#")#
+    #editTag()#
   </div>
 </cfoutput>
 
