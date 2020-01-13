@@ -880,6 +880,8 @@
 		.get(name="apiRetreats", pattern="/api/retreats", controller="focus.main", action="retreatsAsJson")
 		.get(name="fellowshipCouncilPages", pattern="/api/fellowshipcouncil/pages/", controller="fellowshipcouncil.Pages", action="index")
 		.get(name="fellowshipCouncilPage", pattern="/api/fellowshipcouncil/page/[key]", controller="fellowshipcouncil.Pages", action="index")
+		.get(name="fellowshipCouncilDocuments", pattern="/api/fellowshipcouncil/documents/", controller="fellowshipcouncil.Documents", action="index")
+		.get(name="fellowshipCouncilTeamMembers", pattern="/api/fellowshipcouncil/teammembers/", controller="fellowshipcouncil.teams", action="index")
 		.get(name="apiFocusRetreatInfo", pattern="/api/focus/retreat/[menuname]", controller="focus.api", action="retreat")
 		.get(name="apiFocusRetreatItems", pattern="/api/focus/retreatItems/[menuname]", controller="focus.api", action="retreatItems")
 
