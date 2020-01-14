@@ -200,7 +200,7 @@
 			.resources("menus")
 			.resources("notes")
 
-			.get(name="handbookPagesEdit", pattern="/organizations/handbookpages/[key]", controller="organizations", action="handbookpages")
+			.get(name="handbookPagesEdit", pattern="/organizations/handbookpages/", controller="organizations", action="handbookpages")
 			.get(name="move", pattern="/organizations/move/", controller="organizations", action="move")
 			.get(name="removeStaff", pattern="/organizations/removeStaff/[key]", controller="organizations", action="notStaff")
 			.get(name="downloadguidelines", pattern="/organizations/downloadguidelines/", controller="organizations", action="downloadguidelines")
@@ -221,7 +221,6 @@
 			.controller("organizations")
 				.get(name="websites", pattern="websites")
 			.end()	
-			.resources("organizations")
 
 			.get(name="addstaff", pattern="/people/addstaff/[key]", controller="people", action="addstaff")
 			.get(name="viewperson", pattern="/people/[key]/view", controller="people", action="view")

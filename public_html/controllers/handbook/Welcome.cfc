@@ -169,16 +169,17 @@
 		<cfif isDefined("params.reviewer") and isDefined("params.key") and allowHandbookOrgUpdate()>
 			<cfset church = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
 		  	<cfif isObject(church)>
-			     <cfset session.auth.email = params.reviewer>
-   				 <cfset session.auth.username = params.reviewer>
-   				 <cfset session.auth.rightslist = "basic">
-   				 <cfset session.auth.handbook.basic = true>
-   				 <cfset session.auth.handbook.review = true>
-   				 <cfset request.auth.handbook.review = true>
-				 <cfset reDirectTo(controller="handbook.organizations", action="handbookpages", key=params.key)>
+			    <cfset session.auth.email = params.reviewer>
+   				<cfset session.auth.username = params.reviewer>
+   				<cfset session.auth.rightslist = "basic">
+   				<cfset session.auth.handbook.basic = true>
+   				<cfset session.auth.handbook.review = true>
+   				<cfset request.auth.handbook.review = true>
+					 <cfset reDirectTo(controller="handbook.organizations", action="handbookpages", key=params.key, params="orgId=#params.key#")>
 			<cfelse>
 				<cfset renderText("Oops!  Something went wrong.  Email tomavey@fgbc.org for assistance.")>
 			</cfif>
+
 		<cfelseif isDefined("params.key") and allowHandbookOrgUpdate()>
 			<cfset church = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
 		  	<cfif isObject(church)>
@@ -187,6 +188,7 @@
 			<cfelse>
 				<cfset renderText("You do not have permission to view this page (2)")>
 			</cfif>
+
 		<cfelse>
 				<cfset reDirectTo(action="welcome")>
 		</cfif>

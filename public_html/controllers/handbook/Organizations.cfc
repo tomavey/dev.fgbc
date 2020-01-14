@@ -282,9 +282,10 @@ component extends="Controller" output="false" {
 	}
 
 	<!---Handbook Pages--->
-	public function handbookpages(key=params.key){
+	public function handbookpages(key){
+		if ( isDefined("params.orgid") ) { params.key = params.orgid }
 		if ( isDefined("params.move") ) { $move() }
-		organization = model("Handbookorganization").findByKey(key=arguments.key, include="Handbookstate,Handbookstatus,Handbookdistrict")
+		organization = model("Handbookorganization").findByKey(key=params.key, include="Handbookstate,Handbookstatus,Handbookdistrict")
 		$reSort(arguments.key)
 		var whereString = "organizationid='#params.key#' AND position NOT LIKE '%Removed%' AND position NOT LIKE '%AGBM Only%'"
 		if ( !isDefined("params.showall") ) {

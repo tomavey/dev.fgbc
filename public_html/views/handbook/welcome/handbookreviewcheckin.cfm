@@ -3,6 +3,7 @@
 
 <cfoutput>
 	#startFormTag(route="reviewhandbook", orgid=params.key)#
+	#hiddenFieldTag(name="key", value=#params.key#)#
 	#putFormTag()#		
 	#textFieldTag(name="reviewer", label="Please start by entering your email address here: ")#
 	#submitTag("Submit")#
