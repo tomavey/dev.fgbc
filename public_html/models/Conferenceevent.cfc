@@ -178,17 +178,21 @@
 	<cfargument name="useOtherEvents" default="false">
 	<cfset var loc = structNew()>
 	<cfset loc = arguments.params>
-		<cfset loc.whereString = "category in (#getSetting('eventCategoriesForJson')#) AND event = '#getEvent(params)#'">
+	<cfscript>
+		if ( isDefined("params.event") ) { loc.event = params.event } else { loc.event = getEvent() }
+	</cfscript>
+
+		<cfset loc.whereString = "category in (#getSetting('eventCategoriesForJson')#) AND event = '#loc.event#'">
 		<cfset loc.orderString = "dayofyear,timebegin">
 		<cfset loc.selectString = "id,starttime,timebegin,endtime,timeend,eventroom,description,descriptionschedule,dateOn,dayOn,dayofyear,dayOfWeek,category,cost,link,image">
 		<cfset loc.selectString = loc.selectString & ",buttondescription,optiondescription,commentpublic,eventid">
 
 		<cfif isDefined('params.useOtherEvents') && params.useOtherEvents>
-			<cfset loc.whereString = "category = 'Other' AND event = '#getEvent()#'">
+			<cfset loc.whereString = "category = 'Other' AND event = '#loc.event#'">
 		</cfif>
 
 		<cfif isDefined('params.useExcursions') && params.useExcursions>
-			<cfset loc.whereString = "category = 'excursion' AND event = '#getEvent()#'">
+			<cfset loc.whereString = "category = 'excursion' AND event = '#loc.event#'">
 		</cfif>
 
 		<cfif isDefined("loc.id")>
