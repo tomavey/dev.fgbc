@@ -18,6 +18,10 @@
     <cfargument name="params" default="">
     <cfset var loc=structNew()>
     <cfset loc = arguments.params>
+    <cfscript>
+        if ( isDefined("params.event") ) { loc.event = params.event } else { loc.event = getEvent() }
+    </cfscript>
+
             <cfif not isDefined("loc.postAt")>
                 <cfset loc.postAt = now()>
             </cfif>
@@ -28,8 +32,7 @@
                 <cfset loc.perPage = 10000000>
             </cfif>
             <cfset loc.selectString = "id,subject,author,content,searchable,createdAt,datePosted,postAt,link,showHomeScreen">
-            <cfset loc.event = getEvent()>
-            <cfset loc.whereString = "event='#getEvent()#' AND approved = 'yes' AND postAt < '#loc.postAt#' AND emailOnly = 'no'">
+            <cfset loc.whereString = "event='#loc.event#' AND approved = 'yes' AND postAt < '#loc.postAt#' AND emailOnly = 'no'">
             <cfif isDefined("loc.id")>
                 <cfset loc.whereString = loc.whereString & " AND id=#loc.id#">
                 <cfset loc.selectString = loc.selectString & ",content">
