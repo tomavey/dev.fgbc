@@ -28,7 +28,6 @@
 		<cfif isDefined("params.key")>
 			<cfset whereString = whereString & " AND id = #params.key#">
 		</cfif>
-
 		<cfset instructors = model("Conferenceinstructor").findAll(order="lname, fname", where=whereString)>
 		<cfset headerSubTitle = "Speakers">
 
@@ -160,15 +159,18 @@
    	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction> --->
 	
-	<cffunction name="speakersAsJson">
-		<cfset data = model("Conferenceinstructor").findSpeakersAsJson(params)>
-	  <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
-	</cffunction>
+<cfscript>
 
-	<cffunction name="listStaffAsJson">
-		<cfset data = model("Conferenceinstructor").findStaffAsJson(params)>
-	  <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
-	</cffunction>
+	function speakersAsJson(){
+		data = model("Conferenceinstructor").findSpeakersAsJson(params)
+		renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)
+	}
+
+	function listStaffAsJson(){
+		data = model("Conferenceinstructor").findStaffAsJson(params)
+		renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)		
+	}
+</cfscript>
 
 <cfscript>
 	public function testListToList () {

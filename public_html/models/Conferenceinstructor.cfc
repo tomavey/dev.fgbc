@@ -27,32 +27,28 @@
     <cfreturn loc.instructors>
     </cffunction>
 
-    <cffunction name="findSpeakersAsJson">
-    <cfargument name="params" required="false" type="struct">
-    <cfargument name="tags" default = "speaker">
-        <cfset var loc=structNew()>
-        <cfset loc = arguments.params>
-        <cfset loc.selectString = "ID, lname, fname, bioWeb,picBig,picThumb,pic120x120,event,tags">
-        <cfset loc.whereString = "id > 0 AND tags LIKE '%#tags#%'">
-
-        <cfif isDefined("loc.id")>
-            <cfset loc.whereString = loc.whereString & " AND ID = #loc.id#">
-        <cfelse>        
-            <cfset loc.whereString = loc.whereString & " AND event='#getEvent()#'">
-        </cfif>
-        
-        <!--- <cfdump var="#loc.whereString#"><cfabort> --->
-        <cfset loc.speakers = findall(where=loc.whereString, select=loc.selectString, order="lname,fname")>
-        <cfset loc.speakers = queryToJson(loc.speakers)>
-
-    <cfreturn loc.speakers>
-    </cffunction>
-
-
 <cfscript>
 
-    function findStaffAsJson () {
-        var staff = findSpeakersAsJson(tags='Staff');
+    function findSpeakersAsJson(struct params, tags="speaker") {
+        var loc=structNew()
+        loc = arguments.params
+        if ( isDefined("params.event") ) { loc.event = params.event } else { loc.event = getEvent() }
+        loc.selectString = "ID, lname, fname, bioWeb,picBig,picThumb,pic120x120,event,tags";
+        loc.whereString = "id > 0 AND tags LIKE '%#tags#%'";
+        if ( isDefined("loc.id") ) {
+            loc.whereString = loc.whereString & " AND ID = #loc.id#";
+        } else {
+            loc.whereString = loc.whereString & " AND event='#loc.EVENT#'";
+        }
+
+        loc.speakers = findall(where=loc.whereString, select=loc.selectString, order="lname,fname");
+        loc.speakers = queryToJson(loc.speakers);
+        return loc.speakers;
+    }
+
+
+    function findStaffAsJson (struct params) {
+        var staff = findSpeakersAsJson(params=params, tags='Staff');
         return staff;
     }
 
