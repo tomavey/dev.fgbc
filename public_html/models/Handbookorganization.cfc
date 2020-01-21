@@ -89,7 +89,7 @@ component extends="Model" output="false" {
 		return loc.states;
 	}
 
-	function findChurchesForDropDown(statusIds="") {
+	function findChurchesForDropDown(statusIds="1,2,4,8,9") {
 		var loc=structNew();
 		loc.return = findAll(where="statusid IN (#arguments.statusids#)", include="Handbookstate", select="handbookorganizations.id, CONCAT_WS(', ',org_city,state_mail_abbrev,handbookorganizations.name) AS selectname", order="org_city,state_mail_abbrev,name");
 		return loc.return;
