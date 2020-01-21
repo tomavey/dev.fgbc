@@ -32,7 +32,7 @@
     function findSpeakersAsJson(struct params, tags="speaker") {
         var loc=structNew()
         loc = arguments.params
-        if ( isDefined("params.event") ) { loc.event = params.event } else { loc.event = getEvent() }
+        loc.event = getEvent(params)
         loc.selectString = "ID, lname, fname, bioWeb,picBig,picThumb,pic120x120,event,tags";
         loc.whereString = "id > 0 AND tags LIKE '%#tags#%'";
         if ( isDefined("loc.id") ) {

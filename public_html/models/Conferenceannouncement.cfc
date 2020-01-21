@@ -18,9 +18,7 @@
     <cfargument name="params" default="">
     <cfset var loc=structNew()>
     <cfset loc = arguments.params>
-    <cfscript>
-        if ( isDefined("params.event") ) { loc.event = params.event } else { loc.event = getEvent() }
-    </cfscript>
+    <cfset loc.event = getEvent(params)>
 
             <cfif not isDefined("loc.postAt")>
                 <cfset loc.postAt = now()>

@@ -185,7 +185,7 @@ component extends="Controller" output="false" {
           sendEmail(from=getSetting('registrarEmail'), to=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'),subject=subjectText, template="sendEmailNoticeToHost")
         } ELSE {
           //Send notification to host
-          sendEmail(from=getSetting('registrarEmail'), to=home.email, bcc=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
+          sendEmail(from=getSetting('registrarEmail'), to=home.email, cc=getSetting('registrarEmail'), bcc=getSetting('registrarEmailBackup'), subject=subjectText, template="sendEmailNoticeToHost")
         }
       } else {
         writeOutPut("An 'sendEmailNoticeToHost' would have been sent in production");

@@ -34,7 +34,10 @@
 		</cfif>
 	</cffunction>
 
-	<cffunction name="getEvent">
+    <cffunction name="getEvent">
+      <cfscript>
+		if ( isDefined("params.event" )) { return params.event }
+      </cfscript>  
         <cfreturn getSetting("event")>
 	</cffunction>
 

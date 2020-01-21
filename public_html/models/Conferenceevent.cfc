@@ -178,9 +178,7 @@
 	<cfargument name="useOtherEvents" default="false">
 	<cfset var loc = structNew()>
 	<cfset loc = arguments.params>
-	<cfscript>
-		if ( isDefined("params.event") ) { loc.event = params.event } else { loc.event = getEvent() }
-	</cfscript>
+	<cfset loc.event = getEvent(params)>
 
 		<cfset loc.whereString = "category in (#getSetting('eventCategoriesForJson')#) AND event = '#loc.event#'">
 		<cfset loc.orderString = "dayofyear,timebegin">
