@@ -130,6 +130,7 @@ component extends="Controller" output="false" {
 	<!--- handbook-organizations/new --->
 	public function new(){
 			handbookorganization = model("Handbookorganization").new()
+			handbookorganization = $createObjPropsFromParams(handbookorganization,params)
 		}
 
 	<!--- handbook-organizations/edit/key --->
@@ -380,6 +381,14 @@ component extends="Controller" output="false" {
 <!----------------------------->
 <!------Utilities-------------->	
 <!----------------------------->
+
+	<!---Used by "new" function--->
+	private function $createObjPropsFromParams(required struct obj, required struct params) {
+		for (item in StructKeyArray(params)) {
+			obj[item] = params[item]
+		}
+		return obj
+	}
 
 	private function $updateNewChurchOrApplication(required object handbookorganization){
 		if ( isDefined("handbookorganization.applicationUUID") ) {
