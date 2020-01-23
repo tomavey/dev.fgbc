@@ -290,7 +290,7 @@
 	<cfset loc.currentMembershipYear = model("Handbookperson").currentMembershipYear(params)>
 	<cfset params.currentmembershipyear = loc.currentMembershipYear>
 		  <cfset dataThisYear = model("Handbookperson").getAGBMDashboardInfo(params)>
-		  <cfset dataThisYear.Year = params.currentMembershipYear>
+			<cfset dataThisYear.Year = params.currentMembershipYear>
 	<cfset params.currentmembershipyear = loc.currentMembershipYear - 1>
 		  <cfset dataPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params)>
 		  <cfset dataPreviousYear.Year = params.currentMembershipYear>
