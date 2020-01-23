@@ -122,7 +122,7 @@ component extends="Model" output="false" {
 					loc.whereString = "p_sortorder < 1000"
 					break
 				default:
-					loc.whereString = "0=0"
+					loc.whereString = "id>0"
 					break
 			}
 			// For Handbook Membership Report
@@ -164,7 +164,6 @@ component extends="Model" output="false" {
 								district like '#params.search#%'"
 			loc.orderString="lname,fname,positionTypeId DESC"
 		}
-
 		// Run the model method using where, order, include and pagination data
 		loc.return.people = findAll(
 							where=loc.whereString,
