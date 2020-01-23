@@ -28,9 +28,9 @@
 				<li class="dropdown">
 					#linkToData(text="Opportunities.<b class='caret'></b>", href="##", data_toggle= "dropdown", class="dropdown-toggle")#
 					<ul class="dropdown-menu">
-						<li>
+						<!--- <li>
 							#linkto(text="Dashboard", controller="handbook.agbmInfo", action="dashboard")#
-						</li>
+						</li> --->
 						<li>
 							#linkto(text="Sr Pastor Not-list", route="handbookPastorsNotAgbm", params="type=seniorpastors")#
 						</li>
