@@ -16,7 +16,11 @@
 	</cffunction>
 
 	<cffunction name="getCurrentMembershipYear">
-		<cfset currentmembershipyear = model("Handbookperson").currentMembershipYear(params)>
+		<cfif isDefined ("params.year")>
+			<cfset currentmembershipyear = params.year>
+		<cfelse>	
+			<cfset currentmembershipyear = model("Handbookperson").currentMembershipYear(params)>
+		</cfif>
 	</cffunction>
 
 	<cffunction name="list">
