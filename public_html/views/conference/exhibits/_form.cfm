@@ -49,7 +49,7 @@
 
 						#select(objectName='exhibit', property='elect', label='Will you need electricity?', options=yesno, valueField="dec", class="input-mini")#
 
-						#textArea(objectName='exhibit', property='specialrequest', label='Do you want to participate in the give-away? We will invoice you an additional $50 and place a basket on your exhibit to collect names for a drawing:', class="input-block-level span9")#
+						#select(objectName='exhibit', property='specialrequest', label='Do you want to participate in the give-away? We will invoice you an additional $50 and place a basket on your exhibit to collect names for a drawing:', class="input-block-level span9", options=yesno, class="input-mini")#
 
 	</fieldset>
 				<cfif params.action is "edit">
