@@ -110,9 +110,10 @@
                     <address>
                         <div class="xicon xicon-normal-pointer"></div>
                         <div class="address-content">
-                            <span class="title"><strong>Fellowship of Grace Brethren Churches</strong></span>
-                            <p>PO Box 384, Winona Lake</p>
-                            <p>IN 46590, United States</p>
+                            <span class="title"><strong>Charis Fellowship</strong></span>
+                            <p>PO Box 384</p>
+                            <p>Winona Lake, Indiana 46590</p>
+                            <p>United States</p>
                         </div>
                     </address>
 
