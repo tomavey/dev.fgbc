@@ -98,7 +98,7 @@
 
 <div ng-controller="contactMessageController">
 
-<div id="nav-contact" class="footer-wrapper">
+<div id="nav-contact" class="footer-wrapper" style="background-color: black; color: white">
 
         <div class="footer container">
 
