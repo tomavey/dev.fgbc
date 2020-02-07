@@ -12,7 +12,7 @@
       #linkto(text="Official Charis Fellowship Ministries should use this link", action="info", params="natmin=1")#
     </cfif>
     
-    <p>#getEventAsText()# is at <a href="http://grace.edu">the Grace College and Seminary campus in Winona Lake, Indiana</a>.</p>
+    <p>#getEventAsText()# is at <a href="http://grace.edu">the Grace College & Seminary campus in Winona Lake, Indiana</a>.</p>
     </p>
     
     <p>WE ARE EXPECTING 400+ conference attenders. Most (80%+) attenders are pastors, staff and leaders from more than 250 churches in the USA and Canada. Exhibits must be set up by Monday evening, July 20 and will be accessible from Tuesday, July 21 through lunch on Thursday, July 23.  All exhibits must be removed by 4:00 PM Thursday. </p>
@@ -37,7 +37,7 @@
     </ul>
 
     <p>Exhibitors are responsible for shipping their materials and exhibits to conference locations, exhibit set-up, security, and removal. Please ship to the following address between the dates of July 13-18, 2020.</p>
-    <p>Grace College and Seminary<br/>
+    <p>Grace College & Seminary<br/>
       Alumni and Community Engagement-Access2020<br/>
       200 Seminary Dr.<br/>
       Winona Lake, IN 46590<br/>
