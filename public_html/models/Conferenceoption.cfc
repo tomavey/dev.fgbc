@@ -51,7 +51,7 @@
 		<cfset loc.whereString = loc.whereString & " AND o.id = #loc.id#">
 	</cfif>
 		<cfquery dataSource="#getDataSource()#" name="loc.options">
-			SELECT o.id,o.buttondescription,o.description, o.cost, l.roomnumber, e.timebegin, DATE_FORMAT(e.timebegin,'%h:%i %p') AS starttime
+			SELECT o.id,o.buttondescription,o.description, o.cost, l.roomnumber, e.timebegin, DATE_FORMAT(e.timebegin,'%h:%i %p') AS starttime, '' AS TimeDateLocationString
 			FROM equip_options o
 			JOIN equip_events e
 			ON e.eventid = o.id
@@ -61,8 +61,23 @@
 			AND o.deletedAt IS NULL
 			ORDER BY #loc.orderString#
 		</cfquery>
+
+		<cfset loc.options = queryMap(loc.options, function(obj){
+			obj.TimeDateLocationString = mealsTimeDateLocationString(obj.STARTTIME, obj.TIMEBEGIN, obj.ROOMNUMBER )
+			return obj
+		})>
+
 	<cfreturn loc.options>
 	</cffunction>
+
+<cfscript>
+
+	private function mealsTimeDateLocationString (required string timeStr, string dateStr, required string location) {
+		return timeFormat(timeStr,"short") & " - " & location
+	}
+
+</cfscript>
+
 
 </cfcomponent>
 <!---

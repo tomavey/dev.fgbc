@@ -183,7 +183,7 @@
 		<cfset loc.whereString = "category in (#getSetting('eventCategoriesForJson')#) AND event = '#loc.event#'">
 		<cfset loc.orderString = "dayofyear,timebegin">
 		<cfset loc.selectString = "id,starttime,timebegin,endtime,timeend,eventroom,description,descriptionschedule,dateOn,dayOn,dayofyear,dayOfWeek,category,cost,link,image">
-		<cfset loc.selectString = loc.selectString & ",buttondescription,optiondescription,commentpublic,eventid">
+		<cfset loc.selectString = loc.selectString & ",buttondescription,optiondescription,commentpublic,eventid,TimeDateLocationString">
 
 		<cfif isDefined('params.useOtherEvents') && params.useOtherEvents>
 			<cfset loc.whereString = "category = 'Other' AND event = '#loc.event#'">
@@ -202,13 +202,36 @@
 		</cfif>
 		<cfset loc.schedule = findAll(select=loc.selectString, where=loc.whereString, order=loc.orderString)>
 		<cfset loc.schedule = selectDescriptionForPublicSchedule(loc.schedule)>
+		<cfset loc.schedule = scheduleTimeDateLocationString(loc.schedule)>
 		<cfset loc.schedule = queryToJson(loc.schedule)>
 	<cfreturn loc.schedule>
 	</cffunction>
 
 <cfscript>
 
-	function selectDescriptionForPublicSchedule(required query schedule){
+	private function scheduleTimeDateLocationString (required query schedule) {
+		var useThisTimeDateLocationString = ""
+		queryAddColumn(schedule,"TimeDateLocationString","varchar")
+		for ( event in schedule ) {
+			useThisTimeDateLocationString = timeRange(event.startTime, event.endTime) & " - " &event.eventRoom
+			querySetCell(arguments.schedule,"TimeDateLocationString", useThisTimeDateLocationString, schedule.currentrow)
+		}
+		return schedule
+	}
+
+	private function timeRange(required string startTime, required string endTime){
+		if ( (find("PM",startTime) && find("PM",endTime)) || (find("AM",startTime) && find("AM",endTime)) ) {
+			var startTimeStr = timeFormat(startTime, "h:mm")
+			var endTimeStr = timeformat(endTime, "h:mm tt")
+		} else {
+			var startTimeStr = timeFormat(startTime, "h:mm tt")
+			var endTimeStr = timeformat(endTime, "h:mm tt")
+		}
+		return startTimeStr & " - " & endTimeStr
+	}
+
+
+	private function selectDescriptionForPublicSchedule(required query schedule){
 		var useThisDescription = ""
 		for ( event in schedule ) {
 			if ( len(event.optiondescription) ) {
