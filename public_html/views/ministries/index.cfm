@@ -28,9 +28,9 @@
 
 	<div v-for="ministry in filteredMinistries" class="card card-charis-sub" v-cloak>
 			<h2 class="card-title">{{ministry.NAME}}</h2>
-			<p v-if="ministry.IMAGE"><img v-bind:src="'/images/ministries/' + ministry.IMAGE" /></p>
+			<p v-if="ministry.IMAGE.length"><img v-bind:src="'/images/ministries/' + ministry.IMAGE" /></p>
 			<p v-html="ministry.SUMMARY"></p>
-			<p v-if="ministry.WEDADDRESS"><a v-bind:href="fixurl(ministry.WEBADDRESS)">{{cleanurl(ministry.WEBADDRESS)}}</a></p>
+			<p v-if="ministry.WEBADDRESS.length"><a v-bind:href="fixurl(ministry.WEBADDRESS)">{{cleanurl(ministry.WEBADDRESS)}}</a></p>
 			<p class="text-right"><a href="" v-on:click.prevent="setSearch(ministry.CATEGORY)">Category: {{ministry.CATEGORY}}</a></p>
 	</div>
 
