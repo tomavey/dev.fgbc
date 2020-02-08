@@ -79,10 +79,8 @@ var vm = new Vue({
           }
           searchString = searchString.trim().toLowerCase();
             ministries_array = ministries_array.filter(function(item){
-              if(item.name.toLowerCase().indexOf(searchString) !== -1 ||
-                item.summary.toLowerCase().indexOf(searchString) !== -1 ||
-                item.category.toLowerCase().indexOf(searchString) !== -1
-                ){
+              let searchable = item.NAME + item.SUMMARY + item.CATEGORY
+              if( searchable.toLowerCase().indexOf(searchString) !== -1 ){
                 return item
               }
             })
