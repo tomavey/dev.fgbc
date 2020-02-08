@@ -16,8 +16,8 @@
 
 
 <div class="container card card-charis card-charis-square text-center" id="ministrieslist">
-{{filteredMinistries}}
-	<p>
+
+  <p>
 	<input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search for..." /></br>
 	Search by Ministry name or Description
 	</p>
@@ -27,11 +27,11 @@
 	</p>
 
 	<div v-for="ministry in filteredMinistries" class="card card-charis-sub" v-cloak>
-			<h2 class="card-title">{{ministry.name}}</h2>
-			<p v-if="ministry.image"><img v-bind:src="'/images/ministries/' + ministry.image" /></p>
-			<p v-html="ministry.summary"></p>
-			<p v-if="ministry.webaddress"><a v-bind:href="fixurl(ministry.webaddress)">{{cleanurl(ministry.webaddress)}}</a></p>
-			<p class="text-right"><a href="" v-on:click.prevent="setSearch(ministry.category)">Category: {{ministry.category}}</a></p>
+			<h2 class="card-title">{{ministry.NAME}}</h2>
+			<p v-if="ministry.IMAGE"><img v-bind:src="'/images/ministries/' + ministry.IMAGE" /></p>
+			<p v-html="ministry.SUMMARY"></p>
+			<p v-if="ministry.WEDADDRESS"><a v-bind:href="fixurl(ministry.WEBADDRESS)">{{cleanurl(ministry.WEBADDRESS)}}</a></p>
+			<p class="text-right"><a href="" v-on:click.prevent="setSearch(ministry.CATEGORY)">Category: {{ministry.CATEGORY}}</a></p>
 	</div>
 
 </div>
