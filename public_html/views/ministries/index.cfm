@@ -16,7 +16,7 @@
 
 
 <div class="container card card-charis card-charis-square text-center" id="ministrieslist">
-
+{{filteredMinistries}}
 	<p>
 	<input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search for..." /></br>
 	Search by Ministry name or Description
