@@ -30,7 +30,7 @@
 			<h2 class="card-title">{{ministry.name}}</h2>
 			<!--- <p v-if="ministry.image.length"><img v-bind:src="'/images/ministries/' + ministry.image" /></p> --->
 			<p v-html="ministry.summary"></p>
-			<p><a v-bind:href="fixurl(ministry.webaddress)">{{cleanurl(ministry.webaddress)}}</a></p>
+			<p v-if="ministry.webaddress"><a v-bind:href="fixurl(ministry.webaddress)">{{cleanurl(ministry.webaddress)}}</a></p>
 			<p class="text-right"><a href="" v-on:click.prevent="setSearch(ministry.category)">Category: {{ministry.category}}</a></p>
 	</div>
 
