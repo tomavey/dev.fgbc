@@ -58,6 +58,7 @@
 						<li>#linkto(text="Info-FGBC", action="info", controller="conference.exhibits", params="natmin=1")#</li>
 						<li>#linkto(text="List", action="index", controller="conference.exhibits")#</li>
 						<li>#linkto(text="Public List", action="list", controller="conference.exhibits")#</li>
+						<li>#linkto(text="History", action="index", controller="conference.exhibits", params="history=")#</li>
 						<li>#linkto(text="Add New", action="new", controller="conference.exhibits")#</li>
 					</ul>
 				</li>

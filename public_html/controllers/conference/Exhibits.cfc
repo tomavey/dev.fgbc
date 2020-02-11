@@ -23,14 +23,18 @@
 	<cfelse>
 		<cfset whereString = "event='#getEvent()#'">
 	</cfif>
+	<cfif isDefined("params.history")>
+		<cfset whereString = "">
+	</cfif>
 	<cfif isDefined("params.sortby")>
 		<cfset orderby = params.sortby>
 	</cfif>
 		<cfset exhibits = model("Conferenceexhibit").findAll(where=whereString, order=orderby)>
 	</cffunction>
 
-	<!--- exhibits/list --->
 	<cfscript>
+
+		<!--- exhibits/list --->
 		public function list(){
 			var orderBy = "organization";
 			var whereString = "event='#getEvent()#'";
@@ -41,10 +45,15 @@
 			exhibits = model("Conferenceexhibit").findAll(where=whereString, order=orderby);
 			renderPage(layout="/conference/layout2017");
 		}
-	</cfscript>
+
+		// public function history(){
+		// 	writeDump(params);abort;
+		// 	if ( isDefined("params.orderby") ) { arguments.orderby = params.orderby }
+		// 	exhibits = model("Conferenceexhibit").findAll(order=arguments.orderby)
+		// 	writeDump(exhibits);abort;
+		// }
 
 	<!--- Exhibits/json--->
-	<cfscript>
 		public function json () {
 			var orderBy = "organization";
 			var whereString = "event='#getEvent()#' AND approved = 'Yes'";
@@ -52,6 +61,7 @@
 			data = queryToJson(data);
 			renderJson();
 		}
+
 	</cfscript>
 
 	<!--- exhibits/show/key --->
