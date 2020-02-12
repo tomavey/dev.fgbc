@@ -89,7 +89,7 @@
 	set(SendImmediatePersonUpdates = false)
 	set(ChurchHandbookReviewGreeting = "It's Time to Update the Charis Fellowship Handbook!")
 	set(PersonHandbookReviewGreeting = "It's Time to Update the Charis Fellowship Handbook!")
-	set(StatFormFile = "https://charisfellowship.us/files/FGBCStatCard2018-19.pdf")
+	set(StatForm = "https://charisfellowship.us/files/FGBCStatCard2019-20.pdf")
 	set(churchReviewDeadline = "October 20")
 	set(personReviewDeadline = "October 20")
 	set(allowHandbookAuthByCookie = false)
