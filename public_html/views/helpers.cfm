@@ -383,7 +383,7 @@
 <cfreturn link>
 </cffunction>
 
-<!---not sure if this is being used--->
+<!---not sure if this is being used - yes it is but could be factored out--->
 <cffunction name="linkToData">
 <cfset var loc=structNew()>
 	<cfloop list="#structKeylist(arguments)#" index="i">

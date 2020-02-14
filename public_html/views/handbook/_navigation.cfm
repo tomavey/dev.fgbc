@@ -83,26 +83,29 @@
     			</cfif>
 
     			<cfif gotRights("superadmin,office,handbookedit")>
-    			<li class="dropdown">
-						<cfif isMobile()>
-							#linkTo(controller="handbook.menus", action="handbook", text="Handbook Reports")#
-						<cfelse>	
-							#linkToData(href="##", class="dropdown-toggle", data_toggle="dropdown", text="Handbook Reports<b class='caret'></b>")#
-								<ul class="dropdown-menu">
-												#includePartial("/handbook/navdrophandbook")#
-								</ul>
-						</cfif>
-    			</li>
+						<li class="dropdown">
+							<cfif isMobile()>
+								#linkTo(controller="handbook.menus", action="handbook", text="Handbook Reports")#
+							<cfelse>	
+								#linkToData(href="##", class="dropdown-toggle", data_toggle="dropdown", text="Handbook Reports<b class='caret'></b>")#
+									<ul class="dropdown-menu">
+													#includePartial("/handbook/navdrophandbook")#
+									</ul>
+							</cfif>
+						</li>
     			</cfif>
 
-                                    <li>
-                                        #linkToData(text="Change Log", controller="handbook.updates", action="index", title="View a list of recent changes to data in this handbook.")#
-                                    </li>
+					<li>
+							#linkToData(text="Change Log", controller="handbook.updates", action="index", title="View a list of recent changes to data in this handbook.")#
+					</li>
 
-    			<cfif gotrights("superadmin,office,natminproject,myfgbc,natminproj,natminstaff,ministrystaff")>
-    			<li>
-    				#linkToData(text="Downloads", controller="handbook.organizations", action="downloadguidelines")#
-    			</li>
+    			<cfif gotrights("superadmin,office,natminproject,myfgbc,natminproj,natminstaff,ministrystaff,stats")>
+						<li>
+							#linkToData(text="Downloads", controller="handbook.organizations", action="downloadguidelines")#
+						</li>
+						<li>
+							#linkToData(text="Statistics", controller="handbook.statistics", action="welcome")#
+						</li>
     			</cfif>
 
     			<cftry>
