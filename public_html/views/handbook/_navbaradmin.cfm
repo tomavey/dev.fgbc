@@ -12,7 +12,7 @@
           <div class="nav-collapse">
             <ul class="nav">
 
-            	<cfif gotRights("superadmin,office")>
+      <cfif gotRights("superadmin,office")>
 				<li class="dropdown">
 					#linkToData(text="Stats<b class='caret'></b>", href="##", data_toggle= "dropdown", class="dropdown-toggle")#
 					<ul class="dropdown-menu">
@@ -45,7 +45,7 @@
 						</li>
 					</ul>
 				</li>
-		</cfif>
+			</cfif>
 				<li class="dropdown">
 					#linkToData(text="Reports<b class='caret'></b>", href="##", data_toggle= "dropdown", class="dropdown-toggle")#
 					<ul class="dropdown-menu">
