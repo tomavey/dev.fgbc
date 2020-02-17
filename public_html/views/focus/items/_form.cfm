@@ -41,7 +41,7 @@
 
 						#select(objectName='item', property='category', label='Category: ', options=getSetting("optiontypes"))#
 
-						#select(objectName='item', property='regCount', label='This counts as how many people in the summary report? ', options="1,2")#
+						#select(objectName='item', property='regCount', label='This counts as how many people in the summary report? ', options="0,1,2")#
 
 						#textField(objectName='item', property='sortOrder', label='Sort Order (optional): ')#
 

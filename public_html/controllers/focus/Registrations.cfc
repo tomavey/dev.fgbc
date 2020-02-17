@@ -343,7 +343,7 @@
 
 
 		<cfset regs.south20total = countRegsToDate("south20",0,asof)>
-
+		
 		<cfloop list="South19Single,South19Double,South19Triple" index="i">
 			<cfset regs[i] = model("Focusregistration").countRegsToDate(i,dateAdd("yyyy",-1,asof))>
 		</cfloop>

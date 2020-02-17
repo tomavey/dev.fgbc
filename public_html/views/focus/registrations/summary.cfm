@@ -6,6 +6,7 @@
 	<cfelse>	
 		<h2>Registrations through #monthasstring(month(asof))# #day(asof)#:</h2>
 	</cfif>
+	<!--- <cfdump var="#regs#"> --->
 	<table class="table">
 		<tr>
 			<th>&nbsp;</th>
