@@ -8,7 +8,7 @@
     </cfif>	
 
 <cfif FileExists(ExpandPath("/images/conference/instructors/#picThumb#"))>
-    <p style="float:left; margin-right:20px">#imageTag(source="/conference/instructors/#picThumb#")#</p>
+    <p style="float:left; margin-right:20px">#linkto(text=imageTag(source="/conference/instructors/#picThumb#"), href="/images/conference/instructors/#picBig#")#</p>
 </cfif>
 
 <p><cfif isDefined("bioweb")>
