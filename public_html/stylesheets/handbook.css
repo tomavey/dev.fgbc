@@ -36,6 +36,7 @@ a {
     background-repeat: no-repeat;
     background-position: center;
     background-color: #005086;
+    color: white;
 }
 #navigation {
     float: left;
@@ -414,10 +415,11 @@ div.reviewers {
     display: absolute;
     top: 2px;
     left: 10px;
-    margin: 0px 2px
+    margin: 0px 2px;
+    color:white;
 }
 #welcome a {
-    color: #67005E
+    color:white
 }
 #mobilephone {
     text-align: center;
