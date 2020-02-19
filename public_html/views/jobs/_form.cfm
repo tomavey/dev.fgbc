@@ -25,6 +25,7 @@
 						<p>
 
 							Expiration Date: #dateSelect(objectName='job', property='expirationdate', dateOrder='year,month,day', monthDisplay='abbreviations', label="")#
+							<span style="font-size:.8em; color: grey">[change the expiration date to yesterday's date to make this post inactive]</span>
 							
 						</p>
 					<cfelse>
