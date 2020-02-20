@@ -51,14 +51,15 @@
                     <cfoutput>
                     <h3>Subject: #args.name# (#args.city#) statistics for #year(now())-1# and fellowship fee for #year(now())# are due May 15. </h3>
                     <p class="lead">
-                        GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship (a.k.a. the Fellowship of Grace Brethren Churches). Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
+                        GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship. Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
                     </p>
                     <p>
-                        Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# are due May 15.  After that date, the fee increases. Your office should have received #linkto(text="this brochure", href=getSetting("StatFormFile"))#" by regular post requesting your statistics and fellowship fee.
+                        Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# are due May 15.  After that date, the fee increases. Your office should have received #linkto(text="this brochure", href='http://charisfellowship.us/files/#getSetting("StatForm")#')# by regular post requesting your statistics and fellowship fee.
                     </p>
                     <p class="callout">
                         If you would prefer to submit this information and pay online you can use this link: #linkto(href='https://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
                     </p>
+
                     </cfoutput>
 
                     <table class="social" width="100%">
@@ -70,8 +71,8 @@
                                         <td>
                                             <h5 class="">Connect with Us:</h5>
                                             <p class="">
-                                                <a href="http://facebook.com/gracechurches" class="soc-btn fb">Facebook</a> 
-                                                <a href="http://twitter.com/gracechurches" class="soc-btn tw">Twitter</a> 
+                                                <a href="https://www.facebook.com/charischurches/" class="soc-btn fb">Facebook</a> 
+                                                <a href="https://twitter.com/charischurches" class="soc-btn tw">Twitter</a> 
                                                 <a href="https://charisfellowship.us" class="soc-btn gp">CharisFellowship.us</a>
                                             </p>
                                         </td>
@@ -92,6 +93,8 @@
                             </td>
                         </tr>
                     </table>
+                    <p style="text-align:center;font-size:.9em;color:grey">Charis Fellowship is an assumed business name (D.B.A.) of the Fellowship of Grace Brethren Churches inc.</p>
+
 
                 </td>
             </tr>
