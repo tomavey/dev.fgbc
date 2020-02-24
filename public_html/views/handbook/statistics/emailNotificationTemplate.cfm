@@ -54,7 +54,7 @@
                         GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship. Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
                     </p>
                     <p>
-                        Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# are due May 15.  After that date, the fee increases. Your office should have received #linkto(text="this brochure", href='http://charisfellowship.us/files/#getSetting("StatForm")#')# by regular post requesting your statistics and fellowship fee.
+                        Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# are due May 15.  After that date, the fee increases. Your office should receive #linkto(text="this brochure", href='http://charisfellowship.us/files/#getSetting("StatForm")#')# by regular post requesting your statistics and fellowship fee.
                     </p>
                     <p class="callout">
                         If you would prefer to submit this information and pay online you can use this link: #linkto(href='https://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
