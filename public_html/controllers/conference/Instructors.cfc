@@ -28,7 +28,11 @@
 		<cfif isDefined("params.key")>
 			<cfset whereString = whereString & " AND id = #params.key#">
 		</cfif>
-		<cfset instructors = model("Conferenceinstructor").findAll(order="lname, fname", where=whereString)>
+		<cfset var orderString = "lname, fname">
+		<cfif isDefined("params.tag") && params.tag == "speaker">
+			<cfset var orderString = "sortOrder, lname, fname">
+		</cfif>
+		<cfset instructors = model("Conferenceinstructor").findAll(order=orderString, where=whereString)>
 		<cfset headerSubTitle = "Speakers">
 
 		<cfif isDefined("params.tag")>
@@ -162,7 +166,7 @@
 <cfscript>
 
 	function speakersAsJson(){
-		var params.orderby = "sortOrder"
+		var params.orderby = "sortOrder, lname, fname"
 		data = model("Conferenceinstructor").findSpeakersAsJson(params)
 		renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)
 	}
