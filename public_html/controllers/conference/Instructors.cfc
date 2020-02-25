@@ -71,7 +71,7 @@
 
     	<!--- Check if the record exists --->
 	    <cfif NOT IsObject(instructor)>
-	        <cfset flashInsert(error="instructor #params.key# was not found")>
+        <cfset flashInsert(error="instructor #params.key# was not found")>
 			<cfset redirectTo(action="index")>
 	    </cfif>
 
@@ -124,7 +124,7 @@
 		<!--- Verify that the instructor updates successfully --->
 		<cfif instructor.update(params.instructor)>
 			<cfset flashInsert(success="The instructor was updated successfully.")>
-            <cfset returnBack()>
+      <cfset returnBack()>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the instructor.")>
@@ -162,6 +162,7 @@
 <cfscript>
 
 	function speakersAsJson(){
+		var params.orderby = "sortOrder"
 		data = model("Conferenceinstructor").findSpeakersAsJson(params)
 		renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)
 	}

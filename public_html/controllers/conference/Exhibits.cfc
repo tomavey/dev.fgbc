@@ -131,7 +131,7 @@
 		<!--- Verify that the exhibit updates successfully --->
 		<cfif exhibit.update(params.exhibit)>
 			<cfset flashInsert(success="The exhibit was updated successfully.")>
-            <cfset returnBack()>
+      <cfset returnBack()>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the exhibit.")>

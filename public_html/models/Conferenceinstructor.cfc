@@ -35,13 +35,17 @@
         loc.event = getEvent(params)
         loc.selectString = "ID, lname, fname, bioWeb,picBig,picThumb,pic120x120,event,tags";
         loc.whereString = "id > 0 AND tags LIKE '%#tags#%'";
+        loc.orderString = "lname,fname"
+        if ( isDefined("loc.orderBy") ) {
+            loc.orderString = loc.orderBy
+        }
         if ( isDefined("loc.id") ) {
             loc.whereString = loc.whereString & " AND ID = #loc.id#";
         } else {
             loc.whereString = loc.whereString & " AND event='#loc.EVENT#'";
         }
 
-        loc.speakers = findall(where=loc.whereString, select=loc.selectString, order="lname,fname");
+        loc.speakers = findall(where=loc.whereString, select=loc.selectString, order=loc.orderString);
         loc.speakers = queryToJson(loc.speakers);
         return loc.speakers;
     }

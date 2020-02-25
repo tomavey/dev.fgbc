@@ -77,6 +77,9 @@
 					<p><span>Comments: </span>
 						#exhibit.comments#</p>
 
+					<p><span>Sort Order: </span>
+							#exhibit.sortOrder#</p>
+
 					<p><span>Created: </span>
 						#dateformat(exhibit.createdAt)#</p>
 

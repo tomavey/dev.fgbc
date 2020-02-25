@@ -48,7 +48,7 @@
 
 						#textField(objectName='instructor', property='pic120x120', label='Pic 120x120 (for attendify)')#
 
-
+						#textField(objectName='instructor', property='sortOrder', label='Sort Order: ', class="input-small")#
 
 						#textArea(objectName='instructor', property='comment', label='Comment')#
 

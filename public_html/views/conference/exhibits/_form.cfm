@@ -74,6 +74,8 @@
 
 						#textField(objectName='exhibit', property='website', label='Website: ', class="input-xlarge")#
 
+						#textField(objectName='exhibit', property='sortOrder', label='Sort Order: ', class="input-small")#
+
 						#textField(objectName='exhibit', property='files', label='Files (comma delimited list with quotes and full path : ', class="input-xxlarge")#
 
 				</cfif>
