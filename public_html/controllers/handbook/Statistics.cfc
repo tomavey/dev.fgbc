@@ -440,17 +440,19 @@
 		<cfreturn notpaidchurches>
 	</cffunction>
 
+<cfscript>
+	private function $getBccForEmailNotifications(){
+		if (getSetting('SendHandbookStatsReminderCopy')) {
+			return getSetting('SendHandbookStatsReminderCopyTo');
+		} 
+			return "";
+	} 
+</cfscript>
+
 	<cffunction name="emailAllCurrentNotPaid">
 	<cfset args = structNew()>
 	<cfset statsEmail.Sent = []>
 	<cfset statsEmail.Failed = []>
-	<cfscript>
-			if (getSetting('SendHandbookStatsReminderCopy')) {
-				args.bcc = getSetting('SendHandbookStatsReminderCopyTo');
-			} else {
-				args.bcc = "";
-			};
-	</cfscript>
 
 		<cfif isDefined("params.test")>
 			<cfset churches = makeTestList()>
@@ -465,20 +467,21 @@
 			<cfset args.name = name>
 			<cfset args.city = city>
 			<cfset args.id = id>
+			<cfset args.bcc = $getBccForEmailNotifications()>
 			<cfif !onLocalhost()>
-				<!--- <cftry> --->
+				<cftry>
 					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", bcc=args.bcc, subject="Charis Fellowship Stats and Fee are due May 15.", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
 					<cfset arrayAppend(statsEmail.sent, args)>
-				<!--- <cfcatch>
+				<cfcatch>
 					<cfset arrayAppend(statsEmail.failed, args)>
 				</cfcatch>
-				</cftry> --->
+				</cftry>
 			<cfelse>
 				<cfdump var="#args#">		
 			</cfif>	
-
+			<cfdump var="#args#">
 			<cfset args = structNew()>
-
+			<cfdump var="#args#"><cfabort>
 		</cfloop>
 
 		<cfif onlocalhost()>
