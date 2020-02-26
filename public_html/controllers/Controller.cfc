@@ -334,7 +334,7 @@ component extends="Wheels" {
 	//used by setReturn()
 	public string function $GetCurrentURL() {
 		var theURL = getPageContext().getRequest().GetRequestUrl();
-		return theUrl
+		return replace(theUrl, "/rewrite.cfm","")
 		if ( len( CGI.path_info) ) {
 			theURL = theURL & CGI.path_info;
 		} elseif ( len( CGI.query_string ) ) {
