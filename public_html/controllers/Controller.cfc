@@ -339,7 +339,7 @@ component extends="Wheels" {
 		} elseif ( len( CGI.query_string ) ) {
 			theURL = theURL & "?" & CGI.query_string;
 		}
-		// theURL = replace(theURL, "/rewrite.cfm/","","one")
+		theURL = replace(theURL, "/rewrite.cfm/","","one")
 		return theURL;
 	}
 
