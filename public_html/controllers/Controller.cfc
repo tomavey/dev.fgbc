@@ -332,17 +332,12 @@ component extends="Wheels" {
 	}
 
 	//used by setReturn()
-	private string function $GetCurrentURL() output=false {
+	public string function $GetCurrentURL() {
 		var theURL = getPageContext().getRequest().GetRequestUrl();
-		if ( len( CGI.query_string ) ) {
+		if ( len( CGI.path_info) ) {
+			theURL = theURL & CGI.path_info;
+		} elseif ( len( CGI.query_string ) ) {
 			theURL = theURL & "?" & CGI.query_string;
-		}
-		if ( cgi.http_host == "localhost:8080" || cgi.http_host == "localhost:8888" ) {
-		} else {
-			try {
-				theURL = replace(theUrl,"/rewrite.cfm","","one");
-			} catch (any cfcatch) {
-			}
 		}
 		return theURL;
 	}
