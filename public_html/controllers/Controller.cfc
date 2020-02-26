@@ -337,6 +337,7 @@ component extends="Wheels" {
 		if ( !isLocalMachine() ) {
 			return replace(theUrl, "/rewrite.cfm","")
 		}
+		//HACK: this is for the local machine since getPageContext().getRequest().GetRequestUrl() does not report the full path on my localmachine
 		if ( len( CGI.path_info) ) {
 			theURL = theURL & CGI.path_info;
 		} elseif ( len( CGI.query_string ) ) {
