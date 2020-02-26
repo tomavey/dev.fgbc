@@ -479,9 +479,7 @@
 			<cfelse>
 				<cfdump var="#args#">		
 			</cfif>	
-			<cfdump var="#args#">
 			<cfset args = structNew()>
-			<cfdump var="#args#"><cfabort>
 		</cfloop>
 
 		<cfif onlocalhost()>
