@@ -26,10 +26,10 @@
 			</cfif>
 		</cfif>
 
-		<!--- <cftry>
+		<cftry>
 			<cfdump var="#cgi#">
 		<cfcatch></cfcatch>	
-		</cftry> --->
+		</cftry>
 
 		<cfif isDefined("session.auth.rightslist")>
 			<p>#session.auth.rightslist#</p>
