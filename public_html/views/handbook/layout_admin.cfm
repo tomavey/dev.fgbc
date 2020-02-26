@@ -26,7 +26,10 @@
 	<cfoutput>
 		#javaScriptIncludeTag("handbook,bootstrap")#
 		#forcecfcatch()#
+		#onLocalhost()#
+		#isLocalMachine()#
 	</cfoutput>
+
 </body>
 
 </html>
