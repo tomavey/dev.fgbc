@@ -9,7 +9,7 @@
 		<cfset loc.return = "AGBM Mail list...">		
 	</cfcase>
 	<cfcase value="handbook">
-		<cfset loc.return = "FGBC Handbook...">		
+		<cfset loc.return = "Charis Fellowship Handbook...">		
 	</cfcase>
 	<cfdefaultcase>
 		<cfset loc.return = "Everyone in the database!...">		

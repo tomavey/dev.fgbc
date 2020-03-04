@@ -88,7 +88,7 @@
 	</tbody>
 </table>
 <cfif isDefined("params.key") and params.key is "all">
-<p>* = This person is in the database but is NOT listed in the FGBC handbook. They may be deleted from the database at a future date.</p>
+<p>* = This person is in the database but is NOT listed in the Charis Fellowship handbook. They may be deleted from the database at a future date.</p>
 </cfif>
 
 <!---cfif showpagination()>

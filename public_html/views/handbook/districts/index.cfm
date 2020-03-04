@@ -61,7 +61,7 @@
       	  #showTag(districtid)# #editTag(districtid)#
 
           <cfset message = urlencode("Greetings! - We are updating district information for the FGBC online handbook.  Can you review the #district# district information for me?  This week? #urlFor(route="handbookDistrict", key=districtid, onlyPath="false")# Be sure to click the 'This information is correct' button when you are finished. If you are not the correct person to provide this information, please forward this email. Thanks so much!")>
-          <cfset subject = urlEncode("Please review the FGBC Handbook listing for #district#")>
+          <cfset subject = urlEncode("Please review the Charis Fellowship  Handbook listing for #district#")>
           <cfset sendToEmail = "">
           <cfif isDefined("updatedBy") and isDefined("reviewedBy")>
             <cfset sendToEmail = trim(updatedBy) & ";" & trim(reviewedBy)>

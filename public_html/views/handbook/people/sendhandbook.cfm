@@ -13,6 +13,6 @@
 	#linkto(text="Access the online handbook", controller="handbook.welcome", action="welcome", key=encrypt(person.email,getSetting("passwordkey"),"CFMX_COMPAT","HEX"), class="btn")#
 
 <cfelse>
-	The deadline for requesting your free FGBC handbook has passed.
+	The deadline for requesting your free Charis Fellowship handbook has passed.
 </cfif>
 </cfoutput>

@@ -1,5 +1,5 @@
 <div class="span10 offset1">
-<h2>Use of FGBC Handbook data</h2>
+<h2>Use of Charis Fellowship Handbook data</h2>
 <p>You have been given access to downloads of church and people data from the FGBC annual handbook (directory). In order to protect people and organizations listed in the handbook, you are to observe the following guidelines:</p>
 <ol>
 <li>Do not share your login information with anyone else. If you need access for administrative staff, that person should create and user account on FGBC.org and use the contact form on FGBC.org to request access to the handbook. Please allow 2 or 3 days for that access to be granted.</li>

@@ -106,7 +106,7 @@ component extends="tests.Test" {
   //   }
 
   // public function test_handbookChurchReviewEmailing(){
-  //   loc.params = {controller="handbook.organizations", action="emailChurchesForHandbookReview", message="FGBC Handbook is in production"};
+  //   loc.params = {controller="handbook.organizations", action="emailChurchesForHandbookReview", message="Charis Fellowship Handbook is in production"};
   //   $run_view_test();
   //   }
 

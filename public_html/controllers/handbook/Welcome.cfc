@@ -226,7 +226,7 @@
 		<cfif loc.check.recordcount>
 			<cfset params.key = encrypt(params.email,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
 			<cfif !isLocalMachine()>
-				<cfset sendEmail(template="sendlink", layout="/layout_naked", from=getSetting('userAdminEmailAddress'), to=params.email, subject="Your FGBC Handbook Link")>	
+				<cfset sendEmail(template="sendlink", layout="/layout_naked", from=getSetting('userAdminEmailAddress'), to=params.email, subject="Your Charis Fellowship Handbook Link")>	
 			<cfelse>
 				<cfset flashInsert(error="#linkTo(controller="handbook.welcome", action="welcome", onlyPath=false, params="id=#params.key#")#
 				")>
@@ -269,7 +269,7 @@
 	</cffunction>
 
 	<cffunction name="sendWelcomeErrorNotice">
-	<cfargument name="subject"  default="FGBC Handbook Welcome Error">
+	<cfargument name="subject"  default="Charis Fellowship Handbook Welcome Error">
 		<cfset sendEmail(from=getSetting('errorEmailAddress'), to=getSetting('errorEmailAddress'), template="welcomeerroremail.cfm", subject=arguments.subject)>
 	</cffunction>
 

@@ -3,7 +3,7 @@
 	<div class="navbar-inner">
 	<div class="container">
 		 <cfif isMobile()>
-		 #linkto(text="FGBC Handbook", class="brand", route="handbookPeople")#
+		 #linkto(text="Charis Fellowship Handbook", class="brand", route="handbookPeople")#
 		 </cfif>
 		 <div class="pull-right">
 				#startFormTag(route="HandbookSearchtags", class="navbar-search pull-right")#

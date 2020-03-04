@@ -30,8 +30,8 @@
 			#linkTo(text="List", action="index", class="btn")#
 		</cfif>
 
-		<cfset message = urlencode("Greetings! - I'm finishing up the #year(now())+1# FGBC handbook.  Can you review the #district.district# district information for me using the link provided?  This week? http://fgbc.org/handbook-districts/show/#district.districtid# Be sure to click the 'This information is correct' button when you are finished. Thanks - Tom ")>
-		<cfset subject = urlEncode("Please review the FGBC Handbook listing for #district.district#")>
+		<cfset message = urlencode("Greetings! - I'm finishing up the #year(now())+1# Charis Fellowship handbook.  Can you review the #district.district# district information for me using the link provided?  This week? http://fgbc.org/handbook-districts/show/#district.districtid# Be sure to click the 'This information is correct' button when you are finished. Thanks - Tom ")>
+		<cfset subject = urlEncode("Please review the Charis Fellowship Handbook listing for #district.district#")>
 
 				 	#mailTo(
 						name='<i class="icon-envelope"></i>',

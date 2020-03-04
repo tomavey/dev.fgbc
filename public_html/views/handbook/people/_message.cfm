@@ -3,7 +3,7 @@
 <a href="http://www.fgbc.org/handbook"><img src="http://www.fgbc.org/images/handbook/onlineheader2013.png" style="float:left"></a>	
 <p style="margin-bottom:10px">Dear #distinctemail.name#,</p>
 <p style="margin-bottom:10px">Greetings! </p> 
-<p>The online FGBC handbook goes mobile.</p>
+<p>The online Charis Fellowship handbook goes mobile.</p>
 <p>Now works equally well on your tablet or smart phone!</p>
 <ul>
 <li>On-the-go access to phone numbers.</li>

@@ -217,7 +217,7 @@
 
 <!---used in commented out section of people.show if page error happens in try/catch--->
 <cffunction name="sendPersonPageErrorNotice">
-	<cfargument name="subject"  default="FGBC Handbook Person Page Error">
+	<cfargument name="subject"  default="Charis Fellowship Handbook Person Page Error">
 	<cftry>
 			<cfset sendEmail(from=application.wheels.errorEmailAddress, to=application.wheels.errorEmailAddress, template="personpageerroremail.cfm", subject=arguments.subject)>
 		<cfcatch>
