@@ -16,8 +16,6 @@
 
 <cfoutput>
 
-			#hiddenFieldTag(name='exhibit[event]', value="#getEvent()#")#
-
 	<fieldset>
 		<legend>Contact Information</legend>
 						#textField(objectName='exhibit', property='organization', label='Organization:', class="input-xlarge")#
