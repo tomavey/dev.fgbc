@@ -233,11 +233,17 @@
 	</cffunction>
 
 	<cffunction name="emailNotList">
-		<cfreturn application.wheels.emailNotList>
+		<cfreturn getSetting("emailNotList")>
 	</cffunction>
 
 	<cffunction name="emailList">
 		<cfset emailList=model("Conferenceperson").findEmailList()>
+		<cfset emailList = removeNotListFromQuery(emailList)>
+		<cfif isdefined("params.key") and params.key is "download">
+			<cfset params.download = true>
+		<cfelse>
+			<cfset params.download = false>
+		</cfif>
 		<cfset renderPage(layout="/conference/layoutdownload")>
 	</cffunction>
 

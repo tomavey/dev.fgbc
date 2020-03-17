@@ -1,4 +1,10 @@
 <cfset count = 0>
+
+<cfif isDefined("params.key") and params.key is "download">
+<cfelse>
+	<cfoutput>#linkto(text="Download as excel", key="download")#</cfoutput>
+</cfif>
+
 <table>
 	<tr>
 		<td>

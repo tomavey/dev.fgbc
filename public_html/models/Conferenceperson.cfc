@@ -96,7 +96,7 @@
 	</cffunction>
 
 	<cffunction name="emailNotList">
-		<cfreturn application.wheels.emailNotList>
+		<cfreturn getSetting("emailNotList")>
 	</cffunction>
 
 	<cffunction name="findEmailList">

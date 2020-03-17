@@ -263,6 +263,6 @@
 	// For Vision Conference Announcements
 	set(useTestEmailList = false)
 	set(testEmailList = "tomavey@charisfellowship.us,tomavey@fgbc.org")
-	set(emailNotList = "tomavey@test.net,caesar.die2self@gmail.com,graham.cochrane@td.com")
+	set(emailNotList = "tomavey@test.net,caesar.die2self@gmail.com,graham.cochrane@td.com,guypelay@verizon.net,Crazyfox65@gmail.com")
 
 </cfscript>
