@@ -41,7 +41,17 @@ component extends="Controller" output="false" {
 	}	
 
 <!--- users/show/key --->
-	public function show(id=params.key){
+	public function show(){
+		if ( isDefined("params.key") ) {
+			session.temp.key = params.key
+			id = params.key
+		} else if ( isDefined("params.keyy") ) {
+			session.temp.key = params.keyy
+			id = params.keyy
+		} else if ( isDefined("session.temp.key") ) {
+			id= session.temp.key
+		}
+		params.key = id
 		user = model("Authuser").findOne(where="id=#id#")
 		groups = model("Authusersgroup").findall(where="auth_usersid = #id#", include="Group")
 		allgroups = model("Authgroup").findall(order="name")
@@ -438,11 +448,13 @@ component extends="Controller" output="false" {
 	public function addToGroup( userId=params.key, groupId=params.groupId, username=params.username ) {
 		var userGroup
 		var check = model("Authusersgroup").findAll(where="auth_usersId = #arguments.userID# AND auth_groupsId = #arguments.groupId#")
+		session.temp.key=userId
 		if ( !check.recordCount ) {
 			userGroup = model("Authusersgroup").new()
 			userGroup.auth_usersid = arguments.userid
 			userGroup.auth_groupsid = arguments.groupid
 			if ( usergroup.save() ) {
+
 				returnBack()			
 			} else {
 				flashInsert( error="Group was not added to #username#" )

@@ -1,6 +1,8 @@
 <cfoutput>
 						#textField(objectName='user', property='username', label='Username: ')#
 
+						#hiddenTagForKeyy()#
+
 				<cfif params.action is "new" or params.action is "create">					
 						#passwordField(objectName='user', property='password', label='Password: ')#
 				</cfif>	

@@ -37,6 +37,8 @@
 
 			#hiddenFieldTag(name="username", value=user.username)#
 
+			#hiddenTagForKeyy()#
+
 			#selectTag(label="Add to group: ", name="groupid", options=allgroups)#
 
 			#submitTag()#
