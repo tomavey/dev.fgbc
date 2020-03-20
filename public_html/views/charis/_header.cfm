@@ -118,7 +118,7 @@
             <!-- End Navigation -->
           </div>
         </nav>
-        <a href="page/covid" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display:block">
+        <a href="https://charisfellowship.us/page/covid" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display:block">
           The Charis Fellowship and COVID-19
 
         </a>
