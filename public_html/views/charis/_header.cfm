@@ -118,7 +118,10 @@
             <!-- End Navigation -->
           </div>
         </nav>
-        xxx
+        <a href="page/covid" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display:block">
+          The Charis Fellowship and COVID-19
+
+        </a>
       </div>
     </header>
     <!-- End Header -->
@@ -130,4 +133,9 @@
         } 
         return "inactive";
       }
+
+      public function onCovid(){
+        alert("hi")
+      }
+
     </cfscript>
