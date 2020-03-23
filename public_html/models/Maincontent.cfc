@@ -1,10 +1,14 @@
 <cfcomponent extends="Model" output="false">
-
-	<cffunction name="init">
-		<cfset table("fgbc_content")>
-	</cffunction>
-
 <cfscript>
+
+  function init(){
+    table("fgbc_content")
+    validatesPresenceOf("author")
+    validatesPresenceOf("content")
+    validatesPresenceOf("name")
+  }
+
+
 
             public function findFootnotesAsStruct(){
             var footnotes = {};
