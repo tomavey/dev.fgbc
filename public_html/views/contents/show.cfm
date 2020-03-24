@@ -25,7 +25,7 @@
 	
 		<cfif !len(content.rightsRequired) OR gotRights(content.rightsRequired)>
 
-					#content.content#
+				#content.content#
 
 			<cfif gotrights("superadmin,office,pageEditor")>
 
@@ -53,7 +53,7 @@
 			<cfelse>	
 				<p>You do not have permission to view this page.</p>
 			</cfif>
-		</cfif>		
+		</cfif>
 
 </div>
 </cfoutput>
