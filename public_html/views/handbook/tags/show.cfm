@@ -4,6 +4,9 @@
 <div id="show">
 	
 	<cfset emailall = "">
+	<cfset namesAll = "">
+	<cfset namesThis = "">
+
 	<cfoutput>
 	<h2>Tag: "#params.key#"</h2>
 
@@ -33,43 +36,46 @@
 	<cfif handbookTaggedPeople.recordcount>
 		<h3>People:</h3>
 	</cfif>
-	
+
+	<!---PEOPLE--->
+<!--- <cfdump var="#handbookTaggedPeople#"> --->
 		<cfoutput query="handbookTaggedPeople" group="itemid">
-		<cfset email = trim(email)>
-			<p>#linkTo(
-					   text="#fname# #lname#",
-					   controller="handbook.people", 
-					   action="show", 
-					   class="ajaxclickable tooltip2", 
-					   title="Click to show #fname# #lname# in the center panel.", 
-					   key=itemid
-					   )# 
-				-
-				#linkTo(
-						text="x",
-						action="removeFromTag",
-						params="tag=#params.key#&itemid=#itemid#",
-						class="tooltipside",
-						title="Remove #fname# from #params.key#"
-						)#
-				<cfset request.personupdatedat = personupdatedat(itemid)>
-				<cfif len(request.personupdatedat)>
-				#linkto(
-						text=dateformat(request.personupdatedat), 
-						controller="handbook.updates", 
-						action="index", 
-						params="showperson=#itemid#", 
-						class="updatedat tooltipside", 
-						title="View updates for #fname#"
-						)#
+			<cfset email = trim(email)>
+			<cfset namesThis = selectName>
+				<p>#linkTo(
+							text="#fname# #lname#",
+							controller="handbook.people", 
+							action="show", 
+							class="ajaxclickable tooltip2", 
+							title="Click to show #fname# #lname# in the center panel.", 
+							key=itemid
+							)# 
+					-
+					#linkTo(
+							text="x",
+							action="removeFromTag",
+							params="tag=#params.key#&itemid=#itemid#",
+							class="tooltipside",
+							title="Remove #fname# from #params.key#"
+							)#
+					<cfset request.personupdatedat = personupdatedat(itemid)>
+					<cfif len(request.personupdatedat)>
+					#linkto(
+							text=dateformat(request.personupdatedat), 
+							controller="handbook.updates", 
+							action="index", 
+							params="showperson=#itemid#", 
+							class="updatedat tooltipside", 
+							title="View updates for #fname#"
+							)#
+					</cfif>
+				</p>
+				<cfif isvalid("email",email)>
+					<cfset emailall = emailall & "; " & email>
 				</cfif>
-			</p>
-			<cfif isvalid("email",email)>
-				<cfset emailall = emailall & "; " & email>
-			</cfif>
+			<cfset namesAll = namesAll & '; ' & namesThis> 
 			<cfset peoplecount = peoplecount + 1>
 		</cfoutput>	
-
 		<cfif handbookTaggedPeople.recordcount>
 			<cfoutput>Count = #peoplecount#</cfoutput>
 		</cfif>
@@ -77,7 +83,9 @@
 			<h3>Organizations:</h3>	
 		</cfif>		
 		
+	<!---ORGANIZATIONS--->
 		<cfoutput query="handbookTaggedOrganizations" group="itemid">
+			<cfset namesThis = "#name#: #org_city#,#state_mail_abbrev#">
 			<p>#linkTo(
 					   text="#name#: #org_city#,#state_mail_abbrev#",
 					   controller="handbook.organizations", 
@@ -99,8 +107,8 @@
 				<cfset emailall = emailall & "; " & email>
 			</cfif>
 		<cfset churchcount = churchcount + 1>	
+		<cfset namesAll = namesAll & ', ' & namesThis> 
 		</cfoutput>
-
 		<cfif handbookTaggedOrganizations.recordcount>
 			<cfoutput>Count = #churchcount#</cfoutput>
 		</cfif>
@@ -113,6 +121,10 @@
 <p>#linkTo(text='Email Everyone Tagged "#params.key#" (semicolon delimited)', href="mailto:#emailall#", class="btn tooltipside", title="This will create one email message in your email client (ie:outlook) to all these people/organizations" )#</p>
 <p>#linkTo(text='Email Everyone Tagged "#params.key#" (comma delimited)', href="mailto:#emailallComma#", class="btn tooltipside", title="This will create one email message in your email client (ie:outlook) to all these people/organizations" )#</p>
 <p>Some email clients prefer comma delimited.</p>
+<br/>
+<p>
+	List: #replace(namesAll,'; ','','one')#
+</p>
 
 <p>&nbsp;</p>
 	<div class="well">
