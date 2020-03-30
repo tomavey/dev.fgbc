@@ -123,7 +123,7 @@
 <p>Some email clients prefer comma delimited.</p>
 <br/>
 <p>
-	List: #replace(namesAll,'; ','','one')#
+	List-<br/> #replace(namesAll,'; ','','one')#
 </p>
 
 <p>&nbsp;</p>
