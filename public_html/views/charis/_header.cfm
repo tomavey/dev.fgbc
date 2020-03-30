@@ -77,7 +77,7 @@
                   #linkTo(text="NEWS", href="##news", class="nav-link px-0 #isNavActive("news")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
-                  #linkTo(text="PRAYER", href="https://www.charisalliance.org/en/prayer/", class="nav-link px-0 #isNavActive("prayer")#")#
+                  #linkTo(text="PRAYER", href="https://www.charisalliance.org/en/prayer/", target="_new" class="nav-link px-0 #isNavActive("prayer")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
                     #linkTo(text="CHURCHES", controller="churches", action="index", class="nav-link px-0 #isNavActive("churches")#")#
@@ -124,7 +124,7 @@
         </a>
       </cfif>
         <cfif isBefore("2020-04-01")>
-          <a href="https://www.charisalliance.org/en/prayer/" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display: block; margin-top:10px">
+          <a href="https://www.charisalliance.org/en/prayer/" target="_new" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display: block; margin-top:10px">
             The Charis Prayer Wall
           </a>
         </cfif>
