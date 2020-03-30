@@ -77,7 +77,7 @@
                   #linkTo(text="NEWS", href="##news", class="nav-link px-0 #isNavActive("news")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
-                  #linkTo(text="PRAYER", href="https://www.charisalliance.org/en/prayer/", target="_new" class="nav-link px-0 #isNavActive("prayer")#")#
+                  #linkTo(text="PRAYER", href="https://www.charisalliance.org/en/prayer/", target="_new". class="nav-link px-0 #isNavActive("prayer")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
                     #linkTo(text="CHURCHES", controller="churches", action="index", class="nav-link px-0 #isNavActive("churches")#")#
