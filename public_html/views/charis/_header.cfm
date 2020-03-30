@@ -71,13 +71,13 @@
           <cfoutput>
               <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto" id="js-scroll-nav">
                 <li class="nav-item g-mx-20--lg">
-                  #linkTo(text="HOME", href="/", class="nav-link px-0 #isNavActive("home")#")#
-                </li>
-                <li class="nav-item g-mx-20--lg">
                   #linkTo(text="ABOUT", href="##about", class="nav-link px-0 #isNavActive("about")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
                   #linkTo(text="NEWS", href="##news", class="nav-link px-0 #isNavActive("news")#")#
+                </li>
+                <li class="nav-item g-mx-20--lg">
+                  #linkTo(text="PRAYER", href="https://www.charisalliance.org/en/prayer/", class="nav-link px-0 #isNavActive("prayer")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
                     #linkTo(text="CHURCHES", controller="churches", action="index", class="nav-link px-0 #isNavActive("churches")#")#
@@ -118,10 +118,16 @@
             <!-- End Navigation -->
           </div>
         </nav>
-        <a href="https://charisfellowship.us/page/covid" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display:block">
+        <cfif isBefore("2020-05-01")>
+          <a href="https://charisfellowship.us/page/covid" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display: block; ">
           The Charis Fellowship and COVID-19
-
         </a>
+      </cfif>
+        <cfif isBefore("2020-04-01")>
+          <a href="https://www.charisalliance.org/en/prayer/" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display: block; margin-top:10px">
+            The Charis Prayer Wall
+          </a>
+        </cfif>
       </div>
     </header>
     <!-- End Header -->
