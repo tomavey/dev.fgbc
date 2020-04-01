@@ -249,6 +249,7 @@
 	set(delegatesSubmitIsOpen = false)
 	set(videoStoriesIsOpen = false)
 	set(isConferenceHomesTesting = true)
+	set(prayerWallIsOpenBefore="2020-07-01")
 	// For Facebook OAuth
 	if ( cgi.http_host == "localhost:8080" || cgi.http_host == "localhost:8888" ) {
 		application.fbappid = "10152781512188290"
