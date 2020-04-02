@@ -118,16 +118,12 @@
             <!-- End Navigation -->
           </div>
         </nav>
-        <cfif isBefore("2020-05-01")>
           <a href="https://charisfellowship.us/page/covid" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display: block; ">
           The Charis Fellowship and COVID-19
         </a>
-      </cfif>
-        <cfif isBefore(getSetting('prayerWallIsOpenBefore'))>
           <a href="https://www.charisalliance.org/en/prayer/" target="_new" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display: block; margin-top:10px">
             The Charis Prayer Wall
           </a>
-        </cfif>
       </div>
     </header>
     <!-- End Header -->
