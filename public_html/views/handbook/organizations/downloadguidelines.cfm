@@ -40,12 +40,14 @@
 							#linkto(text="Preview - Church Staff with 'Pastor' in their title", route="handbookBluepages", params="preview=1&pastoralstaffonly=1", class="downloadconfirm" )#
 						</li>
 
-						<li>
-							#linkto(text="People - Non-Staff (ie: retired)", route="handbookBluepages", params="download=1&nonstaff=1", id="navsearch", title="Download a spreadsheet of all who are listed in the bluepages but who are NOT on staff at a church or ministry", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
-						</li>
-						<li class="preview">
-							#linkto(text="Preview - People - Non-Staff (ie: retired)", route="handbookBluepages", params="preview=1&nonstaff=1", class="downloadconfirm" )#
-						</li>
+						<cfif gotRights("office")>
+							<li>
+								#linkto(text="People - Non-Staff (ie: retired)", route="handbookBluepages", params="download=1&nonstaff=1", id="navsearch", title="Download a spreadsheet of all who are listed in the bluepages but who are NOT on staff at a church or ministry", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+							</li>
+							<li class="preview">
+								#linkto(text="Preview - People - Non-Staff (ie: retired)", route="handbookBluepages", params="preview=1&nonstaff=1", class="downloadconfirm" )#
+							</li>
+						</cfif>
 
 						<li>
 							#linkto(text="Wives - Wives of people with 'Pastor' or 'Chaplain' in their title", route="handbookPeoplePastorsWives", params="download=1", id="navsearch", title="Download a spreadsheet of all church staff that have the word 'pastor' in their title.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
