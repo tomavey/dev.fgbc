@@ -129,20 +129,26 @@
 	<cfargument name="type" default="All">
 	<cfargument name="ccstatus" default="1">
 	<cfargument name="includeFree" default="false">
+	<cfargument name="regByDate" default=#now()#>
 	<cfset var loc = arguments>
 		<cfset loc.ccstatus = convertCCStatus(loc.ccstatus)>
-		<cfset loc.whereString = "type IN '#loc.type#' AND event='#loc.event#' AND ccstatus IN (#loc.ccstatus#)">
+		<cfset loc.whereStringAdd = "AND event='#loc.event#' AND ccstatus IN (#loc.ccstatus#) AND equip_registrations.createdAt < '#loc.regByDate#'">
+		<cfset loc.whereString = "type IN '#loc.type#' " & loc.whereStringAdd>
 		<cfif loc.type is "All">
-			<cfset loc.whereString = "type LIKE '%Registration%' AND event='#loc.event#' AND ccstatus IN (#loc.ccstatus#)">
+			<cfset loc.whereString = "type LIKE '%Registration%' " & loc.whereStringAdd>
 		</cfif>
 		<cfif loc.type is "Couple">
-			<cfset loc.whereString = "type LIKE '%Couple%' AND event='#loc.event#' AND ccstatus IN (#loc.ccstatus#)">
+			<cfset loc.whereString = "type LIKE '%Couple%' " & loc.whereStringAdd>
+		</cfif>
+		<cfif loc.type is "Single">
+			<cfset loc.whereString = "type LIKE '%SIngle%' " & loc.whereStringAdd>
 		</cfif>
 		<cfif !loc.includeFree>
 			<cfset loc.whereString = loc.wherestring & " AND cost <> 0">
 		</cfif>
 		<cfset loc.registrations= findAll(where=loc.whereString, include="option,invoice")>
 		<cfset loc.return = quantityOfRegs(loc.registrations)>
+		<!--- <cfthrow object=#serialize(loc.return)#> --->
 		<cfreturn '#loc.return#'>	
 	</cffunction>
 

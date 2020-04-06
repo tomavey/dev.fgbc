@@ -305,7 +305,7 @@
 		<cfset regs.vNY.daysingle = countRegs(309,params)>
 		<cfset regs.vNY.prepaidDiscount = countRegs(299,params)*2 + countRegs(298,params)>
 		<cfset regs.vNY.Free = countRegs(289,params) + (countRegs(290,params) * 2)>
-		<cfset regs.vNY.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2015",regs.threeYearsAgo)>
+		<!--- <cfset regs.vNY.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2015",regs.threeYearsAgo)> --->
 
 		<!---Margins2016 - Toronto --->
 		<cfset regs.vTOR.couples = countRegs(348,params) + countRegs(354,params)>
@@ -315,49 +315,49 @@
 		<cfset regs.vTOR.FreeYoung = countRegs(352,params) + countRegs(355,params) * 2>
 		<cfset regs.vTOR.FreeOld = countRegs(356,params) + countRegs(359,params) * 2>
 		<cfset regs.vTOR.Free = regs.vTOR.FreeYoung + regs.vTOR.FreeOld>
-		<cfset regs.vTOR.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2016",regs.twoYearsAgo)>
+		<!--- <cfset regs.vTOR.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2016",regs.twoYearsAgo)> --->
 
 		<!---Access2017 - Fremont --->
 		<cfset regs.Access2017.event = "visionconference2017">
 		<cfset regs.Access2017.couples = countRegs(409,params)>
-		<cfset regs.Access2017.couples2 = countRegsByType( type="Registration-couple",includeFree="true",event = regs.Access2017.event )>
+		<!--- <cfset regs.Access2017.couples2 = countRegsByType( type="Registration-couple",includeFree="true",event = regs.Access2017.event )> --->
 		<cfset regs.Access2017.singles = countRegs(408,params)>
-		<cfset regs.Access2017.singles2 = countRegsByType(type="Registration-single",includeFree="true",event = regs.Access2017.event)>
+		<!--- <cfset regs.Access2017.singles2 = countRegsByType(type="Registration-single",includeFree="true",event = regs.Access2017.event)> --->
 		<cfset regs.Access2017.prepaid = countRegs(407,params)>
 		<cfset regs.Access2017.group = countRegs(440,params)>
-		<cfset regs.Access2017.group2 = countRegsByType(type="Registration-group",includeFree="true",event = regs.Access2017.event)>
+		<!--- <cfset regs.Access2017.group2 = countRegsByType(type="Registration-group",includeFree="true",event = regs.Access2017.event)> --->
 		<cfset regs.Access2017.staff = countStaffRegs()>
 		<cfset regs.Access2017.FreeYoung = countRegs(441,params) + (countRegs(443,params) * 2)>
 		<cfset regs.Access2017.FreeOld = countRegs(442,params) + (countRegs(444,params) * 2)>
 		<cfset regs.Access2017.Free = regs.Access2017.FreeYoung + regs.Access2017.FreeOld>
-		<cfset regs.Access2017.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2017",regs.oneYearAgo)>
+		<!--- <cfset regs.Access2017.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2017",regs.oneYearAgo)> --->
 
 	
 		<!---Access2018 - Fremont --->
 		<cfset regs.Access2018.event = "visionconference2018">
 		<cfset regs.Access2018.couples = countRegs(516,params)>
-		<cfset regs.Access2018.couples2 = countRegsByType( type="Registration-couple", includeFree=showUnPaid, event = regs.Access2018.event )>
+		<!--- <cfset regs.Access2018.couples2 = countRegsByType( type="Registration-couple", includeFree=showUnPaid, event = regs.Access2018.event )> --->
 		<cfset regs.Access2018.singles = countRegs(473,params)>
-		<cfset regs.Access2018.singles2 = countRegsByType(type="Registration-single", includeFree=showUnPaid, event = regs.Access2018.event)>
+		<!--- <cfset regs.Access2018.singles2 = countRegsByType(type="Registration-single", includeFree=showUnPaid, event = regs.Access2018.event)> --->
 		<cfset regs.Access2018.prepaiddiscountssgl = countRegs(514,params)>
 		<cfset regs.Access2018.prepaiddiscountsdbl = countRegs(515,params)>
 		<cfset regs.Access2018.group = countRegs(472,params)>
-		<cfset regs.Access2018.group2 = countRegsByType(type="Registration-group",includeFree="true", event = regs.Access2018.event)>
+		<!--- <cfset regs.Access2018.group2 = countRegsByType(type="Registration-group",includeFree="true", event = regs.Access2018.event)> --->
 		<cfset regs.Access2018.staff = countStaffRegs()>
 		<cfset regs.Access2018.FreeYoung = countRegs(474,params) + (countRegs(518,params) * 2)>
 		<cfset regs.Access2018.FreeOld = countRegs(475,params) + (countRegs(517,params) * 2)>
 		<cfset regs.Access2018.Free = regs.Access2018.FreeYoung + regs.Access2018.FreeOld>
-		<cfset regs.Access2018.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2018",regs.todayDate)>
+		<!--- <cfset regs.Access2018.avgage = model("Conferenceregistration").getAvgAgeToDate("visionconference2018",regs.todayDate)> --->
 
-		<!---Access2019 - Fremont --->
+		<!---Access2019 - Auburn --->
 		<cfset regs.Access2019.event = "visionconference2019">
 		<!--- <cfset regs.Access2019.couples = countRegs(543,params)> --->
-		<cfset regs.Access2019.couples = countRegsByType( type="Registration-couple", includeFree=showUnPaid, event = regs.Access2019.event )>
+		<cfset regs.Access2019.couples = countRegsByType( type="Registration-couple", includeFree=showUnPaid, event = regs.Access2019.event, regDateBy = regs.oneYearAgo)>
 		<!--- <cfset regs.Access2019.singles = countRegs(539,params)> --->
-		<cfset regs.Access2019.singles = countRegsByType(type="Registration-single", includeFree=showUnPaid, event = regs.Access2019.event)>
+		<cfset regs.Access2019.singles = countRegsByType(type="Registration-single", includeFree=showUnPaid, event = regs.Access2019.event, regDateBy = regs.oneYearAgo)>
 		<!--- <cfset regs.Access2019.prepaiddiscounts = countRegs(568,params)> --->
 		<!--- <cfset regs.Access2019.group = countRegs(547,params)> --->
-		<cfset regs.Access2019.group = countRegsByType(type="Registration-group", includeFree=showUnPaid, event = regs.Access2019.event)>
+		<cfset regs.Access2019.group = countRegsByType(type="Registration-group", includeFree=showUnPaid, event = regs.Access2019.event, regDateBy = regs.oneYearAgo)>
 		<cfset regs.Access2019.staff = countStaffRegs()>
 		<cfset regs.Access2019.FreeYoung = countRegs(541,params) + (countRegs(544,params) * 2)>
 		<cfset regs.Access2019.FreeOld = countRegs(542,params) + (countRegs(545,params) * 2)>
@@ -494,9 +494,9 @@
 		writeDump(test);abort;
 	}
 
-	private function countRegsByType( required string type, string ccstatus="all", string includeFree="false", required string event ){
+	private function countRegsByType( required string type, string ccstatus="all", string includeFree="false", required string event, required string regDateBy ){
 		var loc = arguments
-		loc.return = model("Conferenceregistration").countRegsByType(type=loc.type,ccstatus=loc.ccstatus, includeFree=loc.includeFree, event=event);
+		loc.return = model("Conferenceregistration").countRegsByType(type=loc.type, ccstatus=loc.ccstatus, includeFree=loc.includeFree, event=loc.event, regByDate=loc.regDateBy);
 		return loc.return;
 	}
 
@@ -504,8 +504,8 @@
 
 	<cffunction name="testCountRegsByType">
 		<cfset var return = "">
-		<cfset return = model("Conferenceregistration").countRegsByType(type="Couple",ccstatus="all")>
-		<cfdump var='#return#'><cfabort>
+		<cfset data = model("Conferenceregistration").countRegsByType(type="Couple",ccstatus="all", event="Visionconference2019", regByDate="2019-04-01")>
+		<cfset renderPage(action="testPage")>
 	</cffunction>
 
 </cfcomponent>
