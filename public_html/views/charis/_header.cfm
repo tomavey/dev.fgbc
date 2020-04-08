@@ -125,7 +125,7 @@
           </a>
         </cfif>
           <cfif isBefore(getSetting('prayerWallIsOpenBefore'))>
-            <a href="https://www.charisalliance.org/en/prayer/" target="_new" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display: block; margin-top:10px">
+            <a href=" http://charisfellowship.us/page/globalPrayerWall" target="_new" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display: block; margin-top:10px">
               The Charis Prayer Wall
             </a>
           </cfif>
