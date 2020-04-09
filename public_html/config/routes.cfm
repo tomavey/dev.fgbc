@@ -220,6 +220,7 @@
 			.get(name="memberList", pattern="/membershipList/", controller="organizations", action="memberChurches")
 			.get(name="emailChurchHandbookReview", pattern="/organization/handbookReviewEmail", controller="organizations", action="emailChurchesForHandbookReview")
 			.get(name="infoIsCorrect", pattern="/organization/setReview/[key]", controller="organizations", action="setReview")
+			.get(name="removeChurchFromSessionArray", pattern="/organization/removeChurchFromSessionArray", controller="organizations", action="removeChurchFromSessionArray")
 			.controller("organizations")
 				.get(name="websites", pattern="websites")
 			.end()	
