@@ -33,7 +33,7 @@
 		association="handbookPositions",
 		property='p_sortorder',
 		position=arguments.current,
-		label='Sortorder (must be a number): '
+		label='Sortorder (must be a number, use 500 for all non-staff): '
 		)#
 
 <cfelse>
@@ -48,7 +48,7 @@
 
 </cfif>
 
-<cfif isDefined("handbookperson.handbookPositions[arguments.current].organizationid") && !gotRights("office,handbookedit")>
+<cfif isDefined("handbookperson.handbookPositions[arguments.current].organizationid") && !gotRights("office,handbookedit,agbmadmin")>
 
 	#hiddenField(
 		objectName='handbookperson',
