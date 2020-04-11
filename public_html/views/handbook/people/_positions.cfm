@@ -20,7 +20,7 @@
 						</cfif>
 						</p>
 					</cfloop>
-					<cfif gotrights("office,handbookedit")>
+					<cfif gotrights("office,handbookedit,agbmadmin")>
 					<p class="stafflist">#linkto(text="<i class='icon-plus'></i>", route="handbookAddnewposition", title="Add a new position for #handbookperson.fname#", key=params.key)#</p>
 					</cfif>
 				</div>
