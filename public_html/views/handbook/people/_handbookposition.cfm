@@ -26,7 +26,7 @@
 		label='Type of position: '
 		)#
 
-<cfif gotRights("superadmin,office,handbookedit")>
+<cfif gotRights("superadmin,office,handbookedit,agbmadmin")>
 
 	#textField(
 		objectName='handbookperson',
