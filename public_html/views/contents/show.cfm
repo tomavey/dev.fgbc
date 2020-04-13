@@ -42,9 +42,9 @@
 
 
 			<cfif isDefined("content.shortlink") && len(content.shortlink)>
-				<p>Link to this page: #linkTo(controller="contents", action="show", key=content.shortlink, onlyPath=false)#</p>
+				<p>Link to this page: <a href="/page/#content.shortlink#">https://charisfellowship.us/page/#content.shortlink#</a></p>
 			<cfelse>
-				<p>Link to this page: #linkTo(controller="contents", action="show", key=content.id, onlyPath=false)#</p>
+				<p>Link to this page: <a href="/page/#content.id#">https://charisfellowship.us/page/#content.id#</a></p>
 			</cfif>
 
 		<cfelse>
