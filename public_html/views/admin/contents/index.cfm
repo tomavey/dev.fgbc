@@ -44,7 +44,9 @@
 			#category#
 		</td>
 		<td>
-			#shortlink#
+			<cfif len(shortlink)>
+				<a href="https://charisfellowship.us/page/#shortlink#">https://charisfellowship.us/page/#shortlink#</a>
+			</cfif>
 		</td>
 		<td>
 			#dateformat(updatedAt)#
