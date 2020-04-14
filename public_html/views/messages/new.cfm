@@ -1,6 +1,11 @@
 <cfparam name="headerMessage" default="Send us a message!">
+<cfparam name="instructions" default="">
 <cfif isDefined("params.headerMessage")>
 	<cfset headerMessage = params.headerMessage>
+	<cfif params.headerMessage == "give">
+		<cfset headerMessage = "Requesting Help">
+		<cfset instructions = "Provide your name and email, church name and location and a brief description of the need. For Charis Fellowship churches only.">
+	</cfif>
 </cfif>
 <cfoutput>
 
@@ -12,6 +17,7 @@
 		</cfif>
 
 		<h1>#headerMessage#</h1>
+		<p>#instructions#</p>
 
 
 					#errorMessagesFor("message")#
