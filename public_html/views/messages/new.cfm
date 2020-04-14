@@ -2,10 +2,10 @@
 <cfparam name="instructions" default="">
 <cfif isDefined("params.headerMessage")>
 	<cfset headerMessage = params.headerMessage>
-	<cfif params.headerMessage == "give">
-		<cfset headerMessage = "Requesting Help">
-		<cfset instructions = "Provide your name and email, church name and location and a brief description of the need. For Charis Fellowship churches only.">
-	</cfif>
+</cfif>
+<cfif isdefined("params.help")>
+	<cfset headerMessage = "Requesting Help">
+	<cfset instructions = "Provide your name and email, church name and location and a brief description of the need. For Charis Fellowship churches only.">
 </cfif>
 <cfoutput>
 
