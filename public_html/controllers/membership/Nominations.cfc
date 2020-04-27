@@ -2,6 +2,7 @@
 
 	<cffunction name="init">
 		<cfset filters(through="checkIn", only="index")>
+		<cfset filters(through="setreturn", only="index")>
 		<cfset usesLayout("layout")>
 	</cffunction>
 
@@ -160,6 +161,10 @@
 			message = "Charis Fellowship Cooperating Districts have the privilege of nominating names to the Fellowship Council.  The Charis Fellowship nominating committee can add names if needed to complete the ballot.";
 		};
 		return message;
+	}
+
+	public function updateNomYearAndTerm(){
+
 	}
 
 </cfscript>

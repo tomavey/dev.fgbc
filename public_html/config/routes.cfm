@@ -67,6 +67,7 @@
 				.get(name="showGraceKidsPrices", pattern="showGraceKidsPrices")
 				.get(name="hideGraceKidsPrices", pattern="hideGraceKidsPrices")
 				.get(name="toggleSetting", pattern="toggleSetting")
+				.get(name="updateNomYearAndTerm", pattern="updateNomYearAndTerm")
 			.end()	
 
 			.controller("events")

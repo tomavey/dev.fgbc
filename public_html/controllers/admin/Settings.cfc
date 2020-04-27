@@ -152,4 +152,34 @@ component extends="Controller" output="false" {
     }
     returnBack()
   }
+
+  public function getKeyFromName( name ) {
+    var key =  model("Fgbcsetting").findOne(where="name='#arguments.name#'").id
+    return key
+  }
+
+  public void function updateNomYear(){
+    var nominateYearObj = model("Fgbcsetting").findOne(where="name='nominateYear'")
+    nominateYearObj.value = year(now())
+    nominateYearObj.update()
+    // throw(message=serialize(nominateYearObj.properties()))
+  }
+
+  public void function updateNomTerm(){
+    var nominateYearObj = model("Fgbcsetting").findOne(where="name='nominateTerm'")
+    nominateYearObj.value = "#year(now())# - #year(now())+5#"
+    nominateYearObj.update()
+    // throw(message=serialize(nominateYearObj.properties()))
+  }
+
+  public void function updateNomYearAndTerm(){
+    updateNomYear()
+    updateNomTerm()
+    returnBack()
+  }
+
+  public void function testGetKeyFromName(){
+    throw(message=getKeyFromName('allowHandbookOrgUpdate'))
+  }
+
 }

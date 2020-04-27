@@ -67,4 +67,5 @@
 	<p>Nominators: #mailTo(emailallnominators)#</p>	
 	<p>#linkTo(text="View List", action="list", class="btn")#</p>
 	<p>#linkTo(text="View Elected List", action="list", params="elected", class="btn")#</p>
+	<p>#linkTo(text="Update Year and Term", controller="admin.settings", action="updateNomYearAndTerm")#</p>
 </cfoutput>
