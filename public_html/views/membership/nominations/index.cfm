@@ -68,4 +68,9 @@
 	<p>#linkTo(text="View List", action="list", class="btn")#</p>
 	<p>#linkTo(text="View Elected List", action="list", params="elected", class="btn")#</p>
 	<p>#linkTo(text="Update Year and Term", controller="admin.settings", action="updateNomYearAndTerm")#</p>
+	<cfif !isDefined("params.year")>
+		<p>#linkTo(text="#getSetting('nominateYear')-1# Nominees", action=params.action, params="year=#getSetting('nominateYear')-1#")#</p>
+	<cfelse>	
+		<p>#linkTo(text="#getSetting('nominateYear')# Nominees", action=params.action)#</p>
+	</cfif>
 </cfoutput>
