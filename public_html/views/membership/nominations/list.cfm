@@ -21,7 +21,7 @@
 		<li>Region C: Blue Ridge, Chesapeake, Mid-Atlantic, Northern Atlantic, Florida, and Southern.</li>
 	</ul>
 	<cfelse>
-	<h3>The following were elected to serve on the #linkto(text="Fellowship Council", href="https://charisfellowship.us/contents/show/22")# of the FGBC for #application.wheels.nominateTerm#</h3>
+	<h3>The following were elected to serve on the #linkto(text="Fellowship Council", href="https://charisfellowship.us/contents/show/22")# of the Charis Fellowship for #getSetting('nominateTerm')#</h3>
 	</cfif>
 
 </div>
