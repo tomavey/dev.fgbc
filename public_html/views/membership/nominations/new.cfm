@@ -1,4 +1,4 @@
-<h1>Nominations for <a href="https://charisfellowship.us/page/fellowshipcouncil">Fellowship Council</a> for <cfoutput>#getSetting("nominateyear")#</cfoutput>:</h1>
+<h1>Nominations for <a href="https://charisfellowship.us/page/fellowshipcouncil" target="_new">Fellowship Council</a> for <cfoutput>#getSetting("nominateyear")#</cfoutput>:</h1>
 
 <cfoutput>
 
