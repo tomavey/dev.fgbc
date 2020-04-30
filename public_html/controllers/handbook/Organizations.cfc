@@ -492,7 +492,9 @@ component extends="Controller" output="false" {
 	}
 
 	<!---Removes any gaps in staff sortorders--->
-	function $reSort(orgId=params.orgId){
+	function $reSort(orgId){
+		if ( isDefined('params.orgid') ) { orgid = params.orgid }
+		else if ( isDefined('params.key') ) { orgid = params.key }
 		return model("Handbookperson").resort(arguments.orgid)		
 	}
 		
