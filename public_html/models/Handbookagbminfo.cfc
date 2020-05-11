@@ -263,9 +263,9 @@ private function $arrayOfStructsSort(aOfS,key){
 	<cfset var loc=structNew()>
 	<cfset loc = arguments>
 		<cfquery datasource="#getDataSourceName()#" name="loc.person">
-			SELECT id, personid, max(membershipfeeyear) as lastpaymentmade, agbmlifememberAt
-			FROM handbookagbminfo
-			WHERE personid=#loc.personid#
+			SELECT i.id, i.personid, max(membershipfeeyear) as lastpaymentmade, agbmlifememberAt
+			FROM handbookagbminfo i JOIN handbookprofiles p
+			WHERE i.personid=#loc.personid#
 		</cfquery>
 		<cfif (val(loc.person.lastpaymentmade) GTE val(loc.currentMembershipYear) OR len(loc.person.agbmlifememberAt) )>
 			<cfreturn true>
