@@ -940,7 +940,8 @@ public function getAlphabet(){
 	return application.wheels.alphabet;
 }
 
-public function linkToPlus(required addParams,class="",text="link",oldurl=cgi.request_url,showIf=true){
+public function linkToPlus(required addParams,class="",text="link",oldurl=cgi.http_referer,queryString=cgi.query_string,showIf=true){
+	// writeDump(#arguments#);abort;
 	if ( !find(addParams,oldUrl) ) { 
 		var delim = "?"
 		if ( find("?",oldurl) ) { delim = "&" }

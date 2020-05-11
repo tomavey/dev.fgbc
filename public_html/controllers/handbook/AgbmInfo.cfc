@@ -63,11 +63,9 @@
 
 		<!---Set the layout for normal, download view, or download excel--->
 		<cfif isdefined("params.download")>
-			<cfif isDefined("params.excel")>
-				<cfset renderPage(template="download", layout="/layout_download")>
-			<cfelse>
-				<cfset renderPage(template="download", layout="/layout_naked")>
-			</cfif>
+			<cfset renderPage(template="download", layout="/layout_naked")>
+		<cfelseif isDefined("params.excel")>
+			<cfset renderPage(template="download", layout="/layout_download")>
 		</cfif>
 
 	</cffunction>
@@ -82,7 +80,15 @@
 		if ( isDefined("params.countMin") ) {
 			countMin = params.countMin
 		}
+		showAge=false
 		people = model("Handbookagbminfo").getAgbm10YearMembers(countmin)
+		if ( isdefined("params.download") ) {
+			renderPage(template="download", layout="/layout_naked")
+		}
+		if ( isDefined("params.excel") ) {
+			renderPage(template="download", layout="/layout_download")
+		}
+		
 	}
 
 	function countOfMembershipYearsPaid(personId){
