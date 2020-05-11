@@ -64,7 +64,7 @@
 							#includePartial("handbookprofile")#
 						</cfif>	
 
-					<cfif gotRights("superadmin,office,handbookedit")>
+					<cfif gotRights("superadmin,office,handbookedit,agbmadmin")>
 					<fieldset class="well">
 					<legend>For Office only:</legend>
 						#textArea(objectName='handbookperson', property='comment', label='Comment: ')#
@@ -74,6 +74,9 @@
 						#select(objectName='handbookperson', property='gtd', options="No,Yes,Never", label='GTD Person? (Use never to ignore for admin mailings) ')#
 
 						#select(objectName='handbookperson', property='private', options="No,Yes", label='Not Public? (ie: Missionary working in difficult areas) ')#
+
+						#select(objectName='handbookperson', association='handbookprofile', property='agbmlifememberAt', label="Lifetime Member of Inspire Since:", options=licensedOrOrdainedAtOptions(), class="input-small", includeBlank="---", order="year")#</p>
+
 					</fieldset>
 					</cfif>
 </cfoutput>

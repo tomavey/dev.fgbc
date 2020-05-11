@@ -42,5 +42,6 @@
 
 						#select(objectName='handbookperson', association='handbookprofile', property='licensedOrOrdainedAt', label="When?", options=licensedOrOrdainedAtOptions(), class="input-small", includeBlank="---", order="year")#</p>
 
-</fieldset>
+
+			</fieldset>
 </cfoutput>

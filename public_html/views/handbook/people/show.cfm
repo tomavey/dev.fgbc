@@ -180,6 +180,8 @@
 
 					<p><span>Reviewed: </span>#dateformat(handbookperson.reviewedAt)#</p>
 
+					<p><span>Lifetime member of Inspire since: </span>#handbookperson.handbookprofile.agbmlifememberAt#</p>
+
 					<p>#editTag(handbookperson.id)# #deleteTag(id=handbookperson.id, class="noAjax")#</p>
 
 					<cfif handbookperson.hideFromPublic>
@@ -189,6 +191,7 @@
 					<cfelse>
 						<p>#linkTo(text="Hide #handbookperson.fname# from public", controller="handbook.people", action="hideFromPublic", params="personid=#handbookperson.id#", class="btn")#</p>
 					</cfif>
+
 
 					<p>#linkto(text="Add a new position for #handbookperson.fname#", route="handbookAddnewposition", key=params.key, class="btn")#</p>
 
