@@ -632,7 +632,7 @@ public function findStaff() {
 		} else if ( isDefined("params.staffonly") ) {
 			whereString = whereString & " AND p_sortorder < #getNonStaffSortOrder()#";
 		} else if ( isDefined("params.pastoralstaffonly") ) {
-			whereString = whereString & " AND p_sortorder < #getNonStaffSortOrder()# && position LIKE '%pastor%'";
+			whereString = whereString & " AND p_sortorder < #getNonStaffSortOrder()# AND position LIKE '%pastor%'";
 		} else if ( isDefined("params.showremovedstaffonly") ) {
 			whereString = whereString & " AND position LIKE '%Removed%'";
 		} else {
