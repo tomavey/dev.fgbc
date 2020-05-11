@@ -64,6 +64,7 @@
 			</th>
 			</cfif>			
 		</tr>
+	</thead>	
 	<tbody>
     		<cfoutput query="people">
 				<cfif isDefined("params.district") and district IS NOT previousdistrict and params.district is not "all">

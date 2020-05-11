@@ -45,6 +45,16 @@
 		<cfelse>
 			  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,orderby=orderstring)>
 		</cfif>
+	
+	<cfscript>
+		if ( isDefined("params.countMin") ) {
+			people = people.filter( 
+				function (el) {
+				return countOfMembershipYearsPaid(personid = el.personid) >= params.countMin;
+				} 
+			)
+		}
+	</cfscript>	
 
 		<cfif !gotRights("agbm,superadmin,agbmadmin")>
 	  	<cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district", publicOnly=true)>
@@ -61,6 +71,25 @@
 		</cfif>
 
 	</cffunction>
+
+<cfscript>
+	function countOfMembershipYearsPaid(required number personid) {
+		return model("Handbookagbminfo").countOfMembershipYearsPaid(personid)
+	}
+
+	function agbm10YearMembers(){
+		var countMin = 9
+		if ( isDefined("params.countMin") ) {
+			countMin = params.countMin
+		}
+		people = model("Handbookagbminfo").getAgbm10YearMembers(countmin)
+	}
+
+	function countOfMembershipYearsPaid(personId){
+		return countOfMembershipYearsPaid(personId)
+	}
+
+</cfscript>
 
 	<cffunction name="publicList">
 		<cfset ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district, lname")>
@@ -451,6 +480,20 @@ public function testMembershipFeeInfo(){
 public function testIsAgbmMember(){
 	var return = model("Handbookagbminfo").isAgbmMember(params.personid);
 	writeDump(return);abort;
+}
+
+private function countOfMembershipYearsPaidSince(){
+	if ( !isDefined('params.year') ) { params.year = year(now()) }
+	if ( !isDefined('params.span') ) { params.span = 10 }
+	if ( !isDefined('params.personid') ) { throw(message="personid is required") }
+	var args = {
+		asOfMembershipFeeYear: params.year, 
+		personid: params.personid, 
+		yearSpan: params.span
+	}
+	var test = model("Handbookagbminfo").CountOfMembershipYearsPaid(argumentCollection = args)
+	return test
+	throw(message=test)
 }
 
 public function getDistrictName(id){

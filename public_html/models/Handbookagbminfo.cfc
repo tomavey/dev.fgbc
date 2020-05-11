@@ -51,6 +51,13 @@ public function getAllAgbm(maxrows = 100){
 	return peopleStruct;
 };
 
+public function getAgbm10YearMembers(countMin = 9){
+	var members = getAgbm().filter( function (el) {
+		return countOfMembershipYearsPaid(personid = el.personid) >= countMin
+	} )
+	return members
+}
+
 public function getAgbmMembers(maxrows = -1,orderby="lname", district="Arctic", search="", refresh=true){
 	var loc = arguments;
 	var i = 1;
@@ -257,7 +264,16 @@ private function $arrayOfStructsSort(aOfS,key){
 		</cfif>
 	</cffunction>
 
-	<cffunction name="Handbookagbminfoasjson">
+<cfscript>
+	function countOfMembershipYearsPaid(asOfMembershipFeeYear = year(now()), yearSpan = 10, required number personId) {
+		var afterMembershipFeeYear = asOfMembershipFeeYear - yearSpan
+		var whereString = 'personid = #personid# AND membershipFeeYear >= #afterMembershipFeeYear# AND membershipFeeYear <= #asOfMembershipFeeYear#'
+		var agbmInfoRecords = findAll(where=whereString)
+		return agbmInfoRecords.recordcount
+	}
+</cfscript>	
+
+<cffunction name="Handbookagbminfoasjson">
 	<cfargument name="currentMembershipYear" default="#currentMembershipYear()#">
 	<cfargument name="publicOnly" default=false>
 	<cfset var newData = "">
