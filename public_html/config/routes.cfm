@@ -174,7 +174,7 @@
 			.get(name="addAGBMPayment", pattern="/agbminfo/add/[key]", controller="AgbmInfo", action="add")
 			.get(name="agbmList", pattern="/agbmInfo/list/", controller="agbmInfo", action="list")
 			.get(name="list", pattern="/agbmInfo/handbook/", controller="agbmInfo", action="handbook")
-			.get(name="agbm10YearList", pattern="/agbmInfo/agbm1010yearmembers/", controller="agbmInfo", action="agbm10YearMembers")
+			.get(name="agbm10YearList", pattern="/agbmInfo/agbm10yearmembers/", controller="agbmInfo", action="agbm10YearMembers")
 			.get(name="dashboard", pattern="/agbmInfo/dashboard/", controller="agbmInfo", action="dashboard")
 			.get(name="pastorsNotAgbm", pattern="/agbmInfo/pastorsnotagbm/", controller="agbmInfo", action="pastorsnotagbm")
 			.get(name="AgbmDelinquent", pattern="/agbmInfo/delinquent/", controller="agbmInfo", action="delinquent")

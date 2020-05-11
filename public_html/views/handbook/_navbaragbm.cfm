@@ -24,7 +24,7 @@
 							#linkto(text="Handbook List", route="handbookList", action="handbook")#
 						</li>
 						<li>
-							#linkto(text="10 Year List", route="handbookagbm10YearList")#
+							#linkto(text="10 Year List", controller="handbook.agbminfo", action="agbm10YearMembers")#
 						</li>
 					</ul>	
 				</li>
