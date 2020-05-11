@@ -10,7 +10,7 @@
 	<cfset var loc=structnew()>
 
 		<cfquery datasource="#getDataSourceName()#" name="loc.return">
-			SELECT p.lname, left(p.lname,1) as alpha, p.suffix, p.fname, o.name, p.address1, p.address2, p.city, p.zip, p.phone, p.email, district, d.districtid, ps.state_mail_abbrev as state, s.state_mail_abbrev as org_state, org_city, max(membershipfeeyear) as lastpayment, p.id as personid, o.id as organizationid, o.address1 as handbookorganizationaddress1, o.address2 as handbookorganizationaddress2, o.org_city, s.state_mail_abbrev as handbookorganizationstate, o.zip as handbookorganizationzip, o.statusid, o.email as org_email, region.name as regionname, region.id as regionid, regionrep.lname as regionreplname, regionrep.fname as regionrepfname, regionrep.id as regionrepid, ministrystartat, profile.birthdayyear, p.private
+			SELECT p.lname, left(p.lname,1) as alpha, p.suffix, p.fname, o.name, p.address1, p.address2, p.city, p.zip, p.phone, p.email, district, d.districtid, ps.state_mail_abbrev as state, s.state_mail_abbrev as org_state, org_city, max(membershipfeeyear) as lastpayment, p.id as personid, o.id as organizationid, o.address1 as handbookorganizationaddress1, o.address2 as handbookorganizationaddress2, o.org_city, s.state_mail_abbrev as handbookorganizationstate, o.zip as handbookorganizationzip, o.statusid, o.email as org_email, region.name as regionname, region.id as regionid, regionrep.lname as regionreplname, regionrep.fname as regionrepfname, regionrep.id as regionrepid, ministrystartat, profile.birthdayyear, p.private, profile.agbmlifememberAt
 			FROM handbookpeople p
 			JOIN handbookpositions t
 			ON t.personid = p.id
@@ -211,7 +211,7 @@ private function $arrayOfStructsSort(aOfS,key){
 		<cfquery dbtype="query" name="loc.return">
 			SELECT *
 			FROM loc.Agbm
-			WHERE lastpayment >= #arguments.currentmembershipyear#
+			WHERE (lastpayment >= #arguments.currentmembershipyear# OR length(agbmlifememberAt) >= 4)
 			<cfif isDefined("arguments.alpha") and len(arguments.alpha)>
 				AND alpha = '#arguments.alpha#'
 			</cfif>
@@ -247,17 +247,27 @@ private function $arrayOfStructsSort(aOfS,key){
 		<cfreturn loc.return>
 	</cffunction>
 
+<cfscript>
+	function isAgbmLifeMember(personid) {
+		var person = model("Handbookprofile").findOne(where="personId = #personId#")
+		if ( len(person.agbmlifememberAt) ) {
+			return true
+		}
+		return false
+	}
+</cfscript>
+
 	<cffunction name="isAgbmMember">
 	<cfargument name="personid" required="true" type="numeric">
 	<cfargument name="currentMembershipYear" default="#currentMembershipYear()#">
 	<cfset var loc=structNew()>
 	<cfset loc = arguments>
 		<cfquery datasource="#getDataSourceName()#" name="loc.person">
-			SELECT id, personid, max(membershipfeeyear) as lastpaymentmade
+			SELECT id, personid, max(membershipfeeyear) as lastpaymentmade, agbmlifememberAt
 			FROM handbookagbminfo
 			WHERE personid=#loc.personid#
 		</cfquery>
-		<cfif val(loc.person.lastpaymentmade) GTE val(loc.currentMembershipYear)>
+		<cfif (val(loc.person.lastpaymentmade) GTE val(loc.currentMembershipYear) OR len(loc.person.agbmlifememberAt) )>
 			<cfreturn true>
 		<cfelse>
 			<cfreturn false>
