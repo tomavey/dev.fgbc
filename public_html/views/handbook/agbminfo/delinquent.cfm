@@ -1,3 +1,4 @@
+<!--- <cfdump var="#people#"><cfabort> --->
 <cfset count = 0>
 <cfset emailall = "">
 <cfif isDefined("params.download")>
@@ -7,7 +8,7 @@
 </cfif>
 <cfoutput>
 <cfif not downloadthis>
-#linkto(text="<i class='icon-download-alt'></i>", params="download=true", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
+#linkto(text="<i class='icon-download-alt'></i>", controller="handbook.agbminfo", action="delinquent", params="download=true", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
 </cfif>
 	<h2>AGBM Men who paid in #currentmembershipyear-1# but have not paid in #currentmembershipyear#:</h2>
 </cfoutput>
@@ -30,12 +31,20 @@
 			</cfif>	
 				<td>#city#</td>
 				<td>#state_mail_abbrev#</td>
+			<cfif downloadthis>
+				<td>#zip#</td>
+			</cfif>	
 				<td>#mailto(email)#</td>
-			<cfif not downloadthis>	
+			<cfif !downloadthis>	
 				<td>
 					#showTag(id)#
 				</td>
 			</cfif>	
+			<cfif downloadthis>
+				<td>
+
+				</td>
+			</cfif>
 				<cfif len(email)>
 					<cfset emailall = emailall & "; " & email>
 				</cfif>
