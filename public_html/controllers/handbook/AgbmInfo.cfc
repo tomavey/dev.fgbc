@@ -471,6 +471,10 @@
 
 <cfscript>
 
+public function isAgbmLifeMember(personid) {
+	return model("Handbookagbminfo").isAgbmLifeMember(personid)
+}
+
 public function listNew(orderby="district"){
 	var loc = arguments;
 	if (isDefined("params.orderby")){loc.orderby = params.orderby};
