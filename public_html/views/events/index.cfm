@@ -22,6 +22,7 @@
                         <h4 class="card-title">
                             <a href="#eventlink#">#event#</a>
                         </h2>
+                        <cfif !FindNoCase("canceled", event) && !FindNoCase("postponed", event)> 
                         <div class="card-text">
                                     <cfif begin eq end>
                                         #dateformat(begin,"medium")#
@@ -33,6 +34,7 @@
                                         </cfif>
                                     </cfif>
                         </div>
+                      </cfif>
                         <div class="card-text">
                             Sponsor: <a href="#sponsorlink#">#sponsor#</a>
                         </div>
