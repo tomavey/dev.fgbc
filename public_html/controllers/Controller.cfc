@@ -157,10 +157,10 @@ component extends="Wheels" {
 	}
 
 	function isPageEditor() {
-		if ( gotRights("office,pageEditor,agbm") ) {
+		if ( gotRights("superadmin,office,pageEditor,agbm") ) {
 			return true;
 		} else {
-			renderText("You do !have persmission to view this page");
+			renderText("You do not have persmission to view this page");
 		}
 	}
 
