@@ -37,7 +37,10 @@
         					</li>
         					<li>
         						#linkTo(text="Testimonies", controller="focus.testimonies", action="index")#
-        					</li>
+									</li>
+									<li>
+										#linkTo(text="Settings", controller="admin.settings", params="category=focus")#
+									</li>
         				</ul>
     			</li>
 
