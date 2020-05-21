@@ -39,7 +39,7 @@
         						#linkTo(text="Testimonies", controller="focus.testimonies", action="index")#
 									</li>
 									<li>
-										#linkTo(text="Settings", controller="admin.settings", params="category=focus")#
+										#linkTo(text="Settings", href="https://charisfellowship.us/admin/settings/?category=focus")#
 									</li>
         				</ul>
     			</li>

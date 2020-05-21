@@ -1,5 +1,5 @@
 <cfparam name="FocusPageBeingUpdated" default=false>
-<cfif getSetting("FocusPageBeingUpdated")>
+<cfif getSetting("FocusPageBeingUpdated") && !gotRights("office")>
   <cfset FocusPageBeingUpdated = true>
 </cfif>
 
