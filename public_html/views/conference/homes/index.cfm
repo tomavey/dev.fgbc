@@ -1,6 +1,7 @@
 <cfparam name="sortby"  default="createdAt">
 <cfparam name="direction" default="DESC">
 <cfparam name="type" default="Host">
+<cfparam name="emailList" default="">
 
 <style>
 	.host-search-form {display:inline}
@@ -79,7 +80,15 @@
 	<cfcol header="" text="#editTag()#" />
 	<cfcol header="" text="#deleteTag()#" />
 
+	<cfif isValid("email", email)>
+		<cfset emailList = emailList & "; " & email>
+	</cfif>
+
 </cftable>
 <!--- <cfdump var="#params#"> --->
+<cfoutput>
+	<cfset emailList = replace(emailList,"; ","","one")>
+	#mailTo(emailList)#
+</cfoutput>
 </div>
 </div>
