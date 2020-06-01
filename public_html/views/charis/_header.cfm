@@ -76,10 +76,24 @@
                 <li class="nav-item g-mx-20--lg">
                   #linkTo(text="NEWS", href="##news", class="nav-link px-0 #isNavActive("news")#")#
                 </li>
-                <li class="nav-item g-mx-20--lg">
+                <!--- <li class="nav-item g-mx-20--lg">
                   #linkTo(text="PRAYER", href="https://www.charisalliance.org/en/prayer/", target="_new", class="nav-link px-0 #isNavActive("prayer")#")#
-                </li>
-                <li class="nav-item g-mx-20--lg">
+                </li> --->
+                <li class="nav-item dropdown g-mx-20--lg">
+                  #linkTo(
+                      text="Prayer<b class='caret'></b>", 
+                      controller="events", 
+                      action="index", 
+                      class="dropdown-toggle nav-link px-0 #isNavActive("events")#", data_toggle="dropdown")#
+                  <ul class="dropdown-menu" style="padding:10px">
+                    <li>#linkTo(text="Charis Alliance (global)", href="https://www.charisalliance.org/en/prayer/", target="_new")#</li>
+                    <li class="list-inline-item g-mx-4 g-mt-10">
+                    </li>
+                    <li>#linkTo(text="Charis Prayer (USA and Canada)", href="https://charisfellowship.us/page/charisprays", target="_new")#</li>
+                    <li class="list-inline-item g-mx-4 g-mt-10">
+                  </ul>
+              </li>
+              <li class="nav-item g-mx-20--lg">
                     #linkTo(text="CHURCHES", controller="churches", action="index", class="nav-link px-0 #isNavActive("churches")#")#
                 </li>
                 <li class="nav-item dropdown g-mx-20--lg">
@@ -96,7 +110,7 @@
                       <li class="list-inline-item g-mx-4 g-mt-10">
                       <li>#linkTo(text="Access2020", href="https://charisfellowship.us/page/access2020")#</li>
                     </ul>
-                  </li>
+                </li>
                 <li class="nav-item dropdown g-mx-20--lg">
                     #linkTo(
                         text="OPPORTUNITIES<b class='caret'></b>", 

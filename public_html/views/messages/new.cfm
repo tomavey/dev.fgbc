@@ -1,7 +1,10 @@
 <cfparam name="headerMessage" default="Send us a message!">
 <cfparam name="instructions" default="">
-<cfif isDefined("params.headerMessage")>
+<cfif isDefined("params.headerMessage") >
 	<cfset headerMessage = params.headerMessage>
+</cfif>
+<cfif isDefined("params.header")>
+	<cfset headerMessage = params.header>
 </cfif>
 <cfif isdefined("params.help")>
 	<cfset headerMessage = "Requesting Help">
