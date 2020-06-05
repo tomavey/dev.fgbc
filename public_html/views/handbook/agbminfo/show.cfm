@@ -61,5 +61,6 @@
 		<p>#addTag(controller='Handbook.AgbmInfo', action="add", id=params.key)#</p>
 
 		<p>#linkTo(text="Return to list", controller="Handbook.agbmInfo", action="list")#</p>
+		<p>#linkTo(text="Add Lifetime Membership to Handbook Record", controller="Handbook.people", action="edit", key=payments.personid, target="_new")#</p>
 	</cfoutput>
 </div>

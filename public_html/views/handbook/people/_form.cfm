@@ -67,6 +67,7 @@
 					<cfif gotRights("superadmin,office,handbookedit,agbmadmin")>
 					<fieldset class="well">
 					<legend>For Office only:</legend>
+					<a name="forOfficeOnly"></a> 
 						#textArea(objectName='handbookperson', property='comment', label='Comment: ')#
 
 						#select(objectName='handbookperson', property='sendHandbook', options="Yes,No", label='Send Handbook: ')#

@@ -20,4 +20,6 @@
 			
 
 #linkTo(text="Return to the listing", controller="Handbookagbm", action="index")#
+<p>#linkTo(text="Add Lifetime Membership to Handbook Record", controller="Handbook.people", action="edit", key=#params.keyy#, target="_new")#</p>
+
 </cfoutput>
