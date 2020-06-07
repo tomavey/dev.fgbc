@@ -238,21 +238,25 @@
 			<cfsavecontent variable="loc.return">
 					<cfoutput>
 						<cfif arguments.formatted>
-							<p style="color:#loc.fontcolor#">
-							#dollarFormat(loc.lastPayment.membershipfee)# for #loc.lastPayment.membershipfeeyear#<br/>
-								<cfif loc.lastPayment.commissioned>
-									Commissioned #loc.lastpayment.commission#
-								<cfelse>
-									<cfif loc.lastPayment.category>
-										Cat. #loc.lastPayment.category#; 
-									</cfif>
-									<cfif loc.lastPayment.ordained>
-										Ordained
-									<cfelseif loc.lastpayment.licensed>
-										; Licensed
-									</cfif>
-								</cfif>
-							</p>
+							<cfif len(agbmlifememberAt)>
+								Lifetime member since #agbmlifememberAt#
+							<cfelse>	
+								<p style="color:#loc.fontcolor#">
+									#dollarFormat(loc.lastPayment.membershipfee)# for #loc.lastPayment.membershipfeeyear#<br/>
+										<cfif loc.lastPayment.commissioned>
+											Commissioned #loc.lastpayment.commission#
+										<cfelse>
+											<cfif loc.lastPayment.category>
+												Cat. #loc.lastPayment.category#; 
+											</cfif>
+											<cfif loc.lastPayment.ordained>
+												Ordained
+											<cfelseif loc.lastpayment.licensed>
+												; Licensed
+											</cfif>
+										</cfif>
+								</p>
+							</cfif>
 						<cfelse>
 								#dollarFormat(loc.lastPayment.membershipfee)# for #loc.lastPayment.membershipfeeyear#
 								<cfif loc.lastPayment.commissioned>
@@ -279,6 +283,9 @@
 		<cfif loc.Payments.recordcount>
 			<cfsavecontent variable="loc.return">
 					<cfoutput query="loc.payments">
+						<cfif len(agbmlifememberAt)>
+							<p>Lifetime member since #agbmlifememberAt#</p>
+						</cfif>
 						<p>#dollarFormat(loc.Payments.membershipfee)# for #loc.Payments.membershipfeeyear#<br/>
 						Cat. #loc.Payments.category#<cfif loc.Payments.ordained>; Ordained<cfelseif loc.Payments.licensed>; Licensed</cfif></p>
 					</cfoutput>
