@@ -21,7 +21,8 @@
 					
 						#checkBox(objectName='handbookagbminfo', property='ordained', label='Ordained?')#
 					
-					<cfif oldform>
+
+						<cfif oldform>
 						#checkBox(objectName='handbookagbminfo', property='licensed', label='Licensed?')#
 					<cfelse>	
 						#checkBox(objectName='handbookagbminfo', property='commissioned', label='Commissioned?')#
@@ -33,6 +34,7 @@
 						#select(objectName='handbookagbminfo', property='commission', includeBlank=true, label='Commissioned...', options=getSetting('inspireCommissions'))#
 					</cfif>	
 
+					#textField(objectName='handbookagbminfo', property='agbmLifeMemberAt', label='Lifetime member since (enter year)')#
 					
 						<!--- #checkBox(objectName='handbookagbminfo', property='mentored', label='Being Mentored?')# --->
 

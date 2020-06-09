@@ -129,10 +129,14 @@
 		<cfset handbookagbminfo = model("Handbookagbminfo").new()>
 		<cfset handbookagbminfo.membershipfeeyear = year(now())>
 		<cfset handbookagbminfo.membershipfee = 100>
+		<cfset handbookagbminfo.agbmlifememberAt = model("Handbookprofile").findOne(where="personid = #params.key#").agbmlifememberAt>
 		<cfif month(now()) is 6>
 			<cfset defaultdate = "#year(now())#"&"-05-31">
 			<cfset handbookagbminfo.paidAt = defaultdate>
 		</cfif>
+		<!--- <cfscript>
+			throw(message=serialize(handbookagbminfo.properties()))
+		</cfscript> --->
 		<cfset people = model("Handbookperson").findAll(order="lname,fname", include="Handbookstate")>
 		<cfset organizations = model("Handbookorganization").findAll(include="Handbookstate", order="org_city,state_mail_abbrev,name")>
 		<cfset thisperson = model("Handbookperson").findOne(where="id=#params.key#", order="lname,fname", include="Handbookstate")>
@@ -153,6 +157,7 @@
 
 		<!--- Find the record --->
     	<cfset handbookagbminfo = model("Handbookagbminfo").findByKey(params.key)>
+			<cfset handbookagbminfo.agbmlifememberAt = model("Handbookprofile").findOne(where="personid = #handbookagbminfo.personid#").agbmlifememberAt>
 
     	<!--- Check if the record exists --->
 	    <cfif NOT IsObject(handbookagbminfo)>
@@ -166,10 +171,17 @@
 
 	<!--- -handbookagbminfos/create --->
 	<cffunction name="create">
+		<!--- <cfscript>
+			throw(message=serialize(params.handbookagbminfo))
+		</cfscript> --->
+
 		<cfset handbookagbminfo = model("Handbookagbminfo").new(params.handbookagbminfo)>
 
 		<!--- Verify that the handbookagbminfo creates successfully --->
 		<cfif handbookagbminfo.save()>
+			<cfif len(handbookagbminfo.agbmlifememberat)>
+				<cfset makeAgbmLifeMember(handbookAgbmInfo.personId,handbookagbminfo.agbmlifememberat)>
+			</cfif>
 			<cfset flashInsert(success="The handbookagbminfo was created successfully.")>
 			<cfset returnBack()>
 		<!--- Otherwise --->
@@ -183,9 +195,15 @@
 	<!--- -handbookagbminfos/update --->
 	<cffunction name="update">
 		<cfset handbookagbminfo = model("Handbookagbminfo").findByKey(params.key)>
-
+		<cfset handbookagbminfo.agbmlifememberAt = model("Handbookprofile").findOne(where="personid = #handbookagbminfo.personid#").agbmlifememberAt>
+		<!--- <cfscript>
+			throw(message=serialize(handbookagbminfo.properties()))
+		</cfscript> --->
 		<!--- Verify that the handbookagbminfo updates successfully --->
 		<cfif handbookagbminfo.update(params.handbookagbminfo)>
+			<cfif len(handbookagbminfo.agbmlifememberat)>
+				<cfset makeAgbmLifeMember(handbookAgbmInfo.personId,handbookagbminfo.agbmlifememberat)>
+			</cfif>
 			<cfset flashInsert(success="The handbookagbminfo was updated successfully.")>
 			<cfset returnBack()>
 		<!--- Otherwise --->
@@ -478,48 +496,54 @@
 
 <cfscript>
 
-public function isAgbmLifeMember(personid) {
-	return model("Handbookagbminfo").isAgbmLifeMember(personid)
-}
-
-public function listNew(orderby="district"){
-	var loc = arguments;
-	if (isDefined("params.orderby")){loc.orderby = params.orderby};
-	if (isDefined("params.refresh")){loc.refresh = params.refresh};
-	agbmMembers = model("Handbookagbminfo").getAgbmMembers(argumentcollection=loc);
-	districts=model("Handbookdistrict").findAll(where="district NOT IN ('Empty','National Ministry','Cooperating Ministry')");
-}
-
-public function testMembershipFeeInfo(){
-	writedump(model("Handbookagbminfo").$getMembershipFeeInfo(1973));abort;
-}
-
-public function testIsAgbmMember(){
-	var return = model("Handbookagbminfo").isAgbmMember(params.personid);
-	writeDump(return);abort;
-}
-
-private function countOfMembershipYearsPaidSince(){
-	if ( !isDefined('params.year') ) { params.year = year(now()) }
-	if ( !isDefined('params.span') ) { params.span = 10 }
-	if ( !isDefined('params.personid') ) { throw(message="personid is required") }
-	var args = {
-		asOfMembershipFeeYear: params.year, 
-		personid: params.personid, 
-		yearSpan: params.span
+	public function makeAgbmLifeMember(personid, year) {
+		var person = model("Handbookprofiles").findOne(where="personid=#personid#")
+		person.agbmlifememberAt = "#year#"
+		person.update()
 	}
-	var test = model("Handbookagbminfo").CountOfMembershipYearsPaid(argumentCollection = args)
-	return test
-	throw(message=test)
-}
 
-public function getDistrictName(id){
-	var district = model("Handbookdistrict").findOne(where="districtid=#id#");
-	if (isObject(district)) { 
-		return district.district;
+	public function isAgbmLifeMember(personid) {
+		return model("Handbookagbminfo").isAgbmLifeMember(personid)
 	}
-	return "NA";
-}
+
+	public function listNew(orderby="district"){
+		var loc = arguments;
+		if (isDefined("params.orderby")){loc.orderby = params.orderby};
+		if (isDefined("params.refresh")){loc.refresh = params.refresh};
+		agbmMembers = model("Handbookagbminfo").getAgbmMembers(argumentcollection=loc);
+		districts=model("Handbookdistrict").findAll(where="district NOT IN ('Empty','National Ministry','Cooperating Ministry')");
+	}
+
+	public function testMembershipFeeInfo(){
+		writedump(model("Handbookagbminfo").$getMembershipFeeInfo(1973));abort;
+	}
+
+	public function testIsAgbmMember(){
+		var return = model("Handbookagbminfo").isAgbmMember(params.personid);
+		writeDump(return);abort;
+	}
+
+	private function countOfMembershipYearsPaidSince(){
+		if ( !isDefined('params.year') ) { params.year = year(now()) }
+		if ( !isDefined('params.span') ) { params.span = 10 }
+		if ( !isDefined('params.personid') ) { throw(message="personid is required") }
+		var args = {
+			asOfMembershipFeeYear: params.year, 
+			personid: params.personid, 
+			yearSpan: params.span
+		}
+		var test = model("Handbookagbminfo").CountOfMembershipYearsPaid(argumentCollection = args)
+		return test
+		throw(message=test)
+	}
+
+	public function getDistrictName(id){
+		var district = model("Handbookdistrict").findOne(where="districtid=#id#");
+		if (isObject(district)) { 
+			return district.district;
+		}
+		return "NA";
+	}
 
 </cfscript>
 
