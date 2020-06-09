@@ -176,12 +176,13 @@
 		</cfscript> --->
 
 		<cfset handbookagbminfo = model("Handbookagbminfo").new(params.handbookagbminfo)>
+		<cfif len(handbookagbminfo.agbmlifememberat)>
+			<cfset makeAgbmLifeMember(handbookAgbmInfo.personId,handbookagbminfo.agbmlifememberat)>
+			<cfset returnBack()>
+		</cfif>
 
 		<!--- Verify that the handbookagbminfo creates successfully --->
 		<cfif handbookagbminfo.save()>
-			<cfif len(handbookagbminfo.agbmlifememberat)>
-				<cfset makeAgbmLifeMember(handbookAgbmInfo.personId,handbookagbminfo.agbmlifememberat)>
-			</cfif>
 			<cfset flashInsert(success="The handbookagbminfo was created successfully.")>
 			<cfset returnBack()>
 		<!--- Otherwise --->
