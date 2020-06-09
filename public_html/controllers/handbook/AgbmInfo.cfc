@@ -197,6 +197,10 @@
 	<cffunction name="update">
 		<cfset handbookagbminfo = model("Handbookagbminfo").findByKey(params.key)>
 		<cfset handbookagbminfo.agbmlifememberAt = model("Handbookprofile").findOne(where="personid = #handbookagbminfo.personid#").agbmlifememberAt>
+		<cfif len(handbookagbminfo.agbmlifememberat)>
+			<cfset makeAgbmLifeMember(handbookAgbmInfo.personId,handbookagbminfo.agbmlifememberat)>
+			<cfset returnBack()>
+		</cfif>
 		<!--- <cfscript>
 			throw(message=serialize(handbookagbminfo.properties()))
 		</cfscript> --->
