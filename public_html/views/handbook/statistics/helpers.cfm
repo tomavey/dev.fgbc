@@ -17,3 +17,15 @@
         <cfset memYear = memYear + 1>
 <cfreturn memYear>	
 </cffunction>
+
+<cfscript>
+    function wereOrAre(){
+        if (isBefore("May 15" & year(now()))) {
+            return "were"
+        } else {
+            return "are"
+        }
+    }
+</cfscript>
+
+

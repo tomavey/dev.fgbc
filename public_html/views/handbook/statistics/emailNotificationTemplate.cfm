@@ -70,7 +70,7 @@
                                 GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship. Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
                             </p>
                             <p>
-                                Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# are due May 15.
+                                Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# #wereOrAre()# due May 15.
                             <p class="lead">
                                 However, due to the COVID-19 crisis we are not going to increase the fellowship fee until after July 1. If your church needs additional help, email Tom Avey at <a href="mailto:tomavey@charisfellowship.us">tomavey@charisfellowship.us</a> or call Tom at 574-527-6061. 
                             </p>      
