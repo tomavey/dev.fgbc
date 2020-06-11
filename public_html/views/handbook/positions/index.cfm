@@ -18,9 +18,9 @@
 				
 					<cfcol header="Deleted At" text="#deletedAt#" />
 				
-	<cfcol header="" text="#linkTo(text='Show', action='show', key=personid,organizationid)#" />
-	<cfcol header="" text="#linkTo(text='Edit', action='edit', key=personid,organizationid)#" />
-	<cfcol header="" text="#linkTo(text='Delete', action='delete', key=personid,organizationid, confirm='Are you sure?')#" />
+	<cfcol header="" text="#linkTo(text='Show', action='show', key=personid)#" />
+	<cfcol header="" text="#linkTo(text='Edit', action='edit', key=personid)#" />
+	<cfcol header="" text="#linkTo(text='Delete', action='delete', key=personid, confirm='Are you sure?')#" />
 </cftable>
 
 <cfoutput>
