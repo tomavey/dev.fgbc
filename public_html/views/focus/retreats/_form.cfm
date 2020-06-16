@@ -10,11 +10,11 @@
 
 						#textField(objectName='retreat', property='title', label='Title: ')#
 
-						#textField(objectName='retreat', property='menuname', label='Menu name: ')#
+						#textField(objectName='retreat', property='menuname', label='Menu name: (used in page web address - "charisfellowship.us/focus/?????")')#
 
 <!--- 						#fileField(objectName='retreat', property='image', label='Image: ')# --->
 
-						#select(objectName='retreat', property='active', label='Active? (this retreat will show up in admin.', options="Yes,No", values = "1,0")#
+						#select(objectName='retreat', property='active', label='Active? ("Yes" = this retreat will show up in admin, "No = this retreat will be hidden in admin")', options="Yes,No", values = "1,0")#
 
 						#select(objectName='retreat', property='showregs', label='Show in the admin list of registrations? ', options="Yes,No", values = "1,0")#
 
@@ -44,19 +44,21 @@
 							<span>After this date the "Who is coming link on the retreat page will not show, unless the viewer is logged in as an admin.</span>
 						</p>
 
-						<p>Comments for Registration: <br/>
-						#textArea(objectName='retreat', property='registrationcomments', label='Comments', cols="75", rows="10", class="ckeditor")#
+						<p>Public comments for Registration: <br/>
+						#textArea(objectName='retreat', property='registrationcomments', label='', cols="75", rows="10", class="ckeditor")#
 						</p>
 
-						<p>Not Open Message: <br/>
+						<p>Not-Open Message: <br/>
 						#textArea(objectName='retreat', property='notopenmessage', label='', editor="ckeditor", rows=10, cols=100, class="ckeditor")#
-						<span>This is what will show in place of the registration info when the retreat is marked 'No' in the 'Registration is open" field (above).</span>
+						<span style="font-size:.8em; padding-left:20px">This is what will show in place of the registration info when the retreat is marked 'No' in the 'Registration is open" field (above).</span></br>
 						</p>
+						<br/>
 
-						<p>Past the deadline message: <br/>
+						<p>Past-the-deadline message: <br/>
 						#textArea(objectName='retreat', property='pastdeadlinemessage', label='', editor="ckeditor", rows=10, cols=100, class="ckeditor")#
-						<span>This is what will show in place of the registration info when it is past the registration deadline.</span>
+						<span style="font-size:.8em; padding-left:20px">This is what will show in place of the registration info when it is past the registration deadline.</span>
 						</p>
+					</br>
 
 						<p>Schedule: <br/>
 						#textArea(objectName='retreat', property='schedule', label='', editor="ckeditor", rows=10, cols=100, class="ckeditor")#
@@ -66,7 +68,7 @@
 						#textArea(objectName='retreat', property='location', label='', editor="ckeditor", rows=10, cols=100, class="ckeditor")#
 						</p>
 
-						<p>Comments: <br/>
+						<p>Comments (for office only): <br/>
 						#textArea(objectName='retreat', property='comments', label='', editor='ckeditor', rows=10, cols=100, class="ckeditor")#
 						</p>
 

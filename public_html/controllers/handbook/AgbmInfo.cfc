@@ -129,7 +129,12 @@
 		<cfset handbookagbminfo = model("Handbookagbminfo").new()>
 		<cfset handbookagbminfo.membershipfeeyear = year(now())>
 		<cfset handbookagbminfo.membershipfee = 100>
-		<cfset handbookagbminfo.agbmlifememberAt = model("Handbookprofile").findOne(where="personid = #params.key#").agbmlifememberAt>
+		<cftry>
+			<cfset handbookagbminfo.agbmlifememberAt = model("Handbookprofile").findOne(where="personid = #params.key#").agbmlifememberAt>
+			<cfcatch>
+				<cfset handbookagbminfo.agbmlifememberAt = "">
+			</cfcatch>
+		</cftry>
 		<cfif month(now()) is 6>
 			<cfset defaultdate = "#year(now())#"&"-05-31">
 			<cfset handbookagbminfo.paidAt = defaultdate>
@@ -502,9 +507,17 @@
 <cfscript>
 
 	public function makeAgbmLifeMember(personid, year) {
-		var person = model("Handbookprofiles").findOne(where="personid=#personid#")
-		person.agbmlifememberAt = "#year#"
-		person.update()
+		var personProfile = model("Handbookprofiles").findOne(where="personid=#personid#")
+		if ( isObject(personProfile) ) {
+			personProfile.agbmlifememberAt = "#year#"
+			personProfile.update()
+		} else {
+			personProfile = model("Handbookprofiles").new()
+			personProfile.personid = personid
+			personProfile.agbmlifememberAt = year
+			personProfile.save()
+			// throw(message = serialize(personProfile.properties()))
+		}
 	}
 
 	public function isAgbmLifeMember(personid) {
