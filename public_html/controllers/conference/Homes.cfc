@@ -4,9 +4,20 @@ component extends="Controller" output="false" {
     usesLayout("/conference/adminlayout")
     filters(through="checkOffice", except="new,newAccessHost,newAccessGuest,show,list,create,$sendEmailNoticeToOffice,$sendEmailNoticeToHost, thankyou")
     filters(through="setReturn", only="index,show,list,new,thankyou")
+    filters(through="isConferenceHomesOpen")
   }  
 
   devMode=false
+//----------------------------
+//-----FILTERS----------------
+//----------------------------
+
+  private function isConferenceHomesOpen(){
+    if ( getSetting('conferenceHomesIsOpen') || gotRights('office') ) {
+      return true
+    } 
+    renderText("Sorry - this page is no longer available")
+  }
 
 //---------------------------------
 //---CRUD-(plus thankyou)----------  

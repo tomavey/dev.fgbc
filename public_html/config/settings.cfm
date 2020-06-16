@@ -249,6 +249,7 @@
 	set(delegatesSubmitIsOpen = false)
 	set(videoStoriesIsOpen = false)
 	set(isConferenceHomesTesting = true)
+	set(conferenceHomesIsOpen = false)
 	set(prayerWallIsOpenBefore="2020-07-01")
 	set(covidPageIsOpenBefore="2020-06-01")
 	// For Facebook OAuth
