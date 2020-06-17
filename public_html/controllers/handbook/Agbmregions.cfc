@@ -59,7 +59,7 @@
 
 		<!--- Verify that the handbookagbmregion creates successfully --->
 		<cfif handbookagbmregion.save()>
-			<cfset flashInsert(success="The AGBM Region was created successfully.")>
+			<cfset flashInsert(success="The Inspire Region was created successfully.")>
             <cfset redirectTo(action="index")>
 		<!--- Otherwise --->
 		<cfelse>

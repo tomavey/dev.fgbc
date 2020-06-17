@@ -8,7 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          #linkTo(class="brand", text="Agbm Membership List #currentmembershipyear#", controller="handbook.agbm-info", action="list")#
+          #linkTo(class="brand", text="Inspire Membership List #currentmembershipyear#", controller="handbook.agbm-info", action="list")#
           <div class="nav-collapse">
             <ul class="nav">
 				<li class="dropdown">
@@ -70,7 +70,7 @@
 							#linkTo(text="Set Current Membership Year to #currentmembershipyear-1#", route="handbookSetYear", key=currentmembershipyear-1)#
 						</li>
 						<li>
-							#linkTo(text="AGBM Regions", route="HandbookAgbmRegions")#
+							#linkTo(text="Inspire Regions", route="HandbookAgbmRegions")#
 						</li>
 						<li>
 							#linkTo(text="Districts", controller="handbook.districts", action="index")#
