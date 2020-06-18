@@ -940,6 +940,13 @@ public function getAlphabet(){
 	return application.wheels.alphabet;
 }
 
+private function listedAsCity (org_city, listed_as_city) {
+	if ( len(listed_as_city) ) {
+		return listed_as_city
+	}
+	return org_city
+}
+
 public function linkToPlus(required addParams,class="",text="link",oldurl=cgi.http_referer,queryString=cgi.query_string,showIf=true){
 	// writeDump(#arguments#);abort;
 	if ( !find(addParams,oldUrl) ) { 

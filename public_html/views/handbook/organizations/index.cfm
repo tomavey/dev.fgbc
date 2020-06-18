@@ -41,7 +41,7 @@
 	<cfoutput query="handbookorganizations" group="state">
 		<h2>#state#</h2>
 		<cfoutput>
-		<p><cfset linkToText = "#name#: #org_city# #state_mail_abbrev#">
+		<p><cfset linkToText = "#name#: #listedAsCity(org_city,listed_as_city)# #state_mail_abbrev#">
 			<cfif len(linkToText) GTE linkToTextMaxLength-3>
 				<cfset linkToText = linkToText & "...">
 			</cfif>

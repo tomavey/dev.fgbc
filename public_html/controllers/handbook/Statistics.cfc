@@ -272,7 +272,7 @@
 		querySetCell(list,"link", "https://charisfellowship.us/sendstats");
 		querySetCell(list,"name", "Tom Avey Test");
 		querySetCell(list,"id", 1);
-		querySetCell(list,"city", "anytown");
+		querySetCell(list,"city", listedAsCity('anytown','listedastown'));
 		return list;
 	}
 </cfscript>	
@@ -433,7 +433,7 @@
 				<cfset queryAddRow(notpaidchurches,1)>
 				<cfset querySetCell(notpaidchurches,"id",#id#)>
 				<cfset querySetCell(notpaidchurches,"name",#name#)>
-				<cfset querySetCell(notpaidchurches,"city",#org_city#)>
+				<cfset querySetCell(notpaidchurches,"city",#listedAsCity(org_city,listed_as_city)#)>
 				<cfset querySetCell(notpaidchurches,"emails",#getOrgEmails(id)#)>
 			</cfif>
 		</cfloop>

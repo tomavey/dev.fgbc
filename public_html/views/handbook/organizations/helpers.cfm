@@ -156,6 +156,7 @@
     var deadLine = "#dayMonth#, #year(now())#"
     return "#$dayOfDateAsString(deadline)#, #deadline#";
   }
+
 </cfscript>
 
 <cffunction name="createEmailToUpdateOrg">
