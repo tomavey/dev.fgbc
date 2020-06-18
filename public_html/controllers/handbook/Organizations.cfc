@@ -284,6 +284,7 @@ component extends="Controller" output="false" {
 
 	<!---Handbook Pages--->
 	public function handbookpages(key){
+		// throw(message = serialize(params))
 		if ( isDefined("params.orgid") ) { params.key = params.orgid }
 		if ( isDefined("params.move") ) { $move() }
 		organization = model("Handbookorganization").findByKey(key=params.key, include="Handbookstate,Handbookstatus,Handbookdistrict")
@@ -471,7 +472,7 @@ component extends="Controller" output="false" {
 			othersortorder = #arguments.othersortorder#
 			)
 
-			redirectTo(action="handbookpages", key=arguments.orgid)	
+			redirectTo(controller="handbook.organizations", action="handbookpages", key=arguments.orgid, params="orgid=#arguments.orgid#")	
 	}
 
 	function $getNextPosition(required numeric positionid){
