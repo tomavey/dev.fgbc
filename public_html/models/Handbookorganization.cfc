@@ -32,7 +32,7 @@ component extends="Model" output="false" {
 		)
 		property(
 			name="selectName",
-			sql="CONCAT_WS(', ',handbookorganizations.name,org_city,state_mail_abbrev)"
+			sql="CONCAT_WS(', ',handbookorganizations.name,listed_as_city,state_mail_abbrev)"
 		)
 		property(
 			name="selectNameCity",
@@ -75,9 +75,6 @@ component extends="Model" output="false" {
 <!---END OF CALLBACK FUNCTIONS--->
 <!------------------------------->
 	
-
-
-
 
 <!--------------------->
 <!---GENERAL FINDERS--->
