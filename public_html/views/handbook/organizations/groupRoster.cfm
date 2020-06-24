@@ -28,6 +28,6 @@
 </cfoutput>
 <cfoutput>
   Count: #rosterChurches.recordCount#<br/>
-  #linkto(text="Group Roster Guidelines", href="https://charisfellowship.us/files/FGBCgroupexemptionprocedure2019.pdf" target="_new")#
+  #linkto(text="Group Roster Guidelines", href="https://charisfellowship.us/files/FGBCgroupexemptionprocedure2019.pdf", target="_new")#
 </cfoutput>
 </div>
