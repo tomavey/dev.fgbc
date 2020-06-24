@@ -366,7 +366,7 @@ component extends="Controller" output="false" {
 	}
 
 	function groupRoster(orderBy="createdAt"){
-		rosterChurches = model("Handbookorganization").findAll(where="ingrouproster <> 'no' OR ingrouproster IS NOT NULL", include="State", order="#arguments.orderBy#")
+		rosterChurches = model("Handbookorganization").findAll(where="(ingrouproster <> 'no' OR ingrouproster IS NOT NULL) AND statusid IN (1,10,11,12)", include="State", order="#arguments.orderBy#")
 		renderPage(layout="/handbook/layout_handbook2")
 	}
 	
