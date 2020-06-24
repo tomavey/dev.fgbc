@@ -3,7 +3,7 @@
 <h2>FGBC Group Roster</h2>
 <cfscript>
     var SortOptions = [
-      {option:"Fein",sortBy:"fein"},
+      {option:"EIN",sortBy:"fein"},
       {option:"Name",sortBy:"name"},
       {option:"City",sortBy:"org_city"},
       {option:"State",sortBy:"state"}
