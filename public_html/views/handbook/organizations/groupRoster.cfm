@@ -23,7 +23,7 @@
 <cfoutput query="rosterChurches">
   <cfset count = count + 1>
 <p>
-#linkto(text=selectname, controller="handbook.organizations", action="show", key=id)#&nbsp;&nbsp;&nbsp;  EIN##-#fein#
+#linkto(text=selectname, controller="handbook.organizations", action="show", key=id)#&nbsp;&nbsp;&nbsp;  EIN##&nbsp;#fein#
 </p>
 </cfoutput>
 <cfoutput>
