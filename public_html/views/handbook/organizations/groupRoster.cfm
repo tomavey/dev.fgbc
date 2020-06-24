@@ -27,6 +27,6 @@
 </p>
 </cfoutput>
 <cfoutput>
-  Count: #rosterChurches.recordCount#-#count#
+  Count: #rosterChurches.recordCount#
 </cfoutput>
 </div>
