@@ -108,6 +108,7 @@
                       </li>
                       <li>#linkTo(text="Focus Retreats", controller="focus.main", action="welcome")#</li>
                       <li class="list-inline-item g-mx-4 g-mt-10">
+                      <li>#linkTo(text="WeAreOne", href="https://charisfellowship.us/page/weareone")#</li>
                       <li>#linkTo(text="Access2021", href="https://charisfellowship.us/page/access2021")#</li>
                     </ul>
                 </li>
