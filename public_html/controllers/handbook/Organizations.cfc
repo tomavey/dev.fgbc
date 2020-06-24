@@ -368,7 +368,7 @@ component extends="Controller" output="false" {
 	function groupRoster(orderBy="createdAt"){
 		if ( isdefined("params.sortby") ) { arguments.orderBy = params.sortBy }
 		var whereString = "(ingrouproster <> 'no' OR ingrouproster IS NOT NULL) AND statusid IN (1,10,11,12)"
-		if ( isDefined("params.search") ) { whereString = "selectname LIKE '%#params.search#%' OR fein = '#params.search#'" }
+		if ( isDefined("params.search") ) { whereString = whereString & " AND (selectname LIKE '%#params.search#%' OR fein = '#params.search#')" }
 		// throw(message=whereString)
 		rosterChurches = model("Handbookorganization").findAll(where= whereString, include="State", order="#arguments.orderBy#")
 		renderPage(layout="/handbook/layout_handbook2")
