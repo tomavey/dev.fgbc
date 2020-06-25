@@ -48,7 +48,7 @@
 </td>
 <td>
 #showtag()#
-<cfif gotRights("superadmin,office")>
+<cfif gotRights("superadmin,office,pageEditor")>
 #editTag()#
 #deleteTag()#
 </cfif>
