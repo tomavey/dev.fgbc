@@ -20,7 +20,9 @@
 	<cffunction name="findMyTags">
 	<cfargument name="auth" required="true" type="struct">
 	<cfset var loc = structNew()>
-		<cfif isdefined("session.auth.username")>
+		<cfif isdefined("session.auth.coUsername") && isDefined("session.auth.username")>
+			<cfset loc.whereString = 'username = "#session.auth.email#" OR username = "#session.auth.username#" OR username = "#session.auth.coUsername#"'>
+		<cfelseif isdefined("session.auth.username")>
 			<cfset loc.whereString = 'username = "#session.auth.email#" OR username = "#session.auth.username#"'>
 		<cfelse>
 			<cfset loc.whereString = 'username = "#session.auth.email#"'>

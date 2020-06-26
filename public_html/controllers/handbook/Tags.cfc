@@ -10,6 +10,7 @@
 
 	<!--- handbook-tags/index --->
 	<cffunction name="index">
+		<cfset setCoUserName(params)>
 		<cfset people = model("Handbookperson").findAll(where="p_sortorder < 900", include="Handbookstate,Handbookpositions", order="lname,fname,city")>
 		<cfset organizations = model("Handbookorganization").findAll(where="statusid IN (1,8,2)", include="Handbookstate", order="org_city,state,name")>
 		<cfset handbooktags = model("Handbooktag").findMyTags(session.auth)>
@@ -284,5 +285,13 @@
 		</cfif>
 		<cfset redirectTo(action="show", key=params.newtag)>
 	</cffunction>
+
+<cfscript>
+	private function setCoUserName(params) {
+		if ( isDefined("params.coUsername") && isDefined( "session.auth.username")) {
+			session.auth.coUsername = params.coUserName
+		}
+	}
+</cfscript>
 
 </cfcomponent>
