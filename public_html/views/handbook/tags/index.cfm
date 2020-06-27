@@ -37,8 +37,7 @@
 			key=tag,
 			class="tooltipside",
 			title="Delete tag: #tag#",
-			confirm="Are you sure?",
-			class="ajaxdelete"
+			confirm="Are you sure?"
 )#
 		</span>
 		<cfif isDefined("params.list")>
