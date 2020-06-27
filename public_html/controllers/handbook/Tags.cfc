@@ -268,11 +268,11 @@
 		<cfset redirectTo(back=true)>
 	</cffunction>
 
-	<cffunction name="removeTag">
+	<cffunction name="remove">
 		<cfif isdefined("session.auth.username")>
-			<cfset removeTag = model("handbooktag").deleteAll(where="tag='#params.key#' AND (username = '#session.auth.email#' OR username = '#session.auth.username#')", class="tooltip2", title="Receive notices of updates via email.")>
+			<cfset removeTag = model("handbooktag").deleteAll(where="tag='#params.tag#' AND (username = '#session.auth.email#' OR username = '#session.auth.username#')", class="tooltip2", title="Receive notices of updates via email.")>
 		<cfelse>
-			<cfset removeTag = model("handbooktag").deleteAll(where="tag='#params.key#' AND username = '#session.auth.email#'", class="tooltip2", title="Receive notices of updates via email.")>
+			<cfset removeTag = model("handbooktag").deleteAll(where="tag='#params.tag#' AND username = '#session.auth.email#'", class="tooltip2", title="Receive notices of updates via email.")>
 		</cfif>
 		<cfset returnBack()>
 	</cffunction>

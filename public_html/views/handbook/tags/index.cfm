@@ -32,12 +32,12 @@
 		#linkTo(text="#tag#[#count#]", action="show", key=tag, class="btn btn-medium")#
 		#linkTo(
 			text="<span style='color:grey'><sup>x</sup></span>", 
-			controller="handbook.tags",
-			action="remove-tag", 
-			key=tag,
+			route="HandbookRemove", 
+			params="tag=#tag#",
 			class="tooltipside",
 			title="Delete tag: #tag#",
-			confirm="Are you sure?"
+			confirm="Are you sure?",
+			class="ajaxdelete"
 )#
 		</span>
 		<cfif isDefined("params.list")>
