@@ -19,6 +19,7 @@
 
 	<!--- handbook-tags/show/key --->
 	<cffunction name="show">
+		<cfset setCoUserName(params)>
 		<cfset usesLayout(template="/handbook/layout_handbook", except="download")>
 		<cfset people = model("Handbookperson").findAll(where="p_sortorder < 900", include="Handbookstate,Handbookpositions", order="lname,fname,city", group ="id")>
 		<cfset organizations = model("Handbookorganization").findAll(where="statusid IN (1,8)", include="Handbookstate", order="org_city,state,name")>
@@ -268,11 +269,11 @@
 		<cfset redirectTo(back=true)>
 	</cffunction>
 
-	<cffunction name="removeTag">
+	<cffunction name="remove">
 		<cfif isdefined("session.auth.username")>
-			<cfset removeTag = model("handbooktag").deleteAll(where="tag='#params.key#' AND (username = '#session.auth.email#' OR username = '#session.auth.username#')", class="tooltip2", title="Receive notices of updates via email.")>
+			<cfset removeTag = model("handbooktag").deleteAll(where="tag='#params.tag#' AND (username = '#session.auth.email#' OR username = '#session.auth.username#')", class="tooltip2", title="Receive notices of updates via email.")>
 		<cfelse>
-			<cfset removeTag = model("handbooktag").deleteAll(where="tag='#params.key#' AND username = '#session.auth.email#'", class="tooltip2", title="Receive notices of updates via email.")>
+			<cfset removeTag = model("handbooktag").deleteAll(where="tag='#params.tag#' AND username = '#session.auth.email#'", class="tooltip2", title="Receive notices of updates via email.")>
 		</cfif>
 		<cfset returnBack()>
 	</cffunction>

@@ -296,8 +296,8 @@
 
 			.post(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
-			.get(name="removeFromTag", pattern="/tags/remove/", controller="tags", action="removeFromTag")
-			.get(name="removeTag", pattern="/tag/remove/[key]", controller="tags", action="removeTag")
+			.get(name="Remove", pattern="/tag/remove/", controller="tags", action="remove")
+			.get(name="RemoveFromTag", pattern="/tags/remove/", controller="tags", action="removeFromTag")
 			.get(name="downloadTag", pattern="/tag/download/[key]", controller="tags", action="download")
 			.get(name="duplicateTag", pattern="/tag/duplicate/[key]", controller="tags", action="duplicateTag")
 			.post(name="changeTag", pattern="/tag/change/", controller="tags", action="changeTag")

@@ -32,8 +32,8 @@
 		#linkTo(text="#tag#[#count#]", action="show", key=tag, class="btn btn-medium")#
 		#linkTo(
 			text="<span style='color:grey'><sup>x</sup></span>", 
-			action="remove-tag", 
-			key=tag,
+			route="HandbookRemove", 
+			params="tag=#tag#",
 			class="tooltipside",
 			title="Delete tag: #tag#",
 			confirm="Are you sure?",
