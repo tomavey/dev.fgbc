@@ -18,6 +18,7 @@
 
 	<!--- handbook-tags/show/key --->
 	<cffunction name="show">
+		<cfset setCoUserName(params)>
 		<cfset usesLayout(template="/handbook/layout_handbook", except="download")>
 		<cfset people = model("Handbookperson").findAll(where="p_sortorder < 900", include="Handbookstate,Handbookpositions", order="lname,fname,city", group ="id")>
 		<cfset organizations = model("Handbookorganization").findAll(where="statusid IN (1,8)", include="Handbookstate", order="org_city,state,name")>

@@ -17,6 +17,7 @@
 		<cfreturn tags>
 	</cffunction>
 
+<<<<<<< Updated upstream
 	<cffunction name="findMyTags">
 	<cfargument name="auth" required="true" type="struct">
 	<cfset var loc = structNew()>
@@ -35,6 +36,21 @@
 		</cfquery>
 		<cfreturn loc.tags>
 	</cffunction>
+=======
+	<cfscript>
+		function findMyTags(required struct auth) {
+				var whereString = "username = '#session.auth.email#'"
+				if ( isDefined("session.auth.username") ) { whereString = whereString & " OR username = '#session.auth.username#'" }
+				if ( isDefined("session.auth.coUsername") ) { whereString = whereString & " OR username = '#session.auth.coUsername#'" }
+				if ( isDefined("session.auth.coEmail") ) {  whereString = whereString & " OR username = '#session.auth.coEmail#'" }
+				var orderbyString = "tag"
+				// throw(message=whereString)
+				var tags = findAll(where = whereString, order = orderByString)
+				return tags
+		}
+		
+	</cfscript>
+>>>>>>> Stashed changes
 
 	<cffunction name="findAllPersonTags">
 	<cfargument name="tags" required="true" type="string">

@@ -32,6 +32,7 @@
 		#linkTo(text="#tag#[#count#]", action="show", key=tag, class="btn btn-medium")#
 		#linkTo(
 			text="<span style='color:grey'><sup>x</sup></span>", 
+			controller="handbook.tags",
 			action="remove-tag", 
 			key=tag,
 			class="tooltipside",
