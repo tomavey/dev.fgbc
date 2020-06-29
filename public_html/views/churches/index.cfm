@@ -30,7 +30,7 @@
   Search by state, city, or church name
 </p>
 
-  <div v-bind:class="columnsClass">
+<div v-bind:class="columnsClass">
   <cfoutput>
   <div v-for="(church, index) in filteredChurches">
     <div v-if="isNewState(index,church.state,filteredChurches)">
@@ -105,11 +105,11 @@ var vm = new Vue({
           }
           searchString = searchString.trim().toLowerCase();
             church_array = church_array.filter(function(item){
-              if(item.name.toLowerCase().indexOf(searchString) !== -1 ||
-                item.state.toLowerCase().indexOf(searchString) !== -1 ||
-                item.org_city.toLowerCase().indexOf(searchString) !== -1 ||
-                item.email.toLowerCase().indexOf(searchString) !== -1 ||
-                item.listed_as_city.toLowerCase().indexOf(searchString) !== -1 
+              if(item.NAME.toLowerCase().indexOf(searchString) !== -1 ||
+                item.STATE.toLowerCase().indexOf(searchString) !== -1 ||
+                item.ORG_CITY.toLowerCase().indexOf(searchString) !== -1 ||
+                item.EMAIL.toLowerCase().indexOf(searchString) !== -1 ||
+                item.LISTED_AS_CITY.toLowerCase().indexOf(searchString) !== -1 
                 ){
                 return item
               }
