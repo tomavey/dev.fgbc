@@ -79,7 +79,7 @@
 			#textFieldTag(name="tags", label="Tag an organization:", placeholder="tag name")#
 			#hiddenFieldTag(name="username", value=session.auth.username)#
 			#hiddenFieldTag(name="type", value="organization")#
-			#selectTag(name="itemid", options=organizations, includeBlank="-Add one organization-", valuefield="id", textfield="selectname")#
+			#selectTag(name="itemid", options=organizations, includeBlank="-Add one organization-", valuefield="id", textfield="selectnamecity")#
 			#submitTag("Create a ministry tag")#
 			#endFormTag()#
 		</p>

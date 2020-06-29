@@ -147,7 +147,7 @@
 			#hiddenFieldTag(name="tags", value=params.key)#
 			#hiddenFieldTag(name="username", value=session.auth.username)#
 			#hiddenFieldTag(name="type", value="organization")#
-			#selectTag(name="itemid", options=organizations, includeBlank="-Add one organization-", valuefield="id", textfield="selectname")#
+			#selectTag(name="itemid", options=organizations, includeBlank="-Add one organization-", valuefield="id", textfield="selectnamecity")#
 			#submitTag("Add to tag")#
 			#endFormTag()#
 		</p>
