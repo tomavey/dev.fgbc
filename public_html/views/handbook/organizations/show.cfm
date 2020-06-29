@@ -85,6 +85,7 @@
 						#hiddenFieldTag(name="type", value="organization")#
 						#hiddenFieldTag(name="username", value=session.auth.username)#
 						#textFieldTag(name="tags")#
+						#submitTag("Save Tag(s)")#
 						#endformTag()#
 					</p>
 
@@ -101,7 +102,7 @@
 
 </div>
 <cfif gotRights("superadmin,office,handbookedit")>
-#linkTo(text="Delete", action="delete", key=params.key, method="delete", onClick="return confirm('Are you sure? It might be better to mark this church as closed in case AGBM members are still connected to this church')", class="btn")#
+#linkTo(text="Delete this church or ministry", action="delete", key=params.key, method="delete", onClick="return confirm('Are you sure? It might be better to mark this church as closed in case AGBM members are still connected to this church')")#
 <cfif len(handbookorganization.fein)>
 <p>FEIN ##: #handbookorganization.fein#</p>
 <p>501c3 group roster? 
