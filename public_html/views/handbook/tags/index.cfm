@@ -17,9 +17,10 @@
 
 <p>
    Tag people or organizations to create teams or lists of people.  You can create simple emails to this list in your email client or download a spreadsheet of their information.
-</p>
+</p>0
 
-
+<!--- <cfdump var="#session.auth#">
+<cfdump var="#commaListToQuoteList(session.auth.rightslist)#"> --->
 
 <cfoutput query="handbookTags" group="tag" groupcasesensitive=false>
 <cfset count = 0>

@@ -1,12 +1,23 @@
 <cfcomponent extends="Controller" output="false">
 
+
 	<cffunction name="init">
 		<cfset usesLayout(template="/handbook/layout_handbook1", except="download,show,search")>
 		<cfset filters(through="gotBasicHandbookRights")>
 		<cfset provides("html,xml,json")>
 		<cfset filters(through="logview", type="after")>
 		<cfset filters(through="setreturn", only="index,show")>
+		<cfset filters(through="setFlashTagUsername")>
 	</cffunction>
+
+<cfscript>
+	function setFlashTagUsername(){
+		try {
+			flashInsert(username=session.auth.username)
+		} catch (any e) {}
+	}
+</cfscript>
+
 
 	<!--- handbook-tags/index --->
 	<cffunction name="index">
@@ -26,8 +37,16 @@
 
 		<!--- Find the record --->
 		<cfif isdefined("session.auth.username")>
-	    	<cfset handbookTaggedPeople = model("Handbooktag").findAll(where="(username = '#session.auth.email#' OR username = '#session.auth.username#') AND tag='#params.key#' AND type='person'", include="Handbookperson(Handbookstate)", order="lname,fname")>
-	    	<cfset handbookTaggedOrganizations = model("Handbooktag").findAll(where="(username = '#session.auth.email#' OR username = '#session.auth.username#') AND tag='#params.key#' AND type='organization'", include="Handbookorganization(Handbookstate)", order="name")>
+				<cfset var whereString = "(
+					username = '#session.auth.email#' 
+					OR username = '#session.auth.username#'
+					OR username IN (#commaListToSingleQuoteList(session.auth.rightslist)#)
+					) 
+					AND tag='#params.key#'" 
+					>
+				<!--- <cfthrow message=#commaListToSingleQuoteList(session.auth.rightslist)#> --->
+	    	<cfset handbookTaggedPeople = model("Handbooktag").findAll(where=whereString & " AND type='person'", include="Handbookperson(Handbookstate)", order="lname,fname")>
+	    	<cfset handbookTaggedOrganizations = model("Handbooktag").findAll(where=whereString & " AND type='organization'", include="Handbookorganization(Handbookstate)", order="name")>
 		<cfelse>
 	    	<cfset handbookTaggedPeople = model("Handbooktag").findAll(where="username = '#session.auth.email#' AND tag='#params.key#' AND type='person'", include="Handbookperson(Handbookstate)", order="lname,fname")>
 	    	<cfset handbookTaggedOrganizations = model("Handbooktag").findAll(where="username = '#session.auth.email#' AND tag='#params.key#' AND type='organization'", include="Handbookorganization(Handbookstate)", order="name")>
@@ -204,6 +223,20 @@
 	<cfset returnBack()>
 	</cffunction>
 
+<cfscript>
+	function shareTagWithGroup(params) {
+		var loc = params
+		// throw(message=serialize(loc))
+		var tags = model("Handbooktag").findall(where="tag='#loc.tag#' AND username='#loc.username#'")
+		for ( tag in tags ) {
+			var thisTag = model("Handbooktag").findOne(where="id=#tag.id#")
+			thisTag.username = params.usergroup
+			thisTag.update()
+		}
+		returnBack()
+	}
+</cfscript>	
+	
 	<cffunction name="duplicateTag">
 	<cfargument name="tag" default="#params.key#">
 	<cfargument name="username" default="#session.auth.username#">

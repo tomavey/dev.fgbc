@@ -100,7 +100,23 @@ public function getSetting(name, useSessionSetting=true){
 <!---CONVERSIONS--->	
 <!----------------->	
 
-	function queryToArray(required query data){
+function commaListToQuoteList (list) {
+		var newList = "";
+		newlist = listMap(list, function (e) {
+				return '"'&e&'"';
+		})
+		return newList;
+}
+
+function commaListToSingleQuoteList (list) {
+	var newList = '';
+	newlist = listMap(list, function (e) {
+			return "'"&e&"'";
+	})
+	return newList;
+}
+
+function queryToArray(required query data){
 			var LOCAL = StructNew()
 			LOCAL.Columns = ListToArray( ARGUMENTS.Data.ColumnList )
 			LOCAL.QueryArray = ArrayNew( 1 )

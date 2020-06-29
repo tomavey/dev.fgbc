@@ -2,6 +2,7 @@
 <cfset churchcount = 0>
 
 <div id="show">
+	<!--- <cfdump var="#params#"> --->
 	
 	<cfset emailall = "">
 	<cfset namesAll = "">
@@ -9,6 +10,7 @@
 
 	<cfoutput>
 	<h2>Tag: "#params.key#"</h2>
+	#flash("username")#
 
 	<div class="well">	
 		<p>
@@ -162,14 +164,28 @@
 			#hiddenFieldTag(name="type", value="person")#
 			#hiddenFieldTag(name="username", value=session.auth.username)#
 			#selectTag(name="newuserId", options=people, includeBlank="-Select one person-", valuefield="id", textfield="selectname")#
-			#submitTag("Share this tag")#
+			#submitTag("Send this tag to another handbook user")#
 			#endFormTag()#
 		</p>
 		<p>This tag list will not sync with the shared list when you make changes.  However, re-sharing this tag list will update the shared tag list.</p>
 	
 	</div>	
 		
+<cfif isDefined("session.auth.rightslist")>
+	<div class="well">
+		<p>
+			#startFormTag(action="shareTagWithGroup")#
+			#hiddenFieldTag(name="tag", value=params.key)#
+			#hiddenFieldTag(name="type", value="person")#
+			#hiddenFieldTag(name="username", value=session.auth.username)#
+			#selectTag(name="userGroup", options=session.auth.rightslist, includeBlank="-Select one user group-", valuefield="id", textfield="selectname")#
+			#submitTag("Share this tag")#
+			#endFormTag()#
+		</p>
+		<p>This tag list will sync with others in the same user group.</p>
 	
+	</div>	
+</cfif>
 		</cfoutput>		
 
 </div>

@@ -17,33 +17,11 @@
 		<cfreturn tags>
 	</cffunction>
 
-<<<<<<< Updated upstream
-	<cffunction name="findMyTags">
-	<cfargument name="auth" required="true" type="struct">
-	<cfset var loc = structNew()>
-		<cfif isdefined("session.auth.coUsername") && isDefined("session.auth.username")>
-			<cfset loc.whereString = 'username = "#session.auth.email#" OR username = "#session.auth.username#" OR username = "#session.auth.coUsername#"'>
-		<cfelseif isdefined("session.auth.username")>
-			<cfset loc.whereString = 'username = "#session.auth.email#" OR username = "#session.auth.username#"'>
-		<cfelse>
-			<cfset loc.whereString = 'username = "#session.auth.email#"'>
-		</cfif>
-		<cfset loc.orderbyString = "tag">
-		<cfquery datasource="#getDatasource()#" name="loc.tags">
-			SELECT *
-			FROM handbooktags
-			WHERE deletedAt IS NULL
-			AND (#loc.whereString#)
-			ORDER BY #loc.orderbyString#
-		</cfquery>
-		<cfreturn loc.tags>
-	</cffunction>
-=======
 	<cfscript>
 		function findMyTags(required struct auth) {
 				var whereString = "username = '#session.auth.email#'"
 				if ( isDefined("session.auth.username") ) { whereString = whereString & " OR username = '#session.auth.username#'" }
-				if ( isDefined("session.auth.coUsername") ) { whereString = whereString & " OR username = '#session.auth.coUsername#'" }
+				if ( isDefined("session.auth.rightslist") ) { whereString = whereString & " OR username IN (#commaListToQuoteList(session.auth.rightslist)#)" }
 				if ( isDefined("session.auth.coEmail") ) {  whereString = whereString & " OR username = '#session.auth.coEmail#'" }
 				var orderbyString = "tag"
 				// throw(message=whereString)
@@ -52,7 +30,6 @@
 		}
 		
 	</cfscript>
->>>>>>> Stashed changes
 
 	<cffunction name="findAllPersonTags">
 	<cfargument name="tags" required="true" type="string">
