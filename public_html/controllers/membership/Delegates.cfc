@@ -270,6 +270,9 @@
 	<!--- fgbcdelegates/create --->
 	<cffunction name="create">
 	<cfset var atLeastOneDelegate = 0>
+		<!--- <cfscript>
+			throw(serializeJson(params))
+		</cfscript> --->
 
 		<cfif not len(params.fgbcdelegate.submitter) or not len(params.fgbcdelegate.submitteremail)>
 			<cfset flashInsert(success="Please provide your name and email.")>
@@ -281,13 +284,21 @@
 		</cfif>
 
 		<!---loop through the total number of delegates allowed--->
-		<cfloop from="1" to="#params.delegatecount#" index="i">
+		<cfloop from="1" to="#params.delegatecount#" index="ii">
+
 			<!---check and make sure the name field has been filled--->
-			<cfif len(params.fgbcdelegatename[i])>
+			<cfif len(params.fgbcdelegatename[ii])>
 				<cfset atLeastOneDelegate = 1>
 				<!---Set up properties to be saved--->
-				<cfset params.fgbcdelegate.name = params.fgbcdelegatename[i]>
-				<cfset params.fgbcdelegate.email = params.fgbcdelegateemail[i]>
+				<cfset params.fgbcdelegate.name = params.fgbcdelegatename[ii]>
+		<cftry>
+			<cfset params.fgbcdelegate.email = params.fgbcdelegateemail[ii]>
+			<cfcatch>
+				<cfscript>
+					throw( serialize(params.fgbcdelegateemail["label"]) )
+				</cfscript>
+			</cfcatch>
+		</cftry>
 				<cfset fgbcdelegate = model("Fgbcdelegate").new(params.fgbcdelegate)>
 
 				<!--- Verify that the fgbcdelegate creates successfully --->
@@ -295,7 +306,7 @@
 					<cfset flashInsert(error="There was an error creating the fgbcdelegate.")>
 					<cfset renderPage(action="submit", key=params.key)>
 				</cfif>
-			</cfif>
+			</cfif>x
 		</cfloop>
 
 		<cfif atLeastOneDelegate>

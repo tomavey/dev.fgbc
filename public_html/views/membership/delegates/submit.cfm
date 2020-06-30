@@ -51,7 +51,7 @@
 
 						<div class="row">
 
-								<cfloop from="1" to="#church.delegatecount#" index="i">
+								<cfloop from="1" to="#church.delegatecount#" index="iii">
 
 										#includePartial("delegate")#
 
