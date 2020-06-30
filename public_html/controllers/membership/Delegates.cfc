@@ -155,7 +155,7 @@
 
 		<cfset var deadline = getSetting('delegatesSubmitDeadline') & '-' & year(now())>
 
-		<cfif !isBefore(deadline) || gotRights("office")>
+		<cfif !isBefore(deadline) && !gotRights("office") && !isDefined("params.open")>
 			<cfset redirectTo(action="closed")>
 			<cfabort>
 		</cfif>
