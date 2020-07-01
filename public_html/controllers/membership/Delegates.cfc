@@ -136,12 +136,14 @@
 	        <cfset redirectTo(action="show")>
 	    </cfif>
 
-	    <cfif isDefined("delegates.submitteremail")>
-		    <cfset sendEmail(template="email", to=delegates.submitteremail, from="tomavey@fgbc.org", cc="tomavey@fgbc.org", subject="Your FGBC Delegates")>
-	    <cfelse>
-		    <cfset sendEmail(template="email", to="tomavey@fgbc.org", from="tomavey@fgbc.org", subject=" FGBC Delegates")>
-	    </cfif>
-
+			<cfif !isLocalMachine()>
+				<cfif isDefined("delegates.submitteremail")>
+					<cfset sendEmail(template="email", to=delegates.submitteremail, from="tomavey@fgbc.org", cc="tomavey@fgbc.org", subject="Your Charis Fellowship Delegates")>
+				<cfelse>
+					<cfset sendEmail(template="email", to="tomavey@fgbc.org", from="tomavey@fgbc.org", subject=" Charis Fellowship Delegates")>
+				</cfif>
+			</cfif>
+			
 		<cfset renderPage(controller="membership.delegates", action="thankyou")>
 
 	</cffunction>

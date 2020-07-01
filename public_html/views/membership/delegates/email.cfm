@@ -44,6 +44,6 @@
 	Save use this link to edit your delegate information:
 	#linkTo(action="show", controller="membership.delegates", key=params.key, onlyPath=false)#
 </cfoutput>
- <h2 class="well">Delegate instructions and reports will be available at<br/> <a href="https://charisfellowship.us/page/delegates2019">charisfellowship.us/page/delegates2019</a>.<br/>  Please share this link with all your delegates</a></h2>
+ <h2 class="well">Delegate instructions and reports will be available at<br/> <a href="https://charisfellowship.us/page/delegates2020">charisfellowship.us/page/delegates2020</a>.<br/>  Please share this link with all your delegates</a></h2>
 </div>
 
