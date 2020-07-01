@@ -6,7 +6,7 @@
 	</p>
 	</cfif>
 		#startFormTag(controller="membership.delegates", action="submit")#
-			#selectTag(name='churchid', options=churches, textField='selectname', includeBlank='Select your church')#
+			#selectTag(name='churchid', options=churches, textField='selectNameCity', includeBlank='Select your church')#
 			#textfieldTag(name='captcha', placeholder='to avoid webbots', label='How many letters are in the word "grace"?')#
 			#submitTag(value='Go to the delegate form for this church', class="btn btn-primary")#
 		#endFormTag()#
@@ -26,10 +26,14 @@
 
 
 	<div class="well">
-		<p>#linkTo(text=getSetting('eventAsText'), href=getSetting("webpage"))# is a leadership conference sponsored by the #linkTo(text="Charis Fellowship", href="https://charisfellowship.us")# .  This conference includes dynamic speakers, a great location and meal gatherings focusing on ministry around the globe.  It also includes one official business meeting of Charis Fellowship (a.k.a. the Fellowship of Grace Brethren Churches, Inc).</p>
+		<cfif isBefore("2020-07-28")>
+			<p>The opportunity for declaring the Gospel of Jesus Christ through Charis Fellowship congregations has never been greater. Because our face-to-face meeting this year has been postponed until 2021, the annual business meeting of the Charis Fellowship (a.k.a. the Fellowship of Grace Brethren Churches, Inc.) will be help July 28 at 7:00 pm PDT / 4:00 pm EDT.</p> 
+		<cfelse>	
+			<p>#linkTo(text=getSetting('eventAsText'), href=getSetting("webpage"))# is a leadership conference sponsored by the #linkTo(text="Charis Fellowship", href="https://charisfellowship.us")# .  This conference includes dynamic speakers, a great location and meal gatherings focusing on ministry around the globe.  It also includes one official business meeting of Charis Fellowship (a.k.a. the Fellowship of Grace Brethren Churches, Inc).</p>
+		</cfif>
 
 		<p>
-		Member churches are eligible to send delegates to these business meetings to participate in the discussion and vote for things like:
+		Member churches are eligible to send delegates to this business meetings to participate in the discussion and vote for things like:
 		<ul>
 			<!---
 			<li>#linkTo(text="New members of the Fellowship Council (board of directors)", href="http://fgbc.org/nominate/list")#</li>
@@ -42,7 +46,7 @@
 		</ul>
 		</p>
 
-		<p>Member churches should submit the names of their approved delegates using this form before July 1.</p>
+		<p>Member churches should submit the names of their approved delegates using this form before #dateFormat(getSetting("delegatesSubmitDeadline"), "mmmm dd, yyyy")#.</p>
 	</div>
 </div>
 </cfoutput>
