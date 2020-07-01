@@ -27,7 +27,7 @@
 
 	<div class="well">
 		<cfif isBefore("2020-07-28")>
-			<p>The opportunity for declaring the Gospel of Jesus Christ through Charis Fellowship congregations has never been greater. Because our face-to-face meeting this year has been postponed until 2021, the annual business meeting of the Charis Fellowship (a.k.a. the Fellowship of Grace Brethren Churches, Inc.) will be help July 28 at 7:00 pm PDT / 4:00 pm EDT.</p> 
+			<p>The opportunity for declaring the Gospel of Jesus Christ through Charis Fellowship congregations has never been greater. Because our face-to-face meeting this year has been postponed until 2021, the annual business meeting of the Charis Fellowship (a.k.a. the Fellowship of Grace Brethren Churches, Inc.) will be held July 28 at 7:00 pm PDT / 4:00 pm EDT.</p> 
 		<cfelse>	
 			<p>#linkTo(text=getSetting('eventAsText'), href=getSetting("webpage"))# is a leadership conference sponsored by the #linkTo(text="Charis Fellowship", href="https://charisfellowship.us")# .  This conference includes dynamic speakers, a great location and meal gatherings focusing on ministry around the globe.  It also includes one official business meeting of Charis Fellowship (a.k.a. the Fellowship of Grace Brethren Churches, Inc).</p>
 		</cfif>
