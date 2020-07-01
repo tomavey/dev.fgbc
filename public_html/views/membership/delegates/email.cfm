@@ -43,7 +43,7 @@
 <cfoutput>
 	Save use this link to edit your delegate information:
 	#linkTo(action="show", controller="membership.delegates", key=params.key, onlyPath=false)#
-</cfoutput>
  <h2 class="well">Delegate instructions and reports will be available at<br/> <a href="#getDelegatesReportPage()#">#getDelegatesReportPage()#</a>.<br/>  Please share this link with all your delegates</a></h2>
+</cfoutput>
 </div>
 
