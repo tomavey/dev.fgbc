@@ -7,7 +7,7 @@
     <cftry>
     <p>Or you can bookmark this link: <a href="https://charisfellowship.us/membership/delegates/#params.key#">charisfellowship.us/membership/delegates/#params.key#</a></p>
     <cfcatch></cfcatch></cftry>
-    </cfoutput>
-    <h2 class="well">When ready (soon!), delegate instructions and reports will be available at<br/> <a href="https:/charisfellowship.us/page/delegates2020">charisfellowship.us/page/delegates2020</a>.<br/>  Please share this link with all your delegates</a></h2>
+    <h2 class="well">When ready (soon!), delegate instructions and reports will be available at<br/> <a href="#getDelegatesReportPage()#">#getDelegatesReportPage()#</a>.<br/>  Please share this link with all your delegates</a></h2>
+</cfoutput>
 </center>
 </cfif>

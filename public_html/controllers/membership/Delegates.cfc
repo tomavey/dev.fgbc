@@ -143,7 +143,7 @@
 					<cfset sendEmail(template="email", to="tomavey@fgbc.org", from="tomavey@fgbc.org", subject=" Charis Fellowship Delegates")>
 				</cfif>
 			</cfif>
-			
+
 		<cfset renderPage(controller="membership.delegates", action="thankyou")>
 
 	</cffunction>
@@ -419,6 +419,13 @@
 	<cfset test = GetDelegatesAllowed(arguments.churchid)>
 	<cfdump var="#test#"><cfabort>
 	</cffunction>
+
+<cfscript>
+	function getDelegatesReportPage(){
+		var year = year(now())
+		return "https://charisfellowship.us/page/delegates#year#"
+	}
+</cfscript>	
 
 	<cffunction name="welcome">
 		<cfset renderPage(layout="layout_naked")>
