@@ -354,11 +354,16 @@
 
 <cffunction name="getcommission">
 <cfargument name="tag" required="Yes">
+<cfargument name="username" default="office">
 	<cfquery datasource="#dsn#" name="tag_staff">
 		SELECT t.itemid, t.id, s.lname, s.fname, s.email, s.phone, s.phone2, s.id as personid
 		FROM handbooktags t, handbookpeople s
-		WHERE (tag = "#arguments.tag#") and (type = "person") and (t.itemid = s.id)
-		<cfif isdefined('url.username')>and username = '#url.username#'</cfif>
+		WHERE (tag = "#arguments.tag#") AND (type = "person") AND (t.itemid = s.id) 
+            <cfif isdefined('url.username')> 
+                 AND username = '#url.username#'
+            <cfelse>
+                 AND username='#arguments.username#'
+            </cfif>
 		and t.deletedAt IS NULL
 		GROUP BY itemid
 		ORDER BY lname
