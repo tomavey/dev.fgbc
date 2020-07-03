@@ -164,12 +164,16 @@
 
 <cffunction name="getstaffinfo">
 <cfargument name="tag" required="Yes">
+<cfargument name="userName" default="office">
 <cfargument name="asJson" default="false">
 <cfargument name="selectString" default='s.id, fname, lname, concat(fname," ",lname) as selectname, email, phone, itemid'>
 	<cfquery datasource="#dsn#" name="data">
 		SELECT #selectString#
 		FROM handbooktags t, handbookpeople s
 		WHERE (tag = "#arguments.tag#") and (type = "person") and (t.itemid = s.id)
+            <cfif isDefined("arguments.userName")>
+                  AND username = "#arguments.userName#" 
+            </cfif>
 		AND t.deletedAt IS NULL
 		ORDER BY lname
 	</cfquery>

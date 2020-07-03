@@ -1,6 +1,5 @@
 <cfcomponent extends="Controller" output="false">
 
-
 	<cffunction name="init">
 		<cfset usesLayout(template="/handbook/layout_handbook1", except="download,show,search")>
 		<cfset filters(through="gotBasicHandbookRights")>
@@ -312,7 +311,7 @@
 		</cfif>
 	</cffunction>
 
-	<cffunction name="removeFromTag">
+	<cffunction name="XremoveFromTag">
 		<cfif isdefined("session.auth.username")>
 			<cfset removeFromTag = model("handbooktag").deleteAll(where="tag='#params.tag#' AND itemid = '#params.itemid#' AND (username = '#session.auth.email#' OR username = '#session.auth.username#')", class="tooltip2", title="Receive notices of updates via email.")>
 		<cfelse>
@@ -320,6 +319,21 @@
 		</cfif>
 		<cfset redirectTo(back=true)>
 	</cffunction>
+
+<cfscript>
+	function removeFromTag(){
+		var whereString = "tag='#params.tag#' AND itemid = '#params.itemid#'"
+		if ( isDefined("params.username") ) {
+			whereString = whereString & " AND username = '#params.username#'"
+		} else if ( isDefined("session.auth.username") ) {
+			whereString = whereString & " AND (username = '#session.auth.email#' OR username = '#session.auth.username#')"
+		} else {
+			whereString = "tag='#params.key#' AND itemid = '#params.itemid#' AND username = '#session.auth.email#'"
+		}
+		var removeFromTag = model("handbooktag").deleteAll(where=whereString, title="Receive notices of updates via email.")
+		redirectTo(back=true)
+	}
+</cfscript>
 
 	<cffunction name="remove">
 		<cfif isdefined("session.auth.username")>

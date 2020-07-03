@@ -55,7 +55,7 @@
 					#linkTo(
 							text="x",
 							action="removeFromTag",
-							params="tag=#params.key#&itemid=#itemid#",
+							params="tag=#params.key#&itemid=#itemid#&username=#username#",
 							class="tooltipside",
 							title="Remove #fname# from #params.key#"
 							)#
@@ -99,7 +99,7 @@
 				#linkTo(
 						text="x",
 						action="removeFromTag",
-						params="tag=#params.key#&itemid=#itemid#",
+						params="tag=#params.key#&itemid=#itemid#&username=#username#",
 						class="tooltipside",
 						title="Remove #name# from #params.key#"
 						)#

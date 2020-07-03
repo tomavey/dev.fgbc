@@ -1,5 +1,10 @@
 <div id="extra" class="menu">
 <!---get email info from group--->
+<cfscript>
+  args = structNew()
+  args.tag = "fc"
+  args.username = "tomavey"
+</cfscript>
 <cfinvoke component="control" method="getstaffinfo" tag="fc" returnvariable="staff" />
 <!---create an emailall string--->
 <cfset emailall="">
