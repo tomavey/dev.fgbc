@@ -10,7 +10,6 @@
 
 	<cfoutput>
 	<h2>Tag: "#params.key#"</h2>
-	#flash("username")#
 
 	<div class="well">	
 		<p>

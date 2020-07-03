@@ -11,7 +11,7 @@
 	</cffunction>
 
 <cfscript>
-	function setFlashTagUsername(){
+	function setFlashTagUsername(userName){
 		try {
 			flashInsert(username=session.auth.username)
 		} catch (any e) {}
@@ -51,6 +51,15 @@
 	    	<cfset handbookTaggedPeople = model("Handbooktag").findAll(where="username = '#session.auth.email#' AND tag='#params.key#' AND type='person'", include="Handbookperson(Handbookstate)", order="lname,fname")>
 	    	<cfset handbookTaggedOrganizations = model("Handbooktag").findAll(where="username = '#session.auth.email#' AND tag='#params.key#' AND type='organization'", include="Handbookorganization(Handbookstate)", order="name")>
 		</cfif>
+		<cfscript>
+			var tagUserName = ""
+			if ( isDefined("handbookTaggedPeople.userName") ) {
+				tagUserName = handbookTaggedPeople.username[1]
+			} else if ( isDefined("handbookTaggedOrganizations.userName") ) {
+				tagUserName = handbookTaggedOrganizations.username[1]
+			}
+			session.temp.tagUserName = tagUserName
+		</cfscript>
 		<cfif isdefined("params.ajax")>
 			<cfset renderPartial("show")>
 		</cfif>
@@ -58,6 +67,12 @@
 		<cfset renderPage(layout="/handbook/layout_handbook")>
 
 	</cffunction>
+
+<cfscript>
+	void function clearSessionTemp(){
+		structDelete(session,"temp")
+	}
+</cfscript>
 
 	<cffunction name="download">
 
@@ -185,6 +200,10 @@
 	<cfargument name="type" default='#params.type#'>
 	<cfset var loc=structNew()>
 	<cfset loc = arguments>
+	<cfscript>
+		if ( isDefined("session.temp.tagUserName") ) { loc.username = session.temp.tagUserName }
+		clearSessionTemp()
+	</cfscript>
 
 		<cfloop list="#loc.tags#" index="i">
 			<cfset loc.tag = i>
