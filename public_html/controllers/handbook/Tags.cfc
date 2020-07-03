@@ -244,7 +244,7 @@
 <cfscript>
 	function shareTagWithGroup(params) {
 		var loc = params
-		// throw(message=serialize(loc))
+		throw(message=serialize(loc))
 		var tags = model("Handbooktag").findall(where="tag='#loc.tag#' AND username='#loc.username#'")
 		for ( tag in tags ) {
 			var thisTag = model("Handbooktag").findOne(where="id=#tag.id#")
