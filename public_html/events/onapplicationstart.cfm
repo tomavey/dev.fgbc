@@ -10,4 +10,5 @@
 --->
 <cfscript>
   this.serialization.preservecaseforstructkey = false
+  this.bufferOutput = true 
 </cfscript>
