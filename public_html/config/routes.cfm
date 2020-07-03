@@ -302,6 +302,7 @@
 			.get(name="duplicateTag", pattern="/tag/duplicate/[key]", controller="tags", action="duplicateTag")
 			.post(name="changeTag", pattern="/tag/change/", controller="tags", action="changeTag")
 			.post(name="shareTag", pattern="/tag/share/", controller="tags", action="shareTag")
+			.post(name="shareTagWithGroup", pattern="/tag/shareTagWithGroup/", controller="tags", action="shareTagWithGroup")
 			.post(name="tagSearchResults", pattern="/tagthissearch/", controller="tags", action="search")
 			.resources("tags")
 
