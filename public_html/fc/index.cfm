@@ -15,7 +15,12 @@
  <CFPARAM NAME="pageTitle" DEFAULT="Fellowship Council">
  <CFPARAM NAME="defaultFuseAction" DEFAULT="content">
 
- <cfset dsn = "fgbc_main_3">
+
+<cfscript>
+  control = createObject("control")
+  dsn = "fgbc_main_3"
+</cfscript>
+
 
 
  <!---  --->
