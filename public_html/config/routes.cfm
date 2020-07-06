@@ -304,6 +304,8 @@
 			.post(name="shareTag", pattern="/tag/share/", controller="tags", action="shareTag")
 			.post(name="shareTagWithGroup", pattern="/tag/shareTagWithGroup/", controller="tags", action="shareTagWithGroup")
 			.post(name="tagSearchResults", pattern="/tagthissearch/", controller="tags", action="search")
+			.post(name="orphanedTags", patter="/orphanedTags", controller="tags", action="orphanedTags")
+			.post(name="deleteOrphanedTags", pattern="/deleteOrphanedTags", controller="tags", action="deleteOrphanedTags")
 			.resources("tags")
 
 			.get(name="subscribeMe", pattern="/subscribeme/", controller="subscribes", action="updates")
