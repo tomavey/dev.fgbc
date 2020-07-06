@@ -22,6 +22,10 @@
 <!--- <cfdump var="#session.auth#">
 <cfdump var="#commaListToQuoteList(session.auth.rightslist)#"> --->
 
+<!--- <cfscript>
+	throw(serialize(handbooktags))
+</cfscript> --->
+
 <cfoutput query="handbookTags" group="tag" groupcasesensitive=false>
 <cfset count = 0>
 
@@ -34,7 +38,7 @@
 		#linkTo(
 			text="<span style='color:grey'><sup>x</sup></span>", 
 			route="HandbookRemove", 
-			params="tag=#tag#",
+			params="tag=#tag#&username=#username#",
 			class="tooltipside",
 			title="Delete tag: #tag#",
 			confirm="Are you sure?",

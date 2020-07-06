@@ -333,9 +333,23 @@
 		var removeFromTag = model("handbooktag").deleteAll(where=whereString, title="Receive notices of updates via email.")
 		redirectTo(back=true)
 	}
+
+	function remove() {
+		var whereString = ""
+		if ( isDefined("params.username") ) {
+			whereString = "tag='#params.tag#' AND username = '#params.username#'"
+		} else if ( isdefined("session.auth.username") ) {
+			whereString = "tag='#params.tag#' AND (username = '#session.auth.email#' OR username = '#session.auth.username#')"
+		} else {
+			whereString = "tag='#params.tag#' AND username = '#session.auth.email#'"
+		}
+		model("handbooktag").deleteAll(where=whereString, class="tooltip2", title="Receive notices of updates via email.")
+		returnBack()
+	}
+
 </cfscript>
 
-	<cffunction name="remove">
+	<cffunction name="Xremove">
 		<cfif isdefined("session.auth.username")>
 			<cfset removeTag = model("handbooktag").deleteAll(where="tag='#params.tag#' AND (username = '#session.auth.email#' OR username = '#session.auth.username#')", class="tooltip2", title="Receive notices of updates via email.")>
 		<cfelse>
