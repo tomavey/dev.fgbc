@@ -43,6 +43,9 @@ component extends="Controller" output="false" {
 	<!--- contents/new --->
 	function new(){
 		content = model("Maincontent").new()
+		if ( isDefined("session.auth.email") ) {
+			content.author = session.auth.email
+		}
 	}
 
 	<!--- contents/edit/key --->
