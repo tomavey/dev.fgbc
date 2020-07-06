@@ -28,7 +28,7 @@ src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js">
 <table style="width:50%">
 <cfset phoneList = "">
 <cfoutput query="commission">
-	<cfset phoneList = phoneList & ", " & #phone2#>
+	<cfset phoneList = phoneList & " " & #phone2#>
 	<tr>
 		<td style="width:30%"><a href="/index.cfm/handbook/people/#personid#" target="_new">#fname# #lname#</a></td>
 		<td>
@@ -44,7 +44,7 @@ src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js">
 </tr>
 <tr>
 	<td colspan="2">
-		All cell numbers: <cfoutput>#replace(phoneList,", ,","","one")#</cfoutput> 
+		All cell numbers: <cfoutput>#replace(phoneList,"","","one")#</cfoutput> 
 	</td>
 </tr>
 </table>	
