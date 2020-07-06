@@ -1,0 +1,19 @@
+<div class="container">
+<h1>Login Page</h1>
+
+<div class="alert alert-danger" ng-show="error.length">
+	{{error}}
+</div>
+
+<p>{{credentials.email}}</p>
+<form role="form" ng-submit="login()">
+	<div class="form-group">
+		<label for="email">Email:</label> <input type="text"
+			class="form-control" id="email" name="email" ng-model="credentials.email" placeholder="Use your qualified Email Address"/>
+	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<span ng-show="$root.authenticate">Logged in as {{auth.email}}</span>
+
+</div>

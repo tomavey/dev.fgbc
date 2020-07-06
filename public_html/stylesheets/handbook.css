@@ -1,0 +1,634 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	background-color:#F3F4F4;
+	background-repeat:repeat-x;
+	text-align:center;
+	color:#1F0C0C
+}
+ul {
+    list-style: none
+}
+a {
+    color: #000
+}
+
+.container,
+#main {
+    background-color: #FFF;
+    text-align: left
+}
+#main {
+    border: solid #314A47 3px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 200px;
+    position: relative
+}
+#pageheader {
+    background-image: url(../images/handbook/onlineheader2020.jpg);
+    background-size: 100%;
+    height: 150px;
+    text-align: center;
+    border-bottom: #75744a solid 3px;
+    display: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #005086;
+    color: white;
+}
+#navigation {
+    float: left;
+    width: 24%;
+    font-size: 1.3em
+}
+#navigation ul {
+    font-size: 1.2em;
+    list-style: none;
+    margin-top: 20px;
+    position: relative
+}
+#navigation ul span {
+    background-color: #FFF;
+    border: 2px solid #9A373C;
+    display: none;
+    left: 100px;
+    margin-top: 15px;
+    padding: 5px;
+    position: absolute;
+    width: 150px;
+    z-index: 3
+}
+.menuselected {
+    background-color: #C2D2EB;
+    border: 1px solid #0E0E18;
+    font-size: 1em;
+    font-weight: bolder
+}
+#navigation a {
+    display: block;
+    height: 20px;
+    margin: 2px;
+    padding: 2px;
+    text-decoration: none;
+    color: #0E0E18
+}
+#navigation a:hover {
+    border: 1px solid #0E0E18;
+    height: 22px
+}
+#info {
+    float: right;
+    padding-top: 10px;
+    width: 75%;
+    font-size: 1.1em
+}
+#maininfo p {
+    margin: 0
+}
+#showinfo p {
+    margin: 10px
+}
+#showinfo p span {
+    font-style: italic;
+}
+#maininfo table td,
+#maininfo table th,
+#quicksearch table td,
+#quicksearch table th h2,
+.checkin {
+    text-align: center
+}
+.checkin {
+    font-weight: bold
+}
+table#content td textarea {
+    width: 600px
+}
+#thisAjaxInfo {
+    border: 1px solid gray;
+    float: right;
+    margin: 10px;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+    top: 0
+}
+.sectiontitle {
+    margin: 20px 0 5px
+}
+#introsidebar ul {
+    padding-left: 10px
+}
+#introsidebar ul ul {
+    margin-left: 10px
+}
+#editlink {
+    text-align: right
+}
+#churchAddressToCopy {
+    display: none
+}
+#ajaxinfo img {
+    float: right
+}
+#segmentlinks a {
+    display: block;
+    float: left;
+    text-align: center;
+    width: 30px
+}
+#segmentlinks a:hover,
+#segmentlinks a.selected,
+#prevNext a:hover {
+    background-color: #DFF9FF
+}
+#prevNext {
+    margin: 20px 0;
+    border: 1px solid gray;
+    width: 150px;
+    text-align: center
+}
+#prevNext a {
+    margin: 0 2px
+}
+#clear {
+    clear: both
+}
+#minreport ul {
+    list-style: inside
+}
+#searchstring {
+    border: 2px inset #D5E8EC;
+    width: 300px
+}
+#loading {
+    border: 1px solid #00A5D3;
+    color: #00A5D3;
+    background-color: white;
+    display: none;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    top: 120px;
+    width: 250px;
+    z-index: 4
+}
+#loadingimage {
+    display: none;
+    margin: 0 auto;
+    width: 235px
+}
+.peoplesearch,
+.churchsearch {
+    text-decoration: underline
+}
+#popup {
+    background-color: #FFF;
+    border: double 25px #101731;
+    display: none;
+    left: 50%;
+    margin-left: -200px;
+    padding: 10px;
+    position: absolute;
+    text-align: left;
+    top: 10%;
+    width: 400px;
+    z-index: 5
+}
+.opaque {
+    -ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=60);
+    filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=60);
+    opacity: 0.6
+}
+#ajaxinfo a {
+    display: block
+}
+#checkin p {
+    border: 1px solid gray;
+    font-size: 1.3em;
+    font-weight: 700;
+    margin: 20px auto;
+    width: 600px
+}
+#tooltip {
+    background: #E3E9F5;
+    border: 1px solid #071A38;
+    color: #333;
+    display: none;
+    padding: 2px 5px;
+    position: absolute
+}
+.container,
+#ajaxinfo {
+    position: relative
+}
+table#content td,
+#maininfo div#minreport table tbody tr td {
+    text-align: left
+}
+#quicksearch {
+    margin-bottom: 10px
+}
+#minreport {
+    padding-right: 10px
+}
+#content {
+    margin: 20px;
+    font-style: normal
+}
+#profile input {
+    width: 300px
+}
+#profile label {
+    display: block;
+    width: 800px;
+    font-weight: normal
+}
+#profile .checkboxes label {
+    display: inline
+}
+#profile .checkboxes input {
+    display: inline;
+    width: 50px
+}
+#profile textarea {
+    width: 800px;
+    height: 150px
+}
+#profile form {
+    width: 800px;
+    margin: 0 auto
+}
+#profile span {
+    font-style: italic;
+    margin-left: -30px
+}
+#profile .well {
+    padding-left: 50px
+}
+div.user {
+    background-color: transparent;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: none;
+    border-width: none;
+    padding: 1px;
+    text-align: right;
+    color: #5A5A5A;
+    font-size-adjust: -1;
+}
+div.handbooklisting {
+    text-align: left;
+    padding: 10px;
+    background-color: #FFFF80;
+}
+div.handbooklistingblue {
+    text-align: left;
+    padding: 10px;
+    background-color: #80FFFF;
+}
+.listedcity {
+    font-size: larger;
+    font-weight: bolder;
+}
+p.churchname {
+    color: #464646;
+    font-weight: bold;
+    font-size: large;
+}
+.churchdata {
+    color: black;
+}
+div p.choices {
+    width: 300px;
+}
+p#welcome {
+    font-size: larger;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px;
+}
+p#instructions,
+p#instrinfo {
+    text-align: center;
+    margin: 10px;
+}
+p#instrinfo {
+    color: #cc0000;
+    font-size: large;
+}
+div#instrform {
+    margin-right: auto;
+    margin-left: auto;
+    width: 300px;
+    border: 1px solid gray;
+    text-align: center;
+}
+div.confirmremove {
+    text-align: center;
+}
+div.confirmremove p {
+    margin: 10px;
+}
+div.addstaff {
+    text-align: right;
+}
+div.oops p {
+    text-align: center;
+}
+div.oops p h2 {
+    text-align: center;
+}
+div.whatsup {
+    border: 1px solid gray;
+    background-color: #ffcc33;
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.whatsup p {
+    text-align: left;
+    margin: 10px;
+}
+.multisite a span {
+    display: none
+}
+.multisite a:hover span {
+    display: block;
+    transparency: none;
+    font-size: 12px;
+}
+div.multisite {
+    text-align: center;
+    border: none;
+}
+div.reviewers {
+    border: 1px gray solid;
+    background-color: #ffffcc;
+    margin: 20px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.nonstaff {
+    text-align: center;
+}
+.handbookupdate {
+    margin: 0 auto;
+    width: 600px;
+    text-align: center
+}
+.datasource {
+    font-size: smaller;
+    color: gray
+}
+#submitbutton,
+.submitbutton {
+    text-align: center
+}
+.handbookupdate table textarea {
+    width: 100%;
+    height: 20px
+}
+.eachstaff {
+    border: 1px solid gray;
+    margin-bottom: 10px
+}
+#addstaff {
+    margin-top: 20px
+}
+#headinfo {
+    border: 1px solid gray;
+    background-color: #98B0DC;
+    padding: 10px
+}
+.handbookupdate tr > td:first-child {
+    text-align: right
+}
+#welcome {
+    float: right;
+    color: #67005E;
+    display: absolute;
+    top: 2px;
+    left: 10px;
+    margin: 0px 2px;
+    color:white;
+}
+#welcome a {
+    color:white
+}
+#mobilephone {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px
+}
+#mobilelink {
+    text-align: center;
+    font-size: 1.2em
+}
+#commentinstructions {
+    font-size: 1.2em
+}
+.updated {
+    text-align: right;
+    padding-right: 30px;
+    color: #666666
+}
+.eachcomment {
+    border: 1px solid gray;
+    margin: 5px;
+    padding: 5px;
+    background: #FFF8EF
+}
+.label {
+    text-align: right
+}
+#editchurch td input {
+    width: 200px
+}
+.center {
+    text-align: center
+}
+p#stafflist, p.stafflist {
+    margin: 0 0 0 20px
+}
+div#peopleUpdates {
+    width: 45%;
+    float: left
+}
+div#organizationUpdates {
+    width: 45%;
+    float: right
+}
+.update {
+    border: 1px solid gray;
+    padding: 5px;
+    margin: 10px
+}
+.errorMessage {
+    font-size: 1.3em;
+    color: red;
+    font-weight: bold
+}
+#officeonly {
+    border: 1px solid gray;
+    padding: 5px;
+    margin-top: 20px
+}
+#tagsinfo {
+    background-color: #ffffca;
+    padding: 10px;
+    margin-top: 20px
+}
+#notesinfo {
+    background-color: #dafbfe;
+    padding: 10px;
+    margin-top: 20px
+}
+#ajaxinfo h2,
+#ajaxinfo h1 {
+    margin: 20px 0 5px 0
+}
+.btn-tag {
+    width: 250px
+}
+#show p,
+#search p {
+    margin-left: 20px
+}
+td.Growing {
+    font-weight: bold;
+    background-color: #CCFFCC
+}
+td.Declining {
+    font-weight: bold;
+    background-color: #FF9933
+}
+td.Static {
+    background-color: #ffffca;
+    font-weight: bold;
+}
+#yellowpages li,
+#bluepages li {
+    width: 700px
+}
+#yellowpages li span,
+#bluepages li span {
+    float: right
+}
+div#bluepages {
+    background-color: #D2FFFF
+}
+div#yellowpages {
+    background-color: #FFFFB9
+}
+td.paymentsPopup span:last-child,
+td.paymentsPopup div:last-child {
+    display: none;
+    position: relative;
+    width: 300;
+}
+td.paymentsPopup:hover span:first-child,
+td.paymentsPopup:hover div:first-child {
+    display: none
+}
+td.paymentsPopup:hover span:last-child,
+td.paymentsPopup:hover div:last-child {
+    display: block;
+    background-color: white;
+    border: 2px solid gray;
+    border-radius: 10px;
+    padding: 5px;
+    width: 200px;
+    position: absolute;
+    top: 100;
+    right: 200px;
+}
+.extraprofile {
+    font-style: italic;
+    background-color: #ECFFFF;
+    padding: 3px
+}
+.thumbnail {
+    height: 200px;
+    text-align: center
+}
+.menu {
+    text-align: center;
+    color: black
+}
+span.icon-bar {
+    margin: 0 auto;
+    color: black
+}
+input.buttongo {
+    margin-left: 5px;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 0;
+    background: url(../images/login_go.png) top left no-repeat;
+}
+#editicon {
+    float: right
+}
+.positioninfo {
+    color: gray;
+    font-size: .9em
+}
+.download {
+    float: right
+}
+.updatedat {
+    color: gray;
+    font-size: .8em;
+    padding-left: 15px
+}
+.help {
+    float: right;
+}
+#help li {
+    font-size: 1.3em
+}
+p.bluepageextrainfo {
+    margin-left: 20px !important;
+    color: blue
+}
+p.bluepageextrainfo a {
+    color: blue;
+}
+span.task {
+    display: none;
+}
+a.task:hover span.task {
+    display: block;
+}
+p.sortByLname {
+    float: right;
+    font-size: .8em;
+    color: gray;
+}
+p.lastreviewed {
+	font-size:.8em;
+	color:grey;
+}
+
+.navbar-inner {
+    background-color: white;
+    background-image: none;
+}
+
+li.preview {
+    text-align: center;
+    font-size: .8em;
+    color: lightgrey;
+    margin-bottom: 5px;
+}
+
+.statsInfo {
+    width:90%;
+}    

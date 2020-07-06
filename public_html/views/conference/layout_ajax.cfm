@@ -1,0 +1,3 @@
+<cfoutput>
+#contentForLayout()#
+</cfoutput>

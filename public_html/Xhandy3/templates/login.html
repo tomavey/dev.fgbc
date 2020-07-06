@@ -1,0 +1,15 @@
+<ion-view view-title="Login">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right">
+            <form role="form" ng-submit="login()">
+                <div class="form-group">
+                    <label for="email">Email:</label> <input type="text"
+                        class="form-control" id="email" name="email" ng-model="credentials.email" placeholder="Use your qualified Email Address"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

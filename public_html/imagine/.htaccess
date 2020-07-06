@@ -1,0 +1,16 @@
+
+RewriteEngine on
+# this file can be deleted if you're not planning on using URL rewriting with Apache.
+# you can add your own files and folders that should be excluded from URL rewriting by adding them to the "RewriteCond" line below.
+# please read the online documentation on http://cfwheels.org for more information about URL rewriting.
+
+# UNCOMMENT ALL LINES BELOW THIS ONE TO TURN ON THE URL REWRITING RULES
+
+# Options +FollowSymLinks
+RewriteEngine Off
+# RewriteCond %{REQUEST_URI} !^.*/(flex2gateway|jrunscripts|cfide|cfformgateway|railo-context|files|images|javascripts|miscellaneous|api|fc|stylesheets|robots.txt|sitemap.xml|rewrite.cfm)($|/.*$) [NC]
+# RewriteRule ^(.*)$ ./rewrite.cfm/$1 [L]
+RewriteCond %{HTTP_HOST} ^imagine\.fgbc\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.imagine\.fgbc\.org$
+RewriteRule ^/?$ "http\:\/\/www\.fgbc\.org\/imagine" [R=301,L]
+

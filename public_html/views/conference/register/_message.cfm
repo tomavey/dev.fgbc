@@ -1,0 +1,1 @@
+<div id="popup"><cfoutput>#flash("welcome")#</cfoutput></div>

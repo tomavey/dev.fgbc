@@ -1,0 +1,23 @@
+<div class="container handy-staff handy-stafffind" ng-show="members.length > 0">
+	<div class="row">
+		<div class="form-group">
+			<input ng-model="query" ng-model-options="{ debounce: 200 }" type="text" placeholder="Search Members" class="input-xlarge search-query form-control"/>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading list-group-item">
+				AGBM Members assigned to:
+				<a ng-href="#/staff/{{rep.repid}}">
+					{{rep.repname}}
+				</a>
+			</div>
+			<div class="panel-body">
+				<div class="list-group" id="handy-find-list">
+					<a ng-repeat="member in members | filter:query track by $index" ng-href="#/staff/{{member.id}}" class="list-group-item">{{member.lname}},{{member.fname}} - {{member.name}} {{member.org_city}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

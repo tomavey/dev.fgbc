@@ -1,0 +1,295 @@
+/*frsf
+*	General Elements
+*/
+body{
+	background-color: #e8e8e8;
+}
+.putRight{
+	float:right;
+}
+
+.addBottomBorder{
+	border-bottom:1px solid #d1d1d1;
+}
+
+h3 {
+	color:#555;
+}
+
+.contentStart{
+	margin-top:20px;
+	padding-bottom:25px;
+}
+
+
+
+/*
+* OVERRIDE ANY BOOTSTRAP STYLING
+*/
+.well{
+	background-color:#ededed;
+}
+
+.contentBg{
+	background-color:white;
+}
+
+/*
+*	Header Section
+*/
+
+#header-wrapper{
+	background:#f6f5f2 url(/images/newLayout/top-fade.png) repeat-x scroll top left;
+}
+
+#header-wrapper a{
+	color:#383838;
+}
+
+#header-wrapper a.btn-primary{
+	color:white;
+	text-align: center;
+	font-size: .8em;
+}
+
+#header{
+	height:120px;
+	position:relative;
+}
+
+/* footer section */
+#footer-wrapper{
+	background: url(/images/footBg.png) scroll top left;
+	font-family:Helvetica, Arial, serif;
+	min-height: 325px;
+	margin-top:20px;
+}
+
+#footer-wrapper h4{
+	font-size:14px;
+	font-weight: bold;
+	margin:15px 0 5px 0;
+}
+
+#footer-wrapper a,
+#footer-wrapper h4,
+#footer-wrapper h4 a{
+	color:white;
+}
+
+#footer-wrapper a{
+	font-size:13px;
+	color:#a7a7a7;
+}
+
+#footer-wrapper .linkGroup{
+	float:left;
+	margin:10px 0 10px 20px;
+	padding:0 20px 10px 0;
+	padding-right:20px;
+	border-right:1px solid #333;
+	min-height:250px;
+
+}
+
+#footer-wrapper .linkGroup > div > h4{
+	display:inline;
+	margin:0 10px;
+}
+
+#footer-wrapper .linkGroup > div{
+	margin-top:15px;
+}
+
+#footer-wrapper .linkGroup span.rss a{
+	color:#b75739;
+	padding-left:5px;
+}
+
+/* Top links */
+#top-links{
+	margin-top:10px;
+}
+
+#top-links a:hover{
+	background-color: none;
+}
+
+/* Logo */
+#logo-wrapper{
+	background:transparent url(/images/newLayout/logo.png);
+	left:25px;
+	width:173px;
+	height:225px;
+	position:absolute;
+	z-index: 1030;
+}
+
+#logo-wrapper-admin{
+	background:transparent url(/images/newLayout/logo-admin.png);
+	left:25px;
+	width:80px;
+	height:104px;
+	position:absolute;
+	z-index: 1030;
+}
+
+#logo-wrapper:hover{
+	cursor:pointer;
+}
+
+#logo-wrapper > div{
+	position:absolute;
+	bottom:5px;
+	text-align: center;
+	color:#eeeeee;
+}
+
+/* main navigation links */
+#main-links-wrapper{
+	position:absolute;
+	bottom:10px;
+}
+
+#main-links-wrapper a{
+	font-size:20px;
+	padding-right:35px;
+}
+
+/* Banner */
+
+
+.rslides {
+	position:absolute;
+	list-style: none;
+	overflow: hidden;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+
+.rslides li{
+	-webkit-backface-visibility:hidden;
+	position: absolute;
+	display: none;
+	width: 100%;
+	left: 0;
+	top: 0;
+}
+
+.rslides li:first-child {
+	position: absolute;
+	display: block;
+	float: left;
+}
+
+.rslides img {
+	display: block;
+	height: auto;
+	float: left;
+	width: 100%;
+	border: 0;
+}
+
+
+/* Banner */
+.categorymenulist {float:left;margin-right: 40px}
+
+
+
+/*
+* 	CONTENT SECTION
+*/
+
+#content-wrapper{
+	background:transparent url(/images/newLayout/header-shadow.png) repeat-x scroll top left;
+}
+
+/* Banner */
+#banner{
+	
+	width:940px;
+	margin:0 auto;
+	margin-top:24px;
+	position:relative;
+	height:420px; 
+}
+
+/* image links */
+#imageLinks{
+	margin-top:-20px;
+}
+
+/* FEED SECTION */
+
+
+/* ANNOUNCEMENT SECTION */
+.announcementBlock{
+	border-bottom:1px solid #d1d1d1;
+	padding:10px 0;
+}
+.announcementDate{
+	text-align: center;
+	font-weight: bold;
+	color:#999;
+}
+
+.announcementDate span{
+	display:block;
+}
+
+h4.announcmentHeader{
+	margin:0;
+	font-weight: normal;
+}
+
+.announcementContent p{
+	margin-top:10px;
+}
+
+.spotlightImageHolder{
+	margin-bottom:20px;
+}
+
+.spotlightImageHolder img{
+	min-width: 100%;
+	height:auto;
+}
+
+/* ABOUT -->> OUR STORY */
+#NewLayoutstory h1{
+	font-size:18px;
+	color:#555;
+}
+
+span.expand {
+	display:none;
+	position:absolute;
+	width:200px;
+	border:1px solid gray;
+	background-color:white;
+	margin:-2px 2px;
+	padding:2px;
+}
+
+div.modal-left {
+	width:48%;
+	float:left;
+}
+
+div.modal-right {
+	width:48%;
+	padding-left: 8px;
+	float: right;
+	border-left: 2px solid gray;
+}
+
+td.eachblog div.postbox {
+	margin-top: 20px;
+	border-bottom: 1px gray dashed;
+	padding:5px;
+}
+
+div#creditfooter {
+	display: none;
+}

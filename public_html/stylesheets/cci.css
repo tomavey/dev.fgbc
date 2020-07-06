@@ -1,0 +1,51 @@
+#cci {
+    margin-top:30px;
+}
+.title, .sectionheader, .clusterheader, .clustersubheader {
+    text-align:center;
+    font-weight:bolder;
+    margin:20px 0 20px 0;
+}
+.title {
+    font-size: 2.2em;
+    margin-top:40px;
+    line-height:35px;
+}
+
+.sectionheader {
+    font-size: 1.8em;
+}
+
+.clusterheader {
+    font-size: 1.5em;
+    line-height:35px;
+}
+
+.clustersubheader {
+    font-size: 1.2em;
+}
+
+.itemheader {
+    font-weight:bold;
+}
+.popup {
+    display:none;
+    position:absolute;
+    background-color:white;
+    margin-top:-40px;
+    padding:5px;
+    border:1px solid grey;
+    border-radius: 5px;
+}
+
+a:hover + span {
+    display:inline;
+}
+
+sup {
+    margin:0 2px;
+}
+
+#footnotes ul {
+    list-style:none;
+}

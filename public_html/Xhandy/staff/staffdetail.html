@@ -1,0 +1,45 @@
+<div class="container handy-staff handy-staffdetail">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+		{{staff.fname}} {{staff.lname}}<span ng-show="staff.spouse" class="spousename">, {{staff.spouse}}</span>
+		</div>
+		<div class="panel-body">
+		<div ng-show="staff.file.length">
+		<a ng-href="/images/handbookpictures/web_{{staff.file}}">
+		<img ng-src="/images/handbookpictures/thumb_{{staff.file}}"/>
+		</a>
+		</div>
+		<ul class="list-unstyled">
+			<li ng-show="staff.address1.length">
+				{{staff.address1}}
+			</li>
+			<li ng-show="staff.address2.length">
+				{{staff.address2}}
+			</li>
+			<li ng-show="staff.city.length">
+				{{staff.city}}, {{staff.state}} {{staff.zip}}
+				</li>
+			<li ng-show="staff.email.length">
+				<a href="mailto:{{staff.email}}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;{{staff.email}}</a>
+				</li>
+			<li ng-show="staff.phone.length">
+				<a ng-href="tel:{{staff.phone}}"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>&nbsp;{{staff.phone}}</a>
+			</li>
+			<li ng-show="staff.phone2.length">
+				<a ng-href="tel:{{staff.phone2}}"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;{{staff.phone2}}</a>
+			</li>
+			<li ng-show="staff.birthdayasstring.length">
+				Birthday: {{staff.birthdayasstring.slice(-5)}}
+			</li>
+			<li ng-show="staff.birthdayasstring.length">
+				Anniversary: {{staff.anniversaryasstring.slice(-5)}}
+			</li>
+		</ul>
+		<ul class="list-unstyled">
+			<li ng-repeat="position in positions track by $index">
+			{{position.position}} - <a ng-href="#/church/{{position.organizationid}}">{{position.name}}</a>
+			</li>
+		</ul>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,9 @@
+#invoice {width:600px; margin:0 auto}
+#invoicePayment {border:1px solid gray;background-color:#c5fccc;margin:10px;padding:5px}
+#invoiceItems {}
+#invoiceItems th {padding:0 3px}
+#invoiceItems td {padding:0 0 0 15px}
+#invoice tr.invoiceRegName td {font-size:1.3em;font-weight:bold;padding:10px 0}
+#invoice #totalCost {text-align:center;font-size:1.3em;font-weight:bold;padding:20px 0}
+#invoice table {margin:0 auto}
+#invoice .invoiceItem {font-weight:bold}

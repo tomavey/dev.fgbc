@@ -1,0 +1,59 @@
+<cfsavecontent variable="dashboard">
+  <h1>Dashboard</h1>
+  <table class="table table-stripped span8">
+    <cfoutput>
+      <thead>
+        <tr>
+          <th>
+          &nbsp;
+          </th>
+          <th>
+            #dataThisYear.year#
+          </th>
+          <th>
+            #dataPreviousYear.year#
+          </th>
+          <th>
+            #dataPreviousPreviousYear.year#
+          </th>
+        </tr>
+      <thead>
+    <tbody>
+        <tr>
+          <th>
+            Members:
+          </th>
+          <td>
+            #dataThisYear.membersCount#
+          </td>
+          <td>
+            #dataPreviousYear.membersCount#
+          </td>
+          <td>
+            #dataPreviousPreviousYear.membersCount#
+          </td>
+        </tr>
+        <tr>
+          <th>
+            Fees:
+          </th>
+          <td>
+            #numberformat(dataThisYear.totalFees,"$__,")#
+          </td>
+          <td>
+            #numberformat(dataPreviousYear.totalFees,"$__,")#
+          </td>
+          <td>
+            #numberformat(dataPreviousPreviousYear.totalFees,"$__,")#
+          </td>
+        </tr>
+    </tbody>
+    </cfoutput>
+  </table>
+  <p>Note: Past membership numbers do not include names that have been deleted from the database. For example: a person who was an member in 2011 but passed away before 2012 is removed from the database so they are not included in the 2011 membership total.</p>
+  
+</cfsavecontent>
+
+<cfoutput>
+  #dashboard#
+</cfoutput>

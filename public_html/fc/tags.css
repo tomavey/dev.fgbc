@@ -1,0 +1,21 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+td {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+th {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.smallestTag { font-size: 11px; }
+
+.smallTag { font-size: 13px; }
+
+.mediumTag { font-size: 16px; }
+
+.largeTag { font-size: 18px; }
+
+.largestTag { font-size: 20px; }
