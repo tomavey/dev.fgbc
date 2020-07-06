@@ -386,6 +386,29 @@
 			session.auth.coUsername = params.coUserName
 		}
 	}
+
+	function orphanedTags(){
+		var tags = model("Handbooktag").findAll()
+		orphanedTags = queryFilter(tags, function(el){
+			var person = model("Handbookperson").findOne(where="id = #el.itemid#", include="State")
+			var organization = model("Handbookorganization").findOne(where="id = #el.itemid#", include="State")
+			if ( isObject(person) || isObject(organization) ) {
+				return false
+			} else {
+				return true
+			}
+		})
+		return orphanedTags
+	}
+
+	function deleteOrphanedTags(){
+		orphanedTags = orphanedTags()
+		queryEach(orphanedTags, function(el){
+			var tag = model("Handbooktag").findOne(where="id=#el.id#")
+			tag.delete()
+		})
+		redirectTo(action="orphanedTags")
+	}
 </cfscript>
 
 </cfcomponent>
