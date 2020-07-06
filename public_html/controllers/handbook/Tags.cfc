@@ -29,6 +29,7 @@
 
 	<!--- handbook-tags/show/key --->
 	<cffunction name="show">
+		<cfset var whereString = "">
 		<cfset setCoUserName(params)>
 		<cfset usesLayout(template="/handbook/layout_handbook", except="download")>
 		<cfset people = model("Handbookperson").findAll(where="p_sortorder < 900", include="Handbookstate,Handbookpositions", order="lname,fname,city", group ="id")>
@@ -36,9 +37,9 @@
 
 		<!--- Find the record --->
 		<cfif isdefined("session.auth.username")>
-				<cfset var whereString = "(
-					username = '#session.auth.email#' 
-					OR username = '#session.auth.username#'
+				<cfset whereString = "(
+					username LIKE '%#session.auth.email#%' 
+					OR username LIKE '%#session.auth.username#%'
 					OR username IN (#commaListToSingleQuoteList(session.auth.rightslist)#)
 					) 
 					AND tag='#params.key#'" 
@@ -47,8 +48,9 @@
 	    	<cfset handbookTaggedPeople = model("Handbooktag").findAll(where=whereString & " AND type='person'", include="Handbookperson(Handbookstate)", order="lname,fname")>
 	    	<cfset handbookTaggedOrganizations = model("Handbooktag").findAll(where=whereString & " AND type='organization'", include="Handbookorganization(Handbookstate)", order="name")>
 		<cfelse>
-	    	<cfset handbookTaggedPeople = model("Handbooktag").findAll(where="username = '#session.auth.email#' AND tag='#params.key#' AND type='person'", include="Handbookperson(Handbookstate)", order="lname,fname")>
-	    	<cfset handbookTaggedOrganizations = model("Handbooktag").findAll(where="username = '#session.auth.email#' AND tag='#params.key#' AND type='organization'", include="Handbookorganization(Handbookstate)", order="name")>
+				<cfset whereString = "username LIKE '%#session.auth.email#%' AND tag='#params.key#'">
+	    	<cfset handbookTaggedPeople = model("Handbooktag").findAll(where=whereString & " AND type='person'", include="Handbookperson(Handbookstate)", order="lname,fname")>
+	    	<cfset handbookTaggedOrganizations = model("Handbooktag").findAll(where=whereString & " AND type='organization'", include="Handbookorganization(Handbookstate)", order="name")>
 		</cfif>
 		<cfscript>
 			var tagUserName = ""
@@ -219,11 +221,14 @@
 	<cfargument name="tag" default="#params.tag#">
 	<cfargument name="username" default="#params.username#">
 	<cfargument name="newuserId" default="#params.newuserId#">
+	<cfargument name="shareOrCopy" default="#params.shareOrCopy#">
 	<cfargument name="type" default="person">
 	<cfset var loc=arguments>
 	<cfset var args=structNew()>
 
 	<cfset loc.newusername = model("Handbookperson").findOne(where="id=#loc.newuserId#", select="email").email>
+
+
 	<cfif loc.newusername is "">
 		<cfset flashInsert(success="This tag was NOT shared. This person does not have an email address in the handbook.")>
 		<cfset returnBack()>
@@ -231,9 +236,17 @@
 	<cfset loc.tags =model("Handbooktag").findall(where="tag='#loc.tag#' AND username='#loc.username#'")>
 		<cfloop query="loc.tags">
 			<cfset args.itemid = itemid>
-			<cfset args.tags = "#loc.tag#_from_#loc.username#">
-			<cfset args.username = loc.newusername>
-			<cfset setTags(argumentcollection=args)>
+			<cfif loc.shareOrCopy === "copy">
+				<cfset args.tags = "#loc.tag#_from_#loc.username#">
+				<cfset args.username = loc.newusername>
+			<cfelse>	
+				<cfset args.tags = "#loc.tag#">
+				<cfset args.username = loc.username & "," & loc.newusername>
+			</cfif>
+	<!--- <cfscript>
+		throw(serialize(args))
+	</cfscript> --->
+	<cfset setTags(argumentcollection=args)>
 		</cfloop>
 
 	<cfset flashInsert(success="This tag was shared with #loc.newusername#.")>

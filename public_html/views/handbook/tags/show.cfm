@@ -39,7 +39,7 @@
 	</cfif>
 
 	<!---PEOPLE--->
-<!--- <cfdump var="#handbookTaggedPeople#"> --->
+	<!--- <cfdump var="#handbookTaggedPeople#"> --->
 		<cfoutput query="handbookTaggedPeople" group="itemid">
 			<cfset email = trim(email)>
 			<cfset namesThis = selectName>
@@ -117,74 +117,99 @@
 		<cfset emailall = replace(emailall,";","","one")>
 		<cfset emailAllComma = replace(emailall,";",",","all")>
 		
-		<cfoutput>
-		
-<p>#linkTo(text='Email Everyone Tagged "#params.key#" (semicolon delimited)', href="mailto:#emailall#", class="btn tooltipside", title="This will create one email message in your email client (ie:outlook) to all these people/organizations" )#</p>
-<p>#linkTo(text='Email Everyone Tagged "#params.key#" (comma delimited)', href="mailto:#emailallComma#", class="btn tooltipside", title="This will create one email message in your email client (ie:outlook) to all these people/organizations" )#</p>
-<p>Some email clients prefer comma delimited.</p>
-<br/>
-<p>
-	List-<br/> #replace(namesAll,'; ','','one')#
-</p>
+	<cfoutput>
+			
+		<!---Send Email to items in tag--->			
+		<p>#linkTo(text='Email Everyone Tagged "#params.key#" (semicolon delimited)', href="mailto:#emailall#", class="btn tooltipside", title="This will create one email message in your email client (ie:outlook) to all these people/organizations" )#</p>
+		<p>#linkTo(text='Email Everyone Tagged "#params.key#" (comma delimited)', href="mailto:#emailallComma#", class="btn tooltipside", title="This will create one email message in your email client (ie:outlook) to all these people/organizations" )#</p>
+		<p>Some email clients prefer comma delimited.</p>
+		<br/>
+		<p>
+			List-<br/> #replace(namesAll,'; ','','one')#
+		</p>
 
-<p>&nbsp;</p>
-	<div class="well">
-		<p>
-			#startFormTag(action="create")#
-			#hiddenFieldTag(name="tags", value=params.key)#
-			#hiddenFieldTag(name="username", value=session.auth.username)#
-			#hiddenFieldTag(name="type", value="person")#
-			#selectTag(name="itemid", options=people, includeBlank="-Add one person-", valuefield="id", textfield="selectname")#
-			#submitTag("Add to tag")#
-			#endFormTag()#
-		</p>
-		
-	
-	</div>	
+		<!---Add one person to this tag--->
+		<p>&nbsp;</p>
+			<div class="well">
+				<p>
+					#startFormTag(action="create")#
+					#hiddenFieldTag(name="tags", value=params.key)#
+					#hiddenFieldTag(name="username", value=session.auth.username)#
+					#hiddenFieldTag(name="type", value="person")#
+					#selectTag(name="itemid", options=people, includeBlank="-Add one person-", valuefield="id", textfield="selectname")#
+					#submitTag("Add to tag")#
+					#endFormTag()#
+				</p>
+				
+			
+			</div>	
 
-	<div class="well">
-		<p>
-			#startFormTag(action="create")#
-			#hiddenFieldTag(name="tags", value=params.key)#
-			#hiddenFieldTag(name="username", value=session.auth.username)#
-			#hiddenFieldTag(name="type", value="organization")#
-			#selectTag(name="itemid", options=organizations, includeBlank="-Add one organization-", valuefield="id", textfield="selectnamecity")#
-			#submitTag("Add to tag")#
-			#endFormTag()#
-		</p>
-		
-	
-	</div>	
+		<!---Add one organization to this tag--->
+		<div class="well">
+				<p>
+					#startFormTag(action="create")#
+					#hiddenFieldTag(name="tags", value=params.key)#
+					#hiddenFieldTag(name="username", value=session.auth.username)#
+					#hiddenFieldTag(name="type", value="organization")#
+					#selectTag(name="itemid", options=organizations, includeBlank="-Add one organization-", valuefield="id", textfield="selectnamecity")#
+					#submitTag("Add to tag")#
+					#endFormTag()#
+				</p>
+				
+			
+			</div>	
+		<div class="well">
+			<h3>Sharing</h3>
+		<!---Copy this tag and send to another user--->
+		<div class="well">
+				<p>
+					#startFormTag(action="shareTag")#
+					#hiddenFieldTag(name="tag", value=params.key)#
+					#hiddenFieldTag(name="type", value="person")#
+					#hiddenFieldTag(name="shareOrCopy", value="copy")#
+					#hiddenFieldTag(name="username", value=session.auth.username)#
+					#selectTag(name="newuserId", options=people, includeBlank="-Select one person-", valuefield="id", textfield="selectname")#
+					#submitTag("Send this tag to another handbook user")#
+					#endFormTag()#
+				</p>
+				<p>This tag list will not sync with the shared list when you make changes.  However, re-sharing this tag list will update the shared tag list.</p>
+			
+			</div>	
+				
+		<!---Share this tag with another user--->
+		<div class="well">
+			<p>
+				#startFormTag(action="shareTag")#
+				#hiddenFieldTag(name="tag", value=params.key)#
+				#hiddenFieldTag(name="type", value="person")#
+				#hiddenFieldTag(name="shareOrCopy", value="share")#
+				#hiddenFieldTag(name="username", value=session.auth.username)#
+				#selectTag(name="newuserId", options=people, includeBlank="-Select one person-", valuefield="id", textfield="selectname")#
+				#submitTag("Share this tag with another handbook user")#
+				#endFormTag()#
+			</p>
+			<p>This tag list will sync with the shared list when you make changes.</p>
 
-	<div class="well">
-		<p>
-			#startFormTag(action="shareTag")#
-			#hiddenFieldTag(name="tag", value=params.key)#
-			#hiddenFieldTag(name="type", value="person")#
-			#hiddenFieldTag(name="username", value=session.auth.username)#
-			#selectTag(name="newuserId", options=people, includeBlank="-Select one person-", valuefield="id", textfield="selectname")#
-			#submitTag("Send this tag to another handbook user")#
-			#endFormTag()#
-		</p>
-		<p>This tag list will not sync with the shared list when you make changes.  However, re-sharing this tag list will update the shared tag list.</p>
-	
-	</div>	
-		
-<cfif isDefined("session.auth.rightslist")>
-	<div class="well">
-		<p>
-			#startFormTag(action="shareTagWithGroup")#
-			#hiddenFieldTag(name="tag", value=params.key)#
-			#hiddenFieldTag(name="type", value="person")#
-			#hiddenFieldTag(name="username", value=session.auth.username)#
-			#selectTag(name="userGroup", options=session.auth.rightslist, includeBlank="-Select one user group-", valuefield="id", textfield="selectname")#
-			#submitTag("Share this tag")#
-			#endFormTag()#
-		</p>
-		<p>This tag list will sync with others in the same user group.</p>
-	
-	</div>	
-</cfif>
-		</cfoutput>		
+		</div>	
+
+		<!---Share this tag with another user group--->
+		<cfif isDefined("session.auth.rightslist")>
+			<div class="well">
+				<p>
+					#startFormTag(action="shareTagWithGroup")#
+					#hiddenFieldTag(name="tag", value=params.key)#
+					#hiddenFieldTag(name="type", value="person")#
+					#hiddenFieldTag(name="username", value=session.auth.username)#
+					#selectTag(name="userGroup", options=session.auth.rightslist, includeBlank="-Select one user group-", valuefield="id", textfield="selectname")#
+					#submitTag("Share this tag with a user group")#
+					#endFormTag()#
+				</p>
+				<p>This tag list will sync with others in the same user group.</p>
+			
+			</div>	
+		</cfif>
+		</div>
+
+	</cfoutput>		
 
 </div>

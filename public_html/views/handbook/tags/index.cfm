@@ -25,12 +25,12 @@
 <!--- <cfscript>
 	throw(serialize(handbooktags))
 </cfscript> --->
-
 <cfoutput query="handbookTags" group="tag" groupcasesensitive=false>
 <cfset count = 0>
 
+<cfset previousItemId = ''>
 	<cfoutput>
-		<cfset count=count+1>
+			<cfset count=count+1>
 	</cfoutput>
 	<cfif len(tag)>
 		<span style="white-space: nowrap" class="ajaxdelete">
