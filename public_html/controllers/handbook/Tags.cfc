@@ -388,12 +388,15 @@
 	}
 
 	function orphanedTags(){
-		orphanedTags = model("Handbooktag").findOrphanedTags()
+		orphanedTags = model("Handbooktag").findOrphanedTags	()
 	}
 
 	function deleteOrphanedTags(){
 		orphanedTags = model("Handbooktag").findOrphanedTags()
-		orphanedTags.deleteAll()
+		queryEach(orphanedTags, function(el){
+			var tag = model("Handbooktag").findOne(where="id=#el.id#")
+			tag.delete()
+		})
 		redirectTo(action="orphanedTags")
 	}
 </cfscript>
