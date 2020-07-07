@@ -1,8 +1,12 @@
-<ul>
-  <cfoutput query="orphanedTags">
-    <li>#id# - #tag# - #linkTo(text=itemid, controller="handbook.person", action="show", key=#itemid#)# - #username# - #type#</li>
+<cfif orphanedTags.recordCount>
+  <ul>
+    <cfoutput query="orphanedTags">
+      <li>#id# - #tag# - #linkTo(text=itemid, controller="handbook.person", action="show", key=#itemid#)# - #username# - #type#</li>
+    </cfoutput>
+  </ul>
+  <cfoutput>
+    #linkTo(text="Delete Orphaned Tags", controller="handbook.tags", action="deleteOrphanedTags")#
   </cfoutput>
-</ul>
-<cfoutput>
-  #linkTo(text="Delete Orphaned Tags", controller="handbook.tags", action="deleteOrphanedTags")#
-</cfoutput>
+<cfelse> 
+  No Orphaned Tags 
+</cfif>

@@ -28,6 +28,20 @@
 				var tags = findAll(where = whereString, order = orderByString)
 				return tags
 		}
+
+		function findOrphanedTags(){
+			var tags = findAll()
+			orphanedTags = queryFilter(tags, function(el){
+				var person = model("Handbookperson").findOne(where="id = #el.itemid#", include="State")
+				var organization = model("Handbookorganization").findOne(where="id = #el.itemid#", include="State")
+				if ( isObject(person) || isObject(organization) ) {
+					return false
+				} else {
+					return true
+				}
+			})
+			return orphanedTags
+		}
 		
 	</cfscript>
 
