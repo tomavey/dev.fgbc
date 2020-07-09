@@ -180,7 +180,9 @@
 
 					<p><span>Reviewed: </span>#dateformat(handbookperson.reviewedAt)#</p>
 
+				<cfif len(handbookperson.handbookprofile.agbmlifememberAt)>
 					<p><span>Lifetime member of Inspire since: </span>#handbookperson.handbookprofile.agbmlifememberAt#</p>
+				</cfif>		
 
 					<p>#editTag(handbookperson.id)# #deleteTag(id=handbookperson.id, class="noAjax")#</p>
 
