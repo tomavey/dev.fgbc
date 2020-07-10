@@ -150,7 +150,7 @@
           </cfif>
           <cfif isBefore('2020-07-27')>
             <a href=" http://charisfellowship.us/page/weareone" target="_new" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; color: white; display: block; margin-top:10px; background-color: #345671">
-              WeAreOne is the Last Sunday in July at 6:00 pm Eastern / 3:00 pm Pacific time
+              WeAreOne is the Last Sunday in July at 6:00 pm Eastern / 3:00 pm Pacific time</br><br/>Click for more details!
             </a>
           </cfif>
         <cfcatch></cfcatch>  
