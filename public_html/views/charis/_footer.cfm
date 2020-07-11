@@ -138,24 +138,29 @@
 
                         <ul class="list-inline mb-0">
                           <li class="list-inline-item g-mr-10">
-                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://vimeo.com/charisfellowship">
+                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://vimeo.com/charisfellowship" @mouseover='message="Vimeo"' @mouseleave='message="Social Media"'>
                               <i class="fa fa-vimeo"></i>
                             </a>
                           </li>
                           <li class="list-inline-item g-mr-10">
-                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://twitter.com/charischurches">
+                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://twitter.com/charischurches" @mouseover='message="Twitter"' @mouseleave='message="Social Media"'>
                               <i class="fa fa-twitter"></i>
                             </a>
                           </li>
                           <li class="list-inline-item g-mr-10">
-                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://www.facebook.com/charischurches/">
+                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://www.facebook.com/charischurches/" @mouseover='message="Facebook"' @mouseleave='message="Social Media"'>
                               <i class="fa fa-facebook"></i>
                             </a>
                           </li>
+                          <li class="list-inline-item g-mr-10">
+                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://www.youtube.com/channel/UCHpppy8S5akFMz3avHNTQCw" @mouseover='message="Youtube"' @mouseleave='message="Social Media"'>
+                              <i class="fa fa-youtube"></i>
+                            </a>
+                          </li>
                         </ul>
+                        {{message}}
                       </div>
                       <!-- End Footer Content -->
-
 
                     </div>
                   </div>
@@ -172,3 +177,19 @@
                 </footer>
                 <!-- End Copyright Footer -->
               </div>
+
+              <script>
+                const vueApp = new Vue({
+                  el: '#socialIcons',
+                  data () {
+                    return {
+                      message: 'Social Media' 
+                    }
+                  },
+                  methods: {
+                    popup(pMessage) {
+                      this.message = pMessage
+                    }
+                  }
+                })
+                </script>
