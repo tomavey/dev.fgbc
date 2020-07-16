@@ -20,6 +20,7 @@
 </head>
 <body>
 
+
 	<cfif not isDefined("params.doc")>
 		<cfoutput>
 			#includePartial("/membership/navbar")#

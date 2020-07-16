@@ -26,7 +26,7 @@
 	<p class="alert alert-success"><cfoutput>#flash("success")#</cfoutput></p>
 </cfif>
 
-<p>Your Delegates...</p>
+<p>Your Delegates.......</p>
 </cfoutput>
 
 					<div class="row">

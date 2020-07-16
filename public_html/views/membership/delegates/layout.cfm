@@ -4,7 +4,8 @@
 
 <head>
 	<cfoutput>
-		#styleSheetLinkTag("bootstrap,forums")#    
+		#styleSheetLinkTag("bootstrap,forums,/assets/vendor/icon-awesome/css/font-awesome.min")#    	
+
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		#javaScriptIncludeTag("jquery_ujs")#
 	</cfoutput>
