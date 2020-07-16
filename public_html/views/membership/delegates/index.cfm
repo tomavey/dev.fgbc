@@ -5,7 +5,7 @@
 <cfset emailall = "">
 
 <cfoutput>
-<h1>FGBC Delegates for #getDelegateYear()#</h1>
+<h1>Charis Fellowship Delegates for #getDelegateYear()#</h1>
 <cfif gotRights("office")>
 	#linkTo(Text="Download", action="downloaddelegates")#
 </cfif>
