@@ -1,4 +1,5 @@
 <cfparam name="showEmailWarning" default="false">
+<cfparam name="count" default=0>
 
 <cfoutput>
 	
@@ -49,9 +50,8 @@
 										<p class="span2">#deleteTag(class="noajax")# #editTag()#</p>
 
 									</div>
-	
+									<cfset count = count + 1>
 							</cfoutput>
-						
 						</div>
 					
 					</div>
@@ -62,6 +62,10 @@
 			* If you do not provide a valid email for this person he or she will not receive advance reports
 		</p>
 	</cfif>
+	<p>
+		Delegates in this report: #count#
+	</p>
+
 	[#linkTo(text="Add a new delegate", action="addnewdelegate", key=session.delegate.churchid)#]&nbsp;	
 	[#linkTo(text="Delete all these delegates and start over", action="deleteAll", key=session.delegate.churchid)#]	
 	<p>&nbsp;</p>
