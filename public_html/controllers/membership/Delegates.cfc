@@ -164,7 +164,8 @@
 
 		<cfif isDefined("params.captcha") && params.captcha NEQ "5">
 			  <cfset flashInsert(error='Please input the number of characters in the word "Grace"')>
-			  <cfset redirectTo(action="getChurchid")>
+				<cfset redirectTo(action="getChurchid")>
+				<!--- getchurchid will ask user to select a church in a dropdown form with action="submit" so it will come back to this controller.action--->
 		</cfif>
 
 		<cfif isDefined("params.churchid")>
