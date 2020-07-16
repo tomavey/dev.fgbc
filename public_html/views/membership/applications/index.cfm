@@ -1,4 +1,5 @@
-<h1>FGBC Membership Applications</h1>
+<cfparam name="emailList" default="">
+<h1>Charis Fellowship Membership Applications</h1>
 
 <cfoutput>#includePartial("showFlash")#</cfoutput>
 
@@ -56,6 +57,8 @@
 		<cfcol header="" text="#handbookLink(handbookid)#"/>
 
 	</cfif>
+	<cfset emailList = emailList & "; " & useremail>
 </cftable>
+<cfoutput>#replace(emailList,"; ","","one")#</cfoutput>
 </div>
 
