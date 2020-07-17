@@ -1,5 +1,6 @@
 <cfset emailall = "">
-
+<cfset removeDuplicateEmails = false>
+<!--- <cfdump var="#fgbcdelegates#"> --->
 
 <table>
   <tr>
@@ -11,7 +12,7 @@
   </tr>
   <cfoutput query="fgbcdelegates">
 
-  		  <cfif name does not contain "delegates">
+  		<cfif name does not contain "delegates">
 	  		<cfset hasdelegates = 1>
 		  <cfelse>
 	  		<cfset hasdelegates = 0>
@@ -20,28 +21,31 @@
       <cfset email = trim(email)>
       <cfset email = replace(email," ","","all")>
 
-   		  <cfif isvalid("email",email) and hasdelegates>
-			  <cfif not listFind(emailall,email,"; ")>
-				<cfset emailall = emailall & "; " & email>
-        <cfset name = trim(name)>
-        <cfset name = replace(name,"  ","","all")>
-              <tr>
-                <td>#name#</td>
-                <td>#listfirst((name)," ")#</td>
-                <td>#listlast(name," ")#</td>
-                <td>#email#</td>
-                <td>#dateformat(createdAt)#</td>
-              </tr>
-			  </cfif>
-			<cfelseif isvalid("email",submitteremail) and hasdelegates> 	  
-			  <cfif not listFind(emailall,submitteremail,"; ")>
-				<cfset emailall = emailall & "; " & submitteremail>
-              <tr>
-                <td>#name#</td>
-                <td>#submitteremail#</td>
-              </tr>
-				<cfset emailall = emailall & "; " & submitteremail>
-			  </cfif>
+ 		  <cfif isvalid("email",email) and hasdelegates>
+			  <!--- <cfif not listFind(emailall,email,"; ")> use only if you want to remove duplicate emails--->
+          <cfset emailall = emailall & "; " & email>
+          <cfset name = trim(name)>
+          <cfset name = replace(name,"  ","","all")>
+            <tr>
+              <td>#name#</td>
+              <td>#listfirst((name)," ")#</td>
+              <td>#listlast(name," ")#</td>
+              <td>#email#</td>
+              <td>#dateformat(createdAt)#</td>
+            </tr>
+			  <!--- </cfif> --->
+      <cfelseif isvalid("email",submitteremail) and hasdelegates> 	  
+			  <!--- <cfif !listFind(emailall,submitteremail,"; ")> use only if you want to remove duplicate emails--->
+          <cfset emailall = emailall & "; " & submitteremail>
+            <tr>
+              <td>#name#</td>
+              <td>#listfirst((name)," ")#</td>
+              <td>#listlast(name," ")#</td>
+              <td>#submitteremail#</td>
+              <td>#dateformat(createdAt)#</td>
+            </tr>
+          <cfset emailall = emailall & "; " & submitteremail>
+			  <!--- </cfif> --->
 			</cfif>  
 
 
