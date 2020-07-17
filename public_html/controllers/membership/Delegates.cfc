@@ -107,8 +107,11 @@
 
 	<cffunction name="downloadDelegates">
 		<cfset fgbcdelegates = model("Fgbcdelegate").findAll(where="year = '#delegateYear#'", include="Handbookorganization(Handbookstate)", order="name")>
-		<!--- <cfset renderPage(layout="/layout_download")> --->
-		<cfset renderPage(layout="layout")>
+		<cfif isDefined("params.html")>
+			<cfset renderPage(layout="layout")>
+		<cfelse>	
+			<cfset renderPage(layout="/layout_download")>
+		</cfif>
 	</cffunction>
 
 	<!--- fgbcdelegates/show/key --->
