@@ -449,6 +449,7 @@ component extends="Controller" output="false" {
 		cellPhoneNumbers = queryFilter(phoneNumbers, function(el){
 			return len(el.phone2)
 		})
+		if( isDefined("params.noFormat") ) { renderPage(layout="/layout_naked") }
 	}
 	
 	
