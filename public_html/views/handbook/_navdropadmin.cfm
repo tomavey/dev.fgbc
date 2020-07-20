@@ -44,7 +44,7 @@
                         </li>
 --->
                         <li>
-                            #linkto(text="Tasks", controller="handbook.tasks", action="index", id="navsearch", title="Tasks needed in handbook", class="tooltip2")#
+                            #linkto(text="Cell Phone Numbers", controller="handbook.people", action="cellPhoneNumbers", title="Cell Phone Numbers", class="tooltip2")#
                         </li>
                         <li>
                             #linkto(text="Send Update Church Links", controller="handbook.organizations", action="handbookReviewOptions", id="navsearch", title="under development", class="tooltip2")#
