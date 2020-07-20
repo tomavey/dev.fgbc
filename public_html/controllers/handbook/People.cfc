@@ -440,6 +440,13 @@ component extends="Controller" output="false" {
 			renderPage(template="personpageerroremail.cfm")
 		}
 	}
+
+	function cellPhoneNumbers(){
+		var phoneNumbers = model("Handbookperson").findall(select="id, fname, lname, phone2", include="State")
+		cellPhoneNumbers = queryFilter(phoneNumbers, function(el){
+			return len(el.phone2)
+		})
+	}
 	
 	
 <!---------------------------->
