@@ -250,6 +250,7 @@
 				.get(name="UnHideFromPublic", pattern="UnHideFromPublic/")
 				.get(name="removeFromSessionArray", pattern="removeFromSessionArray/", action="removePersonFromSessionArray")
 				.get(name="pastorsWives", pattern="pastorsWives/", action="pastorsWives")
+				.get(name="cellPhoneNumbers", pattern="cellPhoneNumbers")
 				.end()
 			.resources("people")
 
