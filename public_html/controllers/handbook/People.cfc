@@ -442,7 +442,10 @@ component extends="Controller" output="false" {
 	}
 
 	function cellPhoneNumbers(){
-		var phoneNumbers = model("Handbookperson").findall(select="id, fname, lname, phone2", include="State")
+		var orderString = "lname, fname"
+		if ( isDefined("params.sortby") ) { orderString = params.sortBy }
+		if ( isDefined("params.desc") ) { orderString = orderString & " DESC" }
+		var phoneNumbers = model("Handbookperson").findall(select="id, fname, lname, phone2, createdAt, UpdatedAt", include="State", order=orderString)
 		cellPhoneNumbers = queryFilter(phoneNumbers, function(el){
 			return len(el.phone2)
 		})
