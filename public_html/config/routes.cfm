@@ -245,12 +245,12 @@
 			.get(name="focusMailingList", pattern="/people/focus/[key]", controller="people", action="focus")
 			.get(name="emailPeopleHandbookReview", pattern="/people/handbookReviewEmail", controller="people", action="emailPeopleForHandbookReview")
 			.delete(name="deleteperson", pattern="/people/[key]/delete", controller="people", action="delete")
+			.get(name="cellPhoneNumbers", pattern="/people/cellPhoneNumbers/", controller="people", action="cellPhoneNumbers")
 			.controller("people")
 				.get(name="hideFromPublic", pattern="hideFromPublic/")
 				.get(name="UnHideFromPublic", pattern="UnHideFromPublic/")
 				.get(name="removeFromSessionArray", pattern="removeFromSessionArray/", action="removePersonFromSessionArray")
 				.get(name="pastorsWives", pattern="pastorsWives/", action="pastorsWives")
-				.get(name="cellPhoneNumbers", pattern="cellPhoneNumbers", action="cellPhoneNumbers")
 				.end()
 			.resources("people")
 
