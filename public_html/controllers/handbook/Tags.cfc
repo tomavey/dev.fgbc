@@ -77,14 +77,22 @@
 
 	<cffunction name="download">
 
-			<cfset showtitles = false>
+		<cfset showtitles = false>
+		<cfset var whereString = "(
+				username LIKE '%#session.auth.email#%' 
+				OR username LIKE '%#session.auth.username#%'
+				OR username IN (#commaListToSingleQuoteList(session.auth.rightslist)#)
+				) 
+				AND tag='#params.key#'" 
+				>
 
 		<cfif isdefined("session.auth.username")>
-			<cfset TaggedPeople = model("Handbookperson").findAll(where="(username = '#session.auth.email#' OR username='#session.auth.username#') AND tag='#params.key#' AND type='person'", include="Handbooktags,Handbookstate,Handbookpositions(Handbookorganization)", order="lname,fname")>
-			<cfset TaggedOrganizations = model("Handbookorganization").findAll(where="(username = '#session.auth.email#' OR username='#session.auth.username#') AND tag='#params.key#' AND type='organization' AND p_sortorder='1'", include="Handbooktags,Handbookstate,Handbookpositions(Handbookperson)", order="state_mail_abbrev,org_city,name")>
+			<cfset TaggedPeople = model("Handbookperson").findAll(where=whereString & " AND type='person'", include="Handbooktags,Handbookstate,Handbookpositions(Handbookorganization)", order="lname,fname")>
+			<cfset TaggedOrganizations = model("Handbookorganization").findAll(where=whereString & " AND type='organization' AND p_sortorder='1'", include="Handbooktags,Handbookstate,Handbookpositions(Handbookperson)", order="state_mail_abbrev,org_city,name")>
 		<cfelse>
-			<cfset TaggedPeople = model("Handbookperson").findAll(where="username = '#session.auth.email#' AND tag='#params.key#' AND type='person'", include="Handbooktags,Handbookstate,Handbookpositions(Handbookorganization)", order="lname,fname")>
-			<cfset TaggedOrganizations = model("Handbookorganization").findAll(where="username = '#session.auth.email#' AND tag='#params.key#' AND type='organization' AND p_sortorder='1'", include="Handbooktags,Handbookstate,Handbookpositions(Handbookperson)", order="state_mail_abbrev,org_city,name")>
+			<cfset whereString = "username LIKE '%#session.auth.email#%' AND tag='#params.key#'">
+			<cfset TaggedPeople = model("Handbooktag").findAll(where=whereString & " AND type='person'", include="Handbookperson(Handbookstate)", order="lname,fname")>
+			<cfset TaggedOrganizations = model("Handbooktag").findAll(where=whereString & " AND type='organization'", include="Handbookorganization(Handbookstate)", order="name")>
 		</cfif>
 
 		<cfif TaggedPeople.recordcount AND TaggedOrganizations.recordcount>
