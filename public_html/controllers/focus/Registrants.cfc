@@ -102,5 +102,15 @@
 			<cfset redirectTo(action="index")>
 		</cfif>
 	</cffunction>
-	
+
+<cfscript>
+	function recentRegistrants(){
+		if ( isDefined('params.regids') ) { 
+			regidsString = commaListToSingleQuoteList(params.regids) 
+			recentFocusRegs = distinctsFromQuery(model("Focusregistrant").findRecentFocusRegistrants(regidsString))
+		} else {
+			ShowInstructions = true
+		}
+	}
+</cfscript>
 </cfcomponent>

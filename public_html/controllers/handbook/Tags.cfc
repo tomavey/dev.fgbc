@@ -286,7 +286,7 @@
 
 	<cfset loc.newtag = loc.tag & "(copy)">
 
-	<cfset loc.tags =model("Handbooktag").findall(where="tag='#loc.tag#' AND username='#loc.username#'")>
+	<cfset loc.tags =model("Handbooktag").findall(where="tag='#loc.tag#' AND username LIKE '%#loc.username#%'")>
 
 		<cfloop query="loc.tags">
 			<cfset args.itemid = itemid>
@@ -381,9 +381,9 @@
 
 	<cffunction name="changeTag">
 		<cfif isdefined("session.auth.username")>
-			<cfset newTag = model("handbooktag").updateAll(tag='#params.newtag#', where="tag='#params.key#' AND (username = '#session.auth.email#' OR username = '#session.auth.username#')")>
+			<cfset newTag = model("handbooktag").updateAll(tag='#params.newtag#', where="tag='#params.key#' AND (username LIKE '%#session.auth.email#%' OR username LIKE '%#session.auth.username#%')")>
 		<cfelse>
-			<cfset newTag = model("handbooktag").updateAll(tag='#params.newtag#', where="tag='#params.key#' AND username = '#session.auth.email#'")>
+			<cfset newTag = model("handbooktag").updateAll(tag='#params.newtag#', where="tag='#params.key#' AND username LIKE '%#session.auth.email#%'")>
 		</cfif>
 		<cfset redirectTo(action="show", key=params.newtag)>
 	</cffunction>

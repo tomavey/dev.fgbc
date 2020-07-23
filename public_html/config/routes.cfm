@@ -385,7 +385,8 @@
 			.get(name="summary", pattern="/registrations/summary/", controller="registrations", action="summary")
 			.post(name="postAddedItem", pattern="/registration/add/", controller="registrations", action="add")
 			.resources("registrations")
-						
+			
+			.get(name="recentRegs", pattern="recentRegs", controller="registrants", action="recentRegistrants")
 			.resources("registrants")
 			
 			.get(name="showRetreat", pattern="/retreat/[key]", controller="main", action="retreat")

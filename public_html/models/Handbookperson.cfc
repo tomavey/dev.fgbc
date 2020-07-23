@@ -493,6 +493,9 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		cffile(action="read" file=filepath variable="list")
 		return listToQuery(list, "email")
 	}
+
+
+
 <!------------------------------------------------>	
 <!---END OF USED FOR FOCUS RETREAT MAILING LIST--->
 <!------------------------------------------------>	

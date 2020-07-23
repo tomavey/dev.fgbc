@@ -69,7 +69,8 @@
 						<li class="dropdown">
         			#linkToData(href="##", text="Misc<b class='caret'></b>", data_toggle="dropdown", class="dropdown-toggle")#
         				<ul class="dropdown-menu">
-        						<li>#linkTo(text="Shopping Carts", controller="focus.shoppingcarts", action="index")#</li>
+									<li>#linkTo(text="Recent Regs", controller="focus.registrants", action="recentRegistrants")#</li>
+									<li>#linkTo(text="Shopping Carts", controller="focus.shoppingcarts", action="index")#</li>
         				</ul>
       			</li>	
 			</ul>
