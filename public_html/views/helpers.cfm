@@ -27,11 +27,15 @@
 <cffunction name="isAfter">
 <cfargument name="date1" required="true">
 <cfargument name="date2" default="#now()#">
-	<cfif datecompare(parseDateTime(date2),parseDateTime(date1),"d") is "1">
+<cfset answer = 0>
+	<!---If the date is yyyy-mm-dd--->	
+	<cfif !find(":",date1) && datecompare(parseDateTime(date2),parseDateTime(date1), "d") is "1">
 		<cfset answer = "1">
-	<cfelse>
-		<cfset answer = "0">
-	</cfif>
+	</cfif>	
+	<!---If the date is yyyy-mm-dd hh:mm--->	
+	<cfif find(":",date1) && datecompare(parseDateTime(date2),parseDateTime(date1)) is "1">
+		<cfset answer = "1">
+	</cfif>	
 <cfreturn answer />
 </cffunction>
 

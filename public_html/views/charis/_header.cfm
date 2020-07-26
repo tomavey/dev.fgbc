@@ -156,15 +156,18 @@
               <p style="text-align:center; font-size: 1.5em; font-weight:bold">On <a href="https://www.facebook.com/charischurches">Facebook</a> and <a href="https://www.youtube.com/channel/UCHpppy8S5akFMz3avHNTQCw">Youtube</a>
               </p>
             </div>  
-
-          <cfelse>
-              <div class="container" style="border: 3px solid #51758C; border-radius:20px; box-shadow: 5px 5px 5px #4F7F71;" >
-                <a href=" https://charisfellowship.us/page/weareonevideos" target="_new" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; color: white; display: block; margin-top:10px; background-color: #345671">
-                  Watch the WeAreOne video and videos HERE! 
-                </a>
-                </p>
-              </div>  
+            <br/>
           </cfif>
+          <cfif isAfter('2020-07-26 19:00') || getSetting("forceMainPageBannerOpen")>
+            <div class="container" style="border: 3px solid #51758C; border-radius:20px; box-shadow: 5px 5px 5px #4F7F71;" >
+              <a href=" https://charisfellowship.us/page/weareonevideos" target="_new" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; color: white; display: block; margin-top:10px; background-color: #345671">
+                Watch the WeAreOne video and videos HERE! 
+              </a>
+              </p>
+            </div>  
+
+          </cfif>  
+
         <cfcatch></cfcatch>  
         </cftry>
       </div>
