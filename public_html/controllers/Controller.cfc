@@ -423,7 +423,11 @@ component extends="Wheels" {
 	}
 
 	private void function $setDownloadLayout(defaultLayout='/layout_naked', template=''){
-		if ( (isdefined("params.key") && params.key is "excel") || (isdefined("params.format") && params.format is "excel") || (isDefined("params.download")) ) {
+		if ( 
+				(isdefined("params.key") && params.key is "excel") 
+				|| (isdefined("params.format") && params.format is "excel") 
+				|| (isDefined("params.download") && params.download is "excel")
+			) {
 			renderPage(template=arguments.template, layout='/layout_download', showDebugOutput="No")
 		} else {
 			renderPage(template=arguments.template, layout=arguments.defaultLayout, showDebugOutput="No")

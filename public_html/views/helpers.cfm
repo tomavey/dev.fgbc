@@ -1068,3 +1068,181 @@ function hiddenMessagetoTestFor() {
 	<cfreturn '<input type="hidden" name="_method" value="put" />'>
 </cffunction>
 
+<cffunction
+	name="QueryToCSV"
+	access="public"
+	returntype="string"
+	output="false"
+	hint="I take a query and convert it to a comma separated value string.">
+
+	<!--- Define arguments. --->
+	<cfargument
+		name="Query"
+		type="query"
+		required="true"
+		hint="I am the query being converted to CSV."
+		/>
+
+	<cfargument
+		name="Fields"
+		type="string"
+		required="true"
+		hint="I am the list of query fields to be used when creating the CSV value."
+		/>
+
+	<cfargument
+		name="CreateHeaderRow"
+		type="boolean"
+		required="false"
+		default="true"
+		hint="I flag whether or not to create a row of header values."
+		/>
+
+	<cfargument
+		name="Delimiter"
+		type="string"
+		required="false"
+		default=","
+		hint="I am the field delimiter in the CSV value."
+		/>
+
+	<!--- Define the local scope. --->
+	<cfset var LOCAL = {} />
+
+	<!---
+		First, we want to set up a column index so that we can
+		iterate over the column names faster than if we used a
+		standard list loop on the passed-in list.
+	--->
+	<cfset LOCAL.ColumnNames = {} />
+
+	<!---
+		Loop over column names and index them numerically. We
+		are going to be treating this struct almost as if it
+		were an array. The reason we are doing this is that
+		look-up times on a table are a bit faster than look
+		up times on an array (or so I have been told).
+	--->
+	<cfloop
+		index="LOCAL.ColumnName"
+		list="#ARGUMENTS.Fields#"
+		delimiters=",">
+
+		<!--- Store the current column name. --->
+		<cfset LOCAL.ColumnNames[ StructCount( LOCAL.ColumnNames ) + 1 ] = Trim( LOCAL.ColumnName ) />
+
+	</cfloop>
+
+	<!--- Store the column count. --->
+	<cfset LOCAL.ColumnCount = StructCount( LOCAL.ColumnNames ) />
+
+
+	<!---
+		Now that we have our index in place, let's create
+		a string buffer to help us build the CSV value more
+		effiently.
+	--->
+	<cfset LOCAL.Buffer = CreateObject( "java", "java.lang.StringBuffer" ).Init() />
+
+	<!--- Create a short hand for the new line characters. --->
+	<cfset LOCAL.NewLine = (Chr( 13 ) & Chr( 10 )) />
+
+
+	<!--- Check to see if we need to add a header row. --->
+	<cfif ARGUMENTS.CreateHeaderRow>
+
+		<!--- Loop over the column names. --->
+		<cfloop
+			index="LOCAL.ColumnIndex"
+			from="1"
+			to="#LOCAL.ColumnCount#"
+			step="1">
+
+			<!--- Append the field name. --->
+			<cfset LOCAL.Buffer.Append(
+				JavaCast(
+					"string",
+					"""#LOCAL.ColumnNames[ LOCAL.ColumnIndex ]#"""
+					)
+				) />
+
+			<!---
+				Check to see which delimiter we need to add:
+				field or line.
+			--->
+			<cfif (LOCAL.ColumnIndex LT LOCAL.ColumnCount)>
+
+				<!--- Field delimiter. --->
+				<cfset LOCAL.Buffer.Append(
+					JavaCast( "string", ARGUMENTS.Delimiter )
+					) />
+
+			<cfelse>
+
+				<!--- Line delimiter. --->
+				<cfset LOCAL.Buffer.Append(
+					JavaCast( "string", LOCAL.NewLine )
+					) />
+
+			</cfif>
+
+		</cfloop>
+
+	</cfif>
+
+
+	<!---
+		Now that we have dealt with any header value, let's
+		convert the query body to CSV. When doing this, we are
+		going to qualify each field value. This is done be
+		default since it will be much faster than actually
+		checking to see if a field needs to be qualified.
+	--->
+
+	<!--- Loop over the query. --->
+	<cfloop query="ARGUMENTS.Query">
+
+		<!--- Loop over the columns. --->
+		<cfloop
+			index="LOCAL.ColumnIndex"
+			from="1"
+			to="#LOCAL.ColumnCount#"
+			step="1">
+
+			<!--- Append the field value. --->
+			<cfset LOCAL.Buffer.Append(
+				JavaCast(
+					"string",
+					"""#ARGUMENTS.Query[ LOCAL.ColumnNames[ LOCAL.ColumnIndex ] ][ ARGUMENTS.Query.CurrentRow ]#"""
+					)
+				) />
+
+			<!---
+				Check to see which delimiter we need to add:
+				field or line.
+			--->
+			<cfif (LOCAL.ColumnIndex LT LOCAL.ColumnCount)>
+
+				<!--- Field delimiter. --->
+				<cfset LOCAL.Buffer.Append(
+					JavaCast( "string", ARGUMENTS.Delimiter )
+					) />
+
+			<cfelse>
+
+				<!--- Line delimiter. --->
+				<cfset LOCAL.Buffer.Append(
+					JavaCast( "string", LOCAL.NewLine )
+					) />
+
+			</cfif>
+
+		</cfloop>
+
+	</cfloop>
+
+
+	<!--- Return the CSV value. --->
+	<cfreturn LOCAL.Buffer.ToString() />
+</cffunction>
+

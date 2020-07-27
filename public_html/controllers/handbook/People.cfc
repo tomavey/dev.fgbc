@@ -311,6 +311,9 @@ component extends="Controller" output="false" {
 			params.key = params.keyy;
 		}
 		people = model("Handbookperson").findFocus(params.key);
+		if ( isDefined("params.csv") ) {
+			people = QueryToCSV(people,'fname, lname, email')
+		}
 		$setDownloadLayout()
 	}
 
