@@ -305,12 +305,12 @@ component extends="Controller" output="false" {
 		datesSorted = model("Handbookperson").findDatesSorted(params.dateType,"birthdayyear DESC");
 	}
 	
-	//Used by the focus retreat admin to create an email list of everyone who has attended each focus retreat PLUS anyone attending a church in a district served by that focus retreat
+	//Used by the focus retreat admin to create an email list of everyone who has recently attended each focus retreat PLUS anyone attending a church in a district served by that focus retreat
 	public function focus() {
 		if ( isDefined("params.keyy") ) {
 			params.key = params.keyy;
 		}
-		people = model("Handbookperson").findFocus(params.key);
+		people = model("Handbookperson").findFocus(params);
 		if ( isDefined("params.csv") ) {
 			people = QueryToCSV(people,'fname, lname, email')
 		}

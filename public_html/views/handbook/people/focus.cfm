@@ -7,9 +7,8 @@
   <cfif isdefined("params.download") and params.download is "excel">
   <cfelse>	
     <cfoutput>
-      #linkTo(text="Download as excel", controller="handbook.people", action="focus", key=params.key, params="download=excel", class="btn")#
-      #linkTo(text="View CSV", controller="handbook.people", action="focus", key=params.key, params="csv", class="btn")#
-
+      #linkTo(text="Download as excel", controller="handbook.people", action="focus", key=params.key, params="includeWomen=#params.includeWomen#&yearsAgo=#params.yearsago#&params.key", params="download=excel", class="btn")#
+      #linkTo(text="View CSV", controller="handbook.people", action="focus", key=params.key, params="includeWomen=#params.includeWomen#&yearsAgo=#params.yearsago#&csv", class="btn")#
     </cfoutput>
   </cfif>
 

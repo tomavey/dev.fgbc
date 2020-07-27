@@ -450,16 +450,21 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 <!----------------------------------------->	
 <!---USED FOR FOCUS RETREAT MAILING LIST--->
 <!----------------------------------------->	
-	function findFocus(required string region) {
+	function findFocus(required struct params) {
 		var loc = structNew()
+		loc.region = params.key
+		loc.whereString = "p_sortorder < 500 AND focusretreat = '#loc.region#'"
+		if ( params.includeWomen ) {
+			loc.whereString = loc.whereString & "  AND fnamegender = 'm'"
+		}
 		//  Get names from handbook people with positions in organizations in districts in regions 
-		loc.handbookpeople = findAll(select="fname, lname, handbookpeople.email, region", where="p_sortorder < 500 AND focusretreat = '#arguments.region#' AND fnamegender = 'm'", include="Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict))", order="lname,fname,email")
-		loc.focuspeople = $findAllRegional(arguments.region)
+		loc.handbookpeople = findAll(select="fname, lname, handbookpeople.email, region", where=loc.whereString, include="Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict))", order="lname,fname,email")
+		loc.focuspeople = $findAllRegional(region=loc.region, yearsAgo=params.yearsAgo)
 		//  Get names from past focus registrations in that region 
 		//  Combine both queries 
 		loc.allpeople = combineTwoQueries(loc.handbookpeople, loc.focuspeople)
 		try {
-			loc.addedpeople = $focusEmailAdds(arguments.region)
+			loc.addedpeople = $focusEmailAdds(loc.region)
 			loc.allpeople = combineTwoQueries(loc.allpeople, loc.addedpeople)
 		} catch (any cfcatch) {
 		}
@@ -468,8 +473,9 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		return loc.people
 	}
 
-	function $findAllRegional(required string region){
+	function $findAllRegional(required string region, required numeric yearsago){
 		var loc={}
+		loc.date = dateFormat(dateAdd("yyyy",-arguments.yearsAgo, now()),"yyyy-mm-dd")
 		cfquery( name="loc.focuspeople", datasource=application.wheels.datasourcename ) {
 	
 			writeOutput("SELECT fname, lname, p.email, menuname as region
@@ -481,6 +487,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 				JOIN focus_retreats s
 					ON i.retreatid = s.id
 				WHERE s.menuname = '#arguments.region#'
+					AND r.createdAt > '#loc.date#'
 				ORDER BY lname,fname,email")
 		}
 		return loc.focuspeople

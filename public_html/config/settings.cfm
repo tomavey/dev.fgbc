@@ -128,6 +128,7 @@
 	set(focusIsOpen = true)
 	set(focusMinistryAreas = "Lead Pastor, Executive Pastor, Worship Arts, Youth, Family, Children, Discipleship, Elder, Small Groups, Pastoral Care, Administration, Associate Pastor, Other")
 	set(byPassWords = "manual,comp,pending,paid")
+	set(includeWomen = true)
 
 	// Used by Conference Registration
 	set(event="visionconference2018")
