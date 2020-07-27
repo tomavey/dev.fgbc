@@ -50,7 +50,7 @@
     						<cfoutput query="retreatRegions" group="focusretreat">
         						<cfif len(focusretreat)>
                 					<li>
-                						#linkTo(text=left(focusretreat,10), controller="handbook.people", action="focus", key=focusretreat, params="includeWomen=#getSetting('includeWomen')#&yearsAgo=5")#
+                						#linkTo(text=left(focusretreat,10), controller="handbook.people", action="focus", key=focusretreat, params="includeWomen=#getSetting('includeWomen')#&yearsAgo=#getSetting('yearsAgo')#")#
                 					</li>
         						</cfif>	
     						</cfoutput>	
