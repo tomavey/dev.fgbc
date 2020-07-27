@@ -148,13 +148,11 @@
               The Charis Prayer Wall
             </a>
           </cfif>
-          <cfif isBefore('2020-07-27')>
+          <cfif isBefore('2020-07-31')>
             <div class="container" style="border: 3px solid #51758C; border-radius:20px; box-shadow: 5px 5px 5px #4F7F71;" >
-              <a href=" http://charisfellowship.us/page/weareone" target="_new" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; color: white; display: block; margin-top:10px; background-color: #345671">
-                WeAreOne is the Last Sunday in July at 6:00 pm Eastern / 3:00 pm Pacific time
-              </a><br/>
-              <p style="text-align:center; font-size: 1.5em; font-weight:bold">On <a href="https://www.facebook.com/charischurches">Facebook</a> and <a href="https://www.youtube.com/channel/UCHpppy8S5akFMz3avHNTQCw">Youtube</a>
-              </p>
+              <a href=" https://charisfellowship.us/page/weAreOneBreakouts" target="_new" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; color: white; display: block; margin-top:10px; background-color: #345671">
+                WeAreOne Breakouts are Monday (7/27) - Thursday (7-30) - Click here for information
+              </a>
             </div>  
             <br/>
           </cfif>
