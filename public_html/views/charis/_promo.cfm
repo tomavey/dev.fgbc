@@ -17,7 +17,7 @@
             <cfif isBefore('7/27/2020') && !isDefined("params.preview")>
               <iframe src="https://player.vimeo.com/video/430387164" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe><p><a href="https://vimeo.com/243298287">Who are we?</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>
             <cfelse>
-              <iframe src="https://player.vimeo.com/video/280010591" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe><p><a href="https://vimeo.com/243298287">Who are we?</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>
+              <iframe src="https://player.vimeo.com/video/439516228" width="530" height="300" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe><p><a href="https://vimeo.com/243298287">Who are we?</a> from <a href="https://vimeo.com/charisfellowship">Charis Fellowship</a> on <a href="https://vimeo.com">Vimeo</a></p>
             </cfif>
           </div>
           <cfif isBefore('7/27/2020') && !isDefined("params.preview")>
