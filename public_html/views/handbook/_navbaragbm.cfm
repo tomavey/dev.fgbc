@@ -26,6 +26,9 @@
 						<li>
 							#linkto(text="10 Year List", controller="handbook.agbminfo", action="agbm10YearMembers")#
 						</li>
+						<li>
+							#linkto(text="Lifetime Members", controller="handbook.agbminfo", action="list", params="type=lifeTimeMembers")#
+						</li>
 					</ul>	
 				</li>
 				<li class="dropdown">

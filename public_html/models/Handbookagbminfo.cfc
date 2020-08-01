@@ -197,6 +197,7 @@ private function $arrayOfStructsSort(aOfS,key){
 	<cfargument name="search" required="false" type="string">
 	<cfargument name="orderby" default="lname,fname">
 	<cfargument name="publicOnly" default=false>
+	<cfargument name="lifeTimeMembers" default=true>
 
 	<cfset arguments.currentMembershipyear = val(arguments.currentMembershipyear)>
 
@@ -208,23 +209,35 @@ private function $arrayOfStructsSort(aOfS,key){
 			  <cfset arguments.orderby = "district">
 		</cfif>
 
+	<cfscript>
+		if ( lifeTimeMembers ) {
+			loc.whereString = 'length(agbmlifememberAt) >= 4'
+		} else {
+			loc.whereString = '(lastpayment >= #arguments.currentmembershipyear# OR length(agbmlifememberAt) >= 4)'
+		}
+
+		if ( isDefined("arguments.alpha") and len(arguments.alpha) ) {
+			loc.whereString = loc.whereString & " AND alpha = '#arguments.alpha#'"
+		}
+
+		if ( isDefined("arguments.district") and len(arguments.district) and arguments.district NEQ "all" ) {
+			loc.whereString = loc.whereString & " AND districtid = #arguments.district#"
+		}
+			
+		if ( isDefined("arguments.search") and len(arguments.search) ) {
+			loc.whereString = loc.whereString & " AND lname = '#arguments.search#'
+			OR fname = '#arguments.search#'"
+		}
+
+		if ( isDefined("arguments.publicOnly") && arguments.publicOnly ) {
+			loc.whereString = loc.whereString & " AND private <> 'Yes'"
+		}
+	</cfscript>	
+
 		<cfquery dbtype="query" name="loc.return">
 			SELECT *
 			FROM loc.Agbm
-			WHERE (lastpayment >= #arguments.currentmembershipyear# OR length(agbmlifememberAt) >= 4)
-			<cfif isDefined("arguments.alpha") and len(arguments.alpha)>
-				AND alpha = '#arguments.alpha#'
-			</cfif>
-			<cfif isDefined("arguments.district") and len(arguments.district) and arguments.district NEQ "all">
-				AND districtid = #arguments.district#
-			</cfif>
-			<cfif isDefined("arguments.search") and len(arguments.search)>
-				AND lname = '#arguments.search#'
-				OR fname = '#arguments.search#'
-			</cfif>
-			<cfif isDefined("arguments.publicOnly") && arguments.publicOnly>
-				AND private <> 'Yes'
-			</cfif>
+			WHERE #loc.whereString#
 			ORDER BY #arguments.orderby#
 		</cfquery>
 
@@ -267,7 +280,10 @@ private function $arrayOfStructsSort(aOfS,key){
 			FROM handbookagbminfo i JOIN handbookprofiles p
 			WHERE i.personid=#loc.personid#
 		</cfquery>
-		<cfif (val(loc.person.lastpaymentmade) GTE val(loc.currentMembershipYear) OR len(loc.person.agbmlifememberAt) )>
+		<cfscript>
+			// throw(serialize(loc.person))
+		</cfscript>
+		<cfif (val(loc.person.lastpaymentmade) GTE val(loc.currentMembershipYear) OR isAgbmLifeMember(loc.personid) )>
 			<cfreturn true>
 		<cfelse>
 			<cfreturn false>

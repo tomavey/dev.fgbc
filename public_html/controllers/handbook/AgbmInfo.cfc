@@ -40,6 +40,8 @@
 			  <cfset people = model("Handbookagbminfo").findAllMembers(district=params.district,currentMembershipYear=currentmembershipyear)>
 		<cfelseif isDefined("params.type") and params.type is "members">
 			  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear)>
+		<cfelseif isDefined("params.type") and params.type is "lifeTimeMembers">
+			  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,lifeTimeMembers=true)>
 		<cfelseif isDefined("params.type") and (params.type is "mailinglist" or params.type is "mail")>
 			  <cfset people = model("Handbookagbminfo").findAllMailingList(currentMembershipYear=currentmembershipyear)>
 		<cfelse>
