@@ -197,7 +197,7 @@ private function $arrayOfStructsSort(aOfS,key){
 	<cfargument name="search" required="false" type="string">
 	<cfargument name="orderby" default="lname,fname">
 	<cfargument name="publicOnly" default=false>
-	<cfargument name="lifeTimeMembers" default=true>
+	<cfargument name="lifeTimeMembers" default=false>
 
 	<cfset arguments.currentMembershipyear = val(arguments.currentMembershipyear)>
 
@@ -233,6 +233,9 @@ private function $arrayOfStructsSort(aOfS,key){
 			loc.whereString = loc.whereString & " AND private <> 'Yes'"
 		}
 	</cfscript>	
+	<cfscript>
+		// throw(loc.whereString)
+	</cfscript>
 
 		<cfquery dbtype="query" name="loc.return">
 			SELECT *
@@ -263,7 +266,7 @@ private function $arrayOfStructsSort(aOfS,key){
 <cfscript>
 	function isAgbmLifeMember(personid) {
 		var person = model("Handbookprofile").findOne(where="personId = #personId#")
-		if ( len(person.agbmlifememberAt) ) {
+		if ( isDefined('person.agbmlifememberAt') && len(person.agbmlifememberAt) ) {
 			return true
 		}
 		return false

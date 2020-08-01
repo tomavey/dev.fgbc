@@ -231,8 +231,9 @@ component extends="Model" output="false" {
 
 	function isAGBMMember(required numeric personid, required struct params) {
 		var loc = structNew()
-		loc.check = model("Handbookagbminfo").findOne(where="personid=#arguments.personid# AND ( membershipfeeyear = #currentMembershipYear(params)# OR length(agbmlifememberAt) > 3 )")
-		if ( isObject(loc.check) ) {
+		loc.check = model("Handbookagbminfo").findOne(where="personid=#arguments.personid# AND ( membershipfeeyear = #currentMembershipYear(params)#)")
+		loc.check2 = model("Handbookagbminfo").isAgbmLifeMember(personid)
+		if ( isObject(loc.check) || loc.check2 ) {
 			loc.return = true
 		} else {
 			loc.return = false
