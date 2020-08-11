@@ -10,14 +10,15 @@
 <cfif not downloadthis>
 #linkto(text="<i class='icon-download-alt'></i>", controller="handbook.agbminfo", action="delinquent", params="download=true", class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
 </cfif>
-	<h2>AGBM Men who paid in #currentmembershipyear-1# but have not paid in #currentmembershipyear#:</h2>
+	<h2>AGBM Men who paid in #currentmembershipyear-1# but have not paid in #currentmembershipyear# (excluding lifetime members):</h2>
 </cfoutput>
 
 
 <table class="table table-striped">
 	<tbody>
+		<!--- <cfdump var="#people#"><cfabort> --->
 	<cfoutput query="people">
-		<cfif paidLastYearNotThisYear(id,currentmembershipyear)>
+		<cfif paidLastYearNotThisYear(id,currentmembershipyear) && !len(agbmlifememberAt)>
 			<tr>
 			<cfif downloadthis>
 				<td>#lname#</td>

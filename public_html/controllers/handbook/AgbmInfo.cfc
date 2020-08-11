@@ -120,7 +120,7 @@
 		<cfelse>
 			<cfset currentmembershipyear = model("Handbookperson").currentMembershipyear(params)>
 		</cfif>
-		<cfset people = model("Handbookperson").findAll(order="lname, fname", include="Handbookstate")>
+		<cfset people = model("Handbookperson").findAll(order="lname, fname", include="Handbookstate,Handbookprofile")>
 		<cfif isDefined("params.download")>
 			<cfset renderPage(layout="/layout_download")>
 		</cfif>
