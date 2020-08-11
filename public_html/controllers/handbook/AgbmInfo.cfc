@@ -97,6 +97,21 @@
 		return countOfMembershipYearsPaid(personId)
 	}
 
+	function delinquent() {
+		if ( isDefined("params.key") && val(params.key) ) {
+			currentmembershipyear = params.key;
+		} else {
+			currentmembershipyear = model("Handbookperson").currentMembershipyear(params);
+		}
+		people = model("Handbookperson").findAll(order="lname, fname", include="Handbookstate,Handbookprofile");
+		people = queryFilter(people, function(el) {
+				return paidLastYearNotThisYear(el.id,currentmembershipyear) && !len(el.agbmlifememberAt)
+			});
+		if ( isDefined("params.download") ) {
+			renderPage(layout="/layout_download");
+		}
+	}
+
 </cfscript>
 
 	<cffunction name="publicList">
@@ -112,18 +127,6 @@
 	<cffunction name="show">
 		<cfset setReturn()>
 		<cfset payments = model("Handbookagbminfo").findAll(where="personid = #params.key#", include="Handbookperson(Handbookstate)", order="membershipfeeyear DESC")>
-	</cffunction>
-
-	<cffunction name="delinquent">
-		<cfif isDefined("params.key") and val(params.key)>
-		  	<cfset currentmembershipyear = params.key>
-		<cfelse>
-			<cfset currentmembershipyear = model("Handbookperson").currentMembershipyear(params)>
-		</cfif>
-		<cfset people = model("Handbookperson").findAll(order="lname, fname", include="Handbookstate,Handbookprofile")>
-		<cfif isDefined("params.download")>
-			<cfset renderPage(layout="/layout_download")>
-		</cfif>
 	</cffunction>
 
 	<!--- -handbookagbminfos/add --->

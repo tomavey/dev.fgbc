@@ -18,7 +18,6 @@
 	<tbody>
 		<!--- <cfdump var="#people#"><cfabort> --->
 	<cfoutput query="people">
-		<cfif paidLastYearNotThisYear(id,currentmembershipyear) && !len(agbmlifememberAt)>
 			<tr>
 			<cfif downloadthis>
 				<td>#lname#</td>
@@ -52,7 +51,6 @@
 				<cfset count = count +1>
 	
 			</tr>
-		</cfif>
 		
 	</cfoutput>
 	</tbody>
