@@ -91,7 +91,7 @@ new Vue({
       loading: false,
       showSecretInput: true,
       cursorHighlight: "none",
-      secretPhrase: '',
+      secretPhrase: 'Inspire Today', //change to empty string to secure information behind secret phrase
       headers: [
         {
           text: 'Last Name',
