@@ -228,10 +228,11 @@ private function $arrayOfStructsSort(aOfS,key){
 			loc.whereString = loc.whereString & " AND lname = '#arguments.search#'
 			OR fname = '#arguments.search#'"
 		}
-
-		if ( isDefined("arguments.publicOnly") && arguments.publicOnly ) {
-			loc.whereString = loc.whereString & " AND private <> 'Yes'"
-		}
+		//This is not working - not sure why so I added a filter later
+		// if ( isDefined("arguments.publicOnly") && arguments.publicOnly ) {
+			// loc.whereString = loc.whereString & " AND (private != 'Yes')"
+		// }
+		// throw(loc.whereString)
 	</cfscript>	
 	<cfscript>
 		// throw(loc.whereString)
@@ -243,6 +244,16 @@ private function $arrayOfStructsSort(aOfS,key){
 			WHERE #loc.whereString#
 			ORDER BY #arguments.orderby#
 		</cfquery>
+
+		<cfscript>
+			//Normal query for not-private records is not working - not sure why so I added a filter here
+			if ( isDefined("arguments.publicOnly") && arguments.publicOnly ) {
+				loc.return = queryFilter(loc.return, function(el) {
+					return el.private != "yes"
+				})
+			}
+		</cfscript>
+
 
 		<cfreturn loc.return>
 	</cffunction>
