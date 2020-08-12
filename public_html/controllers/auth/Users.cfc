@@ -21,7 +21,7 @@ component extends="Controller" output="false" {
 <!------------------->
 
 <!--- users/index --->
-	public function index(orderByString = "createdAt DESC, lname,fname", whereString = ""){
+	public function Xindex(orderByString = "createdAt DESC, lname,fname", whereString = ""){
 		var args = arguments
 		if ( isDefined('params.orderby') ) { args.orderByString = params.orderBy }
 		if ( isDefined('params.search') ) {
@@ -30,7 +30,7 @@ component extends="Controller" output="false" {
 		users = model('Authuser').findAll(where=args.whereString, order=args.orderbyString)
 	}
 
-	public function Xindex(orderbyString = "createdAt DESC, lname,fname"){
+	public function index(orderbyString = "createdAt DESC, lname,fname"){
 		var args = arguments
 		users = model("Authuser").findAll(order = orderbyString)
 		users = serializeJSON(users, "struct")
