@@ -56,12 +56,12 @@
     >
       <!--- <template slot="items" slot-scope="props">
       <tr @click="goToPerson(props.item.personid)" @mouseover="highlightRow" style="cursor:pointer" :class="cursorHighlight">
-        <td class="text-xs-right">{{ props.item.lname }}</td>
-        <td class="text-xs-right" >{{ props.item.fname }}</td>
-        <td class="text-xs-right">{{ props.item.name }}</td>
-        <td class="text-xs-right">{{ props.item.org_city }}</td>
-        <td class="text-xs-right">{{ props.item.state }}</td>
-        <td class="text-xs-right">{{ props.item.district }}</td>
+        <td class="text-xs-right">{{ props.item.LNAME }}</td>
+        <td class="text-xs-right" >{{ props.item.FNAME }}</td>
+        <td class="text-xs-right">{{ props.item.NAME }}</td>
+        <td class="text-xs-right">{{ props.item.ORG_CITY }}</td>
+        <td class="text-xs-right">{{ props.item.STATE }}</td>
+        <td class="text-xs-right">{{ props.item.DISTRICT }}</td>
       </tr>  
       </template>
         <v-alert slot="no-results" :value="true" color="error" icon="warning">
@@ -96,13 +96,13 @@ new Vue({
         {
           text: 'Last Name',
           align: 'center',
-          value: 'lname'
+          value: 'LNAME'
         },
-        { text: 'First Name', align: 'center', value: 'fname' },
-        { text: 'Church', align: 'center', value: 'name' },
-        { text: 'City', align: 'center', value: 'org_city' },
-        { text: 'State', align: 'center', value: 'state' },
-        { text: 'District', align: 'center', value: 'district' }
+        { text: 'First Name', align: 'center', value: 'FNAME' },
+        { text: 'Church', align: 'center', value: 'NAME' },
+        { text: 'City', align: 'center', value: 'ORG_CITY' },
+        { text: 'State', align: 'center', value: 'STATE' },
+        { text: 'District', align: 'center', value: 'DISTRICT' }
       ]
     }
   },
