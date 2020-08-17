@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0b380b"],{"293a":function(a,e,n){"use strict";n.r(e);var t=function(){var a=this,e=a.$createElement,n=a._self._c||e;return n("v-container",[n("div",{staticClass:"about"},[n("h1",[a._v(a._s(a.message))])])])},s=[],i={data(){return{message:"This is a chat page"}}},u=i,c=n("2877"),o=n("6544"),r=n.n(o),l=n("a523"),p=Object(c["a"])(u,t,s,!1,null,null,null);p.options.__file="Chat.vue";e["default"]=p.exports;r()(p,{VContainer:l["a"]})}}]);
-//# sourceMappingURL=chunk-2d0b380b.ba6c6849.js.map

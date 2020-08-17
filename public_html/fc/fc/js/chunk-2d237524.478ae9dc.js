@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d237524"],{fb2d:function(e,n,s){"use strict";s.r(n);var t=function(){var e=this,n=e.$createElement,s=e._self._c||n;return s("v-container",[s("div",{staticClass:"document"},[s("h1",[e._v(e._s(e.message))])])])},a=[],u={data(){return{message:"This is documents page"}}},c=u,i=s("2877"),o=s("6544"),r=s.n(o),l=s("a523"),d=Object(i["a"])(c,t,a,!1,null,null,null);d.options.__file="Documents.vue";n["default"]=d.exports;r()(d,{VContainer:l["a"]})}}]);
-//# sourceMappingURL=chunk-2d237524.478ae9dc.js.map

@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d21d9f6"],{d1a4:function(n,e,a){"use strict";a.r(e);var s=function(){var n=this,e=n.$createElement,a=n._self._c||e;return a("v-container",[a("div",{staticClass:"about"},[a("h1",[n._v(n._s(n.message))])])])},t=[],u={data(){return{message:"This is an Announcements Page"}}},i=u,o=a("2877"),c=a("6544"),r=a.n(c),l=a("a523"),d=Object(o["a"])(i,s,t,!1,null,null,null);d.options.__file="Announcements.vue";e["default"]=d.exports;r()(d,{VContainer:l["a"]})}}]);
-//# sourceMappingURL=chunk-2d21d9f6.0cbb6197.js.map
