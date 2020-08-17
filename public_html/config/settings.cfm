@@ -185,8 +185,8 @@
 						link: 'https://charisfellowship.us/page/ccm-en'
 					},
 					{
-						name: 'Resolutions 2019',
-						link: 'https://charisfellowship.us/page/resolutions2019'
+						name: 'Resolutions 2020',
+						link: 'https://charisfellowship.us/page/resolutions2020'
 					},
 					{
 						name: 'Graphical Resources',
