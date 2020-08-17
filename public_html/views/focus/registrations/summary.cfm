@@ -17,6 +17,14 @@
 			<th>#linkto(text="Northwest", controller="focus.registrations", action="index", params="menuName=northwest")#</th>
 		</tr>
 		<tr>
+			<td>2020/21</td>
+			<td>#regs.central20total#</td>
+			<td>#regs.east20total#</td>
+			<td>#regs.southwest21total#</td>
+			<td>#regs.south21total#</td>
+			<td>#regs.northwest21total#</td>
+		</tr>
+		<tr>
 			<td>2019/20</td>
 			<td>#regs.central19total#</td>
 			<td>#regs.east19total#</td>
@@ -32,59 +40,6 @@
 			<td>#regs.south19total#</td>
 			<td>#regs.northwest19total#</td>
 		</tr>
-		<tr>
-			<td>2017/18</td>
-			<td>#regs.central17total#</td>
-			<td>#regs.east17total#</td>
-			<td>#regs.southwest18total#</td>
-			<td>#regs.south18total#</td>
-			<td>#regs.northwest18total#</td>
-
-		</tr>
-		<tr>
-			<td>2016/17</td>
-			<td>#regs.central16total#</td>
-			<td>#regs.east16total#</td>
-			<td>#regs.southwest17total#</td>
-			<td>#regs.south17total#</td>
-			<td>#regs.northwest17total#</td>
-
-		</tr>
-		<tr>
-			<td>2015/16</td>
-			<td>#regs.central15total#</td>
-			<td>#regs.east15total#</td>
-			<td>#regs.southwest16total#</td>
-			<td>#regs.south16total#</td>
-			<td>#regs.northwest15total#</td>
-
-		</tr>
-		<!--- <tr>
-			<td>2014/15</td>
-			<td>#regs.central14total#</td>
-			<td>#regs.east14total#</td>
-			<td>#regs.southwest15total#</td>
-			<td>#regs.south15total#</td>
-			<td>#regs.northwest14btotal#</td>
-
-		</tr>
-		<tr>
-			<td>2013/14</td>
-			<td>#regs.central13total#</td>
-			<td>#regs.east13total#</td>
-			<td>#regs.southwest14total#</td>
-			<td>#regs.south14total#</td>
-			<td>#regs.northwest14total#</td>
-
-		</tr>
-		<tr>
-			<td>2012/13</td>
-			<td>#regs.central12total#</td>
-			<td>#regs.east12total#</td>
-			<td>#regs.southwest13total#</td>
-			<td>#regs.northwest13total#</td>
-			<td>#regs.northwest13total#</td>
-		</tr> --->
 	</table>
 <cfif asOf IS now()>
 	#linkTo(text="View total regs for completed retreats", action="summary", params="asof=July 1, #year+1#", class="btn")#
