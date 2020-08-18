@@ -131,7 +131,7 @@
 		<cfif params.sendNotice && !isLocalMachine() >
 			<cfset sendEmail(layout="/focus/emaillayout", to=application.wheels.registrant, from=application.wheels.registrant, subject="Focus Retreat Invoice has been started.", template="notify")>
 		</cfif>
-		<cflocation url="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5834/default.aspx?amount=#payonline.amount#&email=#payonline.agent#&url=http://#CGI.http_host#/?controller=focus.invoices&action=confirm">
+		<cflocation url="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5834/default.aspx?order_id=#payonline.orderid#&amount=#payonline.amount#&email=#payonline.agent#&url=http://#CGI.http_host#/?controller=focus.invoices&action=confirm">
 		<!--- <cfset renderPage(layout='/focus/layout2')> --->
 	</cffunction>
 
