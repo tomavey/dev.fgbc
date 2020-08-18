@@ -131,8 +131,9 @@
 		<cfif params.sendNotice && !isLocalMachine() >
 			<cfset sendEmail(layout="/focus/emaillayout", to=application.wheels.registrant, from=application.wheels.registrant, subject="Focus Retreat Invoice has been started.", template="notify")>
 		</cfif>
-		<cfset renderPage(layout='/focus/layout2')>
-	</cffunction>
+		<cflocation url="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5834/default.aspx?amount=#payonline.amount#&email=#payonline.agent#&url=http://#CGI.http_host#/?controller=focus.invoices&action=confirm">
+		<!--- <cfset renderPage(layout='/focus/layout2')>
+	</cffunction> --->
 
 	<cffunction name="confirm" 
 		hint="goemerchant will call back to this controller">

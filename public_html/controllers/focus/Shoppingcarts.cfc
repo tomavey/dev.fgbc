@@ -131,7 +131,7 @@
 		<!--- Verify that the shoppingcart creates successfully --->
 		<cfif shoppingcart.save()>
 			<cfset flashInsert(success="The shoppingcart was created successfully.")>
-		            <cfset redirectTo(action="show", key=shoppingCart.shoppingcartid, delay="true")>
+		  <cfset redirectTo(action="show", key=shoppingCart.shoppingcartid, delay="true")>
 		<!--- Otherwise --->
 		<cfelse>
 

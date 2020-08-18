@@ -1,10 +1,12 @@
+<cfparam name="formaction" default="create">
+
 <h1>Create new registration</h1>
 
 <cfoutput>
 
 			#errorMessagesFor("registration")#
 	
-			#startFormTag(action="create")#
+			#startFormTag(action=formaction)#
 		
 				
 						#textField(objectName='registration', property='registrantId', label='Registrant Id')#

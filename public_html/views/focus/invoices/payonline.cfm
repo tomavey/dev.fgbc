@@ -5,6 +5,10 @@
 	<cfinput type="hidden" name="URL" value="#payonline.url#">
 	</cfform>
 
+<cfscript>
+	dd(payonline.amount)
+</cfscript>
+
 	<script>
 	
 		document.form1.submit();
