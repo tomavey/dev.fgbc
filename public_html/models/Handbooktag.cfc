@@ -10,9 +10,9 @@
 	<cfargument name="id" required="true" type="numeric">
 	<cfargument name="type" required="true" type="string">
 		<cfif isdefined("session.auth.username")>
-			<cfset tags = model("Handbooktag").findAll(where="itemid='#arguments.id#' AND type='#arguments.type#' AND (username = '#session.auth.email#' OR username='#session.auth.username#')")>
+			<cfset tags = model("Handbooktag").findAll(where="itemid='#arguments.id#' AND type='#arguments.type#' AND (username LIKE '%#session.auth.email#%' OR username LIKE '%#session.auth.username#%')")>
 		<cfelse>
-			<cfset tags = model("Handbooktag").findAll(where="itemid='#arguments.id#' AND type='#arguments.type#' AND username = '#session.auth.email#'")>
+			<cfset tags = model("Handbooktag").findAll(where="itemid='#arguments.id#' AND type='#arguments.type#' AND username LIKE '%#session.auth.email#%'")>
 		</cfif>
 		<cfreturn tags>
 	</cffunction>
@@ -52,7 +52,7 @@
 	<cfset loc = arguments>
 	<cfset loc.return = queryNew("id")><!---Creates an empty query--->
 	<cfloop list="#loc.tags#" index="loc.i">
-		<cfset loc.tags = findAll(select="fname,lname,id,email,email2,fullname", where="tag='#loc.i#' AND username = '#loc.tagsusername#' AND type='person'", include="Handbookperson")>
+		<cfset loc.tags = findAll(select="fname,lname,id,email,email2,fullname", where="tag='#loc.i#' AND username LIKE '%#loc.tagsusername#%' AND type='person'", include="Handbookperson")>
 		<cfset loc.return = queryAppend(loc.return,loc.tags)>
 	</cfloop>
 

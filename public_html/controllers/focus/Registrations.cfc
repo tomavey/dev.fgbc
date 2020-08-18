@@ -284,9 +284,9 @@
 
 
 	<!---East Retreats--->
-		<cfset yearsAgo = 0>
 
 		<!---2020--->
+		<cfset yearsAgo = 0>
 		<cfset regs.east20total = countRegsToDate("east20",yearsAgo,asof)>
 
 		<!---2019--->
@@ -296,6 +296,7 @@
 		<!---2018--->
 		<cfset yearsAgo = yearsAgo + 1>
 		<cfset regs.east18total = countRegsToDate("east18",yearsAgo,asof)>
+
 
 	<!---Southwest Retreats--->
 
@@ -314,6 +315,7 @@
 		</cfloop>
 		<cfset regs.southwest19total = regs.SW19Single1 + regs.SW19Single2 + regs.SW19SinglePrivate>
 
+		
 	<!---South Retreats--->
 
 		<!---2021--->

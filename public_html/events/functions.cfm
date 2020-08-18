@@ -288,6 +288,10 @@ function queryToArray(required query data){
 		writeOutput("<return xmlFormat(text)>")
 	}
 
+	function dd(message) {
+		throw(serialize(message))
+	}
+
 </cfscript>
 	
 		

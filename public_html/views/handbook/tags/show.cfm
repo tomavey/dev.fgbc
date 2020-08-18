@@ -26,7 +26,7 @@
 		<p>
 			#linkto(text="Download #params.key#", action="download", key=params.key, class="btn")#<br/>
 
-			#linkTo(text="Remove #params.key#", action="removeTag", key=params.key, onclick="return confirm('Are you sure you want to remove this tag?')", class="btn btn-medium")#<br/>
+			#linkTo(text="Remove #params.key#", action="remove", params="tag=#params.key#", onclick="return confirm('Are you sure you want to remove this tag?')", class="btn btn-medium")#<br/>
 
 			#linkTo(text="Copy #params.key#", action="duplicateTag", key=params.key, class="btn btn-medium")#
 		</p>			

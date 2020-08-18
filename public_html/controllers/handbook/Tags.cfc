@@ -199,7 +199,7 @@
 	<!--- handbook-tags/create --->
 	<cffunction name="create">
 		<cfset setTags()>
-        <cfset returnBack()>
+    <cfset returnBack()>
 	</cffunction>
 
 	<cffunction name="setTags">
@@ -214,9 +214,8 @@
 		clearSessionTemp()
 	</cfscript>
 
-		<cfloop list="#loc.tags#" index="i">
-			<cfset loc.tag = i>
-			<cfset loc.check = model("Handbooktag").findOne(where="itemid = #loc.itemid# AND username = '#loc.username#' AND tag = '#loc.tag#'")>
+		<cfloop list="#loc.tags#" index="loc.tag">
+			<cfset loc.check = model("Handbooktag").findOne(where="itemid = #loc.itemid# AND username LIKE '%#loc.username#%' AND tag = '#loc.tag#'")>
 			<cfif not isObject(loc.check)>
 				<cfset loc.handbooktag = model("Handbooktag").new(loc)>
 				<cfset loc.check =  loc.handbooktag.save()>
@@ -251,9 +250,9 @@
 				<cfset args.tags = "#loc.tag#">
 				<cfset args.username = loc.username & "," & loc.newusername>
 			</cfif>
-	<!--- <cfscript>
+	<cfscript>
 		throw(serialize(args))
-	</cfscript> --->
+	</cfscript>
 	<cfset setTags(argumentcollection=args)>
 		</cfloop>
 
@@ -345,11 +344,11 @@
 	function removeFromTag(){
 		var whereString = "tag='#params.tag#' AND itemid = '#params.itemid#'"
 		if ( isDefined("params.username") ) {
-			whereString = whereString & " AND username = '#params.username#'"
+			whereString = whereString & " AND username LIKE '%#params.username#%'"
 		} else if ( isDefined("session.auth.username") ) {
-			whereString = whereString & " AND (username = '#session.auth.email#' OR username = '#session.auth.username#')"
+			whereString = whereString & " AND (username LIKE '%#session.auth.email#%' OR username LIKE '%#session.auth.username#%')"
 		} else {
-			whereString = "tag='#params.key#' AND itemid = '#params.itemid#' AND username = '#session.auth.email#'"
+			whereString = "tag='#params.key#' AND itemid = '#params.itemid#' AND username LIKE '%#session.auth.email#%'"
 		}
 		var removeFromTag = model("handbooktag").deleteAll(where=whereString, title="Receive notices of updates via email.")
 		redirectTo(back=true)
@@ -358,26 +357,26 @@
 	function remove() {
 		var whereString = ""
 		if ( isDefined("params.username") ) {
-			whereString = "tag='#params.tag#' AND username = '#params.username#'"
+			whereString = "tag='#params.tag#' AND username LIKE '%#params.username#%'"
 		} else if ( isdefined("session.auth.username") ) {
-			whereString = "tag='#params.tag#' AND (username = '#session.auth.email#' OR username = '#session.auth.username#')"
+			whereString = "tag='#params.tag#' AND (username LIKE '%#session.auth.email#%' OR username LIKE '%#session.auth.username#%')"
 		} else {
-			whereString = "tag='#params.tag#' AND username = '#session.auth.email#'"
+			whereString = "tag='#params.tag#' AND username LIKE '%#session.auth.email#%'"
 		}
 		model("handbooktag").deleteAll(where=whereString, class="tooltip2", title="Receive notices of updates via email.")
-		returnBack()
+		redirectTo(action="index")
 	}
 
 </cfscript>
 
-	<cffunction name="Xremove">
+	<!--- <cffunction name="Xremove">
 		<cfif isdefined("session.auth.username")>
 			<cfset removeTag = model("handbooktag").deleteAll(where="tag='#params.tag#' AND (username = '#session.auth.email#' OR username = '#session.auth.username#')", class="tooltip2", title="Receive notices of updates via email.")>
 		<cfelse>
 			<cfset removeTag = model("handbooktag").deleteAll(where="tag='#params.tag#' AND username = '#session.auth.email#'", class="tooltip2", title="Receive notices of updates via email.")>
 		</cfif>
 		<cfset returnBack()>
-	</cffunction>
+	</cffunction> --->
 
 	<cffunction name="changeTag">
 		<cfif isdefined("session.auth.username")>
