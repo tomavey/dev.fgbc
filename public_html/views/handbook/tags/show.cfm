@@ -1,5 +1,12 @@
+<cfif !isDefined("params.key") && isDefined("params.tag") >
+	<cfset params.key = params.tag>
+</cfif>
+
+<!--- <cfdump var="#people#" abort> --->
+
 <cfset peoplecount = 0>
 <cfset churchcount = 0>
+
 
 <div id="show">
 	<!--- <cfdump var="#params#"> --->
@@ -161,36 +168,38 @@
 		<div class="well">
 			<h3>Sharing</h3>
 		<!---Copy this tag and send to another user--->
-		<div class="well">
+			<div class="well">
 				<p>
-					#startFormTag(action="shareTag")#
+					#startFormTag(action="copyTags")#
 					#hiddenFieldTag(name="tag", value=params.key)#
 					#hiddenFieldTag(name="type", value="person")#
 					#hiddenFieldTag(name="shareOrCopy", value="copy")#
 					#hiddenFieldTag(name="username", value=session.auth.username)#
-					#selectTag(name="newuserId", options=people, includeBlank="-Select one person-", valuefield="id", textfield="selectname")#
+					#selectTag(name="newusername", options=people, includeBlank="--Select one person--", valuefield="email", textfield="selectname")#
 					#submitTag("Send this tag to another handbook user")#
 					#endFormTag()#
 				</p>
-				<p>This tag list will not sync with the shared list when you make changes.  However, re-sharing this tag list will update the shared tag list.</p>
-			
+				<p>
+					This tag list will not sync with the shared list when you make changes.  However, re-sharing this tag list will update the shared tag list.
+				</p>
 			</div>	
-				
-		<!---Share this tag with another user--->
-		<div class="well">
-			<p>
-				#startFormTag(action="shareTag")#
-				#hiddenFieldTag(name="tag", value=params.key)#
-				#hiddenFieldTag(name="type", value="person")#
-				#hiddenFieldTag(name="shareOrCopy", value="share")#
-				#hiddenFieldTag(name="username", value=session.auth.username)#
-				#selectTag(name="newuserId", options=people, includeBlank="-Select one person-", valuefield="id", textfield="selectname")#
-				#submitTag("Share this tag with another handbook user")#
-				#endFormTag()#
-			</p>
-			<p>This tag list will sync with the shared list when you make changes.</p>
 
-		</div>	
+		<!---Share this tag with another user--->
+			<div class="well">
+				<p>
+					#startFormTag(action="shareTag")#
+					#hiddenFieldTag(name="tag", value=params.key)#
+					#hiddenFieldTag(name="type", value="person")#
+					#hiddenFieldTag(name="shareOrCopy", value="share")#
+					#hiddenFieldTag(name="username", value=session.auth.username)#
+					#selectTag(name="newUserName", options=people, includeBlank="--Select one person--", valuefield="email", textfield="selectname")#
+					#submitTag("Share this tag with another handbook user")#
+					#endFormTag()#
+				</p>
+				<p>
+					This tag list will sync with the shared list when you make changes.
+				</p>
+			</div>	
 
 		<!---Share this tag with another user group--->
 		<cfif isDefined("session.auth.rightslist")>
@@ -200,12 +209,13 @@
 					#hiddenFieldTag(name="tag", value=params.key)#
 					#hiddenFieldTag(name="type", value="person")#
 					#hiddenFieldTag(name="username", value=session.auth.username)#
-					#selectTag(name="userGroup", options=session.auth.rightslist, includeBlank="-Select one user group-", valuefield="id", textfield="selectname")#
+					#selectTag(name="userGroup", options=session.auth.rightslist, includeBlank="--Select one user group--", valuefield="id", textfield="selectname")#
 					#submitTag("Share this tag with a user group")#
 					#endFormTag()#
 				</p>
-				<p>This tag list will sync with others in the same user group.</p>
-			
+				<p>
+					This tag list will sync with others in the same user group.
+				</p>
 			</div>	
 		</cfif>
 		</div>

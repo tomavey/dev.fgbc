@@ -197,12 +197,67 @@
 	</cffunction>
 
 	<!--- handbook-tags/create --->
-	<cffunction name="create">
-		<cfset setTags()>
-    <cfset returnBack()>
-	</cffunction>
 
-	<cffunction name="setTags">
+<cfscript>
+	function create(){
+		setTags(params.itemid,params.username,params.tags,params.type)
+		returnBack()
+	}
+
+	void function setTags(itemid,username,tags,type) {
+		var loc = arguments
+		//convert list to array so I can arrayEach()
+		var tagsArray = listToArray(loc.tags)
+		//used session.tempUserName if set
+		if ( isDefined("session.temp.tagUserName") ) { loc.username = session.temp.tagUserName }
+		clearSessionTemp()
+		//Iterate over tagsArray and check make sure not a duplicate then set the tag if new
+		arrayEach(tagsArray, function(tag){
+				loc.check = model("Handbooktag").findOne(where="itemid = #loc.itemid# AND username LIKE '%#loc.username#%' AND tag = '#tag#'")
+				if ( !isObject(loc.check) ) {
+					loc.handbooktag = model("Handbooktag").new(itemid = loc.itemid,username= loc.username,tag = tag, type=loc.type)
+					loc.check = loc.handbooktag.save()
+				}
+			}
+		)	
+	}
+
+	void function shareTag(tag=params.tag, username=params.username, newuserName = params.newUserName) {
+		var loc = arguments
+		//find all tags for this username/type and tag
+		loc.tags = model("Handbooktag").findAll(where="tag = '#params.tag#' AND username LIKE '%#params.username#%'")
+		//iterate over query and save with new usernameString
+		queryEach(loc.tags,function(el){
+			loc.tag = model("Handbooktag").findOne(where="id=#el.id#")
+			//add newusername to username string
+			loc.tag.username = loc.tag.username & "," & loc.newusername
+			loc.tag.username = removeDuplicatesFromList(loc.tag.username)
+			loc.tag.save()
+		})
+		redirectTo(action="show", key=params.tag)
+		// dd(loc)
+	}
+
+	void function copyTags(tag=params.tag, username=params.username, newuserName = params.newUserName)	{
+		var loc = arguments
+		var tags = model("Handbooktag").findAll(where="tag = '#params.tag#' AND username LIKE '%#params.username#%'")
+		var tag
+		var newTag = {}
+		queryEach(tags, function(el){
+			newTag.username = loc.newUserName
+			newTag.tag = loc.tag
+			newTag.itemid = el.itemid
+			newTag.type = el.type
+			model("Handbooktag").new(newTag).save()
+		} )
+		redirectTo(action="show", key=params.tag)
+	}
+
+</cfscript>
+
+
+
+	<cffunction name="XsetTags">
 	<cfargument name="itemid" default=#params.itemid#>
 	<cfargument name="username" default='#params.username#'>
 	<cfargument name="tags" default='#params.tags#'>
@@ -224,7 +279,7 @@
 
 	</cffunction>
 
-	<cffunction name="shareTag">
+	<cffunction name="XshareTag">
 	<cfargument name="tag" default="#params.tag#">
 	<cfargument name="username" default="#params.username#">
 	<cfargument name="newuserId" default="#params.newuserId#">
