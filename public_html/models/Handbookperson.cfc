@@ -392,7 +392,6 @@ function findDatesSorted(required string datetype, orderby="birthdayMonthNumber,
 	return loc.profiles
 }
 
-
 function findDatesThisWeek(required string type, today="#dayOfYear(now())#", until="#dayOfYear(now())+7#") {
 		datesSorted = findDatesSorted(arguments.type)
 		thisweek = week(now())
@@ -418,7 +417,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		return datestoday
 	}
 
-	function $findDatesByType(required string datetype) {
+	function $findDatesByType(required string datetype,testLname) {
 		var loc=structNew()
 		if ( arguments.datetype contains "birthday" ) {
 			loc.orderstring = "birthdayMonthNumber,birthdayDayNumber"
@@ -427,6 +426,9 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		}
 		// Remove personid after
 		loc.whereString = "#arguments.datetype#AsString != NULL"
+		if ( isDefined(arguments.testLname) ) {
+			loc.whereString = loc.whereString & " AND lname = '#arguments.testLname#'"
+		}
 		// Remove spouse birthdays and anniversaries where spouse name is blank - probably deceased
 		if ( arguments.datetype == "wifesbirthday" || arguments.datetype == "anniversary" ) {
 			loc.whereString = loc.wherestring & " AND spouse != NULL"

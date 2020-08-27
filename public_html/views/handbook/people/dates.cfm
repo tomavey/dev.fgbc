@@ -47,7 +47,7 @@
   <cfset count = count + 1>
 </cfif>    
 </cfoutput>
-
+ddd(datesSorted)
 <cfoutput query="datesSorted" group="#params.dateType#monthnumber">
 <cfif isInHandbook(personid)>
 
