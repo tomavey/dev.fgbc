@@ -6,7 +6,7 @@
 		 #linkto(text="Charis Fellowship Handbook", class="brand", route="handbookPeople")#
 		 </cfif>
 		 <div class="pull-right">
-				#startFormTag(route="HandbookSearchtags", class="navbar-search pull-right")#
+				#startFormTag(route="HandbookSearchtags", class="navbar-search pull-right", method="get")#
 				#textFieldTag(name="Search", class="search-query input-small", placeholder="Search......", prependToLabel="", append="")#
 				#endFormTag()#
 		</div>

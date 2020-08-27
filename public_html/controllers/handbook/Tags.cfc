@@ -313,7 +313,7 @@ component extends="Controller" output="true" {
 		// Set whereStrings for people, organizations and tags
 		loc.peopleSearchString = "p_sortorder <= #getNonStaffSortOrder()# AND #getSearchString('lname,fname,city,email,position,prefix,suffix')#";
 		loc.orgSearchString = "show_in_handbook = 1 AND #getSearchString('name,org_city,email,fein')#";
-		loc.tagSearchString = "(username = '#session.auth.email#' || username = '#session.auth.username#') AND tag LIKE '#params.search#%'";
+		loc.tagSearchString = "(username = '#session.auth.email#' OR username = '#session.auth.username#') AND tag LIKE '#params.search#%'";
 		// If the search string contains = , the use the string for the whereString
 		if ( params.search contains "=" ) {
 			loc.peopleSearchString = params.search;
@@ -384,11 +384,12 @@ component extends="Controller" output="true" {
 	function getSearchString(fieldlist) {
 		var loc=structNew();
 		loc.searchstring = "";
-		for ( i in "" ) {
-			loc.searchstring = loc.searchstring & " || " & i & " like '" & "%" & params.search & "%" & "'";
+		for ( loc.i in fieldlist ) {
+			loc.searchstring = loc.searchstring & " OR " & loc.i & " like '" & "%" & params.search & "%" & "'";
 		}
-		loc.searchstring = replace(loc.searchstring," || ","","one");
+		loc.searchstring = replace(loc.searchstring," OR ","","one");
 		return loc.searchstring;
+		ddd(loc.searchString)
 	}
 	
 	private function setCoUserName(params) {

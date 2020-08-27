@@ -292,6 +292,10 @@ function queryToArray(required query data){
 		throw(serialize(message))
 	}
 
+	function ddd(object) {
+		writeDump(object);abort;
+	}
+
 </cfscript>
 	
 		
