@@ -1,0 +1,30 @@
+<ion-view view-title="{{staff.fname}} {{staff.lname}}">
+  <ion-content>
+      <ion-list can-swipe="true">
+        <ion-item>
+             <h2>{{staff.fname}} {{staff.lname}}</h2>
+            <p ng-show="staff.address1.length">
+                {{staff.address1}}
+            </p>
+            <p ng-show="staff.address2.length">
+                {{staff.address2}}
+            </p>
+            <p ng-show="staff.city.length || staff.state.length || staff.zip.length">
+                {{staff.city}}, {{staff.state}} {{staff.zip}}
+             </p>
+            <p ng-show="staff.phone2.length">
+                <a ng-href="tel:{{staff.phone2}}"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>&nbsp;{{staff.phone2}}</a>
+            </p>
+            <p ng-show="staff.birthdayasstring.length">
+                Birthday: {{staff.birthdayasstring.slice(-5)}}
+            </p>
+            <p ng-show="staff.birthdayasstring.length">
+                Anniversary: {{staff.anniversaryasstring.slice(-5)}}
+            </p>
+            </ion-item>
+                    <a href="mailto:{{staff.email}}" class="item item-icon-right}" ng-show="staff.email.length"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;{{staff.email}}</a>
+                    <a ng-href="tel:{{staff.phone}}" class="item item-icon-right}" ng-show="staff.phone.length"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>&nbsp;{{staff.phone}}</a>
+                <a ng-repeat="position in positions track by $index" ng-href="#/church/{{position.organizationid}}" class="item item-icon-right}">{{position.position}} - {{position.name}}</a>
+        </ion-list>
+  </ion-content>
+</ion-view>

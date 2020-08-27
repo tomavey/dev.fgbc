@@ -1,0 +1,1 @@
+.grid-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));grid-gap:5px;grid-auto-rows:minmax(50px,auto);-ms-flex-line-pack:stretch;align-content:stretch}.grid-item{padding:10px;color:#fff}.pointer{cursor:pointer}.center-text{text-align:center}

@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d21d9f6"],{d1a4:function(n,e,a){"use strict";a.r(e);var t=function(){var n=this,e=n.$createElement,a=n._self._c||e;return a("v-container",[a("div",{staticClass:"about"},[a("h1",[n._v(n._s(n.message))])])])},s=[],u={data:function(){return{message:"This is an Announcements Page"}}},c=u,i=a("2877"),o=a("6544"),r=a.n(o),l=a("a523"),d=Object(i["a"])(c,t,s,!1,null,null,null);e["default"]=d.exports;r()(d,{VContainer:l["a"]})}}]);
+//# sourceMappingURL=chunk-2d21d9f6.529591f6.js.map

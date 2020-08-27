@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0b380b"],{"293a":function(a,n,e){"use strict";e.r(n);var t=function(){var a=this,n=a.$createElement,e=a._self._c||n;return e("v-container",[e("div",{staticClass:"about"},[e("h1",[a._v(a._s(a.message))])])])},s=[],c={data:function(){return{message:"This is a chat page"}}},i=c,u=e("2877"),r=e("6544"),o=e.n(r),l=e("a523"),p=Object(u["a"])(i,t,s,!1,null,null,null);n["default"]=p.exports;o()(p,{VContainer:l["a"]})}}]);
+//# sourceMappingURL=chunk-2d0b380b.d03c6798.js.map

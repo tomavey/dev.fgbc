@@ -1,0 +1,63 @@
+body {background-color: #4D738A}
+#welcome {text-align:center; }
+.xcontainer-main {background-color:#ffffff}
+.well img {margin:0 auto; text-align:center; display:block}
+.navbar-inner {background-color: #292928; background-image: -moz-linear-gradient(center top , #292928, #292928);}
+.navbar .nav > li > a {
+    color: white;
+    float: none;}
+.tooltip {font-size: 1.5em}
+div.post {
+    background-color: white;
+    border-radius: 20px;
+    padding:30px;
+    font-size:large;
+}
+#registration ul li,  #schedule ul li {
+    font-size:.8em;
+}
+.regpersoninfo {
+    font-size: 1.3em;
+    font-weight: bold;
+    line-height: 1.2em;
+}
+.regpersoninfo > span {
+    margin-left: 10px;
+    font-size: .8em;
+    font-weight: normal;
+    line-height: 1.2em;
+}
+.focusinvoicename {
+    font-weight: bold;
+    line-height: 1.2em;
+}
+#invoice ul li {
+    line-height: 1.2em;
+    font-size: .8em;
+}
+#invoiceItems table td {
+    padding:5px;
+}
+
+#invoiceItems table .quantity, #invoiceItems table .price {
+    text-align: center;
+}
+
+#invoiceItems table {
+    margin-top: 40px;
+}
+li.notpaid {
+    color:red;
+    font-weight: bold;
+}
+#focusRegSummary td {
+    padding-left:10px;
+}
+
+#focusRegSummary td.text-right {
+    text-align: right
+}
+
+.popup {
+    width: 80%
+}

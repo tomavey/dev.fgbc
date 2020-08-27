@@ -1,0 +1,13 @@
+#handy-find-list li {
+	padding-top:5px;
+	font-size: 1em;
+}
+.handy-staff, .handy-church {
+	font-size:1em;
+}
+#menuleft.slide{left:0}
+#all.hide{position:fixed;left:50%;top:0;width:100%}
+#all.slide{position:relative;}
+.slide,.hide{transition: all 0.2s ease;}
+.agbmregion {float:right;}
+.spousename {font-style: italic}

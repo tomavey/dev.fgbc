@@ -1,0 +1,20 @@
+<div class="container handy-church handy-churchfind" ng-show="agbmregions.length > 0">
+	<div class="row">
+		<div class="form-group">
+			<input ng-model="query" ng-model-options="{ debounce: 200 }" type="text" placeholder="Search Regions" class="input-xlarge search-query form-control"/>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				AGBM Regions
+			</div>
+			<div class="panel-body">
+				<div class="list-group" id="handy-find-list">
+					<a ng-repeat="region in agbmregions | filter:query | orderBy:sortField:reverse | limitTo:limit track by $index" ng-href="#/agbmregion/{{region.id}}" class="list-group-item">{{region.name}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,1 @@
+var access = angular.module('access', ['accessControllers','accessServices','firebase','ngSanitize']);

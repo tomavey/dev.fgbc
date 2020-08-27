@@ -1,0 +1,22 @@
+<ion-view view-title="{{church.name}}">
+  <ion-content>
+      <ion-list can-swipe="true">
+        <ion-item>
+             <h2>{{church.name}}</h2>
+            <p ng-show="church.address1.length">
+                {{church.address1}}
+            </p>
+            <p ng-show="church.address2.length">
+                {{church.address2}}
+            </p>
+            <p ng-show="church.city.length || church.state.length || church.zip.length">
+                {{church.city}}, {{church.state}} {{church.zip}}
+             </p>
+            </ion-item>
+                    <a href="mailto:{{church.email}}" class="item item-icon-right}" ng-show="church.email.length"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;{{church.email}}</a>
+
+                    <a ng-href="tel:{{church.phone}}" class="item item-icon-right}" ng-show="church.phone.length"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>&nbsp;{{church.phone}}</a>
+                <a ng-repeat="staff in staff track by $index" ng-href="#/staff/{{staff.staffid}}" class="item item-icon-right}">{{staff.position}} - {{staff.fname}} {{staff.lname}}</a>
+        </ion-list>
+  </ion-content>
+</ion-view>

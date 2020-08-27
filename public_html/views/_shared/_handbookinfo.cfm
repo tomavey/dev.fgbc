@@ -1,0 +1,95 @@
+<cfset addreturn = 0>
+<cfset include.skype = false>
+<cfoutput>
+<div style='mso-pagination:widow-orphan lines-together'>
+       	  <strong>#alias("lname",lname,id)#, #alias("fname",fname,id)#<cfif len(spouse)><span style="font-style:italic;">&nbsp;#alias("spouse",spouse,id)#</span></cfif></strong>
+
+		  <cfif params.action NEQ "bluepages" and params.action NEQ "handbookinfo" or isDefined("params.showedit")>
+                                <cftry>
+		  	#linkto(text='<i class="icon-search"></i>', controller="handbook.People", action="show", key=id, class="tooltipside", title="Show #alias('fname',fname,id)# #alias('lname',lname,id)#", onclick="window.open(this.href); return false;")#
+                                    <cfcatch>---</cfcatch></cftry>
+			<!--- NOT WORKING CORRECTLY <cfif !isAgbm(id) and gotRights("office")>						
+				#deleteTag(controller="handbook.positions", action="delete", key=id)#
+				#linkto(text='<i class="icon-trash"></i>', controller="handbook.People", action="delete", method="delete", key=id, class="tooltipside ajaxdelete", title="Delete #fname# #lname#", onclick="confirm('Are you sure?')", class="noAjax")#
+			</cfif>   --->
+		  </cfif>
+
+	<br/>
+
+      <cfif len(trim(address1))>
+	    	<span style="text-transform:capitalize">#fixAddress(address1)#</span><br/>
+		  </cfif>
+
+      <cfif len(trim(address2))>
+	    	<span style="text-transform:capitalize">#fixAddress(address2)#</span><br/>
+      </cfif>
+
+	  <cfif len(city)>
+        <span style="text-transform:capitalize">#trim(lcase(city))#</span>,
+		<cfset addreturn = 1>
+	  </cfif>
+
+	  <cfif len(state_mail_abbrev) or len(zip)>
+		<cfif state_mail_abbrev neq "Non" and len(city)>
+			  #state_mail_abbrev#
+  			  <cfset addreturn = 1>
+		</cfif>
+		<cfif len(zip)>
+			   #trim(zip)#
+				<cfset addreturn = 1>
+		</cfif>
+		<cfif addreturn>
+			  <br/>
+		</cfif>
+	  </cfif>
+	  <cfif len(country) and country DOES NOT CONTAIN "USA" and country NEQ "USA,USA" and country NEQ "U.S." and country NEQ "US" and country NEQ "United States">
+	  	#trim(country)#<br/>
+	  </cfif>
+      <cfif len(phone) AND phone NEQ phone3>
+        H:#fixphone(phone)#<br/>
+	  </cfif>
+      <cfif len(phone2) AND phone2 NEQ phone>
+      	M:#fixphone(phone2)#<br/>
+      </cfif>
+      <cfif len(phone3)>
+      	W:#fixphone(phone3)#<br/>
+      </cfif>
+	  <cfset lenEmail = len(email)>
+      <cfif lenEmail>
+	  	<cfif lenEmail GT 25>
+	      	<span style="font-size:.9em">#trim(email)#</span>
+		<cfelse>  
+	      	#trim(email)#
+		</cfif>  
+         <cfset message = urlEncodedFormat("#fname# - #getSetting('emailUpdateMessageFromBluepages')# #urlFor(controller="handbook.welcome", action="welcome", params='id=#encrypt(email,getSetting("passwordkey"),'CFMX_COMPAT','HEX')#', onlyPath=false)#")>
+         <cfset subject = urlEncodedFormat(getSetting("emailUpdateSubjectFromBluepages"))>
+		<cfif isDefined("params.showupdatedat")>
+		 	#mailTo(
+				name='<i class="icon-envelope"></i>',
+				emailaddress='#email#?subject=#subject#&body=#message#',
+				alt="e"
+								)#
+		</cfif>
+		<cfif isDefined("params.showupdate")>
+		 	#mailTo(
+				name='[email link]',
+				emailaddress='#email#?subject=#subject#&body=#message#',
+				alt="e"
+								)#
+		</cfif>
+		<br/>
+	  </cfif>
+	  <cfset lenEmail2 = len(email2)>
+      <cfif lenEmail2 and email NEQ email2>
+	  	<cfif lenEmail2 GT 25>
+	      	<span style="font-size:.9em">#trim(email2)#</span><br/>
+		<cfelse>  
+	      	#trim(email2)#<br/>
+		</cfif>  
+      </cfif>
+      <cfif len(skype) && include.skype>
+      	Skype:#trim(skype)#<br/>
+      </cfif>
+			#displayPositions(id)#<!---From views/helpers.cfm--->
+</div>
+</cfoutput>

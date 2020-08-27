@@ -1,0 +1,47 @@
+<div class="container handy-church handy-churchdetail">
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				{{org.name}}
+			</div>
+			<div class="panel-body">
+			<ul class="list-unstyled">
+				<li ng-show="org.org_address1.length">
+					{{org.org_address1}}</li>
+				<li ng-show="org.address1.length">
+					{{org.address1}}
+				</li>
+				<li ng-show="org.org_city.length">
+					{{org.org_city}} {{org.state}}, {{org.zip}}
+				</li>
+				<li ng-show="org.phone.length">
+					<a ng-href="tel:{{org.phone}}"><span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>&nbsp;{{org.phone}}</a>
+				</li>
+				<li ng-show="org.email.length">
+					<a href="mailto:{{org.email}}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;{{org.email}}</a>
+				</li>
+				<li ng-show="org.website.length">
+					<a href="http://{{org.website}}">{{org.website}}</a>
+				</li>
+				<li ng-show="org.listed_as_city.length && org.listed_as_city !== org.org_city">
+					Listed as: {{org.listed_as_city}}
+				</li>
+				<li ng-show="org.meetingplace.length">
+					Meeting at:{{org.meetingplace}}
+				</li>
+				<li>
+					<a ng-href="http://maps.google.com?hl=en&safe=off&q={{org.address1}}+{{org.org_city}}+{{org.state}}+{{org.zip}}" target="_new">
+						<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+						&nbsp;Map
+					</a>
+				</li>
+			</ul>
+			<ul class="list-unstyled">
+				<li ng-repeat="person in staff track by $index">
+					<a ng-href="#/staffid/{{person.handbookpersonid}}">{{person.fname}} {{person.lname}}</a>: {{person.position}}
+				</li>
+			</ul>
+			</div>
+		</div>
+	</div>
+</div>

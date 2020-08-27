@@ -1,0 +1,19 @@
+.hascenterimage {
+        text-align: center;
+    }
+
+body {
+    background-color: #D0C6A2;
+}
+
+#marginsconferenceimage {
+    width: 900px;
+}
+
+.regcosts table {
+    margin:0 auto;
+}
+
+.regcosts td, .regcosts th {
+    padding:5px;
+}

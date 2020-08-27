@@ -1,0 +1,173 @@
+html,body { margin:0;padding: 0 }
+ 
+body { font: 80% arial,sans-serif }
+ 
+p { margin: 0 10px 10px }
+ 
+a { color: #981793;padding: 0px }
+ 
+/*Layout*/
+#header {
+	height: 180px;
+	line-height: 80px;
+	margin: 0;
+	padding-left: 10px;
+	background:url("images/imagineimage.jpg") no-repeat;
+	background-color: #8A857F;
+	color: white }
+ 
+#wrapper {
+	float: right;
+	width: 100%;
+	margin-left: -200px }
+ 
+#navigation {
+	background: #7EA6C0;
+	float: left;
+	width: 185px;
+	padding: 5px }
+ 
+#extra {
+	background: #7EA6C0;
+	float: left;
+	clear: left;
+	width: 185px;
+	padding: 5px }
+ 
+#footer {
+	background: #333;
+	color: #FFF;
+	clear: both;
+	width: 100% }
+ 
+#content {
+	margin-left: 205px;
+	padding: 10px;
+	color: #3F3A1F }
+ 
+/*Header*/
+#header a { color:white;text-decoration:none;text-shadow: black 2px 2px 3px;}
+ 
+/*Wrapper*/
+/*Navigation*/
+/*Extra*/
+/*Wrapper*/
+/*Footer*/
+#footer p { margin:0;padding: 5px 10px }
+ 
+/*Wrapper*/
+/*Content*/
+#content p { line-height: 1.4 }
+ 
+/*Table*/
+table {
+	margin: 0 auto;
+	border: solid 1px gray;
+	background-color: #FFFFFF	 }
+ 
+	table td.aligncenter { text-align: center }
+ 
+	table td.alignleft { text-align: left }
+ 
+/*menu*/
+.menu ul {
+	list-style: none;
+	margin-left: 0px;
+	padding-left: 0px }
+ 
+.menu li {
+	border: 1px solid #5823E3;
+	margin: 2px;
+	background-color: #FFFFFF;
+	text-align: center;
+	font-weight: bold }
+ 
+	.menu li a {
+		color: #5F582F;
+		text-decoration: none;
+		width: 100%;
+		display: block }
+ 
+	.menu li:hover a, .menu li:hover { background-color:#906EE7;color: white }
+ 
+	.menu li a:hover { color: white }
+ 
+.menu p { text-align:center;font-size: 1.3em }
+ 
+.menu { margin: 5px 0 0 5px }
+ 
+#introduction {
+	text-align: center;
+	font-size: 1.5em;
+	font-weight: bold }
+ 
+.editlink { margin:40px;text-align: center }
+ 
+#assignments { font-size: 1.2em }
+ 
+#footer a:link { color: white }
+ 
+#doclink { font-size: .8em }
+ 
+#extra { margin-bottom: 5px }
+ 
+.staffinfo {
+	margin: 0 0 10px 0;
+	width: 250px;
+	float: left;
+	height: 250px;
+	border: 1px solid gray;
+	padding: 5px;
+	margin: 10px }
+ 
+.churchinfo { margin: 10px 0 0 25px }
+ 
+.fname { font-weight: bold }
+ 
+#searchform { margin: 0 auto;text-align: center }
+ 
+.staffinfo a:link { color: #000000 }
+ 
+.staffinfo a:hover { text-decoration: none }
+ 
+.sendlink {
+	color: gray;
+	font-size: .7em;
+	font-weight: normal }
+ 
+#editbutton { margin:0 auto;text-align: center }
+ 
+	#editbutton input, input[type="submit"] {
+		background-color: #4F4927;
+		color: white;
+		font-weight: bold;
+		border: 2px outset }
+ 
+#buttonOne {
+	text-align: center;
+	display: block;
+	margin-top: 10px }
+ 
+textarea { width:100%;height: 100% }
+ 
+#editlink { text-align: right }
+ 
+img { border: none }
+ 
+#history {
+	margin-top: 30px;
+	border: 1px solid gray;
+	font-size: .8em;
+	color: gray }
+ 
+	#history a { color: gray }
+ 
+		#history a:hover { background-color:#908545;color: white }
+ 
+div.video { text-align: center }
+ 
+table#datatable tr:hover { background-color:#908545;color: white }
+ 
+input#DESCRIPTION {width:200px}
+
+table#datatable {margin:0;width:100%;float:left}
