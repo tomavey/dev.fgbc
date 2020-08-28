@@ -2,6 +2,10 @@
 <cfparam name="datesThisWeek" type="query">
 <cfparam name="useDayOfWeek" default="false">
 <cfparam name="params.isSubscribed" default="false">
+<cfscript>
+	writeDump(var="#datesSorted#", format="js");abort;
+</cfscript>
+
 <cfset count = 1>
 <cfset emailall = "">
 <cfoutput>
