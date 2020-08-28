@@ -419,6 +419,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 
 	function $findDatesByType(required string datetype,testLname) {
 		var loc=structNew()
+		loc.selectString="fullname,fname,email,birthdayDayNumber,birthdayWeekNumber,,birthdayMonthNumber,birthdayDayOfYearNumber,birthdayAsString,spouse,wifesbirthdayDayNumber,wifesbirthdayWeekNumber,wifesbirthdayMonthNumber,wifesbirthdayDayOfYearNumber,wifesbirthdayAsString,spouse_email,spousefullname,personid,id,HANDBOOKProfiles.EMAIL AS HANDBOOKPERSONEMAIL"
 		if ( arguments.datetype contains "birthday" ) {
 			loc.orderstring = "birthdayMonthNumber,birthdayDayNumber"
 		} else if ( arguments.datetype contains "anniversary" ) {
@@ -436,9 +437,10 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		arguments.datetype = arguments.datetype & "asstring"
 		loc.profiles = model("Handbookprofile").findAll(
 					 include="Handbookperson(Handbookstate)",
+					//  select = loc.selectString,
 					 where=loc.whereString,
 					 order=loc.orderstring
-					 )
+					 )			 
 		return loc.profiles
 	}
 <!-------------------------------------------------------->
