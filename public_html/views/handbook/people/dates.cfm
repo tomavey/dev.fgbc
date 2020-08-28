@@ -2,9 +2,9 @@
 <cfparam name="datesThisWeek" type="query">
 <cfparam name="useDayOfWeek" default="false">
 <cfparam name="params.isSubscribed" default="false">
-<cfscript>
-	writeDump(var="#datesSorted#", format="js");abort;
-</cfscript>
+<!--- <cfscript>
+	writeDump(var="#datesSorted#", format="text");abort;
+</cfscript> --->
 
 <cfset count = 1>
 <cfset emailall = "">
@@ -51,23 +51,29 @@
   <cfset count = count + 1>
 </cfif>    
 </cfoutput>
+<!--- <cfdump var="#!hasAnAlias(1380)#" format="js" abort> --->
+<!--- <cfscript>
+	#ddd(datesSorted)#
+</cfscript> --->
 <cfoutput query="datesSorted" group="#params.dateType#monthnumber">
-<cfif isInHandbook(personid)>
+	<cfif isInHandbook(personid)>
 
-<cfset dateInfo.month = '#params.dateType#monthnumber'>
-<cfset dateInfo.month = evaluate(dateInfo.month)>
+		<cfset dateInfo.month = '#params.dateType#monthnumber'>
+		<cfset dateInfo.month = evaluate(dateInfo.month)>
 
-  <h3>#monthAsString(dateInfo.month)#</h3>
+		<h3>#monthAsString(dateInfo.month)#</h3>
 
-<cfset useDayOfWeek = "false">
-  <cfoutput group="fullname">
-		<cfif isInHandbook(personid) && !hasAnAlias(personid)>
-			#includePartial("dates")#	
-			<cfset count = count + 1>
-		</cfif>	
-	<cfset emailall = emailall & "; " & handbookpersonemail>
-  </cfoutput>
-</cfif>
+		<cfset useDayOfWeek = "false">
+
+		<cfoutput group="fullname">
+			<cfif isInHandbook(personid) && !hasAnAlias(personid)>
+				<!--- #fullname# --->
+				#includePartial("dates")#	
+				<cfset count = count + 1>
+			</cfif>	
+		<cfset emailall = emailall & "; " & handbookpersonemail>
+		</cfoutput>
+	</cfif>
 </cfoutput>  
 
 <cfoutput>

@@ -293,7 +293,7 @@ function queryToArray(required query data){
 	}
 
 	function ddd(object) {
-		writeDump(object);abort;
+		writeDump(var="#object#", format="js");abort;
 	}
 
 </cfscript>
