@@ -367,9 +367,8 @@ function findDatesSorted(required string datetype, orderby="birthdayMonthNumber,
 			querySetCell(loc.spouse,"birthdayWeekNumber",loc.spouse['wifesbirthdayWeekNumber'][loc.i],loc.i)
 			querySetCell(loc.spouse,"birthdayDayOfYearNumber",loc.spouse['wifesbirthdayDayOfYearNumber'][loc.i],loc.i)
 			querySetCell(loc.spouse,"birthdayAsString",loc.spouse['wifesbirthdayAsString'][loc.i],loc.i)
-			querySetCell(loc.spouse,"email",loc.spouse['spouse_email'][loc.i],loc.i)
+			querySetCell(loc.spouse,"handbookpersonemail",loc.spouse['spouse_email'][loc.i],loc.i)
 		}
-
 		cfquery( dbtype="query", name="loc.profiles" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
 
 			writeOutput("SELECT *
