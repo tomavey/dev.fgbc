@@ -34,7 +34,8 @@
        		key=personid,
        		class="tooltip2 ajaxclickable", 
        		title="Click to show #fullname# in the center panel.", 
-       		onlyPath=false
+					onlyPath=false.
+					protocol="https"
        )#
 	 </cfif>
      
