@@ -18,12 +18,13 @@
 	 - 
      <cfif isDefined("params.dateType") and params.dateType contains "anniversary">
 			 #linkTo(text="#alias('fname',fname,id)# and #alias('spouse',spouse,id)# #alias('lname',lname,id)#", 
-			 		controller="handbook.people",
-       		action="show", 
-       		key=personid,
-       		class="tooltip2 ajaxclickable", 
-       		title="Click to show #fullname# in the center panel.", 
-       		onlyPath=false
+					controller="handbook.people",
+					action="show", 
+					key=personid,
+					class="tooltip2 ajaxclickable", 
+					title="Click to show #fullname# in the center panel.", 
+					onlyPath=false,
+					protocol="https"
        )#
 	 <cfelse>
 	 		<cfset useFullName = replaceNoCase(alias('fullname',fullname,id),'sr','')>
