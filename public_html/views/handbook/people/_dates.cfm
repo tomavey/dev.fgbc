@@ -17,7 +17,8 @@
 	 </cfif>
 	 - 
      <cfif isDefined("params.dateType") and params.dateType contains "anniversary">
-       #linkTo(text="#alias('fname',fname,id)# and #alias('spouse',spouse,id)# #alias('lname',lname,id)#", 
+			 #linkTo(text="#alias('fname',fname,id)# and #alias('spouse',spouse,id)# #alias('lname',lname,id)#", 
+			 		controller="handbook.people",
        		action="show", 
        		key=personid,
        		class="tooltip2 ajaxclickable", 

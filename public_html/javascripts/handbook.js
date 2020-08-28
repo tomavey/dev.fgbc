@@ -10,6 +10,7 @@ function $showsidebar(){
 		$('#ajaxinfo p a,.ajaxclickable').css("background-color","white").parent().find("img").remove();//set all backgrounds to white
 		$(this).css("background-color","#DFF9FF");//set selected anchor background to blue
 		var $hreflink = $(this).attr("href")+"&ajax";
+		console.log($hreflink)
 // For some reason this broke.  Might be a javascript conflict.	Test again by removing '+?ajax' on previous line and removing comment marks.	
 //		var $search = $hreflink.search("?");
 //		if ($search)
