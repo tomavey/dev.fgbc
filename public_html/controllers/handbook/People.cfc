@@ -291,6 +291,9 @@ component extends="Controller" output="true" {
 			params.dateType = "birthday";
 		}
 		datesSorted = model("Handbookperson").findDatesSorted(params.dateType);
+		datesSorted = queryFilter(datesSorted,function(el){
+			return isInHandbook(el.personid) && !hasAnAlias(el.personid)
+		})
 		datesThisWeek = model("Handbookperson").findDatesThisWeek(params.dateType);
 		subscribed = model("Handbooksubscribe").findOne(where="email = '#session.auth.email#' && type='dates'");
 		if ( isObject(subscribed) ) {

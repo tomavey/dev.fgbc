@@ -50,6 +50,8 @@
 			<cfset subject = urlEncodedFormat("")>
 			<cfset body = urlEncodedFormat("")>
 		</cfif>
+
+		<cfset emailall = emailall & "; " & handbookpersonemail>
 			
 		#mailTo(
 				emailaddress='#alias('fullname',fullname,id)# <#handbookpersonemail#>?subject=#subject#&body=#body#',
