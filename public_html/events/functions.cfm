@@ -279,9 +279,9 @@ function queryToArray(required query data){
 	}
 
 	
-<!------------------------>	
-<!---END OF CONVERSIONS--->	
-<!------------------------>	
+<!-------------------------->	
+<!---END OF CONVERSIONS----->	
+<!-------------------------->	
 
 	function h(required string text) {
 
