@@ -359,17 +359,15 @@ function findDatesSorted(required string datetype, orderby="birthdayMonthNumber,
 		loc.person = $findDatesByType(arguments.dateType)
 		loc.spouse = $findDatesByType("wifesbirthday")
 
-		for ( var i=1; i LTE loc.spouse.recordCount; i=i+1 ) {
-			querySetCell(loc.spouse,"fullname",loc.spouse['spousefullname'],i)
-			querySetCell(loc.spouse,"fname",loc.spouse['spouse'],i)
-			querySetCell(loc.spouse,"birthdayDayNumber",loc.spouse['wifesbirthdayDayNumber'],i)
-			querySetCell(loc.spouse,"birthdayMonthNumber",loc.spouse['wifesbirthdayMonthNumber'],i)
-			querySetCell(loc.spouse,"birthdayWeekNumber",loc.spouse['wifesbirthdayWeekNumber'],i)
-			querySetCell(loc.spouse,"birthdayDayOfYearNumber",loc.spouse['wifesbirthdayDayOfYearNumber'],i)
-			querySetCell(loc.spouse,"birthdayAsString",loc.spouse['wifesbirthdayAsString'],i)
-			if ( len(loc.spouse['spouse_email']) ) {
-				querySetCell(loc.spouse,"handbookpersonemail",loc.spouse['spouse_email'],i)
-			}
+		for ( loc.i=1; loc.i LTE loc.spouse.recordCount; loc.i=loc.i+1 ) {
+			querySetCell(loc.spouse,"fullname",loc.spouse['spousefullname'][loc.i],loc.i)
+			querySetCell(loc.spouse,"fname",loc.spouse['spouse'][loc.i],loc.i)
+			querySetCell(loc.spouse,"birthdayDayNumber",loc.spouse['wifesbirthdayDayNumber'][loc.i],loc.i)
+			querySetCell(loc.spouse,"birthdayMonthNumber",loc.spouse['wifesbirthdayMonthNumber'][loc.i],loc.i)
+			querySetCell(loc.spouse,"birthdayWeekNumber",loc.spouse['wifesbirthdayWeekNumber'][loc.i],loc.i)
+			querySetCell(loc.spouse,"birthdayDayOfYearNumber",loc.spouse['wifesbirthdayDayOfYearNumber'][loc.i],loc.i)
+			querySetCell(loc.spouse,"birthdayAsString",loc.spouse['wifesbirthdayAsString'][loc.i],loc.i)
+			querySetCell(loc.spouse,"email",loc.spouse['spouse_email'][loc.i],loc.i)
 		}
 
 		cfquery( dbtype="query", name="loc.profiles" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
@@ -419,7 +417,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 
 	function $findDatesByType(required string datetype,testLname) {
 		var loc=structNew()
-		loc.selectString="fullname,fname,email,birthdayDayNumber,birthdayWeekNumber,,birthdayMonthNumber,birthdayDayOfYearNumber,birthdayAsString,spouse,wifesbirthdayDayNumber,wifesbirthdayWeekNumber,wifesbirthdayMonthNumber,wifesbirthdayDayOfYearNumber,wifesbirthdayAsString,spouse_email,spousefullname,personid,id,HANDBOOKProfiles.EMAIL AS HANDBOOKPERSONEMAIL"
+		loc.selectString="(TRIM(CONCAT_WS(' ',fname,lname,suffix))) AS fullname,handbookpeople.fname,handbookprofiles.email,handbookprofiles.birthdayDayNumber,(week(birthdayasstring)) AS birthdayWeekNumber,handbookprofiles.birthdayMonthNumber,(dayofyear(birthdayasstring)) AS birthdayDayOfYearNumber,handbookprofiles.birthdayAsString,handbookpeople.spouse,handbookprofiles.wifesbirthdayDayNumber,(week(wifesbirthdayasstring)) AS wifesbirthdayWeekNumber,handbookprofiles.wifesbirthdayMonthNumber,(dayofyear(wifesbirthdayasstring)) AS wifesbirthdayDayOfYearNumber,handbookprofiles.wifesbirthdayAsString,handbookpeople.spouse_email,(TRIM(CONCAT_WS(' ',spouse,lname,suffix))) AS spousefullname, personid, handbookpeople.id, handbookpeople.email as handbookpersonemail"
 		if ( arguments.datetype contains "birthday" ) {
 			loc.orderstring = "birthdayMonthNumber,birthdayDayNumber"
 		} else if ( arguments.datetype contains "anniversary" ) {
@@ -437,7 +435,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		arguments.datetype = arguments.datetype & "asstring"
 		loc.profiles = model("Handbookprofile").findAll(
 					 include="Handbookperson(Handbookstate)",
-					//  select = loc.selectString,
+					 select = loc.selectString,
 					 where=loc.whereString,
 					 order=loc.orderstring
 					 )			 

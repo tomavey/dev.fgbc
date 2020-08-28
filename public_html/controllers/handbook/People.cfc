@@ -3,7 +3,7 @@
 //Refactored October 2019 to use cfscript
 //Used by the online handbook application - people (church and ministry staff)
 //
-component extends="Controller" output="false" {
+component extends="Controller" output="true" {
 
 	function init(){
 		usesLayout("/handbook/layout_handbook")
