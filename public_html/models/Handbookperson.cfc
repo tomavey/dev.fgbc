@@ -358,31 +358,8 @@ function findDatesSorted(required string datetype, orderby="birthdayMonthNumber,
 	if ( arguments.datetype == "birthday" ) {
 		loc.person = $findDatesByType(arguments.dateType)
 		loc.spouse = $findDatesByType("wifesbirthday")
-
-		for ( loc.i=1; loc.i LTE loc.spouse.recordCount; loc.i=loc.i+1 ) {
-			querySetCell(loc.spouse,"fullname",loc.spouse['spousefullname'][loc.i],loc.i)
-			querySetCell(loc.spouse,"fname",loc.spouse['spouse'][loc.i],loc.i)
-			querySetCell(loc.spouse,"birthdayDayNumber",loc.spouse['wifesbirthdayDayNumber'][loc.i],loc.i)
-			querySetCell(loc.spouse,"birthdayMonthNumber",loc.spouse['wifesbirthdayMonthNumber'][loc.i],loc.i)
-			querySetCell(loc.spouse,"birthdayWeekNumber",loc.spouse['wifesbirthdayWeekNumber'][loc.i],loc.i)
-			querySetCell(loc.spouse,"birthdayDayOfYearNumber",loc.spouse['wifesbirthdayDayOfYearNumber'][loc.i],loc.i)
-			querySetCell(loc.spouse,"birthdayAsString",loc.spouse['wifesbirthdayAsString'][loc.i],loc.i)
-			querySetCell(loc.spouse,"handbookpersonemail",loc.spouse['spouse_email'][loc.i],loc.i)
-		}
-		cfquery( dbtype="query", name="loc.profiles" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
-
-			writeOutput("SELECT *
-			FROM loc.person
-			UNION
-			SELECT *
-			FROM loc.spouse")
-		}
-		cfquery( dbtype="query", name="loc.profiles" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
-
-			writeOutput("SELECT *
-			FROM loc.profiles
-			ORDER BY #arguments.orderby#")
-		}
+		$moveSpouseInfoToPerson(spouse=loc.spouse)
+		loc.profiles = $combineSpouseAndPersonAndSort(person = loc.person, spouse = loc.spouse)
 	} else {
 		loc.profiles = $findDatesByType(arguments.dateType)
 	}
@@ -681,5 +658,44 @@ function swapSortOrder(required numeric thisSortorder, required numeric thisId, 
 	return true
 }
 
+private function $moveSpouseInfoToPerson(query required spouse){
+	var loc = arguments
+	//Move spouse info into person info
+	for ( loc.i=1; loc.i LTE loc.spouse.recordCount; loc.i=loc.i+1 ) {
+		querySetCell(loc.spouse,"fullname",loc.spouse['spousefullname'][loc.i],loc.i)
+		querySetCell(loc.spouse,"fname",loc.spouse['spouse'][loc.i],loc.i)
+		querySetCell(loc.spouse,"birthdayDayNumber",loc.spouse['wifesbirthdayDayNumber'][loc.i],loc.i)
+		querySetCell(loc.spouse,"birthdayMonthNumber",loc.spouse['wifesbirthdayMonthNumber'][loc.i],loc.i)
+		querySetCell(loc.spouse,"birthdayWeekNumber",loc.spouse['wifesbirthdayWeekNumber'][loc.i],loc.i)
+		querySetCell(loc.spouse,"birthdayDayOfYearNumber",loc.spouse['wifesbirthdayDayOfYearNumber'][loc.i],loc.i)
+		querySetCell(loc.spouse,"birthdayAsString",loc.spouse['wifesbirthdayAsString'][loc.i],loc.i)
+		querySetCell(loc.spouse,"handbookpersonemail",loc.spouse['spouse_email'][loc.i],loc.i)
+	}
+	return loc.spouse
+}
+
+private function $combineSpouseAndPersonAndSort(query required person, query required spouse,orderBy = "fullname") {
+	var loc = arguments
+	//Union person and spouse queries and the sort them
+	cfquery( dbtype="query", name="loc.profiles" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+
+		writeOutput("SELECT *
+		FROM loc.person
+		UNION
+		SELECT *
+		FROM loc.spouse")
+	}
+
+	var columnsToDelete = ["spousefullname","spouse","wifesbirthdayDayNumber","wifesbirthdayMonthNumber","wifesbirthdayWeekNumber","wifesbirthdayDayOfYearNumber","wifesbirthdayAsString","spouse_email"]
+	arrayEach(columnsToDelete,(col) => queryDeleteColumn(loc.profiles,col))
+
+	cfquery( dbtype="query", name="loc.profiles" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+
+		writeOutput("SELECT *
+		FROM loc.profiles
+		ORDER BY #arguments.orderby#")
+	}
+	return loc.profiles	
+}
 
 }
