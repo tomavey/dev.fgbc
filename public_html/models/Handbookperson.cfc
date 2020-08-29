@@ -363,6 +363,7 @@ function findDatesSorted(required string datetype, orderby="birthdayMonthNumber,
 	} else {
 		loc.profiles = $findDatesByType(arguments.dateType)
 	}
+	ddd(loc.profiles)
 	return loc.profiles
 }
 
@@ -696,6 +697,7 @@ private function $combineSpouseAndPersonAndSort(query required person, query req
 		ORDER BY #arguments.orderby#")
 	}
 	return loc.profiles	
+	ddd(loc.profiles)
 }
 
 }
