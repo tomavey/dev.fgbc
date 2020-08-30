@@ -434,7 +434,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		arguments.datetype = arguments.datetype & "asstring"
 		loc.profiles = model("Handbookprofile").findAll(
 					 include="Handbookperson(Handbookstate)",
-					 select = loc.selectString,
+					//  select = loc.selectString,
 					 where=loc.whereString,
 					 order=loc.orderstring
 					 )			 
