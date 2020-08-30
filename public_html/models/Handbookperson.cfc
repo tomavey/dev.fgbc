@@ -363,20 +363,28 @@ function findDatesSorted(required string datetype, orderby="birthdayMonthNumber,
 	} else {
 		loc.profiles = $findDatesByType(arguments.dateType)
 	}
-	ddd(loc.profiles)
 	return loc.profiles
+	ddd(loc.profiles)
 }
 
 function findDatesThisWeek(required string type, today="#dayOfYear(now())#", until="#dayOfYear(now())+7#") {
-		datesSorted = findDatesSorted(arguments.type)
-		thisweek = week(now())
-		cfquery( dbtype="query", name="datesthisweek" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+		var datesSorted = findDatesSorted(arguments.type)
+		var thisweek = week(now())
+		var DayOfYearNumberString = "#arguments.type#DayOfYearNumber"
+		// var DayOfYearNumber = arguments[DayOfYearNumberString]
+		var todayNumber = arguments.today
+		var until = arguments.until
+		var datesThisWeek = queryFilter(datesSorted,function(item){
+			var check = item[DayOfYearNumberString] >= todayNumber && item[DayOfYearNumberString] <= until
+			return check
+		})
+		// cfquery( dbtype="query", name="datesthisweek" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
 	
-			writeOutput("SELECT *
-				FROM datesSorted
-				WHERE #arguments.type#DayOfYearNumber BETWEEN #arguments.today-1# AND #arguments.until#
-				ORDER BY #arguments.type#MonthNumber,#arguments.type#daynumber")
-		}
+		// 	writeOutput("SELECT *
+		// 		FROM datesSorted
+		// 		WHERE #arguments.type#DayOfYearNumber BETWEEN #arguments.today-1# AND #arguments.until#
+		// 		ORDER BY #arguments.type#MonthNumber,#arguments.type#daynumber")
+		// }
 		return datesThisWeek
 	}
 	
@@ -675,7 +683,7 @@ private function $moveSpouseInfoToPerson(query required spouse){
 	return loc.spouse
 }
 
-private function $combineSpouseAndPersonAndSort(query required person, query required spouse,orderBy = "fullname") {
+private function $combineSpouseAndPersonAndSort(query required person, query required spouse,orderBy = "birthdayMonthNumber,birthdayDayNumber,fullname") {
 	var loc = arguments
 	//Union person and spouse queries and the sort them
 	cfquery( dbtype="query", name="loc.profiles" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
