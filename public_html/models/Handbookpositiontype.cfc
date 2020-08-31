@@ -1,11 +1,10 @@
-<cfcomponent extends="Model" output="false">
-	
-	<cffunction name="init">
-		<cfset Table("handbookpositiontypes")>
-		<cfset hasMany(name="Handbookpositions", foreignKey="positiontypeid")>
-		<cfset beforeSave("positionTypeRequired")>
-		<cfset beforeUpdate("positionTypeRequired")>
-	</cffunction>
+component extends="Model" output="false" {
 
+	public function init() {
+		Table("handbookpositiontypes");
+		hasMany(name="Handbookpositions", foreignKey="positiontypeid");
+		beforeSave("positionTypeRequired");
+		beforeUpdate("positionTypeRequired");
+	}
 
-</cfcomponent>
+}
