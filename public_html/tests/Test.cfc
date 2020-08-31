@@ -1,4 +1,4 @@
-component extends="wheelsMapping.Test" {
+component extends="wheelsMapping.Test" output="true" {
 
   public function setup() {
 		session.authback = duplicate(session.auth);

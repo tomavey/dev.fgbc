@@ -391,7 +391,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 
 	function $findDatesByType(required string datetype) {
 		var loc=structNew()
-		loc.selectString="(TRIM(CONCAT_WS(' ',fname,lname,suffix))) AS fullname,handbookpeople.fname,handbookpeople.lname,handbookprofiles.email,handbookprofiles.birthdayDayNumber,(week(birthdayasstring)) AS birthdayWeekNumber,handbookprofiles.birthdayMonthNumber,(dayofyear(birthdayasstring)) AS birthdayDayOfYearNumber,handbookprofiles.birthdayAsString,handbookpeople.spouse,handbookprofiles.wifesbirthdayDayNumber,(week(wifesbirthdayasstring)) AS wifesbirthdayWeekNumber,handbookprofiles.wifesbirthdayMonthNumber,(dayofyear(wifesbirthdayasstring)) AS wifesbirthdayDayOfYearNumber,handbookprofiles.wifesbirthdayAsString,handbookpeople.spouse_email,(TRIM(CONCAT_WS(' ',spouse,lname,suffix))) AS spousefullname, personid, handbookpeople.id, handbookpeople.email as handbookpersonemail,handbookprofiles.anniversaryDayNumber,(week(anniversaryasstring)) AS anniversaryWeekNumber,handbookprofiles.anniversaryMonthNumber,(dayofyear(anniversaryasstring)) AS anniversaryDayOfYearNumber,handbookprofiles.anniversaryAsString"
+		loc.selectString=$getSelectStringForDates()
 		//Set the order based on date type
 		if ( arguments.datetype contains "birthday" ) {
 			loc.orderstring = "birthdayMonthNumber,birthdayDayNumber"
@@ -693,6 +693,10 @@ private function $combineSpouseAndPersonAndSort(query required person, query req
 	}
 	return loc.profiles	
 	ddd(loc.profiles)
+}
+
+private function $getSelectStringForDates(){
+	return "(TRIM(CONCAT_WS(' ',fname,lname,suffix))) AS fullname,handbookpeople.fname,handbookpeople.lname,handbookprofiles.email,handbookprofiles.birthdayDayNumber,(week(birthdayasstring)) AS birthdayWeekNumber,handbookprofiles.birthdayMonthNumber,(dayofyear(birthdayasstring)) AS birthdayDayOfYearNumber,handbookprofiles.birthdayAsString,handbookpeople.spouse,handbookprofiles.wifesbirthdayDayNumber,(week(wifesbirthdayasstring)) AS wifesbirthdayWeekNumber,handbookprofiles.wifesbirthdayMonthNumber,(dayofyear(wifesbirthdayasstring)) AS wifesbirthdayDayOfYearNumber,handbookprofiles.wifesbirthdayAsString,handbookpeople.spouse_email,(TRIM(CONCAT_WS(' ',spouse,lname,suffix))) AS spousefullname, personid, handbookpeople.id, handbookpeople.email as handbookpersonemail, handbookpeople.phone as handbookpersonphone, handbookprofiles.anniversaryDayNumber,(week(anniversaryasstring)) AS anniversaryWeekNumber,handbookprofiles.anniversaryMonthNumber,(dayofyear(anniversaryasstring)) AS anniversaryDayOfYearNumber,handbookprofiles.anniversaryAsString"
 }
 
 }

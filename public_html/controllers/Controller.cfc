@@ -214,18 +214,19 @@ component extends="Wheels" {
 	}
 
 	function gotRights(required string rightsRequired){
-		var permission = "no"
-		var rightsRequiredArray = listToArray(arguments.rightsRequired)
-			if ( structKeyExists(session,'auth') && structKeyExists(session.auth,'email') ) { arguments.email = session.auth.email }
-			for ( right in rightsRequiredArray ){
-				if ( isdefined("arguments.email") and listFindNoCase(session.auth.rightslist,right) ) {
-					permission = "yes"
+		var loc = {}
+		var loc.permission = "no"
+		var loc.rightsRequiredArray = listToArray(arguments.rightsRequired)
+			if ( structKeyExists(session,'auth') && structKeyExists(session.auth,'email') ) { loc.email = session.auth.email }
+			for ( loc.right in loc.rightsRequiredArray ){
+				if ( isdefined("loc.email") && listFindNoCase(session.auth.rightslist,loc.right) ) {
+					loc.permission = "yes"
 				}
-				if ( right == 'handbook' && emailIsInHandbook(arguments.email) ) {
-					permission = "yes"
+				if ( isDefined('loc.email') && loc.right == 'handbook' && emailIsInHandbook(loc.email) ) {
+					loc.permission = "yes"
 				}
 			} 
-		return permission
+		return loc.permission
 	}
 
 	function emailIsInHandbook(required string email){
