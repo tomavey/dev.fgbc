@@ -21,7 +21,7 @@
 						
 							<cfcol header="#linkto(text='Name', params="orderby=name")#" text="#name#" />
 						
-							<cfcol header="#linkto(text='Value', params="orderby=value")#" text="#value#" />
+							<cfcol header="#linkto(text='Value', params="orderby=value")#" text="#left(value,20)#" />
 						
 							<cfcol header="#linkto(text='Description', params="orderby=description")#" text="#left(description,20)#" />
 						
@@ -76,13 +76,13 @@
 						<cfset rowclass = "equalsetting">
 					</cfif>
 				<tr class="#rowclass#">
-					<cfif application.wheels[i] NEQ i>
+					<!--- <cfif application.wheels[i] NEQ i>
 						<td>#i#</td>
-					<cfelse>
-						<td>#i#&nbsp;#linkto(text='#imageTag('/add-icon.png')#', controller="admin.settings", action="new", params="name=#i#", title="Add a new value")#</td>
-					</cfif>		
-					<td>#application.wheels[i]#
-					<td>#getSetting(i)#</td>
+					<cfelse> --->
+						<td>#i#&nbsp;#addTag(params='name=#i#')#</td>
+					<!--- </cfif>		 --->
+					<td>#left(application.wheels[i],45)#
+					<td>#left(getSetting(i),45)#</td>
 				</tr>
 			<cfcatch>
 			</cfcatch>

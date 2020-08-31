@@ -68,6 +68,9 @@
                         <li>
                             #linkto(text="Change Log", controller="handbook.updates", action="index", id="navsearch", title="Log of Changes.", class="tooltip2")#
                         </li>
+                        <li>
+                            #linkTo(text="Settings", controller="admin.settings", action="index", params="category=handbook", id="navsearch", title="Handbook Settings", class="tooltip2")#
+                        </li>
             </cfif>
 
 </cfoutput>
