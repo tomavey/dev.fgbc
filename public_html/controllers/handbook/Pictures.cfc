@@ -1,150 +1,130 @@
-<cfcomponent extends="Controller" output="false">
-	
-	<cffunction name="init">
-		<cfset usesLayout("/handbook/layout_handbook1")>
-		<cfset filters(through="setreturn", only="index,show,new")>
-		<cfset filters(through="logview", type="after")>
-	</cffunction>
+component extends="Controller" output="false" {
 
-<!---Basic CRUD--->
+	public function init() {
+		usesLayout("/handbook/layout_handbook1");
+		filters(through="setreturn", only="index,show,new");
+		filters(through="logview", type="after");
+	}
+	// Basic CRUD
+	//  handbookpictures/index 
 
-	<!--- handbookpictures/index --->
-	<cffunction name="index">
-		<cfset handbookpictures = model("Handbookpicture").findAllPicturesSorted(params)>
-	</cffunction>
-	
-	<!--- handbookpictures/show/key --->
-	<cffunction name="show">
-		
-		<!--- Find the record --->
-    	<cfset handbookpicture = model("Handbookpicture").findByKey(params.key)>
-    	
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(handbookpicture)>
-	        <cfset flashInsert(error="Handbookpicture #params.key# was not found")>
-	        <cfset redirectTo(action="index")>
-	    </cfif>
-			
-	</cffunction>
-	
-	<!--- handbookpictures/new --->
-	<cffunction name="new">
-		<cfif not isDefined("params.personid")>
-			  <cfset setReturn()>
-			  <cfset redirectTo(action="getperson")>
-		</cfif>
-		<cfset handbookpicture = model("Handbookpicture").new()>
-		<cfset handbookpictures = model("Handbookpicture").findall(where="personid=#params.personid#")>
-		<cfset handbookpicture.personid = params.personid>
-		<cfset handbookperson = model("Handbookperson").findOne(where="id=#params.personid#", include="Handbookstate")>
+	public function index() {
+		handbookpictures = model("Handbookpicture").findAllPicturesSorted(params);
+	}
+	//  handbookpictures/show/key 
 
-		<cftry>
-		<cfset handbookpicture.createdby = session.auth.email>
-		<cfcatch>
-		<cfset handbookpicture.createdby = "tomavey@fgbc.org">
-		</cfcatch>
-		</cftry>
-		
-		<cfset renderPage(layout="/handbook/layout_handbook")>
+	public function show() {
+		//  Find the record 
+		handbookpicture = model("Handbookpicture").findByKey(params.key);
+		//  Check if the record exists 
+		if ( !IsObject(handbookpicture) ) {
+			flashInsert(error="Handbookpicture #params.key# was !found");
+			redirectTo(action="index");
+		}
+	}
+	//  handbookpictures/new 
 
-	</cffunction>
-	
-	<!--- handbookpictures/edit/key --->
-	<cffunction name="edit">
-	
-		<!--- Find the record --->
-    	<cfset handbookpicture = model("Handbookpicture").findByKey(params.key)>
-    	
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(handbookpicture)>
-	        <cfset flashInsert(error="Handbookpicture #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-		
-	</cffunction>
-	
-	<!--- handbookpictures/create --->
-	<cffunction name="create">
-		<cfset handbookpicture = model("Handbookpicture").new(params.handbookpicture)>
+	public function new() {
+		if ( !isDefined("params.personid") ) {
+			setReturn();
+			redirectTo(action="getperson");
+		}
+		handbookpicture = model("Handbookpicture").new();
+		handbookpictures = model("Handbookpicture").findall(where="personid=#params.personid#");
+		handbookpicture.personid = params.personid;
+		handbookperson = model("Handbookperson").findOne(where="id=#params.personid#", include="Handbookstate");
+		try {
+			handbookpicture.createdby = session.auth.email;
+		} catch (any cfcatch) {
+			handbookpicture.createdby = "tomavey@fgbc.org";
+		}
+		renderPage(layout="/handbook/layout_handbook");
+	}
+	//  handbookpictures/edit/key 
 
-		<!--- Verify that the handbookpicture creates successfully --->
-		<cfif handbookpicture.save()>
-			<cfset model("Handbookpicture").setAsDefault(handbookpicture.id)>
-			<cfset flashInsert(success="The handbookpicture was created successfully.")>
-			<cfset thumbnail(handbookpicture.file)>
-			<cfset webimage(handbookpicture.file)>
-            <cfset returnback()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error creating the handbookpicture.")>
-			<cfset renderPage(action="new")>
-		</cfif>
-	</cffunction>
-	
-	<!--- handbookpictures/update --->
-	<cffunction name="update">
+	public function edit() {
+		//  Find the record 
+		handbookpicture = model("Handbookpicture").findByKey(params.key);
+		//  Check if the record exists 
+		if ( !IsObject(handbookpicture) ) {
+			flashInsert(error="Handbookpicture #params.key# was !found");
+			redirectTo(action="index");
+		}
+	}
+	//  handbookpictures/create 
 
-		<cfset handbookpicture = model("Handbookpicture").findByKey(params.key)>
-		
-		<!--- Verify that the handbookpicture updates successfully --->
-		<cfif handbookpicture.update(params.handbookpicture)>
-			<cfset flashInsert(success="The handbookpicture was updated successfully.")>	
-			<cfset thumbnail(handbookpicture.file)>
-            <cfset returnback()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the handbookpicture.")>
-			<cfset renderPage(action="edit")>
-		</cfif>
-	</cffunction>
-	
-	<!--- handbookpictures/delete/key --->
-	<cffunction name="delete">
-		<cfset handbookpicture = model("Handbookpicture").findByKey(params.key)>
-		
-		<!--- Verify that the handbookpicture deletes successfully --->
-		<cfif handbookpicture.delete()>
-			<cfset flashInsert(success="The handbookpicture was deleted successfully.")>	
-            <cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error deleting the handbookpicture.")>
-            <cfset returnBack()>
-		</cfif>
-	</cffunction>
+	public function create() {
+		handbookpicture = model("Handbookpicture").new(params.handbookpicture);
+		//  Verify that the handbookpicture creates successfully 
+		if ( handbookpicture.save() ) {
+			model("Handbookpicture").setAsDefault(handbookpicture.id);
+			flashInsert(success="The handbookpicture was created successfully.");
+			thumbnail(handbookpicture.file);
+			webimage(handbookpicture.file);
+			returnback();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error creating the handbookpicture.");
+			renderPage(action="new");
+		}
+	}
+	//  handbookpictures/update 
 
-<!---Image manipulation methods--->
-	<cffunction name="thumbnail">
-	<cfargument name="file" required="true" type="string">	
-		<cfimage action="resize" width="75" height="" name="thumb" source="#expandpath('.')#/images/handbookpictures/#arguments.file#" destination="#expandpath('.')#/images/handbookpictures/thumb_#arguments.file#" overwrite="true">		
-	</cffunction>
-	
-	<cffunction name="webimage">
-	<cfargument name="file" required="true" type="string">	
-		<cfimage action="resize" width="600" height="" name="thumb" source="#expandpath('.')#/images/handbookpictures/#arguments.file#" destination="#expandpath('.')#/images/handbookpictures/web_#arguments.file#" overwrite="true">		
-	</cffunction>
+	public function update() {
+		handbookpicture = model("Handbookpicture").findByKey(params.key);
+		//  Verify that the handbookpicture updates successfully 
+		if ( handbookpicture.update(params.handbookpicture) ) {
+			flashInsert(success="The handbookpicture was updated successfully.");
+			thumbnail(handbookpicture.file);
+			returnback();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error updating the handbookpicture.");
+			renderPage(action="edit");
+		}
+	}
+	//  handbookpictures/delete/key 
 
-<!---Misc Methods--->	
-	<cffunction name="setpictureasdefault">
-	<cfargument name="id" default="#params.key#">
-		<cfset model("Handbookpicture").setAsDefault(arguments.id)>
-		<cfset returnBack()>
-	</cffunction>
-	
-	<!---Requests a user id before displaying a new form--->
-	<cffunction name="getPerson">
-		<cfset people = model("Handbookperson").findAll(include="Handbookstate", order="lname,fname")>
-	</cffunction>
-	
-<!---142 lines--->	
+	public function delete() {
+		handbookpicture = model("Handbookpicture").findByKey(params.key);
+		//  Verify that the handbookpicture deletes successfully 
+		if ( handbookpicture.delete() ) {
+			flashInsert(success="The handbookpicture was deleted successfully.");
+			returnBack();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error deleting the handbookpicture.");
+			returnBack();
+		}
+	}
+	// Image manipulation methods
 
-<cfscript>
-public function pictureExists(file){
+	public function thumbnail(required string file) {
+		cfimage( height="", source=expandpath('.')#/images/handbookpictures/#arguments.file, width=75, name="thumb", overwrite=true, destination=expandpath('.')#/images/handbookpictures/thumb_#arguments.file, action="resize" );
+	}
+
+	public function webimage(required string file) {
+		cfimage( height="", source=expandpath('.')#/images/handbookpictures/#arguments.file, width=600, name="thumb", overwrite=true, destination=expandpath('.')#/images/handbookpictures/web_#arguments.file, action="resize" );
+	}
+	// Misc Methods
+
+	public function setpictureasdefault(id="#params.key#") {
+		model("Handbookpicture").setAsDefault(arguments.id);
+		returnBack();
+	}
+	// Requests a user id before displaying a new form
+
+	public function getPerson() {
+		people = model("Handbookperson").findAll(include="Handbookstate", order="lname,fname");
+	}
+	// 142 lines
+
+	public function pictureExists(file){
 	var fileToCheck = GetBaseTemplatePath();
 	fileToCheck = replace(filetocheck,"index.cfm","");
 	fileToCheck = replace(filetocheck,"rewrite.cfm","");
 	fileToCheck = fileToCheck & "images\handbookpictures\thumb_" & file;
 	return fileExists(fileToCheck);
 }
-</cfscript>
-</cfcomponent>
+
+}
