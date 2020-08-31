@@ -1,4 +1,4 @@
-component extends="tests.Test" {
+component extends="tests.Test" output="true" {
 
 //output hiddenMessagetoTestFor() somewhere on the tested view
 

@@ -1,7 +1,10 @@
-<cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
-		<cfset usesLayout("/handbook/layout_handbook1")>
-	</cffunction>
+//I think this is used when a dropdown is not practical
 
-</cfcomponent>
+component extends="Controller" output="false" {
+
+	public function init() {
+		usesLayout("/handbook/layout_handbook1");
+	}
+
+}

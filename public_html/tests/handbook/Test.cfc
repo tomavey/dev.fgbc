@@ -1,4 +1,4 @@
-component extends="tests.Test" {
+component extends="tests.Test" output="true" {
 
   function test_welcome() {
     //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"

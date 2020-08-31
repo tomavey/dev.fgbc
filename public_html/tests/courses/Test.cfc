@@ -1,4 +1,4 @@
-component extends="tests.Test" {
+component extends="tests.Test" output="true" {
 
   //COURSES VIEWS
   public function test_courses_Index() {

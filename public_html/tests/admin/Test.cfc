@@ -1,4 +1,4 @@
-component extends="tests.Test" {
+component extends="tests.Test" output="true" {
 
   //EVENTS
 	public function test_events_index() {
