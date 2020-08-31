@@ -1,10 +1,11 @@
-component extends="Controller" output="false" {
+component extends="Controller" output="true" {
 
 	public function init() {
 		usesLayout("/handbook/layout_handbook1");
 		filters(through="setreturn", only="index,show,new");
 		filters(through="logview", type="after");
 	}
+
 	// Basic CRUD
 	//  handbookpictures/index 
 
@@ -97,14 +98,20 @@ component extends="Controller" output="false" {
 			returnBack();
 		}
 	}
+
+
 	// Image manipulation methods
 
-	public function thumbnail(required string file) {
-		cfimage( height="", source=expandpath('.')#/images/handbookpictures/#arguments.file, width=75, name="thumb", overwrite=true, destination=expandpath('.')#/images/handbookpictures/thumb_#arguments.file, action="resize" );
+	private function thumbnail(required string file) {
+		var imageFile = expandpath('.') & '/images/handbookpictures/' & arguments.file
+		var thumbFile = expandpath('.') & '/images/handbookpictures/thumb_' & arguments.file
+		cfimage( height="", source=imageFile, width=75, name="thumb", overwrite=true, destination=thumbFile, action="resize" );
 	}
 
-	public function webimage(required string file) {
-		cfimage( height="", source=expandpath('.')#/images/handbookpictures/#arguments.file, width=600, name="thumb", overwrite=true, destination=expandpath('.')#/images/handbookpictures/web_#arguments.file, action="resize" );
+	private function webimage(required string file) {
+		var imageFile = expandpath('.') & '/images/handbookpictures/' & arguments.file
+		var webFile = expandpath('.') & '/images/handbookpictures/web_' & arguments.file
+		cfimage( height="", source=imageFile, width=600, name="thumb", overwrite=true, destination=webFile, action="resize" );
 	}
 	// Misc Methods
 
@@ -119,7 +126,7 @@ component extends="Controller" output="false" {
 	}
 	// 142 lines
 
-	public function pictureExists(file){
+	private function pictureExists(file){
 	var fileToCheck = GetBaseTemplatePath();
 	fileToCheck = replace(filetocheck,"index.cfm","");
 	fileToCheck = replace(filetocheck,"rewrite.cfm","");
