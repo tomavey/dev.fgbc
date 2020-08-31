@@ -367,31 +367,20 @@ function findDatesSorted(required string datetype, orderby="birthdayMonthNumber,
 	ddd(loc.profiles)
 }
 
-function findDatesThisWeek(required string type, today="#dayOfYear(now())#", until="#dayOfYear(now())+7#") {
-		var datesSorted = findDatesSorted(arguments.type)
-		var thisweek = week(now())
-		var DayOfYearNumberString = "#arguments.type#DayOfYearNumber"
-		// var DayOfYearNumber = arguments[DayOfYearNumberString]
-		var todayNumber = arguments.today
-		var until = arguments.until
-		var datesThisWeek = queryFilter(datesSorted,function(item){
-			var check = item[DayOfYearNumberString] >= todayNumber && item[DayOfYearNumberString] <= until
-			return check
+function findDatesThisWeek(required string type, today="#dayOfYear(now())#", until="#dayOfYear(now())+6#") {
+		var loc = arguments		
+		loc.datesSorted = findDatesSorted(loc.type)
+		//filter dates for those within the next 7 days
+		loc.datesThisWeek = queryFilter(datesSorted,function(item){
+			return item['#loc.type#DayOfYearNumber'] >= loc.today && item['#loc.type#DayOfYearNumber'] <= loc.until
 		})
-		// cfquery( dbtype="query", name="datesthisweek" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
-	
-		// 	writeOutput("SELECT *
-		// 		FROM datesSorted
-		// 		WHERE #arguments.type#DayOfYearNumber BETWEEN #arguments.today-1# AND #arguments.until#
-		// 		ORDER BY #arguments.type#MonthNumber,#arguments.type#daynumber")
-		// }
-		return datesThisWeek
+		return loc.datesThisWeek
 	}
 	
 	function findDatesToday(required string type, required string now, today="#dayOfYear(arguments.now)#", monthnumber="#month(arguments.now)#", daynumber="#day(arguments.now)#") {
-		datesSorted = findDatesSorted(arguments.type)
+		var datesSorted = findDatesSorted(arguments.type)
+
 		cfquery( dbtype="query", name="datestoday" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
-	
 			writeOutput("SELECT *
 				FROM datesSorted
 				WHERE #arguments.type#MonthNumber = #arguments.monthnumber# AND #arguments.type#dayNumber = #arguments.daynumber#
@@ -400,24 +389,22 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		return datestoday
 	}
 
-	function $findDatesByType(required string datetype,testLname) {
+	function $findDatesByType(required string datetype) {
 		var loc=structNew()
 		loc.selectString="(TRIM(CONCAT_WS(' ',fname,lname,suffix))) AS fullname,handbookpeople.fname,handbookpeople.lname,handbookprofiles.email,handbookprofiles.birthdayDayNumber,(week(birthdayasstring)) AS birthdayWeekNumber,handbookprofiles.birthdayMonthNumber,(dayofyear(birthdayasstring)) AS birthdayDayOfYearNumber,handbookprofiles.birthdayAsString,handbookpeople.spouse,handbookprofiles.wifesbirthdayDayNumber,(week(wifesbirthdayasstring)) AS wifesbirthdayWeekNumber,handbookprofiles.wifesbirthdayMonthNumber,(dayofyear(wifesbirthdayasstring)) AS wifesbirthdayDayOfYearNumber,handbookprofiles.wifesbirthdayAsString,handbookpeople.spouse_email,(TRIM(CONCAT_WS(' ',spouse,lname,suffix))) AS spousefullname, personid, handbookpeople.id, handbookpeople.email as handbookpersonemail,handbookprofiles.anniversaryDayNumber,(week(anniversaryasstring)) AS anniversaryWeekNumber,handbookprofiles.anniversaryMonthNumber,(dayofyear(anniversaryasstring)) AS anniversaryDayOfYearNumber,handbookprofiles.anniversaryAsString"
+		//Set the order based on date type
 		if ( arguments.datetype contains "birthday" ) {
 			loc.orderstring = "birthdayMonthNumber,birthdayDayNumber"
 		} else if ( arguments.datetype contains "anniversary" ) {
 			loc.orderstring = "anniversaryMonthNumber,anniversaryDayNumber"
 		}
-		// Remove personid after
+		//Set the whereString for datetype
 		loc.whereString = "#arguments.datetype#AsString != NULL"
-		if ( isDefined(arguments.testLname) ) {
-			loc.whereString = loc.whereString & " AND lname = '#arguments.testLname#'"
-		}
-		// Remove spouse birthdays and anniversaries where spouse name is blank - probably deceased
+		//Remove spouse birthdays and anniversaries where spouse name is blank - probably deceased
 		if ( arguments.datetype == "wifesbirthday" || arguments.datetype == "anniversary" ) {
 			loc.whereString = loc.wherestring & " AND spouse != NULL"
 		}
-		arguments.datetype = arguments.datetype & "asstring"
+		//Get profiles
 		loc.profiles = model("Handbookprofile").findAll(
 					 include="Handbookperson(Handbookstate)",
 					 select = loc.selectString,
