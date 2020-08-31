@@ -14,7 +14,7 @@
 
 						#textField(objectName='shoppingcart', property='email', label='Email: ')#
 
-						#textField(objectName='shoppingcart', property='phone', label='Phone: ')#
+						#textField(objectName='shoppingcart', property='phone', label='Mobile Phone: ')#
 
 						#select(objectName='shoppingcart', property='firstTime', label='Is this your first focus retreat: ', options="No,Yes")#
 
