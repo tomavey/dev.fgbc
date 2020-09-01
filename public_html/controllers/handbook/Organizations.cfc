@@ -3,7 +3,7 @@
 //Refactored October 2019 to use cfscript
 //Used by the online handbook application - organizations (churches and ministries)
 //
-component extends="Controller" output="false" {
+component extends="Controller" output="true" {
 
 	function init(){
 		usesLayout("/handbook/layout_handbook")
@@ -198,7 +198,8 @@ component extends="Controller" output="false" {
 
 	public function EmailChurchesForHandbookReview(){
 		allemails = "";
-		i=0;
+		args = {}
+
 		if (!isDefined("session.churches")){redirectTo(action="handbookReviewOptions")}
 		if (isDefined("params.go") && params.go){
 				churches = session.churches;
@@ -206,16 +207,25 @@ component extends="Controller" output="false" {
 			else {
 				churches = model("Handbookorganization").findChurchesForEmailing();
 			}
-		for (i=1; i LTE arrayLen(churches); i=i+1){
+		for (church in churches){
+			args.to = church.email
+			args.from = getHandbookReviewSecretary()
+			args.subject = "Charis Fellowship Handbook Review"
+			args.template = "emailChurchesForUpdates.cfm"
+			args.layout = "/layout_for_email"
 			if ( !isLocalMachine() ){
 				try {
-					sendEmail(to=churches[i].email, from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
+					sendEmail(argumentCollection = args);
 				} catch (any e) {
 					dd(cfcatch.message)
 				}
+			} else {
+				writeOutPut("<p>If this was not a local machine, emails would be sent to:</p>")
+				writeDump(args)
 			}
-			allemails = allemails & "; " & churches[i].email;
+			allemails = allemails & "; " & church.email;
 		};
+		abort;
 		allemails = replace(allemails,"; ","","one");
 		i = arrayLen(churches);
 		structDelete(session,"churches");
