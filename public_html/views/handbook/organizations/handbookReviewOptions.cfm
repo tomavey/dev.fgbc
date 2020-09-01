@@ -9,11 +9,11 @@
     <table id="handbookReviewOptions">
         <tr>
             <th>    
-                #linkto(text="Send to #arrayLen(churches)# Addresses from #getHandbookReviewSecretary()#", action="EmailChurchesForHandbookReview", class="btn", confirm="Are you absolutely certain!!!???", params="reviewedBefore=#args.reviewedBefore#&go=true")#</br>
+                #linkto(text="Send to #arrayLen(churches)# Addresses from #HTMLCodeFormat(getHandbookReviewSecretary())#", action="EmailChurchesForHandbookReview", class="btn", confirm="Are you absolutely certain!!!???", params="reviewedBefore=#args.reviewedBefore#&go=true")#</br>
                 
             </th>
             <th>
-                #linkto(text="Send to these test Churches from #getHandbookReviewSecretary()#", action="EmailChurchesForHandbookReview", class="btn", params="reviewedBefore=#args.reviewedBefore#&go=false")#
+                #linkto(text="Send to these test Churches from #HTMLCodeFormat(getHandbookReviewSecretary())#", action="EmailChurchesForHandbookReview", class="btn", params="reviewedBefore=#args.reviewedBefore#&go=false")#
             </th>
         </tr>
         <tr>
