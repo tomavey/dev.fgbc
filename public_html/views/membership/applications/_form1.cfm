@@ -28,7 +28,7 @@
 					
 						#textFieldQuestionWEditButton('meeting_place',"input-xlarge")#
 
-				<cfloop list="incorporated,insurance" index="i">
+				<cfloop list="incorporated,insurance,ein" index="i">
 
 						#selectYesNoQuestionWEditButton(i)#					
 				</cfloop>		
