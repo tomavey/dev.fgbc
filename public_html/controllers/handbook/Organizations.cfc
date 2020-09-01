@@ -208,8 +208,8 @@ component extends="Controller" output="false" {
 			}
 		for (i=1; i LTE arrayLen(churches); i=i+1){
 			if ( !isLocalMachine() ){
-				ddd(getHandbookReviewSecretary())
 				sendEmail(to=churches[i].email, from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
+				ddd(getHandbookReviewSecretary())
 			}
 			allemails = allemails & "; " & churches[i].email;
 		};
