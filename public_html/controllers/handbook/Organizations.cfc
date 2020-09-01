@@ -211,7 +211,7 @@ component extends="Controller" output="false" {
 				try {
 					sendEmail(to=churches[i].email, from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
 				} catch (any e) {
-					ddd(getHandbookReviewSecretary())
+					ddd(churches[i].email)
 				}
 			}
 			allemails = allemails & "; " & churches[i].email;
