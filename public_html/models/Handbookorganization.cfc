@@ -187,7 +187,7 @@ component extends="Model" output="false" {
 		var i = "";
 		for (i=1;i LTE ArrayLen(testEmails); i=i+1){
 			churchEmails[i].email = testEmails[i];
-			churchEmails[i].selectName = "This new church-#i#";
+			churchEmails[i].selectName = "This test church-#i#";
 			churchEmails[i].emailtype = "email";
 			churchEmails[i].id = 233;
 			churchEmails[i].lastReviewedAt = dateFormat("2016-09-01");
