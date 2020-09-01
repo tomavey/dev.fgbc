@@ -35,7 +35,7 @@
 						title='Delete', 
 						onclick="return	confirm('Are you sure that you want to delete the question')"
 						)#
-					#linkTo(text='<i class="icon-plus"></i>', action='copy', key=ID, class="tooltip2", title="Copy")#		
+						#linkTo(text='<i class="icon-plus"></i>', action='copy', key=ID, class="tooltip2 ajaxedit", title="Edit")#
 				</td>
 			</tr>
 		</cfoutput>
