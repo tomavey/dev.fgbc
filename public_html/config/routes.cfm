@@ -682,6 +682,7 @@
 				.get(name="resources", pattern="resources/")
 				.post(name="create", pattern="create")
 				.post(name="update", pattern="update")
+				.post(name="copy", pattern="copy")
 				.put(name="update", pattern="update")
 			.end()
 
