@@ -217,7 +217,7 @@ component extends="Controller" output="true" {
 				try {
 					sendEmail(argumentCollection = args);
 				} catch (any e) {
-					dd(cfcatch.message)
+					dd(args)
 				}
 			} else {
 				writeOutPut("<p>If this was not a local machine, emails would be sent to:</p>")
