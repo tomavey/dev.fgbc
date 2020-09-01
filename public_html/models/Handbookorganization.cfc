@@ -182,7 +182,7 @@ component extends="Model" output="false" {
 	}
 
 	private	function $loadTestEmails(){
-		var testEmails = ["tomavey@fgbc.org","tomavey9173@gmail.com"];
+		var testEmails = listToArray(getSetting('testEmailsForHandbookReview'));
 		var churchEmails = [];
 		var i = "";
 		for (i=1;i LTE ArrayLen(testEmails); i=i+1){

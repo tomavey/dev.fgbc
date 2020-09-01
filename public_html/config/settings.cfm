@@ -96,6 +96,7 @@
 	set(allowHandbookAuthByCookie = false)
 	set(allowHandbookOrgUpdate = true)
 	set(superAdminUserName = "tomavey")
+	set(testEmailsForHandbookReview = "'tomavey@fgbc.org','tomavey@outlook.com','sharmion@charisfellowship.us'")
 
 	// used at users.cfc login to give access to FC pages
 	set(alias = {
