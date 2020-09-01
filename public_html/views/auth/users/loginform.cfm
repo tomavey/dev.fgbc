@@ -29,7 +29,7 @@
 			#endFormTag()#
 
 		<p class="text-center">
-			#linkto(text="Forgot your password or username?", controller="auth.users", action="getEmailForChangePasswordLink")#
+			#linkto(text="Forgot your password or username?", controller="auth/users", action="getEmailForChangePasswordLink")#
 		</p>	
 	</div>	
 </cfoutput>
