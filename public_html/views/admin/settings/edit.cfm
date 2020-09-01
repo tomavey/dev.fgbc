@@ -1,7 +1,9 @@
-<div class="container">
-	<h1>Editing fgbc_metas</h1>
+<div class="container span10">
+	<cfoutput>
+		
+		<h1>Editing #setting.name#</h1>
 
-	<cfoutput>#includePartial("showFlash")#</cfoutput>
+	#includePartial("showFlash")#</cfoutput>
 
 	<cfoutput>
 				
