@@ -217,7 +217,7 @@ component extends="Controller" output="true" {
 				try {
 					sendEmail(argumentCollection = args);
 				} catch (any e) {
-					dd(args)
+					dd(cfcatch.message)
 				}
 			} else {
 				writeOutPut("<p>If this was not a local machine, emails would be sent to:</p>")
@@ -225,9 +225,7 @@ component extends="Controller" output="true" {
 			}
 			allemails = allemails & "; " & church.email;
 		};
-		abort;
 		allemails = replace(allemails,"; ","","one");
-		i = arrayLen(churches);
 		structDelete(session,"churches");
 		renderPage(template="emailChurchesForHandbookReviewReport", layout="/handbook/layout_handbook2");
 	}
