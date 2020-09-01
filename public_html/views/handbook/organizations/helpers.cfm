@@ -184,4 +184,12 @@
 
 <cfreturn createemaillink>
 
+<cfscript>
+  function showHtmlCode(code){
+    code = replace(code,'<','&lt;','all')
+    code = replace(code,'>','&gt;','all')
+    return code
+  }
+</cfscript>
+
 </cffunction>

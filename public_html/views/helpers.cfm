@@ -1246,3 +1246,13 @@ function hiddenMessagetoTestFor() {
 	<cfreturn LOCAL.Buffer.ToString() />
 </cffunction>
 
+<cfscript>
+	function showHtmlCode(code){
+		code = replace(code,'<','&lt;','all')
+		code = replace(code,'>','&gt;','all')
+		return code
+	}
+</cfscript>
+
+
+
