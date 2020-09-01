@@ -76,11 +76,11 @@
 						<cfset rowclass = "equalsetting">
 					</cfif>
 				<tr class="#rowclass#">
-					<!--- <cfif application.wheels[i] NEQ i>
+					<cfif application.wheels[i] NEQ getSetting(i)>
 						<td>#i#</td>
-					<cfelse> --->
+					<cfelse>
 						<td>#i#&nbsp;#addTag(params='name=#i#')#</td>
-					<!--- </cfif>		 --->
+					</cfif>		
 					<td>#left(application.wheels[i],45)#
 					<td>#left(getSetting(i),45)#</td>
 				</tr>
