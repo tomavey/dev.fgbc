@@ -18,14 +18,14 @@
 	</cffunction>
 
 	<cfscript>
-		function findMyTags(required struct auth) {
+		function findMyTags(required struct auth, group) {
 				var whereString = "username LIKE '%#session.auth.email#%'"
 				if ( isDefined("session.auth.username") ) { whereString = whereString & " OR username LIKE '%#session.auth.username#%'" }
 				if ( isDefined("session.auth.rightslist") ) { whereString = whereString & " OR username IN (#commaListToQuoteList(session.auth.rightslist)#)" }
 				if ( isDefined("session.auth.coEmail") ) {  whereString = whereString & " OR username LIKE '%#session.auth.coEmail#%'" }
 				var orderbyString = "tag"
 				// throw(message=whereString)
-				var tags = findAll(where = whereString, order = orderByString)
+				var tags = findAll(where = whereString, order = orderByString, group = arguments.group)
 				return tags
 		}
 
