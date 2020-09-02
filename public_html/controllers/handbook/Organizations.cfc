@@ -206,11 +206,9 @@ component extends="Controller" output="false" {
 			else {
 				churches = model("Handbookorganization").findChurchesForEmailing();
 			}
-		for (i=1; i LTE arrayLen(churches); i=i+1){
-			if ( !isLocalMachine() ){
-				sendEmail(to=churches[i].email, from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
-			}
-			allemails = allemails & "; " & churches[i].email;
+		for (church in churches){
+			sendEmail(to=church.email, from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
+			allemails = allemails & "; " & church.email;
 		};
 		allemails = replace(allemails,"; ","","one");
 		i = arrayLen(churches);
