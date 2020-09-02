@@ -206,7 +206,7 @@ component extends="Controller" output="false" {
 				churches = model("Handbookorganization").findChurchesForEmailing();
 			}
 		for (church in churches){
-			sendEmail(to=church.email, from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
+			sendEmail(to=church.email, bcc="charis@fgbc.org", from=getHandbookReviewSecretary(), subject="Charis Fellowship Handbook Review", template="emailChurchesForUpdates.cfm", layout="/layout_for_email");
 			allemails = allemails & "; " & church.email;
 		};
 		allemails = replace(allemails,"; ","","one");
