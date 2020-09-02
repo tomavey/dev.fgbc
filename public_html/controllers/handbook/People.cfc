@@ -364,7 +364,7 @@ component extends="Controller" output="true" {
 			go=false
 			);	
 		emailMessage = $getEmailMessageForPeopleReview();
-		tags = model("Handbooktag").findAll(where="username LIKE '%#$getThisUserName()#%'", group="tag");
+		tags = model("Handbooktag").findMyTags(auth=session.auth);
 		renderPage(layout="/handbook/layout_handbook2")
 	}
 
