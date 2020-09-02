@@ -502,7 +502,6 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		if ( isLocalMachine() ) { arguments.maxrows = 10 }
 		var loc=arguments
 		var whereString = "id > 0 AND (reviewedAt < '#loc.lastReviewedBefore#' OR reviewedAt IS NULL) AND (updatedAt < '#loc.lastReviewedBefore#')"
-		if ( len(tag) ){ whereString = whereString & " AND tag='#tag#' AND username = '#username#'" }
 		loc.people = {}
 		loc.rowcount = 0
 		loc.previousid = 0
@@ -516,6 +515,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 			loc.people = $removeInValidEmail(loc.people)
 			loc.people = $addLastEmailToConfirm(loc.people)
 			loc.people = $removeDuplicates(loc.people)
+			if ( len(tag) ){ loc.people = queryFilter(loc.people,function(el){ el.tag == tag } ) }
 			return loc.people		
 		}
 		else {
