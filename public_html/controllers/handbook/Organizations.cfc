@@ -198,7 +198,6 @@ component extends="Controller" output="false" {
 
 	public function EmailChurchesForHandbookReview(){
 		allemails = "";
-		i=0;
 		if (!isDefined("session.churches")){redirectTo(action="handbookReviewOptions")}
 		if (isDefined("params.go") && params.go){
 				churches = session.churches;
@@ -211,7 +210,6 @@ component extends="Controller" output="false" {
 			allemails = allemails & "; " & church.email;
 		};
 		allemails = replace(allemails,"; ","","one");
-		i = arrayLen(churches);
 		structDelete(session,"churches");
 		renderPage(template="emailChurchesForHandbookReviewReport", layout="/handbook/layout_handbook2");
 	}
