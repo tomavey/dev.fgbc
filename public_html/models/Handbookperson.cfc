@@ -3,7 +3,7 @@
 //Refactored October 2019 to use cfscript
 //Used by the online handbook application - people (church and ministry staff)
 //
-component extends="Model" output="false" {
+component extends="Model" output="true" {
 
 
 	function init() {
@@ -497,9 +497,9 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		go = false,
 		tag="",
 		username="none",
-		maxrows = -1
+		maxrows = -1,
+		maxIdOnLocalMachine = 300
 	){
-		if ( isLocalMachine() ) { arguments.maxrows = 10 }
 		var loc=arguments
 		var whereString = "id > 0 AND (reviewedAt < '#loc.lastReviewedBefore#' OR reviewedAt IS NULL) AND (updatedAt < '#loc.lastReviewedBefore#')"
 		loc.people = {}
@@ -507,15 +507,16 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		loc.previousid = 0
 		if (loc.go) {
 			whereString = $buildWhereString(whereString,loc.type)
+			if ( isLocalMachine() ) {whereString = whereString & " AND id < #loc.maxIdOnLocalMachine# "}
+			if ( len(loc.tag) ) { whereString = whereString & " AND tag = '#loc.tag#'"}
 			selectString = "handbookpeople.id,lname,concat(lname,', ',fname) AS SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') AS reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') AS updatedAt"
-
-			loc.peopleQ = findAll(select=selectString, where = whereString, include="State,Handbookpositions,Handbooktags", maxRows=maxrows, order=orderby)
+	
+			loc.peopleQ = findAll(where = whereString, include="State,Handbookpositions,Handbooktags", maxRows=arguments.maxrows, order=orderby)
 
 			loc.people = $peopleQueryToArray(loc.peopleQ)
 			loc.people = $removeInValidEmail(loc.people)
 			loc.people = $addLastEmailToConfirm(loc.people)
 			loc.people = $removeDuplicates(loc.people)
-			if ( len(tag) ){ loc.people = queryFilter(loc.people,function(el){ el.tag == tag } ) }
 			return loc.people		
 		}
 		else {
@@ -560,7 +561,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 	}
 	
 	function $testPeople() {
-		var emails = "tomavey@fgbc.org,tomavey@outlook.com"
+		var emails = getSetting("testEmailsForHandbookReview")
 		var testPeople = []
 		thisPerson = {}
 		var loc=structNew()

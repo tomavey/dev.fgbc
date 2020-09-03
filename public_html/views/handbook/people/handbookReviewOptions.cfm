@@ -73,10 +73,10 @@
                     #people[i].email#
                     </br>
                     <cfif len(people[i].reviewedAt)>
-                    Last Reviewed on #people[i].reviewedAT# by #people[i].reviewedBy#</br>
+                    Last Reviewed on #dateFormat(people[i].reviewedAT)# by #people[i].reviewedBy#</br>
                     </cfif>
                     <cfif isDefined("people[i].updatedAt") AND len(people[i].updatedAt)>
-                    Last Updated on #people[i].updatedAt#</br>
+                    Last Updated on #dateFormat(people[i].updatedAt)#</br>
                     </cfif>
                     #linkto(text='<i class="icon-remove"></i>', action="removePersonFromSessionArray", params="item=#i#")#</br>
                     </br>
