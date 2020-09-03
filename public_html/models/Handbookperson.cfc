@@ -560,7 +560,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 	}
 	
 	function $testPeople() {
-		var emails = "tomavey@fgbc.org,tomavey@comcast.net"
+		var emails = "tomavey@fgbc.org,tomavey@outlook.com"
 		var testPeople = []
 		thisPerson = {}
 		var loc=structNew()
@@ -576,16 +576,6 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 			arrayAppend(testPeople,thisPerson)
 			thisperson = {}
 		}
-		thisperson.selectName = "Tom Avey"
-		thisperson.lname = "Avey"
-		thisperson.id = 100
-		thisperson.email = "tomavey@comcast.net"
-		thisperson.email2 = loc.i
-		thisperson.reviewedAt = "September 1, 2016"
-		thisperson.updatedAt = "September 1, 2016"
-		thisperson.reviewedBy = loc.i
-		arrayAppend(testPeople,thisPerson)
-		thisperson = {}
 		return testPeople
 	}
 	
