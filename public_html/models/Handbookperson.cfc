@@ -510,6 +510,8 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 			if ( isLocalMachine() ) {whereString = whereString & " AND id < #loc.maxIdOnLocalMachine# "}
 			if ( len(loc.tag) ) { whereString = whereString & " AND tag = '#loc.tag#'"}
 			selectString = "handbookpeople.id,lname,concat(lname,', ',fname) AS SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') AS reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') AS updatedAt"
+
+			ddd(whereString)
 	
 			loc.peopleQ = findAll(where = whereString, include="State,Handbookpositions,Handbooktags", maxRows=arguments.maxrows, order=orderby)
 
