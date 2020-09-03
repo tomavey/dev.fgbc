@@ -511,7 +511,6 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 			if ( len(loc.tag) ) { whereString = whereString & " AND tag = '#loc.tag#'"}
 			selectString = "handbookpeople.id,lname,concat(lname,', ',fname) AS SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') AS reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') AS updatedAt"
 
-			ddd(whereString)
 	
 			loc.peopleQ = findAll(where = whereString, include="State,Handbookpositions,Handbooktags", maxRows=arguments.maxrows, order=orderby)
 
@@ -519,6 +518,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 			loc.people = $removeInValidEmail(loc.people)
 			loc.people = $addLastEmailToConfirm(loc.people)
 			loc.people = $removeDuplicates(loc.people)
+			ddd(loc.people)
 			return loc.people		
 		}
 		else {
