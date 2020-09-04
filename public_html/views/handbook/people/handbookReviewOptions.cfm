@@ -34,10 +34,10 @@
     <table id="handbookReviewOptions">
         <tr>
             <th>    
-                #linkto(text="Send to #arrayLen(people)# people from #getHandbookReviewSecretary()#", action="emailPeopleForHandbookReview", class="btn", confirm="Are you absolutely certain!!!???", params="lastreviewedBefore=#args.lastreviewedBefore#&go=true")#</br>
+                #linkto(text="Send to #arrayLen(people)# people from #showHtmlCode(getHandbookReviewSecretary())#", action="emailPeopleForHandbookReview", class="btn", confirm="Are you absolutely certain!!!???", params="lastreviewedBefore=#args.lastreviewedBefore#&go=true")#</br>
             </th>
             <th>
-                #linkto(text="Send to these test people from #getHandbookReviewSecretary()#", action="emailPeopleForHandbookReview", class="btn", params="lastreviewedBefore=#args.lastreviewedBefore#&go=false")#
+                #linkto(text="Send to these test people from #showHtmlCode(getHandbookReviewSecretary())#", action="emailPeopleForHandbookReview", class="btn", params="lastreviewedBefore=#args.lastreviewedBefore#&go=false")#
             </th>
         </tr>
         <tr>
