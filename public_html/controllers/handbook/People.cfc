@@ -353,7 +353,7 @@ component extends="Controller" output="true" {
 				username=username,
 				go=true
 				);	
-		}
+			}
 		people = session.people;
 		// writeOutput(serialize(people));abort;
 		testpeople = model("Handbookperson").getHandbookReviewStruct(

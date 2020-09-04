@@ -129,7 +129,7 @@ function queryToArray(required query data){
 				ArrayAppend( LOCAL.QueryArray, LOCAL.Row )
 			}
 			return( LOCAL.QueryArray )
-	}
+}
 
 	function queryToJson(required query data){
 		return serializeJSON(capitalizeColumnNameInQuery(arguments.data),"struct")

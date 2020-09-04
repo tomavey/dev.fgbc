@@ -62,7 +62,7 @@
         <tr>
             <td valign="top">        
                 <cfloop from="1" to="#arraylen(people)#" index="i">
-                     <cfset message = urlEncodedFormat("Greetings!  We are updating information in the online Charis Fellowship handbook which is used each year for the printed handbook. Can you review this for me?  Today?  Be sure to click the 'This information is correct' button when you are finished. Thanks so much! #urlFor(controller="handbook.welcome", action="welcome", params='id=#encrypt(people[i].email,getSetting("passwordkey"),'CFMX_COMPAT','HEX')#', onlyPath=false)#")>
+                    <cfset message = urlEncodedFormat("Greetings!  We are updating information in the online Charis Fellowship handbook which is used each year for the printed handbook. Can you review this for me?  Today?  Be sure to click the 'This information is correct' button when you are finished. Thanks so much! #urlFor(controller="handbook.welcome", action="welcome", params='id=#encrypt(people[i].email,getSetting("passwordkey"),'CFMX_COMPAT','HEX')#', onlyPath=false)#")>
                     <cfset subject = urlEncodedFormat("Please review your personal Charis Fellowship Handbook listing")>
                     #linkto(text="#people[i].selectName#", controller="handbook.welcome", action="welcome", key=encrypt(people[i].email,getSetting("passwordkey"),"CFMX_COMPAT","HEX"), onlyPath=false, params="logoutfirst=true")#
                     #mailTo(
