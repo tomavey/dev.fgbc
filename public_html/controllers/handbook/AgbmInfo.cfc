@@ -161,7 +161,7 @@
 
 	<cffunction name="list">
 		<cfset setReturn()>
-		<cfset orderString = "lname,fname">
+		<cfset orderString = "lname,fname,p_sortorder">
 		<cfset showAge=false>
 		<cfif isDefined("params.byage")>
 			<cfset orderString = "birthdayyear #params.byage#,lname,fname">
@@ -169,19 +169,22 @@
 		</cfif>
 		<cfset districts=model("Handbookdistrict").findAll(where="district NOT IN ('Empty','National Ministry','Cooperating Ministry')")>
 		<cfif isDefined("params.search")>
-			  <cfset people = model("Handbookagbminfo").findAllMembers(search=params.search,currentMembershipYear=currentmembershipyear)>
+		  <cfset people = model("Handbookagbminfo").findAllMembers(search=params.search,currentMembershipYear=currentmembershipyear)>
 		<cfelseif isDefined("params.type") and params.type is "members" and isDefined("params.alpha") and len(params.alpha)>
-			  <cfset people = model("Handbookagbminfo").findAllMembers(alpha=params.alpha,currentMembershipYear=currentmembershipyear,orderby=orderstring)>
+			<cfset people = model("Handbookagbminfo").findAllMembers(alpha=params.alpha,currentMembershipYear=currentmembershipyear,orderby=orderstring)>
+			<cfscript>
+				ddd(people)
+			</cfscript>
 		<cfelseif isDefined("params.type") and params.type is "members" and isDefined("params.district") and len(params.district)>
-			  <cfset people = model("Handbookagbminfo").findAllMembers(district=params.district,currentMembershipYear=currentmembershipyear)>
+		  <cfset people = model("Handbookagbminfo").findAllMembers(district=params.district,currentMembershipYear=currentmembershipyear)>
 		<cfelseif isDefined("params.type") and params.type is "members">
-			  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear)>
+		  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear)>
 		<cfelseif isDefined("params.type") and params.type is "lifeTimeMembers">
-			  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,lifeTimeMembers=true)>
+		  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,lifeTimeMembers=true)>
 		<cfelseif isDefined("params.type") and (params.type is "mailinglist" or params.type is "mail")>
-			  <cfset people = model("Handbookagbminfo").findAllMailingList(currentMembershipYear=currentmembershipyear)>
+		  <cfset people = model("Handbookagbminfo").findAllMailingList(currentMembershipYear=currentmembershipyear)>
 		<cfelse>
-			  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,orderby=orderstring)>
+		  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,orderby=orderstring)>
 		</cfif>
 	
 	<cfscript>
