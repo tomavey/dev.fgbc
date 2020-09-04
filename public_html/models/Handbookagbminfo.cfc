@@ -28,7 +28,7 @@ component extends="Model" output="false" {
 		ON o.stateid = s.id
 		JOIN handbookagbminfo i
 		ON i.personid = p.id
-		WHERE o.statusid IN (#getSetting("churchStatusForHandbook")#,5,2,10)
+		WHERE o.statusid IN (#getSetting("churchStatusForHandbook")#,5,2)
 			AND t.p_sortorder <> 999
 			AND p.deletedAt IS NULL
 				AND t.deletedAt IS NULL
@@ -37,8 +37,9 @@ component extends="Model" output="false" {
 				AND i.deletedAt IS NULL
 		GROUP BY p.id
 		ORDER BY #arguments.orderby#"
-		loc.qoptions = {result = "myResult", datasource="#getDataSourceName()#", fetchClientInfo = "ne"}
+		loc.qoptions = {result = "myResult", datasource="#getDataSourceName()#"}
 		return queryExecute(loc.sql,[],loc.qoptions)
+		ddd(queryExecute(loc.sql,[],loc.qoptions))
 	}
 
 	public function getAgbm10YearMembers(countMin = 9){
