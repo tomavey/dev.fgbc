@@ -9,7 +9,7 @@ component extends="Controller" output="false" {
 		usesLayout("/handbook/layout_handbook")
 		filters(through="gotBasicHandbookRights", except="memberChurches,findChurches,findChurchWithStaff,groupRoster")
 		filters(through="getStates,getDistricts,getStatus", only="new,edit,update,index,create,downloadguidelines")
-		filters(through="setWillNotShowString,getGroupRosterOptions", only="new,edit")
+		filters(through="setWillNotShowString,getGroupRosterOptions")
 		filters(through="setReturn", only="show,handbookpages")
 		filters(through="logview", type="after", only="show")
 		provides("json")

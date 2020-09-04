@@ -28,7 +28,7 @@
 
 						#textField(objectName='handbookorganization', property='country', label='Country: ')#
 
-						#select(objectName='handbookorganization', property='districtid', label='District: ', options=districts)#
+						#select(objectName='handbookorganization', includeBlank='--Select one--', property='districtid', label='District: ', options=districts)#
 
 						#textField(objectName='handbookorganization', property='phone', label='Phone: ')#
 
@@ -60,7 +60,9 @@
 
 						<cfif gotRights("superadmin,office,handbookedit")>
 							#select(objectName='handbookorganization', property='statusid', label='Status: ', options=status)#
-							The following status' will not show in the online handbook: #willNotShowString#
+							<cfif isDefined("willNotShowString")>
+								The following status' will not show in the online handbook: #willNotShowString#
+							</cfif>
 							<br/><br/><br/>
 
 							#select(objectName='handbookorganization', property='joinedAt', label='Year Joined: ', options=yearRange, includeBlank="-Select Year-")#

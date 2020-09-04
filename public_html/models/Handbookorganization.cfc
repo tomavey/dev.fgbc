@@ -18,6 +18,8 @@ component extends="Model" output="false" {
 		belongsTo(name="Handbookdistrict", foreignkey="districtid")
 		belongsTo(name="District",  modelName="Handbookdistrict", foreignkey="districtid")
 		hasMany(name="Handbooktags", foreignKey="itemid")
+		//Validations
+		validatesPresenceOf(property="districtId", message="District can't be blank - select 'No District' if none")
 		// CallBacks
 		beforeUpdate("logUpdates,doListedAS")
 		beforeCreate("doListedAs")
