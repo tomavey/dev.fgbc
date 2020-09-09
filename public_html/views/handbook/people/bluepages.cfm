@@ -29,12 +29,14 @@
   <cfif NOT isDefined("params.showedit") AND not isDefined("params.layout")>
     #linkToPlus(
       text="Show Edit Button, Position Delete, <br/> Update and Duplication Alert <br/> and removed from staff and AGBM only", 
+      controller="handbook.people", 
       action="bluepages", 
       addParams="showedit=1&showupdatedat=1&showalert=1&showremoved=1&showhiddenpositions=1", 
       class="btn btn-xl")#
   <cfelseif not isDefined("params.layout")>
     #linkTo(
       text="Hide <br/> Edit Button, Position Delete, <br/> Update and Duplication Alert", 
+      controller="handbook.people", 
       action="bluepages", 
       params="", 
       class="btn btn-xl")#
@@ -44,6 +46,7 @@
   <cfif NOT isDefined("params.nonstaff") AND not isDefined("params.layout")>
       #linkToPlus(
         text="Only show <br/> Non-Staff and <br/> Non-Agbm With Links", 
+        controller="handbook.people", 
         action="bluepages", 
         addParams="nonstaff=1&showedit=1&showupdatedat=1&showalert=1", 
         class="btn btn-xl")#
@@ -51,6 +54,7 @@
       <!--- this button removes all the special params--->
       #linkTo(
         text="Show all <br/> without <br/> links", 
+        controller="handbook.people", 
         action="bluepages", 
         params="", 
         class="btn btn-xl")#
