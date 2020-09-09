@@ -6,6 +6,10 @@
 #textFieldTag(id="datepicker", Label="Show churches last reviewed before:&nbsp;&nbsp;", name="reviewedBefore", value=dateFormat(args.reviewedBefore), class="input-small search-query", prepend="", append="")#
 <button type="submit" class="btn">Search</button>
 #endFormTag()#
+<div class="well" style="height:150px; overflow:scroll">
+    preview:
+        #includePartial("message")#
+</div>
     <table id="handbookReviewOptions">
         <tr>
             <th>    
