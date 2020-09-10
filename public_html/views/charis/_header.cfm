@@ -86,9 +86,9 @@
                       action="index", 
                       class="dropdown-toggle nav-link px-0 #isNavActive("events")#", data_toggle="dropdown")#
                   <ul class="dropdown-menu" style="padding:10px">
-                    <li>#linkTo(text="Charis Alliance (global)", href="https://www.charisalliance.org/en/prayer/", target="_new")#</li>
-                    <!--- <li class="list-inline-item g-mx-4 g-mt-10">
-                    </li> --->
+                    <!--- <li>#linkTo(text="Charis Alliance (global)", href="https://www.charisalliance.org/en/prayer/", target="_new")#</li> --->
+                    <li class="list-inline-item g-mx-4 g-mt-10">
+                    </li>
                     <li>#linkTo(text="Charis Prayer (USA and Canada)", href="https://charisfellowship.us/page/charisprays", target="_new")#</li>
                     <li class="list-inline-item g-mx-4 g-mt-10">
                   </ul>
