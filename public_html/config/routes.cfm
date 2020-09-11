@@ -87,6 +87,10 @@
 			.get(name="simpleListMinistries", pattern="/ministries/simplelist/", controller="ministries", action="simplelist")
 			.resources("ministries")
 			.resources("resources")
+
+			.controller("images")
+				.get(name="directory", pattern="/directory")
+				.end()
 		.end()
 
 <!---------------------------------->
