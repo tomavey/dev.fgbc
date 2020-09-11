@@ -88,9 +88,8 @@
 			.resources("ministries")
 			.resources("resources")
 
-			.controller("images")
-				.get(name="directory", pattern="/directory/", action="directory")
-				.end()
+			.get(name="directory", pattern="/images/directory/", controller="images", action="directory")
+
 		.end()
 
 <!---------------------------------->
