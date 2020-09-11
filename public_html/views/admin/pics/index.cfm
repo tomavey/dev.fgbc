@@ -34,7 +34,7 @@
   <cfscript>
     writeOutput('<a href="/?controller=admin.images&action=directory">root</a>&nbsp;|&nbsp;')
     for (dir in dirs ) {
-      writeOutput('#linkto(text=dir, controller="admin.pics", params="folder=#dir#")#&nbsp;|&nbsp;')
+      writeOutput('#linkto(text=dir, controller="admin/pics", params="folder=#dir#")#&nbsp;|&nbsp;')
     }
   </cfscript>
   <div class="flex-container">
