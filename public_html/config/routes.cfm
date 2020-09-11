@@ -89,7 +89,7 @@
 			.resources("resources")
 
 			.controller("images")
-				.get(name="directory", pattern="/directory")
+				.get(name="directory", pattern="/directory/", action="directory")
 				.end()
 		.end()
 
