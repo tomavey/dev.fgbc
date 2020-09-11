@@ -13,12 +13,31 @@
   text-align: center;
 }
 </style>
+<div class="container">
+<!--- <cfoutput>
+#GetBaseTemplatePath()#<br/>
 
-<ul>
+#GetCurrentTemplatePath()#<br/>
+
+#GetDirectoryFromPath(GetCurrentTemplatePath())#<br/>
+
+#ExpandPath("2019Council.jpg")#<br/>
+
+#FileExists(GetCurrentTemplatePath())#
+
+#getBaseUrl()#
+
+</cfoutput> --->
+  <cfscript>
+    writeOutput('<a href="/?controller=admin.images&action=directory">root</a>&nbsp;|&nbsp;')
+    for (dir in dirs ) {
+      writeOutput('<a href="/?controller=admin.images&action=directory&folder=#dir#">#dir#</a>&nbsp;|&nbsp;')
+    }
+  </cfscript>
   <div class="flex-container">
     <cfscript>
       for (file in files) {
-      fileUrl = "https://charisfellowship.us/images/#file#"
+      fileUrl = "#getBaseUrl()#/images/#folderName#/#file#"
           writeOutput('
           <div>
             <p><a href="#fileurl#"><img src="#fileUrl#" width="200" /></a></p><br/>
@@ -28,4 +47,4 @@
      }
   </cfscript>
 </div>
-</ul>
+</div>
