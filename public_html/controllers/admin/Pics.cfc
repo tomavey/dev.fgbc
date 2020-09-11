@@ -2,14 +2,18 @@ component extends="Controller" output="false" {
   
   public function index(folder=""){
     if ( isdefined("params.folder") ) { folder = params.folder }
+    var dirPath = GetDirectoryFromPath(GetCurrentTemplatePath())
+    ///ddd(GetDirectoryFromPath(GetBaseTemplatePath()))
+    var filePath = getBaseImageFolder(folder) & "\" & folder
+    ///ddd(filePath)
     files = directoryList(
-      path="C:\Users\Surface Pro\Documents\inetpub\wwwroot\fgbc\public_html\images\#folder#", 
+      path=filePath, 
       type="file", 
-      listInfo="name", 
-      sort="size DESC",
+      listInfo="query", 
+      sort="directory ASC, size DESC, datelastmodified",
       filter="*.jpg|*.png|.gif"
       )
-    dirs = directoryList(path="C:\Users\Surface Pro\Documents\inetpub\wwwroot\fgbc\public_html\images\#folder#", type="dir", listInfo="name")
+    dirs = directoryList(path=filePath, type="dir", listInfo="name")
     folderName = folder
   }
 
@@ -17,5 +21,9 @@ component extends="Controller" output="false" {
     if ( find("https",protocol) ) { protocol = "https" } else { protocol = "http" }
     return protocol & "://" & domain
     }
+
+  public function getBaseImageFolder( folder, baseFolder=GetDirectoryFromPath(GetBaseTemplatePath()) ){
+    return baseFolder & "images"
+  }
 
 }

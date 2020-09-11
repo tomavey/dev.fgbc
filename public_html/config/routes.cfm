@@ -88,7 +88,7 @@
 			.resources("ministries")
 			.resources("resources")
 
-			.get(name="directory", pattern="/images/directory/", controller="images", action="directory")
+			.get(name="pics", pattern="/pics/", controller="pics", action="index")
 
 		.end()
 
@@ -859,7 +859,6 @@
 		.get(name="accessHomeHosts", pattern="accessHost", controller="conference.homes", action="newAccessHost")
 		.get(name="accessHomeGuests", pattern="accessGuest", controller="conference.homes", action="newAccessGuest")
 		.get(name="accessHomes", pattern="accesshomes", controller="conference.homes", action="list")
-		.get(name="pics", pattern="pics", controller="admin.pics", action="index")
 
 <!---------------------------------->
 <!----------API Routes---------->
