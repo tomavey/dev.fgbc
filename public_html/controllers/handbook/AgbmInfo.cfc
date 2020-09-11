@@ -172,9 +172,6 @@
 		  <cfset people = model("Handbookagbminfo").findAllMembers(search=params.search,currentMembershipYear=currentmembershipyear)>
 		<cfelseif isDefined("params.type") and params.type is "members" and isDefined("params.alpha") and len(params.alpha)>
 			<cfset people = model("Handbookagbminfo").findAllMembers(alpha=params.alpha,currentMembershipYear=currentmembershipyear,orderby=orderstring)>
-			<cfscript>
-				ddd(people)
-			</cfscript>
 		<cfelseif isDefined("params.type") and params.type is "members" and isDefined("params.district") and len(params.district)>
 		  <cfset people = model("Handbookagbminfo").findAllMembers(district=params.district,currentMembershipYear=currentmembershipyear)>
 		<cfelseif isDefined("params.type") and params.type is "members">
