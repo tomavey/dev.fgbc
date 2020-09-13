@@ -37,7 +37,10 @@
       writeOutput('#linkto(text=dir, controller="admin/pics", params="folder=#dir#")#&nbsp;|&nbsp;')
     }
   </cfscript>
-  <div class="flex-container">
+  <div class="flex-container app">
+    <div v-for="pic in pics">
+      <a :href=pathToImage(pic.name) v-html=pathToImage(pic.name)></a>
+    </div>
     <cfscript>
       // ddd(files)
       for (file in files) {
@@ -52,4 +55,36 @@
   </cfscript>
 </div>
 </div>
+
+<script>
+    var vm = new Vue({
+      el: ".app",
+      data() {
+        return {
+          message: "welcome",
+          pics: "pics",
+          picDir: "/images/",
+        }
+      },
+      methods: {
+        pathToImage: function(name) {
+          return this.picsDir + name
+        },
+      },
+      computed: {
+        pathName: function(){ return window.location.pathname },
+        hostName: function(){ return window.location.hostname },
+        protocol: function(){ return window.location.protocol },
+        picsDir: function(){ return this.protocol + "//" + this.hostName + ":" + this.port + this.picDir},
+        port: function(){ return window.location.port }
+      },
+      created(){
+        let self = this
+        this.files = axios.get('http://127.0.0.1:8000/api/pics').then(function( response ) {
+          self.pics = response.data
+          console.log(self.pics )
+        })
+      }
+    })
+</script>
 

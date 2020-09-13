@@ -916,6 +916,8 @@
 		.get(name="fellowshipCouncilTeamMembers", pattern="/api/fellowshipcouncil/teammembers/", controller="fellowshipcouncil.teams", action="index")
 		.get(name="apiFocusRetreatInfo", pattern="/api/focus/retreat/[menuname]", controller="focus.api", action="retreat")
 		.get(name="apiFocusRetreatItems", pattern="/api/focus/retreatItems/[menuname]", controller="focus.api", action="retreatItems")
+		.get(name="apiPics", pattern="/api/pics/", controller="admin.pics", action="filesAsJson")
+		.get(name="apiPicDirs", pattern="/api/picDirs/", controller="admin.pics", action="dirsAsJson")		
 
 		.root(controller="Home", action="index")
 		.wildcard()

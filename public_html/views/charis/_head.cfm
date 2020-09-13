@@ -74,7 +74,8 @@
     #javaScriptIncludeTag("
       #folder#/vue,
       #folder#/vue-resource,
-      #folder#/lodash.min
+      #folder#/lodash.min,
+      #folder#/axios.min
     ")#
 
 </cfoutput>  
