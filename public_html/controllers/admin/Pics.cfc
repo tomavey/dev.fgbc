@@ -1,5 +1,14 @@
 component extends="Controller" output="false" {
+
+  public function init(){
+    filters(through="isOffice")
+  }
   
+  public function isOffice(){
+    if ( gotrights('office') ) { return true }
+    else { renderText("You do not have permission to view this page") }
+  }
+
   public function index(folder=""){
     if ( isdefined("params.folder") ) { folder = params.folder }
     files = getFiles(folder)
