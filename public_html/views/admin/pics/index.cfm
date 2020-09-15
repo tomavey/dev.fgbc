@@ -23,6 +23,7 @@
 <div class="container">
 
   <cfscript>
+    ddd(files)
     writeOutput('#linkto(text="Upload a pic", controller="admin.pics", action="upload", class="btn")#<br/>')
     writeOutput('<a href="/admin/pics/">root</a>&nbsp;|&nbsp;')
     for (dir in dirs ) {
