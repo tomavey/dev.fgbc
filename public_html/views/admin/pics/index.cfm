@@ -34,7 +34,6 @@
 <div class="app">
 
   <div class="flex-container">
-    {{pics}}
     <div>
       <input name="searchString" v-model="searchString" placeholder="Search"/>
     </div>
@@ -48,7 +47,7 @@
     </div>
   </div>  
   <div class="flex-container">
-    <div v-for="pic in sortedFilteredPics" :key=pic.name>
+    <div v-for="pic in lowerKeysSortedFilteredPics" :key=pic.name>
     <p v-html=pic.name></p>
     <p><a :href=pathToImage(pic.name)><img :src=pathToImage(pic.name) :width=imgWidth /></a></p>
   </div>
@@ -109,6 +108,20 @@
             );
           };
         },
+        ConvertKeysToLowerCase(obj) {
+          var output = {};
+          for (i in obj) {
+              if (Object.prototype.toString.apply(obj[i]) === '[object Object]') {
+                output[i.toLowerCase()] = this.ConvertKeysToLowerCase(obj[i]);
+              }else if(Object.prototype.toString.apply(obj[i]) === '[object Array]'){
+                  output[i.toLowerCase()]=[];
+                  output[i.toLowerCase()].push(this.ConvertKeysToLowerCase(obj[i][0]));
+              } else {
+                  output[i.toLowerCase()] = obj[i];
+              }
+          }
+          return output;
+        },
       },
       computed: {
         hostName: () => window.location.hostname,
@@ -126,8 +139,8 @@
            })
            return filteredPics
         },
-        sortedFilteredPics: function(){ return this.filteredPics.sort(this.compareValues(this.sortBy))
-        },
+        sortedFilteredPics: function(){ return this.filteredPics.sort(this.compareValues(this.sortBy)) },
+        lowerKeysSortedFilteredPics: function(){ return this.ConvertKeysToLowerCase(this.sortedFilteredPics) },
       },
       created(){
       }
