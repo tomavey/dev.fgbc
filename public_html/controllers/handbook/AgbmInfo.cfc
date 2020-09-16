@@ -249,6 +249,12 @@
 		}
 	}
 
+	function getStatus(ordained,commissioned,licensed){
+		if ( ordained ) { return "Ordained" }
+		if ( commissioned ) { return "Commissioned" }
+		if ( licensed ) { return "Licensed" }
+	}
+
 </cfscript>
 
 	<cffunction name="publicList">
@@ -288,7 +294,15 @@
 					<cfoutput>
 						<cfif arguments.formatted>
 							<cfif len(agbmlifememberAt)>
-								Lifetime member since #agbmlifememberAt#
+								<cfif loc.lastPayment.ordained>
+									Lifetime ordained member since #agbmlifememberAt#
+								</cfif>
+								<cfif loc.lastPayment.licensed>
+									Lifetime licensed member since #agbmlifememberAt#
+								</cfif>
+								<cfif loc.lastPayment.commissioned>
+									Lifetime commissioned member since #agbmlifememberAt#
+								</cfif>
 							<cfelse>	
 								<p style="color:#loc.fontcolor#">
 									#dollarFormat(loc.lastPayment.membershipfee)# for #loc.lastPayment.membershipfeeyear#<br/>

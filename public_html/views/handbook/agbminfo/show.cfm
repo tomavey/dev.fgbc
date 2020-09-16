@@ -22,6 +22,9 @@
 				Year
 			</th>
 			<th>
+				Status
+			</th>
+			<th>
 				Date
 			</th>
 			<th>
@@ -31,7 +34,6 @@
 				&nbsp;
 			</th>
 		</thead>
-
 		<tbody>
 			<cfoutput query="payments">
 				<tr>
@@ -40,6 +42,9 @@
 					</td>
 					<td>
 						#membershipfeeyear#
+					</td>
+					<td>
+						#getStatus(ordained,commissioned,licensed)#
 					</td>
 					<td>
 						#transactiondate#
