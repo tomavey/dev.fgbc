@@ -32,7 +32,6 @@
   </cfscript>
 
 <div class="app">
-
   <div class="flex-container">
     <div>
       <input name="searchString" v-model="searchString" placeholder="Search"/>
@@ -51,6 +50,7 @@
     <p v-html=pic.name></p>
     <p><a :href=pathToImage(pic.name)><img :src=pathToImage(pic.name) :width=imgWidth /></a></p>
   </div>
+  {{lowerKeysSortedFilteredPics}}
 </div>
 
 </div>
