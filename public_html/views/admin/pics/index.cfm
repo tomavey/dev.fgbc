@@ -86,6 +86,7 @@
           this.sortBy = sortOption
         },  
         compareValues: function(key, order=this.sortOrder) {
+          console.log("comparing")
           return function(a, b) {
             if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
             // property doesn't exist on either object
@@ -96,6 +97,7 @@
             a[key].toUpperCase() : a[key];
             const varB = (typeof b[key] === 'string') ? 
             b[key].toUpperCase() : b[key];
+            console.log(varB)
 
             let comparison = 0;
             if (varA > varB) {
