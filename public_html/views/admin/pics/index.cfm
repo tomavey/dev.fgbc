@@ -33,7 +33,18 @@
 
 <div class="app">
   <div class="flex-container">
-    {{hostName}}-{{sortedFilteredPics[0]}}
+    <p>
+      filteredPics{{filteredPics[0]}}
+     </p>
+    <p>
+      sortedFilteredPics:{{sortedFilteredPics[0]}}<br/><br/>
+    </p>
+    <p>
+      lowerKeysSortedFilteredPics{{lowerKeysSortedFilteredPics[0]}}<br/><br/>
+     </p>
+
+
+
     <div>
       <input name="searchString" v-model="searchString" placeholder="Search"/>
     </div>
@@ -99,7 +110,7 @@
             //     return 0; 
             // }
 
-            console.log(a)
+            // key = key.toLowerCase()
 
             const varA = (typeof a[key] === 'string') ? 
             a[key].toUpperCase() : a[key];
@@ -148,7 +159,7 @@
            })
            return filteredPics
         },
-        sortedFilteredPics: function(){ return this.ConvertKeysToLowerCase(this.filteredPics.sort(this.compareValues(this.sortBy))) },
+        sortedFilteredPics: function(){ return this.filteredPics.sort(this.compareValues(this.sortBy)) },
         lowerKeysSortedFilteredPics: function(){ 
           return this.ConvertKeysToLowerCase(this.sortedFilteredPics) 
         },
