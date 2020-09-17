@@ -89,6 +89,7 @@
           console.log("comparing")
           return function(a, b) {
             if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+              console.log("!hasOwnProperty")
             // property doesn't exist on either object
                 return 0; 
             }
