@@ -34,6 +34,9 @@
 <div class="app">
   <div class="flex-container">
     <p>
+      lowerKeysPics{{lowerKeysPics[0]}}
+    </p>
+    <p>
       filteredPics{{filteredPics[0]}}
      </p>
     <p>
@@ -148,6 +151,9 @@
         protocol: () => window.location.protocol,
         port: () => window.location.port,
         picsDir: function(){ return this.protocol + "//" + this.hostName + ":" + this.port + this.picDir},
+        lowerKeysPics: function(){ 
+          return this.ConvertKeysToLowerCase(this.pics) 
+        },
         filteredPics: function() {
           let self = this
           if ( !self.searchString.length ) { return this.pics }
