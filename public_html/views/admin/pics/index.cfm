@@ -33,6 +33,7 @@
 
 <div class="app">
   <div class="flex-container">
+    {{lowerKeysSortedFilteredPics[0]}}
     <div>
       <input name="searchString" v-model="searchString" placeholder="Search"/>
     </div>
@@ -50,7 +51,6 @@
     <p v-html=pic.name></p>
     <p><a :href=pathToImage(pic.name)><img :src=pathToImage(pic.name) :width=imgWidth /></a></p>
   </div>
-  {{lowerKeysSortedFilteredPics}}
 </div>
 
 </div>
