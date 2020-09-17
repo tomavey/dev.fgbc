@@ -99,7 +99,7 @@
             //     return 0; 
             // }
 
-            console.log(a[key])
+            console.log(a)
 
             const varA = (typeof a[key] === 'string') ? 
             a[key].toUpperCase() : a[key];
