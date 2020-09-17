@@ -146,9 +146,9 @@
             }
             return false
            })
-           return self.ConvertKeysToLowerCase(filteredPics)
+           return filteredPics
         },
-        sortedFilteredPics: function(){ return this.filteredPics.sort(this.compareValues(this.sortBy)) },
+        sortedFilteredPics: function(){ return this.ConvertKeysToLowerCase(this.filteredPics.sort(this.compareValues(this.sortBy))) },
         lowerKeysSortedFilteredPics: function(){ 
           return this.ConvertKeysToLowerCase(this.sortedFilteredPics) 
         },
