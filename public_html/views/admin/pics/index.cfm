@@ -88,7 +88,7 @@
         compareValues: function(key, order=this.sortOrder) {
           console.log("comparing")
           return function(a, b) {
-            if(a[key] === undefined || b[key] === undefined) {
+            if(a[key] === "undefined" || b[key] === "undefined") {
               console.log("!hasOwnProperty")
               console.log(key)
               console.log(a[key])
