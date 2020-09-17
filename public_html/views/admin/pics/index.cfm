@@ -33,7 +33,7 @@
 
 <div class="app">
   <div class="flex-container">
-    {{hostName}}-{{lowerKeysSortedFilteredPics[0]}}
+    {{hostName}}-{{sortedFilteredPics[0]}}
     <div>
       <input name="searchString" v-model="searchString" placeholder="Search"/>
     </div>
@@ -47,7 +47,7 @@
     </div>
   </div>  
   <div class="flex-container">
-    <div v-for="pic in lowerKeysSortedFilteredPics" :key=pic.name>
+    <div v-for="pic in sortedFilteredPics" :key=pic.name>
     <p v-html=pic.name></p>
     <p><a :href=pathToImage(pic.name)><img :src=pathToImage(pic.name) :width=imgWidth /></a></p>
   </div>
@@ -146,7 +146,7 @@
             }
             return false
            })
-           return filteredPics
+           return self.ConvertKeysToLowerCase(filteredPics)
         },
         sortedFilteredPics: function(){ return this.filteredPics.sort(this.compareValues(this.sortBy)) },
         lowerKeysSortedFilteredPics: function(){ 
