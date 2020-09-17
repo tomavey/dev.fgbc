@@ -90,9 +90,17 @@
           return function(a, b) {
             if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
               console.log("!hasOwnProperty")
+              console.log(key)
+              console.log(a[key])
             // property doesn't exist on either object
                 return 0; 
             }
+
+            // if( key !in a || key !in b ) {
+            //   console.log("!hasOwnProperty")
+            // // property doesn't exist on either object
+            //     return 0; 
+            // }
 
             const varA = (typeof a[key] === 'string') ? 
             a[key].toUpperCase() : a[key];
