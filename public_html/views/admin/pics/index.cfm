@@ -89,8 +89,6 @@
           console.log("comparing")
           return function(a, b) {
             if(a[key] === "undefined" || b[key] === "undefined") {
-              console.log("!hasOwnProperty")
-              console.log(key)
               console.log(a[key])
             // property doesn't exist on either object
                 return 0; 
@@ -106,7 +104,6 @@
             a[key].toUpperCase() : a[key];
             const varB = (typeof b[key] === 'string') ? 
             b[key].toUpperCase() : b[key];
-            console.log(varB)
 
             let comparison = 0;
             if (varA > varB) {
