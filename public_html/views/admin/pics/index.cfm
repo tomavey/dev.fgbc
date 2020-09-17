@@ -141,10 +141,7 @@
         },
         sortedFilteredPics: function(){ return this.filteredPics.sort(this.compareValues(this.sortBy)) },
         lowerKeysSortedFilteredPics: function(){ 
-          //use lower case on localhost
-          return ( 
-            ( this.hostName == '127.0.0.1' ) ? this.ConvertKeysToLowerCase(this.sortedFilteredPics) : this.sortedFilteredPics
-            ) 
+          return this.ConvertKeysToLowerCase(this.sortedFilteredPics) 
         },
       },
       created(){
