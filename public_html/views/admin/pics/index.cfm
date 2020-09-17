@@ -89,7 +89,6 @@
           console.log("comparing")
           return function(a, b) {
             if(a[key] === "undefined" || b[key] === "undefined") {
-              console.log(a[key])
             // property doesn't exist on either object
                 return 0; 
             }
@@ -99,6 +98,8 @@
             // // property doesn't exist on either object
             //     return 0; 
             // }
+
+            console.log(a[key])
 
             const varA = (typeof a[key] === 'string') ? 
             a[key].toUpperCase() : a[key];
