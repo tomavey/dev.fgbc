@@ -33,7 +33,7 @@
 
 <div class="app">
   <div class="flex-container">
-    {{lowerKeysSortedFilteredPics[0]}}
+    {{hostName}}-{{lowerKeysSortedFilteredPics[0]}}
     <div>
       <input name="searchString" v-model="searchString" placeholder="Search"/>
     </div>
