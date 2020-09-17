@@ -88,7 +88,7 @@
         compareValues: function(key, order=this.sortOrder) {
           console.log("comparing")
           return function(a, b) {
-            if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+            if(!a[key] || !b[key]) {
               console.log("!hasOwnProperty")
               console.log(key)
               console.log(a[key])
