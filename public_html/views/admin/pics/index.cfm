@@ -118,14 +118,6 @@
               return 0; 
             }
 
-            // if( key !in a || key !in b ) {
-            //   console.log("!hasOwnProperty")
-            // // property doesn't exist on either object
-            //     return 0; 
-            // }
-
-            // key = key.toLowerCase()
-
             const varA = (typeof a[key] === 'string') ? 
             a[key].toUpperCase() : a[key];
             const varB = (typeof b[key] === 'string') ? 
@@ -170,26 +162,12 @@
           }
           return output;
         },
-        XConvertKeysToUpperCase(data) { 
-          for(var i = 0; i < data.length; i++){ 
-            for (var key in data[i]) {
-              if(key.toUpperCase() !== key){
-                data[i][key.toUpperCase()] = data[i][key];
-                delete data[i][key];
-              }
-            }
-          }
-          return data  
-        },
       },
       computed: {
         hostName: () => window.location.hostname,
         protocol: () => window.location.protocol,
         port: () => window.location.port,
         picsDir: function(){ return this.protocol + "//" + this.hostName + ":" + this.port + this.picDir},
-        // lowerKeysPics: function(){ 
-        //   return this.ConvertKeysToLowerCase(this.pics) 
-        // },
         filteredPics: function() {
           let self = this
           if ( !self.searchString.length ) { return this.pics }
@@ -201,14 +179,7 @@
            })
            return filteredPics
         },
-        sortedFilteredPics: function(){ 
-          let self = this
-          return self.filteredPics.sort(this.compareValues(this.sortBy)) 
-        },
-        // lowerKeysSortedFilteredPics: function(){ 
-        //   return this.ConvertKeysToLowerCase(this.sortedFilteredPics) 
-        // },
-        // uCasePics: function(){ return this.ConvertKeysToUpperCase(this.pics) }
+        sortedFilteredPics: function(){ return this.filteredPics.sort(this.compareValues(this.sortBy)) },
       },
       created(){
       }
