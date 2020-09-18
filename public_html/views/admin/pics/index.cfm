@@ -187,9 +187,9 @@
         protocol: () => window.location.protocol,
         port: () => window.location.port,
         picsDir: function(){ return this.protocol + "//" + this.hostName + ":" + this.port + this.picDir},
-        lowerKeysPics: function(){ 
-          return this.ConvertKeysToLowerCase(this.pics) 
-        },
+        // lowerKeysPics: function(){ 
+        //   return this.ConvertKeysToLowerCase(this.pics) 
+        // },
         filteredPics: function() {
           let self = this
           if ( !self.searchString.length ) { return this.pics }
@@ -205,10 +205,10 @@
           let self = this
           return self.filteredPics.sort(this.compareValues(this.sortBy)) 
         },
-        lowerKeysSortedFilteredPics: function(){ 
-          return this.ConvertKeysToLowerCase(this.sortedFilteredPics) 
-        },
-        uCasePics: function(){ return this.ConvertKeysToUpperCase(this.pics) }
+        // lowerKeysSortedFilteredPics: function(){ 
+        //   return this.ConvertKeysToLowerCase(this.sortedFilteredPics) 
+        // },
+        // uCasePics: function(){ return this.ConvertKeysToUpperCase(this.pics) }
       },
       created(){
       }
