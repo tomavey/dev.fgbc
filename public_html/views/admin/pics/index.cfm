@@ -40,18 +40,18 @@
     <!--- <p>
       filteredPics{{filteredPics[0]}}
      </p> --->
-    <p>
+    <!--- <p>
       sortedFilteredPics:{{sortedFilteredPics[0]}}<br/><br/>
-    </p>
+    </p> --->
     <!--- <p>
       lowerKeysSortedFilteredPics{{lowerKeysSortedFilteredPics[0]}}<br/><br/>
      </p> --->
-     <p>
+     <!--- <p>
       uCasePics: {{uCasePics[0]}}
      </p>
      <p>
        pics:{{pics[0]}}
-     </p>
+     </p> --->
 
 
 
@@ -211,11 +211,6 @@
         uCasePics: function(){ return this.ConvertKeysToUpperCase(this.pics) }
       },
       created(){
-        if ( this.hostName !== "127.0.0.1" ) {
-          this.nameKey = "NAME"
-          this.sizeKey = "SIZE"
-          this.datelastmodifiedKey = "DATELASTMODIFIED"
-        }
       }
     })
 </script>
