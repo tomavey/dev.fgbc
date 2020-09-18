@@ -7,7 +7,7 @@
     </p>
     <p>Count: {{users_array.length}}</p>
     <!--- {{searchString}}{{filterString}}
-    {{users_array}} --->
+    {{users_array[0]}} --->
     <table class="table table-striped">
     <tr>
             <th><a href="" @click.prevent="reSortBy('FULLNAME')">Name</a></th>
@@ -17,7 +17,7 @@
             <th><a href="" @click.prevent="reSortBy('CREATEDAT')">Created</a></th>
             <th>&nbsp;</th>
         </tr>
-        <tr v-for="user in users_array">
+        <tr v-for="user in users_array" :key=user.EMAIL>
             <td width='30%'><a :href="showUser(user.ID)">{{user.FULLNAME}}</a></td>    
             <td>{{user.USERNAME | shorten}}</td>
             <td><a :href="mailTo(user.EMAIL)">{{user.EMAIL | shorten | lowerCase}}</a></td>

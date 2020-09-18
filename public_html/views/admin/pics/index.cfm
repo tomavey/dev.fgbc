@@ -45,6 +45,12 @@
     <p>
       lowerKeysSortedFilteredPics{{lowerKeysSortedFilteredPics[0]}}<br/><br/>
      </p>
+     <p>
+      uCasePics: {{uCasePics[0]}}
+     </p>
+     <p>
+       pics:{{pics[0]}}
+     </p>
 
 
 
@@ -61,9 +67,9 @@
     </div>
   </div>  
   <div class="flex-container">
-    <div v-for="pic in sortedFilteredPics" :key=pic.name>
-    <p v-html=pic.name></p>
-    <p><a :href=pathToImage(pic.name)><img :src=pathToImage(pic.name) :width=imgWidth /></a></p>
+    <div v-for="pic in sortedFilteredPics" :key=pic.NAME>
+    <p v-html=pic.NAME></p>{{pic.name}}
+    <p><a :href=pathToImage(pic.NAME)><img :src=pathToImage(pic.NAME) :width=imgWidth /></a></p>
   </div>
 </div>
 
@@ -84,7 +90,7 @@
           picDir: "/images/",
           searchString:"",
           sortBy: "name",
-          sortOptions: ["name","dateLastModified","size"],
+          sortOptions: ["NAME","DATELASTMODIFIED","SIZE"],
           sortOrder: "asc",
           imgWidth: 200,
           folder: folder,
@@ -101,6 +107,7 @@
         },  
         compareValues: function(key, order=this.sortOrder) {
           console.log("comparing")
+
           return function(a, b) {
             if(a[key] === "undefined" || b[key] === "undefined") {
             // property doesn't exist on either object
@@ -145,6 +152,17 @@
           }
           return output;
         },
+        ConvertKeysToUpperCase(data) { 
+          for(var i = 0; i < data.length; i++){ 
+            for (var key in data[i]) {
+              if(key.toUpperCase() !== key){
+                data[i][key.toUpperCase()] = data[i][key];
+                delete data[i][key];
+              }
+            }
+          }
+          return data  
+        },
       },
       computed: {
         hostName: () => window.location.hostname,
@@ -169,6 +187,7 @@
         lowerKeysSortedFilteredPics: function(){ 
           return this.ConvertKeysToLowerCase(this.sortedFilteredPics) 
         },
+        uCasePics: function(){ return this.ConvertKeysToUpperCase(this.sortedFilteredPics) }
       },
       created(){
       }
