@@ -33,18 +33,19 @@
 
 <div class="app">
   <div class="flex-container">
-    <p>
+
+    <!--- <p>
       lowerKeysPics{{lowerKeysPics[0]}}
-    </p>
-    <p>
+    </p> --->
+    <!--- <p>
       filteredPics{{filteredPics[0]}}
-     </p>
+     </p> --->
     <p>
       sortedFilteredPics:{{sortedFilteredPics[0]}}<br/><br/>
     </p>
-    <p>
+    <!--- <p>
       lowerKeysSortedFilteredPics{{lowerKeysSortedFilteredPics[0]}}<br/><br/>
-     </p>
+     </p> --->
      <p>
       uCasePics: {{uCasePics[0]}}
      </p>
@@ -67,9 +68,9 @@
     </div>
   </div>  
   <div class="flex-container">
-    <div v-for="pic in sortedFilteredPics" :key=pic.NAME>
-    <p v-html=pic.NAME></p>{{pic.name}}
-    <p><a :href=pathToImage(pic.NAME)><img :src=pathToImage(pic.NAME) :width=imgWidth /></a></p>
+    <div v-for="pic in sortedFilteredPics" :key=pic[nameKey]>
+    <p v-html=pic[nameKey]></p>
+    <p><a :href=pathToImage(pic.NAME)><img :src=pathToImage(pic[nameKey]) :width=imgWidth /></a></p>
   </div>
 </div>
 
@@ -78,7 +79,7 @@
 
 <script>
   <cfoutput>
-    var pics = #queryToJson(files)#
+    var pics = #XqueryToJson(files)#
     var folder = "#params.folder#"
   </cfoutput>  
     var vm = new Vue({
@@ -90,10 +91,13 @@
           picDir: "/images/",
           searchString:"",
           sortBy: "name",
-          sortOptions: ["NAME","DATELASTMODIFIED","SIZE"],
+          sortOptions: ["name","datelastmodified","size"],
           sortOrder: "asc",
           imgWidth: 200,
           folder: folder,
+          nameKey:"name",
+          sizeKey:"size",
+          datelastmodifiedKey: "datelastmodified"
         }
       },
       methods: {
@@ -109,9 +113,9 @@
           console.log("comparing")
 
           return function(a, b) {
-            if(a[key] === "undefined" || b[key] === "undefined") {
-            // property doesn't exist on either object
-                return 0; 
+            if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+              // property doesn't exist on either object
+              return 0; 
             }
 
             // if( key !in a || key !in b ) {
@@ -152,7 +156,21 @@
           }
           return output;
         },
-        ConvertKeysToUpperCase(data) { 
+        ConvertKeysToUpperCase(obj) {
+          var output = {};
+          for (i in obj) {
+              if (Object.prototype.toString.apply(obj[i]) === '[object Object]') {
+                output[i.toUpperCase()] = this.ConvertKeysToUpperCase(obj[i]);
+              }else if(Object.prototype.toString.apply(obj[i]) === '[object Array]'){
+                  output[i.toUpperCase()]=[];
+                  output[i.toUpperCase()].push(this.ConvertKeysToUpperCase(obj[i][0]));
+              } else {
+                  output[i.toUpperCase()] = obj[i];
+              }
+          }
+          return output;
+        },
+        XConvertKeysToUpperCase(data) { 
           for(var i = 0; i < data.length; i++){ 
             for (var key in data[i]) {
               if(key.toUpperCase() !== key){
@@ -176,20 +194,28 @@
           let self = this
           if ( !self.searchString.length ) { return this.pics }
           let filteredPics = self.pics.filter( function(el) { 
-            if (el.name.toLowerCase().includes(self.searchString.toLowerCase())){
+            if (el[self.nameKey].toLowerCase().includes(self.searchString.toLowerCase())){
               return true
             }
             return false
            })
            return filteredPics
         },
-        sortedFilteredPics: function(){ return this.filteredPics.sort(this.compareValues(this.sortBy)) },
+        sortedFilteredPics: function(){ 
+          let self = this
+          return self.filteredPics.sort(this.compareValues(this.sortBy)) 
+        },
         lowerKeysSortedFilteredPics: function(){ 
           return this.ConvertKeysToLowerCase(this.sortedFilteredPics) 
         },
-        uCasePics: function(){ return this.ConvertKeysToUpperCase(this.sortedFilteredPics) }
+        uCasePics: function(){ return this.ConvertKeysToUpperCase(this.pics) }
       },
       created(){
+        if ( this.hostName !== "127.0.0.1" ) {
+          this.nameKey = "NAME"
+          this.sizeKey = "SIZE"
+          this.datelastmodifiedKey = "DATELASTMODIFIED"
+        }
       }
     })
 </script>
