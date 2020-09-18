@@ -79,7 +79,7 @@
 
 <script>
   <cfoutput>
-    var pics = #XqueryToJson(files)#
+    var pics = #queryToJson(data=files, useSerializeJSON=false)#
     var folder = "#params.folder#"
   </cfoutput>  
     var vm = new Vue({

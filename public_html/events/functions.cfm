@@ -131,8 +131,12 @@ function queryToArray(required query data){
 			return( LOCAL.QueryArray )
 }
 
-	function queryToJson(required query data){
-		return serializeJSON(capitalizeColumnNameInQuery(arguments.data),"struct")
+	function queryToJson(required query data, useSerializeJSON = true){
+		if ( useSerializeJSON ) {
+			return serializeJSON(capitalizeColumnNameInQuery(arguments.data),"struct")
+		}	else {
+			return queryToJsonNoSerial(arguments.data)
+		}
 	}
 
 	function capitalizeColumnNameInQuery(qry){
@@ -300,8 +304,7 @@ function queryToArray(required query data){
 	
 		
 
-<!---TRASH--->
-<cffunction name="XqueryToJson">
+<cffunction name="queryToJsonNoSerial">
 	<cfargument name="Data" type="query" required="yes" />
 	<cfset var loc = structNew()>
 	<cfset loc.columnnames = data.columnList>
