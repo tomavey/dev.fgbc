@@ -70,7 +70,7 @@
   <div class="flex-container">
     <div v-for="pic in sortedFilteredPics" :key=pic[nameKey]>
     <p v-html=pic[nameKey]></p>
-    <p><a :href=pathToImage(pic.NAME)><img :src=pathToImage(pic[nameKey]) :width=imgWidth /></a></p>
+    <p><a :href=pathToImage(pic[nameKey])><img :src=pathToImage(pic[nameKey]) :width=imgWidth /></a></p>
   </div>
 </div>
 
