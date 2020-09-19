@@ -17,6 +17,12 @@
 .pointer {
   cursor: pointer
 }
+
+.picInfo {
+  text-align:left;
+  font-size:.5em; 
+  padding-left:5px;
+}
 </style>
 
 
@@ -69,8 +75,11 @@
   </div>  
   <div class="flex-container">
     <div v-for="pic in sortedFilteredPics" :key=pic[nameKey]>
-    <p v-html=pic[nameKey]></p>
-    <p><a :href=pathToImage(pic[nameKey])><img :src=pathToImage(pic[nameKey]) :width=imgWidth /></a></p>
+      <p><a :href=pathToImage(pic[nameKey])><img :src=pathToImage(pic[nameKey]) :width=imgWidth /></a></p>
+      <p class="picInfo">File Name: {{pic[nameKey]}}</p>
+      <p class="picInfo">Url: <a :href=pathToImage(pic[nameKey])>{{pathToImage(pic[nameKey])}}</a></p>
+      <p class="picInfo">Size: {{pic[sizeKey]}}</p>
+    </div>
   </div>
 </div>
 

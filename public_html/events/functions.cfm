@@ -300,11 +300,30 @@ function queryToArray(required query data){
 		writeDump(var="#object#", format="js");abort;
 	}
 
+<!---Sometimes the jsonObject created by seralizeJson is not consistent between local and production server--->
+<!---Something to do with capitalizing keys--->
+	function queryToJsonNoSerial(required query data){
+		var loc = arguments
+		loc.columnNames = listToArray(data.columnList)
+		loc.jsonObject = "["
+		for ( item in data ) {
+			loc.thisItemJson = "{"
+			for ( columnName in loc.columnNames ) {
+				loc.thisDataJson = '"#$escapeString(data[columnName])#"'
+				loc.thisItemJson = loc.thisItemJson & '"' & lcase(columnName) & '"' & ":" & loc.thisDataJson & ","
+			}
+			loc.thisItemJson = left(loc.thisItemJson,len(loc.thisItemJson)-1) & "},"
+			loc.jsonObject = loc.jsonObject & loc.thisItemJson
+		}
+		loc.jsonObject = left(loc.jsonObject,Len(loc.jsonObject)-1)
+		loc.jsonObject = loc.jsonObject & "]"
+		return loc.jsonObject
+	}
+
 </cfscript>
 	
 		
-
-<cffunction name="queryToJsonNoSerial">
+<!--- <cffunction name="XqueryToJsonNoSerial">
 	<cfargument name="Data" type="query" required="yes" />
 	<cfset var loc = structNew()>
 	<cfset loc.columnnames = data.columnList>
@@ -324,4 +343,4 @@ function queryToArray(required query data){
 	<cfset loc.jsonObject = loc.jsonObject & "]">
 	<cfreturn loc.jsonObject>
 </cffunction>
-
+ --->
