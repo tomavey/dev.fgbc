@@ -12,7 +12,9 @@
   background-color: #f1f1f1;
   margin: 10px;
   text-align: center;
-  width:30%
+  width:30%;
+  max-height: 400px;
+  overflow: auto;
 }
 .pointer {
   cursor: pointer
