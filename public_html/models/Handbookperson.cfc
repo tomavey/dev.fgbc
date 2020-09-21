@@ -180,15 +180,15 @@ component extends="Model" output="true" {
 
 	private function $getCatCodes(required string catCode){
 		var codesStruct = {
-			Cat1Ordained: { category: "1", ordained: "1", licensed: "0", mentored: "0" },
-			Cat0Ordained: { category: "0", ordained: "1", licensed: "0", mentored: "0" },
-			Cat1Licensed: { category: "1", ordained: "0", licensed: "1", mentored: "0" },
-			Cat0Commissioned: { category: "0", ordained: "0", licensed: "0", mentored: "0" },
-			Cat2Ordained: { category: "2", ordained: "1", licensed: "0", mentored: "0" },
-			Cat2Licensed: { category: "2", ordained: "1", licensed: "1", mentored: "0" },
-			Cat1Mentored: { category: "1", ordained: "0", licensed: "0", mentored: "1" },
-			Cat2Mentored: { category: "2", ordained: "0", licensed: "0", mentored: "1" },
-			Cat3: { category: "3", ordained: "0", licensed: "0", mentored: "0" }
+			Cat1Ordained: { category: "1", ordained: "1", licensed: "0", commissioned: "0", mentored: "0" },
+			Cat0Ordained: { category: "0", ordained: "1", licensed: "0", commissioned: "0", mentored: "0" },
+			Cat1Licensed: { category: "1", ordained: "0", licensed: "1", commissioned: "0", mentored: "0" },
+			Cat0Commissioned: { category: "0", ordained: "0", licensed: "0", commissioned: "1", mentored: "0" },
+			Cat2Ordained: { category: "2", ordained: "1", licensed: "0", commissioned: "0", mentored: "0" },
+			Cat2Licensed: { category: "2", ordained: "1", licensed: "1", commissioned: "0", mentored: "0" },
+			Cat1Mentored: { category: "1", ordained: "0", licensed: "0", commissioned: "0", mentored: "1" },
+			Cat2Mentored: { category: "2", ordained: "0", licensed: "0", commissioned: "0", mentored: "1" },
+			Cat3: { category: "3", ordained: "0", licensed: "0", commissioned: "0", mentored: "0" }
 		}
 		return codesStruct[arguments.catCode]
 	}
