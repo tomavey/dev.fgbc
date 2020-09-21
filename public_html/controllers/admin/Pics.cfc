@@ -16,6 +16,40 @@ component extends="Controller" output="false" {
     folderName = folder
   }
 
+  public function uploadPic(){
+      cffile(
+        action="upload",
+        fileField = "FileContents",
+        destination = getBaseImageFolder(), 
+        nameConflict = "MakeUnique",
+        result = "results",
+        );
+      if ( results.filewassaved && find(" ",results.serverfilename) ) {
+        var oldFileName = results.serverdirectory & "\" & results.serverfile
+        var newFileName = replace(results.serverfile," ","_","all")
+        cffile(
+          action="rename",
+          source=oldFileName,
+          destination=newFileName,
+          mode="664"
+        );  
+      }  
+    redirectTo(action="index")
+  }
+
+  public function deletePic(pic = params.pic) {
+    var fileToDelete = getBaseImageFolder() & "\" & pic
+    try {
+      cffile (
+        action="delete",
+        file= fileToDelete
+      );
+    } catch (any e) {
+      renderText("oops... did not delete")
+    }
+    redirectTo(action="index")
+  }
+
   public function getBaseUrl(protocol=cgi.server_protocol, domain=cgi.http_host){
     if ( find("https",protocol) ) { protocol = "https" } else { protocol = "http" }
     return protocol & "://" & domain

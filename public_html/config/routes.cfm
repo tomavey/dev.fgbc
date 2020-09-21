@@ -89,6 +89,11 @@
 			.resources("resources")
 
 			.get(name="pics", pattern="/pics/", controller="pics", action="index")
+			.post(name="picsUpload", pattern="/pics/upload/", controller="pics", action="uploadPic")
+			.put(name="picsUpload", pattern="/pics/upload/", controller="pics", action="uploadPic")
+			.get(name="picsUpload", pattern="/pics/upload/", controller="pics", action="uploadPic")
+			.get(name="picDelete", pattern="/pics/deletePic/", controller="pics", action="deletePic")
+			.get(name="picsUploadDialog", pattern="/picsUploadDialog/", controller="pics", action="uploadDialog")
 
 		.end()
 

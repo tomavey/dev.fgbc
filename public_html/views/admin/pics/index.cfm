@@ -31,7 +31,7 @@
 <div class="container">
 
   <cfscript>
-    writeOutput('#linkto(text="Upload a pic", controller="admin.pics", action="upload", class="btn")#<br/>')
+    writeOutput('#linkto(text="Upload a pic", controller="admin.pics", action="uploadDialog", class="btn")#<br/>')
     writeOutput('<a href="/admin/pics/">root</a>&nbsp;|&nbsp;')
     for (dir in dirs ) {
       if ( isDefined("params.folder") ) { dir = "#params.folder#/#dir#/" }
@@ -81,6 +81,9 @@
       <p class="picInfo">File Name: {{pic[nameKey]}}</p>
       <p class="picInfo">Url: <a :href=pathToImage(pic[nameKey])>{{pathToImage(pic[nameKey])}}</a></p>
       <p class="picInfo">Size: {{pic[sizeKey]}}</p>
+      <p class="picInfo">Date: {{pic[datelastmodifiedKey]}}</p>
+      <p @click="deletePic(pic[nameKey])" class="pointer picInfo">delete</p>
+      
     </div>
   </div>
 </div>
@@ -116,6 +119,9 @@
           return (
             (!this.folder.length) ? (this.picsDir + name) : (this.picsDir + folder + '/' + name)
             )
+        },
+        deletePic: function(pic){
+          window.location.href = "/admin/pics/deletePic/?pic=" + pic
         },
         setSortBy: function(sortOption){
           this.sortBy = sortOption
