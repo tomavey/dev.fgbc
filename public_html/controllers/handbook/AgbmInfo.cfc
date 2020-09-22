@@ -427,9 +427,11 @@
 
 		<cfset currentMembershipYear = model("Handbookperson").currentMembershipYear(params)>
 
-		<cfset cat1Ordained = model("Handbookperson").findAllAgbmByCat(params,'cat1Ordained').people>
+		<cfset ordained = getAgbmOrdained()>
 
-		<cfset cat0Ordained = model("Handbookperson").findAllAgbmByCat(params,'Cat0Ordained').people>
+		<cfset commissioned = getAgbmCommissioned()>
+
+		<!--- <cfset cat0Ordained = model("Handbookperson").findAllAgbmByCat(params,'Cat0Ordained').people>
 
 		<cfset cat1Licensed = model("Handbookperson").findAllAgbmByCat(params,'cat1Licensed').people>
 
@@ -443,7 +445,7 @@
 
 		<cfset cat2Mentored = model("Handbookperson").findAllAgbmByCat(params,'Cat2Mentored').people>
 
-		<cfset cat3 = model("Handbookperson").findAllAgbmByCat(params,'Cat3').people>
+		<cfset cat3 = model("Handbookperson").findAllAgbmByCat(params,'Cat3').people> --->
 
 		<cfif isDefined("params.plain")>
 			 <cfset renderPage(layout="/layout_naked")>
@@ -611,21 +613,21 @@
 	public function getAgbmOrdained(){
 		var allMembers = getAgbmMembers()
 		var allOrdained = allMembers.filter( (el) => el.ordained )
-		// return allOrdained
+		return allOrdained
 		ddd(allOrdained)
 	}
 
 	public function getAgbmCommissioned(){
 		var allMembers = getAgbmMembers()
 		var allCommissioned = allMembers.filter( (el) => el.commissioned )
-		// return allCommissioned
+		return allCommissioned
 		ddd(allCommissioned)
 	}
 
 	public function getAgbmNot(){
 		var allMembers = getAgbmMembers()
 		var allCommissioned = allMembers.filter( (el) => !el.commissioned && !el.ordained )
-		// return allCommissioned
+		return allCommissioned
 		ddd(allCommissioned)
 	}
 

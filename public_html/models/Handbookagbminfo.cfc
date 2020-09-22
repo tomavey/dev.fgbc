@@ -26,7 +26,12 @@ component extends="Model" output="false" {
 		ON p.stateid = ps.id
 		JOIN handbookstates s
 		ON o.stateid = s.id
-		JOIN handbookagbminfo i
+		JOIN (
+			SELECT membershipfeeyear, ordained, commissioned, personid, createdAt
+			FROM handbookagbminfo
+			WHERE deletedAt IS NULL 
+			ORDER BY membershipfeeyear DESC
+		) AS i
 		ON i.personid = p.id
 		WHERE o.statusid IN (#getSetting("churchStatusForHandbook")#,5,2)
 			AND t.p_sortorder <> 999
@@ -34,7 +39,6 @@ component extends="Model" output="false" {
 				AND t.deletedAt IS NULL
 				AND o.deletedAt IS NULL
 				AND d.deletedAt IS NULL
-				AND i.deletedAt IS NULL
 		GROUP BY p.id
 		ORDER BY #arguments.orderby#
 		LIMIT #arguments.limit#"

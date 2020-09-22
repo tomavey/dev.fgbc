@@ -1,7 +1,7 @@
 <cfoutput>
 
 <span>
-	  <u>#alias('fname',fname,id)# #alias('lname',lname,id)#<cfif len(suffix)>&nbsp;#trim(suffix)#</cfif></u>:#trim(getPositionForHandbookReport(id))#
+	  <u>#alias('fname',fname,personid)# #alias('lname',lname,personid)#<cfif len(suffix)>&nbsp;#trim(suffix)#</cfif></u>:#trim(getPositionForHandbookReport(personid))# <cfif len(agbmlifememberAt)>&##129429;</cfif>
 </span>
        <br>
 
