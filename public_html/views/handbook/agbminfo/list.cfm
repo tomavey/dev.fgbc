@@ -78,8 +78,8 @@
 				</cfif>
 				<cfset REQUEST.lastpayment = getLastPayment(personid)>
 				<cfset REQUEST.payments = getPayments(personid)>
-				<cfif !showOrdainedOnly || (showOrdainedOnly && find("Ordained",REQUEST.lastpayment))>
-					<cfif !showCommissionedOnly || (showCommissionedOnly && find("Commissioned",REQUEST.lastpayment))>
+				<cfif !showOrdainedOnly || (showOrdainedOnly && find("Ordained",REQUEST.lastpayment)) || (showOrdainedOnly && isAgbmLifeMember(personid) && find("Ordained",REQUEST.lastpayment))>
+					<cfif !showCommissionedOnly || (showCommissionedOnly && find("Commissioned",REQUEST.lastpayment)) || (showCommissionedOnly && isAgbmLifeMember(personid) && find("Commissioned",REQUEST.lastpayment))>
 	    			#includePartial("table")#<!---Table Row--->
 						<cfset count = count +1>
 					</cfif>

@@ -159,7 +159,7 @@
 <!------------------------>	
 
 
-	<cffunction name="list">
+	<cffunction name="list">	
 		<cfset setReturn()>
 		<cfset orderString = "lname,fname,p_sortorder">
 		<cfset showAge=false>
@@ -594,6 +594,39 @@
 			return district.district;
 		}
 		return "NA";
+	}
+
+	public function testGetAgbm(type="commissioned"){
+		// people = people.filter( (el) => el.lastpayment == getCurrentMembershipYear() && (el[type] || (len(el.agbmlifememberAt) && !el.ordained)) )
+		writeDump(allCommissioned);abort;
+	}
+
+	public function getAgbmMembers(){
+		var people = model("Handbookagbminfo").getAgbm(orderby="lname, fname, i.createdAt DESC")
+		var allMembers = people.filter( (el) => el.lastpayment == CurrentMembershipYear || len(el.agbmlifememberat) )
+		return allMembers
+		ddd(allMembers)
+	}
+
+	public function getAgbmOrdained(){
+		var allMembers = getAgbmMembers()
+		var allOrdained = allMembers.filter( (el) => el.ordained )
+		// return allOrdained
+		ddd(allOrdained)
+	}
+
+	public function getAgbmCommissioned(){
+		var allMembers = getAgbmMembers()
+		var allCommissioned = allMembers.filter( (el) => el.commissioned )
+		// return allCommissioned
+		ddd(allCommissioned)
+	}
+
+	public function getAgbmNot(){
+		var allMembers = getAgbmMembers()
+		var allCommissioned = allMembers.filter( (el) => !el.commissioned && !el.ordained )
+		// return allCommissioned
+		ddd(allCommissioned)
 	}
 
 </cfscript>

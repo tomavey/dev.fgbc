@@ -22,8 +22,8 @@
 <li><a href="mailto:#scramble(email)#">#fname# #lname#</a>
 <cfif gotrights("superadmin")>
 <cfset subject = "Your%20Link%20to%20the%20Fellowship%20Council%20Web%20Page">
-<cfset body = "http%3A%2F%2F#getDomainName()#%2Ffc%2F%3Fcode%3Dfellowshipcouncil%26email%3D#email#">
-<a href="mailto:#email#&subject=#subject#&body=#body#" class="sendlink">Send Link</a>
+<cfset body = "https%3A%2F%2F#getDomainName()#%2Ffc%2F%3Fcode%3Dfellowshipcouncil%26email%3D#email#">
+<a href="mailto:#email#?subject=#subject#&body=#body#" class="sendlink">Send Link</a>
 </cfif>
 </li>
 </cfoutput>

@@ -6,9 +6,9 @@ component extends="Model" output="false" {
 		hasMany(name="Handbookpositions", foreignKey="personid")
 	}
 
-	public function getAgbm(orderby="lname, fname, t.createdAt"){
+	public function getAgbm(orderby="lname, fname, t.createdAt", limit=10000){
 		var loc = structNew()
-		loc.sql = "SELECT p.lname, left(p.lname,1) as alpha, p.suffix, p.fname, o.name, p.address1, p.address2, p.city, p.zip, p.phone, p.email, district, d.districtid, ps.state_mail_abbrev as state, s.state_mail_abbrev as org_state, org_city, max(membershipfeeyear) as lastpayment, p.id as personid, o.id as organizationid, o.address1 as handbookorganizationaddress1, o.address2 as handbookorganizationaddress2, o.org_city, s.state_mail_abbrev as handbookorganizationstate, o.zip as handbookorganizationzip, o.statusid, o.email as org_email, region.name as regionname, region.id as regionid, regionrep.lname as regionreplname, regionrep.fname as regionrepfname, regionrep.id as regionrepid, ministrystartat, profile.birthdayyear, p.private, profile.agbmlifememberAt
+		loc.sql = "SELECT p.lname, left(p.lname,1) as alpha, p.suffix, p.fname, o.name, p.address1, p.address2, p.city, p.zip, p.phone, p.email, district, d.districtid, ps.state_mail_abbrev as state, s.state_mail_abbrev as org_state, org_city, max(membershipfeeyear) as lastpayment, p.id as personid, o.id as organizationid, o.address1 as handbookorganizationaddress1, o.address2 as handbookorganizationaddress2, o.org_city, s.state_mail_abbrev as handbookorganizationstate, o.zip as handbookorganizationzip, o.statusid, o.email as org_email, region.name as regionname, region.id as regionid, regionrep.lname as regionreplname, regionrep.fname as regionrepfname, regionrep.id as regionrepid, ministrystartat, profile.birthdayyear, p.private, profile.agbmlifememberAt, i.ordained, i.commissioned
 		FROM handbookpeople p
 		JOIN handbookpositions t
 		ON t.personid = p.id
@@ -36,7 +36,8 @@ component extends="Model" output="false" {
 				AND d.deletedAt IS NULL
 				AND i.deletedAt IS NULL
 		GROUP BY p.id
-		ORDER BY #arguments.orderby#"
+		ORDER BY #arguments.orderby#
+		LIMIT #arguments.limit#"
 		loc.qoptions = {result = "myResult", datasource="#getDataSourceName()#"}
 		return queryExecute(loc.sql,[],loc.qoptions)
 		ddd(queryExecute(loc.sql,[],loc.qoptions))
