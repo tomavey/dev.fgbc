@@ -425,6 +425,7 @@ component extends="Controller" output="true" {
 				to=people[i].email, 
 				from=getHandbookReviewSecretary(), 
 				subject=getSetting('PersonHandbookReviewGreeting'), 
+				bcc="charis@fgbc.org", 
 				template="emailPeopleForHandbookReview.cfm", 
 				layout="/layout_for_email", 
 				args=people[i]
