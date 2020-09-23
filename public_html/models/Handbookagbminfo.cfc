@@ -36,9 +36,9 @@ component extends="Model" output="false" {
 		WHERE o.statusid IN (#getSetting("churchStatusForHandbook")#,5,2)
 			AND t.p_sortorder <> 999
 			AND p.deletedAt IS NULL
-				AND t.deletedAt IS NULL
-				AND o.deletedAt IS NULL
-				AND d.deletedAt IS NULL
+			AND t.deletedAt IS NULL
+			AND o.deletedAt IS NULL
+			AND d.deletedAt IS NULL
 		GROUP BY p.id
 		ORDER BY #arguments.orderby#
 		LIMIT #arguments.limit#"
@@ -52,7 +52,7 @@ component extends="Model" output="false" {
 		return members
 	}
 
-	public function getAgbmMembers(maxrows = -1,orderby="lname", district="Arctic", search="", refresh=true){
+	public function getAgbmMembers(maxrows = -1, orderby="lname", district="Arctic", search="", refresh=true){
 		var loc = arguments;
 		var i = 1;
 		var ii = 1;
@@ -270,83 +270,42 @@ component extends="Model" output="false" {
 		}
 	}
 
-	public function getAllAgbm(maxrows = 100){
-		var people = model("Handbookperson").findAll(select="id, fname, lname, selectName", include="State,Handbookpositions", maxrows=arguments.maxrows);
-		var peopleStruct = queryToArray(people);
-		return peopleStruct;
-	};
-
 //Likely trash - need to test more
 	
 
 	//Not Used?
-	private function $applyDistrictFilter(AgbmArray,district){
-		var loc = arguments;
-		var newArray = [];
-		var i=0;
-		var ii = 1;
-		for (i=1; i=arraylen(AgbmArray); i=i+1){
-			if(agbmArray[i].district EQ loc.district){
-				newArray[ii] = agbmArray[i]
-				ii = ii + 1;
-			}
-		}
-		return newArray;
-	}
+	// public function getAllAgbm(maxrows = 100){
+	// 	var people = model("Handbookperson").findAll(select="id, fname, lname, selectName", include="State,Handbookpositions", maxrows=arguments.maxrows);
+	// 	var peopleStruct = queryToArray(people);
+	// 	return peopleStruct;
+	// };
 
-	//Not Used?
-	private function $isThisOrgAChurch(required organizationid){
-		var loc = arguments;
-		var getOrgFromPosition = model("Handbookorganization").findOne(select="statusid",where="id=#loc.organizationid# AND statusid IN (1,2,4,8,9)");
-		if (isObject(getOrgFromPosition))
-			{
-				return true;
-			}
-			else {
-				return false;
-			}
-	}
+	// private function $applyDistrictFilter(AgbmArray,district){
+	// 	var loc = arguments;
+	// 	var newArray = [];
+	// 	var i=0;
+	// 	var ii = 1;
+	// 	for (i=1; i=arraylen(AgbmArray); i=i+1){
+	// 		if(agbmArray[i].district EQ loc.district){
+	// 			newArray[ii] = agbmArray[i]
+	// 			ii = ii + 1;
+	// 		}
+	// 	}
+	// 	return newArray;
+	// }
+
+	// //Not Used?
+	// private function $isThisOrgAChurch(required organizationid){
+	// 	var loc = arguments;
+	// 	var getOrgFromPosition = model("Handbookorganization").findOne(select="statusid",where="id=#loc.organizationid# AND statusid IN (1,2,4,8,9)");
+	// 	if (isObject(getOrgFromPosition))
+	// 		{
+	// 			return true;
+	// 		}
+	// 		else {
+	// 			return false;
+	// 		}
+	// }
 
 }
 
-<!--- 	
-<cffunction name="XgetAgbm">
-	<cfargument name="orderby" default="lname, fname, t.createdAt">
-	<cfset var loc=structnew()>
-	<!--- <cfset dd(arguments)> --->
-	<cfset loc.sql = "SELECT p.lname, left(p.lname,1) as alpha, p.suffix, p.fname, o.name, p.address1, p.address2, p.city, p.zip, p.phone, p.email, district, d.districtid, ps.state_mail_abbrev as state, s.state_mail_abbrev as org_state, org_city, max(membershipfeeyear) as lastpayment, p.id as personid, o.id as organizationid, o.address1 as handbookorganizationaddress1, o.address2 as handbookorganizationaddress2, o.org_city, s.state_mail_abbrev as handbookorganizationstate, o.zip as handbookorganizationzip, o.statusid, o.email as org_email, region.name as regionname, region.id as regionid, regionrep.lname as regionreplname, regionrep.fname as regionrepfname, regionrep.id as regionrepid, ministrystartat, profile.birthdayyear, p.private, profile.agbmlifememberAt
-	FROM handbookpeople p
-	JOIN handbookpositions t
-	ON t.personid = p.id
-	LEFT JOIN handbookprofiles profile
-	ON profile.personid = p.id
-	LEFT JOIN handbookorganizations o
-	ON t.organizationid = o.id
-	LEFT JOIN handbookdistricts d
-	ON o.districtid = d.districtid
-	LEFT JOIN handbookagbmregions region
-	ON d.agbmregionid = region.id
-	LEFT JOIN handbookpeople regionrep
-	ON region.agbmrepid = regionrep.id
-	JOIN handbookstates ps
-	ON p.stateid = ps.id
-	JOIN handbookstates s
-	ON o.stateid = s.id
-	JOIN handbookagbminfo i
-	ON i.personid = p.id
-	WHERE o.statusid IN (#getSetting("churchStatusForHandbook")#,5,2,10)
-		AND t.p_sortorder <> 999
-		AND p.deletedAt IS NULL
-			AND t.deletedAt IS NULL
-			AND o.deletedAt IS NULL
-			AND d.deletedAt IS NULL
-			AND i.deletedAt IS NULL
-	GROUP BY p.id
-	ORDER BY #arguments.orderby#">
-
-		<cfquery datasource="#getDataSourceName()#" name="loc.return">
-			#loc.sql#
-		</cfquery>
-		<cfreturn loc.return>
-	</cffunction> --->
-	

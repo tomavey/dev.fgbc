@@ -1,6 +1,6 @@
-<h1>Listing AGBM Payments</h1>
+<h1>Listing ALL AGBM Payments</h1>
 
-<cftable query="handbookagbminfos" colHeaders="true" HTMLTable="true">
+<cftable query="payments" colHeaders="true" HTMLTable="true">
 
 					<cfcol header="Person" text="#lname# #fname# - #city#" />
 
@@ -9,14 +9,6 @@
 					<cfcol header="Membership Fee Year" text="#membershipFeeYear#" />
 
 					<cfcol header="Category" text="#category#" />
-					<cfif ordained>
-						<cfset ol = "O">
-					<cfelseif licensed>
-						<cfset ol = "L">
-					<cfelse>
-						<cfset ol = "">
-					</cfif>
-					<cfcol header="O/L?" text="#ol#" />
 
 					<cfcol header="Transaction Date" text="#dateformat(transactionDate)#" />
 

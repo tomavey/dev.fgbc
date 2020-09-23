@@ -25,12 +25,58 @@
 <!----------------->	
 
 <!--- -handbookagbminfos/index --->
+	<!--- I don't think index is being used - "list" is--->
 	<cffunction name="index">
-		<cfif isDefined("params.key") and params.key is "members">
-			<cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear)>
-		<cfelse>
-			<cfset handbookagbminfos = model("Handbookagbminfo").findAll(include="Handbookperson(Handbookstate)")>
+		<cfset payments = model("Handbookagbminfo").findAll(include="Handbookperson(Handbookstate)")>
+	</cffunction>
+
+	<cffunction name="list">	
+		<cfset setReturn()>
+		<cfset orderString = "lname,fname,p_sortorder">
+		<cfset showAge=false>
+		<cfif isDefined("params.byage")>
+			<cfset orderString = "birthdayyear #params.byage#,lname,fname">
+			<cfset showAge = true>
 		</cfif>
+		<cfset districts=model("Handbookdistrict").findAll(where="district NOT IN ('Empty','National Ministry','Cooperating Ministry')")>
+		<cfif isDefined("params.search")>
+		  <cfset people = model("Handbookagbminfo").findAllMembers(search=params.search,currentMembershipYear=currentmembershipyear)>
+		<cfelseif isDefined("params.type") and params.type is "members" and isDefined("params.alpha") and len(params.alpha)>
+			<cfset people = model("Handbookagbminfo").findAllMembers(alpha=params.alpha,currentMembershipYear=currentmembershipyear,orderby=orderstring)>
+		<cfelseif isDefined("params.type") and params.type is "members" and isDefined("params.district") and len(params.district)>
+		  <cfset people = model("Handbookagbminfo").findAllMembers(district=params.district,currentMembershipYear=currentmembershipyear)>
+		<cfelseif isDefined("params.type") and params.type is "members">
+		  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear)>
+		<cfelseif isDefined("params.type") and params.type is "lifeTimeMembers">
+		  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,lifeTimeMembers=true)>
+		<cfelseif isDefined("params.type") and (params.type is "mailinglist" or params.type is "mail")>
+		  <cfset people = model("Handbookagbminfo").findAllMailingList(currentMembershipYear=currentmembershipyear)>
+		<cfelse>
+		  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,orderby=orderstring)>
+		</cfif>
+	
+	<cfscript>
+		if ( isDefined("params.countMin") ) {
+			people = people.filter( 
+				function (el) {
+				return countOfMembershipYearsPaid(personid = el.personid) >= params.countMin;
+				} 
+			)
+		}
+	</cfscript>	
+
+		<cfif !gotRights("agbm,superadmin,agbmadmin")>
+	  	<cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district", publicOnly=true)>
+			<cfset renderPage(template="publicList")>
+		</cfif>
+
+		<!---Set the layout for normal, download view, or download excel--->
+		<cfif isdefined("params.download")>
+			<cfset renderPage(template="download", layout="/layout_naked")>
+		<cfelseif isDefined("params.excel")>
+			<cfset renderPage(template="download", layout="/layout_download")>
+		</cfif>
+
 	</cffunction>
 
 	<!--- -handbookagbminfos/show/key --->
@@ -158,57 +204,38 @@
 <!-----END OF CRUD-------->	
 <!------------------------>	
 
+<!------------------------>
+<!-----SPECIAL REPORTS---->
+<!------------------------>
 
-	<cffunction name="list">	
-		<cfset setReturn()>
-		<cfset orderString = "lname,fname,p_sortorder">
-		<cfset showAge=false>
-		<cfif isDefined("params.byage")>
-			<cfset orderString = "birthdayyear #params.byage#,lname,fname">
-			<cfset showAge = true>
-		</cfif>
-		<cfset districts=model("Handbookdistrict").findAll(where="district NOT IN ('Empty','National Ministry','Cooperating Ministry')")>
-		<cfif isDefined("params.search")>
-		  <cfset people = model("Handbookagbminfo").findAllMembers(search=params.search,currentMembershipYear=currentmembershipyear)>
-		<cfelseif isDefined("params.type") and params.type is "members" and isDefined("params.alpha") and len(params.alpha)>
-			<cfset people = model("Handbookagbminfo").findAllMembers(alpha=params.alpha,currentMembershipYear=currentmembershipyear,orderby=orderstring)>
-		<cfelseif isDefined("params.type") and params.type is "members" and isDefined("params.district") and len(params.district)>
-		  <cfset people = model("Handbookagbminfo").findAllMembers(district=params.district,currentMembershipYear=currentmembershipyear)>
-		<cfelseif isDefined("params.type") and params.type is "members">
-		  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear)>
-		<cfelseif isDefined("params.type") and params.type is "lifeTimeMembers">
-		  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,lifeTimeMembers=true)>
-		<cfelseif isDefined("params.type") and (params.type is "mailinglist" or params.type is "mail")>
-		  <cfset people = model("Handbookagbminfo").findAllMailingList(currentMembershipYear=currentmembershipyear)>
-		<cfelse>
-		  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,orderby=orderstring)>
-		</cfif>
-	
-	<cfscript>
-		if ( isDefined("params.countMin") ) {
-			people = people.filter( 
-				function (el) {
-				return countOfMembershipYearsPaid(personid = el.personid) >= params.countMin;
-				} 
-			)
-		}
-	</cfscript>	
+	<!---For public lists - just name and location - no links--->
+	<cffunction name="publicList">
+		<cfset ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district, lname")>
+	</cffunction>
 
-		<cfif !gotRights("agbm,superadmin,agbmadmin")>
-	  	<cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district", publicOnly=true)>
-			<cfset renderPage(template="publicList")>
-		</cfif>
-
-		<!---Set the layout for normal, download view, or download excel--->
-		<cfif isdefined("params.download")>
-			<cfset renderPage(template="download", layout="/layout_naked")>
-		<cfelseif isDefined("params.excel")>
-			<cfset renderPage(template="download", layout="/layout_download")>
-		</cfif>
-
+	<!---Use on home page for a simple list of everyone in the handbook with links--->
+	<cffunction name="handbook">
+		<cfset params.all = true>
+		<cfset handbookPeople = model("Handbookperson").findHandbookPeople(params)>
 	</cffunction>
 
 <cfscript>
+
+	function delinquent() {
+		if ( isDefined("params.key") && val(params.key) ) {
+			currentmembershipyear = params.key;
+		} else {
+			currentmembershipyear = model("Handbookperson").currentMembershipyear(params);
+		}
+		people = model("Handbookperson").findAll(order="lname, fname", include="Handbookstate,Handbookprofile");
+		people = queryFilter(people, function(el) {
+				return paidLastYearNotThisYear(el.id,currentmembershipyear) && !len(el.agbmlifememberAt)
+			});
+		if ( isDefined("params.download") ) {
+			renderPage(layout="/layout_download");
+		}
+	}
+
 
 	function countOfMembershipYearsPaid(required number personid) {
 		return model("Handbookagbminfo").countOfMembershipYearsPaid(personid)
@@ -227,26 +254,10 @@
 		if ( isDefined("params.excel") ) {
 			renderPage(template="download", layout="/layout_download")
 		}
-		
 	}
 
 	function countOfMembershipYearsPaid(personId){
 		return countOfMembershipYearsPaid(personId)
-	}
-
-	function delinquent() {
-		if ( isDefined("params.key") && val(params.key) ) {
-			currentmembershipyear = params.key;
-		} else {
-			currentmembershipyear = model("Handbookperson").currentMembershipyear(params);
-		}
-		people = model("Handbookperson").findAll(order="lname, fname", include="Handbookstate,Handbookprofile");
-		people = queryFilter(people, function(el) {
-				return paidLastYearNotThisYear(el.id,currentmembershipyear) && !len(el.agbmlifememberAt)
-			});
-		if ( isDefined("params.download") ) {
-			renderPage(layout="/layout_download");
-		}
 	}
 
 	function getStatus(ordained,commissioned,licensed){
@@ -257,14 +268,6 @@
 
 </cfscript>
 
-	<cffunction name="publicList">
-		<cfset ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district, lname")>
-	</cffunction>
-
-	<cffunction name="handbook">
-		<cfset params.all = true>
-		<cfset handbookPeople = model("Handbookperson").findHandbookPeople(params)>
-	</cffunction>
 
 	<cffunction name="getLastPayment">
 	<cfargument name="personid" required="true" type="numeric">
