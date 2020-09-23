@@ -1,22 +1,26 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
-		<cfset usesLayout(template="/handbook/layout_agbm")>
-		<cfset filters(through="getCurrentMembershipYear")>
-		<cfset filters(through="gotAgbmRights", except="rss,publiclist,json,list,pastorsnotagbm")>
-	</cffunction>
+<cfscript>
+	function init() {
+		usesLayout(template="/handbook/layout_agbm");
+		filters(through="getCurrentMembershipYear");
+		filters(through="gotAgbmRights", except="rss,publiclist,json,list,pastorsnotagbm");
+	}
 
 <!-------------->
 <!----FILTERS--->
 <!-------------->
 
-	<cffunction name="getCurrentMembershipYear">
-		<cfif isDefined ("params.year")>
-			<cfset currentmembershipyear = params.year>
-		<cfelse>	
-			<cfset currentmembershipyear = model("Handbookperson").currentMembershipYear(params)>
-		</cfif>
-	</cffunction>
+
+function getCurrentMembershipYear() {
+	if ( isDefined ("params.year") ) {
+		currentmembershipyear = params.year;
+	} else {
+		currentmembershipyear = model("Handbookperson").currentMembershipYear(params);
+	}
+}
+
+	
 
 
 
@@ -24,202 +28,193 @@
 <!-----CRUD-------->	
 <!----------------->	
 
-<!--- -handbookagbminfos/index --->
-	<!--- I don't think index is being used - "list" is--->
-	<cffunction name="index">
-		<cfset payments = model("Handbookagbminfo").findAll(include="Handbookperson(Handbookstate)")>
-	</cffunction>
+<!--- -handbookagbminfos/list --->
 
-	<cffunction name="list">	
-		<cfset setReturn()>
-		<cfset orderString = "lname,fname,p_sortorder">
-		<cfset showAge=false>
-		<cfif isDefined("params.byage")>
-			<cfset orderString = "birthdayyear #params.byage#,lname,fname">
-			<cfset showAge = true>
-		</cfif>
-		<cfset districts=model("Handbookdistrict").findAll(where="district NOT IN ('Empty','National Ministry','Cooperating Ministry')")>
-		<cfif isDefined("params.search")>
-		  <cfset people = model("Handbookagbminfo").findAllMembers(search=params.search,currentMembershipYear=currentmembershipyear)>
-		<cfelseif isDefined("params.type") and params.type is "members" and isDefined("params.alpha") and len(params.alpha)>
-			<cfset people = model("Handbookagbminfo").findAllMembers(alpha=params.alpha,currentMembershipYear=currentmembershipyear,orderby=orderstring)>
-		<cfelseif isDefined("params.type") and params.type is "members" and isDefined("params.district") and len(params.district)>
-		  <cfset people = model("Handbookagbminfo").findAllMembers(district=params.district,currentMembershipYear=currentmembershipyear)>
-		<cfelseif isDefined("params.type") and params.type is "members">
-		  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear)>
-		<cfelseif isDefined("params.type") and params.type is "lifeTimeMembers">
-		  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,lifeTimeMembers=true)>
-		<cfelseif isDefined("params.type") and (params.type is "mailinglist" or params.type is "mail")>
-		  <cfset people = model("Handbookagbminfo").findAllMailingList(currentMembershipYear=currentmembershipyear)>
-		<cfelse>
-		  <cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,orderby=orderstring)>
-		</cfif>
-	
-	<cfscript>
-		if ( isDefined("params.countMin") ) {
-			people = people.filter( 
-				function (el) {
-				return countOfMembershipYearsPaid(personid = el.personid) >= params.countMin;
-				} 
-			)
+
+	function list() {
+		setReturn();
+		orderString = "lname,fname,p_sortorder";
+		showAge=false;
+		if ( isDefined("params.byage") ) {
+			orderString = "birthdayyear #params.byage#,lname,fname";
+			showAge = true;
 		}
-	</cfscript>	
+		districts=model("Handbookdistrict").findAll(where="district NOT IN ('Empty','National Ministry','Cooperating Ministry')");
+		if ( isDefined("params.search") ) {
+			people = model("Handbookagbminfo").findAllMembers(search=params.search,currentMembershipYear=currentmembershipyear);
+		} else if ( isDefined("params.type") && params.type == "members" && isDefined("params.alpha") && len(params.alpha) ) {
+			people = model("Handbookagbminfo").findAllMembers(alpha=params.alpha,currentMembershipYear=currentmembershipyear,orderby=orderstring);
+		} else if ( isDefined("params.type") && params.type == "members" && isDefined("params.district") && len(params.district) ) {
+			people = model("Handbookagbminfo").findAllMembers(district=params.district,currentMembershipYear=currentmembershipyear);
+		} else if ( isDefined("params.type") && params.type == "members" ) {
+			people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear);
+		} else if ( isDefined("params.type") && params.type == "lifeTimeMembers" ) {
+			people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,lifeTimeMembers=true);
+		} else if ( isDefined("params.type") && (params.type == "mailinglist" || params.type == "mail") ) {
+			people = model("Handbookagbminfo").findAllMailingList(currentMembershipYear=currentmembershipyear);
+		} else {
+			people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear,orderby=orderstring);
+		}
+	
+		if ( isDefined("params.countMin") ) {
+				people = people.filter( 
+					function (el) {
+					return countOfMembershipYearsPaid(personid = el.personid) >= params.countMin;
+					} 
+				)
+			}
+		if ( !gotRights("agbm,superadmin,agbmadmin") ) {
+			people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district", publicOnly=true);
+			renderPage(template="publicList");
+		}
+		// Set the layout for normal, download view, or download excel
+		if ( isdefined("params.download") ) {
+			renderPage(template="download", layout="/layout_naked");
+		} else if ( isDefined("params.excel") ) {
+			renderPage(template="download", layout="/layout_download");
+		}
+	}
+	
 
-		<cfif !gotRights("agbm,superadmin,agbmadmin")>
-	  	<cfset people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district", publicOnly=true)>
-			<cfset renderPage(template="publicList")>
-		</cfif>
+// handbookagbminfos/show/key 
 
-		<!---Set the layout for normal, download view, or download excel--->
-		<cfif isdefined("params.download")>
-			<cfset renderPage(template="download", layout="/layout_naked")>
-		<cfelseif isDefined("params.excel")>
-			<cfset renderPage(template="download", layout="/layout_download")>
-		</cfif>
+	function show() {
+		setReturn();
+		payments = model("Handbookagbminfo").findAll(where="personid = #params.key#", include="Handbookperson(Handbookstate)", order="membershipfeeyear DESC");
+	}
 
-	</cffunction>
+<!--- -handbookagbminfos/add --->
 
-	<!--- -handbookagbminfos/show/key --->
-	<cffunction name="show">
-		<cfset setReturn()>
-		<cfset payments = model("Handbookagbminfo").findAll(where="personid = #params.key#", include="Handbookperson(Handbookstate)", order="membershipfeeyear DESC")>
-	</cffunction>
+	function add() {
+		handbookagbminfo = model("Handbookagbminfo").new();
+		handbookagbminfo.membershipfeeyear = year(now());
+		handbookagbminfo.membershipfee = 100;
+		try {
+			handbookagbminfo.agbmlifememberAt = model("Handbookprofile").findOne(where="personid = #params.key#").agbmlifememberAt;
+		} catch (any cfcatch) {
+			handbookagbminfo.agbmlifememberAt = "";
+		}
+		if ( month(now()) == 6 ) {
+			defaultdate = "#year(now())#"&"-05-31";
+			handbookagbminfo.paidAt = defaultdate;
+		}
+		people = model("Handbookperson").findAll(order="lname,fname", include="Handbookstate");
+		organizations = model("Handbookorganization").findAll(include="Handbookstate", order="org_city,state_mail_abbrev,name");
+		thisperson = model("Handbookperson").findOne(where="id=#params.key#", order="lname,fname", include="Handbookstate");
+		thisPersonsLastPayment = model("Handbookagbminfo").findAll(where="personid=#params.key#", order="membershipfeeyear DESC");
+		handbookagbminfo.category = thisPersonsLastPayment.category;
+		handbookagbminfo.ordained = thisPersonsLastPayment.ordained;
+		handbookagbminfo.licensed = thisPersonsLastPayment.licensed;
+		handbookagbminfo.commissioned = thisPersonsLastPayment.commissioned;
+		handbookagbminfo.commission = thisPersonsLastPayment.commission;
+		renderPage(action="new");
+	}
 
-	<!--- -handbookagbminfos/add --->
-	<cffunction name="add">
-		<cfset handbookagbminfo = model("Handbookagbminfo").new()>
-		<cfset handbookagbminfo.membershipfeeyear = year(now())>
-		<cfset handbookagbminfo.membershipfee = 100>
-		<cftry>
-			<cfset handbookagbminfo.agbmlifememberAt = model("Handbookprofile").findOne(where="personid = #params.key#").agbmlifememberAt>
-			<cfcatch>
-				<cfset handbookagbminfo.agbmlifememberAt = "">
-			</cfcatch>
-		</cftry>
-		<cfif month(now()) is 6>
-			<cfset defaultdate = "#year(now())#"&"-05-31">
-			<cfset handbookagbminfo.paidAt = defaultdate>
-		</cfif>
-		<!--- <cfscript>
-			throw(message=serialize(handbookagbminfo.properties()))
-		</cfscript> --->
-		<cfset people = model("Handbookperson").findAll(order="lname,fname", include="Handbookstate")>
-		<cfset organizations = model("Handbookorganization").findAll(include="Handbookstate", order="org_city,state_mail_abbrev,name")>
-		<cfset thisperson = model("Handbookperson").findOne(where="id=#params.key#", order="lname,fname", include="Handbookstate")>
-		<cfset thisPersonsLastPayment = model("Handbookagbminfo").findAll(where="personid=#params.key#", order="membershipfeeyear DESC")>
-		<cfset handbookagbminfo.category = thisPersonsLastPayment.category>
-		<cfset handbookagbminfo.ordained = thisPersonsLastPayment.ordained>
-		<cfset handbookagbminfo.licensed = thisPersonsLastPayment.licensed>
-		<cfset handbookagbminfo.commissioned = thisPersonsLastPayment.commissioned>
-		<cfset handbookagbminfo.commission = thisPersonsLastPayment.commission>
-		<!--- <cfif isDefined("params.key") && val(params.key)>
-			<cfset handbookagbminfo.personid = params.key>
-		</cfif> --->
-		<cfset renderPage(action="new")>
-	</cffunction>
 
-	<!--- -handbookagbminfos/edit/key --->
-	<cffunction name="edit">
 
-		<!--- Find the record --->
-    	<cfset handbookagbminfo = model("Handbookagbminfo").findByKey(params.key)>
-			<cfset handbookagbminfo.agbmlifememberAt = model("Handbookprofile").findOne(where="personid = #handbookagbminfo.personid#").agbmlifememberAt>
+<!--- -handbookagbminfos/edit/key --->
 
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(handbookagbminfo)>
-	        <cfset flashInsert(error="Handbookagbminfo #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-
-		<cfset organizations = model("Handbookorganization").findAll(include="Handbookstate", order="org_city,state_mail_abbrev,name")>
-
-	</cffunction>
+	function edit() {
+		//  Find the record 
+		handbookagbminfo = model("Handbookagbminfo").findByKey(params.key);
+		handbookagbminfo.agbmlifememberAt = model("Handbookprofile").findOne(where="personid = #handbookagbminfo.personid#").agbmlifememberAt;
+		//  Check if the record exists 
+		if ( !IsObject(handbookagbminfo) ) {
+			flashInsert(error="Handbookagbminfo #params.key# was !found");
+			redirectTo(action="index");
+		}
+		organizations = model("Handbookorganization").findAll(include="Handbookstate", order="org_city,state_mail_abbrev,name");
+	}
 
 	<!--- -handbookagbminfos/create --->
-	<cffunction name="create">
-		<!--- <cfscript>
-			throw(message=serialize(params.handbookagbminfo))
-		</cfscript> --->
 
-		<cfset handbookagbminfo = model("Handbookagbminfo").new(params.handbookagbminfo)>
-		<cfif len(handbookagbminfo.agbmlifememberat)>
-			<cfset makeAgbmLifeMember(handbookAgbmInfo.personId,handbookagbminfo.agbmlifememberat)>
-			<cfset returnBack()>
-		</cfif>
+	function create() {
+		/*  <cfscript>
+				throw(message=serialize(params.handbookagbminfo))
+			</cfscript> */
+		handbookagbminfo = model("Handbookagbminfo").new(params.handbookagbminfo);
+		if ( len(handbookagbminfo.agbmlifememberat) ) {
+			makeAgbmLifeMember(handbookAgbmInfo.personId,handbookagbminfo.agbmlifememberat);
+			returnBack();
+		}
+		//  Verify that the handbookagbminfo creates successfully 
+		if ( handbookagbminfo.save() ) {
+			flashInsert(success="The handbookagbminfo was created successfully.");
+			returnBack();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error creating the handbookagbminfo.");
+			renderPage(action="new");
+		}
+	}
 
-		<!--- Verify that the handbookagbminfo creates successfully --->
-		<cfif handbookagbminfo.save()>
-			<cfset flashInsert(success="The handbookagbminfo was created successfully.")>
-			<cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error creating the handbookagbminfo.")>
-			<cfset renderPage(action="new")>
-		</cfif>
+	
+//  -handbookagbminfos/update 
 
-	</cffunction>
-
-	<!--- -handbookagbminfos/update --->
-	<cffunction name="update">
-		<cfset handbookagbminfo = model("Handbookagbminfo").findByKey(params.key)>
-		<cfset handbookagbminfo.agbmlifememberAt = model("Handbookprofile").findOne(where="personid = #handbookagbminfo.personid#").agbmlifememberAt>
-		<cfif len(handbookagbminfo.agbmlifememberat)>
-			<cfset makeAgbmLifeMember(handbookAgbmInfo.personId,handbookagbminfo.agbmlifememberat)>
-			<cfset returnBack()>
-		</cfif>
-		<!--- <cfscript>
+function update() {
+	handbookagbminfo = model("Handbookagbminfo").findByKey(params.key);
+	handbookagbminfo.agbmlifememberAt = model("Handbookprofile").findOne(where="personid = #handbookagbminfo.personid#").agbmlifememberAt;
+	if ( len(handbookagbminfo.agbmlifememberat) ) {
+		makeAgbmLifeMember(handbookAgbmInfo.personId,handbookagbminfo.agbmlifememberat);
+		returnBack();
+	}
+	/*  <cfscript>
 			throw(message=serialize(handbookagbminfo.properties()))
-		</cfscript> --->
-		<!--- Verify that the handbookagbminfo updates successfully --->
-		<cfif handbookagbminfo.update(params.handbookagbminfo)>
-			<cfif len(handbookagbminfo.agbmlifememberat)>
-				<cfset makeAgbmLifeMember(handbookAgbmInfo.personId,handbookagbminfo.agbmlifememberat)>
-			</cfif>
-			<cfset flashInsert(success="The handbookagbminfo was updated successfully.")>
-			<cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the handbookagbminfo.")>
-			<cfset renderPage(action="edit")>
-		</cfif>
+		</cfscript> */
+	//  Verify that the handbookagbminfo updates successfully 
+	if ( handbookagbminfo.update(params.handbookagbminfo) ) {
+		if ( len(handbookagbminfo.agbmlifememberat) ) {
+			makeAgbmLifeMember(handbookAgbmInfo.personId,handbookagbminfo.agbmlifememberat);
+		}
+		flashInsert(success="The handbookagbminfo was updated successfully.");
+		returnBack();
+		//  Otherwise 
+	} else {
+		flashInsert(error="There was an error updating the handbookagbminfo.");
+		renderPage(action="edit");
+	}
+}
+//  -handbookagbminfos/delete/key 
 
-	</cffunction>
+function delete() {
+	handbookagbminfo = model("Handbookagbminfo").findByKey(params.key);
+	//  Verify that the handbookagbminfo deletes successfully 
+	if ( handbookagbminfo.delete() ) {
+		flashInsert(success="The handbookagbminfo was deleted successfully.");
+		returnBack();
+		//  Otherwise 
+	} else {
+		flashInsert(error="There was an error deleting the handbookagbminfo.");
+		redirectTo(action="index");
+	}
+}
 
-	<!--- -handbookagbminfos/delete/key --->
-	<cffunction name="delete">
-		<cfset handbookagbminfo = model("Handbookagbminfo").findByKey(params.key)>
-
-		<!--- Verify that the handbookagbminfo deletes successfully --->
-		<cfif handbookagbminfo.delete()>
-			<cfset flashInsert(success="The handbookagbminfo was deleted successfully.")>
-		            <cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error deleting the handbookagbminfo.")>
-			<cfset redirectTo(action="index")>
-		</cfif>
-	</cffunction>
 
 <!------------------------>	
 <!-----END OF CRUD-------->	
 <!------------------------>	
 
+
+
+
 <!------------------------>
 <!-----SPECIAL REPORTS---->
 <!------------------------>
 
-	<!---For public lists - just name and location - no links--->
-	<cffunction name="publicList">
-		<cfset ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district, lname")>
-	</cffunction>
 
-	<!---Use on home page for a simple list of everyone in the handbook with links--->
-	<cffunction name="handbook">
-		<cfset params.all = true>
-		<cfset handbookPeople = model("Handbookperson").findHandbookPeople(params)>
-	</cffunction>
+	// For public lists - just name and location - no links
 
-<cfscript>
+	function publicList() {
+		ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district, lname");
+	}
+	// Use on home page for a simple list of everyone in the handbook with links
+
+	function handbook() {
+		params.all = true;
+		handbookPeople = model("Handbookperson").findHandbookPeople(params);
+	}
+
+
 
 	function delinquent() {
 		if ( isDefined("params.key") && val(params.key) ) {
@@ -251,98 +246,91 @@
 		}
 	}
 
-</cfscript>
 	
-	<cffunction name="pastorsNotAgbm">
-		<cfif isDefined("params.type") AND params.type is "seniorpastors">
-				<cfset wherestring = "p_sortorder = 1 AND position LIKE '%pastor%' AND ">
-		<cfelseif isDefined("params.type") AND params.type is "staffpastors">
-				<cfset wherestring = "p_sortorder > 1 AND position LIKE '%pastor%' AND ">
-		<cfelseif isDefined("params.type") AND params.type is "allpastors">
-				<cfset wherestring = "position LIKE '%pastor%' AND ">
-		<cfelse>
-				<cfset wherestring = "p_sortorder < 500 AND ">
-		</cfif>
-	
-		<cfset wherestring = wherestring & "statusid in (1,8,3,4,2,9) AND fnamegender = 'M' AND id <> 1">
-		<cfset srPastors = model("Handbookperson").findAll(
+
+function pastorsNotAgbm() {
+	if ( isDefined("params.type") && params.type == "seniorpastors" ) {
+		wherestring = "p_sortorder = 1 && position LIKE '%pastor%' AND ";
+	} else if ( isDefined("params.type") && params.type == "staffpastors" ) {
+		wherestring = "p_sortorder > 1 && position LIKE '%pastor%' AND ";
+	} else if ( isDefined("params.type") && params.type == "allpastors" ) {
+		wherestring = "position LIKE '%pastor%' AND ";
+	} else {
+		wherestring = "p_sortorder < 500 AND ";
+	}
+	wherestring = wherestring & "statusid in (1,8,3,4,2,9) AND fnamegender = 'M' AND id <> 1";
+	srPastors = model("Handbookperson").findAll(
 			where=wherestring,
-			include="Handbookstate,Handbookpositions(Handbookorganization)", order="lname,fname")>
+			include="Handbookstate,Handbookpositions(Handbookorganization)", order="lname,fname");
+	if ( isDefined("params.download") ) {
+		renderPage(layout="/layout_download");
+	}
+}
 
-		<cfif isDefined("params.download")>
-				<cfset renderPage(layout="/layout_download")>
-		</cfif>
-	
-	</cffunction>
-	
-	<cffunction name="dashboard">
-		<cfset var loc=structNew()>
-		<cfset loc.currentMembershipYear = model("Handbookperson").currentMembershipYear(params)>
-		<cfset params.currentmembershipyear = loc.currentMembershipYear>
-				<cfset dataThisYear = model("Handbookperson").getAGBMDashboardInfo(params)>
-				<cfset dataThisYear.Year = params.currentMembershipYear>
-		<cfset params.currentmembershipyear = loc.currentMembershipYear - 1>
-				<cfset dataPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params)>
-				<cfset dataPreviousYear.Year = params.currentMembershipYear>
-		<cfset params.currentmembershipyear = loc.currentMembershipYear - 2>
-				<cfset dataPreviousPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params)>
-				<cfset dataPreviousPreviousYear.Year = params.currentMembershipYear>
-	</cffunction>
-		
-	<cffunction name="rss">
-		<cfif application.wheels.environment is not "production">
-			<cfset set(environment="production")>
-		</cfif>
-		<cfset ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district,lname,fname")>
-		<cfset renderPage(layout="rsslayout")>
-	</cffunction>
+function dashboard() {
+	var loc=structNew();
+	loc.currentMembershipYear = model("Handbookperson").currentMembershipYear(params);
+	params.currentmembershipyear = loc.currentMembershipYear;
+	dataThisYear = model("Handbookperson").getAGBMDashboardInfo(params);
+	dataThisYear.Year = params.currentMembershipYear;
+	params.currentmembershipyear = loc.currentMembershipYear - 1;
+	dataPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params);
+	dataPreviousYear.Year = params.currentMembershipYear;
+	params.currentmembershipyear = loc.currentMembershipYear - 2;
+	dataPreviousPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params);
+	dataPreviousPreviousYear.Year = params.currentMembershipYear;
+}
 
-	<cffunction name="json">
-		<cfset data = model("Handbookagbminfo").getAgbmMembers(publicOnly=true)>
-		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
-	</cffunction>
+function rss() {
+	if ( application.wheels.environment != "production" ) {
+		set(environment="production");
+	}
+	ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district,lname,fname");
+	renderPage(layout="rsslayout");
+}
 
-	<cffunction name="handbookMembershipReport">
+function json() {
+	data = model("Handbookagbminfo").getAgbmMembers(publicOnly=true);
+	renderPage(layout="/layout_json", template="json", hideDebugInformation=true);
+}
 
-		<cfset setreturn()>
+function handbookMembershipReport() {
+	setreturn();
+	currentMembershipYear = model("Handbookperson").currentMembershipYear(params);
+	ordained = getAgbmOrdained();
+	commissioned = getAgbmCommissioned();
+	if ( isDefined("params.plain") ) {
+		renderPage(layout="/layout_naked");
+	}
+}
 
-		<cfset currentMembershipYear = model("Handbookperson").currentMembershipYear(params)>
+private function paidLastYearNotThisYear(required numeric personid, required string currentMembershipyear) {
+	var loc=structNew();
+	loc.currentmembershipyear = arguments.currentMembershipyear;
+	loc.return = false;
+	loc.lastyear = loc.currentmembershipyear-1;
+	loc.thisyear = loc.currentmembershipyear;
+	loc.lastYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.lastyear#'");
+	if ( isObject(loc.lastYearsPayment) ) {
+		loc.thisYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.thisyear#'");
+		if ( !isObject(loc.thisYearsPayment) ) {
+			loc.return = true;
+		}
+	}
+	return loc.return;
+}
 
-		<cfset ordained = getAgbmOrdained()>
+<!---------------------------->
+<!---END OF SPECIAL REPORTS--->
+<!---------------------------->
 
-		<cfset commissioned = getAgbmCommissioned()>
 
-		<cfif isDefined("params.plain")>
-				<cfset renderPage(layout="/layout_naked")>
-		</cfif>
 
-	</cffunction>
-	
-	<cffunction name="paidLastYearNotThisYear" access="private">
-		<cfargument name="personid" required="true" type="numeric">
-		<cfargument name="currentMembershipyear" required="true" type="string">
-		<cfset var loc=structNew()>
-		<cfset loc.currentmembershipyear = arguments.currentMembershipyear>
-	
-		<cfset loc.return = false>
-		<cfset loc.lastyear = loc.currentmembershipyear-1>
-		<cfset loc.thisyear = loc.currentmembershipyear>
-	
-			<cfset loc.lastYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.lastyear#'")>
-			<cfif isObject(loc.lastYearsPayment)>
-				<cfset loc.thisYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.thisyear#'")>
-				<cfif NOT isObject(loc.thisYearsPayment)>
-					<cfset loc.return = true>
-				</cfif>
-			</cfif>
-		<cfreturn loc.return>
-		</cffunction>
-			
+
 <!------------->
 <!---Getters--->	
 <!------------->
 
-<cfscript>
 
 	function countOfMembershipYearsPaid(required number personid) {
 		return model("Handbookagbminfo").countOfMembershipYearsPaid(personid)
@@ -358,191 +346,151 @@
 		if ( licensed ) { return "Licensed" }
 	}
 
-</cfscript>
 
+	function getLastPayment(required numeric personid, formatted="true") {
+		var loc=structNew();
+		loc.currentMembershipYear = model("Handbookperson").currentMembershipYear(params);
+		loc.fontcolor = "black";
+		loc.lastPayment = model("Handbookagbminfo").findAll(where="personid = #arguments.personid#", order="membershipfeeyear DESC");
+		if ( loc.lastPayment.recordcount ) {
+			if ( loc.lastPayment.membershipfeeyear != loc.currentMembershipYear ) {
+				loc.fontcolor = "red";
+			}
+			if ( loc.lastPayment.category == 1 ) {
+				loc.check = loc.lastpayment.licensed + loc.lastpayment.ordained + loc.lastpayment.commissioned;
+				if ( !loc.check ) {
+					loc.fontcolor = "red";
+				}
+		};
 
-	<cffunction name="getLastPayment">
-	<cfargument name="personid" required="true" type="numeric">
-	<cfargument name="formatted" default="true">
-	<cfset var loc=structNew()>
+		savecontent variable="loc.return" {
+				if ( arguments.formatted ) {
+					if ( len(agbmlifememberAt) ) {
+						if ( loc.lastPayment.ordained ) {
 
-	<cfset loc.currentMembershipYear = model("Handbookperson").currentMembershipYear(params)>
+							writeOutput("Lifetime ordained member since #agbmlifememberAt#");
+						}
+						if ( loc.lastPayment.licensed ) {
 
-	<cfset loc.fontcolor = "black">
+							writeOutput("Lifetime licensed member since #agbmlifememberAt#");
+						}
+						if ( loc.lastPayment.commissioned ) {
 
-		<cfset loc.lastPayment = model("Handbookagbminfo").findAll(where="personid = #arguments.personid#", order="membershipfeeyear DESC")>
+							writeOutput("Lifetime commissioned member since #agbmlifememberAt#");
+						}
+					} else {
 
-		<cfif loc.lastPayment.recordcount>
+						writeOutput("<p style=""color:#loc.fontcolor#"">
+									#dollarFormat(loc.lastPayment.membershipfee)# for #loc.lastPayment.membershipfeeyear#<br/>");
+						if ( loc.lastPayment.commissioned ) {
 
-		<cfif loc.lastPayment.membershipfeeyear NEQ loc.currentMembershipYear>
-			  <cfset loc.fontcolor = "red">
-		</cfif>
+							writeOutput("Commissioned #loc.lastpayment.commission#");
+						} else {
+							if ( loc.lastPayment.category ) {
 
-		<cfif loc.lastPayment.category EQ 1>
-			  <cfset loc.check = loc.lastpayment.licensed + loc.lastpayment.ordained + loc.lastpayment.commissioned>
-			  <cfif !loc.check>
-			  		<cfset loc.fontcolor = "red">
-			  </cfif>
-		</cfif>
+								writeOutput("Cat. #loc.lastPayment.category#;");
+							}
+							if ( loc.lastPayment.ordained ) {
 
-			<cfsavecontent variable="loc.return">
-					<cfoutput>
-						<cfif arguments.formatted>
-							<cfif len(agbmlifememberAt)>
-								<cfif loc.lastPayment.ordained>
-									Lifetime ordained member since #agbmlifememberAt#
-								</cfif>
-								<cfif loc.lastPayment.licensed>
-									Lifetime licensed member since #agbmlifememberAt#
-								</cfif>
-								<cfif loc.lastPayment.commissioned>
-									Lifetime commissioned member since #agbmlifememberAt#
-								</cfif>
-							<cfelse>	
-								<p style="color:#loc.fontcolor#">
-									#dollarFormat(loc.lastPayment.membershipfee)# for #loc.lastPayment.membershipfeeyear#<br/>
-										<cfif loc.lastPayment.commissioned>
-											Commissioned #loc.lastpayment.commission#
-										<cfelse>
-											<cfif loc.lastPayment.category>
-												Cat. #loc.lastPayment.category#; 
-											</cfif>
-											<cfif loc.lastPayment.ordained>
-												Ordained
-											<cfelseif loc.lastpayment.licensed>
-												; Licensed
-											</cfif>
-										</cfif>
-								</p>
-							</cfif>
-						<cfelse>
-								#dollarFormat(loc.lastPayment.membershipfee)# for #loc.lastPayment.membershipfeeyear#
-								<cfif loc.lastPayment.commissioned>
-									Commissioned #loc.lastpayment.commission#
-								<cfelse>	
-									Cat. #loc.lastPayment.category#<cfif loc.lastPayment.ordained>; Ordained<cfelseif loc.lastpayment.licensed>; Licensed</cfif>
-								</cfif>
-						</cfif>
-					</cfoutput>
-			</cfsavecontent>
+								writeOutput("Ordained");
+							} else if ( loc.lastpayment.licensed ) {
 
-		<cfelse>
-			<cfset loc.return = "na">
-		</cfif>
+								writeOutput("; Licensed");
+							}
+						}
 
-	<cfreturn loc.return>
-	</cffunction>
+						writeOutput("</p>");
+					}
+				} else {
 
-	<cffunction name="getPayments">
-	<cfargument name="personid" required="true" type="numeric">
-	<cfset var loc=structNew()>
-		<cfset loc.Payments = model("Handbookagbminfo").findAll(where="personid = #arguments.personid#", order="membershipfeeyear DESC")>
+					writeOutput("#dollarFormat(loc.lastPayment.membershipfee)# for #loc.lastPayment.membershipfeeyear#");
+					if ( loc.lastPayment.commissioned ) {
 
-		<cfif loc.Payments.recordcount>
-			<cfsavecontent variable="loc.return">
-					<cfoutput query="loc.payments">
-						<cfif len(agbmlifememberAt)>
-							<p>Lifetime member since #agbmlifememberAt#</p>
-						</cfif>
-						<p>#dollarFormat(loc.Payments.membershipfee)# for #loc.Payments.membershipfeeyear#<br/>
-						Cat. #loc.Payments.category#<cfif loc.Payments.ordained>; Ordained<cfelseif loc.Payments.licensed>; Licensed</cfif></p>
-					</cfoutput>
-			</cfsavecontent>
-		<cfelse>
-			<cfset loc.return = "na">
-		</cfif>
+						writeOutput("Commissioned #loc.lastpayment.commission#");
+					} else {
 
-	<cfreturn loc.return>
-	</cffunction>
+						writeOutput("Cat. #loc.lastPayment.category#");
+						if ( loc.lastPayment.ordained ) {
 
+							writeOutput("; Ordained");
+						} else if ( loc.lastpayment.licensed ) {
 
-
-	<cffunction name="setyear">
-		<cfset session.agbm.currentmembershipyear = params.key>
-		<cfset returnBack()>
-	</cffunction>
-
-
-	<cffunction name="getPositionForHandbookReport">
-	<cfargument name="personid" required="true" type="numeric">
-	<cfset var loc = arguments>
-	<cfset loc.whereString = "id=#loc.personid#">
-	<cfset loc.includeString = "Handbookpositions(Handbookpositiontype,Handbookorganization(State,Handbookstatus))">
-	<cfset loc.selectString = "name,statusid,status,handbookpositions.position as position,org_city,handbookstates.state_abbrev as state">
-
-		<cfset loc.whereString1 = loc.whereString & " AND status = 'AGBM Only'">
-		<cfset loc.positions1 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString1, include=loc.includeString)>
-		<cfif loc.positions1.recordcount>
-			<cfset loc.return = gbcit(trim(loc.positions1.name)) & "; " & unrepeatcity(loc.positions1.org_city,loc.positions1.name) & " " & loc.positions1.state>
-			<cfreturn loc.return>
-		</cfif>
-
-
-		<cfset loc.whereString2 = loc.whereString & " AND status = 'Member'">
-		<cfset loc.positions2 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString2, include=loc.includeString)>
-		<cfif loc.positions2.recordcount>
-			<cfset loc.return = gbcit(loc.positions2.name) & "; " & unrepeatcity(loc.positions2.org_city,loc.positions2.name) & " " & loc.positions2.state>
-			<cfreturn loc.return>
-		</cfif>
-
-
-		<cfset loc.whereString3 = loc.whereString & " AND status = 'Member (co-member)'">
-		<cfset loc.positions3 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString3, include=loc.includeString)>
-		<cfif loc.positions3.recordcount>
-			<cfset loc.return = gbcit(trim(loc.positions3.name)) & "; " & unrepeatcity(loc.positions3.org_city,loc.positions3.name) & " " & loc.positions3.state>
-			<cfreturn loc.return>
-		</cfif>
-
-		<cfreturn "AGBM Member">
-
-	</cffunction>
-
-	<cffunction name="gbcIt">
-	<cfargument name="churchname" required="true" type="string">
-	<cfset var loc=structNew()>
-	<cfset loc.return = replace(arguments.churchname,"Grace Brethren Church","GBC","all")>
-	<cfreturn trim(loc.return)>
-	</cffunction>
-
-	<cffunction name="unRepeatCity">
-	<cfargument name="city" required="true" type="string">
-	<cfargument name="name" required="true" type="string">
-	<cfset var loc=structNew()>
-	<cfset loc.return = arguments.city & ",">
-	<cfif find(city,name)>
-		<cfset loc.return = "">
-	</cfif>
-	<cfreturn trim(loc.return)>
-	</cffunction>
-
-
-<cfscript>
-
-	public function makeAgbmLifeMember(personid, year) {
-		var personProfile = model("Handbookprofiles").findOne(where="personid=#personid#")
-		if ( isObject(personProfile) ) {
-			personProfile.agbmlifememberAt = "#year#"
-			personProfile.update()
-		} else {
-			personProfile = model("Handbookprofiles").new()
-			personProfile.personid = personid
-			personProfile.agbmlifememberAt = year
-			personProfile.save()
-			// throw(message = serialize(personProfile.properties()))
-		}
+							writeOutput("; Licensed");
+						}
+					}
+				}
+			
+		};
+	} else {
+		loc.return = "na";
 	}
+	return loc.return;
+}
+
+
+	function getPayments(required numeric personid, required string agbmlifememberAt) {
+		var loc=structNew();
+		var payments = model("Handbookagbminfo").findAll(where="personid = #arguments.personid#", order="membershipfeeyear DESC");
+		if ( payments.recordcount ) {
+			savecontent variable="loc.return" {
+				for (payment in payments) {
+					if ( len(agbmlifememberAt) ) {
+
+						writeOutput("<p>Lifetime member since #agbmlifememberAt#</p>");
+					}
+
+					writeOutput("<p>#dollarFormat(payment.membershipfee)# for #payment.membershipfeeyear#<br/>
+							Cat. #payment.category#");
+					if ( payment.ordained ) {
+
+						writeOutput("; Ordained");
+					} else if ( payment.licensed ) {
+
+						writeOutput("; Licensed");
+					}
+
+					writeOutput("</p>");
+				}
+			}
+		} else {
+			loc.return = "na";
+		}
+		return loc.return;
+	}
+
+
+
+	//Used by the handbook report view
+
+	function getPositionForHandbookReport(required numeric personid) {
+		var loc = arguments;
+		loc.whereString = "id=#loc.personid#";
+		loc.includeString = "Handbookpositions(Handbookpositiontype,Handbookorganization(State,Handbookstatus))";
+		loc.selectString = "name,statusid,status,handbookpositions.position as position,org_city,handbookstates.state_abbrev as state";
+		loc.whereString1 = loc.whereString & " AND status = 'AGBM Only'";
+		loc.positions1 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString1, include=loc.includeString);
+		if ( loc.positions1.recordcount ) {
+			loc.return = gbcit(trim(loc.positions1.name)) & "; " & unrepeatcity(loc.positions1.org_city,loc.positions1.name) & " " & loc.positions1.state;
+			return loc.return;
+		}
+		loc.whereString2 = loc.whereString & " AND status = 'Member'";
+		loc.positions2 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString2, include=loc.includeString);
+		if ( loc.positions2.recordcount ) {
+			loc.return = gbcit(loc.positions2.name) & "; " & unrepeatcity(loc.positions2.org_city,loc.positions2.name) & " " & loc.positions2.state;
+			return loc.return;
+		}
+		loc.whereString3 = loc.whereString & " AND status = 'Member (co-member)'";
+		loc.positions3 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString3, include=loc.includeString);
+		if ( loc.positions3.recordcount ) {
+			loc.return = gbcit(trim(loc.positions3.name)) & "; " & unrepeatcity(loc.positions3.org_city,loc.positions3.name) & " " & loc.positions3.state;
+			return loc.return;
+		}
+		return "AGBM Member";
+	}
+	
 
 	public function isAgbmLifeMember(personid) {
 		return model("Handbookagbminfo").isAgbmLifeMember(personid)
-	}
-
-	public function testMembershipFeeInfo(){
-		writedump(model("Handbookagbminfo").$getMembershipFeeInfo(1973));abort;
-	}
-
-	public function testIsAgbmMember(){
-		var return = model("Handbookagbminfo").isAgbmMember(params.personid);
-		writeDump(return);abort;
 	}
 
 	private function countOfMembershipYearsPaidSince(){
@@ -565,11 +513,6 @@
 			return district.district;
 		}
 		return "NA";
-	}
-
-	public function testGetAgbm(type="commissioned"){
-		// people = people.filter( (el) => el.lastpayment == getCurrentMembershipYear() && (el[type] || (len(el.agbmlifememberAt) && !el.ordained)) )
-		writeDump(allCommissioned);abort;
 	}
 
 	public function getAgbmMembers(){
@@ -608,15 +551,68 @@
 		districts=model("Handbookdistrict").findAll(where="district NOT IN ('Empty','National Ministry','Cooperating Ministry')");
 	}
 
+	function getAGBMMailList(orderby="lname,fname") {
+		var loc=structNew();
+		mailListAgbmPeople = model("Handbookperson").findAll(where="grouptypeid = 16", include="Handbookgroup,Handbookstate", order=arguments.orderby, maxrows="5");
+		writeDump( var=mailListAgbmPeople );
+		abort;
+	}
 
+
+<!-------------------------->
+<!---------END OF GETTERS--->
+<!-------------------------->
+
+
+
+
+
+<!-------------------------->
+<!----SETTERS--------------->
+<!-------------------------->
+
+
+	function setyear() {
+		session.agbm.currentmembershipyear = params.key;
+		returnBack();
+	}
+
+	function gbcIt(required string churchname) {
+		var loc=structNew();
+		loc.return = replace(arguments.churchname,"Grace Brethren Church","GBC","all");
+		return trim(loc.return);
+	}
+
+	function unRepeatCity(required string city, required string name) {
+		var loc=structNew();
+		loc.return = arguments.city & ",";
+		if ( find(city,name) ) {
+			loc.return = "";
+		}
+		return trim(loc.return);
+	}
+
+
+	public function makeAgbmLifeMember(personid, year) {
+		var personProfile = model("Handbookprofiles").findOne(where="personid=#personid#")
+		if ( isObject(personProfile) ) {
+			personProfile.agbmlifememberAt = "#year#"
+			personProfile.update()
+		} else {
+			personProfile = model("Handbookprofiles").new()
+			personProfile.personid = personid
+			personProfile.agbmlifememberAt = year
+			personProfile.save()
+			// throw(message = serialize(personProfile.properties()))
+		}
+	}
+
+
+	
 </cfscript>
-
-	<cffunction name="getAGBMMailList">
-	<cfargument name="orderby" default="lname,fname">
-	<cfset var loc=structNew()>
-		<cfset mailListAgbmPeople = model("Handbookperson").findAll(where="grouptypeid = 16", include="Handbookgroup,Handbookstate", order=arguments.orderby, maxrows="5")>
-		<cfdump var="#mailListAgbmPeople#"><cfabort>
+	<!--- I don't think index is being used - "list" is--->
+	<cffunction name="index">
+		<cfset payments = model("Handbookagbminfo").findAll(include="Handbookperson(Handbookstate)")>
 	</cffunction>
-
 
 </cfcomponent>
