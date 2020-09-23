@@ -270,15 +270,16 @@ component extends="Model" output="false" {
 		}
 	}
 
+	public function getAllAgbm(maxrows = 100){
+		var people = model("Handbookperson").findAll(select="id, fname, lname, selectName", include="State,Handbookpositions", maxrows=arguments.maxrows);
+		var peopleStruct = queryToArray(people);
+		return peopleStruct;
+	};
+
 //Likely trash - need to test more
 	
 
 	//Not Used?
-	// public function getAllAgbm(maxrows = 100){
-	// 	var people = model("Handbookperson").findAll(select="id, fname, lname, selectName", include="State,Handbookpositions", maxrows=arguments.maxrows);
-	// 	var peopleStruct = queryToArray(people);
-	// 	return peopleStruct;
-	// };
 
 	// private function $applyDistrictFilter(AgbmArray,district){
 	// 	var loc = arguments;

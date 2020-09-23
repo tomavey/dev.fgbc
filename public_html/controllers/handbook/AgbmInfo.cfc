@@ -236,11 +236,6 @@
 		}
 	}
 
-
-	function countOfMembershipYearsPaid(required number personid) {
-		return model("Handbookagbminfo").countOfMembershipYearsPaid(personid)
-	}
-
 	function agbm10YearMembers(){
 		var countMin = 9
 		if ( isDefined("params.countMin") ) {
@@ -254,6 +249,103 @@
 		if ( isDefined("params.excel") ) {
 			renderPage(template="download", layout="/layout_download")
 		}
+	}
+
+</cfscript>
+	
+	<cffunction name="pastorsNotAgbm">
+		<cfif isDefined("params.type") AND params.type is "seniorpastors">
+				<cfset wherestring = "p_sortorder = 1 AND position LIKE '%pastor%' AND ">
+		<cfelseif isDefined("params.type") AND params.type is "staffpastors">
+				<cfset wherestring = "p_sortorder > 1 AND position LIKE '%pastor%' AND ">
+		<cfelseif isDefined("params.type") AND params.type is "allpastors">
+				<cfset wherestring = "position LIKE '%pastor%' AND ">
+		<cfelse>
+				<cfset wherestring = "p_sortorder < 500 AND ">
+		</cfif>
+	
+		<cfset wherestring = wherestring & "statusid in (1,8,3,4,2,9) AND fnamegender = 'M' AND id <> 1">
+		<cfset srPastors = model("Handbookperson").findAll(
+			where=wherestring,
+			include="Handbookstate,Handbookpositions(Handbookorganization)", order="lname,fname")>
+
+		<cfif isDefined("params.download")>
+				<cfset renderPage(layout="/layout_download")>
+		</cfif>
+	
+	</cffunction>
+	
+	<cffunction name="dashboard">
+		<cfset var loc=structNew()>
+		<cfset loc.currentMembershipYear = model("Handbookperson").currentMembershipYear(params)>
+		<cfset params.currentmembershipyear = loc.currentMembershipYear>
+				<cfset dataThisYear = model("Handbookperson").getAGBMDashboardInfo(params)>
+				<cfset dataThisYear.Year = params.currentMembershipYear>
+		<cfset params.currentmembershipyear = loc.currentMembershipYear - 1>
+				<cfset dataPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params)>
+				<cfset dataPreviousYear.Year = params.currentMembershipYear>
+		<cfset params.currentmembershipyear = loc.currentMembershipYear - 2>
+				<cfset dataPreviousPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params)>
+				<cfset dataPreviousPreviousYear.Year = params.currentMembershipYear>
+	</cffunction>
+		
+	<cffunction name="rss">
+		<cfif application.wheels.environment is not "production">
+			<cfset set(environment="production")>
+		</cfif>
+		<cfset ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district,lname,fname")>
+		<cfset renderPage(layout="rsslayout")>
+	</cffunction>
+
+	<cffunction name="json">
+		<cfset data = model("Handbookagbminfo").getAgbmMembers(publicOnly=true)>
+		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
+	</cffunction>
+
+	<cffunction name="handbookMembershipReport">
+
+		<cfset setreturn()>
+
+		<cfset currentMembershipYear = model("Handbookperson").currentMembershipYear(params)>
+
+		<cfset ordained = getAgbmOrdained()>
+
+		<cfset commissioned = getAgbmCommissioned()>
+
+		<cfif isDefined("params.plain")>
+				<cfset renderPage(layout="/layout_naked")>
+		</cfif>
+
+	</cffunction>
+	
+	<cffunction name="paidLastYearNotThisYear" access="private">
+		<cfargument name="personid" required="true" type="numeric">
+		<cfargument name="currentMembershipyear" required="true" type="string">
+		<cfset var loc=structNew()>
+		<cfset loc.currentmembershipyear = arguments.currentMembershipyear>
+	
+		<cfset loc.return = false>
+		<cfset loc.lastyear = loc.currentmembershipyear-1>
+		<cfset loc.thisyear = loc.currentmembershipyear>
+	
+			<cfset loc.lastYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.lastyear#'")>
+			<cfif isObject(loc.lastYearsPayment)>
+				<cfset loc.thisYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.thisyear#'")>
+				<cfif NOT isObject(loc.thisYearsPayment)>
+					<cfset loc.return = true>
+				</cfif>
+			</cfif>
+		<cfreturn loc.return>
+		</cffunction>
+			
+<!------------->
+<!---Getters--->	
+<!------------->
+
+<cfscript>
+
+	function countOfMembershipYearsPaid(required number personid) {
+		return model("Handbookagbminfo").countOfMembershipYearsPaid(personid)
 	}
 
 	function countOfMembershipYearsPaid(personId){
@@ -363,98 +455,13 @@
 	<cfreturn loc.return>
 	</cffunction>
 
-	<cffunction name="getAGBMMailList">
-	<cfargument name="orderby" default="lname,fname">
-	<cfset var loc=structNew()>
-		<cfset mailListAgbmPeople = model("Handbookperson").findAll(where="grouptypeid = 16", include="Handbookgroup,Handbookstate", order=arguments.orderby, maxrows="5")>
-		<cfdump var="#mailListAgbmPeople#"><cfabort>
-	</cffunction>
 
-	<cffunction name="pastorsNotAgbm">
-	<cfif isDefined("params.type") AND params.type is "seniorpastors">
-		  <cfset wherestring = "p_sortorder = 1 AND position LIKE '%pastor%' AND ">
-	<cfelseif isDefined("params.type") AND params.type is "staffpastors">
-		  <cfset wherestring = "p_sortorder > 1 AND position LIKE '%pastor%' AND ">
-	<cfelseif isDefined("params.type") AND params.type is "allpastors">
-		  <cfset wherestring = "position LIKE '%pastor%' AND ">
-	<cfelse>
-		  <cfset wherestring = "p_sortorder < 500 AND ">
-	</cfif>
-
-		<cfset wherestring = wherestring & "statusid in (1,8,3,4,2,9) AND fnamegender = 'M' AND id <> 1">
-		<cfset srPastors = model("Handbookperson").findAll(
-			where=wherestring,
-			include="Handbookstate,Handbookpositions(Handbookorganization)", order="lname,fname")>
-
-		<cfif isDefined("params.download")>
-			 <cfset renderPage(layout="/layout_download")>
-		</cfif>
-
-	</cffunction>
 
 	<cffunction name="setyear">
 		<cfset session.agbm.currentmembershipyear = params.key>
 		<cfset returnBack()>
 	</cffunction>
 
-	<cffunction name="dashboard">
-	<cfset var loc=structNew()>
-	<cfset loc.currentMembershipYear = model("Handbookperson").currentMembershipYear(params)>
-	<cfset params.currentmembershipyear = loc.currentMembershipYear>
-		  <cfset dataThisYear = model("Handbookperson").getAGBMDashboardInfo(params)>
-			<cfset dataThisYear.Year = params.currentMembershipYear>
-	<cfset params.currentmembershipyear = loc.currentMembershipYear - 1>
-		  <cfset dataPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params)>
-		  <cfset dataPreviousYear.Year = params.currentMembershipYear>
-	<cfset params.currentmembershipyear = loc.currentMembershipYear - 2>
-		  <cfset dataPreviousPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params)>
-		  <cfset dataPreviousPreviousYear.Year = params.currentMembershipYear>
-	</cffunction>
-
-	<cffunction name="rss">
-		<cfif application.wheels.environment is not "production">
-			<cfset set(environment="production")>
-		</cfif>
-		<cfset ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district,lname,fname")>
-		<cfset renderPage(layout="rsslayout")>
-	</cffunction>
-
-	<cffunction name="json">
-		<cfset data = model("Handbookagbminfo").getAgbmMembers(publicOnly=true)>
-		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
-	</cffunction>
-
-	<cffunction name="handbookMembershipReport">
-
-		<cfset setreturn()>
-
-		<cfset currentMembershipYear = model("Handbookperson").currentMembershipYear(params)>
-
-		<cfset ordained = getAgbmOrdained()>
-
-		<cfset commissioned = getAgbmCommissioned()>
-
-		<!--- <cfset cat0Ordained = model("Handbookperson").findAllAgbmByCat(params,'Cat0Ordained').people>
-
-		<cfset cat1Licensed = model("Handbookperson").findAllAgbmByCat(params,'cat1Licensed').people>
-
-		<cfset cat0Commissioned = model("Handbookperson").findAllAgbmByCat(params,'Cat0Commissioned').people>
-
-		<cfset cat1Mentored = model("Handbookperson").findAllAgbmByCat(params,'cat1Mentored').people>
-
-		<cfset cat2Ordained = model("Handbookperson").findAllAgbmByCat(params,'cat2Ordained').people>
-
-		<cfset cat2Licensed = model("Handbookperson").findAllAgbmByCat(params,'Cat2Licensed').people>
-
-		<cfset cat2Mentored = model("Handbookperson").findAllAgbmByCat(params,'Cat2Mentored').people>
-
-		<cfset cat3 = model("Handbookperson").findAllAgbmByCat(params,'Cat3').people> --->
-
-		<cfif isDefined("params.plain")>
-			 <cfset renderPage(layout="/layout_naked")>
-		</cfif>
-
-	</cffunction>
 
 	<cffunction name="getPositionForHandbookReport">
 	<cfargument name="personid" required="true" type="numeric">
@@ -508,39 +515,6 @@
 	<cfreturn trim(loc.return)>
 	</cffunction>
 
-	<cffunction name="testget">
-	<cfargument name="personid" default="233">
-	<cfset var loc=arguments>
-	<cfif isDefined("params.personid")>
-		<cfset loc.personid = params.personid>
-	</cfif>
-	<cfif isDefined("params.key")>
-		<cfset loc.personid = params.key>
-	</cfif>
-
-		<cfdump var="#getPositionForHandbookReport(loc.personid)#"><cfabort>
-	</cffunction>
-
-	<cffunction name="paidLastYearNotThisYear" access="private">
-	<cfargument name="personid" required="true" type="numeric">
-	<cfargument name="currentMembershipyear" required="true" type="string">
-	<cfset var loc=structNew()>
-	<cfset loc.currentmembershipyear = arguments.currentMembershipyear>
-
-	<cfset loc.return = false>
-	<cfset loc.lastyear = loc.currentmembershipyear-1>
-	<cfset loc.thisyear = loc.currentmembershipyear>
-
-		<cfset loc.lastYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.lastyear#'")>
-		<cfif isObject(loc.lastYearsPayment)>
-			<cfset loc.thisYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.thisyear#'")>
-			<cfif NOT isObject(loc.thisYearsPayment)>
-				<cfset loc.return = true>
-			</cfif>
-		</cfif>
-	<cfreturn loc.return>
-	</cffunction>
-	
 
 <cfscript>
 
@@ -560,14 +534,6 @@
 
 	public function isAgbmLifeMember(personid) {
 		return model("Handbookagbminfo").isAgbmLifeMember(personid)
-	}
-
-	public function listNew(orderby="district"){
-		var loc = arguments;
-		if (isDefined("params.orderby")){loc.orderby = params.orderby};
-		if (isDefined("params.refresh")){loc.refresh = params.refresh};
-		agbmMembers = model("Handbookagbminfo").getAgbmMembers(argumentcollection=loc);
-		districts=model("Handbookdistrict").findAll(where="district NOT IN ('Empty','National Ministry','Cooperating Ministry')");
 	}
 
 	public function testMembershipFeeInfo(){
@@ -634,6 +600,23 @@
 		ddd(allCommissioned)
 	}
 
+	public function XlistNew(orderby="district"){
+		var loc = arguments;
+		if (isDefined("params.orderby")){loc.orderby = params.orderby};
+		if (isDefined("params.refresh")){loc.refresh = params.refresh};
+		agbmMembers = model("Handbookagbminfo").getAgbmMembers(argumentcollection=loc);
+		districts=model("Handbookdistrict").findAll(where="district NOT IN ('Empty','National Ministry','Cooperating Ministry')");
+	}
+
+
 </cfscript>
+
+	<cffunction name="getAGBMMailList">
+	<cfargument name="orderby" default="lname,fname">
+	<cfset var loc=structNew()>
+		<cfset mailListAgbmPeople = model("Handbookperson").findAll(where="grouptypeid = 16", include="Handbookgroup,Handbookstate", order=arguments.orderby, maxrows="5")>
+		<cfdump var="#mailListAgbmPeople#"><cfabort>
+	</cffunction>
+
 
 </cfcomponent>
