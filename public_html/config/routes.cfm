@@ -196,8 +196,6 @@
 			.get(name="addAgbmInfo", pattern="/agbminfo/[key]/add/", controller="agbminfo", action="add")
 			.resources("agbmInfo")
 
-			.resources("agbmregions")
-
 			.get(name="districtsReport", pattern="/districts/report/", controller="districts", action="handbookreport")
 			.get(name="districtChurches", pattern="/districts/churches", controller="districts", action="listChurches")
 			.resources("districts")

@@ -433,11 +433,12 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 			loc.whereString = loc.whereString & "  AND fnamegender = 'm'"
 		}
 		//  Get names from handbook people with positions in organizations in districts in regions 
-		loc.handbookpeople = findAll(select="fname, lname, handbookpeople.email, region, handbookpeople.phone2 as phone", where=loc.whereString, include="Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict))", order="lname,fname,email")
+		loc.handbookpeople = findAll(select="fname, lname, handbookpeople.email, region, handbookpeople.phone2 as phone", where=loc.whereString, include="Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict))", order="email")
+		loc.handbookOrganizations = model("Handbookorganization").findAll(select="email, phone, region", where="focusretreat = '#loc.region#'", include="Handbookdistrict", order="email" )
 		loc.focuspeople = $findAllRegional(region=loc.region, yearsAgo=params.yearsAgo)
 		//  Get names from past focus registrations in that region 
 		//  Combine both queries 
-		loc.allpeople = combineTwoQueries(loc.handbookpeople, loc.focuspeople)
+		loc.allpeople = combineTwoQueries(loc.handbookOrganizations, combineTwoQueries(loc.handbookpeople, loc.focuspeople))
 		try {
 			loc.addedpeople = $focusEmailAdds(loc.region)
 			loc.allpeople = combineTwoQueries(loc.allpeople, loc.addedpeople)
