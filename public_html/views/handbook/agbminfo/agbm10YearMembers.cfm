@@ -30,13 +30,19 @@
 			</th>
 			</cfif>			
 		</tr>
-	</thead>	
-
-<cfoutput query="people">
+	</thead>
+<cfscript>
+	for (person in people) {
+		REQUEST.lastpayment = getLastPayment(personid=person.personid,agbmlifememberAt=person.agbmlifememberAt,formatted=true)
+		REQUEST.payments = getPayments(personid=person.personid,agbmlifememberAt=person.agbmlifememberAt,formatted=true)
+		writeOutput(#includePartial("table")#)
+	}
+</cfscript>		
+<!--- <cfoutput query="people">
   <cfset REQUEST.lastpayment = getLastPayment(personid)>
   <cfset REQUEST.payments = getPayments(personid)>
   #includePartial("table")#<!---Table Row--->
-</cfoutput>
+</cfoutput> --->
 </table>
 <cfoutput>
   <p>#people.recordCount#</p>

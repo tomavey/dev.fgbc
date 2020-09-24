@@ -1,10 +1,12 @@
-<h2>Create a new agbm payment for <cfoutput>#thisperson.fname# #thisperson.lname# of #thisperson.city#, #thisperson.state_mail_abbrev#</cfoutput>:</h2>
+<cfparam name="formAction" default="create">
+<div class="span11">
+<h2>Create a new Inspire payment for <cfoutput>#thisperson.fname# #thisperson.lname# of #thisperson.city#, #thisperson.state_mail_abbrev#</cfoutput>:</h2>
 
 <cfoutput>
 
 			#errorMessagesFor("handbookagbminfo")#
 	
-			#startFormTag(action="create")#
+			#startFormTag(action=formAction)#
 		
 				<cfif isDefined("params.key")>
 						#hiddenFieldTag(name="handbookagbminfo[personid]", value=params.key)#
@@ -23,3 +25,4 @@
 <p>#linkTo(text="Add Lifetime Membership to Handbook Record", controller="Handbook.people", action="edit", key=#params.keyy#, target="_new")#</p>
 
 </cfoutput>
+</div>

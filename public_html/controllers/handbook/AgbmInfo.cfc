@@ -1,6 +1,5 @@
-<cfcomponent extends="Controller" output="false">
+component extends="Controller" output="false"{
 
-<cfscript>
 	function init() {
 		usesLayout(template="/handbook/layout_agbm");
 		filters(through="getCurrentMembershipYear");
@@ -10,7 +9,6 @@
 <!-------------->
 <!----FILTERS--->
 <!-------------->
-
 
 function getCurrentMembershipYear() {
 	if ( isDefined ("params.year") ) {
@@ -28,9 +26,7 @@ function getCurrentMembershipYear() {
 <!-----CRUD-------->	
 <!----------------->	
 
-<!--- -handbookagbminfos/list --->
-
-
+	<!--- -handbookagbminfos/list --->
 	function list() {
 		setReturn();
 		orderString = "lname,fname,p_sortorder";
@@ -107,13 +103,11 @@ function getCurrentMembershipYear() {
 		handbookagbminfo.licensed = thisPersonsLastPayment.licensed;
 		handbookagbminfo.commissioned = thisPersonsLastPayment.commissioned;
 		handbookagbminfo.commission = thisPersonsLastPayment.commission;
+		formAction = "create"
 		renderPage(action="new");
 	}
 
-
-
 <!--- -handbookagbminfos/edit/key --->
-
 	function edit() {
 		//  Find the record 
 		handbookagbminfo = model("Handbookagbminfo").findByKey(params.key);
@@ -124,10 +118,10 @@ function getCurrentMembershipYear() {
 			redirectTo(action="index");
 		}
 		organizations = model("Handbookorganization").findAll(include="Handbookstate", order="org_city,state_mail_abbrev,name");
+		formAction = "update"
 	}
 
 	<!--- -handbookagbminfos/create --->
-
 	function create() {
 		/*  <cfscript>
 				throw(message=serialize(params.handbookagbminfo))
@@ -188,11 +182,11 @@ function delete() {
 		redirectTo(action="index");
 	}
 }
-
-
 <!------------------------>	
 <!-----END OF CRUD-------->	
 <!------------------------>	
+
+
 
 
 
@@ -201,20 +195,16 @@ function delete() {
 <!-----SPECIAL REPORTS---->
 <!------------------------>
 
-
 	// For public lists - just name and location - no links
-
 	function publicList() {
-		ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district, lname");
+		ministerium = getAgbmMembers(currentMembershipYear=currentmembershipyear, orderby="district, lname");
 	}
-	// Use on home page for a simple list of everyone in the handbook with links
 
+	// Use on home page for a simple list of everyone in the handbook with links
 	function handbook() {
 		params.all = true;
 		handbookPeople = model("Handbookperson").findHandbookPeople(params);
 	}
-
-
 
 	function delinquent() {
 		if ( isDefined("params.key") && val(params.key) ) {
@@ -223,9 +213,7 @@ function delete() {
 			currentmembershipyear = model("Handbookperson").currentMembershipyear(params);
 		}
 		people = model("Handbookperson").findAll(order="lname, fname", include="Handbookstate,Handbookprofile");
-		people = queryFilter(people, function(el) {
-				return paidLastYearNotThisYear(el.id,currentmembershipyear) && !len(el.agbmlifememberAt)
-			});
+		people = queryFilter(people, (el) => paidLastYearNotThisYear(el.id,currentmembershipyear) && !len(el.agbmlifememberAt));
 		if ( isDefined("params.download") ) {
 			renderPage(layout="/layout_download");
 		}
@@ -246,80 +234,77 @@ function delete() {
 		}
 	}
 
-	
-
-function pastorsNotAgbm() {
-	if ( isDefined("params.type") && params.type == "seniorpastors" ) {
-		wherestring = "p_sortorder = 1 && position LIKE '%pastor%' AND ";
-	} else if ( isDefined("params.type") && params.type == "staffpastors" ) {
-		wherestring = "p_sortorder > 1 && position LIKE '%pastor%' AND ";
-	} else if ( isDefined("params.type") && params.type == "allpastors" ) {
-		wherestring = "position LIKE '%pastor%' AND ";
-	} else {
-		wherestring = "p_sortorder < 500 AND ";
-	}
-	wherestring = wherestring & "statusid in (1,8,3,4,2,9) AND fnamegender = 'M' AND id <> 1";
-	srPastors = model("Handbookperson").findAll(
-			where=wherestring,
-			include="Handbookstate,Handbookpositions(Handbookorganization)", order="lname,fname");
-	if ( isDefined("params.download") ) {
-		renderPage(layout="/layout_download");
-	}
-}
-
-function dashboard() {
-	var loc=structNew();
-	loc.currentMembershipYear = model("Handbookperson").currentMembershipYear(params);
-	params.currentmembershipyear = loc.currentMembershipYear;
-	dataThisYear = model("Handbookperson").getAGBMDashboardInfo(params);
-	dataThisYear.Year = params.currentMembershipYear;
-	params.currentmembershipyear = loc.currentMembershipYear - 1;
-	dataPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params);
-	dataPreviousYear.Year = params.currentMembershipYear;
-	params.currentmembershipyear = loc.currentMembershipYear - 2;
-	dataPreviousPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params);
-	dataPreviousPreviousYear.Year = params.currentMembershipYear;
-}
-
-function rss() {
-	if ( application.wheels.environment != "production" ) {
-		set(environment="production");
-	}
-	ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district,lname,fname");
-	renderPage(layout="rsslayout");
-}
-
-function json() {
-	data = model("Handbookagbminfo").getAgbmMembers(publicOnly=true);
-	renderPage(layout="/layout_json", template="json", hideDebugInformation=true);
-}
-
-function handbookMembershipReport() {
-	setreturn();
-	currentMembershipYear = model("Handbookperson").currentMembershipYear(params);
-	ordained = getAgbmOrdained();
-	commissioned = getAgbmCommissioned();
-	if ( isDefined("params.plain") ) {
-		renderPage(layout="/layout_naked");
-	}
-}
-
-private function paidLastYearNotThisYear(required numeric personid, required string currentMembershipyear) {
-	var loc=structNew();
-	loc.currentmembershipyear = arguments.currentMembershipyear;
-	loc.return = false;
-	loc.lastyear = loc.currentmembershipyear-1;
-	loc.thisyear = loc.currentmembershipyear;
-	loc.lastYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.lastyear#'");
-	if ( isObject(loc.lastYearsPayment) ) {
-		loc.thisYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.thisyear#'");
-		if ( !isObject(loc.thisYearsPayment) ) {
-			loc.return = true;
+	function pastorsNotAgbm() {
+		if ( isDefined("params.type") && params.type == "seniorpastors" ) {
+			wherestring = "p_sortorder = 1 AND position LIKE '%pastor%' AND ";
+		} else if ( isDefined("params.type") && params.type == "staffpastors" ) {
+			wherestring = "p_sortorder > 1 AND position LIKE '%pastor%' AND ";
+		} else if ( isDefined("params.type") && params.type == "allpastors" ) {
+			wherestring = "position LIKE '%pastor%' AND ";
+		} else {
+			wherestring = "p_sortorder < 500 AND ";
+		}
+		wherestring = wherestring & "statusid in (1,8,3,4,2,9) AND fnamegender = 'M' AND id <> 1";
+		srPastors = model("Handbookperson").findAll(
+				where=wherestring,
+				include="Handbookstate,Handbookpositions(Handbookorganization)", order="lname,fname");
+		if ( isDefined("params.download") ) {
+			renderPage(layout="/layout_download");
 		}
 	}
-	return loc.return;
-}
 
+	function dashboard() {
+		var loc=structNew();
+		loc.currentMembershipYear = model("Handbookperson").currentMembershipYear(params);
+		params.currentmembershipyear = loc.currentMembershipYear;
+		dataThisYear = model("Handbookperson").getAGBMDashboardInfo(params);
+		dataThisYear.Year = params.currentMembershipYear;
+		params.currentmembershipyear = loc.currentMembershipYear - 1;
+		dataPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params);
+		dataPreviousYear.Year = params.currentMembershipYear;
+		params.currentmembershipyear = loc.currentMembershipYear - 2;
+		dataPreviousPreviousYear = model("Handbookperson").getAGBMDashboardInfo(params);
+		dataPreviousPreviousYear.Year = params.currentMembershipYear;
+	}
+
+	function rss() {
+		if ( application.wheels.environment != "production" ) {
+			set(environment="production");
+		}
+		ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district,lname,fname");
+		renderPage(layout="rsslayout");
+	}
+
+	function json() {
+		data = model("Handbookagbminfo").getAgbmMembers(publicOnly=true);
+		renderPage(layout="/layout_json", template="json", hideDebugInformation=true);
+	}
+
+	function handbookMembershipReport() {
+		setreturn();
+		currentMembershipYear = model("Handbookperson").currentMembershipYear(params);
+		ordained = getAgbmOrdained();
+		commissioned = getAgbmCommissioned();
+		if ( isDefined("params.plain") ) {
+			renderPage(layout="/layout_naked");
+		}
+	}
+
+	private function paidLastYearNotThisYear(required numeric personid, required string currentMembershipyear) {
+		var loc=structNew();
+		loc.currentmembershipyear = arguments.currentMembershipyear;
+		loc.return = false;
+		loc.lastyear = loc.currentmembershipyear-1;
+		loc.thisyear = loc.currentmembershipyear;
+		loc.lastYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.lastyear#'");
+		if ( isObject(loc.lastYearsPayment) ) {
+			loc.thisYearsPayment = model("Handbookagbminfo").findOne(where="personid = #arguments.personid# AND membershipfeeyear = '#loc.thisyear#'");
+			if ( !isObject(loc.thisYearsPayment) ) {
+				loc.return = true;
+			}
+		}
+		return loc.return;
+	}
 <!---------------------------->
 <!---END OF SPECIAL REPORTS--->
 <!---------------------------->
@@ -327,10 +312,11 @@ private function paidLastYearNotThisYear(required numeric personid, required str
 
 
 
+
+
 <!------------->
 <!---Getters--->	
 <!------------->
-
 
 	function countOfMembershipYearsPaid(required number personid) {
 		return model("Handbookagbminfo").countOfMembershipYearsPaid(personid)
@@ -421,11 +407,11 @@ private function paidLastYearNotThisYear(required numeric personid, required str
 				}
 			
 		};
-	} else {
-		loc.return = "na";
+		} else {
+			loc.return = "na";
+		}
+		return loc.return;
 	}
-	return loc.return;
-}
 
 
 	function getPayments(required numeric personid, required string agbmlifememberAt) {
@@ -515,8 +501,8 @@ private function paidLastYearNotThisYear(required numeric personid, required str
 		return "NA";
 	}
 
-	public function getAgbmMembers(){
-		var people = model("Handbookagbminfo").getAgbm(orderby="lname, fname, i.createdAt DESC")
+	public function getAgbmMembers(orderby = "lname, fname, i.createdAt DESC"){
+		var people = model("Handbookagbminfo").getAgbm(orderby=arguments.orderby)
 		var allMembers = people.filter( (el) => el.lastpayment == CurrentMembershipYear || len(el.agbmlifememberat) )
 		return allMembers
 		ddd(allMembers)
@@ -557,8 +543,6 @@ private function paidLastYearNotThisYear(required numeric personid, required str
 		writeDump( var=mailListAgbmPeople );
 		abort;
 	}
-
-
 <!-------------------------->
 <!---------END OF GETTERS--->
 <!-------------------------->
@@ -567,10 +551,11 @@ private function paidLastYearNotThisYear(required numeric personid, required str
 
 
 
+
+
 <!-------------------------->
 <!----SETTERS--------------->
 <!-------------------------->
-
 
 	function setyear() {
 		session.agbm.currentmembershipyear = params.key;
@@ -609,10 +594,9 @@ private function paidLastYearNotThisYear(required numeric personid, required str
 
 
 	
-</cfscript>
 	<!--- I don't think index is being used - "list" is--->
-	<cffunction name="index">
-		<cfset payments = model("Handbookagbminfo").findAll(include="Handbookperson(Handbookstate)")>
-	</cffunction>
+	function index(){
+		payments = model("Handbookagbminfo").findAll(include="Handbookperson(Handbookstate)")
+	}
 
-</cfcomponent>
+}

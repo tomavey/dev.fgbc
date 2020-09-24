@@ -1,10 +1,12 @@
+<cfparam name="formAction" default="update">
+<div class="span11">
 <h1>Editing payment information:</h1>
 
 <cfoutput>
 
 			#errorMessagesFor("handbookagbminfo")#
 	
-			#startFormTag(action="update", key=params.key)#
+			#startFormTag(action=formAction, key=params.key)#
 
 			#putFormTag()#
 		
@@ -17,3 +19,4 @@
 
 #linkTo(text="Return to the listing", controller="Handbook-agbm", action="index")#
 </cfoutput>
+</div>

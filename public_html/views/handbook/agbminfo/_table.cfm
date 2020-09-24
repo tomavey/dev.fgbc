@@ -1,14 +1,14 @@
 <cfoutput>
 			<tr>	
 				<td>
-					#linkTo(text="#fname# #lname#", controller="handbook.people", action="show", key=personid)#<br/>
-					#inspireId(people['personid'][currentrow])#
+					#linkTo(text="#person.fname# #person.lname#", controller="handbook.people", action="show", key=person.personid)#<br/>
+					#inspireId(person.personid,person.lname)#
 					<cfif showAge && birthdayyear NEQ 1900>
 						<br/>#birthdayyear#
 					</cfif>
 				</td>	
 				<td>
-					#linkTo(text="#name#;#org_city#,#org_state#", controller="handbook.organizations", action="show", key=organizationid)#<cfif statusid is 5><p style="color:red;font-weight:bold">WARNING-This church has closed</p></cfif> 
+					#linkTo(text="#person.name#;#person.org_city#,#person.org_state#", controller="handbook.organizations", action="show", key=person.organizationid)#<cfif person.statusid is 5><p style="color:red;font-weight:bold">WARNING-This church has closed</p></cfif> 
 				</td>
 				<td>
 					<cfif isDefined("district")>#linkTo(text=district, action="list", key="members", params="district=#districtid#&groupby=district&showall=")#</cfif>
@@ -18,8 +18,8 @@
 				</td>
 			<cfif gotRights("superadmin,agbmadmin")>
 				<td>
-					#showTag(personid)#
-					#addTag(controller='Handbook.AgbmInfo', action="add", id=personid)#
+					#showTag(person.personid)#
+					#addTag(controller='Handbook.AgbmInfo', action="add", id=person.personid)#
 				</td>
 			</cfif>
 			</tr>

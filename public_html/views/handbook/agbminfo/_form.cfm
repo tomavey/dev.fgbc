@@ -5,11 +5,11 @@
 <cfoutput>
 
 			<p style="float:right">
-				<cfif !oldform>
+				<!--- <cfif !oldform>
 					#linkTo(text="Show old form with categories", controller="handbook.AgbmInfo", action=params.action, key=params.key, params="oldform=", class="btn")#
 				<cfelse>		
 					#linkTo(text="Show form with commissions", controller="handbook.AgbmInfo", action=params.action, key=params.key, params="", class="btn")#
-				</cfif>
+				</cfif> --->
 			</p>
 
 			<cfif gotRights("superadmin,agbmadmin") && !isDefined("params.key")>
