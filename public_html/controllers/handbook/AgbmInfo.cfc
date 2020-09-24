@@ -483,7 +483,7 @@
 			<cfreturn loc.return>
 		</cfif>
 
-		<cfreturn "AGBM Member">
+		<cfreturn "Inspire Member">
 
 	</cffunction>
 
