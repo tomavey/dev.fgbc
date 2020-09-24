@@ -417,7 +417,7 @@
 	</cffunction>
 
 	<cffunction name="json">
-		<cfset data = model("Handbookagbminfo").getAgbmMembers(publicOnly=true)>
+		<cfset data = queryToJson(getAgbmMembers())>
 		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
 	</cffunction>
 
