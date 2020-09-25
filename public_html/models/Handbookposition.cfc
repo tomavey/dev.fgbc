@@ -62,4 +62,19 @@ component extends="Model" output="false" {
 		return true;
 	}
 
+	function findOrphanedPositions(){
+		var positions = findAll()
+		orphanedPositions = queryFilter(positions, function(el){
+			var person = model("Handbookperson").findOne(where="id = #el.personid#", include="State")
+			var organization = model("Handbookorganization").findOne(where="id = #el.organizationid#", include="State")
+			if ( isObject(person) || isObject(organization) ) {
+				return false
+			} else {
+				return true
+			}
+		})
+		return orphanedPositions
+	}
+
+
 }
