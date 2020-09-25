@@ -33,7 +33,8 @@ component extends="Model" output="false" {
 			ORDER BY membershipfeeyear DESC
 		) AS i
 		ON i.personid = p.id
-		WHERE o.statusid IN (#getSetting("churchStatusForHandbook")#,5,10)
+		WHERE o.statusid IN (#getSetting("churchStatusForHandbook")#,5)
+			OR o.id = 900 ## picks up on Inspire members
 			AND t.p_sortorder <> 999
 			AND p.deletedAt IS NULL
 				AND t.deletedAt IS NULL
