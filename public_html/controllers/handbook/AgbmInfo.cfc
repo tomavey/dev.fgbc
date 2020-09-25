@@ -453,19 +453,26 @@
 
 	</cffunction>
 
+<cfscript>
+	public function testGetPositionForHandbookReport(){
+		ddd(getPositionForHandbookReport(233))
+	}
+</cfscript>
+
 	<cffunction name="getPositionForHandbookReport">
 	<cfargument name="personid" required="true" type="numeric">
 	<cfset var loc = arguments>
 	<cfset loc.whereString = "id=#loc.personid#">
 	<cfset loc.includeString = "Handbookpositions(Handbookpositiontype,Handbookorganization(State,Handbookstatus))">
-	<cfset loc.selectString = "name,statusid,status,handbookpositions.position as position,org_city,handbookstates.state_abbrev as state">
+	<cfset loc.selectString = "name,statusid,status,handbookpositions.position as position, org_city,handbookstates.state_abbrev as state">
 
-		<cfset loc.whereString1 = loc.whereString & " AND status = 'AGBM Only'">
+		<!---Not sure this next case is necessary, it is used to place a priority on a position marke as inspire or AGBM only but connected to a church other then the one they are on staff--->
+		<!--- <cfset loc.whereString1 = loc.whereString & " AND (Handbookpositiontypes.position = 'AGBM Only' OR Handbookpositiontypes.position = 'Inspire Only')">
 		<cfset loc.positions1 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString1, include=loc.includeString)>
 		<cfif loc.positions1.recordcount>
 			<cfset loc.return = gbcit(trim(loc.positions1.name)) & "; " & unrepeatcity(loc.positions1.org_city,loc.positions1.name) & " " & loc.positions1.state>
 			<cfreturn loc.return>
-		</cfif>
+		</cfif> --->
 
 
 		<cfset loc.whereString2 = loc.whereString & " AND status = 'Member'">
