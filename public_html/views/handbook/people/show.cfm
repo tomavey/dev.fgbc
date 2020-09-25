@@ -75,10 +75,10 @@
 					</p>
 
 					 <cfif isAgbmMember(params.key)>
-					 	<p>Member of the Association of Grace Brethren Ministers</p>
+					 	<p>Member of the Inspire, Charis Pastors Network</p>
 					 </cfif>
 					 <cfif isAGBM(params.key) and gotRights("office") and NOT isAgbmMember(params.key)>
-					 	<p>Former member of the AGBM.</p>
+					 	<p>Former member of the Inspire.</p>
 					 </cfif>
 	
 				</div>
