@@ -3,7 +3,9 @@
 <cfset previouscity = "">
 
 <div class="span11">
-
+	<cfoutput>
+		#linkto(text="Full Report", controller="handbook.districts", action="report", class="btn")#
+	</cfoutput>
 <cfoutput query="districts" group="district">
 	<p>
 		<span style="font-size:1em">#district#</span><br/>
