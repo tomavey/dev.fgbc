@@ -80,7 +80,6 @@
 					 <cfif isAGBM(params.key) and gotRights("office") and NOT isAgbmMember(params.key)>
 					 	<p>Former member of the AGBM.</p>
 					 </cfif>
-					 #isAgbmMember(params.key)#
 	
 				</div>
 
