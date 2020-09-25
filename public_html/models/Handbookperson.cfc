@@ -502,7 +502,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		maxIdOnLocalMachine = 300
 	){
 		var loc=arguments
-		var whereString = "id > 0 AND (reviewedAt < '#loc.lastReviewedBefore#' OR reviewedAt IS NULL) AND (updatedAt < '#loc.lastReviewedBefore#')"
+		var whereString = "id > 0 AND (reviewedAt < '#loc.lastReviewedBefore#' OR reviewedAt IS NULL) AND (updatedAt < '#loc.lastReviewedBefore#') AND statusid IN (#getSetting('churchAndOrgStatusForHandbook')#)"
 		loc.people = {}
 		loc.rowcount = 0
 		loc.previousid = 0
@@ -510,10 +510,10 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 			whereString = $buildWhereString(whereString,loc.type)
 			if ( isLocalMachine() ) {whereString = whereString & " AND id < #loc.maxIdOnLocalMachine# "}
 			if ( len(loc.tag) ) { whereString = whereString & " AND tag = '#loc.tag#'"}
-			selectString = "handbookpeople.id,lname,concat(lname,', ',fname) AS SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') AS reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') AS updatedAt"
+			selectString = "handbookpeople.id,lname,concat(lname,', ',fname) AS SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') AS reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') AS updatedAt, statusid"
 
 	
-			loc.peopleQ = findAll(where = whereString, include="State,Handbookpositions,Handbooktags", maxRows=arguments.maxrows, order=orderby, group="email")
+			loc.peopleQ = findAll(where = whereString, include="State,Handbookpositions(Handbookorganization),Handbooktags", maxRows=arguments.maxrows, order=orderby, group="email")
 
 			loc.people = $peopleQueryToArray(loc.peopleQ)
 			// ddd(loc.people)
