@@ -3,8 +3,8 @@
 				<td>
 					#linkTo(text="#person.fname# #person.lname#", controller="handbook.people", action="show", key=person.personid)#<br/>
 					#inspireId(person.personid,person.lname)#
-					<cfif showAge && birthdayyear NEQ 1900>
-						<br/>#birthdayyear#
+					<cfif showAge && person.birthdayyear NEQ 1900>
+						<br/>#person.birthdayyear#
 					</cfif>
 				</td>	
 				<td>

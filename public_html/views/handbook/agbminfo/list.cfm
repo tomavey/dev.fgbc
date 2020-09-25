@@ -1,43 +1,51 @@
 <cfparam name="people" type="query">
+<cfparam name="showAlphaMenu" default=true>
+<cfparam name="showAgeButton" default=true>
+<cfparam name="showDownloadButton" default=true>
+<cfparam name="pageTitle" default="">
 <!--- agbmlifememberAt --->
 <cfset count = 0>
 <cfset previousdistrict = "">
 <cfset previousalpha = "">
 <cfset showOrdainedOnly = false>
 <cfset showCommissionedOnly = false>
+
 <cfif isDefined("params.ordainedonly")>
 	<cfset showOrdainedOnly = true>
 </cfif>
 <cfif isDefined("params.commissionedonly")>
 	<cfset showCommissionedOnly = true>
 </cfif>
-
 <div class="table table-striped">
-<!---
-<h1><cfoutput>#getTitle()#</cfoutput></h1>	
---->
+<h1><cfoutput>#pageTitle#</cfoutput></h1>	
 <!--- <cfdump var="#people#" abort> --->
 <cfoutput>
 	<p>
-		<cfloop list="#getAlphabet()#" index="i">
-			#linkto(text=i, route="handbookAgbmList", params="type=members&alpha=#i#")#
-		</cfloop>
-		#linkto(text="ALL", route="handbookAgbmList")#
-		<cfif !showAge>
+		<cfif showAlphaMenu>
+			<cfloop list="#getAlphabet()#" index="i">
+				#linkto(text=i, route="handbookAgbmList", params="type=members&alpha=#i#")#
+			</cfloop>
+			#linkto(text="ALL", route="handbookAgbmList")#
+		</cfif>
+		<cfif !showAge && showAgeButton>
 			#linkTo(text="Show Year Born", action="list", params="byage=DESC", class="btn pull-right")#
 		</cfif>
 	</p>
 </cfoutput>
 
 <p>
-	<cfoutput query="districts">
-		#linkto(text=district, route="handbookAgbmList", params="type=members&district=#districtid#")#
-	</cfoutput>
-	<cfoutput>#linkto(text="ALL", route="handbookAgbmList", params="type=members&district=all")#</cfoutput>
+	<cfif isQuery("districts")>
+		<cfoutput query="districts">
+			#linkto(text=district, route="handbookAgbmList", params="type=members&district=#districtid#")#
+		</cfoutput>
+		<cfoutput>#linkto(text="ALL", route="handbookAgbmList", params="type=members&district=all")#</cfoutput>
+	</cfif>
 </p>
 
 <cfoutput>
-		#linkto(text="<i class='icon-download-alt'></i>", action="list", params=makeDownloadParamsList(), class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
+	<cfif showDownloadButton>
+		#linkto(text="<i class='icon-download-alt'></i>", action=params.action, params=makeDownloadParamsList(), class="tooltipleft btn download", title="Download this list as an excel spreadsheet")#
+	</cfif>
 </cfoutput>     
 
 <table>
@@ -67,7 +75,35 @@
 		</tr>
 	</thead>	
 	<tbody>
-    		<cfoutput query="people">
+		<cfscript>
+			for ( person in people ) {
+				if ( isDefined("params.district") and person.district IS NOT previousdistrict and params.district is not "all" ) {
+					writeOutput('
+						<tr>
+							<td colspan="5"><h2>#person.district#</h2></td>
+						</tr>	
+					')
+				}
+				if ( isDefined("params.alpha") and alpha IS NOT previousalpha and params.alpha is not "all" ) {
+					writeOutput('
+						<h2>#alpha#</h2>
+					')
+				}
+				REQUEST.lastpayment = getLastPayment(personid=person.personid,agbmlifememberAt=person.agbmlifememberAt,formatted=true)
+				REQUEST.payments = getPayments(personid=person.personid,agbmlifememberAt=person.agbmlifememberAt,formatted=true)
+						if ( !showOrdainedOnly || (showOrdainedOnly && find("Ordained",REQUEST.lastpayment)) || (showOrdainedOnly && isAgbmLifeMember(personid) && find("Ordained",REQUEST.lastpayment) ) ) {
+					if ( !showCommissionedOnly || (showCommissionedOnly && find("Commissioned",REQUEST.lastpayment)) || (showCommissionedOnly && isAgbmLifeMember(personid) && find("Commissioned",REQUEST.lastpayment)) ) {
+						writeOutput( #includePartial("table")# )
+						count = count + 1
+					}
+				}
+				previousdistrict = person.district
+				previousalpha = person.alpha
+			} 
+
+		</cfscript>
+
+    		<!--- <cfoutput query="people">
 				<cfif isDefined("params.district") and district IS NOT previousdistrict and params.district is not "all">
 				<tr>
 					<td colspan="5"><h2>#district#</h2></td>
@@ -86,7 +122,7 @@
 				</cfif>
 				<cfset previousdistrict = district>
 				<cfset previousalpha = alpha>
-    		</cfoutput>
+    		</cfoutput> --->
 	</tbody>
 </table>
 <cfif isDefined("params.key") and params.key is "all">

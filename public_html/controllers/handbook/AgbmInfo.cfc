@@ -232,22 +232,46 @@ function delete() {
 		if ( isDefined("params.excel") ) {
 			renderPage(template="download", layout="/layout_download")
 		}
+		pageTitle= "Men who have been paid up members for 9 of the past 10 years:"
+		showAlphaMenu = false
+		showAgeButton = false
+		showDownloadButton = false
+		renderPage(template="list")
 	}
 
 	function pastorsNotAgbm() {
 		if ( isDefined("params.type") && params.type == "seniorpastors" ) {
 			wherestring = "p_sortorder = 1 AND position LIKE '%pastor%' AND ";
+			headerHtml = '
+			<h3>Seniors Pastors that are not members of the Inspire</h3>
+			<p class="well">
+				These are Senior pastors (listed first in the handbook under the church listing) that are not current members of the Inspire. If they have been members in the past, their past payment information is shown under their name. Click the name for the handbook listing or the payment info for a payment history.
+			</p>
+			'
 		} else if ( isDefined("params.type") && params.type == "staffpastors" ) {
 			wherestring = "p_sortorder > 1 AND position LIKE '%pastor%' AND ";
+			headerHtml = '<h3>Staff Pastors that are not members of the Inspire</h3>
+			<p class="well">
+				These are Staff pastors (have the word "Pastor" in their title and are not senior pastors) that are not current members of the Inspire. If they have been members in the past, their past payment information is shown under their name. Click the name for the handbook listing or the payment info for a payment history.
+			</p>'
 		} else if ( isDefined("params.type") && params.type == "allpastors" ) {
 			wherestring = "position LIKE '%pastor%' AND ";
+			headerHtml = '<h3>All Pastors that are not members of the Inspire</h3>
+			<p class="well">
+				These are Staff and Senior pastors (have the word "Pastor" in their title and are not senior pastors) that are not current members of the Inspire. If they have been members in the past, their past payment information is shown under their name. Click the name for the handbook listing or the payment info for a payment history.
+			</p>'
 		} else {
 			wherestring = "p_sortorder < 500 AND ";
+			headerHtml = '<h3>Charis Fellowship Church Staff that are not members of the Inspire</h3>
+			<p class="well">
+				These are church staff that are not current members of the Inspire. If they have been members in the past, their past payment information is shown under their name. Click the name for the handbook listing or the payment info for a payment history.
+			</p>'
 		}
 		wherestring = wherestring & "statusid in (1,8,3,4,2,9) AND fnamegender = 'M' AND id <> 1";
-		srPastors = model("Handbookperson").findAll(
+		pastors = model("Handbookperson").findAll(
 				where=wherestring,
 				include="Handbookstate,Handbookpositions(Handbookorganization)", order="lname,fname");
+		pastors = pastors.filter( (el) => !isAgbmMember(el.id, params) )
 		if ( isDefined("params.download") ) {
 			renderPage(layout="/layout_download");
 		}

@@ -1,6 +1,8 @@
-<cfparam name="srpastors" type="query">
-<!--- <cfdump var="#srpastors#"><cfabort> --->
+<cfparam name="pastors" type="query">
+<cfparam name="headerHtml" default="???">
+
 <cfset count = 1>
+
 <cfif NOT isDefined("params.download")>
 	<cfoutput>
 		<cfif isDefined("params.key")>
@@ -12,27 +14,9 @@
 </cfif>
 
 <cfif !isDefined("params.download")>
-	<cfif isDefined("params.type") and params.type is "seniorpastors">
-		<h3>Seniors Pastors that are not members of the Inspire</h3>
-		<p class="well">
-			These are Senior pastors (listed first in the handbook under the church listing) that are not current members of the Inspire. If they have been members in the past, their past payment information is shown under their name. Click the name for the handbook listing or the payment info for a payment history.
-		</p>
-	<cfelseif isDefined("params.type") and params.type is "staffpastors">
-		<h3>Staff Pastors that are not members of the Inspire</h3>
-		<p class="well">
-			These are Staff pastors (have the word "Pastor" in their title and are not senior pastors) that are not current members of the Inspire. If they have been members in the past, their past payment information is shown under their name. Click the name for the handbook listing or the payment info for a payment history.
-		</p>
-	<cfelseif isDefined("params.type") and params.type is "allpastors">
-		<h3>All Pastors that are not members of the Inspire</h3>
-		<p class="well">
-			These are Staff and Senior pastors (have the word "Pastor" in their title and are not senior pastors) that are not current members of the Inspire. If they have been members in the past, their past payment information is shown under their name. Click the name for the handbook listing or the payment info for a payment history.
-		</p>
-	<cfelse>
-		<h3>Charis Fellowship Church Staff that are not members of the Inspire</h3>
-		<p class="well">
-			These are church staff that are not current members of the Inspire. If they have been members in the past, their past payment information is shown under their name. Click the name for the handbook listing or the payment info for a payment history.
-		</p>
-	</cfif>
+	<cfoutput>
+		#headerHtml#
+	</cfoutput>
 </cfif>
 
 <cfif isDefined("params.download")>
@@ -60,9 +44,8 @@
 	<ul>
 </cfif>
 
-<cfoutput query="srpastors" group="id">
-  <cfif !isAgbmmember(id,params)>
-    <cfset lastpaymentinfo = getLastPayment(personid=id,formatted="false")>
+<cfoutput query="pastors" group="id">
+  <cfset lastpaymentinfo = getLastPayment(personid=id,formatted="false")>
     
 	<cfif lastpaymentinfo contains "na">
     	<cfset showpaylink = false>
@@ -105,7 +88,6 @@
     <cfset count = count +1>
 
 	</cfif>
-  </cfif>
 </cfoutput>
 
 <cfif isDefined("params.download")>
