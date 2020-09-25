@@ -513,7 +513,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 			selectString = "handbookpeople.id,lname,concat(lname,', ',fname) AS SelectName,email,email2,DATE_FORMAT(reviewedAt,'%d %b %y') AS reviewedAt,reviewedBy,DATE_FORMAT(handbookpeople.updatedAt,'%d %b %y') AS updatedAt"
 
 	
-			loc.peopleQ = findAll(where = whereString, include="State,Handbookpositions,Handbooktags", maxRows=arguments.maxrows, order=orderby, group="email")
+			loc.peopleQ = findAll(where = whereString, include="State,Handbookpositions(Handbookorganization),Handbooktags", maxRows=arguments.maxrows, order=orderby, group="email")
 
 			loc.people = $peopleQueryToArray(loc.peopleQ)
 			// ddd(loc.people)
