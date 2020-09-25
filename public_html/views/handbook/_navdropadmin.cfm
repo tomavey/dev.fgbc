@@ -15,7 +15,7 @@
         					#linkto(text="Stats", controller="handbook.statistics", action="index", title="Handbook Administration", class="tooltip2")#
         				</li>
                         <li>
-                            #linkto(text="Districts", controller="handbook.districts", action="index", id="navsearch", title="Districts", class="tooltip2")#
+                            #linkto(text="Districts", controller="handbook.districts", action="handbookreport", id="navsearch", title="Districts", class="tooltip2")#
                         </li>
                         <li>
                             #linkto(text="Page Views", controller="handbook.updates", action="hits", id="navsearch", title="Page Views in the handbook.", class="tooltip2")#
