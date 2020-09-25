@@ -4,7 +4,7 @@
 
 <div class="span11">
 	<cfoutput>
-		#linkto(text="Full Report", controller="handbook.districts", action="report", class="btn")#
+		#linkto(text="Full Report", controller="handbook.districts", action="report", class="btn pull-right")#
 	</cfoutput>
 <cfoutput query="districts" group="district">
 	<p>
