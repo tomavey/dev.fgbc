@@ -113,12 +113,12 @@ component extends="Controller" output="false" {
 	}
 
 	function deleteOrphanedPositions(){
-		orphanedTags = model("Handbooktag").findOrphanedPositions()
-		queryEach(orphanedTags, function(el){
-			var tag = model("Handbooktag").findOne(where="id=#el.id#")
-			tag.delete()
+		var orphanedPositions = model("Handbookposition").findOrphanedPositions()
+		queryEach(orphanedPositions, function(el){
+			var position = model("Handbookposition").findOne(where="id=#el.id#")
+			position.delete()
 		})
-		redirectTo(action="orphanedTags")
+		redirectTo(action="orphanedPositions")
 	}
 
 }
