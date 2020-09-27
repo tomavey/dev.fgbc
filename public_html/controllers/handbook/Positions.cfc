@@ -109,23 +109,16 @@ component extends="Controller" output="false" {
 	}
 
 	public function orphanedPositions(){
-		orphanedPositions = model("Handbooktag").findOrphanedPositions()
-	}
-
-
-	public function orphanedpositions(){
-
+		orphanedPositions = model("Handbookposition").findOrphanedPositions()
 	}
 
 	function deleteOrphanedPositions(){
-		orphanedTags = model("Handbooktag").findOrphanedTags()
+		orphanedTags = model("Handbooktag").findOrphanedPositions()
 		queryEach(orphanedTags, function(el){
 			var tag = model("Handbooktag").findOne(where="id=#el.id#")
 			tag.delete()
 		})
 		redirectTo(action="orphanedTags")
 	}
-
-
 
 }
