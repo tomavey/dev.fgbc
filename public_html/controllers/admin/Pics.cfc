@@ -66,7 +66,7 @@ component extends="Controller" output="false" {
       type="file", 
       listInfo="query", 
       sort=sortBy,
-      filter="*.jpg|*.png|.gif"
+      filter="*.jpg|*.png|.gif|*.eps"
       )
       return files
   }
