@@ -345,6 +345,10 @@ component extends="Controller" output="true" {
 		}
 		renderPage(layout="/handbook/layout_handbook");
 	}
+	
+	function orphanedTags(){
+		orphanedTags = model("Handbooktag").findOrphanedTags	()
+	}
 
 <!------------------------------->
 <!---------END OF REPORTS-------->
@@ -396,10 +400,6 @@ component extends="Controller" output="true" {
 		if ( isDefined("params.coUsername") && isDefined( "session.auth.username")) {
 			session.auth.coUsername = params.coUserName
 		}
-	}
-
-	function orphanedTags(){
-		orphanedTags = model("Handbooktag").findOrphanedTags	()
 	}
 
 	function deleteOrphanedTags(){
