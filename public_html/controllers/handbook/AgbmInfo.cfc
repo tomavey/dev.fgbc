@@ -494,7 +494,7 @@ function delete() {
 			loc.return = gbcit(trim(loc.positions3.name)) & "; " & unrepeatcity(loc.positions3.org_city,loc.positions3.name) & " " & loc.positions3.state;
 			return loc.return;
 		}
-		return "AGBM Member";
+		return "Inspire Member";
 	}
 	
 
@@ -524,7 +524,7 @@ function delete() {
 		return "NA";
 	}
 
-	public function getAgbmMembers(orderby = "lname, fname, i.createdAt DESC"){
+	public function getBestPersonPositionAsStruct(orderby = "lname, fname, i.createdAt DESC"){
 		var people = model("Handbookagbminfo").getAgbm(orderby=arguments.orderby)
 		var allMembers = people.filter( (el) => el.lastpayment == CurrentMembershipYear || len(el.agbmlifememberat) )
 		return allMembers

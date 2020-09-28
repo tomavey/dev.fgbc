@@ -53,34 +53,6 @@ component extends="Model" output="false" {
 		return members
 	}
 
-	public function getAgbmMembers(maxrows = -1, orderby="lname", district="Arctic", search="", refresh=true){
-		var loc = arguments;
-		var i = 1;
-		var ii = 1;
-		var memberArray = [];
-		if (loc.refresh){
-			session.handbook.membersArray = [];
-			session.handbook.membersArray = getAllAGBM(maxrows);	
-		}
-		loc.allpersons = session.handbook.membersArray;
-		loc.allAgbmMembers = [];
-		for (i=1; i LTE arrayLen(loc.allpersons); i=i+1){
-			if (isAgbmMember(loc.allpersons[i].id)){
-				loc.allAgbmMembers[ii] = loc.allpersons[i];
-				loc.allAgbmMembers[ii].position = $getBestPersonPositionAsStruct(loc.allpersons[i].id);
-				loc.allAgbmMembers[ii].district = $getBestPersonPositionAsStruct(loc.allpersons[i].id).district;
-				loc.allAgbmMembers[ii].districtid = $getBestPersonPositionAsStruct(loc.allpersons[i].id).districtid;
-				loc.allAgbmMembers[ii].church = $getBestPersonPositionAsStruct(loc.allpersons[i].id).church;
-				loc.allAgbmMembers[ii].churchid = $getBestPersonPositionAsStruct(loc.allpersons[i].id).churchid;
-				loc.allAgbmMembers[ii].membershipfees = $getMembershipFeeInfo(loc.allpersons[i].id);
-				ii = ii + 1;
-			}
-		}
-		loc.allAgbmMembers = $arrayOfStructsSort(loc.allAgbmMembers,loc.orderby);
-		return loc.allAgbmMembers;
-		writedump(loc.allAgbmMembers);abort;
-	};
-
 	private function $getBestPersonPositionAsStruct(personid){
 		var loc = arguments;
 		var i = 1;
@@ -278,7 +250,36 @@ component extends="Model" output="false" {
 	};
 
 //Likely trash - need to test more
-	
+
+	// public function XgetAgbmMembers(maxrows = -1, orderby="lname", district="Arctic", search="", refresh=true){
+	// 	var loc = arguments;
+	// 	var i = 1;
+	// 	var ii = 1;
+	// 	var memberArray = [];
+	// 	if (loc.refresh){
+	// 		session.handbook.membersArray = [];
+	// 		session.handbook.membersArray = getAllAGBM(maxrows);	
+	// 	}
+	// 	loc.allpersons = session.handbook.membersArray;
+	// 	loc.allAgbmMembers = [];
+	// 	for (i=1; i LTE arrayLen(loc.allpersons); i=i+1){
+	// 		if (isAgbmMember(loc.allpersons[i].id)){
+	// 			loc.allAgbmMembers[ii] = loc.allpersons[i];
+	// 			loc.allAgbmMembers[ii].position = $getBestPersonPositionAsStruct(loc.allpersons[i].id);
+	// 			loc.allAgbmMembers[ii].district = $getBestPersonPositionAsStruct(loc.allpersons[i].id).district;
+	// 			loc.allAgbmMembers[ii].districtid = $getBestPersonPositionAsStruct(loc.allpersons[i].id).districtid;
+	// 			loc.allAgbmMembers[ii].church = $getBestPersonPositionAsStruct(loc.allpersons[i].id).church;
+	// 			loc.allAgbmMembers[ii].churchid = $getBestPersonPositionAsStruct(loc.allpersons[i].id).churchid;
+	// 			loc.allAgbmMembers[ii].membershipfees = $getMembershipFeeInfo(loc.allpersons[i].id);
+	// 			ii = ii + 1;
+	// 		}
+	// 	}
+	// 	loc.allAgbmMembers = $arrayOfStructsSort(loc.allAgbmMembers,loc.orderby);
+	// 	return loc.allAgbmMembers;
+	// 	writedump(loc.allAgbmMembers);abort;
+	// };
+
+
 
 	//Not Used?
 
