@@ -4,6 +4,13 @@ component extends="Controller" output="false" {
 		usesLayout(template="/handbook/layout_handbook", except="download");
 		filters(through="gotBasicHandbookRights");
 	}
+
+
+
+<!-------------------------->
+<!--------CRUD-------------->
+<!-------------------------->
+
 	//  handbook-positions/index 
 
 	public function index() {
@@ -97,6 +104,17 @@ component extends="Controller" output="false" {
 		}
 	}
 
+<!-------------------------->
+<!--------END OF CRUD------->
+<!-------------------------->
+
+
+
+
+<!-------------------------->
+<!--------REPORTS----------->
+<!-------------------------->
+
 	public function listpeople() {
 		var whereString = "p_sortorder < 500 AND personid <> 1 AND fname <> 'No'";
 		if ( isDefined("params.positionTypeId") && params.positionTypeId ) {
@@ -106,6 +124,31 @@ component extends="Controller" output="false" {
 		if ( isDefined("params.plain") ) {
 			renderPage(layout="/layout_naked");
 		}
+	}
+
+	public function orphanedPositions(){
+		orphanedPositions = model("Handbookposition").findOrphanedPositions()
+		renderPage(layout="/handbook/layout_handbook2")
+	}
+<!-------------------------->
+<!--------END OF REPORTS---->
+<!-------------------------->
+
+
+
+
+
+<!-------------------------->
+<!--------SERVICES---------->
+<!-------------------------->
+
+	function deleteOrphanedPositions(){
+		var orphanedPositions = model("Handbookposition").findOrphanedPositions()
+		queryEach(orphanedPositions, function(el){
+			var position = model("Handbookposition").findOne(where="id=#el.id#")
+			position.delete()
+		})
+		redirectTo(action="orphanedPositions")
 	}
 
 }

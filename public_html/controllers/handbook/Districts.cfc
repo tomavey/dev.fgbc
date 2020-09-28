@@ -4,7 +4,7 @@
 		<cfset usesLayout(template="/handbook/layout_handbook2")>
 		<cfset filters(through="setReturn", only="show,index")>
 		<cfset filters(through="getDistrict", only="edit,show")>
-		<cfset filters(through="checkSessionAuthEmail", except="setSessionAuthEmail")>
+		<!--- <cfset filters(through="checkSessionAuthEmail", except="setSessionAuthEmail")> --->
 		<cfset filters(through="getDistricts", only="index,report")>
 		<cfset filters(through="getAgbmRegions", only="new,edit")>
 	</cffunction>

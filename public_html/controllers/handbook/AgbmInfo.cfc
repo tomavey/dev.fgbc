@@ -1,18 +1,10 @@
 component extends="Controller" output="false"{
 
-<<<<<<< HEAD
 	function init() {
 		usesLayout(template="/handbook/layout_agbm");
 		filters(through="getCurrentMembershipYear");
 		filters(through="gotAgbmRights", except="rss,publiclist,json,list,pastorsnotagbm");
 	}
-=======
-	<cffunction name="init">
-		<cfset usesLayout(template="/handbook/layout_agbm")>
-		<cfset filters(through="getCurrentMembershipYear")>
-		<cfset filters(through="gotAgbmRights", except="rss,publiclist,json,list,pastorsnotagbm,handbookMembershipReport")>
-	</cffunction>
->>>>>>> master
 
 <!-------------->
 <!----FILTERS--->

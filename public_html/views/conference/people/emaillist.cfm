@@ -2,7 +2,7 @@
 
 <cfif isDefined("params.key") and params.key is "download">
 <cfelse>
-	<cfoutput>#linkto(text="Download as excel", key="download")#</cfoutput>
+	<cfoutput>#linkto(text="Download as excel", controller="conference.people", action="emaillist", key="download")#</cfoutput>
 </cfif>
 
 <table>
