@@ -110,6 +110,7 @@ component extends="Controller" output="false" {
 
 	public function orphanedPositions(){
 		orphanedPositions = model("Handbookposition").findOrphanedPositions()
+		renderPage(layout="/handbook/layout_handbook2")
 	}
 
 	function deleteOrphanedPositions(){

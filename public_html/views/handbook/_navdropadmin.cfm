@@ -72,5 +72,14 @@
                             #linkTo(text="Settings", controller="admin.settings", action="index", params="category=handbook", id="navsearch", title="Handbook Settings", class="tooltip2")#
                         </li>
             </cfif>
+            <cfif gotRights("superadmin")>
+                <li>
+                    #linkto(text="Orphaned Positions", controller="handbook.positions", action="orphanedPositions", id="navsearch", title="Positions that don't work!", class="tooltip2")#
+                </li>
+                <li>
+                    #linkto(text="Orphaned Tags", controller="handbook.tags", action="orphanedTags", id="navsearch", title="Tags that don't work!", class="tooltip2")#
+                </li>
+
+            </cfif>
 
 </cfoutput>
