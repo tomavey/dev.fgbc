@@ -53,81 +53,6 @@ component extends="Model" output="false" {
 		return members
 	}
 
-	private function $getBestPersonPositionAsStruct(personid){
-		var loc = arguments;
-		var i = 1;
-		var thisPosition = {};
-		loc.positions = model("Handbookposition").findAll(select="id,position,positiontypeid, p_sortorder,personid,organizationid,selectName,district,districtid", where="personid = #loc.personid#", include="Handbookorganization(State,Handbookdistrict)");
-		loc.positionsArray = queryToArray(loc.positions);
-		for (i=1; i LTE arrayLen(loc.positionsArray); i=i+1){
-			if (loc.positionsArray[i].position IS "AGBM Only" or loc.positionsArray[i].positionTypeId is 32)
-			{
-				thisPosition = $createPositionStruct(loc.positionsArray[i]);
-				return(thisPosition);
-			}
-			else {
-				thisPosition = $createPositionStruct(loc.positionsArray[i]);
-			}
-		}
-		return(thisPosition);
-	}
-
-	private function $createPositionStruct(position){
-		var loc = arguments;
-		var thisPosition = {};
-				thisPosition.position = loc.position.position;
-				thisPosition.positionid = loc.position.id;
-				thisPosition.sortorder = loc.position.p_sortorder;
-				thisPosition.churchid = loc.position.organizationid;
-				thisPosition.church = loc.position.selectName;
-				thisPosition.district = loc.position.district;
-				thisPosition.districtid = loc.position.districtid;
-			return thisPosition;
-	}
-
-	private function $getMembershipFeeInfo(required number personid){
-		var loc = arguments;
-		var personInfoArray = [];
-		var personInfo = findAll(select="id,membershipfeeyear,membershipfee,category", where = "personid = #loc.personid#", order="membershipfeeyear DESC");
-		var personInfoArray = queryToArray(personInfo);
-		return personInfoArray;
-	}
-
-	private function $arrayOfStructsSort(aOfS,key){
-			//by default we'll use an ascending sort
-			var sortOrder = "asc";		
-			//by default, we'll use a textnocase sort
-			var sortType = "textnocase";
-			//by default, use ascii character 30 as the delim
-			var delim = ".";
-			//make an array to hold the sort stuff
-			var sortArray = arraynew(1);
-			//make an array to return
-			var returnArray = arraynew(1);
-			//grab the number of elements in the array (used in the loops)
-			var count = arrayLen(aOfS);
-			//make a variable to use in the loop
-			var ii = 1;
-			//if there is a 3rd argument, set the sortOrder
-			if(arraylen(arguments) GT 2)
-				sortOrder = arguments[3];
-			//if there is a 4th argument, set the sortType
-			if(arraylen(arguments) GT 3)
-				sortType = arguments[4];
-			//if there is a 5th argument, set the delim
-			if(arraylen(arguments) GT 4)
-				delim = arguments[5];
-			//loop over the array of structs, building the sortArray
-			for(ii = 1; ii lte count; ii = ii + 1)
-				sortArray[ii] = aOfS[ii][key] & delim & ii;
-			//now sort the array
-			arraySort(sortArray,sortType,sortOrder);
-			//now build the return array
-			for(ii = 1; ii lte count; ii = ii + 1)
-				returnArray[ii] = aOfS[listLast(sortArray[ii],delim)];
-			//return the array
-			return returnArray;
-	}
 
 	function findAllMembers(
 		required string currentMembershipYear,
@@ -213,18 +138,6 @@ component extends="Model" output="false" {
 	}
 
 
-	function Handbookagbminfoasjson(currentMembershipYear="#currentMembershipYear()#", publicOnly="false") {
-		var newData = "";
-		var data = findAllMembers(currentMembershipYear=currentmembershipyear, orderby="lname,fname", publicOnly = arguments.publicOnly);
-		cfquery( dbtype="query", name="newData" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
-	
-			writeOutput("select personid, lname, fname, name, org_city, org_state as state, district
-				from data");
-		}
-		data = QueryToJson(newData);
-		return data;
-	}
-	
 	function isAgbmMember(required numeric personid, currentMembershipYear="#currentMembershipYear()#") {
 		var loc=structNew();
 		loc = arguments;
@@ -243,13 +156,109 @@ component extends="Model" output="false" {
 		}
 	}
 
-	public function getAllAgbm(maxrows = 100){
-		var people = model("Handbookperson").findAll(select="id, fname, lname, selectName", include="State,Handbookpositions", maxrows=arguments.maxrows);
-		var peopleStruct = queryToArray(people);
-		return peopleStruct;
-	};
-
+	
 //Likely trash - need to test more
+
+	// public function getAllAgbm(maxrows = 100){
+	// 	var people = model("Handbookperson").findAll(select="id, fname, lname, selectName", include="State,Handbookpositions", maxrows=arguments.maxrows);
+	// 	var peopleStruct = queryToArray(people);
+	// 	return peopleStruct;
+	// };
+
+
+	// function Handbookagbminfoasjson(currentMembershipYear="#currentMembershipYear()#", publicOnly="false") {
+	// 	var newData = "";
+	// 	var data = findAllMembers(currentMembershipYear=currentmembershipyear, orderby="lname,fname", publicOnly = arguments.publicOnly);
+	// 	cfquery( dbtype="query", name="newData" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
+
+	// 		writeOutput("select personid, lname, fname, name, org_city, org_state as state, district
+	// 			from data");
+	// 	}
+	// 	data = QueryToJson(newData);
+	// 	return data;
+	// }
+
+
+
+	// private function $arrayOfStructsSort(aOfS,key){
+	// 	//by default we'll use an ascending sort
+	// 	var sortOrder = "asc";		
+	// 	//by default, we'll use a textnocase sort
+	// 	var sortType = "textnocase";
+	// 	//by default, use ascii character 30 as the delim
+	// 	var delim = ".";
+	// 	//make an array to hold the sort stuff
+	// 	var sortArray = arraynew(1);
+	// 	//make an array to return
+	// 	var returnArray = arraynew(1);
+	// 	//grab the number of elements in the array (used in the loops)
+	// 	var count = arrayLen(aOfS);
+	// 	//make a variable to use in the loop
+	// 	var ii = 1;
+	// 	//if there is a 3rd argument, set the sortOrder
+	// 	if(arraylen(arguments) GT 2)
+	// 		sortOrder = arguments[3];
+	// 	//if there is a 4th argument, set the sortType
+	// 	if(arraylen(arguments) GT 3)
+	// 		sortType = arguments[4];
+	// 	//if there is a 5th argument, set the delim
+	// 	if(arraylen(arguments) GT 4)
+	// 		delim = arguments[5];
+	// 	//loop over the array of structs, building the sortArray
+	// 	for(ii = 1; ii lte count; ii = ii + 1)
+	// 		sortArray[ii] = aOfS[ii][key] & delim & ii;
+	// 	//now sort the array
+	// 	arraySort(sortArray,sortType,sortOrder);
+	// 	//now build the return array
+	// 	for(ii = 1; ii lte count; ii = ii + 1)
+	// 		returnArray[ii] = aOfS[listLast(sortArray[ii],delim)];
+	// 	//return the array
+	// 	return returnArray;
+	// }
+
+
+
+	// private function $getMembershipFeeInfo(required number personid){
+	// 	var loc = arguments;
+	// 	var personInfoArray = [];
+	// 	var personInfo = findAll(select="id,membershipfeeyear,membershipfee,category", where = "personid = #loc.personid#", order="membershipfeeyear DESC");
+	// 	var personInfoArray = queryToArray(personInfo);
+	// 	return personInfoArray;
+	// }
+
+
+	// private function $getBestPersonPositionAsStruct(personid){
+	// 	var loc = arguments;
+	// 	var i = 1;
+	// 	var thisPosition = {};
+	// 	loc.positions = model("Handbookposition").findAll(select="id,position,positiontypeid, p_sortorder,personid,organizationid,selectName,district,districtid", where="personid = #loc.personid#", include="Handbookorganization(State,Handbookdistrict)");
+	// 	loc.positionsArray = queryToArray(loc.positions);
+	// 	for (i=1; i LTE arrayLen(loc.positionsArray); i=i+1){
+	// 		if (loc.positionsArray[i].position IS "AGBM Only" or loc.positionsArray[i].positionTypeId is 32)
+	// 		{
+	// 			thisPosition = $createPositionStruct(loc.positionsArray[i]);
+	// 			return(thisPosition);
+	// 		}
+	// 		else {
+	// 			thisPosition = $createPositionStruct(loc.positionsArray[i]);
+	// 		}
+	// 	}
+	// 	return(thisPosition);
+	// }
+
+	// private function $createPositionStruct(position){
+	// 	var loc = arguments;
+	// 	var thisPosition = {};
+	// 			thisPosition.position = loc.position.position;
+	// 			thisPosition.positionid = loc.position.id;
+	// 			thisPosition.sortorder = loc.position.p_sortorder;
+	// 			thisPosition.churchid = loc.position.organizationid;
+	// 			thisPosition.church = loc.position.selectName;
+	// 			thisPosition.district = loc.position.district;
+	// 			thisPosition.districtid = loc.position.districtid;
+	// 		return thisPosition;
+	// }
+
 
 	// public function XgetAgbmMembers(maxrows = -1, orderby="lname", district="Arctic", search="", refresh=true){
 	// 	var loc = arguments;
