@@ -951,7 +951,7 @@ private function listedAsCity (org_city, listed_as_city) {
 	return org_city
 }
 
-public function linkToPlus(required addParams,class="",text="link",oldurl=cgi.http_referer,queryString=cgi.query_string,showIf=true){
+public function linkToPlus(required addParams,class="",text="link",oldurl=cgi.path_info,queryString=cgi.query_string,showIf=true){
 	// writeDump(#arguments#);abort;
 	if ( !find(addParams,oldUrl) ) { 
 		var delim = "?"
