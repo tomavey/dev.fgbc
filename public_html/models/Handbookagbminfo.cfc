@@ -217,46 +217,46 @@ component extends="Model" output="false" {
 
 
 
-	// private function $getMembershipFeeInfo(required number personid){
-	// 	var loc = arguments;
-	// 	var personInfoArray = [];
-	// 	var personInfo = findAll(select="id,membershipfeeyear,membershipfee,category", where = "personid = #loc.personid#", order="membershipfeeyear DESC");
-	// 	var personInfoArray = queryToArray(personInfo);
-	// 	return personInfoArray;
-	// }
+	private function $getMembershipFeeInfo(required number personid){
+		var loc = arguments;
+		var personInfoArray = [];
+		var personInfo = findAll(select="id,membershipfeeyear,membershipfee,category", where = "personid = #loc.personid#", order="membershipfeeyear DESC");
+		var personInfoArray = queryToArray(personInfo);
+		return personInfoArray;
+	}
 
 
-	// private function $getBestPersonPositionAsStruct(personid){
-	// 	var loc = arguments;
-	// 	var i = 1;
-	// 	var thisPosition = {};
-	// 	loc.positions = model("Handbookposition").findAll(select="id,position,positiontypeid, p_sortorder,personid,organizationid,selectName,district,districtid", where="personid = #loc.personid#", include="Handbookorganization(State,Handbookdistrict)");
-	// 	loc.positionsArray = queryToArray(loc.positions);
-	// 	for (i=1; i LTE arrayLen(loc.positionsArray); i=i+1){
-	// 		if (loc.positionsArray[i].position IS "AGBM Only" or loc.positionsArray[i].positionTypeId is 32)
-	// 		{
-	// 			thisPosition = $createPositionStruct(loc.positionsArray[i]);
-	// 			return(thisPosition);
-	// 		}
-	// 		else {
-	// 			thisPosition = $createPositionStruct(loc.positionsArray[i]);
-	// 		}
-	// 	}
-	// 	return(thisPosition);
-	// }
+	private function $getBestPersonPositionAsStruct(personid){
+	 	var loc = arguments;
+	 	var i = 1;
+	 	var thisPosition = {};
+	 	loc.positions = model("Handbookposition").findAll(select="id,position,positiontypeid, p_sortorder,personid,organizationid,selectName,district,districtid", where="personid = #loc.personid#", include="Handbookorganization(State,Handbookdistrict)");
+	 	loc.positionsArray = queryToArray(loc.positions);
+	 	for (i=1; i LTE arrayLen(loc.positionsArray); i=i+1){
+	 		if (loc.positionsArray[i].position IS "AGBM Only" or loc.positionsArray[i].positionTypeId is 32)
+	 		{
+	 			thisPosition = $createPositionStruct(loc.positionsArray[i]);
+	 			return(thisPosition);
+	 		}
+	 		else {
+	 			thisPosition = $createPositionStruct(loc.positionsArray[i]);
+	 		}
+	 	}
+	 	return(thisPosition);
+	 }
 
-	// private function $createPositionStruct(position){
-	// 	var loc = arguments;
-	// 	var thisPosition = {};
-	// 			thisPosition.position = loc.position.position;
-	// 			thisPosition.positionid = loc.position.id;
-	// 			thisPosition.sortorder = loc.position.p_sortorder;
-	// 			thisPosition.churchid = loc.position.organizationid;
-	// 			thisPosition.church = loc.position.selectName;
-	// 			thisPosition.district = loc.position.district;
-	// 			thisPosition.districtid = loc.position.districtid;
-	// 		return thisPosition;
-	// }
+	private function $createPositionStruct(position){
+	 	var loc = arguments;
+	 	var thisPosition = {};
+			thisPosition.position = loc.position.position;
+		thisPosition.positionid = loc.position.id;
+		thisPosition.sortorder = loc.position.p_sortorder;
+		thisPosition.churchid = loc.position.organizationid;
+		thisPosition.church = loc.position.selectName;
+		thisPosition.district = loc.position.district;
+		thisPosition.districtid = loc.position.districtid;
+		return thisPosition;
+		}
 
 
 	public function getAgbmMembers(maxrows = -1, orderby="lname", district="Arctic", search="", refresh=true){

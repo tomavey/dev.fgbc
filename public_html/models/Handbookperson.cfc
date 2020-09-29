@@ -557,142 +557,142 @@ private function $getSelectStringForDates(){
 <!------AGBM FINDERS - Probably trash ----->
 <!----------------------->
 	
-// function XfindAgbm(required struct params) {
-// 	var loc=structNew()
-// 	loc.return = structNew()
-// 	cfparam( default="members", name="session.params.key" )
-// 	cfparam( default=1, name="params.page" )
-// 	cfparam( default=1000000, name="params.maxpage" )
-// 	cfparam( default=-1, name="params.maxrows" )
-// 	// Set up query strings for model call
-// 	loc.includeString = "Handbookgroup(Handbookgrouptype),Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict)),Handbookagbminfo,Handbookprofile"
-// 	loc.orderString = "Lname,Fname,positionTypeId DESC"
-// 	// If no search, use a grouptypeid
-// 	if ( !isDefined("params.search") ) {
-// 		switch ( session.params.key ) {
-// 			case  "members":
-// 				loc.whereString = "membershipfeeyear = #currentMembershipYear(params)#"
-// 				break
-// 			case  "mail":
-// 				loc.whereString = "membershipfeeyear < #currentMembershipYear(params)# OR groupTypeId = 16"
-// 				break
-// 			case  "handbook":
-// 				loc.whereString = "p_sortorder < 500"
-// 				break
-// 			case  "all":
-// 				loc.whereString = "p_sortorder < 1000"
-// 				break
-// 			default:
-// 				loc.whereString = "id>0"
-// 				break
-// 		}
-// 		// For Handbook Membership Report
-// 		if ( isDefined("params.category") ) {
-// 			loc.wherestring = "membershipfeeyear = #currentMembershipYear(params)# AND category = #params.category#"
-// 		}
-// 		if ( isDefined("params.ordained") && params.ordained ) {
-// 			loc.wherestring = loc.wherestring & " AND ordained = 1"
-// 		}
-// 		if ( isDefined("params.licensed") && params.licensed ) {
-// 			loc.wherestring = loc.wherestring & " AND licensed = 1"
-// 		}
-// 		if ( isDefined("params.commissioned") && params.commissioned ) {
-// 			loc.wherestring = loc.wherestring & " AND commissioned = 1"
-// 		}
-// 		if ( isDefined("params.mentored") && params.mentored ) {
-// 			loc.wherestring = loc.wherestring & " AND mentored = 1"
-// 		}
-// 		// For district grouping
-// 		if ( isDefined("params.groupby") && params.groupby == "District" ) {
-// 			loc.orderString = "District," & loc.orderString
-// 		} else if ( isDefined("params.groupby") && params.groupby == "category" ) {
-// 			loc.orderString = "Category," & loc.orderString
-// 		} else if ( isDefined("params.groupby") && params.groupby == "age" ) {
-// 			loc.orderString = "birthdayasstring"
-// 		}
-// 		if ( isDefined("params.district") ) {
-// 			params.groupby = "District"
-// 			loc.whereString = "districtid=#params.district#"
-// 			loc.orderString = "District," & loc.orderString
-// 		}
-// 		// writeDump(loc.whereString);abort;
-// 	} else {
-// 		// If a search string is provided
-// 		loc.whereString ="lname like '#params.search#%' OR
-// 							fname like '#params.search#%' OR
-// 							city like '#params.search#%' OR
-// 							state_mail_abbrev like '#params.search#%' OR
-// 							district like '#params.search#%'"
-// 		loc.orderString="lname,fname,positionTypeId DESC"
-// 	}
-// 	// Run the model method using where, order, include and pagination data
-// 	loc.return.people = findAll(
-// 						where=loc.whereString,
-// 						order=loc.orderstring,
-// 						include=loc.includeString,
-// 						page=params.page,
-// 						perPage=params.maxpage,
-// 						distinct = true,
-// 						maxrows=params.maxrows
-// 						)
-// 	loc.return.params = params
-// 	return loc.return
-// }
+function findAgbm(required struct params) {
+	var loc=structNew()
+	loc.return = structNew()
+	cfparam( default="members", name="session.params.key" )
+	cfparam( default=1, name="params.page" )
+	cfparam( default=1000000, name="params.maxpage" )
+	cfparam( default=-1, name="params.maxrows" )
+	// Set up query strings for model call
+	loc.includeString = "Handbookgroup(Handbookgrouptype),Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict)),Handbookagbminfo,Handbookprofile"
+	loc.orderString = "Lname,Fname,positionTypeId DESC"
+	// If no search, use a grouptypeid
+	if ( !isDefined("params.search") ) {
+		switch ( session.params.key ) {
+			case  "members":
+				loc.whereString = "membershipfeeyear = #currentMembershipYear(params)#"
+				break
+			case  "mail":
+				loc.whereString = "membershipfeeyear < #currentMembershipYear(params)# OR groupTypeId = 16"
+				break
+			case  "handbook":
+				loc.whereString = "p_sortorder < 500"
+				break
+			case  "all":
+				loc.whereString = "p_sortorder < 1000"
+				break
+			default:
+				loc.whereString = "id>0"
+				break
+		}
+		// For Handbook Membership Report
+		if ( isDefined("params.category") ) {
+			loc.wherestring = "membershipfeeyear = #currentMembershipYear(params)# AND category = #params.category#"
+		}
+		if ( isDefined("params.ordained") && params.ordained ) {
+			loc.wherestring = loc.wherestring & " AND ordained = 1"
+		}
+		if ( isDefined("params.licensed") && params.licensed ) {
+			loc.wherestring = loc.wherestring & " AND licensed = 1"
+		}
+		if ( isDefined("params.commissioned") && params.commissioned ) {
+			loc.wherestring = loc.wherestring & " AND commissioned = 1"
+		}
+		if ( isDefined("params.mentored") && params.mentored ) {
+			loc.wherestring = loc.wherestring & " AND mentored = 1"
+		}
+		// For district grouping
+		if ( isDefined("params.groupby") && params.groupby == "District" ) {
+			loc.orderString = "District," & loc.orderString
+		} else if ( isDefined("params.groupby") && params.groupby == "category" ) {
+			loc.orderString = "Category," & loc.orderString
+		} else if ( isDefined("params.groupby") && params.groupby == "age" ) {
+			loc.orderString = "birthdayasstring"
+		}
+		if ( isDefined("params.district") ) {
+			params.groupby = "District"
+			loc.whereString = "districtid=#params.district#"
+			loc.orderString = "District," & loc.orderString
+		}
+		// writeDump(loc.whereString);abort;
+		} else {
+			// If a search string is provided
+		loc.whereString ="lname like '#params.search#%' OR
+			fname like '#params.search#%' OR
+			city like '#params.search#%' OR
+			state_mail_abbrev like '#params.search#%' OR
+			district like '#params.search#%'"
+		loc.orderString="lname,fname,positionTypeId DESC"
+		}
+	// Run the model method using where, order, include and pagination data
+		loc.return.people = findAll(
+			where=loc.whereString,
+			order=loc.orderstring,
+			include=loc.includeString,
+			page=params.page,
+			perPage=params.maxpage,
+			distinct = true,
+			maxrows=params.maxrows
+		)
+		loc.return.params = params
+		return loc.return
+}
 
-// private function $getCatCodes(required string catCode){
-// 	var codesStruct = {
-// 		Cat1Ordained: { category: "1", ordained: "1", licensed: "0", commissioned: "0", mentored: "0" },
-// 		Cat0Ordained: { category: "0", ordained: "1", licensed: "0", commissioned: "0", mentored: "0" },
-// 		Cat1Licensed: { category: "1", ordained: "0", licensed: "1", commissioned: "0", mentored: "0" },
-// 		Cat0Commissioned: { category: "0", ordained: "0", licensed: "0", commissioned: "1", mentored: "0" },
-// 		Cat2Ordained: { category: "2", ordained: "1", licensed: "0", commissioned: "0", mentored: "0" },
-// 		Cat2Licensed: { category: "2", ordained: "1", licensed: "1", commissioned: "0", mentored: "0" },
-// 		Cat1Mentored: { category: "1", ordained: "0", licensed: "0", commissioned: "0", mentored: "1" },
-// 		Cat2Mentored: { category: "2", ordained: "0", licensed: "0", commissioned: "0", mentored: "1" },
-// 		Cat3: { category: "3", ordained: "0", licensed: "0", commissioned: "0", mentored: "0" }
-// 	}
-// 	return codesStruct[arguments.catCode]
-// }
+private function $getCatCodes(required string catCode){
+	var codesStruct = {
+		Cat1Ordained: { category: "1", ordained: "1", licensed: "0", commissioned: "0", mentored: "0" },
+		Cat0Ordained: { category: "0", ordained: "1", licensed: "0", commissioned: "0", mentored: "0" },
+		Cat1Licensed: { category: "1", ordained: "0", licensed: "1", commissioned: "0", mentored: "0" },
+		Cat0Commissioned: { category: "0", ordained: "0", licensed: "0", commissioned: "1", mentored: "0" },
+		Cat2Ordained: { category: "2", ordained: "1", licensed: "0", commissioned: "0", mentored: "0" },
+		Cat2Licensed: { category: "2", ordained: "1", licensed: "1", commissioned: "0", mentored: "0" },
+		Cat1Mentored: { category: "1", ordained: "0", licensed: "0", commissioned: "0", mentored: "1" },
+		Cat2Mentored: { category: "2", ordained: "0", licensed: "0", commissioned: "0", mentored: "1" },
+		Cat3: { category: "3", ordained: "0", licensed: "0", commissioned: "0", mentored: "0" }
+	}
+return codesStruct[arguments.catCode]
+}
 
-// private function X$findAllAgbmByCat( required struct params, required struct catCodes ){
-// 	structAppend( arguments.params,arguments.catCodes )
-// 	return findAGBM( arguments.params )
-// }
+private function X$findAllAgbmByCat( required struct params, required struct catCodes ){
+	structAppend( arguments.params,arguments.catCodes )
+	return findAGBM( arguments.params )
+}
 
-// function XfindAllAgbmByCat( required struct params, required string catCode){
-// 	return $findAllAgbmByCat( params,$getCatCodes(arguments.catCode) )
-// }
+function XfindAllAgbmByCat( required struct params, required string catCode){
+	return $findAllAgbmByCat( params,$getCatCodes(arguments.catCode) )
+}
 
-// function XfindAGBMInAgeOrder(required struct params) {
-// 	var loc=structNew()
-// 	params.groupby = "age"
-// 	loc.peopleAndParams = findAGBM(params)
-// 	return loc.peopleAndParams
-// }
+function XfindAGBMInAgeOrder(required struct params) {
+	var loc=structNew()
+	params.groupby = "age"
+	loc.peopleAndParams = findAGBM(params)
+	return loc.peopleAndParams
+}
 
-// function XisAGBMMember(required numeric personid, required struct params) {
-// 	var loc = structNew()
-// 	loc.check = model("Handbookagbminfo").findOne(where="personid=#arguments.personid# AND ( membershipfeeyear = #currentMembershipYear(params)#)")
-// 	loc.check2 = model("Handbookagbminfo").isAgbmMember(personid)
-// 	if ( isObject(loc.check) || loc.check2 ) {
-// 		loc.return = true
-// 	} else {
-// 		loc.return = false
-// 	}
-// 	return loc.return
-// }
+function XisAGBMMember(required numeric personid, required struct params) {
+	var loc = structNew()
+	loc.check = model("Handbookagbminfo").findOne(where="personid=#arguments.personid# AND ( membershipfeeyear = #currentMembershipYear(params)#)")
+	loc.check2 = model("Handbookagbminfo").isAgbmMember(personid)
+	if ( isObject(loc.check) || loc.check2 ) {
+		loc.return = true
+	} else {
+		loc.return = false
+	}
+	return loc.return
+}
 
-// function XgetAGBMDashboardInfo(required struct params) {
-// 	var loc=structNew()
-// 	loc.return.totalFees = 0
-// 	loc.return.membersCount = 0
-// 	loc.members = model("Handbookperson").findAGBM(params).people
-// 	for ( var i in members ) {
-// 		loc.return.totalFees = loc.return.totalFees + i.membershipfee
-// 		loc.return.membersCount = loc.return.membersCount +1
-// 	}
-// 	return loc.return
-// }
+function XgetAGBMDashboardInfo(required struct params) {
+	var loc=structNew()
+	loc.return.totalFees = 0
+	loc.return.membersCount = 0
+	loc.members = model("Handbookperson").findAGBM(params).people
+	for ( var i in members ) {
+		loc.return.totalFees = loc.return.totalFees + i.membershipfee
+		loc.return.membersCount = loc.return.membersCount +1
+	}
+return loc.return
+}
 <!------------------------------>
 <!------END OF AGBM FINDERS----->
 <!------------------------------>

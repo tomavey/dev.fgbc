@@ -303,7 +303,7 @@ function delete() {
 	}
 
 	function json() {
-		data = model("Handbookagbminfo").getAgbmMembers(publicOnly=true);
+		data = serialize(model("Handbookagbminfo").getAgbmMembers(publicOnly=true))
 		renderPage(layout="/layout_json", template="json", hideDebugInformation=true);
 	}
 
