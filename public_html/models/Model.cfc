@@ -185,6 +185,7 @@
 		return loc.newarray
 	}
 
+	//Used by agbm/inspire  - currentMembershipYear is calculated using a member year start set in settings
 	function currentMembershipYear(struct params) {
 		var loc = structNew()
 		loc.return = year(now())

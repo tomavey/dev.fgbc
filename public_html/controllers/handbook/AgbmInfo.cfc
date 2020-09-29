@@ -4,7 +4,10 @@ component extends="Controller" output="false"{
 		usesLayout(template="/handbook/layout_agbm");
 		filters(through="getCurrentMembershipYear");
 		filters(through="gotAgbmRights", except="rss,publiclist,json,list,pastorsnotagbm");
+		filters(through="setreturn", only="list,show,handbookMembershipReport")
 	}
+
+
 
 <!-------------->
 <!----FILTERS--->
@@ -14,7 +17,7 @@ function getCurrentMembershipYear() {
 	if ( isDefined ("params.year") ) {
 		currentmembershipyear = params.year;
 	} else {
-		currentmembershipyear = model("Handbookperson").currentMembershipYear(params);
+		currentmembershipyear = model("Handbookagbminfo").currentMembershipYear(params);
 	}
 }
 
@@ -28,7 +31,6 @@ function getCurrentMembershipYear() {
 
 	<!--- -handbookagbminfos/list --->
 	function list() {
-		setReturn();
 		orderString = "lname,fname,p_sortorder";
 		showAge=false;
 		if ( isDefined("params.byage") ) {
@@ -75,7 +77,6 @@ function getCurrentMembershipYear() {
 // handbookagbminfos/show/key 
 
 	function show() {
-		setReturn();
 		payments = model("Handbookagbminfo").findAll(where="personid = #params.key#", include="Handbookperson(Handbookstate)", order="membershipfeeyear DESC");
 	}
 
@@ -206,11 +207,10 @@ function delete() {
 		handbookPeople = model("Handbookperson").findHandbookPeople(params);
 	}
 
+	//Report of members who have not paid yet
 	function delinquent() {
-		if ( isDefined("params.key") && val(params.key) ) {
-			currentmembershipyear = params.key;
-		} else {
-			currentmembershipyear = model("Handbookperson").currentMembershipyear(params);
+		if ( isDefined("params.year") && val(params.year) ) {
+			currentmembershipyear = params.year;
 		}
 		people = model("Handbookperson").findAll(order="lname, fname", include="Handbookstate,Handbookprofile");
 		people = queryFilter(people, (el) => paidLastYearNotThisYear(el.id,currentmembershipyear) && !len(el.agbmlifememberAt));
@@ -219,6 +219,7 @@ function delete() {
 		}
 	}
 
+	//Report of members paid countMin 0f 10 years
 	function agbm10YearMembers(){
 		var countMin = 9
 		if ( isDefined("params.countMin") ) {
@@ -239,6 +240,7 @@ function delete() {
 		renderPage(template="list")
 	}
 
+	//A report of pastors in the handbook who are not members of Inspire
 	function pastorsNotAgbm() {
 		if ( isDefined("params.type") && params.type == "seniorpastors" ) {
 			wherestring = "p_sortorder = 1 AND position LIKE '%pastor%' AND ";
@@ -277,6 +279,7 @@ function delete() {
 		}
 	}
 
+	//Report of various metrics
 	function dashboard() {
 		var loc=structNew();
 		loc.currentMembershipYear = model("Handbookperson").currentMembershipYear(params);
@@ -305,7 +308,6 @@ function delete() {
 	}
 
 	function handbookMembershipReport() {
-		setreturn();
 		currentMembershipYear = model("Handbookperson").currentMembershipYear(params);
 		ordained = getAgbmOrdained();
 		commissioned = getAgbmCommissioned();
@@ -524,8 +526,8 @@ function delete() {
 		return "NA";
 	}
 
-	public function getBestPersonPositionAsStruct(orderby = "lname, fname, i.createdAt DESC"){
-		var people = model("Handbookagbminfo").getAgbm(orderby=arguments.orderby)
+	public function getAgbmMembers(){
+		var people = model("Handbookagbminfo").getAgbm(orderby="lname, fname, i.createdAt DESC")
 		var allMembers = people.filter( (el) => el.lastpayment == CurrentMembershipYear || len(el.agbmlifememberat) )
 		return allMembers
 		ddd(allMembers)
@@ -621,5 +623,16 @@ function delete() {
 	function index(){
 		payments = model("Handbookagbminfo").findAll(include="Handbookperson(Handbookstate)")
 	}
+
+
+<!---------TRASH-------->
+public function XgetBestPersonPositionAsStruct(orderby = "lname, fname, i.createdAt DESC"){
+	var people = model("Handbookagbminfo").getAgbm(orderby=arguments.orderby)
+	var allMembers = people.filter( (el) => el.lastpayment == CurrentMembershipYear || len(el.agbmlifememberat) )
+	return allMembers
+	ddd(allMembers)
+}
+
+
 
 }

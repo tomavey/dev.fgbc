@@ -54,11 +54,12 @@ component extends="Controller" output="true" {
 			isAgbmAdmin = false
 		)
 	}
-
-
 <!-------------------->
 <!---End of Filters--->
 <!-------------------->
+
+
+
 
 
 
@@ -222,10 +223,11 @@ component extends="Controller" output="true" {
 			redirectTo(action="index");
 		}
 	}
-
 <!--------------------------->
 <!-------END OF BASIC CRUD--->
 <!--------------------------->
+
+
 
 
 
@@ -395,13 +397,6 @@ component extends="Controller" output="true" {
 		renderPage(layout="/layout_naked");
 	}	
 
-	public function pastorsWives(){
-		var onlyIfEmail = false
-		if ( isDefined('params.onlyIfEmail') ) { onlyIfEmail = true }
-		pastorsWives = model("Handbookperson").findPastorsWives(titleIncludesList = 'pastor,chaplain', onlyIfEmail = onlyIfEmail)
-		$setDownloadLayout(template='downloadwives')
-	}
-
 	public function emailPeopleForHandbookReview(
 		string type='everyone',
 		string lastReviewedBefore=dateformat(dateAdd('d',1,now())),
@@ -459,10 +454,18 @@ component extends="Controller" output="true" {
 		if( isDefined("params.noFormat") ) { renderPage(layout="/layout_naked") }
 	}
 	
-	
+	//Used in Downloads section of handbook
+	public function pastorsWives(){
+		var onlyIfEmail = false
+		if ( isDefined('params.onlyIfEmail') ) { onlyIfEmail = true }
+		pastorsWives = model("Handbookperson").findPastorsWives(titleIncludesList = 'pastor,chaplain', onlyIfEmail = onlyIfEmail)
+		$setDownloadLayout(template='downloadwives')
+	}
 <!---------------------------->
 <!---End of special reports--->
 <!---------------------------->
+
+
 
 
 
@@ -598,6 +601,9 @@ public function findStaff() {
 <!---------------------------------------->
 <!---END OF UTILITIES CALLED FROM VIEWS--->
 <!---------------------------------------->
+
+
+
 
 
 <!-------------------------------------->
