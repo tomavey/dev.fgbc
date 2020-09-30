@@ -303,7 +303,7 @@ function delete() {
 	}
 
 	function json() {
-		data = serialize(model("Handbookagbminfo").getAgbmMembers(publicOnly=true))
+		data = queryToJson(getPublicOnlyAgbmMembersWithAlias())
 		renderPage(layout="/layout_json", template="json", hideDebugInformation=true);
 	}
 
@@ -531,6 +531,18 @@ function delete() {
 		var allMembers = people.filter( (el) => el.lastpayment == CurrentMembershipYear || len(el.agbmlifememberat) )
 		return allMembers
 		ddd(allMembers)
+	}
+
+	public function getPublicOnlyAgbmMembersWithAlias(){
+		var allMembers = getAgbmMembers()
+		var allPublic = allMembers.filter( (el) => el.private != "Yes" )
+		var allPublicWithAlias = queryMap(allPublic, function(el) {
+			el.fname = alias('fname', el.fname, el.personid)
+			el.lname = alias('lname', el.lname, el.personid)
+			return el
+		})
+		return allPublicWithAlias
+		ddd(allPublicWithAlias)
 	}
 
 	public function getAgbmOrdained(){

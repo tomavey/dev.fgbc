@@ -41,6 +41,22 @@
             return false
         }
     }
+    
+	public function alias(type,name,id){
+		if ( len(getAlias(type,id)) ) { return getAlias(type,id) }
+		else { return trim(name) }
+	}
+
+	private function getAlias(type,id){
+		var lnameStruct = getSetting("alias")
+		var i = 1
+		if ( isDefined(" lnameStruct[id][type]") ) {
+				return lnameStruct[id][type]
+		} else {
+			return ""
+		}
+	}
+
 
     public function getHandbookReviewSecretary(){
         if (isDefined("params.handbookReviewSecretary")){
