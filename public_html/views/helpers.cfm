@@ -536,8 +536,7 @@
 
 	public function fixAddress(required string address) {
 		var newString = ' ' & lCase(arguments.address) & ' '
-		//
-		//the address lines are capitlaized using css after these data transformations
+
 		var replacements = {
 			' street ': ' st. ',
 			' st ': ' st. ',
@@ -569,13 +568,15 @@
 			' po. ':' PO ',
 			' nw ': " NW. ",
 			' se ': " SE. ",
-			' P.O. ': " PO ",			
+			' P.O. ': " PO ",
+			' p.o. ': " PO "
 		}
 		for (replacement in replacements) {
 				newString = replace(newString,replacement,replacements[replacement])
 				newString = replace(newString,"..",".","all")
 		}		
 			newString = replace(newString,"  "," ","all")
+			newString = ReReplace(newString,"\b(\w)","\u\1","ALL") //Uses regex to capitalize each word in string
 			return trim(newString)
 	}
 
