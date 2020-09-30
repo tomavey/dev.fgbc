@@ -469,37 +469,6 @@ function delete() {
 		return loc.return;
 	}
 
-
-
-	//Used by the handbook report view
-
-	function getPositionForHandbookReport(required numeric personid) {
-		var loc = arguments;
-		loc.whereString = "id=#loc.personid#";
-		loc.includeString = "Handbookpositions(Handbookpositiontype,Handbookorganization(State,Handbookstatus))";
-		loc.selectString = "name,statusid,status,handbookpositions.position as position,org_city,handbookstates.state_abbrev as state";
-		loc.whereString1 = loc.whereString & " AND status = 'AGBM Only'";
-		loc.positions1 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString1, include=loc.includeString);
-		if ( loc.positions1.recordcount ) {
-			loc.return = gbcit(trim(loc.positions1.name)) & "; " & unrepeatcity(loc.positions1.org_city,loc.positions1.name) & " " & loc.positions1.state;
-			return loc.return;
-		}
-		loc.whereString2 = loc.whereString & " AND status = 'Member'";
-		loc.positions2 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString2, include=loc.includeString);
-		if ( loc.positions2.recordcount ) {
-			loc.return = gbcit(loc.positions2.name) & "; " & unrepeatcity(loc.positions2.org_city,loc.positions2.name) & " " & loc.positions2.state;
-			return loc.return;
-		}
-		loc.whereString3 = loc.whereString & " AND status = 'Member (co-member)'";
-		loc.positions3 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString3, include=loc.includeString);
-		if ( loc.positions3.recordcount ) {
-			loc.return = gbcit(trim(loc.positions3.name)) & "; " & unrepeatcity(loc.positions3.org_city,loc.positions3.name) & " " & loc.positions3.state;
-			return loc.return;
-		}
-		return "Inspire Member";
-	}
-	
-
 	public function isAgbmLifeMember(personid) {
 		return model("Handbookagbminfo").isAgbmLifeMember(personid)
 	}
@@ -580,7 +549,35 @@ function delete() {
 		writeDump( var=mailListAgbmPeople );
 		abort;
 	}
-<!-------------------------->
+
+	//Used by the handbook report view
+	function getPositionForHandbookReport(required numeric personid) {
+		var loc = arguments;
+		loc.whereString = "id=#loc.personid#";
+		loc.includeString = "Handbookpositions(Handbookpositiontype,Handbookorganization(State,Handbookstatus))";
+		loc.selectString = "name,statusid,status,handbookpositions.position as position,org_city,handbookstates.state_abbrev as state";
+		loc.whereString1 = loc.whereString & " AND status = 'AGBM Only'";
+		loc.positions1 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString1, include=loc.includeString);
+		if ( loc.positions1.recordcount ) {
+			loc.return = gbcit(trim(loc.positions1.name)) & "; " & unrepeatcity(loc.positions1.org_city,loc.positions1.name) & " " & loc.positions1.state;
+			return loc.return;
+		}
+		loc.whereString2 = loc.whereString & " AND status = 'Member'";
+		loc.positions2 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString2, include=loc.includeString);
+		if ( loc.positions2.recordcount ) {
+			loc.return = gbcit(loc.positions2.name) & "; " & unrepeatcity(loc.positions2.org_city,loc.positions2.name) & " " & loc.positions2.state;
+			return loc.return;
+		}
+		loc.whereString3 = loc.whereString & " AND status = 'Member (co-member)'";
+		loc.positions3 = model("Handbookperson").findAll(select=loc.selectString, where=loc.whereString3, include=loc.includeString);
+		if ( loc.positions3.recordcount ) {
+			loc.return = gbcit(trim(loc.positions3.name)) & "; " & unrepeatcity(loc.positions3.org_city,loc.positions3.name) & " " & loc.positions3.state;
+			return loc.return;
+		}
+		return "Inspire Member";
+	}
+
+	<!-------------------------->
 <!---------END OF GETTERS--->
 <!-------------------------->
 

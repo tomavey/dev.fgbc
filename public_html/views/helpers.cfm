@@ -569,6 +569,7 @@
 			' po. ':' PO ',
 			' nw ': " NW. ",
 			' se ': " SE. ",
+			' P.O. ': " PO ",			
 		}
 		for (replacement in replacements) {
 				newString = replace(newString,replacement,replacements[replacement])

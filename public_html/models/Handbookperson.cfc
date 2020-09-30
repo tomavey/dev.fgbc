@@ -557,7 +557,7 @@ private function $getSelectStringForDates(){
 <!------AGBM FINDERS - Probably trash ----->
 <!----------------------->
 	
-function findAgbm(required struct params) {
+function XfindAgbm(required struct params) {
 	var loc=structNew()
 	loc.return = structNew()
 	cfparam( default="members", name="session.params.key" )
@@ -639,7 +639,7 @@ function findAgbm(required struct params) {
 		return loc.return
 }
 
-private function $getCatCodes(required string catCode){
+private function X$getCatCodes(required string catCode){
 	var codesStruct = {
 		Cat1Ordained: { category: "1", ordained: "1", licensed: "0", commissioned: "0", mentored: "0" },
 		Cat0Ordained: { category: "0", ordained: "1", licensed: "0", commissioned: "0", mentored: "0" },
