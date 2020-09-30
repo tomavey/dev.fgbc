@@ -57,7 +57,7 @@
 	  <cfset lenEmail = len(email)>
       <cfif lenEmail>
 	  	<cfif lenEmail GT 25>
-	      	<span style="font-size:.9em">#trim(email)#</span>
+	      	<span>#trim(email)#</span>
 		<cfelse>  
 	      	#trim(email)#
 		</cfif>  
