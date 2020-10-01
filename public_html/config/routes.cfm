@@ -264,6 +264,7 @@
 			.get(name="setPictureAsDefault", pattern="/pictures/setdefault/[key]", controller="pictures", action="
 			setpictureasdefault")
 			.get(name="getPerson", pattern="/pictures/getperson", controller="pictures", action="getperson")
+			.post(name="newPerson", pattern="/pictures/new/", controller="pictures", action="new")
 			.resources("pictures")
 
 			.resources("profiles")
