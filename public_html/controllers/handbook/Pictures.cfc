@@ -11,6 +11,7 @@ component extends="Controller" output="true" {
 
 	public function index() {
 		handbookpictures = model("Handbookpicture").findAllPicturesSorted(params);
+		handbookpictures = handbookpictures.filter( (el) => pictureExists(el.file) ) 
 	}
 	//  handbookpictures/show/key 
 
@@ -32,6 +33,7 @@ component extends="Controller" output="true" {
 		}
 		handbookpicture = model("Handbookpicture").new();
 		handbookpictures = model("Handbookpicture").findall(where="personid=#params.personid#");
+		handbookpictures = handbookpictures.filter( (el) => pictureExists(el.file) ) 
 		handbookpicture.personid = params.personid;
 		handbookperson = model("Handbookperson").findOne(where="id=#params.personid#", include="Handbookstate");
 		try {

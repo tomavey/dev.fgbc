@@ -21,7 +21,6 @@
 <ul class="thumbnails">
   <cfoutput query="handbookpictures">
   <cftry>
-    <cfif pictureExists(file)>
       <li class="thumbnail">
            #linkTo(text=imageTag(source='/handbookpictures/thumb_#file#'), href='/images/handbookpictures/web_#file#')#
 
@@ -46,7 +45,6 @@
     	  <cfset count = count +1>
 
       </li> 
-    </cfif>
           <cfcatch>
             <cfif gotRights("superadmin,office") OR (isdefined("session.auth.email") && email is session.auth.email)>
               #linkto(text=fullname, controller="handbook.people", action="show", key=personid)# - #file#sss
