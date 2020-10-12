@@ -6,8 +6,6 @@
         Search by Name, Username, Email
     </p>
     <p>Count: {{users_array.length}}</p>
-    {{searchString}}{{filterString}}
-    {{users[0]}}
     <table class="table table-striped">
     <tr>
             <th><a href="" @click.prevent="reSortBy('FULLNAME')">Name</a></th>
