@@ -17,7 +17,7 @@
             <th><a href="" @click.prevent="reSortBy('CREATEDAT')">Created</a></th>
             <th>&nbsp;</th>
         </tr>
-        <tr v-for="user in users_array" :key=user.EMAIL>
+        <tr v-for="user in users_array" :key=user.ID>
             <td width='30%'><a :href="showUser(user.ID)">{{user.FULLNAME}}</a></td>    
             <td>{{user.USERNAME | shorten}}</td>
             <td><a :href="mailTo(user.EMAIL)">{{user.EMAIL | shorten | lowerCase}}</a></td>
