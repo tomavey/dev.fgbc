@@ -1,4 +1,6 @@
-<!--- <cfdump var="#users#"><cfabort> --->
+<cfif isDefined("params.dump")>
+    <cfdump var="#users#"><cfabort>
+</cfif>
 <!--- <p>Is this showing?</p> --->
 <div class="container" id="usersApp">
     <p>
