@@ -1,10 +1,10 @@
-<script src="https://www.google.com/recaptcha/api.js"></script>
+<!--- <script src="https://www.google.com/recaptcha/api.js"></script>
 <script>
 	function onSubmit(token) {
 		alert("workd")
 		document.getElementById("contact-us").submit();
 	}
-</script>
+</script> --->
 
 <cfparam name="headerMessage" default="Send us a message!">
 <cfparam name="instructions" default="">
@@ -43,8 +43,12 @@
 
 								#textArea(objectName='message', property='message', label='', rows="10", cols="75")#
 
-					<!--- #includePartial("/captcha")# --->
-					#submitTag(
+					#includePartial("/captcha")#
+
+					#submitTag("Send Message")#
+
+
+					<!--- #submitTag(
 						value='Send Message', 
 						data_sitekey='6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7',  
 						data_callback='onSubmit',  
@@ -54,7 +58,7 @@
 					<button class="g-recaptcha" 
 						data-sitekey="6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7" 
 						data-callback='onSubmit' 
-						data-action='submit'>Submit!</button>
+						data-action='submit'>Submit!</button> --->
 
 					#endFormTag()#
 

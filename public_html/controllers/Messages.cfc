@@ -68,7 +68,7 @@
 	<!--- messages/create --->
 	<cffunction name="create">
 		<cfset strCaptcha = getcaptcha()>
-		<!--- <cfif (len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")) || true> --->
+		<cfif (len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")) || true>
 			<cfset message = model("Mainmessage").new(params.message)>
 
 			<!--- Verify that the message creates successfully --->
@@ -81,12 +81,12 @@
 				<cfset flashInsert(error="There was an error creating the message.")>
 				<cfset renderPage(action="new")>
 			</cfif>
-		<!--- <cfelse>
+		<cfelse>
 			<cfset flashInsert(error="Please try to enter the scrambled image again.")>
 			<cfset message = model("Mainmessage").new(params.message)>
 			<cfset strCaptcha = getcaptcha()>
 			<cfset renderPage(action="new")>
-		</cfif> --->
+		</cfif>
 
 	</cffunction>
 
