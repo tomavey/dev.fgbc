@@ -87,7 +87,9 @@ public function countRegItems(ccstatus,cost){
 				 </cfif>
 			</td>
 		</tr>
-		<cfset emailall = emailall & ";" & email>
+		<cfif isValid("email", email)>
+			<cfset emailall = emailall & ";" & email>
+		</cfif>
 		<cfoutput>
 			<tr>
 				<cfif getStatus(ccstatus) is "Paid">

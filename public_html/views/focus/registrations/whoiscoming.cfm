@@ -18,7 +18,9 @@
 		</li>
 		<cfset count = count + 1>
 		<cfset regcountTotal = regcountTotal + regcount>
-		<cfset emailall = emailall & ';' & email>
+		<cfif isValid("email",email)>
+			<cfset emailall = emailall & ';' & email>
+		</cfif>
 	</cfif>
 	<cfset previousperson = fullNameLastFirst>
 </cfoutput>
