@@ -7,7 +7,7 @@
 
 					#errorMessagesFor("message")#
 			
-					#startFormTag(action="create")#
+					#startFormTag(action="create", name="contactUs")#
 				
 						
 								#textField(objectName='message', property='name', label='Name: ')#
@@ -16,14 +16,26 @@
 							
 								#textArea(objectName='message', property='message', label='', rows="10", cols="75")#
 								
-					#includePartial("/captcha")#	
+					<!--- #includePartial("/captcha")#	 --->
 
 						#submitTag("Send Message")#
-						
-					#endFormTag()#
+
+					<button class="g-recaptcha" 
+						data-sitekey="6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7" 
+						data-callback='onSubmit' 
+						data-action='submit'>Submit</button>
+								
+					<!--- #endFormTag()# --->
 					
 		<cfif gotRights("superadmin,office")>
 			#linkTo(text="Return to the listing", action="index")#
 		</cfif>
 </div>
 </cfoutput>
+
+<script>
+	function onSubmit(token) {
+		document.getElementById("demo-form").submit();
+	}
+</script>
+

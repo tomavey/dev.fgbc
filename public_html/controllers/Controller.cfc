@@ -380,6 +380,14 @@ component extends="Wheels" {
 		return super.startFormTag(argumentCollection=loc);
 	}
 
+	function submitTag() {
+		var loc=structNew();
+		for ( i in structKeylist(arguments) ) {
+			loc[replace(i,"_","-","all")] = arguments[i];
+		}
+		return super.submitTag(argumentCollection=loc);
+	}
+
 	// Overflow method
 	// For custom data attributes we convert underscores and camel case to hyphens.
 	// E.g. "dataDomCache" and "data_dom_cache" becomes "data-dom-cache".
