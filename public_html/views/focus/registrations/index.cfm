@@ -76,6 +76,9 @@ public function countRegItems(ccstatus,cost){
 							<span style="font-size:.5em;font-weight:normal;color:red">First Timer!</span>
 							<cfset countFirstTime = countFirstTime + 1>
 						</cfif>
+						<cfif !isValid('email',email)>
+							<span style="color:red">EMAIL MAY BE INVALID!</span>
+						</cfif>
 					</h2>
 			</td>
 			<td>

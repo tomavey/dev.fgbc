@@ -12,6 +12,9 @@
 			<cfif gotRights('basic') || isDefined("params.showemailall")>
 				[#mailto(emailAddress=email, encode=true)#]
 			</cfif>
+			<cfif !isValid('email',email) && gotRights('office')>
+				<span style="color:red">EMAIL MAY BE INVALID!</span>
+			</cfif>
 		</li>
 		<cfset count = count + 1>
 		<cfset regcountTotal = regcountTotal + regcount>
