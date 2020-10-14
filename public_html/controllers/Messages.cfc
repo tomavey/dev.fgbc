@@ -34,6 +34,7 @@
 		<cfelse>	
 			<cfset message.subject = "">
 		</cfif>
+		<cfset formaction="create">
 		<cfset strCaptcha = getcaptcha()>
 	</cffunction>
 
@@ -68,7 +69,9 @@
 	<!--- messages/create --->
 	<cffunction name="create">
 		<cfset strCaptcha = getcaptcha()>
-		<cfif (len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")) || true>
+		<cfset params.captcha_check = decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
+		<!--- <cfset ddd(params)> --->
+		<cfif (len(params.captcha) && params.captcha == params.captcha_check)>
 			<cfset message = model("Mainmessage").new(params.message)>
 
 			<!--- Verify that the message creates successfully --->

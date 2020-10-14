@@ -8,6 +8,8 @@
 
 <cfparam name="headerMessage" default="Send us a message!">
 <cfparam name="instructions" default="">
+<cfparam name="formaction" default="create">
+
 <cfif isDefined("params.headerMessage") >
 	<cfset headerMessage = params.headerMessage>
 </cfif>
@@ -19,7 +21,6 @@
 	<cfset instructions = "Provide your name and email, church name and location and a brief description of the need. For Charis Fellowship churches only.">
 </cfif>
 <cfoutput>
-
 <div class="container card card-charis text-center">
 
 		<cfif isDefined("session.contactMessage")>
@@ -33,7 +34,7 @@
 
 					#errorMessagesFor("message")#
 
-					#startFormTag(action="create", id="contact-us")#
+					#startFormTag(action=formaction, id="contact-us")#
 
 								#hiddenField(objectName='message', property='subject')#
 
