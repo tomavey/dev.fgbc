@@ -177,6 +177,7 @@ component extends="Controller" output="false" {
 
 <!--- users/update --->
 	function update(){
+		// ddd(params)
 		try {
 			user = model("Authuser").findByKey(params.key)
 		} catch (any e) {
@@ -333,8 +334,13 @@ component extends="Controller" output="false" {
 			session.auth.rightslist = session.auth.rightslist & "fellowshipcouncil,"
 		}
 
+		if ( gotRights("superadmin") ) {
+			var allgroups = model("Authusersgroup").findall(include="Group")
+			session.auth.rightslist = session.auth.rightslist & "," & valueList(allgroups.name)
+		}
+
 		//Clean up the rightslist
-		session.auth.rightslist = ListSort(session.auth.rightslist,"text")
+		session.auth.rightslist = ListSort(session.auth.rightslist,"textnocase")
 		session.auth.rightslist = removeDuplicatesFromList(session.auth.rightslist)
 		//writeDump(session.auth.rightslist);abort;
 	}

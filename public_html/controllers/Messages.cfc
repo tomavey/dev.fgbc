@@ -77,7 +77,7 @@
 			<!--- Verify that the message creates successfully --->
 			<cfif message.save()>
 				<cfset flashInsert(success="The message was created successfully.")>
-	            <cfset redirectTo(action="notification", key=message.id)>
+        <cfset redirectTo(action="notification", key=message.id)>
 
 			<!--- Otherwise --->
 			<cfelse>
@@ -90,7 +90,6 @@
 			<cfset strCaptcha = getcaptcha()>
 			<cfset renderPage(action="new")>
 		</cfif>
-
 	</cffunction>
 
 	<cffunction name="notification">

@@ -6,6 +6,22 @@
 	}
 </script> --->
 
+<script src="https://www.google.com/recaptcha/api.js?render=6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7"></script>
+<script>
+    grecaptcha.ready(function() {
+    // do request for recaptcha token
+    // response is promise with passed token
+        grecaptcha.execute('6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7', {action:'validate_captcha'})
+                  .then(function(token) {
+						// add token value to form
+						console.log("token")
+						console.log(token)
+            document.getElementById('g-recaptcha-response').value = token;
+        });
+    });
+</script>
+
+
 <cfparam name="headerMessage" default="Send us a message!">
 <cfparam name="instructions" default="">
 <cfparam name="formaction" default="create">
@@ -45,18 +61,21 @@
 								#textArea(objectName='message', property='message', label='', rows="10", cols="75")#
 
 					#includePartial("/captcha")#
-
-					#submitTag("Send Message")#
+					<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+					<input type="hidden" name="action" value="validate_captcha">
+					
+					#submitTag(value="Send Message", id="g-recaptcha-response")#
 
 
 					<!--- #submitTag(
 						value='Send Message', 
 						data_sitekey='6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7',  
 						data_callback='onSubmit',  
-						data_action='submit'
+						data_action='submit',
+						onclick="return onSubmit()"
 						)# 
-
-					<button class="g-recaptcha" 
+ --->
+					<!---<button class="g-recaptcha" 
 						data-sitekey="6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7" 
 						data-callback='onSubmit' 
 						data-action='submit'>Submit!</button> --->

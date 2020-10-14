@@ -1,5 +1,5 @@
 <div class="container" id="#params.controller#.#params.action#">
-	<h1>Editing user</h1>
+	<h1>Editing user...</h1>
 
 	<cfoutput>
 
@@ -9,8 +9,6 @@
 
 		#putFormTag()#		
 
-		#hiddenTagForKeyy()#
-	
 		#includePartial("form")#				
 				
 		#submitTag()#

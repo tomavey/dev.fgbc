@@ -41,7 +41,7 @@ component extends="Wheels" {
 					);
 		/* 
 				Now that we have a shuffled array, let's grab the
-				first 4 characters as our CAPTCHA text string.
+				first 5 characters as our CAPTCHA text string.
 			*/
 		strCaptcha = (
 				arrValidChars[ 1 ] &
