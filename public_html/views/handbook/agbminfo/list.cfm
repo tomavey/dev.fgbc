@@ -34,12 +34,12 @@
 </cfoutput>
 
 <p>
-	<cfif isQuery("districts")>
+	<!--- <cfif isQuery("districts")> --->
 		<cfoutput query="districts">
-			#linkto(text=district, route="handbookAgbmList", params="type=members&district=#districtid#")#
+			#linkto(text=district, route="handbookAgbmList", params="type=members&district=#district#")#
 		</cfoutput>
 		<cfoutput>#linkto(text="ALL", route="handbookAgbmList", params="type=members&district=all")#</cfoutput>
-	</cfif>
+	<!--- </cfif> --->
 </p>
 
 <cfoutput>
@@ -75,16 +75,17 @@
 		</tr>
 	</thead>	
 	<tbody>
+
 		<cfscript>
 			for ( person in people ) {
-				if ( isDefined("params.district") and person.district IS NOT previousdistrict and params.district is not "all" ) {
+				if ( isDefined("params.district") && person.district != previousdistrict && params.district is not "all" ) {
 					writeOutput('
 						<tr>
 							<td colspan="5"><h2>#person.district#</h2></td>
 						</tr>	
 					')
 				}
-				if ( isDefined("params.alpha") and alpha IS NOT previousalpha and params.alpha is not "all" ) {
+				if ( isDefined("params.alpha") && alpha != previousalpha && params.alpha is not "all" ) {
 					writeOutput('
 						<h2>#alpha#</h2>
 					')

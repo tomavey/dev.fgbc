@@ -84,7 +84,7 @@ component extends="Model" output="false" {
 			//filter for a specific district
 			if ( isDefined("loc.district") and len(loc.district) and loc.district NEQ "all" ) {
 				var filter = loc.district
-				loc.members = queryFilter(loc.members, (el) => el.districtid == filter)
+				loc.members = queryFilter(loc.members, (el) => el.district == filter)
 			}
 
 			//filter for a specific alpha

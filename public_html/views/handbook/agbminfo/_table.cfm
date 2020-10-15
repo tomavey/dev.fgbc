@@ -11,7 +11,7 @@
 					#linkTo(text="#person.name#;#person.org_city#,#person.org_state#", controller="handbook.organizations", action="show", key=person.organizationid)#<cfif person.statusid is 5><p style="color:red;font-weight:bold">WARNING-This church has closed</p></cfif> 
 				</td>
 				<td>
-					<cfif isDefined("district")>#linkTo(text=district, action="list", key="members", params="district=#districtid#&groupby=district&showall=")#</cfif>
+					#linkTo(text=person.district, action="list", params="type=members&district=#person.district#")#
 				</td>	
 				<td class="paymentsPopup">
 					<span>#REQUEST.lastpayment#</span><span>#REQUEST.payments#</span>
