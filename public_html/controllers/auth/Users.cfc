@@ -33,7 +33,7 @@ component extends="Controller" output="false" {
 	public function index(orderbyString = "createdAt DESC, lname,fname"){
 		var args = arguments
 		users = model("Authuser").findAll(order = orderbyString)
-		users = queryToJson(data = users, useSerializeJSON = false)
+		users = queryToJson(data = users, useSerializeJSON = true)
 		ddd(users)		
 	}
 
