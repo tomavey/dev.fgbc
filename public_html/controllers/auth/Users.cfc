@@ -33,7 +33,8 @@ component extends="Controller" output="false" {
 	public function index(orderbyString = "createdAt DESC, lname,fname"){
 		var args = arguments
 		users = model("Authuser").findAll(order = orderbyString)
-		users = queryToJson(data = users, useSerializeJSON = true)
+		users = queryToJson(data = users, useSerializeJSON = false)
+		ddd(users)		
 	}
 
 	function search(){
@@ -486,6 +487,20 @@ component extends="Controller" output="false" {
 		users = model("Authuser").findDuplicatesByEmail(arguments.orderBy, arguments.direction)
 	}
 	
+	function ConvertKeysToLowerCase(obj) {
+    var output = {};
+    for (i in obj) {
+        if (Object.prototype.toString.apply(obj[i]) === '[object Object]') {
+           output[i.toLowerCase()] = ConvertKeysToLowerCase(obj[i]);
+        }else if(Object.prototype.toString.apply(obj[i]) === '[object Array]'){
+            output[i.toLowerCase()]=[];
+             output[i.toLowerCase()].push(ConvertKeysToLowerCase(obj[i][0]));
+        } else {
+            output[i.toLowerCase()] = obj[i];
+        }
+    }
+    return output;
+	}
 }
 
 
