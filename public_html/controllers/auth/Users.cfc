@@ -34,7 +34,7 @@ component extends="Controller" output="false" {
 		var args = arguments
 		users = model("Authuser").findAll(order = orderbyString)
 		users = queryToJson(data = users, useSerializeJSON = true)
-		ddd(users)		
+		// ddd(users)		
 	}
 
 	function search(){
