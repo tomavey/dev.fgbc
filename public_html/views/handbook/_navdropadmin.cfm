@@ -61,7 +61,7 @@
             </cfif>
             <cfif gotrights("office,agbmadmin")>
         				<li>
-        					#linkto(text="AGBM", route="handbookAgbmList", id="navsearch", title="AGBM List Manger", class="tooltip2")#
+        					#linkto(text="Inspire List", route="handbookAgbmList", id="navsearch", title="AGBM List Manger", class="tooltip2")#
         				</li>
             </cfif>
             <cfif gotrights("office,handbookadmin,ministrystaff")>
