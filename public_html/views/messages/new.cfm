@@ -1,10 +1,10 @@
-<!--- <script src="https://www.google.com/recaptcha/api.js"></script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 <script>
 	function onSubmit(token) {
 		alert("workd")
-		document.getElementById("contact-us").submit();
+		document.getElementById("demo-form").submit();
 	}
-</script> --->
+</script>
 
 <script src="https://www.google.com/recaptcha/api.js?render=6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7"></script>
 <script>
@@ -75,12 +75,16 @@
 						onclick="return onSubmit()"
 						)# 
  --->
-					<!---<button class="g-recaptcha" 
-						data-sitekey="6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7" 
-						data-callback='onSubmit' 
-						data-action='submit'>Submit!</button> --->
 
 					#endFormTag()#
+
+					<form id="contact-us">
+						<button class="g-recaptcha" 
+						data-sitekey="6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7" 
+						data-callback='onSubmit' 
+						data-action='submit'>.</button>
+
+					</form>
 
 		<cfif gotRights("superadmin,office")>
 			#linkTo(text="Return to the listing", action="index")#
