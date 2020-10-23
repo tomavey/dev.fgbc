@@ -64,7 +64,7 @@
 					<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
 					<input type="hidden" name="action" value="validate_captcha">
 					
-					#submitTag(value="Send Message", id="g-recaptcha-response")#
+					<!--- #submitTag(value="Send Message", id="g-recaptcha-response")# --->
 
 
 					<!--- #submitTag(
@@ -76,15 +76,14 @@
 						)# 
  --->
 
+					<button class="g-recaptcha" 
+							data-sitekey="6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7" 
+							data-callback='onSubmit' 
+							data-action='submit'>Send Message</button>
+
 					#endFormTag()#
 
-					<form id="demo-form">
-						<button class="g-recaptcha" 
-						data-sitekey="6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7" 
-						data-callback='onSubmit' 
-						data-action='submit'>.</button>
 
-					</form>
 
 		<cfif gotRights("superadmin,office")>
 			#linkTo(text="Return to the listing", action="index")#
