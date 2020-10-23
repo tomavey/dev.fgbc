@@ -1,26 +1,10 @@
 <script src="https://www.google.com/recaptcha/api.js"></script>
+
 <script>
 	function onSubmit(token) {
-		alert("workd")
 		document.getElementById("contact-us").submit();
 	}
 </script>
-
-<script src="https://www.google.com/recaptcha/api.js?render=6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7"></script>
-<script>
-    grecaptcha.ready(function() {
-    // do request for recaptcha token
-    // response is promise with passed token
-        grecaptcha.execute('6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7', {action:'validate_captcha'})
-                  .then(function(token) {
-						// add token value to form
-						console.log("token")
-						console.log(token)
-            document.getElementById('g-recaptcha-response').value = token;
-        });
-    });
-</script>
-
 
 <cfparam name="headerMessage" default="Send us a message!">
 <cfparam name="instructions" default="">
