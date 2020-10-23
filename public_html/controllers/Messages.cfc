@@ -1,7 +1,14 @@
 <cfcomponent extends="Controller" output="false">
 
 	<cffunction name="init">
+		<cfset filters(through="setShowCaptcha", only="new,create")>
 	</cffunction>
+
+	<cfscript>
+		function setShowCaptcha(){
+			showCaptcha = false
+		}
+	</cfscript>
 
 	<!--- messages/index --->
 	<cffunction name="index">
@@ -35,7 +42,9 @@
 			<cfset message.subject = "">
 		</cfif>
 		<cfset formaction="create">
-		<cfset strCaptcha = getcaptcha()>
+		<cfif showCaptcha>
+			<cfset strCaptcha = getcaptcha()>
+		</cfif>
 	</cffunction>
 
 	<!--- messages/new --->
@@ -68,10 +77,13 @@
 
 	<!--- messages/create --->
 	<cffunction name="create">
-		<cfset strCaptcha = getcaptcha()>
-		<cfset params.captcha_check = decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
+		<cfif showCaptcha>
+			<cfset strCaptcha = getcaptcha()>
+			<cfset params.captcha_check = decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
+		</cfif>
+
 		<!--- <cfset ddd(params)> --->
-		<cfif (len(params.captcha) && params.captcha == params.captcha_check)>
+		<cfif !showCaptcha || (len(params.captcha) && params.captcha == params.captcha_check)>
 			<cfset message = model("Mainmessage").new(params.message)>
 
 			<!--- Verify that the message creates successfully --->
