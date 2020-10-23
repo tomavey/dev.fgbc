@@ -2,7 +2,7 @@
 <script>
 	function onSubmit(token) {
 		alert("workd")
-		document.getElementById("demo-form").submit();
+		document.getElementById("contact-us").submit();
 	}
 </script>
 
@@ -78,7 +78,7 @@
 
 					#endFormTag()#
 
-					<form id="contact-us">
+					<form id="demo-form">
 						<button class="g-recaptcha" 
 						data-sitekey="6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7" 
 						data-callback='onSubmit' 
