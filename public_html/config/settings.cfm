@@ -45,6 +45,7 @@
 	set(fileRef = "http://" & cgi.http_host & replace(cgi.script_name,"index.cfm","") & "files/")
 	addFormat(extension="js", mimeType="text/javascript")
 	set(goEMerchantId = "fellowshipofgracen")
+	set(showCaptcha = false)
 
 	// cfset set(obfuscateURLs=true)
 	set(allowUserAccountCreation = false)
@@ -268,6 +269,7 @@
 		application.fbredirecturl = "http://www.charisfellowship.us/auth.users/facebooklogin"
 	}
 	set(facebookloginisopen = true)
+
 	// For Vision Conference Announcements
 	set(useTestEmailList = false)
 	set(testEmailList = "tomavey@charisfellowship.us,tomavey@fgbc.org")

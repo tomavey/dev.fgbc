@@ -6,7 +6,7 @@
 
 	<cfscript>
 		function setShowCaptcha(){
-			showCaptcha = false
+			showCaptcha = getSetting('showCaptcha')
 		}
 	</cfscript>
 
