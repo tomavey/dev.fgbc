@@ -79,7 +79,6 @@
 	<cffunction name="create">
 		<cfscript>
 			if ( isBadMessage(params.message.email, params.message.message) ) { 
-				ddd(params.message)
 				renderText("Thanks for the contact!");abort;
 			}
 		</cfscript>
