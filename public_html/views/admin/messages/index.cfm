@@ -1,12 +1,21 @@
 <cfoutput>
 <div class="container">
 
-<h1>Listing messages</h1>
+<cfif isDefined("params.showAll")>
+	<h1>Listing messages</h1>
+<cfelse>	
+	<h1>Listing 100 messages</h1>
+</cfif>	
 
 <form>
 	<input type="text" placeholder="Search" name="search">
 </form>
-#linkto(text="Show All", params="showall=true")# | 
+<cfif !isDefined("params.showall")>
+	#linkto(text="Show All", params="showall=true")# | 
+<cfelse>
+	#linkto(text="Show 100", params="")# | 
+</cfif>
+#linkTo(text="Delete messages older than 1 year", controller="admin.messages", action="deleteOlder")# |
 #linkto(text="Office Settings", controller="admin.settings", action="index", params="category=office")#
 
 <table class="table">
@@ -45,7 +54,6 @@
 </cfoutput>
 </table>
 
-	<p>#addTag()#</p>
 
 </div>
 </cfoutput>

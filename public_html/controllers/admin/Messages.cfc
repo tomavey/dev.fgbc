@@ -96,7 +96,24 @@ component extends="Controller" output="false" {
 			redirectTo(action="index");
 		}
 	}
-<!---------------------------------->
+
+	//  messages/delete/key 
+	public function deleteOlder() {
+		var oneYearAgo = dateAdd('yyyy',-1,now())
+		message = model("Mainmessage").deleteAll(where="createdAt < '#oneYearAgo#'")
+
+		//  Verify that the message deletes successfully 
+		if ( message ) {
+			flashInsert(success="The messages were deleted successfully.");
+			redirectTo(action="index");
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error deleting the messages.");
+			redirectTo(action="index");
+		}
+	}
+
+	<!---------------------------------->
 <!------END OF CRUD----------------->	
 <!---------------------------------->
 
