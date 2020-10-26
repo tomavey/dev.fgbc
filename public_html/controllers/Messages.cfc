@@ -79,7 +79,7 @@
 	<cffunction name="create">
 		<cfscript>
 			if ( isBadMessage(params.message.email, params.message.message) ) { 
-				renderText("Thanks for the contact!");abort;
+				redirectTo(action="thankyou")
 			}
 		</cfscript>
 		<cfif showCaptcha>
