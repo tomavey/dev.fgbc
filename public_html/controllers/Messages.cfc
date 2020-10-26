@@ -111,9 +111,9 @@
 
 <cfscript>
 	function isBadMessage( email,message,badContactUsMessage = getSetting('badContactUsMessage'), badContactUsEmail = getSetting('badContactUsEmail') ){
+		if ( findNoCase(badContactUsMessage,message) ) { ddd(messsage) }
+		if ( findNoCase(badContactUsEmail,email) ) { ddd(email) }
 		ddd(arguments)
-		if ( findNoCase(badContactUsMessage,message) ) { return true }
-		if ( findNoCase(badContactUsEmail,email) ) { return true }
 		return false
 	}
 </cfscript>	
