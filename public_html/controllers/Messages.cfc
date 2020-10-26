@@ -116,11 +116,10 @@
 		badContactUsMessages = listToArray(getSetting('badContactUsMessage')), 
 		badContactUsEmails = listToArray(getSetting('badContactUsEmail')) 
 		){
-			ddd(arguments)
-			for ( BadMessage in badContactUsMessages ) {
+			for ( var BadMessage in badContactUsMessages ) {
 				if ( findNoCase(BadMessage,message) ) { return true }
 			}
-			for ( BadEmail in badContactUsEmails ) {
+			for ( var BadEmail in badContactUsEmails ) {
 				if ( findNoCase(BadEmail,email) ) { return true }
 			}
 		return false
