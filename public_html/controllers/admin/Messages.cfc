@@ -100,7 +100,6 @@ component extends="Controller" output="false" {
 	//  messages/delete/key 
 	public function deleteOlder() {
 		var oneYearAgo = dateAdd('yyyy',-1,now())
-		ddd(oneYearAgo)
 		message = model("Mainmessage").deleteAll(where="createdAt < '#oneYearAgo#'")
 
 		//  Verify that the message deletes successfully 
