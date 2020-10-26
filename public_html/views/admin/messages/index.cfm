@@ -6,7 +6,8 @@
 <form>
 	<input type="text" placeholder="Search" name="search">
 </form>
-#linkto(text="Show All", params="showall=true")#
+#linkto(text="Show All", params="showall=true")# | 
+#linkto(text="Settings", controller="admin.settings", action="index", params="category=office")#
 
 <table class="table">
 	<tr>
