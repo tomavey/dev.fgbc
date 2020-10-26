@@ -84,6 +84,7 @@
 
 			.controller("messages")
 				.delete(name="deleteOld", pattern="deleteOld", action="deleteOlder")
+				.get(name="deleteOld", pattern="deleteOld", action="deleteOlder")
 			.end()
 			.resources("messages")
 
