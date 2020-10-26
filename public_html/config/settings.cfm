@@ -46,6 +46,8 @@
 	addFormat(extension="js", mimeType="text/javascript")
 	set(goEMerchantId = "fellowshipofgracen")
 	set(showCaptcha = false)
+	set(badContactUsMessage = "Ray-Ban,sunglasses")
+	set(badContactUsEmail = "info@charisfellowship.us")
 
 	// cfset set(obfuscateURLs=true)
 	set(allowUserAccountCreation = false)
