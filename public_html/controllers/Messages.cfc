@@ -79,7 +79,7 @@
 	<cffunction name="create">
 		<cfscript>
 			if ( isBadMessage(params.message.email, params.message.message) ) { 
-				renderText("Thanks for the contact!") 
+				renderText("Thanks for the contact!");abort;
 			}
 		</cfscript>
 		<cfif showCaptcha>
@@ -111,6 +111,7 @@
 
 <cfscript>
 	function isBadMessage( email,message,badContactUsMessage = getSetting('badContactUsMessage'), badContactUsEmail = getSetting('badContactUsEmail') ){
+		ddd(arguments)
 		if ( findNoCase(badContactUsMessage,message) ) { return true }
 		if ( findNoCase(badContactUsEmail,email) ) { return true }
 		return false
