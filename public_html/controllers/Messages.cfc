@@ -79,6 +79,7 @@
 	<cffunction name="create">
 		<cfscript>
 			if ( isBadMessage(params.message.email, params.message.message) ) { 
+				ddd(params.message)
 				renderText("Thanks for the contact!");abort;
 			}
 		</cfscript>
@@ -111,9 +112,8 @@
 
 <cfscript>
 	function isBadMessage( email,message,badContactUsMessage = getSetting('badContactUsMessage'), badContactUsEmail = getSetting('badContactUsEmail') ){
-		if ( findNoCase(badContactUsMessage,message) ) { ddd(message) }
-		if ( findNoCase(badContactUsEmail,email) ) { ddd(email) }
-		ddd(arguments)
+		if ( findNoCase(badContactUsMessage,message) ) { return true }
+		if ( findNoCase(badContactUsEmail,email) ) { return true }
 		return false
 	}
 </cfscript>	
