@@ -81,6 +81,10 @@
 				.end()
 			.resources("jobs")
 			.resources("menus")
+
+			.controller("messages")
+				.delete(name="deleteOld", pattern="deleteOld", action="deleteOlder")
+			.end()
 			.resources("messages")
 
 			.get(name="listMinistries", pattern="/ministries/list/", controller="ministries", action="list")
