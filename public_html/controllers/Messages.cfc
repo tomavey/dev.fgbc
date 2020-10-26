@@ -78,7 +78,7 @@
 	<!--- messages/create --->
 	<cffunction name="create">
 		<cfscript>
-			if ( isBadMessage(params.email, params.message) ) { 
+			if ( isBadMessage(params.message.email, params.message.message) ) { 
 				renderText("Thanks for the contact!") 
 			}
 		</cfscript>
