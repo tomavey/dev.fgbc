@@ -1,115 +1,103 @@
-<cfcomponent extends="Controller" output="false">
+component extends="Controller" output="false" {
 
-	<cffunction name="init">
-		<cfset filters(through="setShowCaptcha", only="new,create")>
-	</cffunction>
+	public function init() {
+		filters(through="setShowCaptcha", only="new,create");
+	}
 
-	<cfscript>
-		function setShowCaptcha(){
+	function setShowCaptcha(){
 			showCaptcha = getSetting('showCaptcha')
 		}
-	</cfscript>
+	//  messages/index 
 
-	<!--- messages/index --->
-	<cffunction name="index">
-		<cfif isDefined("params.showall")>
-			<cfset messages = model("Mainmessage").findAll(order="createdAt DESC")>
-		<cfelse>
-			<cfset messages = model("Mainmessage").findAll(order="createdAt DESC", maxrows=100)>
-		</cfif>
-	</cffunction>
+	public function index() {
+		if ( isDefined("params.showall") ) {
+			messages = model("Mainmessage").findAll(order="createdAt DESC");
+		} else {
+			messages = model("Mainmessage").findAll(order="createdAt DESC", maxrows=100);
+		}
+	}
+	//  messages/show/key 
 
-	<!--- messages/show/key --->
-	<cffunction name="show">
+	public function show() {
+		//  Find the record 
+		message = model("Mainmessage").findByKey(params.key);
+		//  Check if the record exists 
+		if ( !IsObject(message) ) {
+			flashInsert(error="Message #params.key# was !found");
+			redirectTo(action="index");
+		}
+	}
+	//  messages/new 
 
-		<!--- Find the record --->
-    	<cfset message = model("Mainmessage").findByKey(params.key)>
+	public function new() {
+		message = model("Mainmessage").new();
+		if ( isDefined("params.subject") ) {
+			message.subject = params.subject;
+		} else {
+			message.subject = "";
+		}
+		formaction="create";
+		if ( showCaptcha ) {
+			strCaptcha = getcaptcha();
+		}
+	}
+	//  messages/new 
 
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(message)>
-	        <cfset flashInsert(error="Message #params.key# was not found")>
-	        <cfset redirectTo(action="index")>
-	    </cfif>
+	public function cci_new() {
+		params.subject= "Constitution Questions";
+		params.headermessage = "Send your question:";
+		message = model("Mainmessage").new();
+		if ( isDefined("params.subject") ) {
+			message.subject = params.subject;
+		} else {
+			message.subject = "";
+		}
+		strCaptcha = getcaptcha();
+		renderPage(action="new");
+	}
+	//  messages/edit/key 
 
-	</cffunction>
+	public function edit() {
+		//  Find the record 
+		message = model("Mainmessage").findByKey(params.key);
+		//  Check if the record exists 
+		if ( !IsObject(message) ) {
+			flashInsert(error="Message #params.key# was !found");
+			redirectTo(action="index");
+		}
+	}
+	//  messages/create 
 
-	<!--- messages/new --->
-	<cffunction name="new">
-		<cfset message = model("Mainmessage").new()>
-		<cfif isDefined("params.subject")>
-			<cfset message.subject = params.subject>
-		<cfelse>	
-			<cfset message.subject = "">
-		</cfif>
-		<cfset formaction="create">
-		<cfif showCaptcha>
-			<cfset strCaptcha = getcaptcha()>
-		</cfif>
-	</cffunction>
+	public function create() {
 
-	<!--- messages/new --->
-	<cffunction name="cci_new">
-		<cfset params.subject= "Constitution Questions">
-		<cfset params.headermessage = "Send your question:">
-		<cfset message = model("Mainmessage").new()>
-		<cfif isDefined("params.subject")>
-			<cfset message.subject = params.subject>
-		<cfelse>	
-			<cfset message.subject = "">
-		</cfif>
-		<cfset strCaptcha = getcaptcha()>
-		<cfset renderPage(action="new")>
-	</cffunction>
-
-	<!--- messages/edit/key --->
-	<cffunction name="edit">
-
-		<!--- Find the record --->
-    	<cfset message = model("Mainmessage").findByKey(params.key)>
-
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(message)>
-	        <cfset flashInsert(error="Message #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-
-	</cffunction>
-
-	<!--- messages/create --->
-	<cffunction name="create">
-		<cfscript>
-			if ( isBadMessage(params.message.email, params.message.message) ) { 
+		if ( isBadMessage(params.message.email, params.message.message) ) { 
 				redirectTo(action="thankyou")
 			}
-		</cfscript>
-		<cfif showCaptcha>
-			<cfset strCaptcha = getcaptcha()>
-			<cfset params.captcha_check = decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
-		</cfif>
+			
+		if ( showCaptcha ) {
+			strCaptcha = getcaptcha();
+			params.captcha_check = decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX");
+		}
+		//  <cfset ddd(params)> 
+		if ( !showCaptcha || (len(params.captcha) && params.captcha == params.captcha_check) ) {
+			message = model("Mainmessage").new(params.message);
+			//  Verify that the message creates successfully 
+			if ( message.save() ) {
+				flashInsert(success="The message was created successfully.");
+				redirectTo(action="notification", key=message.id);
+				//  Otherwise 
+			} else {
+				flashInsert(error="There was an error creating the message.");
+				renderPage(action="new");
+			}
+		} else {
+			flashInsert(error="Please try to enter the scrambled image again.");
+			message = model("Mainmessage").new(params.message);
+			strCaptcha = getcaptcha();
+			renderPage(action="new");
+		}
+	}
 
-		<!--- <cfset ddd(params)> --->
-		<cfif !showCaptcha || (len(params.captcha) && params.captcha == params.captcha_check)>
-			<cfset message = model("Mainmessage").new(params.message)>
-
-			<!--- Verify that the message creates successfully --->
-			<cfif message.save()>
-				<cfset flashInsert(success="The message was created successfully.")>
-        <cfset redirectTo(action="notification", key=message.id)>
-
-			<!--- Otherwise --->
-			<cfelse>
-				<cfset flashInsert(error="There was an error creating the message.")>
-				<cfset renderPage(action="new")>
-			</cfif>
-		<cfelse>
-			<cfset flashInsert(error="Please try to enter the scrambled image again.")>
-			<cfset message = model("Mainmessage").new(params.message)>
-			<cfset strCaptcha = getcaptcha()>
-			<cfset renderPage(action="new")>
-		</cfif>
-	</cffunction>
-
-<cfscript>
 	function isBadMessage( 
 		email,
 		message,
@@ -124,22 +112,21 @@
 			}
 		return false
 	}
-</cfscript>	
 
-	<cffunction name="notification">
-		<cfset var loc = structNew()>
-    	<cfset message = model("Mainmessage").findByKey(params.key)>
-		<cfif len(message.subject)>
-			<cfset loc.subject = message.subject>
-		<cfelse>
-			<cfset loc.subject = "A message from charisfellowship.us contact page...">
-		</cfif>	
-		<cfif !isLocalMachine()>
-			<cfset sendEmail(template="notification", from=message.email, to=getSetting('sendContactUsTo'), subject=loc.subject, layout="/layout_naked")>
-		<cfelse>
-			<cfset flashInsert(failed="Email was not sent from this local machine to #getSetting('sendContactUsTo')#")>
-		</cfif>
-      <cfset redirectTo(action="thankyou")>
-	</cffunction>
+	public function notification() {
+		var loc = structNew();
+		message = model("Mainmessage").findByKey(params.key);
+		if ( len(message.subject) ) {
+			loc.subject = message.subject;
+		} else {
+			loc.subject = "A message from charisfellowship.us contact page...";
+		}
+		if ( !isLocalMachine() ) {
+			sendEmail(template="notification", from=message.email, to=getSetting('sendContactUsTo'), subject=loc.subject, layout="/layout_naked");
+		} else {
+			flashInsert(failed="Email was !sent from this local machine to #getSetting('sendContactUsTo')#");
+		}
+		redirectTo(action="thankyou");
+	}
 
-</cfcomponent>
+}
