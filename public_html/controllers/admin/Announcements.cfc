@@ -1,152 +1,120 @@
-<cfcomponent extends="Controller" output="false">
+component extends="Controller" output="false" {
 
-	<cffunction name="init">
-		<cfset filters(through="checkOffice", only="adminindex,edit,new,delete")>
-		<cfset filters(through="setReturn", only="index,show")>
-	</cffunction>
+	public function init() {
+		filters(through="checkOffice", only="adminindex,edit,new,delete");
+		filters(through="setReturn", only="index,show");
+	}
+	// ----
+	// CRUD
+	// ----
+	// announcements/index
 
-	<!---------->
-	<!---CRUD--->
-	<!---------->
+	public function index() {
+		cfparam( default=1, name="params.page" );
+		cfparam( default=20, name="params.perpage" );
+		if ( isDefined("params.showall") ) {
+			params.whereString = "";
+			params.perpage = 10000000000000000;
+		} else if ( isDefined("params.announcements") ) {
+			params.whereString = "endAt > now() AND onhold = 'N' AND (type = 'Announcement Only' OR type = 'Both' OR type = '')";
+			params.perpage = 10000000000000000;
+		} else if ( isDefined("params.feeds") ) {
+			params.whereString = "(type = 'News Feed Only' OR type = 'Both' OR type = '')";
+			params.perpage = 10000000000000000;
+		} else {
+			params.whereString = "endAt > now() AND onhold = 'N'";
+		}
+		if ( isDefined("params.search") AND len(params.search) ) {
+			params.whereString = params.whereString & " AND (title LIKE '%#params.search#%' OR content LIKE '%#params.search#%')";
+		}
+		announcements = model("Mainannouncement").findall(where=params.whereString, order="startAt DESC", page=params.page, perpage=params.perpage);
+	}
+	//  announcements/show/key 
 
-	<!---announcements/index--->
-	<cffunction name="index">
-		<cfparam name="params.page" default="1">
-		<cfparam name="params.perpage" default="20">
-		<cfif isDefined("params.showall")>
-			<cfset params.whereString = "">
-			<cfset params.perpage = 10000000000000000>
-		<cfelseif isDefined("params.announcements")>	
-			<cfset params.whereString = "endAt > now() AND onhold = 'N' AND (type = 'Announcement Only' OR type = 'Both' OR type = '')">
-			<cfset params.perpage = 10000000000000000>
-		<cfelseif isDefined("params.feeds")>	
-			<cfset params.whereString = "(type = 'News Feed Only' OR type = 'Both' OR type = '')">
-			<cfset params.perpage = 10000000000000000>
-		<cfelse>					
-			<cfset params.whereString = "endAt > now() AND onhold = 'N'">
-		</cfif>	
-		<cfif isDefined("params.search") and len(params.search)>
-			  <cfset params.whereString = params.whereString & " AND (title LIKE '%#params.search#%' OR content LIKE '%#params.search#%')">
-		</cfif>
-		<cfset announcements = model("Mainannouncement").findall(where=params.whereString, order="startAt DESC", page=params.page, perpage=params.perpage)>
-	</cffunction>
-	
-	<!--- announcements/show/key --->
-	<cffunction name="show">
-		
-		<!--- Find the record --->
-    	<cfset announcement = model("Mainannouncement").findByKey(params.key)>
-    	
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(announcement)>
-	        <cfset flashInsert(error="Announcement #params.key# was not found")>
-	        <cfset redirectTo(action="index")>
-	    </cfif>
-			
-	</cffunction>
-	
-	<!--- announcements/new --->
-	<cffunction name="new">
-		<cfset announcement = model("Mainannouncement").new()>
-	</cffunction>
-	
-	<!--- announcements/edit/key --->
-	<cffunction name="edit">
-	
-		<!--- Find the record --->
-    	<cfset announcement = model("Mainannouncement").findByKey(params.key)>
-    	
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(announcement)>
-	        <cfset flashInsert(error="Announcement #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-		
-	</cffunction>
-	
-	<!--- announcements/copy/key --->
-	<cffunction name="copy">
-	
-		<!--- Find the record --->
-    	<cfset announcement = model("Mainannouncement").findByKey(params.key)>
-    	
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(announcement)>
-	        <cfset flashInsert(error="Announcement #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
+	public function show() {
+		//  Find the record 
+		announcement = model("Mainannouncement").findByKey(params.key);
+		//  Check if the record exists 
+		if ( !IsObject(announcement) ) {
+			flashInsert(error="Announcement #params.key# was !found");
+			redirectTo(action="index");
+		}
+	}
+	//  announcements/new 
 
-	    <cfset renderPage(action="new")>
-		
-	</cffunction>
+	public function new() {
+		announcement = model("Mainannouncement").new();
+	}
+	//  announcements/edit/key 
 
-	<!--- announcements/create --->
-	<cffunction name="create">
-		<cfset announcement = model("Mainannouncement").new(params.announcement)>
-		<!---cfdump var='#announcement.properties()#'><cfabort--->
-		
-		<!--- Verify that the announcement creates successfully --->
-		<cfif announcement.save()>
-			<!---cfset $uploadImage(params.announcement.image)--->
-			<cfset flashInsert(success="The announcement was created successfully.")>
-			<cfset returnBack()>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error creating the announcement.")>
-			<cfset renderPage(action="new")>
-		</cfif>
-	</cffunction>
-	
-	<!--- announcements/update --->
-	<cffunction name="update">
-		<cfset announcement = model("Mainannouncement").findByKey(params.key)>
-		
-		<!--- Verify that the announcement updates successfully --->
-		<cfif announcement.update(params.announcement)>
+	public function edit() {
+		//  Find the record 
+		announcement = model("Mainannouncement").findByKey(params.key);
+		//  Check if the record exists 
+		if ( !IsObject(announcement) ) {
+			flashInsert(error="Announcement #params.key# was !found");
+			redirectTo(action="index");
+		}
+	}
+	//  announcements/copy/key 
 
-			<!---cfset $uploadImage(params.announcement.image)--->
-			<cfset flashInsert(success="The announcement was updated successfully.")>	
-			<cfset returnBack()>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the announcement.")>
-			<cfset renderPage(action="edit")>
-		</cfif>
-	</cffunction>
-	
-	<!--- announcements/delete/key --->
-	<cffunction name="delete">
-		<cfset announcement = model("Mainannouncement").findByKey(params.key)>
-		
-		<!--- Verify that the announcement deletes successfully --->
-		<cfif announcement.delete()>
-			<cfset flashInsert(success="The announcement was deleted successfully.")>	
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error deleting the announcement.")>
-			<cfset redirectTo(action="index")>
-		</cfif>
-	</cffunction>
+	public function copy() {
+		//  Find the record 
+		announcement = model("Mainannouncement").findByKey(params.key);
+		//  Check if the record exists 
+		if ( !IsObject(announcement) ) {
+			flashInsert(error="Announcement #params.key# was !found");
+			redirectTo(action="index");
+		}
+		renderPage(action="new");
+	}
+	//  announcements/create 
 
-	<!---End of Crud--->
+	public function create() {
+		announcement = model("Mainannouncement").new(params.announcement);
+		//  Verify that the announcement creates successfully 
+		if ( announcement.save() ) {
+			// cfset $uploadImage(params.announcement.image)
+			flashInsert(success="The announcement was created successfully.");
+			returnBack();
+			redirectTo(action="index");
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error creating the announcement.");
+			renderPage(action="new");
+		}
+	}
+	//  announcements/update 
 
-<!---Not Used Needs work--->
-	<cffunction name="$uploadImage" access="private">
-	<cfargument name="image" required="true" type="string">
-	<cfset var loc = arguments>
-	<cfset loc.destination = "#expandpath('.')#/images/announcements/">
-	<cfdump var="#loc#"><cfabort>
-	<cffile action = "upload"
-          fileField = loc.image
-          destination = loc.destination
-          accept = "image/jpeg, text/html, application/msword,  application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.msword, application/vnd.ms-excel, application/msexcel, application/unknown, application/x-octet-stream,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-          nameconflict="overwrite">
-	<!---
-		<cfimage action="resize" width="300" height="" name="thumb" source="#expandpath('.')#/images/announcements/#arguments.image#" destination="#expandpath('.')#/images/announcements/thumb_#arguments.image#" overwrite="true">		
-	--->	
-	</cffunction>
+	public function update() {
+		announcement = model("Mainannouncement").findByKey(params.key);
+		//  Verify that the announcement updates successfully 
+		if ( announcement.update(params.announcement) ) {
+			// cfset $uploadImage(params.announcement.image)
+			flashInsert(success="The announcement was updated successfully.");
+			returnBack();
+			redirectTo(action="index");
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error updating the announcement.");
+			renderPage(action="edit");
+		}
+	}
+	//  announcements/delete/key 
 
-</cfcomponent>
+	public function delete() {
+		announcement = model("Mainannouncement").findByKey(params.key);
+		//  Verify that the announcement deletes successfully 
+		if ( announcement.delete() ) {
+			flashInsert(success="The announcement was deleted successfully.");
+			redirectTo(action="index");
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error deleting the announcement.");
+			redirectTo(action="index");
+		}
+	}
+	// End of Crud
+
+
+}

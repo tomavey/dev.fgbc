@@ -1,7 +1,7 @@
 <cfoutput>
 <div class="container">
 
-<h1>Editing Event</h1>
+<h1>Editing #event.event#</h1>
 
 
 			#errorMessagesFor("event")#
