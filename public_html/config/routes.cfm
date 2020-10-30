@@ -399,6 +399,7 @@
 			.get(name="addRegItem", pattern="/registration/additem/[key]", controller="registrations", action="addTo")
 			.get(name="summary", pattern="/registrations/summary/", controller="registrations", action="summary")
 			.post(name="postAddedItem", pattern="/registration/add/", controller="registrations", action="add")
+			.get(name="cancelreg", pattern="/registration/cancel/", controller="registrations", action="cancelReg")
 			.resources("registrations")
 			
 			.get(name="recentRegs", pattern="recentRegs", controller="registrants", action="recentRegistrants")
