@@ -38,7 +38,8 @@
 			params.retreatid = retreat.id;
 			reportTitle = "Listing Registrations for #retreat.regid#:";
 		} else if ( isdefined("params.search") ) {
-			whereString="showregs='yes' AND (lname='#params.search#' OR fname='#params.search#')";
+			whereString="(lname='#params.search#' OR fname='#params.search#' OR email like '%#params.search#%')";
+			orderby = "createdAt DESC"
 			showsummary = false;
 		} else if ( isdefined("params.option") ) {
 			whereString = "name='#params.option#' AND cancelledAt IS NULL";
@@ -53,7 +54,8 @@
 			registrations = model("Focusregistration").findAll(where=whereString, include=includeString, order=orderby);
 			reportTitle = "Listing Registrations for option #item.description#: ";
 			showsummary = true;
-		} else {
+		}
+			else {
 			whereString = "showregs='yes' AND active='yes' AND cancelledAt IS NULL";
 			reportTitle = "Listing Registrations for the most recent #showHowMany# focus retreat regs: ";
 		}
