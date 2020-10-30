@@ -63,7 +63,7 @@
         					<cfloop query="#showRegsFor()#">
         						<li>#linkTo(controller="focus.registrations", action="index", params="retreatid=#id#", text=regid, retreatid=id)#</li>
         					</cfloop>
-                            <li>#linkTo(controller="focus.registrations", action="summary", text="Summary")#</li>
+                     <li>#linkTo(controller="focus.registrations", action="summary", text="Summary")#</li>
         				</ul>
       			</li>	
 						<li class="dropdown">

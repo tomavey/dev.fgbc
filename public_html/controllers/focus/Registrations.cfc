@@ -7,76 +7,76 @@
 		<cfset filters(through="getRetreatRegions")>
 	</cffunction>
 
-	<!--- -registrations/index --->
-	<cffunction name="index">
-	<cfargument name="showHowMany" default="10">
-		<cfset showsummary=true>
-		<cfset message = "Listing Registrations: ">	
+<cfscript>
+	//  -registrations/index 
 
+	function index(showHowMany="10") {
+		showsummary=true;
+		message = "Listing Registrations: ";
+		if ( isDefined("params.byLName") ) {
+			var orderby = "lname";
+		} else {
+			var orderby = "registrantid DESC";
+		}
+		if ( isDefined("params.menuname") ) {
+			params.retreatid = getIdFromMenuName(params.menuname);
+		}
+		var whereString = ""
+		var includeString = "item(retreat),registrant,invoice";
 
-		<cfif isDefined("params.byLName")>
-			<cfset orderby = "lname">
-		<cfelse>
-			<cfset orderby = "registrantid DESC">
-		</cfif>
+		if ( isDefined("params.showCancelled") ) {
+			whereString = "cancelledAt IS NOT NULL";
+			retreat = model("Focusretreat").findbyKey(params.retreatid);
+			reportTitle = "Listing All Cancelled Registrations";
+		} else if ( isdefined("params.retreatid") ) {
+			whereString = "showregs='yes' AND retreatid='#params.retreatid#' AND cancelledAt IS NULL";
+			retreat = model("Focusretreat").findbyKey(params.retreatid);
+			reportTitle = "Listing Registrations for #retreat.regid#:";
+		} else if ( isdefined("params.retreat") ) {
+			whereString="retreatid='#params.retreatid#' AND cancelledAt IS NULL";
+			retreat = model("Focusretreat").findOne(where="regid='#params.retreat#'");
+			params.retreatid = retreat.id;
+			reportTitle = "Listing Registrations for #retreat.regid#:";
+		} else if ( isdefined("params.search") ) {
+			whereString="showregs='yes' AND (lname='#params.search#' OR fname='#params.search#')";
+			showsummary = false;
+		} else if ( isdefined("params.option") ) {
+			whereString = "name='#params.option#' AND cancelledAt IS NULL";
+			reportTitle = "Listing Registrations for #params.option#:";
+		} else if ( isdefined("params.optionid") ) {
+			whereString="itemid='#params.optionid#' AND cancelledAt IS NULL";
+			reportTitle = "Listing Registrations for  option ID###params.optionid#:";
+			showsummary = true;
+		} else if ( isdefined("params.itemid") ) {
+			whereString = "itemid='#params.itemid#' AND cancelledAt IS NULL";
+			item = model("Focusitem").findOne(where="id=#params.itemid#")
+			registrations = model("Focusregistration").findAll(where=whereString, include=includeString, order=orderby);
+			reportTitle = "Listing Registrations for option #item.description#: ";
+			showsummary = true;
+		} else {
+			whereString = "showregs='yes' AND active='yes' AND cancelledAt IS NULL";
+			reportTitle = "Listing Registrations for the most recent #showHowMany# focus retreat regs: ";
+		}
 
-		<cfif isDefined("params.menuname")>
-			<cfset params.retreatid = getIdFromMenuName(params.menuname)>
-		</cfif>
+		registrations = model("Focusregistration").findAll(where=whereString, include=includeString, order=orderby);
+		registrationCounts = model("Focusregistration").findAll(where=whereString, include=includeString, order="itemid DESC");
 
-		<cfif isdefined("params.retreatid")>
-			<cfset whereString = "showregs='yes' AND retreatid='#params.retreatid#'">
-			// AND createdAt < '2019-01-12'" will test summary report
-			<cfset registrations = model("Focusregistration").findAll(where=whereString, include="item(retreat),registrant,invoice", order=orderby)>
-			<cfset registrationCounts = model("Focusregistration").findAll(where="showregs='yes' AND retreatid='#params.retreatid#'", include="item(retreat),registrant,invoice", order="itemid DESC")>
-			<cfset retreat = model("Focusretreat").findbyKey(params.retreatid)>
-			<cfset reporttitle = "Listing Registrations for #retreat.regid#:">
-		<cfelseif isdefined("params.retreat")>
-			<cfset registrations = model("Focusregistration").findAll(where="retreatid='#params.retreatid#'", include="item(retreat),registrant,invoice", order=orderby)>
-			<cfset registrationCounts = model("Focusregistration").findAll(where="retreatid='#params.retreatid#'", include="item(retreat),registrant,invoice", order="itemid DESC")>
-			<cfset retreat = model("Focusretreat").findOne(where="regid='#params.retreat#'")>
-			<cfset params.retreatid = retreat.id>
-			<cfset reporttitle = "Listing Registrations for #retreat.regid#:">
-		<cfelseif isdefined("params.search")>
-			<cfset registrations = model("Focusregistration").findAll(where="showregs='yes' AND (lname='#params.search#' OR fname='#params.search#')", include="item(retreat),registrant,invoice", order=orderby)>
-			<cfset reporttitle = "Listing Registrations for #params.search#:">
-			<cfset showsummary = false>
-		<cfelseif isdefined("params.option")>
-			<cfset registrations = model("Focusregistration").findAll(where="name='#params.option#'", include="item(retreat),registrant,invoice", order=orderby)>
-			<cfset registrationCounts = model("Focusregistration").findAll(where="name='#params.option#'", include="item(retreat),registrant,invoice", order="itemid DESC")>
-			<cfset reporttitle = "Listing Registrations for #params.option#:">
-		<cfelseif isdefined("params.optionid")>
-			<cfset registrations = model("Focusregistration").findAll(where="itemid='#params.optionid#'", include="item(retreat),registrant,invoice", order=orderby)>
-			<cfset registrationCounts = model("Focusregistration").findAll(where="itemid='#params.optionid#'", include="item(retreat),registrant,invoice", order="itemid DESC")>
-			<cfset reporttitle = "Listing Registrations for  option ID###itemid#:">
-			<cfset showsummary = true>
-		<cfelseif isdefined("params.itemid")>
-			<cfset registrations = model("Focusregistration").findAll(where="itemid='#params.itemid#'", include="item(retreat),registrant,invoice", order=orderby)>
-			<cfset registrationCounts = model("Focusregistration").findAll(where="itemid='#params.itemid#'", include="item(retreat),registrant,invoice", order="itemid DESC")>
-			<cfset reporttitle = "Listing Registrations for option ID###params.itemid#:">
-			<cfset showsummary = true>
-		<cfelse>
-			<cfset registrations = model("Focusregistration").findAll(where="showregs='yes' AND active='yes'", include="item(retreat),registrant,invoice", order=orderby, maxrows="10")>
-			<cfset registrationCounts = model("Focusregistration").findAll(where="showregs='yes' AND active='yes'", include="item(retreat),registrant,invoice", order="itemid DESC")>
-			<cfset message = "Listing Registrations for the most recent #showHowMany# regs for: ">	
-		</cfif>
-		<cfif isDefined("params.download")>
-			<cfset renderPage(action="download", layout="/layout_download")>
-		</cfif>
+		if ( isDefined("params.download") ) {
+			renderPage(action="download", layout="/layout_download");
+		}
+	}
 
-		<cfset setreturn()>
-	</cffunction>
+</cfscript>
 
 	<cffunction name="list">
-			<cfset registrations = model("Focusregistration").findAll(where="showregs='yes' AND retreatid='#params.retreatid#'", include="item(retreat),registrant,invoice", order="itemid")>
-			<cfset retreat = model("Focusretreat").findByKey(params.retreatid)>
-			<cfset reporttitle = "Listing Registrations for #retreat.regid#:">
+		<!---lists registrations for a specific retreat by option--->	
+		<cfset registrations = model("Focusregistration").findAll(where="showregs='yes' AND retreatid='#params.retreatid#'", include="item(retreat),registrant,invoice", order="itemid")>
+		<cfset retreat = model("Focusretreat").findByKey(params.retreatid)>
+		<cfset reporttitle = "Listing Registrations by option for #retreat.regid#:">
 	</cffunction>
 
 	<!--- -registrations/show/key --->
 	<cffunction name="show">
-		<cfset setReturn()>
-
 		<!--- Find the record --->
     	<cfset registration = model("Focusregistration").findByKey(params.key)>
 
@@ -183,6 +183,30 @@
 		</cfif>
 	</cffunction>
 
+<cfscript>
+
+	public function cancelReg(registrantId = params.registrantId){
+		var canceledRegs = model("Focusregistration").findAll(where="registrantId=#arguments.registrantId#")
+		for (canceledReg in canceledRegs) {
+			var thisReg = model("Focusregistration").findOne(where="id=#canceledReg.id#")
+			thisReg.cancelledAt = now()
+			thisReg.update()
+		}		
+		returnBack()
+	}
+
+	public function unCancelReg(registrantId = params.registrantId){
+		var canceledRegs = model("Focusregistration").findAll(where="registrantId=#arguments.registrantId#")
+		for (canceledReg in canceledRegs) {
+			var thisReg = model("Focusregistration").findOne(where="id=#canceledReg.id#")
+			thisReg.cancelledAt = ""
+			thisReg.update()
+		}		
+		returnBack()
+	}
+
+</cfscript>
+
 	<cfscript>
 		private function getIdFromMenuName(name){
 			var retreat = model("Focusretreat").findOne(where="menuname = '#name#' AND active = 'yes'", order="startAt DESC");
@@ -195,24 +219,24 @@
 	</cfscript>
 
 	<cffunction name="whoiscoming">
-	<cfif isDefined("params.keyy")>
-		<cfif val(params.key)>
-			<cfset params.key = params.keyy>
-		<cfelse>
-			<cfset params.key = getIdFromMenuName(params.keyy)>		
+		<cfif isDefined("params.keyy")>
+			<cfif val(params.key)>
+				<cfset params.key = params.keyy>
+			<cfelse>
+				<cfset params.key = getIdFromMenuName(params.keyy)>		
+			</cfif>	
+		<cfelse>	
+			<cfset renderText("Something is not working correctly! Try again.")>
 		</cfif>	
-	<cfelse>	
-		<cfset renderText("Something is not working correctly! Try again.")>
-	</cfif>	
 
-	<cftry>
-		<cfset whoiscoming = model("Focusitem").findAll(where="retreatId=#params.key#", include="retreat,registration(registrant,invoice)", order="lname,fname")>
-		<cfcatch>
-			<cfset whoiscoming = model("Focusitem").findAll(where="menuname='#params.key#'", include="retreat,registration(registrant,invoice)", order="lname,fname")>
-		</cfcatch>
-	</cftry>
+		<cftry>
+			<cfset whoiscoming = model("Focusitem").findAll(where="retreatId=#params.key#", include="retreat,registration(registrant,invoice)", order="lname,fname")>
+			<cfcatch>
+				<cfset whoiscoming = model("Focusitem").findAll(where="menuname='#params.key#'", include="retreat,registration(registrant,invoice)", order="lname,fname")>
+			</cfcatch>
+		</cftry>
 
-	<cfset retreats = model("Focusretreat").findAll(where="active='yes' and startAt > now()", order="startAt")>
+		<cfset retreats = model("Focusretreat").findAll(where="active='yes' and startAt > now()", order="startAt")>
 		<cfset renderPage(layout="/focus/layout2")>
 	</cffunction>
 

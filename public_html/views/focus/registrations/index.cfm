@@ -43,6 +43,11 @@ public function countRegItems(ccstatus,cost){
 		#linkto(text="Show Registrations by option", action="list", params="retreatid=#params.retreatid#", class="btn")#
 		#linkto(text="Download these names", action="index", params="retreatid=#params.retreatid#&download=true", class="btn")#
 		#linkto(text="Sort by last name", action="index", params="retreatid=#params.retreatid#&bylname", class="btn")#
+		<cfif !isDefined("params.showCancelled")>
+			#linkTo(controller="focus.registrations", action="index", params="retreatid=#params.retreatid#&showCancelled", text="Show Cancelled Regs", class="btn")#
+		<cfelse>	
+			#linkTo(controller="focus.registrations", action="index", params="retreatid=#params.retreatid#", text="Show Active Regs", class="btn")#
+		</cfif>
 	</cfif>
 </cfoutput>
 
@@ -67,9 +72,10 @@ public function countRegItems(ccstatus,cost){
 			&nbsp;
 		</th>
 	</tr>
+	<!--- <cfset ddd(registrations)> --->
 	<cfoutput query="registrations" group="registrantid">
 		<tr>
-			<td colspan="5">
+			<td colspan="4">
 					<h2>
 						#linkTo(controller="focus.registrants", action="show", key=registrantid, text="#fname# #lname#", title="View this person.", class="tooltip2", officeOnly=!isOffice)# 
 						<cfif firstTime>
@@ -80,6 +86,13 @@ public function countRegItems(ccstatus,cost){
 							<span style="color:red">EMAIL MAY BE INVALID!</span>
 						</cfif>
 					</h2>
+			</td>
+			<td>						
+				<cfif !isDefined("params.showCancelled")>
+					#linkto(text="<i class='fa fa-ban'></i>", controller="focus.registrations", action="cancelReg", params="registrantid=#registrantid#", title="Cancel All Regs for #fname#")#
+				<cfelse>	
+					#linkto(text="<i class='fa fa-check-circle'></i>", controller="focus.registrations", action="unCancelReg", params="registrantid=#registrantid#", title="Uncancel Regs for #fname#")#
+				</cfif>
 			</td>
 			<td>
 				 <cfif len(roommate)>
