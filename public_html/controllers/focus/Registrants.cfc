@@ -112,5 +112,29 @@
 			ShowInstructions = true
 		}
 	}
+
+	function updateEmail(oldEmail="fgbc.org",newEmail="charisfellowhip.us",wholeWord = false){
+		var args=arguments
+		// ddd(args)
+		if ( wholeWord ) {
+			var registrants = model("Focusregistrant").findAll(where="email='#args.oldEmail#'")
+			for ( registrant in registrants ){
+				thisReg = model("Focusregistrant").findOne(where="id = #registrant.id#")
+				thisReg.email = args.newEmail
+				thisReg.update()
+			}
+		}
+		if ( !wholeWord ) {
+			var registrants = model("Focusregistrant").findAll(where="email LIKE '%#args.oldEmail#%'")
+			for ( registrant in registrants ){
+				thisReg = model("Focusregistrant").findOne(where="id = #registrant.id#")
+				replaceNoCase(thisReg.email,args.oldEmail,args.newEmail)
+				thisReg.update()
+			}
+		}	
+		var registrants2 = model("Focusregistrant").findAll(where="email LIKE '%#args.newEmail#%'")
+		ddd(registrants2)
+	}
+
 </cfscript>
 </cfcomponent>
