@@ -42,6 +42,9 @@
 		return !itemIsSoldOut(id)
 	}
 
-
+	function namesForRegList (fname, sname, lname) {
+			if ( len(sname) ) { return names = fname & " and " & sname & " " & lname }
+			return names = fname & " " & lname
+	}
 
 </cfscript>

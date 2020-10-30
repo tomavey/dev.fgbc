@@ -12,6 +12,8 @@
 
 						#textField(objectName='shoppingcart', property='lname', label='Last Name: ')#
 
+						#textField(objectName='shoppingcart', property='sname', label="Spouse's First Name (if registering a couple ): " )#
+
 						#textField(objectName='shoppingcart', property='email', label='Email: ')#
 
 						#textField(objectName='shoppingcart', property='phone', label='Mobile Phone: ')#

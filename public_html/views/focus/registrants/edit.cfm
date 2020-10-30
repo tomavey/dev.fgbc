@@ -9,10 +9,12 @@
 			#putFormTag()#
 		
 				
-						#textField(objectName='registrant', property='fname', label='Fname')#
+						#textField(objectName='registrant', property='fname', label='First Name')#
 					
-						#textField(objectName='registrant', property='lname', label='Lname')#
+						#textField(objectName='registrant', property='lname', label='Last Name')#
 					
+						#textField(objectName='registrant', property='sname', label='Spouse Name')#
+
 						#textField(objectName='registrant', property='email', label='Email')#
 					
 						#textField(objectName='registrant', property='phone', label='Phone')#

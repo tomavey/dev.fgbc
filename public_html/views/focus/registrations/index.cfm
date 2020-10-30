@@ -76,8 +76,8 @@ public function countRegItems(ccstatus,cost){
 	<cfoutput query="registrations" group="registrantid">
 		<tr>
 			<td colspan="4">
-					<h2>
-						#linkTo(controller="focus.registrants", action="show", key=registrantid, text="#fname# #lname#", title="View this person.", class="tooltip2", officeOnly=!isOffice)# 
+					<h2>	
+						#linkTo(controller="focus.registrants", action="show", key=registrantid, text="#namesForRegList(fname, sname, lname)#", title="View this person.", class="tooltip2", officeOnly=!isOffice)# 
 						<cfif firstTime>
 							<span style="font-size:.5em;font-weight:normal;color:red">First Timer!</span>
 							<cfset countFirstTime = countFirstTime + 1>

@@ -8,7 +8,7 @@
 <ul>
 <cfoutput query="whoiscoming" group="registrantid">
 	<cfif fullNameLastFirst NEQ previousperson>
-		<li>#fname# #lname#
+		<li>#namesForRegList(fname, sname, lname)#
 			<cfif gotRights('basic') || isDefined("params.showemailall")>
 				[#mailto(emailAddress=email, encode=true)#]
 			</cfif>

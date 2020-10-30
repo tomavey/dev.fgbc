@@ -8,7 +8,10 @@
 					<p><span>Last name:</span> 
 						#registrant.lname#</p>
 				
-					<p><span>Email: </span>
+						<p><span>Spouse name:</span> 
+							#registrant.sname#</p>
+
+							<p><span>Email: </span>
 						#mailTo(registrant.email)#</p>
 				
 					<p><span>Phone: </span>
