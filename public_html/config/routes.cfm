@@ -400,6 +400,7 @@
 			.get(name="summary", pattern="/registrations/summary/", controller="registrations", action="summary")
 			.post(name="postAddedItem", pattern="/registration/add/", controller="registrations", action="add")
 			.get(name="cancelreg", pattern="/registration/cancel/", controller="registrations", action="cancelReg")
+			.get(name="unCancelreg", pattern="/registration/unCancel/", controller="registrations", action="unCancelReg")
 			.resources("registrations")
 			
 			.get(name="recentRegs", pattern="recentRegs", controller="registrants", action="recentRegistrants")
