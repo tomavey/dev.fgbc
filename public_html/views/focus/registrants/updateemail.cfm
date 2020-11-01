@@ -21,9 +21,11 @@
         params="oldEmail=#args.oldEmail#&newEmail=#args.newEmail#&wholeword=#args.wholeword#&go=true",
         class="btn")#
     </p>
+  <ol>
     <cfloop array='#emaillist#' index="email">
-      #email.currentEmail# => #email.newEmail#<br/>
+      <li>#email.currentEmail# => #email.newEmail#</li>
     </cfloop>
+  </ol>
   <cfelse>
     <h1>Update multiple emails in focus registrations</h1>
     <p>Use this form to update multiple emails in past focus retreat registrants. 

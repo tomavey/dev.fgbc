@@ -136,7 +136,7 @@
 			if ( args.wholeWord ) { whereString = "email='#args.oldEmail#'" }
 			else { whereString = "email LIKE '%#args.oldEmail#%'" }
 			var registrants = model("Focusregistrant").findAll(where=whereString)
-
+			var count  = 0
 			// iterate through each registrant	
 			for ( registrant in registrants ){
 				var thisNewEmail = ""
@@ -152,10 +152,11 @@
 
 				//save the new email to each registrants record
 				if ( args.go ) {
+					count = count + 1
 					thisReg.email = thisNewEmail
 					if ( thisReg.update() ) {
 						emaillist = []
-						flashInsert(success="The emails were updated")
+						flashInsert(success="#count# emails were updated")
 					}
 				}
 			}
