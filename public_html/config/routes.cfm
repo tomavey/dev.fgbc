@@ -405,6 +405,7 @@
 			
 			.get(name="recentRegs", pattern="recentRegs", controller="registrants", action="recentRegistrants")
 			.get(name="updateEmails", pattern="updateEmail", controller="registrants", action="updateEmail")
+			.post(name="updateEmails", pattern="updateEmail", controller="registrants", action="updateEmail")
 			.resources("registrants")
 			
 			.get(name="showRetreat", pattern="/retreat/[key]", controller="main", action="retreat")
