@@ -53,8 +53,13 @@
                 						#linkTo(text=left(focusretreat,10), controller="handbook.people", action="focus", key=focusretreat, params="includeWomen=#getSetting('includeWomen')#&yearsAgo=#getSetting('yearsAgo')#")#
                 					</li>
         						</cfif>	
-    						</cfoutput>	
-        				</ul>
+										<li>
+										</li>
+								</cfoutput>	
+								<cfoutput>
+									#linkTo(text="Update Multiple Emails", controller="focus.registrants", action="updateemail")#
+								</cfoutput>
+							</ul>
     			</li>
 				
     			<li class="dropdown">

@@ -1,4 +1,4 @@
-<cfcomponent extends="Controller" output="false">
+<cfcomponent extends="Controller" output="true">
 	
 	<cffunction name="init">
 		<cfset useslayout('/focus/layoutadmin')>
@@ -113,27 +113,53 @@
 		}
 	}
 
-	function updateEmail(oldEmail="fgbc.org",newEmail="charisfellowhip.us",wholeWord = false){
-		var args=arguments
-		// ddd(args)
-		if ( wholeWord ) {
-			var registrants = model("Focusregistrant").findAll(where="email='#args.oldEmail#'")
+	function updateEmail(
+		oldEmail="",
+		newEmail="",
+		wholeWord=false,
+		go= false
+		){
+		emailList = []
+
+
+		if ( isDefined("params.oldEmail") ) { arguments.oldEmail = params.oldEmail }	
+		if ( isDefined("params.newEmail") ) { arguments.newEmail = params.newEmail }	
+		if ( isDefined("params.go") && params.go ) { arguments.go = true }	
+		if ( isValid("email", arguments.oldemail) && isValid("email", arguments.newEmail) ) { arguments.wholeword = true }
+
+		args=arguments
+
+
+		if ( len(args.oldemail) && len(args.newEmail) ) {
+
+			//find all regs based on whole email or part of the email
+			if ( args.wholeWord ) { whereString = "email='#args.oldEmail#'" }
+			else { whereString = "email LIKE '%#args.oldEmail#%'" }
+			var registrants = model("Focusregistrant").findAll(where=whereString)
+
+			// iterate through each registrant	
 			for ( registrant in registrants ){
-				thisReg = model("Focusregistrant").findOne(where="id = #registrant.id#")
-				thisReg.email = args.newEmail
-				thisReg.update()
+				var thisNewEmail = ""
+				//get each registrant as an object
+				var thisReg = model("Focusregistrant").findOne(where="id = #registrant.id#")
+
+				//convert to the new email
+				if ( args.wholeword ) { thisNewEmail = args.newemail }
+				else { thisNewEmail = replaceNoCase(thisReg.email,args.oldEmail,args.newEmail) }
+
+				//Add that old email and new email to an array
+				arrayAppend(emailList,{"CurrentEmail":thisReg.email,"NewEmail": thisNewEmail})
+
+				//save the new email to each registrants record
+				if ( args.go ) {
+					thisReg.email = thisNewEmail
+					if ( thisReg.update() ) {
+						emaillist = []
+						flashInsert(success="The emails were updated")
+					}
+				}
 			}
 		}
-		if ( !wholeWord ) {
-			var registrants = model("Focusregistrant").findAll(where="email LIKE '%#args.oldEmail#%'")
-			for ( registrant in registrants ){
-				thisReg = model("Focusregistrant").findOne(where="id = #registrant.id#")
-				replaceNoCase(thisReg.email,args.oldEmail,args.newEmail)
-				thisReg.update()
-			}
-		}	
-		var registrants2 = model("Focusregistrant").findAll(where="email LIKE '%#args.newEmail#%'")
-		ddd(registrants2)
 	}
 
 </cfscript>
