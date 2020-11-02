@@ -13,11 +13,16 @@
 	function index(showHowMany="10") {
 		showsummary=true;
 		message = "Listing Registrations: ";
+
 		if ( isDefined("params.byLName") ) {
 			var orderby = "lname";
+		}
+		elseif ( isDefined("params.download") ) {
+			var orderby = "lname,fname"
 		} else {
 			var orderby = "registrantid DESC";
 		}
+
 		if ( isDefined("params.menuname") ) {
 			params.retreatid = getIdFromMenuName(params.menuname);
 		}
@@ -51,7 +56,6 @@
 		} else if ( isdefined("params.itemid") ) {
 			whereString = "itemid='#params.itemid#' AND cancelledAt IS NULL";
 			item = model("Focusitem").findOne(where="id=#params.itemid#")
-			registrations = model("Focusregistration").findAll(where=whereString, include=includeString, order=orderby);
 			reportTitle = "Listing Registrations for option #item.description#: ";
 			showsummary = true;
 		}

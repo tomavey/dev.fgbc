@@ -130,7 +130,7 @@
 		args=arguments
 
 
-		if ( len(args.oldemail) && len(args.newEmail) ) {
+		if ( len(args.oldemail) ) {
 
 			//find all regs based on whole email or part of the email
 			if ( args.wholeWord ) { whereString = "email='#args.oldEmail#'" }

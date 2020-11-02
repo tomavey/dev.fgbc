@@ -65,6 +65,7 @@
     			<li class="dropdown">
         			#linkToData(href="##", text="Registrations<b class='caret'></b>", data_toggle="dropdown", class="dropdown-toggle")#
         				<ul class="dropdown-menu">
+										<li>#linkTo(controller="focus.registrations", action="index", text="Recent")#</li>
         					<cfloop query="#showRegsFor()#">
         						<li>#linkTo(controller="focus.registrations", action="index", params="retreatid=#id#", text=regid, retreatid=id)#</li>
         					</cfloop>
@@ -79,8 +80,8 @@
         				</ul>
       			</li>	
 			</ul>
-				  	#startFormTag(class="navbar-search")#
-					#textFieldTag(name="search", class="search-query input-small", placeholder="Search")#
+				  #startFormTag(controller="focus.registrations", action="index", method="get" ,class="navbar-search")#
+						#textFieldTag(name="search", class="search-query input-small", placeholder="Search")#
 					#endFormTag()#
     			<p class="navbar-text pull-right">#linkTo(text="Logout", route="authLogoutUser")#</p>
 		</div>
