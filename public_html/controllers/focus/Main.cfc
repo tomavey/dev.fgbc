@@ -54,6 +54,14 @@
 
 		<cfset retreat = model("Focusretreat").findOne(where=whereString)>
 
+	<cfscript>
+		if (retreat.showoptions == 1) {
+			showoptions = true
+		} else {
+			showoptions = false
+		}
+	</cfscript>
+
 		<cftry>
 		<cfif !len(retreat.notopenmessage)>
 			<cfset retreat.notopenmessage = "Registration for this retreat is closed.">

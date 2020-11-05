@@ -14,11 +14,15 @@
 
 <!--- 						#fileField(objectName='retreat', property='image', label='Image: ')# --->
 
+						#textField(objectName='retreat', property='registrationlink', label='External registration link (ie: Reg fox): ')#
+
 						#select(objectName='retreat', property='active', label='Active? ("Yes" = this retreat will show up in admin, "No = this retreat will be hidden in admin")', options="Yes,No", values = "1,0")#
 
 						#select(objectName='retreat', property='showregs', label='Show in the admin list of registrations? ', options="Yes,No", values = "1,0")#
 
 						#select(objectName='retreat', property='regisopen', label='Registration is open? ', options="Yes,No", values = "1,0")#
+
+						#select(objectName='retreat', property='showoptions', label='Show Reg Options on retreat page? ', options="Yes,No", values = "1,0")#
 
 						<p>Beginning Date:
 							#dateSelect(objectName='retreat', property='startAt', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#

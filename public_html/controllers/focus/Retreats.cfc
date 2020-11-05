@@ -23,7 +23,7 @@
 	<!--- -retreats/show/key --->
 	<cffunction name="show">
 
-    	<cfset retreat = model("Focusretreat").findByKey(params.key)>
+			<cfset retreat = model("Focusretreat").findByKey(params.key)>
 
     	<!--- Check if the record exists --->
 	    <cfif NOT IsObject(retreat)>

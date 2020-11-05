@@ -1,6 +1,13 @@
 <cfoutput>
+
+				<cfif !len(retreat.registrationlink)>
 					#linkTo(text="Register Here", controller="focus.shoppingcarts", action="new", params="retreatid=#retreat.id#", class="btn")#
-					#retreat.registrationComments#
+				<cfelse>	
+					#linkTo(text="Register Here", href="https://charisfellowship.regfox.com/2021-southwest-focus-retreat", class="btn", target="_new")#
+				</cfif>
+				#retreat.registrationComments#
+
+				<cfif showOptions>
 
 					<p>Registration Options: </p>
 					<ul>
@@ -17,7 +24,9 @@
 					</cfloop>
 					</ul>
 					<p>
-						<cfif dateCompare(retreat.deadline, retreat.discountdeadline) && isBefore(retreat.discountdeadline)>
+					</cfif>	
+
+					<cfif dateCompare(retreat.deadline, retreat.discountdeadline) && isBefore(retreat.discountdeadline)>
 							This price increases 
 							<cfif val(retreat.priceincrease)>
 								(#dollarFormat(retreat.priceincrease)#)

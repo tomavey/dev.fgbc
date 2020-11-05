@@ -500,6 +500,13 @@
 		return loc.return;
 	}
 
+	public function getRegFox(){
+		cfhttp(method="GET", charset="utf-8", url="https://api.webconnex.com/v2/public/search/registrants?product=redfox.com&pretty=true"", result="result") {
+			cfhttpparam(name="apiKey", type="header", value="a989e9dd222d406e8e1350d07ef85355");
+	}
+		writeDump(result);abort;
+	}
+
 </cfscript>
 
 	<cffunction name="testCountRegsByType">
