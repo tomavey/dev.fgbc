@@ -22,6 +22,12 @@
 	
 	<cfoutput>
 		#styleSheetLinkTag("bootstrap,bootstrap-responsive.min,handbook,../javascripts/jquery-ui/jquery-ui.min,../javascripts/jquery-ui/jquery-ui.structure.min,../javascripts/jquery-ui/jquery-ui.theme.min,/assets/vendor/icon-awesome/css/font-awesome.min")#    
+	  <!---Load Vue Early--->
+		<cfset folder = "/assets/js">
+			#javaScriptIncludeTag("
+				#folder#/vue,
+				#folder#/axios.min
+				")#
 	</cfoutput>
 
 </head>

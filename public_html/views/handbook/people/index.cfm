@@ -3,56 +3,82 @@
 <cfparam name="handbookpeople" type="query">
 <cfparam name="allhandbookpeople" type="query">
 
-<div class="postbox" id="maininfo">
+<div class="postbox" id="peopleList">
 
 
 <h1>People</h1>
 
+<p>
+	<input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search for..." /></br>
+	Search by Name, City, State
+</p>
 
-	<div id="stateLinks">
-		<cfoutput>#linkto(text="ALL", action="index", params="all=true")#</cfoutput>
-		<cfoutput query="allhandbookpeople" group="alpha">
-			#linkto(text=alpha, action="index", params="alpha=#alpha#")#
-		</cfoutput>
-		<cfoutput>#linkto(text="[*]", controller="handbook.positions", action="listpeople", class="tooltipside", title="By Position type")#</cfoutput>
-	</div>
-
-	<cfif not isDefined('params.alpha') and not isDefined("params.all")>
-		<cfoutput>
-			#includePartial("/_shared/paginationlinks")#
-		</cfoutput>
-	</cfif>
-
-	<div id="ajaxinfo">
-	<cfoutput query="handbookpeople" group="alpha">
-		<h1>#alpha#</h1>
-		<cfoutput group="id">
-		<cfset linktext = "#alias('lname',lname,id)#, #alias('fname',fname,id)# <i>#alias('spouse',spouse,id)#</i>: #city#, #state_mail_abbrev#">
-		<cfset linktext = left(linktext,50)>
-		<cfif find("<i>",linktext) AND not find("</i>",linktext)>
-		<cfset linktext = linktext & "</i>">
-		</cfif>
-		<cfset linktext = replace(linktext,", Non","")>
-			<p>
-				#linkTo(
-					text=linktext,
-					action="show",
-					key=id,
-					id="ajaxclickable",
-					class="tooltip2",
-					title="Click to show #alias('fname',fname,id)# #alias('lname',lname,id)# in the center panel."
-					)#
-			</p>
-		</cfoutput>
-	</cfoutput>
-	</div>
-
-	<cfif not isDefined('params.alpha') and not isDefined("params.all")>
-		<cfoutput>
-			#includePartial("/_shared/paginationlinks")#
-		</cfoutput>
-	</cfif>
+<p v-for="person in uniquePeople" :key=person.id>
+	<span v-html="person.selectname"></span>
+</p>
 
 
 </div>
+
+<script>
+	var wm = new Vue({
+		el: "#peopleList",
+		data() {return {
+			message:"welcome",
+			people: [],
+			sortBy: "selectname",
+			searchString: ""
+			}
+		},
+		computed: {
+			sortedPeople: function(){return this.people.sort(this.compareValues(this.sortBy))},
+			filteredPeople: function(){
+				var searchString = this.searchString.toLowerCase(),
+						people_array = this.sortedPeople
+					if(!searchString){
+						return people_array;
+					}
+				return people_array.filter(person => person.selectname.toLowerCase().includes(searchString))
+			},
+			uniquePeople: function() {
+				let uniquePeople = this.filteredPeople
+				uniquePeople = [...new Set(uniquePeople)]
+				return uniquePeople
+			},
+		},
+		methods: {
+			compareValues: function(key, order=this.sortBy) {
+				return function(a, b) {
+						if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+						// property doesn't exist on either object
+								return 0; 
+						}
+
+						const varA = (typeof a[key] === 'string') ? 
+						a[key].toUpperCase() : a[key];
+						const varB = (typeof b[key] === 'string') ? 
+						b[key].toUpperCase() : b[key];
+
+						let comparison = 0;
+						if (varA > varB) {
+						comparison = 1;
+						} else if (varA < varB) {
+						comparison = -1;
+						}
+						return (
+						(order == 'desc') ? (comparison * -1) : comparison
+						);
+					};
+			},
+		},
+		created: function(){
+			let self = this
+			axios.get('http://127.0.0.1:8000/api/people')
+			.then(function(res){
+				console.log(res.data) 
+				self.people = res.data 
+			})
+		}
+	})
+</script>
 
