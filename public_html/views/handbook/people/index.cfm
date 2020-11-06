@@ -3,30 +3,30 @@
 <cfparam name="handbookpeople" type="query">
 <cfparam name="allhandbookpeople" type="query">
 
-<div class="postbox" id="peopleList">
+<div class="peopleList">
 
 
 <h1>People</h1>
 
-<p>
-	<input v-model="searchString" v-on:keyUp="onkeyup()" placeholder="Search for..." /></br>
-	Search by Name, City, State
-</p>
+	<p>
+		<input v-model="searchString" placeholder="Quick search..." /></br>
+	</p>
 
-<p v-for="person in uniquePeople" :key=person.id>
-	<span v-html="person.selectname"></span>
-</p>
-
+	<div class="names-list">
+		<p v-for="person in uniquePeople" :key=person.id>
+			<span v-html="person.selectnamestate" @click="goToPerson(person.id)" style="cursor:pointer"></span>
+		</p>
+	</div>
 
 </div>
 
 <script>
 	var wm = new Vue({
-		el: "#peopleList",
+		el: ".peopleList",
 		data() {return {
 			message:"welcome",
 			people: [],
-			sortBy: "selectname",
+			sortBy: "selectnamestate",
 			searchString: ""
 			}
 		},
@@ -38,7 +38,7 @@
 					if(!searchString){
 						return people_array;
 					}
-				return people_array.filter(person => person.selectname.toLowerCase().includes(searchString))
+				return people_array.filter(person => person.selectnamestate.toLowerCase().includes(searchString))
 			},
 			uniquePeople: function() {
 				let uniquePeople = this.filteredPeople
@@ -47,6 +47,9 @@
 			},
 		},
 		methods: {
+			goToPerson: function(id) {
+				window.location.href="/handbook/people/" + id
+			},
 			compareValues: function(key, order=this.sortBy) {
 				return function(a, b) {
 						if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
@@ -82,3 +85,15 @@
 	})
 </script>
 
+<style>
+
+.names-list {
+	width:90%;
+	column-count:2
+}
+.peopleList {
+	margin-left:10px;
+	width:110%
+
+}
+</style>

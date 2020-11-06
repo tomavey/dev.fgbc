@@ -47,6 +47,10 @@ component extends="Model" output="true" {
 			sql="CONCAT_WS(', ',lname,fname,city,state_mail_abbrev)"
 		)
 		property(
+			name="selectNameState",
+			sql="CONCAT_WS(', ',lname,fname,city,state)"
+		)
+		property(
 			name="selectNameID",
 			sql="CONCAT_WS(', ',lname,fname,city,state_mail_abbrev,handbookpeople.ID)"
 		)

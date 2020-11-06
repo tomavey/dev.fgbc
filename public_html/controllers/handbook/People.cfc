@@ -6,7 +6,7 @@
 component extends="Controller" output="true" {
 
 	function init(){
-		usesLayout("/handbook/layout_handbook")
+		usesLayout("/handbook/layout_handbook1")
 		filters(through="gotBasicHandbookRights,getStates,getPositionTypes", except="focus,sendhandbook,inspire,findstaff,findallstaff,peopleAsJson")
 		filters(through="getPositions", only="edit,show,view")
 		filters(through="getChurches", only="new,edit,create,update")
@@ -485,9 +485,9 @@ component extends="Controller" output="true" {
 	}
 
 	public function peopleAsJson() {
-		var selectString = "id, selectname, alpha"
+		var selectString = "id, selectnamestate, alpha"
 		var whereString = "hidefrompublic <> 0 AND p_sortorder < #getNonStaffSortOrder()+1#"
-		var includeString="state,positions(Handbookorganization)"
+		var includeString="state"
 		var people = model("Handbookperson").findAll(whereString=whereString, select=selectString, include=includeString)
 		data = queryToJson(people)
 		renderPage(layout="/layout_json", template="/json", hideDebugInformation=true);
