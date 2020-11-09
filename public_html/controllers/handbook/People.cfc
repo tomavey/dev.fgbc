@@ -6,7 +6,7 @@
 component extends="Controller" output="true" {
 
 	function init(){
-		usesLayout("/handbook/layout_handbook1")
+		usesLayout(template="/handbook/layout_handbook", except="index")
 		filters(through="gotBasicHandbookRights,getStates,getPositionTypes", except="focus,sendhandbook,inspire,findstaff,findallstaff,peopleAsJson")
 		filters(through="getPositions", only="edit,show,view")
 		filters(through="getChurches", only="new,edit,create,update")
@@ -71,6 +71,7 @@ component extends="Controller" output="true" {
 	public function index(){
 		allHandbookPeople = model("Handbookperson").findAll(where="p_sortorder < #getNonStaffSortOrder()+1#", order="alpha", include="Handbookstate,Handbookpositions")
 		handbookPeople = model("Handbookperson").findHandbookPeople(params)
+		renderPage(layout="/handbook/layout_handbook1")
 	}
 
 	public function show(){
