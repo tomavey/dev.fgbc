@@ -48,10 +48,10 @@
 	}
 
 	private function getAlias(type,id){
-		var lnameStruct = getSetting("alias")
+		var aliasStruct = getSetting("alias")
 		var i = 1
-		if ( isDefined(" lnameStruct[id][type]") ) {
-				return lnameStruct[id][type]
+		if ( isDefined(" aliasStruct[id][type]") ) {
+				return aliasStruct[id][type]
 		} else {
 			return ""
 		}
