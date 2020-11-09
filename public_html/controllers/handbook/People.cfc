@@ -486,12 +486,26 @@ component extends="Controller" output="true" {
 	}
 
 	public function peopleAsJson() {
-		var selectString = "id, selectnamestate, alpha"
+		var selectString = "id, alpha, lname, fname, state, city"
 		var whereString = "hidefrompublic <> 0 AND p_sortorder < #getNonStaffSortOrder()+1#"
+		var columnsToDelete = ['fname', 'lname', 'state', 'city']
 		var includeString="state"
 		var people = model("Handbookperson").findAll(whereString=whereString, select=selectString, include=includeString)
+		QueryAddColumn(people, 'selectnamestate')
+		people = people.map(function(person){
+				person.selectnamestate = alias('lname',person.lname,person.id) & ', ' & alias('fname',person.fname,person.id) & ': ' & person.city & ', ' & person.state
+				return person
+		})
+		for ( column in columnsToDelete) {
+			QueryDeleteColumn(people, column)
+		}
+		people = people.filter(function(person){
+			if ( person.selectnamestate CONTAINS 'Pastor, No' ) return false
+			return true
+		})
 		data = queryToJson(people)
 		renderPage(layout="/layout_json", template="/json", hideDebugInformation=true);
+		//need to add alias -alias(type,name,id) is available in controller 
 	}
 <!-------------------------->	
 <!---END OF PROVIDES JSON--->	
