@@ -7,7 +7,7 @@
 
 
 <h1 v-if="loading">Loading Names</h1>
-<h1 v-if="!loading">People</h1>
+<h1 v-if="!loading">People{{dataSource}}</h1>
 <span v-if="!loading" v-for="alpha in alphabetArray" :key=alpha @click="alphaFilter = alpha" style="cursor:pointer">{{alpha}}&nbsp;|&nbsp;</span>
 
 	<p v-if="!loading">
@@ -33,6 +33,7 @@
 			sortBy: "selectnamestate",
 			searchString: "",
 			alphaFilter: "",
+			dataSource: "",
 			}
 		},
 		computed: {
@@ -100,14 +101,26 @@
 						);
 					};
 			},
+			getHandbookPeopleFromLocalStorage: function ( name = 'HandbookPeople') {
+				var data = JSON.parse(localStorage.getItem(name))
+				if ( data ) {
+					this.people = data
+					this.dataSource = ":"
+				}
+    	},
+			getHandbookPeopleFromApi: function(api = 'http://127.0.0.1:8000/api/people', name = 'HandbookPeople' ) {
+				let self = this
+				axios.get(api)
+				.then(function(res){
+					localStorage.setItem(name, JSON.stringify(res.data))
+					self.people = res.data
+					self.dataSource = "::"
+				})
+			}
 		},
 		created: function(){
-			let self = this
-			axios.get('http://127.0.0.1:8000/api/people')
-			.then(function(res){
-				console.log(res.data) 
-				self.people = res.data 
-			})
+			this.getHandbookPeopleFromLocalStorage()
+			this.getHandbookPeopleFromApi()
 		}
 	})
 </script>
