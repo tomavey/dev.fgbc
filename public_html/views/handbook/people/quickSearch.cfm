@@ -23,7 +23,7 @@
 	<p v-if="loading" class="loader">Loading...</p>
 
 	<div class="names-list">
-		<p v-for="person in cleanFilteredSortedPeople" :key=person.id>
+		<p v-for="person in cleanFilteredSortedPeople" :key=person.id class="person">
 			<span v-html="person.selectnamestate" @click="goToPerson(person.id)" style="cursor:pointer"></span>
 		</p>
 	</div>
@@ -138,6 +138,15 @@
 </script>
 
 <style>
+.names-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-gap: 10px;
+	grid-auto-rows: minmax(10px, auto);
+	align-content: stretch;
+	margin: 10px 10px;
+}
+
 .pointer {
 	cursor:pointer
 }
@@ -147,17 +156,7 @@
 	width:110%
 }
 
-@media (min-width:900px) {
-	.names-list {
-		column-count:2
-	}
-}
-@media (min-width:1200px) {
-	.names-list {
-		column-count:3
-	}
-}
-
+/* for loader spinner */
 .loader,
 .loader:before,
 .loader:after {
