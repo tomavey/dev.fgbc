@@ -43,7 +43,7 @@
 			alphaFilter: "",
 			dataSource: "",
 			showPositionsTooltip: false,
-			namesListClass: "",
+			namesListClass: "columns-container",
 			defaultNamesListClass: "columns-container",
 			tooltip: ""
 			}
@@ -161,7 +161,6 @@
 				let namesListClass = localStorage.getItem("handbookpeopleorientation")
 				console.log(namesListClass)
 				if ( namesListClass.length ) { this.namesListClass = namesListClass }
-				else { this.namesListClass = this.defaultNamesListClass }
 			}
 		},
 		created: function(){
