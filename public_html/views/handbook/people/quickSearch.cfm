@@ -43,7 +43,7 @@
 			alphaFilter: "",
 			dataSource: "",
 			showPositionsTooltip: false,
-			namesListClass: "grid-container",
+			namesListClass: "columns-container",
 			tooltip: ""
 			}
 		},
