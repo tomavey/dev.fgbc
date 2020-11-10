@@ -508,7 +508,7 @@ component extends="Controller" output="true" {
 			if ( person.selectnamestate CONTAINS 'Pastor, No' ) return false
 			return true
 		})
-		data = queryToJson(people)
+		data = queryToJson(data=people, useSerializeJSON = false)
 		renderPage(layout="/layout_json", template="/json", hideDebugInformation=true);
 		//need to add alias -alias(type,name,id) is available in controller 
 	}
