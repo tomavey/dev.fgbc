@@ -263,6 +263,7 @@
 				.get(name="removeFromSessionArray", pattern="removeFromSessionArray/", action="removePersonFromSessionArray")
 				.get(name="pastorsWives", pattern="pastorsWives/", action="pastorsWives")
 				.get(name="cellPhoneNumbers", pattern="cellPhoneNumbers", action="cellPhoneNumbers")
+				.get(name="quickSearch", pattern="quickSearch")
 				.end()
 			.resources("people")
 
@@ -883,6 +884,9 @@
 		.get(name="apiChurches", pattern="/api/churches/", controller="handbook.organizations", action="findChurches")
 		.get(name="apiChurch", pattern="/api/church/[key]", controller="handbook.organizations",
 		 action="findChurchWithStaff")
+		.get(name="apiPeople", pattern="/api/people/", controller="handbook.people", action="peopleAsJson")
+		.get(name="apiChurch", pattern="/api/person/[key]", controller="handbook.people",
+		action="personAsJson")
 		.get(name="apiAgbmRegion", pattern="/api/agbmregions/[key]", controller="handbook.agbmregions",
 		 action="agbmregionasjson")
 		.get(name="apiAgbmRegions", pattern="/api/agbmregions/", controller="handbook.agbmregions",

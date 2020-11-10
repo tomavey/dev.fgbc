@@ -6,8 +6,8 @@
 component extends="Controller" output="true" {
 
 	function init(){
-		usesLayout("/handbook/layout_handbook")
-		filters(through="gotBasicHandbookRights,getStates,getPositionTypes", except="focus,sendhandbook,inspire,findstaff,findallstaff")
+		usesLayout(template="/handbook/layout_handbook", except="index")
+		filters(through="gotBasicHandbookRights,getStates,getPositionTypes", except="focus,sendhandbook,inspire,findstaff,findallstaff,peopleAsJson")
 		filters(through="getPositions", only="edit,show,view")
 		filters(through="getChurches", only="new,edit,create,update")
 		filters(through="setReturn", only="show,bluepages,distribution")
@@ -71,6 +71,12 @@ component extends="Controller" output="true" {
 	public function index(){
 		allHandbookPeople = model("Handbookperson").findAll(where="p_sortorder < #getNonStaffSortOrder()+1#", order="alpha", include="Handbookstate,Handbookpositions")
 		handbookPeople = model("Handbookperson").findHandbookPeople(params)
+		renderPage(layout="/handbook/layout_handbook")
+	}
+
+	// route="handbookPeople" pattern="handbook/people"
+	public function quickSearch(){
+		renderPage(layout="/handbook/layout_handbook1")
 	}
 
 	public function show(){
@@ -474,15 +480,38 @@ component extends="Controller" output="true" {
 <!--- PROVIDES JSON--->	
 <!-------------------->	
 
-public function findAllStaff() {
-	staff = model("Handbookperson").findAllStaff();
-	renderPage(layout="/layout_json", template="json", hideDebugInformation=true);
-}
+	public function findAllStaff() {
+		staff = model("Handbookperson").findAllStaff();
+		renderPage(layout="/layout_json", template="json", hideDebugInformation=true);
+	}
 
-public function findStaff() {
-	staff = model("Handbookperson").findStaff(params.key);
-	renderPage(layout="/layout_json", template="json", hideDebugInformation=true);
-}
+	public function findStaff() {
+		staff = model("Handbookperson").findStaff(params.key);
+		renderPage(layout="/layout_json", template="json", hideDebugInformation=true);
+	}
+
+	public function peopleAsJson() {
+		var selectString = "id, alpha, lname, fname, state, city"
+		var whereString = "hidefrompublic <> 0 AND p_sortorder < #getNonStaffSortOrder()+1#"
+		var columnsToDelete = ['fname', 'lname', 'state', 'city']
+		var includeString="state"
+		var people = model("Handbookperson").findAll(whereString=whereString, select=selectString, include=includeString)
+		QueryAddColumn(people, 'selectnamestate')
+		people = people.map(function(person){
+				person.selectnamestate = alias('lname',person.lname,person.id) & ', ' & alias('fname',person.fname,person.id) & ': ' & person.city & ', ' & person.state
+				return person
+		})
+		for ( column in columnsToDelete) {
+			QueryDeleteColumn(people, column)
+		}
+		people = people.filter(function(person){
+			if ( person.selectnamestate CONTAINS 'Pastor, No' ) return false
+			return true
+		})
+		data = queryToJson(people)
+		renderPage(layout="/layout_json", template="/json", hideDebugInformation=true);
+		//need to add alias -alias(type,name,id) is available in controller 
+	}
 <!-------------------------->	
 <!---END OF PROVIDES JSON--->	
 <!-------------------------->	

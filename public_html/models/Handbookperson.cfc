@@ -47,6 +47,10 @@ component extends="Model" output="true" {
 			sql="CONCAT_WS(', ',lname,fname,city,state_mail_abbrev)"
 		)
 		property(
+			name="selectNameState",
+			sql="CONCAT_WS(', ',lname,fname,city,state)"
+		)
+		property(
 			name="selectNameID",
 			sql="CONCAT_WS(', ',lname,fname,city,state_mail_abbrev,handbookpeople.ID)"
 		)
@@ -162,7 +166,9 @@ component extends="Model" output="true" {
 	}
 
 	function findAllStaff() {
+		ddd(params)
 		staff = findAll(select="id, selectname", where="p_sortorder <= 500 AND position <> 'Removed From Staff' AND (private = 'NO' || private == NULL)", include="Handbookpositions,Handbookstate", order="selectname")
+		
 		cfquery( dbtype="query", name="staff" ) { //Note: queryExecute() is the preferred syntax but this syntax is easier to convert generically
 
 			writeOutput("select DISTINCT *
