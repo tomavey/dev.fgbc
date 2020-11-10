@@ -25,7 +25,7 @@
     				#linkto(text="Churches", controller="handbook.organizations", action="index", title="Churches in the FGBC", class="tooltip2")#
     			</li>
     			<li>
-    				#linkto(text="People", controller="handbook.people", action="index", title="People in the FGBC", class="tooltip2")#
+    				#linkto(text="People", controller="handbook.people", action="quickSearch", title="People in the FGBC", class="tooltip2")#
     			</li>
     			<li>
     				#linkto(text="My Tags", controller="handbook.tags", action="index", id="navsearch", title="Your Tags", class="tooltip2")#

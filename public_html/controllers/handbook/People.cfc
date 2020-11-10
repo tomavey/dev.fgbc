@@ -71,6 +71,11 @@ component extends="Controller" output="true" {
 	public function index(){
 		allHandbookPeople = model("Handbookperson").findAll(where="p_sortorder < #getNonStaffSortOrder()+1#", order="alpha", include="Handbookstate,Handbookpositions")
 		handbookPeople = model("Handbookperson").findHandbookPeople(params)
+		renderPage(layout="/handbook/layout_handbook")
+	}
+
+	// route="handbookPeople" pattern="handbook/people"
+	public function quickSearch(){
 		renderPage(layout="/handbook/layout_handbook1")
 	}
 

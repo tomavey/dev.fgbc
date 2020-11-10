@@ -1,14 +1,20 @@
-<cfparam name="params.previouspage" default=0>
+<!--- <cfparam name="params.previouspage" default=0>
 <cfparam name="params.nextpage" default=0>
 <cfparam name="handbookpeople" type="query">
-<cfparam name="allhandbookpeople" type="query">
+<cfparam name="allhandbookpeople" type="query"> --->
 
 <div class="peopleList">
 
 
 <h1 v-if="loading">Loading Names</h1>
 <h1 v-if="!loading">People{{dataSource}}</h1>
-<span v-if="!loading" v-for="alpha in alphabetArray" :key=alpha @click="alphaFilter = alpha" style="cursor:pointer">{{alpha}}&nbsp;|&nbsp;</span>
+<span v-if="!loading" v-for="alpha in alphabetArray" :key=alpha @click="alphaFilter = alpha" class="pointer">{{alpha}}&nbsp;|&nbsp;</span>
+<span @click="goToPositions()" @mouseover="showPositionsTooltip = true"	@mouseleave="showPositionsTooltip = false"  class="pointer">
+	[*]
+	<span v-if="showPositionsTooltip" >
+		View people by ministry types
+	</span>
+</span>
 
 	<p v-if="!loading">
 		<input v-model="searchString" placeholder="Quick search..." /></br>
@@ -34,6 +40,7 @@
 			searchString: "",
 			alphaFilter: "",
 			dataSource: "",
+			showPositionsTooltip: false
 			}
 		},
 		computed: {
@@ -65,6 +72,7 @@
 						.replace(", -TBD","")
 						.replace(",,","")
 						.replace(", ,","")
+						.replace(" , "," ")
 					return el
 				})
 				return filteredSortedPeople
@@ -75,8 +83,12 @@
 			}
 		},
 		methods: {
+			goToPositions: function(){
+				window.location.href="/handbook/positions/listpeople"
+			},
 			goToPerson: function(id) {
-				window.location.href="/handbook/people/" + id
+				let href = "/handbook/people/" + id
+				window.location.href=href
 			},
 			compareValues: function(key, order=this.sortBy) {
 				return function(a, b) {
@@ -108,7 +120,7 @@
 					this.dataSource = ":"
 				}
     	},
-			getHandbookPeopleFromApi: function(api = 'http://127.0.0.1:8000/api/people', name = 'HandbookPeople' ) {
+			getHandbookPeopleFromApi: function(api = '/api/people', name = 'HandbookPeople' ) {
 				let self = this
 				axios.get(api)
 				.then(function(res){
@@ -126,6 +138,10 @@
 </script>
 
 <style>
+.pointer {
+	cursor:pointer
+}
+
 .peopleList {
 	margin-left:10px;
 	width:110%

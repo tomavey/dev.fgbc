@@ -263,6 +263,7 @@
 				.get(name="removeFromSessionArray", pattern="removeFromSessionArray/", action="removePersonFromSessionArray")
 				.get(name="pastorsWives", pattern="pastorsWives/", action="pastorsWives")
 				.get(name="cellPhoneNumbers", pattern="cellPhoneNumbers", action="cellPhoneNumbers")
+				.get(name="quickSearch", pattern="quickSearch")
 				.end()
 			.resources("people")
 
