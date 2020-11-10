@@ -8,7 +8,7 @@
 
 <h1 v-if="loading">Loading Names</h1>
 <h1 v-if="!loading" @click="changeListOrientation" @mouseover="showToolTip('Change list orientation')" @mouseLeave="clearTooltip" class="pointer">People{{dataSource}}</h1>
-<span @click="alphaFilter=''" class="pointer">All&nbsp;|&nbsp;</span>
+<span @click="alphaFilter=''" class="pointer" @mouseover="showToolTip('Click to show everyone!')" @mouseLeave="clearTooltip" >All&nbsp;|&nbsp;</span>
 <span v-if="!loading" v-for="alpha in alphabetArray" :key=alpha @click="alphaFilter = alpha" class="pointer" @mouseover="showAlphaTooltip(alpha)" @mouseLeave="clearTooltip">{{alpha}}&nbsp;|&nbsp;</span>
 <span @click="goToPositions()" @mouseover="showToolTip('List people by ministry type.')" @mouseLeave="clearTooltip" class="pointer">
 	[*]
@@ -43,7 +43,8 @@
 			alphaFilter: "",
 			dataSource: "",
 			showPositionsTooltip: false,
-			namesListClass: "columns-container",
+			namesListClass: "",
+			defaultNamesListClass: "columns-container",
 			tooltip: ""
 			}
 		},
@@ -89,10 +90,10 @@
 		methods: {
 			clearTooltip: function() {this.tooltip = ""},
 			showPersonTooltip: function (selectnamestate) {
-				this.tooltip = "View " + selectnamestate
+				this.tooltip = "Click to view " + selectnamestate
 			},
 			showAlphaTooltip: function (alpha) {
-				this.tooltip = "List all the " + alpha +"'s'"
+				this.tooltip = "Click to list all the " + alpha +"'s'"
 			},
 			showSearchTooltip: function () {
 				this.tooltip = "Listing all containing " + this.searchString +"'.'"
@@ -101,8 +102,14 @@
 				this.tooltip = tip
 			},
 			changeListOrientation: function(){
-				if ( this.namesListClass === "grid-container" ) { this.namesListClass = "columns-container"; return}
-				if ( this.namesListClass === "columns-container" ) { this.namesListClass = "grid-container"; return}
+				if ( this.namesListClass === "grid-container" ) { 
+					this.namesListClass = "columns-container"; 
+					localStorage.setItem("handbookpeopleorientation","columns-container"); 
+					return}
+				if ( this.namesListClass === "columns-container" ) { 
+					this.namesListClass = "grid-container"; 
+					localStorage.setItem("handbookpeopleorientation","grid-container"); 
+					return}
 			},
 			goToPositions: function(){
 				window.location.href="/handbook/positions/listpeople"
@@ -149,11 +156,18 @@
 					self.people = res.data
 					self.dataSource = "::"
 				})
+			},
+			setListOrientationFromLocalStorage: function (){
+				let namesListClass = localStorage.getItem("handbookpeopleorientation")
+				console.log(namesListClass)
+				if ( namesListClass.length ) { this.namesListClass = namesListClass }
+				else { this.namesListClass = this.defaultNamesListClass }
 			}
 		},
 		created: function(){
 			this.getHandbookPeopleFromLocalStorage()
 			this.getHandbookPeopleFromApi()
+			this.setListOrientationFromLocalStorage()
 		}
 	})
 </script>
@@ -162,6 +176,10 @@
 .tip {
 	width:100%;
 	text-align:center;
+	font-size:1.2em;
+	font-weight: bold;
+	color:red;
+
 }
 .flex-container {
 	display:flex
@@ -176,12 +194,14 @@
 
 @media (min-width:900px) {
 	.columns-container {
+		margin: 10px 10px;
 		column-count:2
 	}
 }
 
 @media (min-width:1200px) {
 	.columns-container {
+		margin: 10px 10px;
 		column-count:3
 	}
 }
