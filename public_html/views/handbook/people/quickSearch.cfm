@@ -7,24 +7,26 @@
 
 
 <h1 v-if="loading">Loading Names</h1>
-<h1 v-if="!loading">People{{dataSource}}</h1>
-<span v-if="!loading" v-for="alpha in alphabetArray" :key=alpha @click="alphaFilter = alpha" class="pointer">{{alpha}}&nbsp;|&nbsp;</span>
-<span @click="goToPositions()" @mouseover="showPositionsTooltip = true"	@mouseleave="showPositionsTooltip = false"  class="pointer">
+<h1 v-if="!loading" @click="changeListOrientation" @mouseover="showToolTip('Change list orientation')" @mouseLeave="clearTooltip" class="pointer">People{{dataSource}}</h1>
+<span @click="alphaFilter=''" class="pointer">All&nbsp;|&nbsp;</span>
+<span v-if="!loading" v-for="alpha in alphabetArray" :key=alpha @click="alphaFilter = alpha" class="pointer" @mouseover="showAlphaTooltip(alpha)" @mouseLeave="clearTooltip">{{alpha}}&nbsp;|&nbsp;</span>
+<span @click="goToPositions()" @mouseover="showToolTip('List people by ministry type.')" @mouseLeave="clearTooltip" class="pointer">
 	[*]
 	<span v-if="showPositionsTooltip" >
 		View people by ministry types
 	</span>
 </span>
 
-	<p v-if="!loading">
-		<input v-model="searchString" placeholder="Quick search..." /></br>
-	</p>
+	<div v-if="!loading" class="flex-container">
+		<p><input v-model="searchString" placeholder="Quick search..." class="search-input" @mouseover="showToolTip('Really FAST search. Just start typing')" @mouseLeave="clearTooltip" @input="showSearchTooltip"/></p>
+		<p class="tip" v-html="tooltip" ></p></br>
+	</div>
 
 	<p v-if="loading" class="loader">Loading...</p>
 
-	<div class="names-list">
+	<div :class="namesListClass">
 		<p v-for="person in cleanFilteredSortedPeople" :key=person.id class="person">
-			<span v-html="person.selectnamestate" @click="goToPerson(person.id)" style="cursor:pointer"></span>
+			<span v-html="person.selectnamestate" @click="goToPerson(person.id)" @mouseover="showPersonTooltip(person.selectnamestate)" @mouseLeave="clearTooltip" style="cursor:pointer"></span>
 		</p>
 	</div>
 
@@ -40,7 +42,9 @@
 			searchString: "",
 			alphaFilter: "",
 			dataSource: "",
-			showPositionsTooltip: false
+			showPositionsTooltip: false,
+			namesListClass: "grid-container",
+			tooltip: ""
 			}
 		},
 		computed: {
@@ -54,7 +58,7 @@
 				var searchString = this.searchString.toLowerCase()
 				var people_array = this.sortedPeople
 					if( self.alphaFilter.length ) {
-						return people_array.filter(person => person.alpha === self.alphaFilter)
+						people_array = people_array.filter(person => person.alpha === self.alphaFilter)
 					}
 					if( !searchString ){
 						return people_array;
@@ -83,6 +87,23 @@
 			}
 		},
 		methods: {
+			clearTooltip: function() {this.tooltip = ""},
+			showPersonTooltip: function (selectnamestate) {
+				this.tooltip = "View " + selectnamestate
+			},
+			showAlphaTooltip: function (alpha) {
+				this.tooltip = "List all the " + alpha +"'s'"
+			},
+			showSearchTooltip: function () {
+				this.tooltip = "Listing all containing " + this.searchString +"'.'"
+			},
+			showToolTip: function(tip) {
+				this.tooltip = tip
+			},
+			changeListOrientation: function(){
+				if ( this.namesListClass === "grid-container" ) { this.namesListClass = "columns-container"; return}
+				if ( this.namesListClass === "columns-container" ) { this.namesListClass = "grid-container"; return}
+			},
 			goToPositions: function(){
 				window.location.href="/handbook/positions/listpeople"
 			},
@@ -138,13 +159,31 @@
 </script>
 
 <style>
-.names-list {
+.tip {
+	width:100%;
+	text-align:center;
+}
+.flex-container {
+	display:flex
+}
+.grid-container {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-	grid-gap: 10px;
 	grid-auto-rows: minmax(10px, auto);
 	align-content: stretch;
 	margin: 10px 10px;
+}
+
+@media (min-width:900px) {
+	.columns-container {
+		column-count:2
+	}
+}
+
+@media (min-width:1200px) {
+	.columns-container {
+		column-count:3
+	}
 }
 
 .pointer {
