@@ -147,7 +147,11 @@
 		<p>Some email clients prefer comma delimited.</p>
 		<br/>
 		<p>
-			List-<br/> #replace(namesAll,'; ','','one')#
+			List of names-<br/> #replace(namesAll,'; ','','one')#
+		</p>
+		<p>&nbsp;</p>
+		<p>
+			List of emails-<br/> #replace(emailAll,'','','one')#
 		</p>
 
 		<!---Add one person to this tag--->
