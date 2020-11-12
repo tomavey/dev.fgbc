@@ -163,11 +163,11 @@
 				List of emails-<br/> #replace(emailAll,';',',','all')#
 			</cfif>
 		</p>
-		<p class="pull-right">
+		<p class="pull-right" style="font-size:.8em">
 			<cfif emailDelimiter == "comma">
-				#linkTo(text="(Change delimiter > semi-colon)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=semi-color")#
+				#linkTo(text="(Change delimiter to semi-colon)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=semi-colon")#
 			<cfelseif emailDelimiter == "semi-colon">	
-				#linkTo(text="(Change delimiter > comma)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=comma")#
+				#linkTo(text="(Change delimiter to comma)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=comma")#
 			</cfif>
 		</p>
 
