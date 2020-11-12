@@ -21,6 +21,8 @@
 	<cfset emailall = "">
 	<cfset namesAll = "">
 	<cfset namesThis = "">
+	<cfset cellPhones = "">
+	<cfset noCellPhone = "">
 
 	<cfoutput>
 	<h2>Tag: "#params.key#"</h2>
@@ -98,11 +100,19 @@
 					</cfif>
 					<span class="updatedat tooltipside" title="Tagged by #username#">?</span>
 				</p>
+
 				<cfif isvalid("email",email)>
 					<cfset emailall = emailall & "; " & email>
 				</cfif>
+				<cfif len(phone2)>
+					<cfset cellPhones = cellPhones & ", " & phone2>
+				<cfelse>
+					<cfset noCellPhone = noCellPhone & ", " & lname>	
+				</cfif>
+
 			<cfset namesAll = namesAll & '; ' & namesThis> 
 			<cfset peoplecount = peoplecount + 1>
+
 		</cfoutput>	
 		<cfif handbookTaggedPeople.recordcount>
 			<cfoutput>Count = #peoplecount#</cfoutput>
@@ -165,11 +175,18 @@
 		</p>
 		<p class="pull-right" style="font-size:.8em">
 			<cfif emailDelimiter == "comma">
-				#linkTo(text="(Change delimiter to semi-colon)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=semi-colon")#
+				#linkTo(text="(Change email delimiter to semi-colon)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=semi-colon")#
 			<cfelseif emailDelimiter == "semi-colon">	
-				#linkTo(text="(Change delimiter to comma)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=comma")#
+				#linkTo(text="(Change email delimiter to comma)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=comma")#
 			</cfif>
 		</p>
+		<p>&nbsp;</p>
+		<cfif len(cellPhones)>
+			<p>Cellphones: #replace(cellPhones,",","","one")#</p>
+		</cfif>
+		<cfif len(noCellPhone)>
+			<p>No cellphone ## for: #replace(noCellPhone,",","","one")#</p>
+		</cfif>
 
 		<!---Add one person to this tag--->
 		<p>&nbsp;</p>
