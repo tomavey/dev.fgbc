@@ -1,4 +1,10 @@
 <cfparam name="selectDefault" default="--Select One---">
+<cfparam name="emailDelimiter" default="semi-colon">
+
+<cfif isDefined("params.emailDelimiter")>
+	<cfset emailDelimiter = params.emailDelimiter>
+</cfif>
+
 <cfif !isDefined("params.key") && isDefined("params.tag") >
 	<cfset params.key = params.tag>
 </cfif>
@@ -151,7 +157,19 @@
 		</p>
 		<p>&nbsp;</p>
 		<p>
-			List of emails-<br/> #replace(emailAll,'','','one')#
+			<cfif emailDelimiter === "semi-colon">
+				List of emails-<br/> #replace(emailAll,'','','one')#
+			<cfelse>	
+				List of emails-<br/> #replace(emailAll,';',',','all')#
+			</cfif>
+		</p>
+		#emailDelimiter#
+		<p class="pull-right">
+			<cfif emailDelimiter === "comma">
+				#linkTo(text="(Change delimiter > semi-colon)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=semi-color")#
+			<cfelseif emailDelimiter === "semi-colon">	
+				#linkTo(text="(Change delimiter > comma)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=comma")#
+			</cfif>
 		</p>
 
 		<!---Add one person to this tag--->
