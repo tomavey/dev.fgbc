@@ -157,7 +157,7 @@
 		</p>
 		<p>&nbsp;</p>
 		<p>
-			<cfif emailDelimiter === "semi-colon">
+			<cfif emailDelimiter == "semi-colon">
 				List of emails-<br/> #replace(emailAll,'','','one')#
 			<cfelse>	
 				List of emails-<br/> #replace(emailAll,';',',','all')#
