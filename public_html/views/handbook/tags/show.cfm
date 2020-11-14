@@ -149,11 +149,24 @@
 		
 	<cfoutput>
 			
+		<div>
 		<!---Send Email to items in tag--->			
-		<p>#linkTo(text='Email Everyone Tagged "#params.key#" (semicolon delimited)', href="mailto:#emailall#", class="btn tooltipside", title="This will create one email message in your email client (ie:outlook) to all these people/organizations" )#</p>
-		<p>#linkTo(text='Email Everyone Tagged "#params.key#" (comma delimited)', href="mailto:#emailallComma#", class="btn tooltipside", title="This will create one email message in your email client (ie:outlook) to all these people/organizations" )#</p>
-		<p>Some email clients prefer comma delimited.</p>
-		<br/>
+			<cfif emailDelimiter == "semi-colon">
+				<p>#linkTo(text='Email Everyone Tagged "#params.key#" (semicolon delimited)', href="mailto:#emailall#", class="btn tooltipside", title="This will create one email message in your email client (ie:outlook) to all these people/organizations" )#</p>
+			<cfelse>
+				<p>#linkTo(text='Email Everyone Tagged "#params.key#" (comma delimited)', href="mailto:#emailallComma#", class="btn tooltipside", title="This will create one email message in your email client (ie:outlook) to all these people/organizations" )#</p>
+			</cfif>
+
+		<p class="pull-right" style="font-size:.8em">
+			<cfif emailDelimiter == "comma">
+				#linkTo(text="(Change email delimiter to semi-colon)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=semi-colon")#
+			<cfelseif emailDelimiter == "semi-colon">	
+				#linkTo(text="(Change email delimiter to comma)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=comma")#
+			</cfif>
+		</p>
+	<p>Some email clients prefer comma delimited.</p>
+	<br/>
+		</div>
 		<p>
 			List of names-<br/> #replace(namesAll,'; ','','one')#
 		</p>
