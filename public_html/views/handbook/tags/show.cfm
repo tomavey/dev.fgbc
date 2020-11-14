@@ -1,14 +1,6 @@
 <cfparam name="selectDefault" default="--Select One---">
 <cfparam name="emailDelimiter" default="semi-colon">
 
-<cfif isDefined("params.emailDelimiter")>
-	<cfset emailDelimiter = params.emailDelimiter>
-</cfif>
-
-<cfif !isDefined("params.key") && isDefined("params.tag") >
-	<cfset params.key = params.tag>
-</cfif>
-
 <!--- <cfdump var="#people#" abort> --->
 
 <cfset peoplecount = 0>

@@ -57,21 +57,33 @@ component extends="Controller" output="true" {
 			handbookTaggedPeople = model("Handbooktag").findAll(where=whereString & " AND type='person'", include="Handbookperson(Handbookstate)", order="lname,fname");
 			handbookTaggedOrganizations = model("Handbooktag").findAll(where=whereString & " AND type='organization'", include="Handbookorganization(Handbookstate)", order="name");
 		}
-
 		session.tags.tagids = valueList(handbookTaggedPeople.id) & ',' & valueList(handbookTaggedOrganizations.id)
 		if ( isDefined("handbookTaggedPeople.username") ) {
 			session.tags.usernames = handbookTaggedPeople.username
 		} else {
 			session.tags.usernames = handbookTaggedOrganizations.username
 		}
+
+
+		var tagUserName = ""
+		if ( isDefined("handbookTaggedPeople.userName") ) {
+			tagUserName = handbookTaggedPeople.username[1]
+		} else if ( isDefined("handbookTaggedOrganizations.userName") ) {
+			tagUserName = handbookTaggedOrganizations.username[1]
+		}
+
+		if ( isDefined("cookie.HANDBOOKEMAILDELIMITER") ) {
+			emailDelimiter = cookie.HANDBOOKEMAILDELIMITER;
+		}
+		if ( isDefined("params.emailDelimiter") ) {
+			emailDelimiter = params.emailDelimiter;
+			cfcookie( expires="never", name="HANDBOOKEMAILDELIMITER", value=params.emailDelimiter );
+		}
+		if ( !isDefined("params.key") && isDefined("params.tag") ) {
+			params.key = params.tag;
+		}
 		
 
-				var tagUserName = ""
-				if ( isDefined("handbookTaggedPeople.userName") ) {
-					tagUserName = handbookTaggedPeople.username[1]
-				} else if ( isDefined("handbookTaggedOrganizations.userName") ) {
-					tagUserName = handbookTaggedOrganizations.username[1]
-				}
 		if ( isdefined("params.ajax") ) {
 			renderPartial("show");
 		}
