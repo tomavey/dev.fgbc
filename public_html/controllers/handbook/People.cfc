@@ -492,11 +492,10 @@ component extends="Controller" output="true" {
 
 	public function peopleAsJson() {
 		//get people using String settings
-		var selectString = "id, alpha, lname, fname, state, city, max_sort_order, hidefrompublic"
+		var selectString = "id, alpha, lname, fname, state, city, max_sort_order, hidefrompublic, private"
 		var whereString = "hidefrompublic <> 0"
 		var includeString="state"
 		var people = model("Handbookperson").findAll(whereString=whereString, select=selectString, include=includeString)
-
 		//Add a column for selectnamestate and convert names to their alias - used to protect some missionaries
 		QueryAddColumn(people, 'selectnamestate')
 		people = people.map(function(person){
@@ -509,11 +508,12 @@ component extends="Controller" output="true" {
 			if ( person.selectnamestate CONTAINS 'Pastor, No' ) return false
 			if ( person.max_sort_order > #getNonStaffSortOrder()+1# ) return false
 			if ( person.hidefrompublic <> 0 ) return false
+			if ( person.private == 'yes' ) return false
 			return true
 		})
 
 		//delete unneeded columns to keep the json light
-		var columnsToDelete = ['fname', 'lname', 'state', 'city', 'max_sort_order', 'hidefrompublic']
+		var columnsToDelete = ['fname', 'lname', 'state', 'city', 'max_sort_order', 'hidefrompublic', 'private']
 		for ( column in columnsToDelete) {
 			QueryDeleteColumn(people, column)
 		}
