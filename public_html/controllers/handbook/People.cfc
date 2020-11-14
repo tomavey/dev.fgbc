@@ -492,8 +492,8 @@ component extends="Controller" output="true" {
 
 	public function peopleAsJson() {
 		//get people using String settings
-		var selectString = "id, alpha, lname, fname, state, city"
-		var whereString = "hidefrompublic <> 0 AND p_sortorder < #getNonStaffSortOrder()+1#"
+		var selectString = "id, alpha, lname, fname, state, city, max_sort_order, hidefrompublic"
+		var whereString = "hidefrompublic <> 0"
 		var includeString="state"
 		var people = model("Handbookperson").findAll(whereString=whereString, select=selectString, include=includeString)
 
@@ -504,17 +504,20 @@ component extends="Controller" output="true" {
 				return person
 		})
 
+		//filter out no pastor, sort_order and hide from public listings
+		people = people.filter(function(person){
+			if ( person.selectnamestate CONTAINS 'Pastor, No' ) return false
+			if ( person.max_sort_order > #getNonStaffSortOrder()+1# ) return false
+			if ( person.hidefrompublic <> 0 ) return false
+			return true
+		})
+
 		//delete unneeded columns to keep the json light
-		var columnsToDelete = ['fname', 'lname', 'state', 'city']
+		var columnsToDelete = ['fname', 'lname', 'state', 'city', 'max_sort_order', 'hidefrompublic']
 		for ( column in columnsToDelete) {
 			QueryDeleteColumn(people, column)
 		}
 
-		//filter out no pastor listings
-		people = people.filter(function(person){
-			if ( person.selectnamestate CONTAINS 'Pastor, No' ) return false
-			return true
-		})
 
 		//convert query to json
 		data = queryToJson(data=people, useSerializeJSON = false)

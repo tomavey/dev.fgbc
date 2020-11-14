@@ -39,6 +39,10 @@ component extends="Model" output="true" {
 			sql="SELECT state_mail_abbrev FROM handbookstates where handbookstates.id = handbookpeople.stateid"
 		)
 		property(
+			name="max_sort_order",
+			sql="SELECT max(p_sortorder) FROM handbookpositions where handbookpositions.personid = handbookpeople.id"
+		)
+		property(
 			name="state",
 			sql="SELECT state FROM handbookstates where handbookstates.id = handbookpeople.stateid"
 		)
