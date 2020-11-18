@@ -5,16 +5,15 @@
 
 <cfset peoplecount = 0>
 <cfset churchcount = 0>
+<cfset emailall = "">
+<cfset namesAll = "">
+<cfset namesThis = "">
+<cfset cellPhones = "">
+<cfset noCellPhone = "">
 
 
 <div id="show">
 	<!--- <cfdump var="#params#"> --->
-	
-	<cfset emailall = "">
-	<cfset namesAll = "">
-	<cfset namesThis = "">
-	<cfset cellPhones = "">
-	<cfset noCellPhone = "">
 
 	<cfoutput>
 	<h2>Tag: "#params.key#"</h2>
@@ -31,6 +30,7 @@
 		<p>This tag is shared by #session.tags.usernames#</p>
 	</cfif>
 
+<!---BEGINNING of managing this tag--->	
 	<div class="well">	
 		<p>
 			#startFormTag(action="changeTag")#
@@ -53,7 +53,10 @@
 		
 	</div>
 	</cfoutput>
-	
+<!---END of managing this tag--->	
+
+
+<!---BEGINNING of tagged people and organizations--->
 	<cfif handbookTaggedPeople.recordcount>
 		<h3>People:</h3>
 	</cfif>
@@ -93,6 +96,7 @@
 					<span class="updatedat tooltipside" title="Tagged by #username#">?</span>
 				</p>
 
+				<!--- updating counts--->
 				<cfif isvalid("email",email)>
 					<cfset emailall = emailall & "; " & email>
 				</cfif>
@@ -146,9 +150,15 @@
 
 		<cfset emailall = replace(emailall,";","","one")>
 		<cfset emailAllComma = replace(emailall,";",",","all")>
-		
+
+<!---END of tagged people and organizations--->
+
+
 	<cfoutput>
-			
+
+
+<!---Beginning of listing section--->		
+		<p>&nbsp;</p>	
 		<div>
 		<!---Send Email to items in tag--->			
 			<cfif emailDelimiter == "semi-colon">
@@ -187,13 +197,17 @@
 		</p>
 		<p>&nbsp;</p>
 		<cfif len(cellPhones)>
-			<p>Cellphones: #replace(cellPhones,",","","one")#</p>
+			<p>List of Cellphones: #replace(cellPhones,",","","one")#</p>
 		</cfif>
 		<cfif len(noCellPhone)>
 			<p>No cellphone ## for: #replace(noCellPhone,",","","one")#</p>
 		</cfif>
+<!---END of listing section--->		
 
-		<!---Add one person to this tag--->
+
+<!---Beginning of Adding Section--->		
+
+	<!---Add one person to this tag--->
 		<p>&nbsp;</p>
 			<div class="well">
 				<p>
@@ -228,6 +242,13 @@
 				</p>
 			
 			</div>	
+
+<!---END of Adding Section--->		
+
+
+
+<!---Beginning of sharing section--->
+
 		<div class="well">
 			<h3>Sharing</h3>
 		<!---Copy this tag and send to another user--->
@@ -314,6 +335,8 @@
 			</cfif>
 
 		</div>
+
+<!---End of sharing section--->
 
 	</cfoutput>		
 

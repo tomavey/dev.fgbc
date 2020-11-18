@@ -318,6 +318,7 @@
 			.post(name="changeTag", pattern="/tag/change/", controller="tags", action="changeTag")
 			.post(name="shareTag", pattern="/tag/share/", controller="tags", action="shareTag")
 			.post(name="shareTagWithGroup", pattern="/tag/shareTagWithGroup/", controller="tags", action="shareTagWithGroup")
+			.post(name="copyTags", pattern="/tags/copy/", controller="tags", action="copyTags")
 			.post(name="tagSearchResults", pattern="/tagthissearch/", controller="tags", action="search")
 			.get(name="orphanedTags", pattern="/tags/orphaned/", controller="tags", action="orphanedTags")
 			.get(name="deleteOrphanedTags", pattern="/tags/orphaned/delete/", controller="tags", action="deleteOrphanedTags")
