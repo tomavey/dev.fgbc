@@ -21,7 +21,7 @@
 	<cfif gotRights("superadmin")>
 		<div style="font-size:.8em;color:gray">
 			<p>
-				Tag ids: #session.tags.tagids#
+				Tag ids: #replace(session.tags.tagids,",",", ","all")#
 			</p>
 		</div>
 	</cfif>
@@ -30,7 +30,7 @@
 		<p>This tag is shared by #session.tags.usernames#</p>
 	</cfif>
 
-<!---BEGINNING of managing this tag--->	
+<!---BEGINNING of managing this tag section--->	
 	<div class="well">	
 		<p>
 			#startFormTag(action="changeTag")#
@@ -56,7 +56,7 @@
 <!---END of managing this tag--->	
 
 
-<!---BEGINNING of tagged people and organizations--->
+<!---BEGINNING of tagged people and organizations section--->
 	<cfif handbookTaggedPeople.recordcount>
 		<h3>People:</h3>
 	</cfif>
@@ -113,11 +113,13 @@
 		<cfif handbookTaggedPeople.recordcount>
 			<cfoutput>Count = #peoplecount#</cfoutput>
 		</cfif>
+
+<!---ORGANIZATIONS--->
+
 		<cfif handbookTaggedOrganizations.recordcount>
 			<h3>Organizations:</h3>	
 		</cfif>		
 		
-	<!---ORGANIZATIONS--->
 		<cfoutput query="handbookTaggedOrganizations" group="itemid">
 			<cfset namesThis = "#name#: #org_city#,#state_mail_abbrev#">
 			<p>#linkTo(
