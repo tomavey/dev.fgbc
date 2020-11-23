@@ -414,7 +414,7 @@
 		<cfset church = model("Handbookorganization").findOne(where="id=#arguments.churchid#", include="Handbookstate")>
 		<cfset statistic = model("Handbookstatistic").findOne(where="organizationid = #arguments.churchid# AND year = '#arguments.year#'")>
 
-		<cfif val(church.joinedAt) GTE arguments.year>
+		<cfif val(church.joinedAt) GTE val(arguments.year)>
 			<cfreturn false>
 		<cfelseif isObject(statistic)>
 			<cfreturn false>
@@ -424,6 +424,7 @@
 
 		<!---then check for a payment record for this church for this year--->
 	</cffunction>
+
 
 	<cffunction name="allCurrentNotPaid">
 		<cfset var churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state_mail_abbrev,org_city,name")>
@@ -952,10 +953,12 @@ abort;
 
 <!---Test Methods--->
 
-	<cffunction name="testNoMemfee">
-		<cfset test = noMemFee(churchid=params.key, year=params.key)>
-		<cfdump var="#test#"><cfabort>
-	</cffunction>
+<cfscript>
+	function testNoMemFee(){
+		var test = noMemFee(1382,2017)
+		ddd(test)
+	}
+</cfscript>
 
 	<cffunction name="test">
 		<cfset test=model("Handbookstatistic").findMemFeePaidBy(yearsago='-3')>

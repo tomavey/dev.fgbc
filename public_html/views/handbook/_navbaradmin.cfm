@@ -26,9 +26,6 @@
 							#linkto(text="List (#year(now())-2#)", controller="handbook.statistics", action="index", params="year=#year(now())-2#")#
 						</li>
 						<li>
-							#linkto(text="Deliquencies", controller="handbook.statistics", action="delinquent")#
-						</li>
-						<li>
 							#linkto(text="Paid", controller="handbook.statistics", action="allCurrent", params="type=paid")#
 						</li>
 						<li>
@@ -91,6 +88,13 @@
 								key=year(now())-1
 									)
 								#
+						</li>
+						<li>
+							#linkto(
+								text="Deliquencies", 
+								controller="handbook.statistics", 
+								action="delinquent"
+								)#
 						</li>
 						<li>
 							#linkto(
