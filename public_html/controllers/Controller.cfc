@@ -1,4 +1,4 @@
-component extends="Wheels" {
+component extends="wheels.Controller" {
 
 	dsn=getSetting("dataSourceName")
 
