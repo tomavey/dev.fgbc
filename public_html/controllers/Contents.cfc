@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 	</cffunction>
 
 <!--------------------------------->
@@ -48,32 +48,32 @@
 
 	<cffunction name="manualOfProcedure">
    		<cfset content = model("Maincontent").findByKey(19)>
-		<cfset renderpage(action="show")>
+		<cfset renderView(action="show")>
 	</cffunction>
 
 	<cffunction name="charisgraphics">
    		<cfset content = model("Maincontent").findByKey(78)>
-		<cfset renderpage(action="show")>
+		<cfset renderView(action="show")>
 	</cffunction>
 
 	<cffunction name="constitution">
    		<cfset content = model("Maincontent").findByKey(18)>
-		<cfset renderpage(action="show")>
+		<cfset renderView(action="show")>
 	</cffunction>
 
 	<cffunction name="statementoffaith">
    		<cfset content = model("Maincontent").findByKey(30)>
-		<cfset renderpage(action="show")>
+		<cfset renderView(action="show")>
 	</cffunction>
 
 	<cffunction name="newname">
    		<cfset content = model("Maincontent").findByKey(101)>
-		<cfset renderpage(action="show")>
+		<cfset renderView(action="show")>
 	</cffunction>
 
 	<cffunction name="newnameQA">
    		<cfset content = model("Maincontent").findByKey(102)>
-		<cfset renderpage(action="show")>
+		<cfset renderView(action="show")>
 	</cffunction>
 
 </cfcomponent>

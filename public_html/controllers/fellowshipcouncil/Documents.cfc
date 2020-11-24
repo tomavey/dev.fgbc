@@ -1,6 +1,6 @@
 component extends="Controller" {
 
-  public function init() {
+  public function config() {
   }
 
 	function setAccessControlHeaders() {
@@ -15,7 +15,7 @@ component extends="Controller" {
     var includeString = "tags"
     var documents = model("Fcdocument").findAllThatExist(whereString, includeString)
     data=queryToJson(data=documents, useSerializeJSON = true);
-    renderPage(layout="/layout_json", template="/json.cfm", hideDebugInformation="true");
+    renderView(layout="/layout_json", template="/json.cfm", hideDebugInformation="true");
   }
 
   public function update(content = "Here's some new content for my file"){
@@ -24,7 +24,7 @@ component extends="Controller" {
     consoleLog(requestBody)
     data = [{'content':content}]
     data = serialize(data)
-    renderPage(layout="/layout_json", template="/json.cfm", hideDebugInformation="true");
+    renderView(layout="/layout_json", template="/json.cfm", hideDebugInformation="true");
   }
 
   public function consoleLog(newContent){

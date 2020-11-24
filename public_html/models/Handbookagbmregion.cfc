@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset hasMany(name="Handbookdistrict", foreignKey="agbmregionid")>
 		<cfset belongsTo(name="agbmrep", modelName="Handbookperson", foreignKey="agbmrepid")>
 	</cffunction>

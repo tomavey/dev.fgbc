@@ -2,7 +2,7 @@ component extends="Controller" output="false" {
 
 
 
-  public void function init(){
+  public void function config(){
   }
 
   public function usetestlist(){
@@ -42,7 +42,7 @@ component extends="Controller" output="false" {
   public void function json(){
     sendemails = model("Fgbcsendemail").findAll(select="id,subject,strSentAt,sentTo,fromemail,fromname,tags,strcreatedAt");
     data = queryToJson(sendemails);
-    renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)
+    renderView(template="/json", layout="/layout_json", hideDebugInformation=true)
   }
 
   // sendemails/show/key
@@ -106,11 +106,11 @@ component extends="Controller" output="false" {
 
     if (message.sendplaintext)
     {
-      renderPage(template="sendemail", layout="/layout_naked");
+      renderView(template="sendemail", layout="/layout_naked");
     }
     else
     {
-      renderPage(template="sendemail", layout="layout_for_email");
+      renderView(template="sendemail", layout="layout_for_email");
     }
   }
 
@@ -133,7 +133,7 @@ component extends="Controller" output="false" {
       redirectTo(action="index");
 		} else {
 		  flashInsert(error="There was an error creating the send-emails.");
-		  renderPage(action="new");
+		  renderView(action="new");
 		}
   }
 
@@ -146,7 +146,7 @@ component extends="Controller" output="false" {
       redirectTo(action="index");
 		} else {
 		  flashInsert(error="There was an error updating the sendemails.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
   }
 

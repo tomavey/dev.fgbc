@@ -1,6 +1,6 @@
 component extends="Model" output="false" {
 
-	public void function init() {
+	public void function config() {
 
                 table("equip_events_instructors");
                 belongsTo(name="event", model="Conferenceevent", foreignKey="eventid");

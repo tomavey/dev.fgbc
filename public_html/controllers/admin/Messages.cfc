@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	public function init() {
+	public function config() {
 		filters(through="checkOffice", only="index,edit");
 	}
 
@@ -59,13 +59,13 @@ component extends="Controller" output="false" {
 				//  Otherwise 
 			} else {
 				flashInsert(error="There was an error creating the message.");
-				renderPage(action="new");
+				renderView(action="new");
 			}
 		} else {
 			flashInsert(error="Please try to enter the scrambled image again.");
 			message = model("Mainmessage").new(params.message);
 			strCaptcha = getcaptcha();
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 
@@ -79,7 +79,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error updating the message.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
 	}
 

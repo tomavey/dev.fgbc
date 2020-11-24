@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 	
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset table("handbookstatus")>
 		<cfset hasMany("handbookOrganizations")>
 	</cffunction>

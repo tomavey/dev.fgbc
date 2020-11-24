@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	public function init() {
+	public function config() {
 		usesLayout("/conference/adminlayout");
 		filters("officeOnly");
 	}
@@ -50,7 +50,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error creating the age_range.");
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 
@@ -64,7 +64,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error updating the age_range.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
 	}
 

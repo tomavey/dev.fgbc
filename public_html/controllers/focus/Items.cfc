@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 	
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset useslayout('/focus/layoutadmin')>
 		<cfset filters('checkOffice')>
 		<cfset filters(through="setReturn", only="index,show,items")>
@@ -106,7 +106,7 @@
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the item.")>
 			<cfset activeRetreats = model("Focusretreat").findall(where="active='yes'")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 	
@@ -121,7 +121,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the item.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 	

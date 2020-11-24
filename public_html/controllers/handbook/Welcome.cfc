@@ -3,7 +3,7 @@
 	<cfobject name="authorize" component="models.handbookauthorize" >
 	<cfobject name="authenticate" component="models.handbookauthenticate" >
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("/handbook/layout_handbook2")>
 		<cfset filters(through="logview", type="after")>
 		<cfset filters(through="setReturn", only="index")>
@@ -184,7 +184,7 @@
 			<cfset church = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
 		  	<cfif isObject(church)>
 				<cfset formaction = "review">
-				<cfset renderPage(action="handbookReviewCheckin")>
+				<cfset renderView(action="handbookReviewCheckin")>
 			<cfelse>
 				<cfset renderText("You do not have permission to view this page (2)")>
 			</cfif>
@@ -213,7 +213,7 @@
 	</cffunction>
 
 	<cffunction name="checkin">
-		<cfset renderPage(layout="/handbook/layout_handbook2")>
+		<cfset renderView(layout="/handbook/layout_handbook2")>
 	</cffunction>
 
 	<cffunction name="sendLink">
@@ -231,7 +231,7 @@
 				<cfset flashInsert(error="#linkTo(controller="handbook.welcome", action="welcome", onlyPath=false, params="id=#params.key#")#
 				")>
 			</cfif>
-			<cfset renderPage(action="thankyou")>
+			<cfset renderView(action="thankyou")>
 		<cfelse>
 			<cfset flashInsert(failure="The email address you provided is not in the current handbook. Please try another email address.")>
 			<cfset redirectTo(action="checkin")>
@@ -265,7 +265,7 @@
 
 	<cffunction name="loginform">
 		<cfset user = model("Authuser").new()>
-		<cfset renderPage(controller="auth.users", action="loginform")>
+		<cfset renderView(controller="auth.users", action="loginform")>
 	</cffunction>
 
 	<cffunction name="sendWelcomeErrorNotice">

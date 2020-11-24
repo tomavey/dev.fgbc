@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	public function init() {
+	public function config() {
 		filters(through="checkOffice", only="adminindex,edit,new,delete");
 		filters(through="setReturn", only="index,show");
 	}
@@ -66,7 +66,7 @@ component extends="Controller" output="false" {
 			flashInsert(error="Announcement #params.key# was !found");
 			redirectTo(action="index");
 		}
-		renderPage(action="new");
+		renderView(action="new");
 	}
 	//  announcements/create 
 
@@ -81,7 +81,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error creating the announcement.");
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 	//  announcements/update 
@@ -97,7 +97,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error updating the announcement.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
 	}
 	//  announcements/delete/key 

@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset filters(through="checkIn", only="index")>
 		<cfset filters(through="setreturn", only="index")>
 		<cfset usesLayout("layout")>
@@ -111,7 +111,7 @@
 		<cfif nominations.hasErrors()>
 			<cfset flashInsert(error="There was an error creating the nominations.")>
 			<cfset districts = model("Handbookdistrict").findAll()>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(success="The nominations was created successfully.")>
@@ -130,7 +130,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the nominations.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 

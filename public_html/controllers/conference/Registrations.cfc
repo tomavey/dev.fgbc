@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("/conference/adminlayout")>
 		<cfset filters(through="officeOnly", except="list,summary")>
 		<cfset filters(through="setReturn", only="index,show,list")>
@@ -26,7 +26,7 @@
 		<cfset registrations = model("Conferenceregistration").findAll(where=whereString, include="person(family),option,invoice", order=orderString, maxrows="#maxrows#")>
 
 		<cfif isDefined("params.download")>
-			  <cfset renderPage(layout="/conference/layoutdownload")>
+			  <cfset renderView(layout="/conference/layoutdownload")>
 		</cfif>
   </cffunction>
 
@@ -152,7 +152,7 @@
 		<cfif isdefined("params.pid")>
 			<cfset registration.equip_peopleid = params.pid>
 		</cfif>
-		<cfset renderPage(action="new")>
+		<cfset renderView(action="new")>
 	</cffunction>
 
 	<!--- registrations/edit/key --->
@@ -186,7 +186,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the registration.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 
@@ -204,7 +204,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the registration.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -400,7 +400,7 @@
 	<cffunction name="listCoupleRegs">
 			<cfset registrations = model("Conferenceregistration").findAll(where="equip_optionsid = 14 AND ccstatus = 1", include="person(family,age_ranges),option,invoice", order="createdAt DESC,equip_optionsid,lname")>
 			<cfset request.action = "addCoupleConcertTicket">
-			<cfset renderPage(action="listSingleRegs")>
+			<cfset renderView(action="listSingleRegs")>
 	</cffunction>
 
 	<cffunction name="connectToHandbook">
@@ -506,7 +506,7 @@
 	<cffunction name="testCountRegsByType">
 		<cfset var return = "">
 		<cfset data = model("Conferenceregistration").countRegsByType(type="Couple",ccstatus="all", event="Visionconference2019", regByDate="2019-04-01")>
-		<cfset renderPage(action="testPage")>
+		<cfset renderView(action="testPage")>
 	</cffunction>
 
 </cfcomponent>

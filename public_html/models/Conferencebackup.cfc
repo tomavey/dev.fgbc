@@ -2,7 +2,7 @@
 
 	<cfset dsn = "fgbc_main_3">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset table("equip_backups")>
 	</cffunction>
 

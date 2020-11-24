@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 	
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset filters(through="setReturn", only="list,index,show")>
 	</cffunction>
 
@@ -78,14 +78,14 @@
 				<cfset flashInsert(error=errorMessagesFor("job"))>
 				<cfset job = model("Mainjob").new(params.job)>
 				<cfset strCaptcha = getcaptcha()>
-				<cfset renderPage(action="new")>
+				<cfset renderView(action="new")>
 			</cfif>
 			
 		<cfelse>
 			<cfset flashInsert(error="Please try to enter the scrambled image again.")>	
 			<cfset job = model("Mainjob").new(params.job)>
 			<cfset strCaptcha = getcaptcha()>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 	
@@ -104,7 +104,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the job.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -132,7 +132,7 @@
 			<cfset job.approved = "Y">
 			<cfset job.update()>
 	    	<cfset job = model("Mainjob").findAll(where="id=#params.key#")>
-			<cfset renderPage(controller="admin.jobs", action="show")>
+			<cfset renderView(controller="admin.jobs", action="show")>
 	</cffunction>
 
 	
@@ -156,7 +156,7 @@
 		
 		<cfset title = "FGBC Jobs">
 		<cfset description= "Ministry Positions posted by Grace Brethren Churches">
-		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
+		<cfset renderView(template="rss.cfm", layout="rsslayout")>
 	</cffunction>
 
 	

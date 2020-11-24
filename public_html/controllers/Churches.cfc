@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset filters(through="checkOffice", except="index,getAddressesForMap,test")>
 		<cfset filters(through="setReturn", only="index")>
 		<cfset provides("html,json")>

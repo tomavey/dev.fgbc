@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("/conference/adminlayout")>
 		<cfset filters(through="getEvents,getLocations,getCourses", except="update,create,delete")>
 		<cfset filters(through="officeOnly", except="index,summary,show,listScheduleAsJson,listMealsAsJson,listExcursionsAsJson,listOtherEventsAsJson,generalInfo,testCopy,copyCategoryToNextDay")>
@@ -128,7 +128,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the event.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 
@@ -146,7 +146,7 @@
 			<cfset redirectTo(action="index")>
 	    </cfif>
 
-	    <cfset renderPage(action="new")>
+	    <cfset renderView(action="new")>
 	</cffunction>
 
 <!--- conference/events/copyAllToCurrentEvent --->
@@ -188,7 +188,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the event.")>
-			<cfset renderPage(action="edit", layout="/adminlayout")>
+			<cfset renderView(action="edit", layout="/adminlayout")>
 		</cfif>
 	</cffunction>
 
@@ -290,7 +290,7 @@
 		<cfset TuesdayMT = eachlist(category="Seminar-Ministry Track", date="2011-07-26")>
 		<cfset MondayNet = eachlist(category="Network", date="2011-07-25")>
 		<cfset TuesdayNet = eachlist(category="Network", date="2011-07-26")>
-		<cfset renderPage(layout="/layout")>
+		<cfset renderView(layout="/layout")>
 	</cffunction>
 
 	<cffunction name="ShowSeminar">
@@ -298,12 +298,12 @@
 	    <cfif NOT IsObject(event)>
 	    	<cfset renderText("No Seminar Listed")>
 	    </cfif>
-		<cfset renderPage(layout="/layout")>
+		<cfset renderView(layout="/layout")>
 	</cffunction>
 
 	<cffunction name="excel">
 		<cfset events = model("Conferenceevent").findAll(where="event='#getEvent()#'", include="location", order="date,timebegin")>
-		<cfset renderPage(layout="/conference/layoutdownload")>
+		<cfset renderView(layout="/conference/layoutdownload")>
 	</cffunction>
 
 	<cffunction name="datatable">
@@ -319,35 +319,35 @@
 
 	<cffunction name="listScheduleAsJson">
 		<cfset data = model("Conferenceevent").findScheduleAsJson(params)>
-       	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+       	<cfset renderView(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="listExcursionsAsJson">
 		<cfset params.useExcursions = true>
 		<cfset data = model("Conferenceevent").findScheduleAsJson(params)>
-       	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+       	<cfset renderView(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="listOtherEventsAsJson">
 		<cfset params.useOtherEvents = true>
 		<cfset data = model("Conferenceevent").findScheduleAsJson(params)>
-       	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+       	<cfset renderView(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="listMealsAsJson">
 	<cfset params.type = "meal">
 		<cfset data = model("Conferenceevent").findScheduleAsJson(params)>
-	        	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+	        	<cfset renderView(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="listMealsAsJson">
 	<cfset params.type = "workshop">
 		<cfset data = model("Conferenceevent").findScheduleAsJson(params)>
-	        	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+	        	<cfset renderView(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="generalInfo">
-	        	<cfset renderPage(layout="/layout_json", hideDebugInformation=true)>
+	        	<cfset renderView(layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 

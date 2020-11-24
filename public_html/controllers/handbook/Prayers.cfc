@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 			<cfset usesLayout("/handbook/layout_handbook")>
 	</cffunction>
 
@@ -17,7 +17,7 @@
 		<cfif isObject(subscribed)>
 			  <cfset params.isSubscribed = true>
 		</cfif>
-		<cfset renderPage(action="index")>
+		<cfset renderView(action="index")>
 	</cffunction>	
 
 	<cffunction name="thisday">
@@ -29,7 +29,7 @@
 		<cfif isObject(subscribed)>
 			  <cfset params.isSubscribed = true>
 		</cfif>
-		<cfset renderPage(action="index")>
+		<cfset renderView(action="index")>
 	</cffunction>	
 
 	<cffunction name="setprayerdates">

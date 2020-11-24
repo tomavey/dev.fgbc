@@ -7,7 +7,7 @@ component extends="controller" {
     var selectString="tag,fname,lname,city,state_mail_abbrev AS state,CONCAT(fname,' ',lname,'; ',city,', ',state) AS selectName,phone AS homephone,phone2 AS mobilephone,phone3 AS officephone,email,email2"
     var members = model("Handbooktag").findAll(select=selectString, where=whereString, include=includeString)
     data=queryToJson(data=members, useSerializeJSON = true);
-    renderPage(layout="/layout_json", template="/json.cfm", hideDebugInformation="true");
+    renderView(layout="/layout_json", template="/json.cfm", hideDebugInformation="true");
   }
 
 }

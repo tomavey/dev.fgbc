@@ -1,6 +1,6 @@
 component extends="Model" output="false" {
 
-	function init(){
+	function config(){
 		table("auth_usersgroups")
 		belongsTo(name="Group", modelName="auth_groups", foreignKey="auth_groupsid")
 		belongsTo(name="User", foreignKey="auth_usersid")

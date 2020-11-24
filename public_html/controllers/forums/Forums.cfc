@@ -1,7 +1,7 @@
 <cfcomponent extends="Controller" output="false">
 
 <cfscript>
-	public function init(){
+	public function config(){
 		usesLayout("/forums/layout");
 		filters(through="forumCheckin", except="login,authorize,logmein,about,index");
 	}
@@ -51,7 +51,7 @@
 	<cfset usercount = 0>
 	<cfset viewcount = 0>
 		<cfset users = model("Userview").findAll(where="controller LIKE 'forum%'", order="email,createdat")>
-		<cfset renderPage(controller="forums.users", action="log")>
+		<cfset renderView(controller="forums.users", action="log")>
 	</cffunction>
 	
 	<!--- forum-forums/index --->
@@ -104,7 +104,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the forumforum.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 	
@@ -119,7 +119,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the forumforum.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 	

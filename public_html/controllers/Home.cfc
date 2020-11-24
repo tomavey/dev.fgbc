@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<!--- <cfset filters(through="getbasicinfo,logview")>--->
 		<cfset filters(through="setReturn", only="index")>
 		<cfset filters(through="logview", type="after")>
@@ -42,7 +42,7 @@
 
 	<cffunction name="office">
 		<cfset menu = Model("Mainmenu").findall(order="category,name")>
-		<cfset renderPage(template="categoryMenu")>
+		<cfset renderView(template="categoryMenu")>
 	</cffunction>
 
 	<cffunction name="testFindAllGotRightsTo">

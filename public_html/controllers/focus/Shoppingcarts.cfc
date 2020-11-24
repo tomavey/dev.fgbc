@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout(template="/focus/layoutadmin", except="new,edit")>
 		<cfset filters("getRetreatRegions")>
 	</cffunction>
@@ -31,7 +31,7 @@
 	        <cfset redirectTo(action="index")>
 	    </cfif>
 
-		<cfset renderPage(layout="/focus/layout2")>
+		<cfset renderView(layout="/focus/layout2")>
 
 	</cffunction>
 
@@ -47,7 +47,7 @@
 		</cfif>
 		<cfset formaction="checkout">
 		<cfset setReturn()>
-		<cfset renderPage(layout="/focus/layout2")>
+		<cfset renderView(layout="/focus/layout2")>
 	</cffunction>
 
 	<!--- -shoppingcarts/new --->
@@ -61,7 +61,7 @@
 		<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId='#params.retreatid#' AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price DESC")>
 		<cfset retreat = model("Focusretreat").findByKey(params.retreatid)>
 		<cfset formaction="create">
-		<cfset renderPage(layout="/focus/layout2")>
+		<cfset renderView(layout="/focus/layout2")>
 	</cffunction>
 
 	<!--- -shoppingcarts/edit/key --->
@@ -84,7 +84,7 @@
 			<cfset redirectTo(action="index")>
 	    </cfif>
 
-		<cfset renderPage(layout="/focus/layout2")>
+		<cfset renderView(layout="/focus/layout2")>
 	</cffunction>
 
 
@@ -126,7 +126,7 @@
 			<cfset flashInsert(error="Please select at least one item.")>
 			<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId=#shoppingcart.retreat# AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price DESC")>
 			<cfset retreat = model("Focusretreat").findByKey(shoppingcart.retreat)>
-			<cfset renderPage(action="new", key=shoppingCart.retreat, layout="/focus/layout2")>
+			<cfset renderView(action="new", key=shoppingCart.retreat, layout="/focus/layout2")>
 		</cfif>
 		<!--- Verify that the shoppingcart creates successfully --->
 		<cfif shoppingcart.save()>
@@ -138,7 +138,7 @@
 			<cfset flashInsert(error="There was an error creating the shoppingcart.")>
 			<cfset shoppingCartItems = model("Focusitem").findAll(where="retreatId=#shoppingcart.retreat# AND (expiresAt IS NULL OR expiresAt > now()) AND category = 'Public'", order="price DESC")>
 			<cfset retreat = model("Focusretreat").findByKey(shoppingcart.retreat)>
-			<cfset renderPage(action="new", key=shoppingCart.retreat, layout="/focus/layout2")>
+			<cfset renderView(action="new", key=shoppingCart.retreat, layout="/focus/layout2")>
 		</cfif>
 	</cffunction>
 
@@ -174,7 +174,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the shoppingcart.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 

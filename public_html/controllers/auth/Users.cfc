@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	function init(){
+	function config(){
 		filters(through="isSuperadmin", only="index,indexOld,show,loginAsUser")
 		filters(through="setReturn", only="index,indexOld,show,new")
 		filters(through="bypassCaptcha", only="new,create")
@@ -128,7 +128,7 @@ component extends="Controller" output="false" {
 		} else {
 			flashInsert(error="Try again")
 			codeconfirm(params.user)
-			renderPage(template="confirmCode")
+			renderView(template="confirmCode")
 		}
 	}
 
@@ -172,7 +172,7 @@ component extends="Controller" output="false" {
 			redirectTo(action="thankYou")
 		} else {
 			flashInsert(error="There was an error creating the user.")
-			renderPage(action="new")
+			renderView(action="new")
 		}
 	}
 
@@ -192,7 +192,7 @@ component extends="Controller" output="false" {
 			returnBack(error="The user was updated successfully.")
 		} else {
 			flashInsert(error="There was an error updating the user.")
-			renderPage(action="edit")
+			renderView(action="edit")
 		}
 	}
 
@@ -241,14 +241,14 @@ component extends="Controller" output="false" {
 			usersTokens = model("Authuser").findAll(where="email = '#params.user.email#'", reLoad=true)
 			if ( usersTokens.recordcount && !isLocalMachine() ) {
 				sendEmail(template="emailChangePasswordLink", layout="layoutforemail", from=application.wheels.userAdminEmailAddress, to=users.email, bcc="tomavey@fgbc.org", subject="Your Password on charisfellowship.us")
-				renderPage(action="emailSent")
+				renderView(action="emailSent")
 			} elseIf ( usersTokens.recordcount ) {
-				renderPage(action="emailSent")
+				renderView(action="emailSent")
 			} else {
-				renderPage(action="tokenNotFound")
+				renderView(action="tokenNotFound")
 			}
 		} else {
-			renderPage(action="emailNotFound")
+			renderView(action="emailNotFound")
 		}
 	}
 

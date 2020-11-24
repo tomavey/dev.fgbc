@@ -1,10 +1,10 @@
 component extends="Controller" {
 
-  public function init(){
+  public function config(){
   }
 
   private function renderJson(){
-    renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)
+    renderView(layout="/layout_json", template="/json", hideDebugInformation=true)
   }
 
   public function test(){

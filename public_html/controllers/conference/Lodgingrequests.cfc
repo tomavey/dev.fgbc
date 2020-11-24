@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
- public void function init(){
+ public void function config(){
     filters(through="checkauth", except="new,questions,show,index,email,editor");
     usesLayout("/conference/layout2018");
   }
@@ -25,7 +25,7 @@ component extends="Controller" output="false" {
  }
 
  public void function questions(){
-    renderPage(layout="/layout_json", template="questions", hideDebugInformation=true)
+    renderView(layout="/layout_json", template="questions", hideDebugInformation=true)
  }
 
  public void function email(){
@@ -33,7 +33,7 @@ component extends="Controller" output="false" {
     lodgingrequestid = params.id;
     email = params.email;
     sendEMail(from="tomavey@fgbc.org", to=email, subject="A New Lodging Assistance Request for #name#", template="email", layout="/layout_for_email");
-    renderPage(template="emailsent");
+    renderView(template="emailsent");
  }
 
 }

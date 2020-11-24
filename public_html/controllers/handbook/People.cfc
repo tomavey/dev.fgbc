@@ -5,7 +5,7 @@
 //
 component extends="Controller" output="true" {
 
-	function init(){
+	function config(){
 		usesLayout(template="/handbook/layout_handbook", except="index")
 		filters(through="gotBasicHandbookRights,getStates,getPositionTypes", except="focus,sendhandbook,inspire,findstaff,findallstaff,peopleAsJson")
 		filters(through="getPositions", only="edit,show,view")
@@ -71,12 +71,12 @@ component extends="Controller" output="true" {
 	public function index(){
 		allHandbookPeople = model("Handbookperson").findAll(where="p_sortorder < #getNonStaffSortOrder()+1#", order="alpha", include="Handbookstate,Handbookpositions")
 		handbookPeople = model("Handbookperson").findHandbookPeople(params)
-		renderPage(layout="/handbook/layout_handbook")
+		renderView(layout="/handbook/layout_handbook")
 	}
 
 	// route="handbookPeople" pattern="handbook/people"
 	public function quickSearch(){
-		renderPage(layout="/handbook/layout_handbook1")
+		renderView(layout="/handbook/layout_handbook1")
 	}
 
 	public function show(){
@@ -107,11 +107,11 @@ component extends="Controller" output="true" {
 		if ( handbookperson.private is "yes" ){
 			redirectTo(action="index")
 		}
-		renderPage(layout="/handbook/layout_handbook2")
+		renderView(layout="/handbook/layout_handbook2")
 	}
 
 	public function inspire(){
-		renderPage(layout="/handbook/layout_handbook_vue")
+		renderView(layout="/handbook/layout_handbook_vue")
 	}
 
 	public function new() {
@@ -137,7 +137,7 @@ component extends="Controller" output="true" {
 		if ( isDefined("params.organizationid") ) {
 			handbookperson.handbookpositions[1].organizationid = params.organizationid;
 		}
-		renderPage(layout="/handbook/layout_handbook1.cfm");
+		renderView(layout="/handbook/layout_handbook1.cfm");
 	}
 
 	// "editHandbookPerson" /handbook/people/[key]/edit
@@ -150,7 +150,7 @@ component extends="Controller" output="true" {
 			flashInsert(error="HandbookPerson #params.key# was !found");
 			redirectTo(action="index");
 		}
-		renderPage(layout="/handbook/layout_handbook2.cfm");
+		renderView(layout="/handbook/layout_handbook2.cfm");
 	}
 
 	// handbookPeople	POST	/handbook/people
@@ -171,7 +171,7 @@ component extends="Controller" output="true" {
 		} else {
 			errors=handbookperson.handbookpositions[1].allerrors();
 			flashInsert(error="There was an error creating this staff person. Check to make sure you selected the correct church || ministry && that you selected a state.");
-			renderPage(action="new", layout="/handbook/layout_handbook2.cfm");
+			renderView(action="new", layout="/handbook/layout_handbook2.cfm");
 		}
 	}
 		
@@ -210,7 +210,7 @@ component extends="Controller" output="true" {
 			//  Otherwise 
 		} else {
 			errors = handbookperson.handbookprofile.allerrors();
-			renderPage(action="edit", error="There was an error updating this person.");
+			renderView(action="edit", error="There was an error updating this person.");
 		}
 	}
 
@@ -254,7 +254,7 @@ component extends="Controller" output="true" {
 		} else {
 			people = model("Handbookperson").findall(where="p_sortorder < #getNonStaffSortOrder()#", include="Handbookpositions,Handbookstate", order="lname,fname");
 		}
-		renderPage(layout="/layout_naked");
+		renderView(layout="/layout_naked");
 	}
 
 	// handbookBluepages	GET	/handbook/people/bluepages
@@ -270,13 +270,13 @@ component extends="Controller" output="true" {
 
 		//  select layout and template based on params 
 		if ( isDefined("params.layout") && params.layout == "naked" ) {
-			renderPage(layout="/layout_naked");
+			renderView(layout="/layout_naked");
 		} else if ( isDefined("params.download") ) {
-			renderpage(template="downloadstaff", layout="/layout_download");
+			renderView(template="downloadstaff", layout="/layout_download");
 		} else if ( isDefined("params.preview") ) {
-			renderpage(template="downloadstaff", layout="/layout_naked");
+			renderView(template="downloadstaff", layout="/layout_naked");
 		} else {
-			renderPage(layout="/handbook/layout_handbook1");
+			renderView(layout="/handbook/layout_handbook1");
 		}
 	}
 
@@ -373,7 +373,7 @@ component extends="Controller" output="true" {
 			);	
 		emailMessage = $getEmailMessageForPeopleReview();
 		tags = model("Handbooktag").findMyTags(auth=session.auth, group="tag");
-		renderPage(layout="/handbook/layout_handbook2")
+		renderView(layout="/handbook/layout_handbook2")
 	}
 
 	// Sends an email to every person and organization email address - edit email in _message.cfm - does not have a menu option
@@ -400,7 +400,7 @@ component extends="Controller" output="true" {
 			}
 		}
 		emailall = replace(emailall,"; ","","one");
-		renderPage(layout="/layout_naked");
+		renderView(layout="/layout_naked");
 	}	
 
 	public function emailPeopleForHandbookReview(
@@ -437,7 +437,7 @@ component extends="Controller" output="true" {
 		allemails = replace(allemails,"; ","","one");
 		structDelete(session,"people");
 
-	renderPage(template="emailPeopleForHandbookReviewReport", layout="/handbook/layout_handbook2");
+	renderView(template="emailPeopleForHandbookReviewReport", layout="/handbook/layout_handbook2");
 	}
 
 
@@ -445,7 +445,7 @@ component extends="Controller" output="true" {
 		if ( !isLocalMachine() ) {
 			sendEmail(from=application.wheels.errorEmailAddress, to=application.wheels.errorEmailAddress, template="personpageerroremail.cfm", subject=arguments.subject)
 		} else {
-			renderPage(template="personpageerroremail.cfm")
+			renderView(template="personpageerroremail.cfm")
 		}
 	}
 
@@ -457,7 +457,7 @@ component extends="Controller" output="true" {
 		cellPhoneNumbers = queryFilter(phoneNumbers, function(el){
 			return len(el.phone2)
 		})
-		if( isDefined("params.noFormat") ) { renderPage(layout="/layout_naked") }
+		if( isDefined("params.noFormat") ) { renderView(layout="/layout_naked") }
 	}
 	
 	//Used in Downloads section of handbook
@@ -482,12 +482,12 @@ component extends="Controller" output="true" {
 
 	public function findAllStaff() {
 		staff = model("Handbookperson").findAllStaff();
-		renderPage(layout="/layout_json", template="json", hideDebugInformation=true);
+		renderView(layout="/layout_json", template="json", hideDebugInformation=true);
 	}
 
 	public function findStaff() {
 		staff = model("Handbookperson").findStaff(params.key);
-		renderPage(layout="/layout_json", template="json", hideDebugInformation=true);
+		renderView(layout="/layout_json", template="json", hideDebugInformation=true);
 	}
 
 	public function peopleAsJson() {
@@ -523,7 +523,7 @@ component extends="Controller" output="true" {
 		data = queryToJson(data=people, useSerializeJSON = false)
 
 		//render page
-		renderPage(layout="/layout_json", template="/json", hideDebugInformation=true);
+		renderView(layout="/layout_json", template="/json", hideDebugInformation=true);
 	}
 <!-------------------------->	
 <!---END OF PROVIDES JSON--->	

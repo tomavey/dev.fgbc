@@ -1,7 +1,7 @@
 component extends="Controller" output="false" {
 
 
-	function init(){
+	function config(){
 		filters(through="setReturn", only="list,index,show")
 	}
 
@@ -48,13 +48,13 @@ component extends="Controller" output="false" {
 				flashInsert(error=errorMessagesFor("job"))
 				job = model("Mainjob").new(params.job)
 				strCaptcha = getcaptcha()
-				renderPage(action="new")
+				renderView(action="new")
 			}
 		} else {
 			flashInsert(error="Please try to enter the scrambled image again.")
 			job = model("Mainjob").new(params.job)
 			strCaptcha = getcaptcha()
-			renderPage(action="new")
+			renderView(action="new")
 		}
 	}
 
@@ -65,7 +65,7 @@ component extends="Controller" output="false" {
 			redirectTo(action="index")
 		} else {
 			flashInsert(error="There was an error updating the job.")
-			renderPage(action="edit")
+			renderView(action="edit")
 		}
 	}
 
@@ -115,14 +115,14 @@ function sendnotice() {
 		job.approved = "Y"
 		job.update()
 		job = model("Mainjob").findAll(where="id=#params.key#")
-		renderPage(controller="jobs", action="show")
+		renderView(controller="jobs", action="show")
 	}
 
 	function rss(){
 		jobs = model("Mainjob").findAll(where="approved='y' AND expirationDate > now()", order="createdAt DESC")
 		title = "Charis Fellowship Jobs"
 		description= "Ministry Positions posted by Charis Fellowship"
-		renderPage(template="rss.cfm", layout="rsslayout")
+		renderView(template="rss.cfm", layout="rsslayout")
 	}
 
 }

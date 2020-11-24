@@ -1,6 +1,6 @@
 <cfcomponent output="false" extends="Controller">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout(template="/handbook/layout_handbook2")>
 		<cfset filters(through="setReturn", only="show,index")>
 		<cfset filters(through="getDistrict", only="edit,show")>
@@ -24,7 +24,7 @@
     	<cfif isDefined("session.auth.email") and isValid("email",session.auth.email)>
 		    <cfreturn true>
     	<cfelse>
-    		<cfset renderPage(action="getemail")>
+    		<cfset renderView(action="getemail")>
     	</cfif>
 	</cffunction>
 	
@@ -33,7 +33,7 @@
         	<cfset session.auth.email = params.email>
         	<cfset returnBack()>
     	<cfelse>
-		   	<cfset renderPage(action="getemail")>
+		   	<cfset renderView(action="getemail")>
     	</cfif>
 	</cffunction>
 
@@ -77,7 +77,7 @@
 			<cfset returnBack()>
 		<cfelse>
 			<cfset flashInsert(success="Something went wrong.")>	
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 	
@@ -86,7 +86,7 @@
 		<cfif district.save()>
 			<cfset reDirectTo(action="index")>
 		<cfelse>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>	  
 	</cffunction>
 

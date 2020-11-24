@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset useslayout(template='/focus/layoutadmin', except="show,payonline,agent,thankyou")>
 		<cfset filters(through='checkOffice', except="testconfirm,show,payonline,agent,confirm,thankyou,tryagain")>
 		<cfset filters(through="getRetreats", except="testconfirm")>
@@ -34,7 +34,7 @@
 	        <cfset flashInsert(error="Invoice #params.key# was not found")>
 	        <cfset redirectTo(action="index")>
 	    </cfif>
-	<cfset renderPage(layout="/focus/layoutadmin")>
+	<cfset renderView(layout="/focus/layoutadmin")>
 
 	</cffunction>
 
@@ -69,7 +69,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the invoice.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 
@@ -84,7 +84,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the invoice.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -108,7 +108,7 @@
 <!-------------------------------------------------->
 
 	<cffunction name="agent">
-		<cfset renderPage(layout='/focus/layout2')>
+		<cfset renderView(layout='/focus/layout2')>
 	</cffunction>
 
 	<cffunction name="payonline" 
@@ -132,7 +132,7 @@
 			<cfset sendEmail(layout="/focus/emaillayout", to=application.wheels.registrant, from=application.wheels.registrant, subject="Focus Retreat Invoice has been started.", template="notify")>
 		</cfif>
 		<cflocation url="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5834/default.aspx?order_id=#payonline.orderid#&amount=#payonline.amount#&email=#payonline.agent#&url=http://#CGI.http_host#/?controller=focus.invoices&action=confirm">
-		<!--- <cfset renderPage(layout='/focus/layout2')> --->
+		<!--- <cfset renderView(layout='/focus/layout2')> --->
 	</cffunction>
 
 	<cffunction name="confirm" 
@@ -176,12 +176,12 @@
 		<cftry>
 		<cfset invoice = model("Focusinvoice").findByKey(params.key)>
 		<cfset items = model("Focusregistration").findAll(where="invoiceId = '#params.key#'", include="item,registrant")>
-		<cfset renderPage(layout="/focus/layout2")>
+		<cfset renderView(layout="/focus/layout2")>
 		<cfcatch>
 			<cfset noinvoice = true>
 		</cfcatch>
 		</cftry>	
-		<cfset renderPage(layout='/focus/layout2')>
+		<cfset renderView(layout='/focus/layout2')>
 	</cffunction>
 
 <cfscript>

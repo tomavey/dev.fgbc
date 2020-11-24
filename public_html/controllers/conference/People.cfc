@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("/conference/adminlayout")>
 		<!--- <cfset filters(through="officeOnly", except="show")> --->
 		<!--- Removed exception to protect data - TODO: Figure out a better way --->
@@ -46,7 +46,7 @@
 	    </cfif>
 
 		<cfif !gotRights("office")>
-			<cfset renderpage(layout="/conference/layout2017")>
+			<cfset renderView(layout="/conference/layout2017")>
 		</cfif>
 
 	</cffunction>
@@ -118,7 +118,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the people.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 
@@ -135,7 +135,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the people.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -174,7 +174,7 @@
 
 	<cffunction name="change_email">
     	<cfset people = model("Conferenceperson").findByKey(key=params.key, include="family")>
-    	<cfset renderPage(layout="/conference/layout")>
+    	<cfset renderView(layout="/conference/layout")>
 	</cffunction>
 
 	<cffunction name="updateEmail">
@@ -188,7 +188,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the people.")>
-			<cfset renderPage(action="change_email")>
+			<cfset renderView(action="change_email")>
 		</cfif>
 	</cffunction>
 
@@ -210,7 +210,7 @@
 
 		<cfset distinctEmail = removeNotListFromQuery(distinctEmail)>
 
-		<cfset renderPage(layout="/conference/layoutdownload")>
+		<cfset renderView(layout="/conference/layoutdownload")>
 
 	</cffunction>
 
@@ -244,7 +244,7 @@
 		<cfelse>
 			<cfset params.download = false>
 		</cfif>
-		<cfset renderPage(layout="/conference/layoutdownload")>
+		<cfset renderView(layout="/conference/layoutdownload")>
 	</cffunction>
 
 	<cffunction name="PastorNotList">

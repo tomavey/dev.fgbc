@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	public function init() {
+	public function config() {
 		filters(through="setReturn", only="show,index");
 		/* 
 		<cfset filters(through="logview", type="after")>
@@ -52,7 +52,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error creating the ministry.");
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 
@@ -72,7 +72,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error updating the ministry.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
 	}
 

@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<!--- <cfset filters(through="logview", type="after")> --->
 	</cffunction>
 

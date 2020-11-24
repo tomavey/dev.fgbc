@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("/membership/layout")>
 		<cfset filters(through="setreturn", only="index,show")>
 		<cfset filters(through="isAuthorized", except="checkin,createblankform,emailVerify,emailsent,verify,functions,index,update,edit,isEmailOnMembershipTeam")>
@@ -228,13 +228,13 @@
 			<cfif gotRights("superadmin,office")>
 			            	<cfset returnBack()>
 			            <cfelse>
-			            	<cfset renderPage(action="thankyou")>
+			            	<cfset renderView(action="thankyou")>
 			            </cfif>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the Membershipnewchurch.")>
 			<cfset formaction = "update">
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 

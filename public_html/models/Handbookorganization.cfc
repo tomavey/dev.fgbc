@@ -5,7 +5,7 @@
 //
 component extends="Model" output="false" {
 
-	function init() {
+	function config() {
 		table("handbookorganizations")
 		// Associations
 		hasMany(name="Handbookpositions", foreignKey="organizationId", joinType="inner")

@@ -1,6 +1,6 @@
 component extends="Controller" output="true" {
 
-	public function init() {
+	public function config() {
 		usesLayout("/handbook/layout_handbook1");
 		filters(through="setreturn", only="index,show,new");
 		filters(through="logview", type="after");
@@ -41,7 +41,7 @@ component extends="Controller" output="true" {
 		} catch (any cfcatch) {
 			handbookpicture.createdby = "tomavey@fgbc.org";
 		}
-		renderPage(layout="/handbook/layout_handbook");
+		renderView(layout="/handbook/layout_handbook");
 	}
 	//  handbookpictures/edit/key 
 
@@ -68,7 +68,7 @@ component extends="Controller" output="true" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error creating the handbookpicture.");
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 	//  handbookpictures/update 
@@ -83,7 +83,7 @@ component extends="Controller" output="true" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error updating the handbookpicture.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
 	}
 	//  handbookpictures/delete/key 

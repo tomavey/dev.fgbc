@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset table("fc_nominations")>
 		<!--- <cfset property(name="year", defaultValue=year(now()))> --->
 		<cfset belongsTo(name="District", modelName="Handbookdistrict", foreignKey="districtID")>

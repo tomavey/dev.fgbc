@@ -120,7 +120,7 @@
   <!--- Otherwise --->
   <cfelse>
     <cfset flashInsert(error="There was an error creating the handbookorganization.")>
-    <cfset renderPage(action="new")>
+    <cfset renderView(action="new")>
   </cfif>
 </cffunction>
 
@@ -169,7 +169,7 @@
        <cfset newSortOrder = positions.p_sortorder + 1>
     </cfif>
 
-    <cfset renderPage(layout="/Handbook/layout_handbook2")>
+    <cfset renderView(layout="/Handbook/layout_handbook2")>
   </cffunction>
 
   <cffunction name="Xmove">
@@ -231,7 +231,7 @@
             </cfloop>
           </cfif>
           <cfdump var="#params#"><cfabort>
-          <cfset renderPage(layout="/handbook/layout_handbook2")>
+          <cfset renderView(layout="/handbook/layout_handbook2")>
         </cffunction>
       
         <cffunction name="XsetReview">
@@ -267,9 +267,9 @@
             </cfquery>
         
             <cfif isDefined("params.noFormat")>
-              <cfset renderPage(layout="/layout_naked", hideDebugInformation="true")>
+              <cfset renderView(layout="/layout_naked", hideDebugInformation="true")>
             <cfelse>
-              <cfset renderPage(layout="/handbook/layout_handbook")>
+              <cfset renderView(layout="/handbook/layout_handbook")>
             </cfif>
           </cffunction>
         

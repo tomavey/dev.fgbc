@@ -1,6 +1,6 @@
 component extends="controller" {
 
-	public function init() {
+	public function config() {
 		usesLayout("/conference/adminlayout");
 	}
 
@@ -33,7 +33,7 @@ component extends="controller" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error creating the connection.");
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 

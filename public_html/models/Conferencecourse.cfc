@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset table("equip_courses")>
 		<cfset belongsTo(name="Agenda", modelName="Conferenceevent", foreignKey="eventId", joinType="outer")>
 		<cfset belongsTo(name="Event", modelName="Conferenceevent", foreignKey="eventId", joinType="outer")>

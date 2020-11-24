@@ -1,6 +1,6 @@
 component extends="Controller" output="false"{
 
-	function init() {
+	function config() {
 		usesLayout(template="/handbook/layout_agbm");
 		filters(through="getCurrentMembershipYear");
 		filters(through="gotAgbmRights", except="rss,publiclist,json,list,pastorsnotagbm");
@@ -63,13 +63,13 @@ function getCurrentMembershipYear() {
 			}
 		if ( !gotRights("agbm,superadmin,agbmadmin") ) {
 			people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district", publicOnly=true);
-			renderPage(template="publicList");
+			renderView(template="publicList");
 		}
 		// Set the layout for normal, download view, or download excel
 		if ( isdefined("params.download") ) {
-			renderPage(template="download", layout="/layout_naked");
+			renderView(template="download", layout="/layout_naked");
 		} else if ( isDefined("params.excel") ) {
-			renderPage(template="download", layout="/layout_download");
+			renderView(template="download", layout="/layout_download");
 		}
 	}
 	
@@ -105,7 +105,7 @@ function getCurrentMembershipYear() {
 		handbookagbminfo.commissioned = thisPersonsLastPayment.commissioned;
 		handbookagbminfo.commission = thisPersonsLastPayment.commission;
 		formAction = "create"
-		renderPage(action="new");
+		renderView(action="new");
 	}
 
 <!--- -handbookagbminfos/edit/key --->
@@ -139,7 +139,7 @@ function getCurrentMembershipYear() {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error creating the handbookagbminfo.");
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 
@@ -166,7 +166,7 @@ function update() {
 		//  Otherwise 
 	} else {
 		flashInsert(error="There was an error updating the handbookagbminfo.");
-		renderPage(action="edit");
+		renderView(action="edit");
 	}
 }
 //  -handbookagbminfos/delete/key 
@@ -215,7 +215,7 @@ function delete() {
 		people = model("Handbookperson").findAll(order="lname, fname", include="Handbookstate,Handbookprofile");
 		people = queryFilter(people, (el) => paidLastYearNotThisYear(el.id,currentmembershipyear) && !len(el.agbmlifememberAt));
 		if ( isDefined("params.download") ) {
-			renderPage(layout="/layout_download");
+			renderView(layout="/layout_download");
 		}
 	}
 
@@ -228,16 +228,16 @@ function delete() {
 		showAge=false
 		people = model("Handbookagbminfo").getAgbm10YearMembers(countmin)
 		if ( isdefined("params.download") ) {
-			renderPage(template="download", layout="/layout_naked")
+			renderView(template="download", layout="/layout_naked")
 		}
 		if ( isDefined("params.excel") ) {
-			renderPage(template="download", layout="/layout_download")
+			renderView(template="download", layout="/layout_download")
 		}
 		pageTitle= "Men who have been paid up members for 9 of the past 10 years:"
 		showAlphaMenu = false
 		showAgeButton = false
 		showDownloadButton = false
-		renderPage(template="list")
+		renderView(template="list")
 	}
 
 	//A report of pastors in the handbook who are not members of Inspire
@@ -275,7 +275,7 @@ function delete() {
 				include="Handbookstate,Handbookpositions(Handbookorganization)", order="lname,fname");
 		pastors = pastors.filter( (el) => !isAgbmMember(el.id, params) )
 		if ( isDefined("params.download") ) {
-			renderPage(layout="/layout_download");
+			renderView(layout="/layout_download");
 		}
 	}
 
@@ -299,12 +299,12 @@ function delete() {
 			set(environment="production");
 		}
 		ministerium = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district,lname,fname");
-		renderPage(layout="rsslayout");
+		renderView(layout="rsslayout");
 	}
 
 	function json() {
 		data = queryToJson(getPublicOnlyAgbmMembersWithAlias())
-		renderPage(layout="/layout_json", template="json", hideDebugInformation=true);
+		renderView(layout="/layout_json", template="json", hideDebugInformation=true);
 	}
 
 	function handbookMembershipReport() {
@@ -312,7 +312,7 @@ function delete() {
 		ordained = getAgbmOrdained();
 		commissioned = getAgbmCommissioned();
 		if ( isDefined("params.plain") ) {
-			renderPage(layout="/layout_naked");
+			renderView(layout="/layout_naked");
 		}
 	}
 

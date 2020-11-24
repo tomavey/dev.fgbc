@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("/conference/surveys/layout")>
 		<cfset filters(through="getsettings")>
 	</cffunction>

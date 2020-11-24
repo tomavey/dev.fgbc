@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset uploadableFile(property="file", destination="#expandpath('.')#/images/handbookpictures/", nameConflict="MakeUnique")>
 		<cfset belongsTo(name="Handbookprofile", foreignKey="profileid")>
 		<cfset belongsTo(name="Handbookperson", foreignKey="personid")>

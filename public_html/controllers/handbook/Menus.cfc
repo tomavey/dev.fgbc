@@ -3,7 +3,7 @@
 
 component extends="Controller" output="false" {
 
-	public function init() {
+	public function config() {
 		usesLayout("/handbook/layout_handbook1");
 	}
 

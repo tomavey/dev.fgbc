@@ -1,7 +1,7 @@
 <cfcomponent extends="Model" output="false">
 <cfscript>
 
-  function init(){
+  function config(){
     table("fgbc_content")
     validatesPresenceOf("author")
     validatesPresenceOf("content")

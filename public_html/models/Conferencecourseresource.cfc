@@ -1,6 +1,6 @@
 component extends="Model" output="false" {
 
-	public void function init() {
+	public void function config() {
 		table("equip_course_resources");
 		belongsTo(name="course", modelName="Conferencecourse", foreignKey="courseid");	
 		validatesPresenceOf(properties="Author", minimum=5, Message="Authors full name required");

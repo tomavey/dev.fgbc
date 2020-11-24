@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 	
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset table(name="fgbc_announcements", modelName="Mainannouncement")>
 		<!---not working
 		<cfset uploadableFile(property="image", destination="#expandpath('.')#/images/announcements/", nameConflict="MakeUnique")>

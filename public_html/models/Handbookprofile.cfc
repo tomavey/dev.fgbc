@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset belongsTo(name="Handbookperson", foreignKey="personid")>
 		
 		<cfset beforeUpdate("createDatesAsString")>

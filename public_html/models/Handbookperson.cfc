@@ -6,7 +6,7 @@
 component extends="Model" output="true" {
 
 
-	function init() {
+	function config() {
 		table("handbookpeople")
 		// Associations
 		belongsTo(name="Handbookstate", modelName="Handbookstate", foreignKey="stateid")

@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	function init(){
+	function config(){
 		filters(through="isSuperadmin", only="index,edit,show,new,delete")
 	}
 
@@ -42,7 +42,7 @@ component extends="Controller" output="false" {
 		if ( group.save() ) {
 			redirectTo(action="index", success="The group was created successfully.")
 		} else {
-			renderPage(action="new", error="There was an error creating the group.")
+			renderView(action="new", error="There was an error creating the group.")
 		}
 	}
 
@@ -52,7 +52,7 @@ component extends="Controller" output="false" {
 		if ( group.update(params.group) ) {
 			redirectTo(action="index", success="The group was updated successfully.")
 		} else {
-			renderPage(action="edit", error="There was an error updating the group.")
+			renderView(action="edit", error="There was an error updating the group.")
 		}
 	}
 	

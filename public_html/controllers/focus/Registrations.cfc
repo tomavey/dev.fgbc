@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset useslayout('/focus/layoutadmin')>
 		<cfset filters(through='checkOffice', except="whoiscoming,list,summary,index")>
 		<cfset filters(through="setReturn", only="index,show")>
@@ -68,7 +68,7 @@
 		registrationCounts = model("Focusregistration").findAll(where=whereString, include=includeString, order="itemid DESC");
 
 		if ( isDefined("params.download") ) {
-			renderPage(action="download", layout="/layout_download");
+			renderView(action="download", layout="/layout_download");
 		}
 	}
 
@@ -155,7 +155,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the registration.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 
@@ -170,7 +170,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the registration.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -243,7 +243,7 @@
 		</cftry>
 
 		<cfset retreats = model("Focusretreat").findAll(where="active='yes' and startAt > now()", order="startAt")>
-		<cfset renderPage(layout="/focus/layout2")>
+		<cfset renderView(layout="/focus/layout2")>
 	</cffunction>
 
 	<cffunction name="XcountRegsToDate">

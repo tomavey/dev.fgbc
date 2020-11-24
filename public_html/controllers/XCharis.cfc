@@ -1,11 +1,11 @@
 component extends="Controller" {
 
-    private function init(){
+    private function config(){
         usesLayout("layout");
     }
 
     public function index2(){
-        renderPage(layout="layout");
+        renderView(layout="layout");
     }
 
     public function events(){

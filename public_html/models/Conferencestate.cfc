@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset setTableNamePrefix("")> 
 		<cfset table('handbookstates')>
 		<cfset hasMany(name="families", modelName="Conferencefamily")>

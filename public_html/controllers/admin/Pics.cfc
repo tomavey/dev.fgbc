@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-  public function init(){
+  public function config(){
     filters(through="isOffice")
   }
   
@@ -90,7 +90,7 @@ component extends="Controller" output="false" {
   }
 
   public function renderJson(required string data){
-    renderPage(template="/json.cfm", layout="/layout_json.cfm", hideDebugInformation=true)
+    renderView(template="/json.cfm", layout="/layout_json.cfm", hideDebugInformation=true)
   }
 
 }

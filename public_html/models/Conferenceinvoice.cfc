@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset table("equip_invoices")>
 		<cfset hasMany(name="registrations", modelName="Conferenceregistration",foreignKey="equip_invoicesID")>
 		<cfset property(name="event", defaultValue=getEvent())>
