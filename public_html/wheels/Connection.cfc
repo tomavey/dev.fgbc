@@ -1,7 +1,7 @@
 <cfcomponent output="false">
 	<cfinclude template="global/cfml.cfm">
 
-	<cffunction name="init" access="public" returntype="any" output="false">
+	<cffunction name="config" access="public" returntype="any" output="false">
 		<cfargument name="datasource" type="string" required="true">
 		<cfargument name="username" type="string" required="false" default="">
 		<cfargument name="password" type="string" required="false" default="">

@@ -1,131 +1,213 @@
-<!--- PUBLIC MODEL CLASS METHODS --->
-
-<cffunction name="deleteAll" returntype="numeric" access="public" output="false">
-	<cfargument name="where" type="string" required="false" default="">
-	<cfargument name="include" type="string" required="false" default="">
-	<cfargument name="reload" type="boolean" required="false">
-	<cfargument name="parameterize" type="any" required="false">
-	<cfargument name="instantiate" type="boolean" required="false">
-	<cfargument name="transaction" type="string" required="false" default="#application.wheels.transactionMode#">
-	<cfargument name="callbacks" type="boolean" required="false" default="true">
-	<cfargument name="includeSoftDeletes" type="boolean" required="false" default="false">
-	<cfargument name="softDelete" type="boolean" required="false" default="true">
-	<cfscript>
-		var loc = {};
-		$args(name="deleteAll", args=arguments);
-		arguments.include = $listClean(arguments.include);
-		arguments.where = $cleanInList(arguments.where);
-		if (arguments.instantiate)
-		{
-			loc.rv = 0;
-			loc.objects = findAll(select=propertyNames(), where=arguments.where, include=arguments.include, reload=arguments.reload, parameterize=arguments.parameterize, includeSoftDeletes=arguments.includeSoftDeletes, returnIncluded=false, returnAs="objects");
-			loc.iEnd = ArrayLen(loc.objects);
-			for (loc.i=1; loc.i <= loc.iEnd; loc.i++)
-			{
-				if (loc.objects[loc.i].delete(parameterize=arguments.parameterize, transaction=arguments.transaction, callbacks=arguments.callbacks, softDelete=arguments.softDelete))
-				{
-					loc.rv++;
-				}
+<cfscript>
+/**
+ * Deletes all records that match the `where` argument.
+ * By default, objects will not be instantiated and therefore callbacks and validations are not invoked.
+ * You can change this behavior by passing in `instantiate=true`.
+ * Returns the number of records that were deleted.
+ *
+ * [section: Model Class]
+ * [category: Delete Functions]
+ *
+ * @where [see:findAll].
+ * @include [see:findAll].
+ * @reload [see:findAll].
+ * @parameterize [see:findAll].
+ * @instantiate [see:updateAll].
+ * @transaction [see:save].
+ * @callbacks [see:findAll].
+ * @includeSoftDeletes [see:findAll].
+ * @softDelete Set to `false` to permanently delete a record, even if it has a soft delete column.
+ */
+public numeric function deleteAll(
+	string where = "",
+	string include = "",
+	boolean reload,
+	any parameterize,
+	boolean instantiate,
+	string transaction = application.wheels.transactionMode,
+	boolean callbacks = true,
+	boolean includeSoftDeletes = false,
+	boolean softDelete = true
+) {
+	$args(name = "deleteAll", args = arguments);
+	arguments.include = $listClean(arguments.include);
+	arguments.where = $cleanInList(arguments.where);
+	if (arguments.instantiate) {
+		local.rv = 0;
+		local.objects = findAll(
+			include = arguments.include,
+			includeSoftDeletes = arguments.includeSoftDeletes,
+			parameterize = arguments.parameterize,
+			reload = arguments.reload,
+			returnAs = "objects",
+			returnIncluded = false,
+			where = arguments.where
+		);
+		local.iEnd = ArrayLen(local.objects);
+		for (local.i = 1; local.i <= local.iEnd; local.i++) {
+			local.deleted = local.objects[local.i].delete(
+				callbacks = arguments.callbacks,
+				parameterize = arguments.parameterize,
+				softDelete = arguments.softDelete,
+				transaction = arguments.transaction
+			);
+			if (local.deleted) {
+				local.rv++;
 			}
 		}
-		else
-		{
-			arguments.sql = [];
-			arguments.sql = $addDeleteClause(sql=arguments.sql, softDelete=arguments.softDelete);
-			arguments.sql = $addWhereClause(sql=arguments.sql, where=arguments.where, include=arguments.include, includeSoftDeletes=arguments.includeSoftDeletes);
-			arguments.sql = $addWhereClauseParameters(sql=arguments.sql, where=arguments.where);
-			loc.rv = invokeWithTransaction(method="$deleteAll", argumentCollection=arguments);
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="deleteByKey" returntype="boolean" access="public" output="false">
-	<cfargument name="key" type="any" required="true">
-	<cfargument name="reload" type="boolean" required="false">
-	<cfargument name="transaction" type="string" required="false" default="#application.wheels.transactionMode#">
-	<cfargument name="callbacks" type="boolean" required="false" default="true">
-	<cfargument name="includeSoftDeletes" type="boolean" required="false" default="false">
-	<cfargument name="softDelete" type="boolean" required="false" default="true">
-	<cfscript>
-		var loc = {};
-		$args(name="deleteByKey", args=arguments);
-		$keyLengthCheck(arguments.key);
-		loc.where = $keyWhereString(values=arguments.key);
-		loc.rv = deleteOne(where=loc.where, reload=arguments.reload, transaction=arguments.transaction, callbacks=arguments.callbacks, includeSoftDeletes=arguments.includeSoftDeletes, softDelete=arguments.softDelete);
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="deleteOne" returntype="boolean" access="public" output="false">
-	<cfargument name="where" type="string" required="false" default="">
-	<cfargument name="order" type="string" required="false" default="">
-	<cfargument name="reload" type="boolean" required="false">
-	<cfargument name="transaction" type="string" required="false" default="#application.wheels.transactionMode#">
-	<cfargument name="callbacks" type="boolean" required="false" default="true">
-	<cfargument name="includeSoftDeletes" type="boolean" required="false" default="false">
-	<cfargument name="softDelete" type="boolean" required="false" default="true">
-	<cfscript>
-		var loc = {};
-		$args(name="deleteOne", args=arguments);
-		loc.object = findOne(where=arguments.where, order=arguments.order, reload=arguments.reload, includeSoftDeletes=arguments.includeSoftDeletes);
-		if (IsObject(loc.object))
-		{
-			loc.rv = loc.object.delete(transaction=arguments.transaction, callbacks=arguments.callbacks, softDelete=arguments.softDelete);
-		}
-		else
-		{
-			loc.rv = false;
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<!--- PUBLIC MODEL OBJECT METHODS --->
-
-<cffunction name="delete" returntype="boolean" access="public" output="false">
-	<cfargument name="parameterize" type="any" required="false">
-	<cfargument name="transaction" type="string" required="false" default="#application.wheels.transactionMode#">
-	<cfargument name="callbacks" type="boolean" required="false" default="true">
-	<cfargument name="includeSoftDeletes" type="boolean" required="false" default="false">
-	<cfargument name="softDelete" type="boolean" required="false" default="true">
-	<cfscript>
-		var loc = {};
-		$args(name="delete", args=arguments);
+	} else {
 		arguments.sql = [];
-		arguments.sql = $addDeleteClause(sql=arguments.sql, softDelete=arguments.softDelete);
-		arguments.sql = $addKeyWhereClause(sql=arguments.sql, includeSoftDeletes=arguments.includeSoftDeletes);
-		loc.rv = invokeWithTransaction(method="$delete", argumentCollection=arguments);
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
+		arguments.sql = $addDeleteClause(sql = arguments.sql, softDelete = arguments.softDelete);
+		arguments.sql = $addWhereClause(
+			sql = arguments.sql,
+			where = arguments.where,
+			include = arguments.include,
+			includeSoftDeletes = arguments.includeSoftDeletes
+		);
+		arguments.sql = $addWhereClauseParameters(sql = arguments.sql, where = arguments.where);
+		local.rv = invokeWithTransaction(method = "$deleteAll", argumentCollection = arguments);
+	}
+	return local.rv;
+}
 
-<!--- PRIVATE METHODS --->
+/**
+ * Finds the record with the supplied key and deletes it.
+ * Returns `true` on successful deletion of the row, `false` otherwise.
+ *
+ * [section: Model Class]
+ * [category: Delete Functions]
+ *
+ * @key Primary key value(s) of the record to fetch. Separate with comma if passing in multiple primary key values. Accepts a string, list, or a numeric value.
+ * @reload [see:findAll].
+ * @transaction [see:save].
+ * @callbacks [see:findAll].
+ * @includeSoftDeletes [see:findAll].
+ * @softDelete [see:deleteAll].
+ */
+public boolean function deleteByKey(
+	required any key,
+	boolean reload,
+	string transaction = application.wheels.transactionMode,
+	boolean callbacks = true,
+	boolean includeSoftDeletes = false,
+	boolean softDelete = true
+) {
+	$args(name = "deleteByKey", args = arguments);
+	$keyLengthCheck(arguments.key);
+	local.where = $keyWhereString(values = arguments.key);
+	return deleteOne(
+		callbacks = arguments.callbacks,
+		includeSoftDeletes = arguments.includeSoftDeletes,
+		reload = arguments.reload,
+		softDelete = arguments.softDelete,
+		transaction = arguments.transaction,
+		where = local.where
+	);
+}
 
-<cffunction name="$deleteAll" returntype="numeric" access="public" output="false">
-	<cfscript>
-		var loc = {};
-		loc.deleted = variables.wheels.class.adapter.$query(sql=arguments.sql, parameterize=arguments.parameterize);
-		loc.rv = loc.deleted.result.recordCount;
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
+/**
+ * Gets an object based on conditions and deletes it.
+ *
+ * [section: Model Class]
+ * [category: Delete Functions]
+ *
+ * @where [see:findAll].
+ * @order [see:findAll].
+ * @reload [see:findAll].
+ * @transaction [see:save].
+ * @callbacks [see:findAll].
+ * @includeSoftDeletes [see:findAll].
+ * @softDelete [see:deleteAll].
+ */
+public boolean function deleteOne(
+	string where = "",
+	string order = "",
+	boolean reload,
+	string transaction = application.wheels.transactionMode,
+	boolean callbacks = true,
+	boolean includeSoftDeletes = false,
+	boolean softDelete = true
+) {
+	$args(name = "deleteOne", args = arguments);
+	local.object = findOne(
+		includeSoftDeletes = arguments.includeSoftDeletes,
+		order = arguments.order,
+		reload = arguments.reload,
+		where = arguments.where
+	);
+	if (IsObject(local.object)) {
+		local.rv = local.object.delete(
+			callbacks = arguments.callbacks,
+			softDelete = arguments.softDelete,
+			transaction = arguments.transaction
+		);
+	} else {
+		local.rv = false;
+	}
+	return local.rv;
+}
 
-<cffunction name="$delete" returntype="boolean" access="public" output="false">
-	<cfscript>
-		var loc = {};
-		loc.rv = false;
-		if ($callback("beforeDelete", arguments.callbacks))
-		{
-			// delete dependents before the main record in case of foreign key constraints
-			$deleteDependents();
+/**
+ * Deletes the object, which means the row is deleted from the database (unless prevented by a `beforeDelete` callback).
+ * Returns `true` on successful deletion of the row, `false` otherwise.
+ *
+ * [section: Model Object]
+ * [category: CRUD Functions]
+ *
+ * @parameterize [see:findAll].
+ * @transaction [see:save].
+ * @callbacks [see:findAll].
+ * @includeSoftDeletes [see:findAll].
+ * @softDelete [see:deleteAll].
+ */
+public boolean function delete(
+	any parameterize,
+	string transaction = application.wheels.transactionMode,
+	boolean callbacks = true,
+	boolean includeSoftDeletes = false,
+	boolean softDelete = true
+) {
+	$args(name = "delete", args = arguments);
+	arguments.sql = [];
+	arguments.sql = $addDeleteClause(sql = arguments.sql, softDelete = arguments.softDelete);
+	arguments.sql = $addKeyWhereClause(sql = arguments.sql, includeSoftDeletes = arguments.includeSoftDeletes);
+	return invokeWithTransaction(method = "$delete", argumentCollection = arguments);
+}
 
-			loc.deleted = variables.wheels.class.adapter.$query(sql=arguments.sql, parameterize=arguments.parameterize);
-			if (loc.deleted.result.recordCount == 1 && $callback("afterDelete", arguments.callbacks))
-			{
-				loc.rv = true;
-			}
+/**
+ * Deletes all records and return how many was deleted.
+ * The only reason this is in its own method is so we can wrap it in an "invokeWithTransaction" call.
+ */
+public numeric function $deleteAll() {
+	local.deleted = variables.wheels.class.adapter.$querySetup(
+		sql = arguments.sql,
+		parameterize = arguments.parameterize
+	);
+	$clearRequestCache();
+	return local.deleted.result.recordCount;
+}
+
+/**
+ * Run delete callbacks, delete dependent child records and delete the record itself.
+ * Return true if delete was successful (one record was deleted) and neither of the callbacks returned false.
+ * The only reason this is in its own method is so we can wrap it in an "invokeWithTransaction" call.
+ */
+public boolean function $delete() {
+	local.rv = false;
+	if ($callback("beforeDelete", arguments.callbacks)) {
+		// Delete dependent record(s).
+		// Done before the main record is deleted to make sure eventual foreign key constraints does not prevent deletion.
+		$deleteDependents();
+
+		local.deleted = variables.wheels.class.adapter.$querySetup(
+			sql = arguments.sql,
+			parameterize = arguments.parameterize
+		);
+		$clearRequestCache();
+		if (local.deleted.result.recordCount == 1 && $callback("afterDelete", arguments.callbacks)) {
+			local.rv = true;
 		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
+	}
+	return local.rv;
+}
+</cfscript>

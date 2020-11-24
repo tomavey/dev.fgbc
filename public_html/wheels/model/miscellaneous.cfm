@@ -1,177 +1,284 @@
-<!--- PUBLIC MODEL INITIALIZATION METHODS --->
+<cfscript>
+/**
+ * Deletes all queries stored during the request for this model.
+ */
+public void function $clearRequestCache() {
+	request.wheels[variables.wheels.class.modelName] = {};
+}
 
-<cffunction name="dataSource" returntype="void" access="public" output="false">
-	<cfargument name="datasource" type="string" required="true">
-	<cfargument name="username" type="string" required="false" default="">
-	<cfargument name="password" type="string" required="false" default="">
-	<cfscript>
-		StructAppend(variables.wheels.class.connection, arguments);
-	</cfscript>
-</cffunction>
+/**
+ * Use this method to override the data source connection information for this model.
+ *
+ * [section: Model Configuration]
+ * [category: Miscellaneous Functions]
+ *
+ * @datasource The data source name to connect to.
+ * @username The username for the data source.
+ * @password The password for the data source.
+ */
+public void function dataSource(required string datasource, string username = "", string password = "") {
+	variables.wheels.class.datasource = arguments.datasource;
+	variables.wheels.class.username = arguments.username;
+	variables.wheels.class.password = arguments.password;
+}
 
-<cffunction name="table" returntype="void" access="public" output="false">
-	<cfargument name="name" type="any" required="true">
-	<cfset variables.wheels.class.tableName = arguments.name>
-</cffunction>
+/**
+ * Use this method to tell CFWheels what database table to connect to for this model.
+ * You only need to use this method when your table naming does not follow the standard CFWheels convention of a singular object name mapping to a plural table name.
+ * To not use a table for your model at all, call `table(false)`.
+ *
+ * [section: Model Configuration]
+ * [category: Miscellaneous Functions]
+ *
+ * @name Name of the table to map this model to.
+ */
+public void function table(required any name) {
+	variables.wheels.class.tableName = arguments.name;
+}
 
-<cffunction name="setTableNamePrefix" returntype="void" access="public" output="false">
-	<cfargument name="prefix" type="string" required="true">
-	<cfscript>
-		variables.wheels.class.tableNamePrefix =  arguments.prefix;
-	</cfscript>
-</cffunction>
+/**
+ * Sets a prefix to prepend to the table name when this model runs SQL queries.
+ *
+ * [section: Model Configuration]
+ * [category: Miscellaneous Functions]
+ *
+ * @prefix A prefix to prepend to the table name.
+ */
+public void function setTableNamePrefix(required string prefix) {
+	variables.wheels.class.tableNamePrefix = arguments.prefix;
+}
 
-<cffunction name="setPrimaryKey" returntype="void" access="public" output="false">
-	<cfargument name="property" type="string" required="true">
-	<cfscript>
-		var loc = {};
-		loc.iEnd = ListLen(arguments.property);
-		for (loc.i=1; loc.i <= loc.iEnd; loc.i++)
-		{
-			loc.item = ListGetAt(arguments.property, loc.i);
-			if (!ListFindNoCase(variables.wheels.class.keys, loc.item))
-			{
-				variables.wheels.class.keys = ListAppend(variables.wheels.class.keys, loc.item);
-			}
+/**
+ * Allows you to pass in the name(s) of the property(s) that should be used as the primary key(s).
+ * Pass as a list if defining a composite primary key.
+ * This function is also aliased as `setPrimaryKeys()`.
+ *
+ * [section: Model Configuration]
+ * [category: Miscellaneous Functions]
+ *
+ * @property Property (or list of properties) to set as the primary key.
+ */
+public void function setPrimaryKey(required string property) {
+	local.iEnd = ListLen(arguments.property);
+	for (local.i = 1; local.i <= local.iEnd; local.i++) {
+		local.item = ListGetAt(arguments.property, local.i);
+		if (!ListFindNoCase(variables.wheels.class.keys, local.item)) {
+			variables.wheels.class.keys = ListAppend(variables.wheels.class.keys, local.item);
 		}
-	</cfscript>
-</cffunction>
-
-<cffunction name="setPrimaryKeys" returntype="void" access="public" output="false">
-	<cfargument name="property" type="string" required="true">
-	<cfscript>
-		setPrimaryKey(argumentCollection=arguments);
-	</cfscript>
-</cffunction>
-
-<!--- PUBLIC MODEL CLASS METHODS --->
-
-<cffunction name="exists" returntype="boolean" access="public" output="false">
-	<cfargument name="key" type="any" required="false">
-	<cfargument name="where" type="string" required="false">
-	<cfargument name="reload" type="boolean" required="false">
-	<cfargument name="parameterize" type="any" required="false">
-	<cfargument name="includeSoftDeletes" type="boolean" required="false">
-	<cfscript>
-		var loc = {};
-		$args(name="exists", args=arguments);
-		if (get("showErrorInformation") && StructKeyExists(arguments, "key") && StructKeyExists(arguments, "where"))
-		{
-				$throw(type="Wheels.IncorrectArguments", message="You cannot pass in both `key` and `where`.");
-		}
-		arguments.select = primaryKey();
-		arguments.returnAs = "query";
-		arguments.callbacks = false;
-		if (StructKeyExists(arguments, "key"))
-		{
-			loc.rv = findByKey(argumentCollection=arguments).recordCount;
-		}
-		else
-		{
-			loc.rv = findOne(argumentCollection=arguments).recordCount;
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="columnNames" returntype="string" access="public" output="false">
-	<cfreturn variables.wheels.class.columnList>
-</cffunction>
-
-<cffunction name="primaryKey" returntype="string" access="public" output="false">
-	<cfargument name="position" type="numeric" required="false" default="0">
-	<cfscript>
-		var loc = {};
-		if (arguments.position > 0)
-		{
-			loc.rv = ListGetAt(variables.wheels.class.keys, arguments.position);
-		}
-		else
-		{
-			loc.rv = variables.wheels.class.keys;
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="primaryKeys" returntype="string" access="public" output="false">
-	<cfargument name="position" type="numeric" required="false" default="0">
-	<cfreturn primaryKey(argumentCollection=arguments)>
-</cffunction>
-
-<cffunction name="tableName" returntype="string" access="public" output="false">
-	<cfreturn variables.wheels.class.tableName>
-</cffunction>
-
-<cffunction name="getTableNamePrefix" returntype="string" access="public" output="false">
-	<cfreturn variables.wheels.class.tableNamePrefix>
-</cffunction>
-
-<cffunction name="isClass" returntype="boolean" access="public" output="false">
-	<cfreturn !isInstance(argumentCollection=arguments)>
-</cffunction>
-
-<!--- PUBLIC MODEL OBJECT METHODS --->
-
-<cffunction name="isNew" returntype="boolean" access="public" output="false">
-	<cfscript>
-		var loc = {};
-		if (!StructKeyExists(variables, "$persistedProperties"))
-		{
-			// no values have been saved to the database so this object is new
-			loc.rv = true;
-		}
-		else
-		{
-			loc.rv = false;
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="compareTo" access="public" output="false" returntype="boolean">
-	<cfargument name="object" type="component" required="true">
-	<cfreturn Compare(this.$objectId(), arguments.object.$objectId()) IS 0>
-</cffunction>
-
-<cffunction name="isInstance" returntype="boolean" access="public" output="false">
-	<cfreturn StructKeyExists(variables.wheels, "instance")>
-</cffunction>
-
-<!--- PRIVATE METHODS --->
-
-<cffunction name="$objectId" access="public" output="false" returntype="string">
-	<cfreturn variables.wheels.tickCountId>
-</cffunction>
-
-<cffunction name="$buildQueryParamValues" returntype="struct" access="public" output="false">
-	<cfargument name="property" type="string" required="true">
-	<cfscript>
-		var loc = {};
-		loc.rv = {};
-		loc.rv.value = this[arguments.property];
-		loc.rv.type = variables.wheels.class.properties[arguments.property].type;
-		loc.rv.dataType = variables.wheels.class.properties[arguments.property].dataType;
-		loc.rv.scale = variables.wheels.class.properties[arguments.property].scale;
-		loc.rv.null = (!Len(this[arguments.property]) && variables.wheels.class.properties[arguments.property].nullable);
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="$keyLengthCheck" returntype="void" access="public" output="false">
-	<cfargument name="key" type="any" required="true">
-	<cfscript>
-	// throw error if the number of keys passed in is not the same as the number of keys defined for the model
-	if (ListLen(primaryKeys()) != ListLen(arguments.key))
-	{
-		$throw(type="Wheels.InvalidArgumentValue", message="The `key` argument contains an invalid value.", extendedInfo="The `key` argument contains a list, however this table doesn't have a composite key. A list of values is allowed for the `key` argument, but this only applies in the case when the table contains a composite key.");
 	}
-	</cfscript>
-</cffunction>
+}
 
-<cffunction name="$timestampProperty" returntype="void" access="public" output="false">
-	<cfargument name="property" type="string" required="true">
-	<cfscript>
-		this[arguments.property] = Now();
-	</cfscript>
-</cffunction>
+/**
+ * Alias for `setPrimaryKey()`.
+ * Use this for better readability when you're setting multiple properties as the primary key.
+ *
+ * [section: Model Configuration]
+ * [category: Miscellaneous Functions]
+ *
+ * @property [see:setPrimaryKey].
+ */
+public void function setPrimaryKeys(required string property) {
+	setPrimaryKey(argumentCollection = arguments);
+}
+
+/**
+ * Checks if a record exists in the table.
+ * You can pass in either a primary key value to the `key` argument or a string to the `where` argument.
+ * If you don't pass in either of those, it will simply check if any record exists in the table.
+ *
+ * [section: Model Class]
+ * [category: Miscellaneous Functions]
+ *
+ * @key Primary key value(s) of the record. Separate with comma if passing in multiple primary key values. Accepts a string, list, or a numeric value.
+ * @where [see:findAll].
+ * @reload [see:findAll].
+ * @parameterize [see:findAll].
+ * @includeSoftDeletes [see:findAll].
+ */
+public boolean function exists(
+	any key,
+	string where,
+	boolean reload,
+	any parameterize,
+	boolean includeSoftDeletes
+) {
+	$args(name = "exists", args = arguments);
+	if ($get("showErrorInformation") && StructKeyExists(arguments, "key") && StructKeyExists(arguments, "where")) {
+		Throw(type = "Wheels.IncorrectArguments", message = "You cannot pass in both `key` and `where`.");
+	}
+	arguments.select = primaryKey();
+	arguments.returnAs = "query";
+	arguments.callbacks = false;
+	if (StructKeyExists(arguments, "key")) {
+		local.rv = findByKey(argumentCollection = arguments).recordCount;
+	} else {
+		local.rv = findOne(argumentCollection = arguments).recordCount;
+	}
+	return local.rv;
+}
+
+/**
+ * Returns a list of column names in the table mapped to this model.
+ * The list is ordered according to the columns' ordinal positions in the database table.
+ *
+ * [section: Model Class]
+ * [category: Miscellaneous Functions]
+ */
+public string function columnNames() {
+	return variables.wheels.class.columnList;
+}
+
+/**
+ * Returns the name of the primary key for this model's table.
+ * This is determined through database introspection.
+ * If composite primary keys have been used, they will both be returned in a list.
+ * This function is also aliased as `primaryKeys()`.
+ *
+ * [section: Model Class]
+ * [category: Miscellaneous Functions]
+ *
+ * @position If you are accessing a composite primary key, pass the position of a single key to fetch.
+ */
+public string function primaryKey(numeric position = 0) {
+	if (arguments.position > 0) {
+		return ListGetAt(variables.wheels.class.keys, arguments.position);
+	} else {
+		return variables.wheels.class.keys;
+	}
+}
+
+/**
+ * Alias for `primaryKey()`.
+ * Use this for better readability when you're accessing multiple primary keys.
+ *
+ * [section: Model Class]
+ * [category: Miscellaneous Functions]
+ *
+ * @position [see:primaryKey].
+ */
+public string function primaryKeys(numeric position = 0) {
+	return primaryKey(argumentCollection = arguments);
+}
+
+/**
+ * Returns the name of the database table that this model is mapped to.
+ *
+ * [section: Model Class]
+ * [category: Miscellaneous Functions]
+ */
+public string function tableName() {
+	if ($get("lowerCaseTableNames")) {
+		return LCase(variables.wheels.class.tableName);
+	} else {
+		return variables.wheels.class.tableName;
+	}
+}
+
+/**
+ * Returns the table name prefix set for the table.
+ *
+ * [section: Model Class]
+ * [category: Miscellaneous Functions]
+ */
+public string function getTableNamePrefix() {
+	return variables.wheels.class.tableNamePrefix;
+}
+
+/**
+ * Use this method to check whether you are currently in a class-level object.
+ *
+ * [section: Model Class]
+ * [category: Miscellaneous Functions]
+ */
+public string function isClass() {
+	return !isInstance(argumentCollection = arguments);
+}
+
+/**
+ * Returns `true` if this object hasn't been saved yet (in other words, no matching record exists in the database yet).
+ * Returns `false` if a record exists.
+ *
+ * [section: Model Object]
+ * [category: Miscellaneous Functions]
+ */
+public boolean function isNew() {
+	// The object is new when no values have been persisted to the database.
+	if (!StructKeyExists(variables, "$persistedProperties")) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+/**
+ * Returns `true` if this object has been persisted to the database or was loaded from the database via a finder.
+ * Returns `false` if the record has not been persisted to the database.
+ *
+ * [section: Model Object]
+ * [category: Miscellaneous Functions]
+ */
+public boolean function isPersisted() {
+	return !this.isNew();
+}
+
+/**
+ * Pass in another model object to see if the two objects are the same.
+ *
+ * [section: Model Object]
+ * [category: Miscellaneous Functions]
+ */
+public boolean function compareTo(required component object) {
+	return Compare(this.$objectId(), arguments.object.$objectId()) IS 0;
+}
+
+/**
+ * Use this method to check whether you are currently in an instance object.
+ *
+ * [section: Model Class]
+ * [category: Miscellaneous Functions]
+ */
+public boolean function isInstance() {
+	return StructKeyExists(variables.wheels, "instance");
+}
+
+/**
+ * Internal function.
+ */
+public string function $objectId() {
+	return variables.wheels.tickCountId;
+}
+
+/**
+ * Internal function.
+ */
+public struct function $buildQueryParamValues(required string property) {
+	local.rv = {};
+	local.rv.value = this[arguments.property];
+	local.rv.type = variables.wheels.class.properties[arguments.property].type;
+	local.rv.dataType = variables.wheels.class.properties[arguments.property].dataType;
+	local.rv.scale = variables.wheels.class.properties[arguments.property].scale;
+	local.rv.null = (!Len(this[arguments.property]) && variables.wheels.class.properties[arguments.property].nullable);
+	return local.rv;
+}
+
+/**
+ * Internal function.
+ */
+public void function $keyLengthCheck(required any key) {
+	// throw error if the number of keys passed in is not the same as the number of keys defined for the model
+	if (ListLen(primaryKeys()) != ListLen(arguments.key)) {
+		Throw(
+			type = "Wheels.InvalidArgumentValue",
+			message = "The `key` argument contains an invalid value.",
+			extendedInfo = "The `key` argument contains a list, however this table doesn't have a composite key. A list of values is allowed for the `key` argument, but this only applies in the case when the table contains a composite key."
+		);
+	}
+}
+
+/**
+ * Internal function.
+ */
+public void function $timestampProperty(required string property) {
+	this[arguments.property] = $timestamp(variables.wheels.class.timeStampMode);
+}
+</cfscript>

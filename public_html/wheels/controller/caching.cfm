@@ -1,90 +1,95 @@
-<!--- PUBLIC CONTROLLER INITIALIZATION FUNCTIONS --->
+<cfscript>
+/**
+ * Tells CFWheels to cache one or more actions.
+ *
+ * [section: Controller]
+ * [category: Configuration Functions]
+ *
+ * @action Action(s) to cache. This argument is also aliased as `actions`.
+ * @time Minutes to cache the action(s) for.
+ * @static Set to `true` to tell CFWheels that this is a static page and that it can skip running the controller filters (before and after filters set on actions). Please note that the `onSessionStart` and `onRequestStart` events still execute though.
+ * @appendToKey List of variables to be evaluated at runtime and included in the cache key so that content can be cached separately.
+ */
+public void function caches(
+	string action = "",
+	numeric time,
+	boolean static,
+	string appendToKey = ""
+) {
+	$args(args = arguments, name = "caches", combine = "action/actions");
+	arguments.action = $listClean(arguments.action);
 
-<cffunction name="caches" returntype="void" access="public" output="false">
-	<cfargument name="action" type="string" required="false" default="">
-	<cfargument name="time" type="numeric" required="false">
-	<cfargument name="static" type="boolean" required="false">
-	<cfargument name="appendToKey" type="string" required="false" default="">
-	<cfscript>
-		var loc = {};
-		$args(args=arguments, name="caches", combine="action/actions");
-		arguments.action = $listClean(arguments.action);
-		if (!Len(arguments.action))
-		{
-			// since no actions were passed in we assume that all actions should be cachable and indicate this with a *
-			arguments.action = "*";
+	// When no actions are passed in we assume that all actions should be cachable and indicate this with a *.
+	if (!Len(arguments.action)) {
+		arguments.action = "*";
+	}
+
+	local.iEnd = ListLen(arguments.action);
+	for (local.i = 1; local.i <= local.iEnd; local.i++) {
+		local.item = ListGetAt(arguments.action, local.i);
+		local.action = {
+			action = local.item,
+			time = arguments.time,
+			static = arguments.static,
+			appendToKey = arguments.appendToKey
+		};
+		$addCachableAction(local.action);
+	}
+}
+
+/**
+ * Called from the caches function.
+ */
+public void function $addCachableAction(required struct action) {
+	ArrayAppend(variables.$class.cachableActions, arguments.action);
+}
+
+/**
+ * Called when processing a request, and from other functions in this file, to get all cachable actions.
+ */
+public array function $cachableActions() {
+	return variables.$class.cachableActions;
+}
+
+/**
+ * Get cache info, only called from the test suite
+ */
+public any function $cacheSettingsForAction(required string action) {
+	local.rv = false;
+	local.cachableActions = $cachableActions();
+	local.iEnd = ArrayLen(local.cachableActions);
+	for (local.i = 1; local.i <= local.iEnd; local.i++) {
+		if (local.cachableActions[local.i].action == arguments.action || local.cachableActions[local.i].action == "*") {
+			local.rv = {};
+			local.rv.time = local.cachableActions[local.i].time;
+			local.rv.static = local.cachableActions[local.i].static;
 		}
-		loc.iEnd = ListLen(arguments.action);
-		for (loc.i=1; loc.i <= loc.iEnd; loc.i++)
-		{
-			loc.item = ListGetAt(arguments.action, loc.i);
-			loc.action = {action=loc.item, time=arguments.time, static=arguments.static, appendToKey=arguments.appendToKey};
-			$addCachableAction(loc.action);
-		}
-	</cfscript>
-</cffunction>
+	}
+	return local.rv;
+}
 
-<!--- PRIVATE FUNCTIONS --->
+/**
+ * Delete all cache info, only called from the test suite.
+ */
+public void function $clearCachableActions() {
+	ArrayClear(variables.$class.cachableActions);
+}
 
-<cffunction name="$addCachableAction" returntype="void" access="public" output="false">
-	<cfargument name="action" type="struct" required="true">
-	<cfscript>
-		ArrayAppend(variables.$class.cachableActions, arguments.action);
-	</cfscript>
-</cffunction>
+/**
+ * Called when processing a request to see if any actions are cachable.
+ */
+public boolean function $hasCachableActions() {
+	if (ArrayIsEmpty($cachableActions())) {
+		return false;
+	} else {
+		return true;
+	}
+}
 
-<cffunction name="$clearCachableActions" returntype="void" access="public" output="false">
-	<cfscript>
-		ArrayClear(variables.$class.cachableActions);
-	</cfscript>
-</cffunction>
-
-<cffunction name="$setCachableActions" returntype="void" access="public" output="false">
-	<cfargument name="actions" type="array" required="true">
-	<cfscript>
-		variables.$class.cachableActions = arguments.actions;
-	</cfscript>
-</cffunction>
-
-<cffunction name="$cachableActions" returntype="array" access="public" output="false">
-	<cfscript>
-		var loc = {};
-		loc.rv = variables.$class.cachableActions;
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="$hasCachableActions" returntype="boolean" access="public" output="false">
-	<cfscript>
-		var loc = {};
-		if (ArrayIsEmpty($cachableActions()))
-		{
-			loc.rv = false;
-		}
-		else
-		{
-			loc.rv = true;
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="$cacheSettingsForAction" returntype="any" access="public" output="false">
-	<cfargument name="action" type="string" required="true">
-	<cfscript>
-		var loc = {};
-		loc.rv = false;
-		loc.cachableActions = $cachableActions();
-		loc.iEnd = ArrayLen(loc.cachableActions);
-		for (loc.i=1; loc.i <= loc.iEnd; loc.i++)
-		{
-			if (loc.cachableActions[loc.i].action == arguments.action || loc.cachableActions[loc.i].action == "*")
-			{
-				loc.rv = {};
-				loc.rv.time = loc.cachableActions[loc.i].time;
-				loc.rv.static = loc.cachableActions[loc.i].static;
-			}
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
+/**
+ * Set cache info, only called from the test suite.
+ */
+public void function $setCachableActions(required array actions) {
+	variables.$class.cachableActions = arguments.actions;
+}
+</cfscript>

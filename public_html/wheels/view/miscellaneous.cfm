@@ -1,563 +1,694 @@
-<!--- PUBLIC VIEW HELPER FUNCTIONS --->
+<cfscript>
+/**
+ * Highlights the phrase(s) everywhere in the text if found by wrapping them in `span` tags.
+ *
+ * [section: View Helpers]
+ * [category: Miscellaneous Functions]
+ *
+ * @text Text to search in.
+ * @phrase Phrase (or list of phrases) to highlight. This argument is also aliased as `phrases`.
+ * @delimiter Delimiter to use when passing in multiple phrases.
+ * @tag HTML tag to use to wrap the highlighted phrase(s).
+ * @class Class to use in the tags wrapping highlighted phrase(s).
+ * @encode [see:styleSheetLinkTag].
+ */
+public string function highlight(
+	required string text,
+	string phrase,
+	string delimiter,
+	string tag,
+	string class,
+	boolean encode
+) {
+	$args(
+		name = "highlight",
+		args = arguments,
+		combine = "phrase/phrases",
+		required = "phrase"
+	);
+	local.text = arguments.encode && $get("encodeHtmlTags") ? EncodeForHTML($canonicalize(arguments.text)) : arguments.text;
 
-<cffunction name="flashMessages" returntype="string" access="public" output="false">
-	<cfargument name="keys" type="string" required="false">
-	<cfargument name="class" type="string" required="false">
-	<cfargument name="includeEmptyContainer" type="boolean" required="false">
-	<cfargument name="lowerCaseDynamicClassValues" type="boolean" required="false">
-	<cfscript>
-		var loc = {};
-		$args(name="flashMessages", args=arguments, combine="keys/key");
-		loc.flash = $readFlash();
-		loc.rv = "";
+	// Return the passed in text unchanged (but encoded) if it's blank or the passed in phrase is blank.
+	if (!Len(local.text) || !Len(arguments.phrase)) {
+		return local.text;
+	}
 
-		// if no keys are requested, populate with everything stored in the Flash and sort them
-		if (!StructKeyExists(arguments, "keys"))
-		{
-			loc.flashKeys = StructKeyList(loc.flash);
-			loc.flashKeys = ListSort(loc.flashKeys, "textnocase");
-		}
-		else
-		{
-			// otherwise, generate list based on what was passed as "arguments.keys"
-			loc.flashKeys = arguments.keys;
-		}
-
-		// generate markup for each Flash item in the list
-		loc.listItems = "";
-		loc.iEnd = ListLen(loc.flashKeys);
-		for (loc.i=1; loc.i <= loc.iEnd; loc.i++)
-		{
-			loc.item = ListGetAt(loc.flashKeys, loc.i);
-			loc.class = loc.item & "Message";
-			if (arguments.lowerCaseDynamicClassValues)
-			{
-				loc.class = LCase(loc.class);
+	local.iEnd = ListLen(arguments.phrase, arguments.delimiter);
+	for (local.i = 1; local.i <= local.iEnd; local.i++) {
+		local.newText = "";
+		local.phrase = Trim(ListGetAt(arguments.phrase, local.i, arguments.delimiter));
+		local.pos = 1;
+		while (FindNoCase(local.phrase, local.text, local.pos)) {
+			local.foundAt = FindNoCase(local.phrase, local.text, local.pos);
+			local.previousText = Mid(local.text, local.pos, local.foundAt - local.pos);
+			local.newText &= local.previousText;
+			local.mid = Mid(local.text, local.foundAt, Len(local.phrase));
+			local.startBracket = Find("<", local.text, local.foundAt);
+			local.endBracket = Find(">", local.text, local.foundAt);
+			if (local.startBracket < local.endBracket || !local.endBracket) {
+				local.attributes = {class = arguments.class};
+				local.newText &= $element(
+					name = arguments.tag,
+					content = local.mid,
+					attributes = local.attributes,
+					encode = arguments.encode
+				);
+			} else {
+				local.newText &= local.mid;
 			}
-			loc.attributes = {class=loc.class};
-			if (!StructKeyExists(arguments, "key") || arguments.key == loc.item)
-			{
-				loc.content = loc.flash[loc.item];
-				if (IsSimpleValue(loc.content))
-				{
-					loc.listItems &= $element(name="p", content=loc.content, attributes=loc.attributes);
+			local.pos = local.foundAt + Len(local.phrase);
+		}
+		local.newText &= Mid(local.text, local.pos, Len(local.text) - local.pos + 1);
+		local.text = local.newText;
+	}
+	local.rv = local.newText;
+	return local.rv;
+}
+
+/**
+ * Returns formatted text using HTML break tags (`<br>`) and HTML paragraph elements (`<p></p>`) based on the newline characters and carriage returns in the `text` that is passed in.
+ *
+ * [section: View Helpers]
+ * [category: Miscellaneous Functions]
+ *
+ * @text The text to format.
+ * @wrap Set to `true` to wrap the result in a paragraph HTML element.
+ * @encode [see:styleSheetLinkTag].
+ */
+public string function simpleFormat(required string text, boolean wrap, boolean encode) {
+	$args(name = "simpleFormat", args = arguments);
+	local.rv = Trim(arguments.text);
+
+	// Encode for html if specified, but revert the encoding of newline characters and carriage returns.
+	// We can safely revert that part of the encoding since we'll replace them with html tags anyway.
+	if (arguments.encode && $get("encodeHtmlTags")) {
+		local.rv = EncodeForHTML($canonicalize(local.rv));
+		local.rv = Replace(local.rv, "&##xa;", Chr(10), "all");
+		local.rv = Replace(local.rv, "&##xd;", Chr(13), "all");
+	}
+
+	local.rv = Replace(local.rv, Chr(13), "", "all");
+	local.rv = Replace(
+		local.rv,
+		Chr(10) & Chr(10),
+		"</p><p>",
+		"all"
+	);
+	local.rv = Replace(local.rv, Chr(10), "<br>", "all");
+
+	// Put the newline characters back in (good for editing in textareas with the original formatting for example).
+	local.rv = Replace(
+		local.rv,
+		"</p><p>",
+		"</p>" & Chr(10) & Chr(10) & "<p>",
+		"all"
+	);
+	local.rv = Replace(
+		local.rv,
+		"<br>",
+		"<br>" & Chr(10),
+		"all"
+	);
+
+	if (arguments.wrap) {
+		local.rv = "<p>" & local.rv & "</p>";
+	}
+	return local.rv;
+}
+
+/**
+ * Displays a marked-up listing of messages that exist in the Flash.
+ *
+ * [section: View Helpers]
+ * [category: Miscellaneous Functions]
+ *
+ * @keys The key (or list of keys) to show the value for. You can also use the `key` argument instead for better readability when accessing a single key.
+ * @class HTML `class` to set on the `div` element that contains the messages.
+ * @includeEmptyContainer Includes the `div` container even if the Flash is empty.
+ * @encode [see:styleSheetLinkTag].
+ */
+public string function flashMessages(
+	string keys,
+	string class,
+	boolean includeEmptyContainer,
+	boolean encode
+) {
+	$args(name = "flashMessages", args = arguments, combine = "keys/key");
+	local.flash = $readFlash();
+	local.rv = "";
+
+	// if no keys are requested, populate with everything stored in the Flash and sort them
+	if (!StructKeyExists(arguments, "keys")) {
+		local.flashKeys = StructKeyList(local.flash);
+		local.flashKeys = ListSort(local.flashKeys, "textnocase");
+	} else {
+		// otherwise, generate list based on what was passed as "arguments.keys"
+		local.flashKeys = arguments.keys;
+	}
+
+	// generate markup for each Flash item in the list
+	local.listItems = "";
+	local.iEnd = ListLen(local.flashKeys);
+	for (local.i = 1; local.i <= local.iEnd; local.i++) {
+		local.item = ListGetAt(local.flashKeys, local.i);
+		local.class = LCase(local.item) & "-message";
+		local.attributes = {class = local.class};
+		if (!StructKeyExists(arguments, "key") || arguments.key == local.item) {
+			local.content = local.flash[local.item];
+			// Do we have an array of values or a simple value?
+			if (IsArray(local.content)) {
+				for (local.contentItem in local.content) {
+					local.listItems &= $element(
+						name = "p",
+						content = local.contentItem,
+						attributes = local.attributes,
+						encode = arguments.encode
+					);
 				}
+			} else if (IsSimpleValue(local.content)) {
+				local.listItems &= $element(
+					name = "p",
+					content = local.content,
+					attributes = local.attributes,
+					encode = arguments.encode
+				);
 			}
 		}
+	}
 
-		if (Len(loc.listItems) || arguments.includeEmptyContainer)
-		{
-			loc.rv = $element(name="div", skip="key,keys,includeEmptyContainer,lowerCaseDynamicClassValues", content=loc.listItems, attributes=arguments);
+	if (Len(local.listItems) || arguments.includeEmptyContainer) {
+		local.encode = arguments.encode ? "attributes" : false;
+		local.rv = $element(
+			name = "div",
+			skip = "key,keys,includeEmptyContainer,encode",
+			content = local.listItems,
+			attributes = arguments,
+			encode = local.encode
+		);
+	}
+	return local.rv;
+}
+
+/**
+ * Used to store a section's output for rendering within a layout.
+ * This content store acts as a stack, so you can store multiple pieces of content for a given section.
+ *
+ * [section: View Helpers]
+ * [category: Miscellaneous Functions]
+ *
+ * @position The position in the section's stack where you want the content placed. Valid values are `first`, `last`, or the numeric position.
+ * @overwrite Whether or not to overwrite any of the content. Valid values are `false`, `true`, or `all`.
+ */
+public void function contentFor(any position = "last", any overwrite = "false") {
+	// position in the array for the content
+	local.position = "last";
+
+	// should we overwrite or insert into the array
+	local.overwrite = "false";
+
+	// extract optional arguments
+	if (StructKeyExists(arguments, "position")) {
+		local.position = arguments.position;
+		StructDelete(arguments, "position");
+	}
+	if (StructKeyExists(arguments, "overwrite")) {
+		local.overwrite = arguments.overwrite;
+		StructDelete(arguments, "overwrite");
+	}
+
+	// if no other arguments exists, exit
+	if (StructIsEmpty(arguments)) {
+		return;
+	}
+
+	// since we're not going to know the name of the section, we have to get it dynamically
+	local.section = ListFirst(StructKeyList(arguments));
+	local.content = arguments[local.section];
+
+	if (!IsBoolean(local.overwrite)) {
+		local.overwrite = "all";
+	}
+
+	if (!StructKeyExists(variables.$instance.contentFor, local.section) || local.overwrite == "all") {
+		// if the section doesn't exists, or they want to overwrite the whole thing
+		variables.$instance.contentFor[local.section] = [];
+		ArrayAppend(variables.$instance.contentFor[local.section], local.content);
+	} else {
+		local.size = ArrayLen(variables.$instance.contentFor[local.section]);
+		// they want to append, prepend or insert at a specific point in the array
+		// make sure position is within range
+		if (!IsNumeric(local.position) && !ListFindNoCase("first,last", local.position)) {
+			local.position = "last";
 		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="contentFor" returntype="void" access="public" output="false">
-	<cfargument name="position" type="any" required="false" default="last">
-	<cfargument name="overwrite" type="any" required="false" default="false">
-	<cfscript>
-		var loc = {};
-
-		// position in the array for the content
-		loc.position = "last";
-
-		//should we overwrite or insert into the array
-		loc.overwrite = "false";
-
-		// extract optional arguments
-		if (StructKeyExists(arguments, "position"))
-		{
-			loc.position = arguments.position;
-			StructDelete(arguments, "position");
-		}
-		if (StructKeyExists(arguments, "overwrite"))
-		{
-			loc.overwrite = arguments.overwrite;
-			StructDelete(arguments, "overwrite");
-		}
-
-		// if no other arguments exists, exit
-		if (StructIsEmpty(arguments))
-		{
-			return;
-		}
-
-		// since we're not going to know the name of the section, we have to get it dynamically
-		loc.section = ListFirst(StructKeyList(arguments));
-		loc.content = arguments[loc.section];
-
-		if (!IsBoolean(loc.overwrite))
-		{
-			loc.overwrite = "all";
-		}
-
-		if (!StructKeyExists(variables.$instance.contentFor, loc.section) || loc.overwrite == "all")
-		{
-			// if the section doesn't exists, or they want to overwrite the whole thing
-			variables.$instance.contentFor[loc.section] = [];
-			ArrayAppend(variables.$instance.contentFor[loc.section], loc.content);
-		}
-		else
-		{
-			loc.size = ArrayLen(variables.$instance.contentFor[loc.section]);
-			// they want to append, prepend or insert at a specific point in the array
-			// make sure position is within range
-			if (!IsNumeric(loc.position) && !ListFindNoCase("first,last", loc.position))
-			{
-				loc.position = "last";
+		if (IsNumeric(local.position)) {
+			if (local.position <= 1) {
+				local.position = "first";
+			} else if (local.position >= local.size) {
+				local.position = "last";
 			}
-			if (IsNumeric(loc.position))
-			{
-				if (loc.position <= 1)
-				{
-					loc.position = "first";
+		}
+		if (local.overwrite) {
+			if (local.position == "last") {
+				local.position = local.size;
+			} else if (local.position == "first") {
+				local.position = 1;
+			}
+			variables.$instance.contentFor[local.section][local.position] = local.content;
+		} else {
+			if (local.position == "last") {
+				ArrayAppend(variables.$instance.contentFor[local.section], local.content);
+			} else if (local.position == "first") {
+				ArrayPrepend(variables.$instance.contentFor[local.section], local.content);
+			} else {
+				ArrayInsertAt(variables.$instance.contentFor[local.section], local.position, local.content);
+			}
+		}
+	}
+}
+
+/**
+ * Includes the contents of another layout file.
+ * This is usually used to include a parent layout from within a child layout.
+ *
+ * [section: View Helpers]
+ * [category: Miscellaneous Functions]
+ *
+ * @name Name of the layout file to include.
+ */
+public string function includeLayout(string name = "layout") {
+	arguments.partial = arguments.name;
+	StructDelete(arguments, "name");
+	arguments.$prependWithUnderscore = false;
+	return includePartial(argumentCollection = arguments);
+}
+
+/**
+ * Includes the specified partial file in the view.
+ * Similar to using `cfinclude` but with the ability to cache the result and use CFWheels-specific file look-up.
+ * By default, CFWheels will look for the file in the current controller's view folder.
+ * To include a file relative from the base `views` folder, you can start the path supplied to `partial` with a forward slash.
+ *
+ * [section: View Helpers]
+ * [category: Miscellaneous Functions]
+ *
+ * @partial The name of the partial file to be used. Prefix with a leading slash (`/`) if you need to build a path from the root `views` folder. Do not include the partial filename's underscore and file extension. If you want to have CFWheels display the partial for a single model object, array of model objects, or a query, pass a variable containing that data into this argument.
+ * @group If passing a query result set for the partial argument, use this to specify the field to group the query by. A new query will be passed into the partial template for you to iterate over.
+ * @cache Number of minutes to cache the content for.
+ * @layout The layout to wrap the content in. Prefix with a leading slash (`/`) if you need to build a path from the root `views` folder. Pass `false` to not load a layout at all.
+ * @spacer HTML or string to place between partials when called using a query.
+ * @dataFunction Name of controller function to load data from.
+ * @query If you want to have CFWheels display the partial for each record in a query record set but want to override the name of the file referenced, provide the template file name for partial and pass the query as a separate query argument.
+ * @object If you want to have CFWheels display the partial for a model object but want to override the name of the file referenced, provide the template file name for partial and pass the model object as a separate object argument.
+ * @objects If you want to have CFWheels display the partial for each model object in an array but want to override the name of the file referenced, provide the template name for partial and pass the query as a separate objects argument.
+ */
+public string function includePartial(
+	required any partial,
+	string group = "",
+	any cache = "",
+	string layout,
+	string spacer,
+	any dataFunction,
+	boolean $prependWithUnderscore = true
+) {
+	$args(name = "includePartial", args = arguments);
+	return $includeOrRenderPartial(
+		argumentCollection = $dollarify(arguments, "partial,group,cache,layout,spacer,dataFunction")
+	);
+}
+
+/**
+ * Includes content for the body section, which equates to the output generated by the view template run by the request.
+ *
+ * [section: View Helpers]
+ * [category: Miscellaneous Functions]
+ */
+public string function contentForLayout() {
+	return includeContent("body");
+}
+
+/**
+ * Used to output the content for a particular section in a layout.
+ *
+ * [section: View Helpers]
+ * [category: Miscellaneous Functions]
+ *
+ * @name Name of layout section to return content for.
+ * @defaultValue What to display as a default if the section is not defined.
+ */
+public string function includeContent(string name = "body", string defaultValue = "") {
+	if (StructKeyExists(arguments, "default")) {
+		arguments.defaultValue = arguments.default;
+		StructDelete(arguments, "default");
+	}
+	if (StructKeyExists(variables.$instance.contentFor, arguments.name)) {
+		local.rv = ArrayToList(variables.$instance.contentFor[arguments.name], Chr(10));
+	} else {
+		local.rv = arguments.defaultValue;
+	}
+	return local.rv;
+}
+
+/**
+ * Cycles through list values every time it is called.
+ *
+ * [section: View Helpers]
+ * [category: Miscellaneous Functions]
+ *
+ * @values List of values to cycle through.
+ * @name Name to give the cycle. Useful when you use multiple cycles on a page.
+ */
+public string function cycle(required string values, string name = "default") {
+	if (!StructKeyExists(request.wheels, "cycle")) {
+		request.wheels.cycle = {};
+	}
+	if (!StructKeyExists(request.wheels.cycle, arguments.name)) {
+		request.wheels.cycle[arguments.name] = ListGetAt(arguments.values, 1);
+	} else {
+		local.foundAt = ListFindNoCase(arguments.values, request.wheels.cycle[arguments.name]);
+		if (local.foundAt == ListLen(arguments.values)) {
+			local.foundAt = 0;
+		}
+		request.wheels.cycle[arguments.name] = ListGetAt(arguments.values, local.foundAt + 1);
+	}
+	return request.wheels.cycle[arguments.name];
+}
+
+/**
+ * Resets a cycle so that it starts from the first list value the next time it is called.
+ *
+ * [section: View Helpers]
+ * [category: Miscellaneous Functions]
+ *
+ * @name The name of the cycle to reset.
+ */
+public void function resetCycle(string name = "default") {
+	if (StructKeyExists(request.wheels, "cycle") && StructKeyExists(request.wheels.cycle, arguments.name)) {
+		StructDelete(request.wheels.cycle, arguments.name);
+	}
+}
+
+/**
+ * Internal function.
+ */
+public string function $tag(
+	required string name,
+	struct attributes = {},
+	string skip = "",
+	string skipStartingWith = "",
+	boolean encode = false,
+	string encodeExcept = ""
+) {
+	// start the HTML tag and give it its name
+	local.rv = "<" & arguments.name;
+
+	// if named arguments are passed in we add these to the attributes argument instead so we can handle them all in the same code below
+	if (StructCount(arguments) > 6) {
+		for (local.key in arguments) {
+			if (!ListFindNoCase("name,attributes,skip,skipStartingWith,encode,encodeExcept", local.key)) {
+				arguments.attributes[local.key] = arguments[local.key];
+			}
+		}
+	}
+
+	// add the names of the attributes and their values to the output string with a space in between (class="something" name="somethingelse" etc)
+	// since the order of a struct can differ we sort the attributes in alphabetical order before placing them in the HTML tag (we could just place them in random order in the HTML but that would complicate testing for example)
+	local.sortedKeys = ListSort(StructKeyList(arguments.attributes), "textnocase");
+	local.iEnd = ListLen(local.sortedKeys);
+	for (local.i = 1; local.i <= local.iEnd; local.i++) {
+		local.key = ListGetAt(local.sortedKeys, local.i);
+		// place the attribute name and value in the string unless it should be skipped according to the arguments or if it's an internal argument (starting with a "$" sign)
+		if (
+			!ListFindNoCase(arguments.skip, local.key) && (
+				!Len(arguments.skipStartingWith) || Left(local.key, Len(arguments.skipStartingWith)) != arguments.skipStartingWith
+			) && Left(local.key, 1) != "$"
+		) {
+			local.rv &= $tagAttribute(
+				name = local.key,
+				value = arguments.attributes[local.key],
+				encode = arguments.encode,
+				encodeExcept = arguments.encodeExcept
+			);
+		}
+	}
+
+	// End the tag and return it.
+	local.rv &= ">";
+	return local.rv;
+}
+
+/**
+ * Internal function.
+ */
+public string function $tagAttribute(
+	required string name,
+	required string value,
+	required boolean encode,
+	required string encodeExcept
+) {
+	// For custom data attributes we convert underscores and camel case to hyphens.
+	// E.g. "dataDomCache" and "data_dom_cache" becomes "data-dom-cache".
+	// This is to get around the issue with not being able to use a hyphen in an argument name in CFML.
+	if (Left(arguments.name, 5) == "data_") {
+		arguments.name = Replace(arguments.name, "_", "-", "all");
+	} else if (Left(arguments.name, 4) == "data") {
+		arguments.name = hyphenize(arguments.name);
+	}
+
+	arguments.name = LCase(arguments.name);
+
+	// set standard attribute name / value to use as the default to return (e.g. name / value part of <input name="value">)
+	local.rv = " " & arguments.name & "=""";
+	local.rv &= arguments.encode && !ListFind(arguments.encodeExcept, arguments.name) && $get("encodeHtmlAttributes") ? EncodeForHTMLAttribute(
+		$canonicalize(arguments.value)
+	) : arguments.value;
+	local.rv &= """";
+
+	// when attribute can be boolean we handle it accordingly and override the above return value
+	if (
+		(
+			!IsBoolean(application.wheels.booleanAttributes) && ListFindNoCase(
+				application.wheels.booleanAttributes,
+				arguments.name
+			)
+		) || (IsBoolean(application.wheels.booleanAttributes) && application.wheels.booleanAttributes)
+	) {
+		if (IsBoolean(arguments.value) || !CompareNoCase(arguments.value, "true") || !CompareNoCase(arguments.value, "false")) {
+			// value passed in can be handled as a boolean
+			if (arguments.value) {
+				// when value is true we just add the attribute name itself (e.g. <input type="checkbox" checked>)
+				local.rv = " " & arguments.name;
+			} else {
+				// when value is false we do not add the attribute at all
+				local.rv = "";
+			}
+		}
+	}
+	return local.rv;
+}
+
+/**
+ * Creates an HTML element.
+ */
+public string function $element(
+	required string name,
+	struct attributes = {},
+	string content = "",
+	string skip = "",
+	string skipStartingWith = "",
+	any encode = false,
+	string encodeExcept = ""
+) {
+	// Set a variable with the content of the tag.
+	// Encoded if global encode setting is true and true is also passed in to the function.
+	local.rv = IsBoolean(arguments.encode) && arguments.encode && $get("encodeHtmlTags") ? EncodeForHTML(
+		$canonicalize(arguments.content)
+	) : arguments.content;
+
+	// When only wanting to encode HTML attribute values (and not tag content) we set the encode argument to true before passing on to $tag().
+	if (arguments.encode == "attributes") {
+		arguments.encode = true;
+	}
+
+	StructDelete(arguments, "content");
+	return $tag(argumentCollection = arguments) & local.rv & "</" & arguments.name & ">";
+}
+
+/**
+ * Internal function.
+ */
+public any function $objectName(required any objectName, string association = "", string position = "") {
+	local.currentModelObject = false;
+	local.hasManyAssociationCount = 0;
+
+	// combine our arguments
+	$combineArguments(args = arguments, combine = "positions,position");
+	$combineArguments(args = arguments, combine = "associations,association");
+
+	if (IsObject(arguments.objectName)) {
+		Throw(type = "Wheels.InvalidArgument", message = "The `objectName` argument passed is not of type string.");
+	}
+
+	// only try to create the object name if we have a simple value
+	if (IsSimpleValue(arguments.objectName) && ListLen(arguments.associations)) {
+		local.iEnd = ListLen(arguments.associations);
+		for (local.i = 1; local.i <= local.iEnd; local.i++) {
+			local.association = ListGetAt(arguments.associations, local.i);
+			local.currentModelObject = $getObject(arguments.objectName);
+			arguments.objectName &= "['" & local.association & "']";
+			local.expanded = local.currentModelObject.$expandedAssociations(include = local.association);
+			local.expanded = local.expanded[1];
+			if (local.expanded.type == "hasMany") {
+				local.hasManyAssociationCount++;
+				if ($get("showErrorInformation") && local.hasManyAssociationCount > ListLen(arguments.positions)) {
+					Throw(
+						type = "Wheels.InvalidArgument",
+						message = "You passed the hasMany association of `#local.association#` but did not provide a corresponding position."
+					);
 				}
-				else if (loc.position >= loc.size)
-				{
-					loc.position = "last";
-				}
-			}
-			if (loc.overwrite)
-			{
-				if (loc.position == "last")
-				{
-					loc.position = loc.size;
-				}
-				else if (loc.position == "first")
-				{
-					loc.position = 1;
-				}
-				variables.$instance.contentFor[loc.section][loc.position] = loc.content;
-			}
-			else
-			{
-				if (loc.position == "last")
-				{
-					ArrayAppend(variables.$instance.contentFor[loc.section], loc.content);
-				}
-				else if (loc.position == "first")
-				{
-					ArrayPrepend(variables.$instance.contentFor[loc.section], loc.content);
-				}
-				else
-				{
-					ArrayInsertAt(variables.$instance.contentFor[loc.section], loc.position, loc.content);
-				}
+				arguments.objectName &= "[" & ListGetAt(arguments.positions, local.hasManyAssociationCount) & "]";
 			}
 		}
-	</cfscript>
-</cffunction>
+	}
+	return arguments.objectName;
+}
 
-<cffunction name="includeLayout" returntype="string" access="public" output="false">
-	<cfargument name="name" type="string" required="false" default="layout">
-	<cfscript>
-		arguments.partial = arguments.name;
-		StructDelete(arguments, "name");
-		arguments.$prependWithUnderscore = false;
-		return includePartial(argumentCollection=arguments);
-	</cfscript>
-</cffunction>
+/**
+ * Internal function.
+ */
+public string function $tagId(required any objectName, required string property, string valueToAppend = "") {
+	if (IsSimpleValue(arguments.objectName)) {
+		// form element for object(s)
+		local.rv = ListLast(arguments.objectName, ".");
+		if (Find("[", local.rv)) {
+			local.rv = $swapArrayPositionsForIds(objectName = local.rv);
+		}
+		if (Find("($", arguments.property)) {
+			arguments.property = ReplaceList(arguments.property, "($,)", "-,");
+		}
+		if (Find("[", arguments.property)) {
+			local.rv = ReReplace(
+				ReReplace(
+					local.rv & arguments.property,
+					"[,\[]",
+					"-",
+					"all"
+				),
+				"[""'\]]",
+				"",
+				"all"
+			);
+		} else {
+			local.rv = ReReplace(
+				ReReplace(
+					local.rv & "-" & arguments.property,
+					"[,\[]",
+					"-",
+					"all"
+				),
+				"[""'\]]",
+				"",
+				"all"
+			);
+		}
+	} else {
+		local.rv = ReplaceList(arguments.property, "[,($,],',"",)", "-,-,");
+	}
+	if (Len(arguments.valueToAppend)) {
+		local.rv &= "-" & arguments.valueToAppend;
+	}
+	return ReReplace(local.rv, "-+", "-", "all");
+}
 
-<cffunction name="includePartial" returntype="string" access="public" output="false">
-	<cfargument name="partial" type="any" required="true">
-	<cfargument name="group" type="string" required="false" default="">
-	<cfargument name="cache" type="any" required="false" default="">
-	<cfargument name="layout" type="string" required="false">
-	<cfargument name="spacer" type="string" required="false">
-	<cfargument name="dataFunction" type="any" required="false">
-	<cfargument name="$prependWithUnderscore" type="boolean" required="false" default="true">
-	<cfscript>
-		var loc = {};
-		$args(name="includePartial", args=arguments);
-		loc.rv = $includeOrRenderPartial(argumentCollection=$dollarify(arguments, "partial,group,cache,layout,spacer,dataFunction"));
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
+/**
+ * Internal function.
+ */
+public string function $tagName(required any objectName, required string property) {
+	if (IsSimpleValue(arguments.objectName)) {
+		local.rv = ListLast(arguments.objectName, ".");
+		if (Find("[", local.rv)) {
+			local.rv = $swapArrayPositionsForIds(objectName = local.rv);
+		}
+		if (Find("[", arguments.property)) {
+			local.rv = ReplaceList(local.rv & arguments.property, "',""", "");
+		} else {
+			local.rv = ReplaceList(local.rv & "[" & arguments.property & "]", "',""", "");
+		}
+	} else {
+		local.rv = arguments.property;
+	}
+	return local.rv;
+}
 
-<cffunction name="contentForLayout" returntype="string" access="public" output="false">
-	<cfscript>
-		var loc = {};
-		loc.rv = includeContent("body");
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
+/**
+ * Internal function.
+ */
+public string function $swapArrayPositionsForIds(required any objectName) {
+	local.rv = arguments.objectName;
 
-<cffunction name="includeContent" returntype="string" access="public" output="false">
-	<cfargument name="name" type="string" required="false" default="body">
-	<cfargument name="defaultValue" type="string" required="false" default="">
-	<cfscript>
-		var loc = {};
-		if (StructKeyExists(arguments, "default"))
-		{
-			arguments.defaultValue = arguments.default;
-			StructDelete(arguments, "default");
-		}
-		if (StructKeyExists(variables.$instance.contentFor, arguments.name))
-		{
-			loc.rv = ArrayToList(variables.$instance.contentFor[arguments.name], Chr(10));
-		}
-		else
-		{
-			loc.rv = arguments.defaultValue;
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="cycle" returntype="string" access="public" output="false">
-	<cfargument name="values" type="string" required="true">
-	<cfargument name="name" type="string" required="false" default="default">
-	<cfscript>
-		var loc = {};
-		if (!StructKeyExists(request.wheels, "cycle"))
-		{
-			request.wheels.cycle = {};
-		}
-		if (!StructKeyExists(request.wheels.cycle, arguments.name))
-		{
-			request.wheels.cycle[arguments.name] = ListGetAt(arguments.values, 1);
-		}
-		else
-		{
-			loc.foundAt = ListFindNoCase(arguments.values, request.wheels.cycle[arguments.name]);
-			if (loc.foundAt == ListLen(arguments.values))
-			{
-				loc.foundAt = 0;
+	// we could have multiple nested arrays so we need to traverse the objectName to find where we have array positions and
+	// swap all of the out for object ids
+	local.array = ListToArray(ReplaceList(local.rv, "],'", ""), "[", true);
+	local.iEnd = ArrayLen(local.array);
+	for (local.i = 1; local.i <= local.iEnd; local.i++) {
+		// if we find a digit, we need to replace it with an id
+		if (ReFind("\d", local.array[local.i])) {
+			// build our object reference
+			local.objectReference = "";
+			local.jEnd = local.i;
+			for (local.j = 1; local.j <= local.jEnd; local.j++) {
+				local.objectReference = ListAppend(local.objectReference, ListGetAt(arguments.objectName, local.j, "["), "[");
 			}
-			request.wheels.cycle[arguments.name] = ListGetAt(arguments.values, loc.foundAt + 1);
+			local.rv = ListSetAt(
+				local.rv,
+				local.i,
+				$getObject(local.objectReference).key($returnTickCountWhenNew = true) & "]",
+				"["
+			);
 		}
-		loc.rv = request.wheels.cycle[arguments.name];
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
+	}
+	return local.rv;
+}
 
-<cffunction name="resetCycle" returntype="void" access="public" output="false">
-	<cfargument name="name" type="string" required="false" default="default">
-	<cfscript>
-		if (StructKeyExists(request.wheels, "cycle") && StructKeyExists(request.wheels.cycle, arguments.name))
-		{
-			StructDelete(request.wheels.cycle, arguments.name);
+/**
+ * Internal function.
+ */
+public any function $getObject(required string objectname) {
+	try {
+		if (Find(".", arguments.objectName) || Find("[", arguments.objectName)) {
+			// we can't directly invoke objects in structure or arrays of objects so we must evaluate
+			local.rv = Evaluate(arguments.objectName);
+		} else {
+			local.rv = variables[arguments.objectName];
 		}
-	</cfscript>
-</cffunction>
-
-<!--- PRIVATE FUNCTIONS --->
-
-<cffunction name="$tag" returntype="string" access="public" output="false">
-	<cfargument name="name" type="string" required="true">
-	<cfargument name="attributes" type="struct" required="false" default="#StructNew()#">
-	<cfargument name="close" type="boolean" required="false" default="false">
-	<cfargument name="skip" type="string" required="false" default="">
-	<cfargument name="skipStartingWith" type="string" required="false" default="">
-	<cfscript>
-		var loc = {};
-
-		// start the HTML tag and give it its name
-		loc.rv = "<" & arguments.name;
-
-		// if named arguments are passed in we add these to the attributes argument instead so we can handle them all in the same code below
-		if (StructCount(arguments) > 5)
-		{
-			for (loc.key in arguments)
-			{
-				if (!ListFindNoCase("name,attributes,close,skip,skipStartingWith", loc.key))
-				{
-					arguments.attributes[loc.key] = arguments[loc.key];
-				}
-			}
+	} catch (any e) {
+		if ($get("showErrorInformation")) {
+			Throw(
+				type = "Wheels.ObjectNotFound",
+				message = "CFWheels tried to find the model object `#arguments.objectName#` for the form helper, but it does not exist."
+			);
+		} else {
+			Throw(object = e);
 		}
+	}
+	return local.rv;
+}
 
-		// add the names of the attributes and their values to the output string with a space in between (class="something" name="somethingelse" etc)
-		// since the order of a struct can differ we sort the attributes in alphabetical order before placing them in the HTML tag (we could just place them in random order in the HTML but that would complicate testing for example)
-		loc.sortedKeys = ListSort(StructKeyList(arguments.attributes), "textnocase");
-		loc.iEnd = ListLen(loc.sortedKeys);
-		for (loc.i=1; loc.i <= loc.iEnd; loc.i++)
-		{
-			loc.key = ListGetAt(loc.sortedKeys, loc.i);
-			// place the attribute name and value in the string unless it should be skipped according to the arguments or if it's an internal argument (starting with a "$" sign)
-			if (!ListFindNoCase(arguments.skip, loc.key) && (!Len(arguments.skipStartingWith) || Left(loc.key, Len(arguments.skipStartingWith)) != arguments.skipStartingWith) && Left(loc.key, 1) != "$")
-			{
-				loc.rv &= $tagAttribute(loc.key, arguments.attributes[loc.key]);
-			}
+/**
+ * Internal function.
+ */
+public struct function $innerArgs(required string name, required struct args) {
+	local.rv = {};
+	local.element = arguments.name;
+	for (local.key in arguments.args) {
+		if (Left(local.key, Len(local.element)) == local.element) {
+			local.name = LCase(Mid(local.key, Len(local.element) + 1, 1)) & Right(
+				local.key,
+				Len(local.key) - Len(local.element) - 1
+			);
+			local.rv[local.name] = arguments.args[local.key];
+			StructDelete(arguments.args, local.key);
 		}
-
-		// close the tag (usually done on self-closing tags like "img" for example) or just end it (for tags like "div" for example)
-		if (arguments.close)
-		{
-			loc.rv &= " />";
-		}
-		else
-		{
-			loc.rv &= ">";
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="$tagAttribute" returntype="string" access="public" output="false">
-	<cfargument name="name" type="string" required="true">
-	<cfargument name="value" type="string" required="true">
-	<cfscript>
-		var loc = {};
-
-		// for custom data attributes we convert underscores / camelCase to hyphens to get around the issue with not being able to use a hyphen in an argument name in CFML
-		if (Left(arguments.name, 4) == "data")
-		{
-			loc.delim = application.wheels.dataAttributeDelimiter;
-			if (Len(loc.delim))
-			{
-				arguments.name = Replace(REReplace(arguments.name, "([a-z])([#loc.delim#])", "\1-\2", "all"), "-#loc.delim#", "-", "all");
-			}
-		}
-		arguments.name = LCase(arguments.name);
-
-		// set standard attribute name / value to use as the default to return (e.g. name / value part of <input name="value">)
-		loc.rv = " " & arguments.name & "=""" & arguments.value & """";
-
-		// when attribute can be boolean we handle it accordingly and override the above return value
-		if ((!IsBoolean(application.wheels.booleanAttributes) && ListFindNoCase(application.wheels.booleanAttributes, arguments.name)) || (IsBoolean(application.wheels.booleanAttributes) && application.wheels.booleanAttributes))
-		{
-			if (IsBoolean(arguments.value) || !CompareNoCase(arguments.value, "true") || !CompareNoCase(arguments.value, "false"))
-			{
-				// value passed in can be handled as a boolean
-				if (arguments.value)
-				{
-					// when value is true we just add the attribute name itself (e.g. <input type="checkbox" checked>)
-					loc.rv = " " & arguments.name;
-				}
-				else
-				{
-					// when value is false we do not add the attribute at all
-					loc.rv = "";
-				}
-			}
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="$element" returntype="string" access="public" output="false">
-	<cfargument name="name" type="string" required="true">
-	<cfargument name="attributes" type="struct" required="false" default="#StructNew()#">
-	<cfargument name="content" type="string" required="false" default="">
-	<cfargument name="skip" type="string" required="false" default="">
-	<cfargument name="skipStartingWith" type="string" required="false" default="">
-	<cfscript>
-		var rv = "";
-		rv = arguments.content;
-		StructDelete(arguments, "content");
-		rv = $tag(argumentCollection=arguments) & rv & "</" & arguments.name & ">";
-	</cfscript>
-	<cfreturn rv>
-</cffunction>
-
-<cffunction name="$objectName" returntype="any" access="public" output="false">
-	<cfargument name="objectName" type="any" required="true">
-	<cfargument name="association" type="string" required="false" default="">
-	<cfargument name="position" type="string" required="false" default="">
-	<cfscript>
-		var loc = {};
-		loc.currentModelObject = false;
-		loc.hasManyAssociationCount = 0;
-
-		// combine our arguments
-		$combineArguments(args=arguments, combine="positions,position");
-		$combineArguments(args=arguments, combine="associations,association");
-
-		// only try to create the object name if we have a simple value
-		if (IsSimpleValue(arguments.objectName) && ListLen(arguments.associations))
-		{
-			loc.iEnd = ListLen(arguments.associations);
-			for (loc.i=1; loc.i <= loc.iEnd; loc.i++)
-			{
-				loc.association = ListGetAt(arguments.associations, loc.i);
-				loc.currentModelObject = $getObject(arguments.objectName);
-				arguments.objectName &= "['" & loc.association & "']";
-				loc.expanded = loc.currentModelObject.$expandedAssociations(include=loc.association);
-				loc.expanded = loc.expanded[1];
-				if (loc.expanded.type == "hasMany")
-				{
-					loc.hasManyAssociationCount++;
-					if (get("showErrorInformation") && loc.hasManyAssociationCount > ListLen(arguments.positions))
-					{
-						$throw(type="Wheels.InvalidArgument", message="You passed the hasMany association of `#loc.association#` but did not provide a corresponding position.");
-					}
-					arguments.objectName &= "[" & ListGetAt(arguments.positions, loc.hasManyAssociationCount) & "]";
-				}
-			}
-		}
-	</cfscript>
-	<cfreturn arguments.objectName>
-</cffunction>
-
-<cffunction name="$tagId" returntype="string" access="public" output="false">
-	<cfargument name="objectName" type="any" required="true">
-	<cfargument name="property" type="string" required="true">
-	<cfargument name="valueToAppend" type="string" default="">
-	<cfscript>
-		var loc = {};
-		if (IsSimpleValue(arguments.objectName))
-		{
-			// form element for object(s)
-			loc.rv = ListLast(arguments.objectName, ".");
-			if (Find("[", loc.rv))
-			{
-				loc.rv = $swapArrayPositionsForIds(objectName=loc.rv);
-			}
-			if (Find("($", arguments.property))
-			{
-				arguments.property = ReplaceList(arguments.property, "($,)", "-,");
-			}
-			if (Find("[", arguments.property))
-			{
-				loc.rv = REReplace(REReplace(loc.rv & arguments.property, "[,\[]", "-", "all"), "[""'\]]", "", "all");
-			}
-			else
-			{
-				loc.rv = REReplace(REReplace(loc.rv & "-" & arguments.property, "[,\[]", "-", "all"), "[""'\]]", "", "all");
-			}
-		}
-		else
-		{
-			loc.rv = ReplaceList(arguments.property, "[,($,],',"",)", "-,-,");
-		}
-		if (Len(arguments.valueToAppend))
-		{
-			loc.rv &= "-" & arguments.valueToAppend;
-		}
-	</cfscript>
-	<cfreturn REReplace(loc.rv, "-+", "-", "all")>
-</cffunction>
-
-<cffunction name="$tagName" returntype="string" access="public" output="false">
-	<cfargument name="objectName" type="any" required="true">
-	<cfargument name="property" type="string" required="true">
-	<cfscript>
-		var loc = {};
-		if (IsSimpleValue(arguments.objectName))
-		{
-			loc.rv = ListLast(arguments.objectName, ".");
-			if (Find("[", loc.rv))
-			{
-				loc.rv = $swapArrayPositionsForIds(objectName=loc.rv);
-			}
-			if (Find("[", arguments.property))
-			{
-				loc.rv = ReplaceList(loc.rv & arguments.property, "',""", "");
-			}
-			else
-			{
-				loc.rv = ReplaceList(loc.rv & "[" & arguments.property & "]", "',""", "");
-			}
-		}
-		else
-		{
-			loc.rv = arguments.property;
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="$swapArrayPositionsForIds" returntype="string" access="public" output="false">
-	<cfargument name="objectName" type="any" required="true" />
-	<cfscript>
-		var loc = {};
-		loc.rv = arguments.objectName;
-
-		// we could have multiple nested arrays so we need to traverse the objectName to find where we have array positions and
-		// swap all of the out for object ids
-		loc.array = ListToArray(ReplaceList(loc.rv, "],'", ""), "[", true);
-		loc.iEnd = ArrayLen(loc.array);
-		for (loc.i=1; loc.i <= loc.iEnd; loc.i++)
-		{
-			// if we find a digit, we need to replace it with an id
-			if (REFind("\d", loc.array[loc.i]))
-			{
-				// build our object reference
-				loc.objectReference = "";
-				loc.jEnd = loc.i;
-				for (loc.j=1; loc.j <= loc.jEnd; loc.j++)
-				{
-					loc.objectReference = ListAppend(loc.objectReference, ListGetAt(arguments.objectName, loc.j, "["), "[");
-				}
-				loc.rv = ListSetAt(loc.rv, loc.i, $getObject(loc.objectReference).key($returnTickCountWhenNew=true) & "]", "[");
-			}
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="$addToJavaScriptAttribute" returntype="string" access="public" output="false">
-	<cfargument name="name" type="string" required="true">
-	<cfargument name="content" type="string" required="true">
-	<cfargument name="attributes" type="struct" required="true">
-	<cfscript>
-		var loc = {};
-		if (StructKeyExists(arguments.attributes, arguments.name))
-		{
-			loc.rv = arguments.attributes[arguments.name];
-			if (Right(loc.rv, 1) != ";")
-			{
-				loc.rv &= ";";
-			}
-			loc.rv &= arguments.content;
-		}
-		else
-		{
-			loc.rv = arguments.content;
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="$getObject" returntype="any" access="public" output="false">
-	<cfargument name="objectName" type="string" required="true">
-	<cfscript>
-		var loc = {};
-		try
-		{
-			if (Find(".", arguments.objectName) || Find("[", arguments.objectName))
-			{
-				// we can't directly invoke objects in structure or arrays of objects so we must evaluate
-				loc.rv = Evaluate(arguments.objectName);
-			}
-			else
-			{
-				loc.rv = variables[arguments.objectName];
-			}
-		}
-		catch (any e)
-		{
-			if (get("showErrorInformation"))
-			{
-				$throw(type="Wheels.ObjectNotFound", message="CFWheels tried to find the model object `#arguments.objectName#` for the form helper, but it does not exist.");
-			}
-			else
-			{
-				$throw(argumentCollection=e);
-			}
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
-
-<cffunction name="$innerArgs" returntype="struct" access="public" output="false">
-	<cfargument name="name" type="string" required="true">
-	<cfargument name="args" type="struct" required="true">
-	<cfscript>
-		var loc = {};
-		loc.rv = {};
-		loc.element = arguments.name;
-		for (loc.key in arguments.args)
-		{
-			if (Left(loc.key, Len(loc.element)) == loc.element)
-			{
-				loc.name = LCase(Mid(loc.key, Len(loc.element)+1, 1)) & Right(loc.key, Len(loc.key)-Len(loc.element)-1);
-				loc.rv[loc.name] = arguments.args[loc.key];
-				StructDelete(arguments.args, loc.key);
-			}
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
+	}
+	return local.rv;
+}
+</cfscript>
