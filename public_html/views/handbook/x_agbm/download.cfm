@@ -62,7 +62,7 @@
 
 	<tbody>
 		<cfoutput query="people">
-    		#includePartial("downloadtable")#
+    		#includePartial(partial="downloadtable")#
 		</cfoutput>
 	</tbody>
 </table>

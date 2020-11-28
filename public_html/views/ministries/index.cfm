@@ -2,15 +2,15 @@
 
 <cfoutput>
 	<cfif params.category is "Church Planting Ministries">
-		#includePartial("/charis/promo_churchplanting")#
+		#includePartial(partial="/charis/promo_churchplanting")#
 	</cfif>
 
 	<cfif params.category is "Leadership Training Ministries">
-		#includePartial("/charis/promo_leaders")#
+		#includePartial(partial="/charis/promo_leaders")#
 	</cfif>
 
 	<cfif params.category is "Doing Good">
-		#includePartial("/charis/promo_doinggood")#
+		#includePartial(partial="/charis/promo_doinggood")#
 	</cfif>
 </cfoutput>
 

@@ -9,7 +9,7 @@
 <p>Click on a Use email to see all page views by that person.</p>
 </cfif>
 
-		#includePartial("/_shared/paginationlinks")#
+		#includePartial(partial="/_shared/paginationlinks")#
 
 
 </cfoutput>

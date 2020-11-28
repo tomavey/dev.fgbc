@@ -1,26 +1,26 @@
 <cfoutput>
 
-    #includePartial("promo")#
+    #includePartial(partial="promo")#
 
-    #includePartial("iconblocks")#
+    #includePartial(partial="iconblocks")#
 
     <hr class="g-brd-gray-light-v4 my-0">
 
 <!---
-    #includePartial("video2")#
+    #includePartial(partial="video2")#
 
-    #includePartial("ourservices")#
+    #includePartial(partial="ourservices")#
 
     <hr class="g-brd-gray-light-v4 my-0">
 
-    #includePartial("recentprojects")#
+    #includePartial(partial="recentprojects")#
 
-    #includePartial("solutions")#
+    #includePartial(partial="solutions")#
 
-    #includePartial("counters")#
+    #includePartial(partial="counters")#
 --->
 
-    #includePartial("news")#
+    #includePartial(partial="news")#
 
 </cfoutput>
 

@@ -12,7 +12,7 @@
 		
 			#hiddenFieldTag(name="handbookprofile[id]", value=params.key)#
 
-			#includePartial("form3")#					
+			#includePartial(partial="form3")#					
 
 			#submitTag(name="submit", value="Save and go to education information")#
 			#submitTag(name="submit", value="Save and exit")#

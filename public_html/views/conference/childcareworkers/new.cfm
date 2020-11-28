@@ -8,7 +8,7 @@
 		<h2 class="alert alert-info">
 		Teens older than 13 are elligible to help in Grace Kids.  Use this form to notify us of your interest. <br/>  We will let you know if we can use you in Grace Kids.
 		</h2>
-		<cfoutput>#includePartial("showFlash")#</cfoutput>
+		<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 		<cfoutput>
 
@@ -18,7 +18,7 @@
 
 					#startFormTag(action="create")#
 
-					#includePartial("form")#
+					#includePartial(partial="form")#
 
 					#submitTag()#
 

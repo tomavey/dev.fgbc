@@ -1,6 +1,6 @@
 <h1>We have a new church!</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -8,7 +8,7 @@
 	
 			#startFormTag(action="create")#
 
-			#includePartial("form")#	
+			#includePartial(partial="form")#	
 																
 			#submitTag()#
 				

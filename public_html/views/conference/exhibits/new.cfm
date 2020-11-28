@@ -8,7 +8,7 @@
 			#startFormTag(action="create")#
 
 
-				#includePartial("form")#
+				#includePartial(partial="form")#
 
 
 				#submitTag("Send this Request")#

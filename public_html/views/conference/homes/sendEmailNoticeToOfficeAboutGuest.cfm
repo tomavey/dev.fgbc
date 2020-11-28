@@ -52,9 +52,9 @@
 <div class="container">
   <h1 class="text-center">THE FOLLOWING GUEST REQUEST INFO HAS BEEN SUBMITTED</h1>
   <cfoutput>
-    #includePartial("includes/contactinfo")#
+    #includePartial(partial="includes/contactinfo")#
 
-    #includePartial("includes/office")#
+    #includePartial(partial="includes/office")#
 
     #linkto(text="View", controller="conference.homes", action="show", key=home.id, onlyPath=false)#
     

@@ -13,7 +13,7 @@
 </cfif>
 
 <cfif regRegIsOpen()>
-  #includePartial("registrationoptions")#
+  #includePartial(partial="registrationoptions")#
 <cfelse>
   <p style="text-align:center;display:block">
     Conference Registration<br/>
@@ -21,7 +21,7 @@
 </cfif>  
 
 <cfif mealsRegIsOpen()>
-  #includePartial("mealoptions")#
+  #includePartial(partial="mealoptions")#
 <cfelse>  
   <p style="text-align:center;display:block">
     Meal Tickets<br/>
@@ -29,8 +29,8 @@
 </cfif>
 
 <cfif childRegIsOpen()>
-  #includePartial("childcareoptions")#
-  #includePartial("kidskonferenceoptions")#
+  #includePartial(partial="childcareoptions")#
+  #includePartial(partial="kidskonferenceoptions")#
 <cfelse>  
   <p style="text-align:center;display:block">
     Grace Kids<br/>
@@ -39,7 +39,7 @@
 
 
 <cfif optionsRegIsOpen()>
-  #includePartial("otheroptions")#
+  #includePartial(partial="otheroptions")#
 <cfelse>
   <p style="text-align:center">
     Other Options.    

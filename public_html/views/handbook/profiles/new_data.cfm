@@ -17,7 +17,7 @@ Welcome to the AGBM/FGBC profile center. Please fill out as much of these forms 
 			#select(objectName="handbookprofile", property="personid", options=people, label="Connect to handbook person", textField="selectname", valueField="id", includeBlank="Select Person to Connect")#
 			</cfif>
 		
-			#includePartial("form1")#					
+			#includePartial(partial="form1")#					
 
 			#submitTag(name="submit", value="Save and go to ministry information")#
 			#submitTag(name="submit", value="Save and exit")#

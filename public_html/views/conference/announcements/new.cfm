@@ -2,7 +2,7 @@
 <h1>Submit a New Announcement</h1>
 <p>Announcements will be sent to the conference coordinator for approval before they are displayed.</p>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -10,7 +10,7 @@
 
 			#startFormTag(action="create")#
 
-			#includePartial("form")#
+			#includePartial(partial="form")#
 
 			#submitTag("Submit your announcement")#
 

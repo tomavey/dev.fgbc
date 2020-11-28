@@ -3,11 +3,11 @@
 
   <cfoutput>
 
-  #includePartial("/charis/head")#
+  #includePartial(partial="/charis/head")#
 
   #includePartial(partial="/charis/modal_login")#
 
-  <!--- #includePartial("/charis/modal_rebrand")# --->
+  <!--- #includePartial(partial="/charis/modal_rebrand")# --->
 
   <body>
 
@@ -28,7 +28,7 @@
 
     <div class="u-outer-spaces-helper"></div>
 
-    #includePartial("/charis/jsIncludeTags")#
+    #includePartial(partial="/charis/jsIncludeTags")#
 
     <cfif application.wheels.environment NEQ "production">
         <cftry>

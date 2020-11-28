@@ -1,4 +1,4 @@
-#includePartial("scripts")#
+#includePartial(partial="scripts")#
 
 <div ng-app="lodgingRequestsApp">
 <cfoutput>

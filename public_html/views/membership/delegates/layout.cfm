@@ -13,7 +13,7 @@
 
 <body>
 	<cfoutput>
-		#includePartial("navbar")#
+		#includePartial(partial="navbar")#
 	</cfoutput>
 	<div class="container">
 		<cfoutput>#contentForLayout()#</cfoutput>

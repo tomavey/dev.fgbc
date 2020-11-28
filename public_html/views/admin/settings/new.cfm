@@ -1,7 +1,7 @@
 <div class="container">
 <h1>Create a New Setting</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -11,7 +11,7 @@
 	
 			#startFormTag(action="create")#
 
-			#includePartial("form")#
+			#includePartial(partial="form")#
 				
 			#submitTag()#
 				

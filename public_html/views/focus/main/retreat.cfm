@@ -43,7 +43,7 @@
 				</cfif>
 
 			<cfelseif showRegistration(options.recordcount, retreat)>
-					#includePartial("retreatRegOptions")#
+					#includePartial(partial="retreatRegOptions")#
 
 			<cfelse>
 				Registration is not open. (this should not show)

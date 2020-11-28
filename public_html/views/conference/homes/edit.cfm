@@ -5,11 +5,11 @@
 
 <div class="container" style="background-color:white;padding:20px;border-radius:10px">
 
-	#includePartial("includes/navbar")#
+	#includePartial(partial="includes/navbar")#
 
 <h1>Editing home</h1>
 
-#includePartial("includes/showFlash")#
+#includePartial(partial="includes/showFlash")#
 
 			
 			#errorMessagesFor("home")#
@@ -20,7 +20,7 @@
 
 			#hiddenTagForKeyy()#
 				
-			#includePartial("includes/#formtype#")#												
+			#includePartial(partial="includes/#formtype#")#												
 				
 			#submitTag()#
 				

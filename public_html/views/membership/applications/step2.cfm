@@ -2,13 +2,13 @@
 #editButton("step2header")#
 <h1>#getQuestion("step2header")#</h1>
 
-#includePartial("reload")#
+#includePartial(partial="reload")#
 
 <div class="progress">
     <div class="bar" style="width: 16%;">Page 1 of 6 completed</div>
 </div>
 
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
 #ckeditor()#
 
@@ -20,7 +20,7 @@
 
 			#putFormTag()#		
 				
-			#includePartial("form2")#	
+			#includePartial(partial="form2")#	
 																	
 			#hiddenFieldTag(name="nextstep", value="step3")#
 

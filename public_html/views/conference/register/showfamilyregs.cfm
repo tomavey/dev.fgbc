@@ -29,7 +29,7 @@
 	</div>
 	<cfset cartformaction = "checkOutAddedOptions">
 	<div class="pull-right" id="shoppingcart">
-	<cfoutput>#includePartial("shoppingcart")#</cfoutput>
+	<cfoutput>#includePartial(partial="shoppingcart")#</cfoutput>
 	</div>
 
 	<cfif application.wheels.environment is "development">

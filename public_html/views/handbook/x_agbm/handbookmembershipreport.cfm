@@ -25,7 +25,7 @@
     <cfoutput query="cat1Ordained" group="id">
 		<cfoutput>
 		</cfoutput>
-	    #includePartial("handbookMembershipListing")#
+	    #includePartial(partial="handbookMembershipListing")#
     	<cfset count = count + 1>
     </cfoutput>
 	<cfoutput>
@@ -40,7 +40,7 @@
     <h2>Category One - Licensed Ministers</h2>
     <cfset count = 0>
     <cfoutput query="cat1Licensed" group="id">
-      #includePartial("handbookMembershipListing")#
+      #includePartial(partial="handbookMembershipListing")#
       <cfset count = count + 1>
     </cfoutput>
 	<cfoutput>
@@ -55,7 +55,7 @@
     <h2>Category Two - Ordained Students</h2>
     <cfset count = 0>
     <cfoutput query="cat2Ordained" group="id">
-      #includePartial("handbookMembershipListing")#
+      #includePartial(partial="handbookMembershipListing")#
       <cfset count = count + 1>
     </cfoutput>
 	<cfoutput>
@@ -70,7 +70,7 @@
     <h2>Category Two - Licensed Students</h2>
     <cfset count = 0>
     <cfoutput query="cat2Licensed" group="id">
-      #includePartial("handbookMembershipListing")#
+      #includePartial(partial="handbookMembershipListing")#
       <cfset count = count + 1>
     </cfoutput>
 	<cfoutput>
@@ -85,7 +85,7 @@
     <h2>Category Three</h2>
     <cfset count = 0>
     <cfoutput query="cat3" group="id">
-      #includePartial("handbookMembershipListing")#
+      #includePartial(partial="handbookMembershipListing")#
       <cfset count = count + 1>
     </cfoutput>
 	<cfoutput>

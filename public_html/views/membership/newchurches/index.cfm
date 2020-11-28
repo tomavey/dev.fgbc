@@ -2,7 +2,7 @@
 <cfif NOT isDefined("params.showall")>
 <p>Only showing verified forms.  Use the "show all" link to see all forms.</p>
 </cfif>
-<cfoutput>#includePartial("showFlash")#
+<cfoutput>#includePartial(partial="showFlash")#
 
 
 	<p>#linkTo(text="Add a new church", route="newchurch")#</p>

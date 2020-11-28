@@ -5,7 +5,7 @@
 </p>
 <cfcatch></cfcatch></cftry>
 
-#includePartial("show")#
+#includePartial(partial="show")#
 
 </cfoutput>
 

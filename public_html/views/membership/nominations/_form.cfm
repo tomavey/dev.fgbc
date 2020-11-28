@@ -27,7 +27,7 @@
 
 						<p>#textField(objectName='nominations', property='nomineeChurch', label='Church of person being nominated: ')#</p>
 
-						#includePartial("regions")#
+						#includePartial(partial="regions")#
 
 						<p>#select(objectName='nominations', property='region', options='Region A,Region B,Region C', includeBlank="--Select Your Region--")#</p>
 

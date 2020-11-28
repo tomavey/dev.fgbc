@@ -3,7 +3,7 @@
 
 <h1>Editing #handbooktask.title#</h1>
 
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
 
 #ckeditor()#			
@@ -12,7 +12,7 @@
 	
 			#startFormTag(action="update", key=params.key)#
 		
-			#includePartial("form")#															
+			#includePartial(partial="form")#															
 				
 				
 				#submitTag()#

@@ -13,9 +13,9 @@
             <span class="icon-bar"></span>
           </a>
           <cfif isDefined("session.membershipapplication.language") and session.membershipapplication.language is "Spanish">
-              #includePartial("/membershipapplayouts/navbarspanish")#
+              #includePartial(partial="/membershipapplayouts/navbarspanish")#
           <cfelseif isDefined("session.membershipapplication.language") and session.membershipapplication.language is "French">
-              #includePartial("/membershipapplayouts/navbarfrench")#
+              #includePartial(partial="/membershipapplayouts/navbarfrench")#
           <cfelse>    
           #linkTo(class="brand", text=pagetitle, controller=pageTitleLinkController, action=pageTitleLinkAction)#
           <div class="nav-collapse">

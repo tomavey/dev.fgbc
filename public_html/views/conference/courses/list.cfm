@@ -18,11 +18,11 @@
 	--->	
 		<cfif (isDefined("params.type") and params.type is "excursion") or (isDefined("params.key") and params.key is "excursion")>
 			<cfset instructorname = "Guide">
-			#includePartial("riscursions")#
+			#includePartial(partial="riscursions")#
 		<cfelseif (isDefined("params.type") and params.type is "workshop") or (isDefined("params.key") and params.key is "workshop")>
-			#includePartial("workshops")#
+			#includePartial(partial="workshops")#
 		<cfelseif (isDefined("params.type") && params.type is "cohort")	or (isDefined("params.key") and params.key is "cohort")>
-			#includePartial("cohorts")#
+			#includePartial(partial="cohorts")#
 		</cfif>
 	</cfoutput>
 </div>	

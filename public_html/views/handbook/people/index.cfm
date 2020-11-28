@@ -19,7 +19,7 @@
 
 	<cfif not isDefined('params.alpha') and not isDefined("params.all")>
 		<cfoutput>
-			#includePartial("/_shared/paginationlinks")#
+			#includePartial(partial="/_shared/paginationlinks")#
 		</cfoutput>
 	</cfif>
 
@@ -49,7 +49,7 @@
 
 	<cfif not isDefined('params.alpha') and not isDefined("params.all")>
 		<cfoutput>
-			#includePartial("/_shared/paginationlinks")#
+			#includePartial(partial="/_shared/paginationlinks")#
 		</cfoutput>
 	</cfif>
 

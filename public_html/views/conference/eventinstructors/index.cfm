@@ -1,6 +1,6 @@
 <h1>Listing Event/instructor links:</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 	<p>#linkTo(text="New event/instructor link", action="new")#</p>

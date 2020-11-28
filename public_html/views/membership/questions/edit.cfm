@@ -2,7 +2,7 @@
 
 <cfoutput>
 
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
 </cfoutput>
 
@@ -15,7 +15,7 @@
 
 			#putFormTag()#
 		
-			#includePartial("form")#				
+			#includePartial(partial="form")#				
 				
 			#submitTag()#
 				

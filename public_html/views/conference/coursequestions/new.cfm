@@ -1,5 +1,5 @@
 <div class="container">
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -10,7 +10,7 @@
 	<div class="well addcoursequestion">
 			#startFormTag(action="create")#
 		
-			#includePartial("form")#				
+			#includePartial(partial="form")#				
 
 			#submitTag(value="Post your question", class="btn btn-block btn-primary btn-large")#
 				

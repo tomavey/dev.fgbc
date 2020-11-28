@@ -2,7 +2,7 @@
 
 <cfoutput>
 
-#includePartial("show")#				
+#includePartial(partial="show")#				
 #linkTo(text="Return to the listing", action="index")# 
 <cfif isOffice()>
 	| #linkTo(text="Edit this nominations", action="edit", key=nominations.id)#

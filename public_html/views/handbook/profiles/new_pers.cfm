@@ -13,7 +13,7 @@
 		
 			#hiddenFieldTag(name="params.key", value=params.key)#
 
-			#includePartial("form4")#					
+			#includePartial(partial="form4")#					
 
 			#submitTag(name="submit", value="Save and exit")#
 				

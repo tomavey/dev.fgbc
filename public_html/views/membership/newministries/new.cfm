@@ -108,6 +108,6 @@
 
 <cfoutput>
 
-#includePartial("scripts")#
+#includePartial(partial="scripts")#
 
 </cfoutput>

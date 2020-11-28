@@ -76,7 +76,7 @@
 						<cfelse>	
 							#linkTo(controller="handbook.menus", action="administration", class="dropdown-toggle", data_toggle="dropdown", text="Administration<b class='caret'></b>")#
                 <ul class="dropdown-menu">
-                    #includePartial("/handbook/navdropadmin")#
+                    #includePartial(partial="/handbook/navdropadmin")#
                 </ul>
 						</cfif>
     			</li>
@@ -89,7 +89,7 @@
 							<cfelse>	
 								#linkToData(href="##", class="dropdown-toggle", data_toggle="dropdown", text="Handbook Reports<b class='caret'></b>")#
 									<ul class="dropdown-menu">
-													#includePartial("/handbook/navdrophandbook")#
+													#includePartial(partial="/handbook/navdrophandbook")#
 									</ul>
 							</cfif>
 						</li>

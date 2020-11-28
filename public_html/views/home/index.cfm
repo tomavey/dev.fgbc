@@ -1,33 +1,33 @@
 <cfoutput>
 
     <cfif !gotRights("basic") || !isLoggedIn()>
-        #includePartial("/charis/promo")#
+        #includePartial(partial="/charis/promo")#
     <cfelse>
-        #includePartial("/home/categorymenu")#
+        #includePartial(partial="/home/categorymenu")#
     </cfif>
 
-    #includePartial("/charis/iconblocks")#
+    #includePartial(partial="/charis/iconblocks")#
 
     <hr class="g-brd-gray-light-v4 my-0">
 
 <!---
-    #includePartial("video2")#
+    #includePartial(partial="video2")#
 
-    #includePartial("ourservices")#
+    #includePartial(partial="ourservices")#
 
     <hr class="g-brd-gray-light-v4 my-0">
 
-    #includePartial("recentprojects")#
+    #includePartial(partial="recentprojects")#
 
-    #includePartial("solutions")#
+    #includePartial(partial="solutions")#
 
-    #includePartial("counters")#
+    #includePartial(partial="counters")#
 --->
 
-    #includePartial("/charis/news")#
+    #includePartial(partial="/charis/news")#
 
     <cfif getSetting("videoStoriesIsOpen")>
-    #includePartial("/charis/videostories")#
+    #includePartial(partial="/charis/videostories")#
     </cfif>
 
 </cfoutput>

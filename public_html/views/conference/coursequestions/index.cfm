@@ -1,6 +1,6 @@
 <h1>Listing Coursequestions</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 	<p>#linkTo(text="New Cohort Question", action="new")#</p>

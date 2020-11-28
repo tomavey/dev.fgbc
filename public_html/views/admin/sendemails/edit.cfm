@@ -1,7 +1,7 @@
 <div class="container">
 <h1>Editing Message</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -11,7 +11,7 @@
 			#startFormTag(action="update", key=params.key)#
 
 
-			#includePartial("form")#
+			#includePartial(partial="form")#
 
 
 

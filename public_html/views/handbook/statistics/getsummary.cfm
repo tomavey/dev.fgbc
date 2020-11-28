@@ -62,7 +62,7 @@
 			<td>
 				#params.key#
 			</td>
-			#includePartial("summary")#
+			#includePartial(partial="summary")#
 		</tr>
 	</cfoutput>
 	<cfif isDefined("params.compyear")>
@@ -71,7 +71,7 @@
 			<td>
 				#params.compyear#
 			</td>
-			#includePartial("summary")#
+			#includePartial(partial="summary")#
 		</tr>
 	</cfoutput>
 	</cfif>
@@ -82,7 +82,7 @@
 			<td>
 				#params.compyear2#
 			</td>
-			#includePartial("summary")#
+			#includePartial(partial="summary")#
 		</tr>
 	</cfoutput>
 	</cfif>
@@ -93,7 +93,7 @@
 			<td>
 				#params.compyear3#
 			</td>
-			#includePartial("summary")#
+			#includePartial(partial="summary")#
 		</tr>
 	</cfoutput>
 	</cfif>
@@ -104,7 +104,7 @@
 			<td>
 				#params.compyear4#
 			</td>
-			#includePartial("summary")#
+			#includePartial(partial="summary")#
 		</tr>
 	</cfoutput>
 	</cfif>

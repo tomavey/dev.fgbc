@@ -9,7 +9,7 @@
 <cfset count = 0>
     <cfoutput query="people">
 
-	#includePartial("/_shared/handbookinfo")#
+	#includePartial(partial="/_shared/handbookinfo")#
 	<cfif isDefined("params.showupdate")>
 	<cfif isDate(reviewedAt)>Reviewed:#dateformat(reviewedAt)#<br/></cfif>
 	<cfif updatedAt NEQ reviewedat>Updated:#dateformat(updatedAt)#<br/></cfif>

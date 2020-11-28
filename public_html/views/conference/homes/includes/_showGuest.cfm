@@ -2,13 +2,13 @@
 
   <h1>Showing Guest</h1>
 
-  #includePartial("includes/showFlash")#
+  #includePartial(partial="includes/showFlash")#
   
   <!--- <cfdump var="#home.properties()#"><cfabort> --->
   
-  #includePartial("includes/contactinfo")#
+  #includePartial(partial="includes/contactinfo")#
   
-  #includePartial("includes/office")#
+  #includePartial(partial="includes/office")#
   
   <cfif gotRights("office")>
     #listTag()# #editTag(home.id)#

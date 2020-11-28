@@ -5,12 +5,12 @@
 <div data-role="page" id="news">
 
 	<div data-role="header">
-		#includePartial("/mobile/header")#
+		#includePartial(partial="/mobile/header")#
 	</div><!-- /header -->
 
 
 	<div data-role="content">
-		#includePartial("/home/twitterfeed")#
+		#includePartial(partial="/home/twitterfeed")#
 	</div><!-- /content -->
 
 

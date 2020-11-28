@@ -1,7 +1,7 @@
 <cfparam name="emailList" default="">
 <h1>Charis Fellowship Membership Applications</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 	<p>#linkTo(text="Start a new app", action="checkin", class="btn")#</p>

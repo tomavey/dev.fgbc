@@ -1,5 +1,5 @@
 <cfoutput>
     <div class="container span10">
-        #includePartial("/handbook/navdrophandbook")#
+        #includePartial(partial="/handbook/navdrophandbook")#
     </div>
 </cfoutput>

@@ -6,6 +6,6 @@
 </div>
 </div>
 
-#includePartial("scripts")#
+#includePartial(partial="scripts")#
 
 </cfoutput>

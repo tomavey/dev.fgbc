@@ -7,7 +7,7 @@
 				The online registration will open on #dateFormat(regOpenPromiseDate(),"mmmm dd, yyyy")#. Check back then to register!
 			</p>
 
-			#includePartial("registrationcosts")#
+			#includePartial(partial="registrationcosts")#
 
 	<cfelseif getSetting("regTemporarilyClosed") && !gotRights("office")>		
 			<h1>Welcome to the #getEventAsText()# Registration Center</h1>
@@ -32,7 +32,7 @@
 			</cfif>
 
 
-			#includePartial("registrationcosts")#
+			#includePartial(partial="registrationcosts")#
 
 		<br/>
 		<p>

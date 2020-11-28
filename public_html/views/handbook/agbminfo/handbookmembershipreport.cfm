@@ -23,7 +23,7 @@
     <cfoutput query="ordained">
 		<cfoutput>
 		</cfoutput>
-	    #includePartial("handbookMembershipListing")#
+	    #includePartial(partial="handbookMembershipListing")#
     	<cfset count = count + 1>
     </cfoutput>
 	<cfoutput>
@@ -39,7 +39,7 @@
     <h2>Commissioned Ministers</h2>
     <cfset count = 0>
     <cfoutput query="commissioned">
-      #includePartial("handbookMembershipListing")#
+      #includePartial(partial="handbookMembershipListing")#
       <cfset count = count + 1>
     </cfoutput>
 	<cfoutput>

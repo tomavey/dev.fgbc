@@ -10,7 +10,7 @@
 
 			#hiddenFieldTag(name="handbookorganization[updatedBy]", value=session.auth.email)#
 		
-			#includePartial("form")#					
+			#includePartial(partial="form")#					
 
 			#submitTag()#
 				

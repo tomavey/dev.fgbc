@@ -25,7 +25,7 @@
 			.end()	
 --->
 <cfscript>
-	drawRoutes()
+	mapper()
 
 <!---------------------------------->
 <!----------Admin------------------->
@@ -845,7 +845,6 @@
 		.get(name="myhandbook", pattern="/myhandbook/[key]", controller="handbook.welcome", action="welcome")
 		.get(name="myhandbook", pattern="/myhandbook/", controller="handbook.welcome", action="myhandbook")
 
-		.get(name="handbookdistricts", pattern="/handbook-districts/show/[key]", controller="handbook.districts", action="show")
 		.get(name="handbookpages", pattern="/handbookpages/[key]", controller="handbook.organizations", action="show")
 		.get(name="handbook-subscribes", pattern="/handbook-subscribes/subscribeToDates", controller="handbook.subscribes", action="subscribeToDates")
 		.get(name="handbook-people", pattern="/handbook-people/show/[key]", controller="handbook.people", action="show")
@@ -922,8 +921,8 @@
 		.get(name="apiInstructors", pattern="/api/instructors/", controller="conference.instructors", action="listInstructorsAsJson")
 		.get(name="apiInstructorsForThisCourse", pattern="/api/instructors/[courseid]", controller="conference.instructors", action="listInstructorsAsJson")
 		.get(name="apiGeneralConferenceInfo", pattern="/api/conference/information/", controller="admin.contents", action="conferenceInformationAsJson")
-		.get(name="apiSpeakers", pattern="/api/speakers/", controller="conference.instructors", action="speakersAsJson")
 		.get(name="apiSpeakers", pattern="/api/speakers/[ID]", controller="conference.instructors", action="speakersAsJson")
+		.get(name="apiSpeakers", pattern="/api/speakers/", controller="conference.instructors", action="speakersAsJson")
 		.get(name="apiPersonalities", pattern="/api/personalities/", controller="conference.instructors", action="listStaffAsJson")
 		.get(name="apiCrudAnswer", pattern="/api/crud/[id]", controller="crud", action="showjson")
 		.get(name="apiCrudAnswerEdit", pattern="/api/crud/[ID]/edit", controller="crud", action="edit")

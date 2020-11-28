@@ -13,7 +13,7 @@
 		</div>
 
 		<div>
-			#includePartial("/home/announcements")#
+			#includePartial(partial="/home/announcements")#
 		</div>
 
 </div>

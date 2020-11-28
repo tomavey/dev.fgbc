@@ -43,7 +43,7 @@
 
 <cfif showpagination()>
 	<cfoutput>
-		#includePartial("/_shared/paginationlinks")#
+		#includePartial(partial="/_shared/paginationlinks")#
 	</cfoutput>
 </cfif>
 
@@ -81,8 +81,8 @@
 
 				<cfoutput group="id">
 
-					#includePartial("agecounter")#
-					#includePartial("table")#
+					#includePartial(partial="agecounter")#
+					#includePartial(partial="table")#
 					<cfset count = count +1>
 					<cfset districtcount = districtcount +1>
 
@@ -99,9 +99,9 @@
 				<cfif showThisPerson(id,params)><!---checks to eliminate members when mailing list is called for--->
 
     		
-    			#includePartial("agecounter")#
+    			#includePartial(partial="agecounter")#
 
-    			#includePartial("table")#
+    			#includePartial(partial="table")#
 
     				<cfset count = count +1>
 				</cfif>	
@@ -115,7 +115,7 @@
 
 <cfif showpagination()>
 	<cfoutput>
-		#includePartial("/_shared/paginationlinks")#
+		#includePartial(partial="/_shared/paginationlinks")#
 	</cfoutput>
 </cfif>
 <cfoutput>

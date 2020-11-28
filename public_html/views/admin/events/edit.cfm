@@ -10,7 +10,7 @@
 		
 			#putFormTag()#		
 
-			#includePartial("form")#				
+			#includePartial(partial="form")#				
 				
 			#submitTag()#
 				

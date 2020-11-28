@@ -6,7 +6,7 @@
 
 <div class="container" style="background-color:white;padding:20px;border-radius:10px">
 
-  #includePartial("includes/navbar")#
+  #includePartial(partial="includes/navbar")#
 
     <cfif gotRights("office")>
       <p class="text-right">
@@ -26,7 +26,7 @@
       );
     } else {
       for ( home in homes ) {
-        writeOutput(includePartial("includes/list"))
+        writeOutput(includePartial(partial="includes/list"))
       }
     }
     writeOutput(hiddenMessagetoTestFor())

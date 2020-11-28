@@ -288,8 +288,8 @@ function queryToArray(required query data){
 <!-------------------------->	
 
 	function h(required string text) {
-
-		writeOutput("<return xmlFormat(text)>")
+		return EncodeForHtml(text)
+		// writeOutput("<return xmlFormat(text)>")
 	}
 
 	function dd(message) {

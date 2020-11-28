@@ -15,11 +15,11 @@
 
 <div class="container" style="background-color:white;padding:20px;border-radius:10px">
 <cfoutput>
-	#includePartial("includes/navbar")#
+	#includePartial(partial="includes/navbar")#
 	<h1>List of #type# homes</h1>
 	<p>Sorted by #direction# on #sortby#</p>
 
-	#includePartial("includes/showFlash")#
+	#includePartial(partial="includes/showFlash")#
 
 	#hiddenMessagetoTestFor()#
 

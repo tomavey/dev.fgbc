@@ -4,7 +4,7 @@
 	<cfoutput>
 	<h1>Listing #params.category# settings:</h1>
 
-	#includePartial("showFlash")#
+	#includePartial(partial="showFlash")#
 
 		<p>#linkTo(text="New setting", action="new")#</p>
 		<p>Categories: <cfloop list="#categories#" index="i">

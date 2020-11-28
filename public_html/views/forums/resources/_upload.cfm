@@ -8,7 +8,7 @@
 	
 				#startFormTag(controller="forumresources", action="create", multipart="true")#
 				
-				#includePartial("../resources/form")#
+				#includePartial(partial="../resources/form")#
 	
 		</div>
 	    <div class="modal-footer">

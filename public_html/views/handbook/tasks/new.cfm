@@ -1,7 +1,7 @@
 <div class="span10 offset1">
 <h1>Create a new task</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -11,7 +11,7 @@
 	
 			#startFormTag(action="create")#
 
-			<div>#includePartial("form")#</div>
+			<div>#includePartial(partial="form")#</div>
 		
 			#submitTag()#
 				

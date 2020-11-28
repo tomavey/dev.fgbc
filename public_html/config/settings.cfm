@@ -13,16 +13,19 @@
 		}
 
 	// Defaults for form helpers
-	set(functionName="textField", labelPlacement="before", prependToLabel="<p>", append="</p>")
-	set(functionName="passwordField", labelPlacement="before", prependToLabel="<p>", append="</p>")
-	set(functionName="fileField", labelPlacement="before", prependToLabel="<p>", append="</p>")
-	set(functionName="textArea", labelPlacement="before", prependToLabel="<p>", append="</p>")
-	set(functionName="textFieldTag", labelPlacement="before", prependToLabel="<p>", append="</p>")
-	set(functionName="checkBoxTag", labelPlacement="before", prependToLabel="<p>", append="</p>")
-	set(functionName="radioButtonTag", labelPlacement="before", prependToLabel="<p>", append="</p>")
-	set(functionName="selectTag", labelPlacement="before", prependToLabel="<p>", append="</p>")
-	set(functionName="select", labelPlacement="before", prependToLabel="<p>", append="</p>")
-	set(functionName="timeSelect", labelPlacement="before", prependToLabel="<p>", append="</p>")
+	set(functionName="textField", labelPlacement="before", prependToLabel="<p>", append="</p>", encode="attributes")
+	set(functionName="passwordField", labelPlacement="before", prependToLabel="<p>", append="</p>", encode="attributes")
+	set(functionName="fileField", labelPlacement="before", prependToLabel="<p>", append="</p>", encode="attributes")
+	set(functionName="textArea", labelPlacement="before", prependToLabel="<p>", append="</p>", encode="attributes")
+	set(functionName="textFieldTag", labelPlacement="before", prependToLabel="<p>", append="</p>", encode="attributes")
+	set(functionName="checkBoxTag", labelPlacement="before", prependToLabel="<p>", append="</p>", encode="attributes")
+	set(functionName="radioButtonTag", labelPlacement="before", prependToLabel="<p>", append="</p>", encode="attributes")
+	set(functionName="selectTag", labelPlacement="before", prependToLabel="<p>", append="</p>", encode="attributes")
+	set(functionName="select", labelPlacement="before", prependToLabel="<p>", append="</p>", encode="attributes")
+	set(functionName="timeSelect", labelPlacement="before", prependToLabel="<p>", append="</p>", encode="attributes")
+	set(functionName="linkTo", encode="attributes")
+
+
 
 	// Settings for rewriting, reloading and errors
 	if ( isLocalMachine() ) {

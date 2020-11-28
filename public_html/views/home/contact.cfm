@@ -33,7 +33,7 @@
 		</div>
 	</div>
 	<div class="span3">
-		#includePartial("spotlight")#
+		#includePartial(partial="spotlight")#
 	</div>
 </div>
 

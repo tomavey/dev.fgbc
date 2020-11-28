@@ -6,7 +6,7 @@ General Instructions:  Fill out this application form. The deadline for applicat
 
 <cfoutput>
 	#ckeditor()#
-	#includePartial("showFlash")#
+	#includePartial(partial="showFlash")#
 </cfoutput>
 
 <cfoutput>
@@ -17,11 +17,11 @@ General Instructions:  Fill out this application form. The deadline for applicat
 	
 			#startFormTag(action="create")#
 		
-			#includePartial("form0")#
-			#includePartial("form1")#
-			#includePartial("form2")#
-			#includePartial("form3")#
-			#includePartial("form4")#
+			#includePartial(partial="form0")#
+			#includePartial(partial="form1")#
+			#includePartial(partial="form2")#
+			#includePartial(partial="form3")#
+			#includePartial(partial="form4")#
 
 			#submitTag()#
 				

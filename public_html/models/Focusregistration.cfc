@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 	
-	<cffunction name='init'>
+	<cffunction name='config'>
 		<cfset table("focus_registrations")>
 		<cfset belongsTo(name='invoice', modelName="Focusinvoice", foreignKey="invoiceId")>
 		<cfset belongsTo(name='registrant', modelName="Focusregistrant", foreignKey="registrantId")>

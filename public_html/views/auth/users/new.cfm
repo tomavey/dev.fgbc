@@ -25,10 +25,10 @@
 
 			#startFormTag(action=formAction)#
 
-			#includePartial("form")#	
+			#includePartial(partial="form")#	
 			
 			<cfif !bypassCaptcha>
-				#includePartial("/captcha")#	
+				#includePartial(partial="/captcha")#	
 			</cfif>
 
 			<p v-if=showMessage class="submitHelp">

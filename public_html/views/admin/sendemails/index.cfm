@@ -1,7 +1,7 @@
 <div class="container" ng-app="sendEmailApp">
 <h1>Listing Send-emails</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 

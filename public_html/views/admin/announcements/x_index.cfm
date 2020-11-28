@@ -19,7 +19,7 @@
 		</div>
 
 		<div>
-			#includePartial("/mainhome/announcements")#
+			#includePartial(partial="/mainhome/announcements")#
 		</div>
 
 	</div>

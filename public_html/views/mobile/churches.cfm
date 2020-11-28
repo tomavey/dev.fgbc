@@ -2,7 +2,7 @@
 <div data-role="page" id="churches">
 
     <div data-role="header">
-        #includePartial("/mobile/header")#
+        #includePartial(partial="/mobile/header")#
     </div><!-- /header -->
 
     <div data-role="content">

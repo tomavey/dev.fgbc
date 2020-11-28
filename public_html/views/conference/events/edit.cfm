@@ -13,7 +13,7 @@
 
 			#hiddenTagForKeyy()#
 
-			#includePartial("form")#
+			#includePartial(partial="form")#
 				
 			#submitTag()#
 				

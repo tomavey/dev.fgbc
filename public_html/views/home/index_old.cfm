@@ -3,33 +3,33 @@
 
 <cfif isCategoryMenu>
 <div id="categorymenu">
-	#includePartial("categorymenu")#
+	#includePartial(partial="categorymenu")#
 <cfelse>
 <div id="banner">
-	#includePartial("banner")#
+	#includePartial(partial="banner")#
 </cfif>	
 </div>
 <div id="imageLinks" class="row-fluid">
-	#includePartial("blockLinks")#
+	#includePartial(partial="blockLinks")#
 </div>
 </cfif>	
 <div id="feeds" class="row-fluid">
 	<cfif showannouncements>
 	<div class="#announcementsspan#">
 		<h3 class="addBottomBorder">Announcements</h3>
-		#includePartial("announcements")#
+		#includePartial(partial="announcements")#
 		#linkto(text="More Announcements", controller="announcements", action="index", class="btn btn-large")#
 	</div>
 	</cfif>
 
 		<div class="#feedspan#">
 			<h3 class="addBottomBorder">News Feed</h3>
-			#includePartial("twitterFeed")#
+			#includePartial(partial="twitterFeed")#
 		</div>
 
 	<div class="#spotlightspan#">
 		<h3 class="addBottomBorder">Spotlight</h3>
-		#includePartial("spotlight")#
+		#includePartial(partial="spotlight")#
 	</div>	
 </div>
 </cfoutput>

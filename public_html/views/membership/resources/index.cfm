@@ -5,7 +5,7 @@
 	<p>For #linkTo(text=getChurchAppName(params.keyy), controller="membership.applications", action="show", key=params.keyy)#</p>
 </cfif>
 
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
 	<p>#linkTo(text="Upload A New Document", controller="membership.resources", action="new")#</p>
 

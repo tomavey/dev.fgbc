@@ -2,7 +2,7 @@
 #editbutton('checkinheader')#
 <h1>#striptags(getQuestion("checkinheader"))#</h1>
 
-#includePartial("reload")#
+#includePartial(partial="reload")#
 
 <div class="well">
 
@@ -11,7 +11,7 @@
 
 </div>
 
-	#includePartial("showFlash")#
+	#includePartial(partial="showFlash")#
 </cfoutput>
 
 <cfoutput>
@@ -23,7 +23,7 @@
 	
 			#startFormTag(action="create")#
 		
-			#includePartial("form0")#
+			#includePartial(partial="form0")#
 
 		<fieldset>
 

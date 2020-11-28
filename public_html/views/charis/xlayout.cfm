@@ -3,23 +3,23 @@
 
 <cfoutput>
 
-    #includePartial("head")#
+    #includePartial(partial="head")#
 
         <body>
 
             <main>
 
-                #includePartial("header")#
+                #includePartial(partial="header")#
 
                 #contentForLayout()#
 
-                #includePartial("footer")#
+                #includePartial(partial="footer")#
 
             </main>
 
         <div class="u-outer-spaces-helper"></div>
 
-        #includePartial("jsIncludeTags")#
+        #includePartial(partial="jsIncludeTags")#
 
     </body>
 

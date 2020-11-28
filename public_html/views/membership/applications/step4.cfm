@@ -8,7 +8,7 @@
     <div class="bar" style="width: 50%;">Page 3 of 6 completed</div>
 </div>
 
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
 			#errorMessagesFor("membershipapplication")#
 	
@@ -16,7 +16,7 @@
 				
 			#putFormTag()#		
 
-			#includePartial("form4")#															
+			#includePartial(partial="form4")#															
 				#hiddenFieldTag(name="nextstep", value="step5")#
 
 			#editButton("submitstep4")#

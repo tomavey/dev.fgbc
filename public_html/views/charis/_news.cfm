@@ -18,7 +18,7 @@
       <div class="#newsClass#">
       <!-- Article -->
         <article>
-          #includePartial("announcements")#
+          #includePartial(partial="announcements")#
         </article>
       <!-- End Article -->
       </div>
@@ -27,7 +27,7 @@
       <div class="#newsClass#">
       <!-- Article -->
         <article>
-          #includePartial("twitterfeed")#
+          #includePartial(partial="twitterfeed")#
         </article>
       <!-- End Article -->
       </div>

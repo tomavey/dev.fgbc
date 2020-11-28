@@ -114,7 +114,7 @@
 	#textfieldtag(name="person", value="#urlDecode(params.person)#", required="yes", message="Please enter a name!", placeholder=placeholdermessage, class="input input-xxlarge")#
 	</fieldset>
 
-	#includePartial("selectoptions")#
+	#includePartial(partial="selectoptions")#
 
 	#submitTag(value=submitvalue, class="btn btn-large btn-block btn-info")#
 
@@ -134,7 +134,7 @@
 	<!------------------------------------->
 
 	<div class="" id="shoppingcart">
-		#includePartial("shoppingcart")#
+		#includePartial(partial="shoppingcart")#
 	</div>
 	</div><!---.row--->
 	</div><!---.container--->

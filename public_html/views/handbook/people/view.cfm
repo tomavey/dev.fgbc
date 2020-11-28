@@ -13,7 +13,7 @@
 
     <cfoutput>
 
-    #includePartial("pictures")#
+    #includePartial(partial="pictures")#
 
         <h3>#handbookperson.fullName#</h3>
         <cfif len(handbookperson.phone)>
@@ -32,7 +32,7 @@
             Secondary Email: #mailto(handbookperson.email2)#<br/>
         </cfif>
 
-    #includePartial("positions")#
+    #includePartial(partial="positions")#
 
     </cfoutput>
     </div>

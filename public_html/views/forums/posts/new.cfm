@@ -25,7 +25,7 @@ This message will be posted as a new comment on the forum.
 			#hiddenFieldTag(name="replyto", value=params.replyto)#
 			</cfif>
 			
-			#includePartial("form")#
+			#includePartial(partial="form")#
 		
 			#submitTag()#
 				

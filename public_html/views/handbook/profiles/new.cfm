@@ -12,7 +12,7 @@ Welcome to the AGBM/FGBC profile center. Please fill out as much of this form as
 			#select(objectName="handbookprofile", property="personid", options=people, label="Connect to handbook person", textField="selectname", valueField="id", includeBlank="Select Person to Connect")#
 			</cfif>
 		
-			#includePartial("form")#					
+			#includePartial(partial="form")#					
 
 			#submitTag(name="submit", value="Submit")#
 				

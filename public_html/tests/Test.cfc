@@ -1,4 +1,4 @@
-component extends="wheelsMapping.Test" output="true" {
+component extends="wheels.Test" output="true" {
 
   public function setup() {
 		session.authback = duplicate(session.auth);
@@ -20,7 +20,7 @@ component extends="wheelsMapping.Test" output="true" {
 		//  create an instance of the controller 
 		loc.controller = controller(loc.params.controller, loc.params);
 		//  process the create action of the controller 
-		loc.controller.$processAction();
+		loc.controller.processAction();
 		//  get copy of the code the view generated 
 		loc.response = loc.controller.response();
 		// Set the text we are looking for defaulting to </body>
@@ -37,7 +37,7 @@ component extends="wheelsMapping.Test" output="true" {
 		//  create an instance of the controller 
 		loc.controller = controller(loc.params.controller, loc.params);
 		//  process the create action of the controller 
-		loc.controller.$processAction();
+		loc.controller.processAction();
 		//  get the information about the redirect that should have happened 
 		loc.redirect = loc.controller.$getRedirect();
 		//  make sure that the redirect happened 

@@ -1,6 +1,6 @@
 <h1>Create a New Instructor</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -15,7 +15,7 @@
 				
 					
 																
-				#includePartial("form")#
+				#includePartial(partial="form")#
 
 				#submitTag()#
 				

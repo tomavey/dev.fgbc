@@ -2,7 +2,7 @@
 
 <div class="row-fluid well contentStart contentBg container">
 	<div class="span3">
-		#includePartial(partial="whoweare", selected="constitution")#
+		#(partial="whoweare", selected="constitution")#
 	</div>
 	<div class="span9">
 		<h3 class="addBottomBorder">#variables.content.name#</h3>

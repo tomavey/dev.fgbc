@@ -8,7 +8,7 @@
     <div class="bar" style="width: 30%;">Page 2 of 6 completed</div>
 </div>
 
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
 
 			
@@ -18,7 +18,7 @@
 				
 			#putFormTag()#		
 
-			#includePartial("form3")#			
+			#includePartial(partial="form3")#			
 
 			#hiddenFieldTag(name="nextstep", value="step4")#
 

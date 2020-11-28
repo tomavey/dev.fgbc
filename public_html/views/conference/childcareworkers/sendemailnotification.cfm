@@ -3,6 +3,6 @@
 <cfoutput>
 <p>This is being sent to #SendToAddresses#</p>
 			
-#includePartial("show")#				
+#includePartial(partial="show")#				
 				
 </cfoutput>

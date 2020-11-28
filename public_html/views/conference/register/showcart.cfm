@@ -1,5 +1,5 @@
 <div class="container">
 <cfoutput>
-        #includePartial("shoppingcart")#
+        #includePartial(partial="shoppingcart")#
 </cfoutput>
 </div>

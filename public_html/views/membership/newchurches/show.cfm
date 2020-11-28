@@ -2,9 +2,9 @@
 
 <cfoutput>
 
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
-#includePartial("show")#
+#includePartial(partial="show")#
 
 <cfif isOffice()>				
 #linkTo(text="Return to the listing", action="index")# 

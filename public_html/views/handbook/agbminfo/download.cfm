@@ -88,7 +88,7 @@
 
 	<tbody>
 		<cfoutput query="people">
-    		#includePartial("downloadtable")#
+    		#includePartial(partial="downloadtable")#
 			<cfset count = count + 1>
 		</cfoutput>
 	</tbody>

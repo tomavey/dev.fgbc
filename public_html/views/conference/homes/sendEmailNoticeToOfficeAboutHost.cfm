@@ -52,13 +52,13 @@
 <div class="container">
   <h1 class="text-center">THE FOLLOWING HOST HOME INFO HAS BEEN SUBMITTED</h1>
   <cfoutput>
-    #includePartial("includes/contactinfo")#
+    #includePartial(partial="includes/contactinfo")#
 
-    #includePartial("includes/availabilityinfo")#
+    #includePartial(partial="includes/availabilityinfo")#
   
-    #includePartial("includes/detailsinfo")#
+    #includePartial(partial="includes/detailsinfo")#
   
-    #includePartial("includes/office")#
+    #includePartial(partial="includes/office")#
 
     <p>
       #buttonForEmail(text="View Home", action="show", key=home.id)#

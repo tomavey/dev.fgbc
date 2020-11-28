@@ -19,11 +19,11 @@
 
 			<cfif isDefined("params.addReadOnlyPerson")>
 
-				#includePartial("formReadOnly")#				
+				#includePartial(partial="formReadOnly")#				
 
 			<cfelse>
 		
-				#includePartial("form")#				
+				#includePartial(partial="form")#				
 
 			</cfif>
 

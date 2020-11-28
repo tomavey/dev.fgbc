@@ -3,7 +3,7 @@
 <div class="well">
 #getQuestion("uploadInstructions")#
 </div>
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
 </cfoutput>
 

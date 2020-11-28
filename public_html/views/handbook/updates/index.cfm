@@ -60,7 +60,7 @@
 
 					<cfoutput>
 						<p>
-						#includePartial("/handbook/updates/logreport")#
+						#includePartial(partial="/handbook/updates/logreport")#
 						</p>
 					</cfoutput>
 				</p>
@@ -79,7 +79,7 @@
 			<cfif olddata NEQ newdata>
 				<p>
 					<h4>#linkTo(text="#name#:#org_city#", controller="handbook.organizations", action="show", key=recordid, onlypath=false)#</h4>
-					#includePartial("/handbook/updates/logreport")#
+					#includePartial(partial="/handbook/updates/logreport")#
 				</p>
 			</cfif>
 			</cfoutput>
@@ -116,7 +116,7 @@
 				<cfif olddata NEQ newdata>
 					<p>
 						<h4>#linkTo(text="#fname# #lname#", controller="handbook.people", action="show", key=personid, onlypath=false)#</h4>
-						#includePartial("/handbook/updates/logreport")#
+						#includePartial(partial="/handbook/updates/logreport")#
 					</p>
 				</cfif>
 			</cfoutput>

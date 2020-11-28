@@ -1,4 +1,4 @@
-component extends="wheelsMapping.Test" output="true" {
+component extends="wheels.Test" output="true" {
 
 	public function $run_view_test() {
 		//  create an instance of the controller 

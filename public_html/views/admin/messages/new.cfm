@@ -16,7 +16,7 @@
 							
 								#textArea(objectName='message', property='message', label='', rows="10", cols="75")#
 								
-					<!--- #includePartial("/captcha")#	 --->
+					<!--- #includePartial(partial="/captcha")#	 --->
 
 						#submitTag("Send Message")#
 

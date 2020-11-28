@@ -2,19 +2,19 @@
 
   <h1>Showing Host</h1>
 
-  #includePartial("includes/showFlash")#
+  #includePartial(partial="includes/showFlash")#
   
   <!--- <cfdump var="#home.properties()#"><cfabort> --->
   
-  #includePartial("includes/contactinfo")#
+  #includePartial(partial="includes/contactinfo")#
   
-  #includePartial("includes/availabilityinfo")#
+  #includePartial(partial="includes/availabilityinfo")#
   
-  #includePartial("includes/detailsinfo")#
+  #includePartial(partial="includes/detailsinfo")#
   
-  #includePartial("includes/locationinfo")#
+  #includePartial(partial="includes/locationinfo")#
   
-  #includePartial("includes/office")#
+  #includePartial(partial="includes/office")#
   
   <cfif gotRights("office")>
     #listTag()# #editTag(home.id)#

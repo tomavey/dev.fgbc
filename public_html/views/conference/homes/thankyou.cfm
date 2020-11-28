@@ -5,7 +5,7 @@
 
   <cfoutput>
 
-    #includePartial("includes/navbar")#
+    #includePartial(partial="includes/navbar")#
 
   
     <cfif gotRights("office")>

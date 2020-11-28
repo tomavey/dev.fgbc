@@ -1,3 +1,3 @@
 <cfoutput>
-#includePartial("show")#
+#includePartial(partial="show")#
 </cfoutput>

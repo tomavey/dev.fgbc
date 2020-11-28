@@ -3,7 +3,11 @@ component extends="tests.Test" output="true" {
 <!----------------------------------->
 <!--------VIEW TESTS----------------->  
 <!----------------------------------->
-
+function test_ActualEqualsExpected() {
+  actual = true;
+  expected = true;
+  assert("actual eq expected");
+}
   //REGISTRATION VIEWS
   public function test_registrations_Index() {
 		//  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"

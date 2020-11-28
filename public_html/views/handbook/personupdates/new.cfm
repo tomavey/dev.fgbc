@@ -6,7 +6,7 @@
 	
 			#startFormTag(action="create")#
 		
-			#includePartial("/handbookpeople/form")#	
+			#includePartial(partial="/handbookpeople/form")#	
 
 			#submitTag()#
 				

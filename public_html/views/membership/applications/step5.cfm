@@ -8,7 +8,7 @@
     <div class="bar" style="width: 66%;">Page 4 of 6 completed</div>
 </div>
 
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
 #ckeditor()#...
 
@@ -18,7 +18,7 @@
 				
 			#putFormTag()#		
 
-			#includePartial("form5")#			
+			#includePartial(partial="form5")#			
 
 			#hiddenFieldTag(name="nextstep", value="step6")#
 

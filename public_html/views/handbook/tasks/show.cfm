@@ -3,7 +3,7 @@
 
 <h1>#handbooktask.title#</h1>
 
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
 
 <!---				

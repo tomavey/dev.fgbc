@@ -4,7 +4,7 @@
 
 <h1>#getQuestion("showheader")# #membershipapplication.name_of_church#</h1>
 
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
 <cfif not isDefined("params.doc") AND showButtons>
 	<cfif gotRights("office")>
