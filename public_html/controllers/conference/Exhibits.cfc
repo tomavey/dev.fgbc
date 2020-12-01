@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("/conference/adminlayout")>
 		<cfset filters(through="officeOnly", only="edit,delete")>
 		<cfset filters(through="isExhibitsOpen", only="new,info")>
@@ -59,7 +59,7 @@
 	<cffunction name="new">
 		<cfset exhibit = model("Conferenceexhibit").new()>
 		<cfset introTitle = "Exhibitors Request Form">
-		<cfset renderPage(layout="/conference/layout2018")>
+		<cfset renderView(layout="/conference/layout2018")>
 	</cffunction>
 
 	<!--- exhibits/create --->
@@ -69,7 +69,7 @@
 
 		<cfif exhibit.hasErrors()>
 			<cfset flashInsert(error="There was an error creating the exhibit.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		<cfelse>
 			<cfset flashInsert(success="The exhibit was created successfully.")>
 			<cfif !isLocalMachine()>
@@ -104,7 +104,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the exhibit.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -132,12 +132,12 @@
 	<cffunction name="thankyou">
 		<cfset exhibit = Model("Conferenceexhibit").findByKey(params.key)>
 		<cfset introTitle = "Thank you!">
-		<cfset renderPage(layout="/conference/layout2018")>
+		<cfset renderView(layout="/conference/layout2018")>
 	</cffunction>
 
 	<cffunction name="info">
 		<cfset introTitle = "Exhibitors Information">
-		<cfset renderPage(layout="/conference/layout2017")>
+		<cfset renderView(layout="/conference/layout2017")>
 	</cffunction>
 
 	<cfscript>
@@ -150,7 +150,7 @@
 			if (isDefined("params.type") && (params.type is "sponsor")) { whereString = whereString & " AND type IN ('sponsor', 'both')" };
 			if (isDefined("params.sortby")) { orderBy = params.sortby };
 			exhibits = model("Conferenceexhibit").findAll(where=whereString, order=orderby);
-			renderPage(layout="/conference/layout2017");
+			renderView(layout="/conference/layout2017");
 		}
 
 		// public function history(){

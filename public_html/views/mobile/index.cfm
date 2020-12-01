@@ -5,11 +5,11 @@
 <div data-role="page" id="welcome">
 
 	<div data-role="header">
-		#includePartial("/mobile/header")#
+		#includePartial(partial="/mobile/header")#
 	</div><!-- /header -->
 
 	<div data-role="content">
-		#includePartial("/mobile/welcome")#
+		#includePartial(partial="/mobile/welcome")#
 		<cfoutput query="menuoptions" group="category">
 			<hr/>
 			<cfoutput>
@@ -32,7 +32,7 @@
 <div data-role="page" id="churches">
 
 	<div data-role="header">
-		#includePartial("/mobile/header")#
+		#includePartial(partial="/mobile/header")#
 	</div><!-- /header -->
 
 	<div data-role="content">
@@ -56,7 +56,7 @@
 <div data-role="page" id="ministries">
 
 	<div data-role="header">
-		#includePartial("/mobile/header")#
+		#includePartial(partial="/mobile/header")#
 	</div><!-- /header -->
 
 	<div data-role="content">
@@ -91,7 +91,7 @@
 <div data-role="page" id="more">
 
 	<div data-role="header">
-		#includePartial("/mobile/header")#
+		#includePartial(partial="/mobile/header")#
 	</div><!-- /header -->
 
 	<div data-role="content">

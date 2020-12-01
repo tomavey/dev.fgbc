@@ -18,7 +18,7 @@
 
 <body style="padding-top: 60px;">
 	<cfoutput>
-		#includePartial("/handbook/navbaragbm")#
+		#includePartial(partial="/handbook/navbaragbm")#
 	</cfoutput>
 	<div class="container">
 		<cfoutput>#contentForLayout()#</cfoutput>

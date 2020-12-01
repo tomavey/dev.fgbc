@@ -19,7 +19,7 @@ component extends="Controller" output="false" {
         }
         content = model("Fccontent").findAll(where=whereString);
         data=queryToJson(content);
-        renderPage(layout="/layout_json", template="/json.cfm", hideDebugInformation="true");
+        renderView(layout="/layout_json", template="/json.cfm", hideDebugInformation="true");
     }
 
 }

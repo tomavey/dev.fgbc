@@ -6,9 +6,9 @@
 
   <div class="homes-form">
 
-  #includePartial("includes/contactfields")#
+  #includePartial(partial="includes/contactfields")#
 
-  #includePartial("includes/guestfields")#
+  #includePartial(partial="includes/guestfields")#
 
 </div>
 

@@ -41,7 +41,7 @@ component extends="Controller" output="false" {
 			redirectTo(action="index")
 		} else {
 			flashInsert(error="There was an error creating the right.")
-			renderPage(action="new")
+			renderView(action="new")
 		}
 	}
 	
@@ -52,7 +52,7 @@ component extends="Controller" output="false" {
 			redirectTo(action="index")
 		} else {
 			flashInsert(error="There was an error updating the right.")
-			renderPage(action="edit")
+			renderView(action="edit")
 		}
 	}
 		

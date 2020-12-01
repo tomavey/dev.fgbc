@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset filters(through="getCurrentMembershipYear")>
 		<cfset usesLayout(template="/handbook/layout_agbm")>
 		<cfset filters(through="gotAgbmRights")>
@@ -64,7 +64,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the handbookagbmregion.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 
@@ -79,7 +79,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the AGBM region.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -100,17 +100,17 @@
 
 	<cffunction name="agbmregionsasjson">
 		<cfset data = model("Handbookagbmregion").agbmregionsasjson()>
-		<cfset renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)>
+		<cfset renderView(layout="/layout_json", template="/json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="agbmregionasjson">
 		<cfset data = model("Handbookagbmregion").agbmregionasjson(params.key)>
-		<cfset renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)>
+		<cfset renderView(layout="/layout_json", template="/json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="agbmrep">
 		<cfset data = model("Handbookagbmregion").getrep(params.key)>
-		<cfset renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)>
+		<cfset renderView(layout="/layout_json", template="/json", hideDebugInformation=true)>
 	</cffunction>
 
 </cfcomponent>

@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 	
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("/conference/adminlayout")>
 		<cfset filters(through="officeOnly", except="index,list,summary,show,excel,json")>
 		<cfset filters(through="setReturn", only="index,show,list")>
@@ -93,7 +93,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the location.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 	
@@ -111,7 +111,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the location.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 	

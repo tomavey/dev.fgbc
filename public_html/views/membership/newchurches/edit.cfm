@@ -5,7 +5,7 @@
 	The Fellowship of Grace Brethren Churches is focused on Church Planting, Leadership Training and Integrated Ministry. Your new church is very important to us. We may even be able to help with networking, prayer and possibly financial support.  If your new church is in the USA or Canada, please use this simple form to let us know about your church.
 </div>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -16,7 +16,7 @@
 
 			#putFormTag()#		
 
-			#includePartial("form")#	
+			#includePartial(partial="form")#	
 															
 			#submitTag()#
 				

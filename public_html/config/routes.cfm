@@ -25,7 +25,7 @@
 			.end()	
 --->
 <cfscript>
-	drawRoutes()
+	mapper()
 
 <!---------------------------------->
 <!----------Admin------------------->
@@ -466,7 +466,20 @@
 				.get(name="download", pattern="/download/", controller="events", action="excel")
 			.end()	
 
-			.resources("age_ranges")
+			.controller("age_ranges")
+				.get(name="index", pattern="/")
+				.get(name="show", pattern="show/")
+				.get(name="edit", pattern="edit/")
+				.get(name="new", pattern="new/")
+				.get(name="delete", pattern="delete/")
+				.delete(name="delete", pattern="delete/")
+				.post(name="update", pattern="update/")
+				.put(name="update", pattern="update/")
+				.post(name="create", pattern="create/")
+				.put(name="create", pattern="create/")
+				.get(name="copy", pattern="copy")
+				.get(name="list", pattern="list")
+			.end()	
 
 			.get(name="newexhibitform", pattern="/exhibit/", controller="exhibits", action="new")
 			.get(name="deleteexhibits", pattern="/exhibits/[key]/delete", controller="exhibits", action="delete")
@@ -560,7 +573,7 @@
 			.end()	
 
 			.controller("courses")
-				.get(name="index", pattern="/")
+ 				.get(name="index", pattern="/")
 				.get(name="show", pattern="show/")
 				.get(name="edit", pattern="edit/")
 				.get(name="new", pattern="new/")
@@ -577,7 +590,6 @@
 				.get(name="listType", pattern="list/[key]", action="list")
 				.get(name="view", pattern="view/[key]", action="view")
 				.get(name="copyAllToCurrentEvent", pattern="CopyAllToCurrentEvent", action="CopyAllToCurrentEvent")
-				.get(name="copy", pattern="/copy/[key]", action="copy")
 				.get(name="selectPersonToSelectCohorts", pattern="/selectPersonToSelectCohorts/", action="selectPersonToSelectCohorts")
 				.get(name="selectCohorts", pattern="/selectcohorts/", action="selectCohorts")
 				.post(name="selectCohorts", pattern="/selectcohorts/", action="selectCohorts")
@@ -845,7 +857,6 @@
 		.get(name="myhandbook", pattern="/myhandbook/[key]", controller="handbook.welcome", action="welcome")
 		.get(name="myhandbook", pattern="/myhandbook/", controller="handbook.welcome", action="myhandbook")
 
-		.get(name="handbookdistricts", pattern="/handbook-districts/show/[key]", controller="handbook.districts", action="show")
 		.get(name="handbookpages", pattern="/handbookpages/[key]", controller="handbook.organizations", action="show")
 		.get(name="handbook-subscribes", pattern="/handbook-subscribes/subscribeToDates", controller="handbook.subscribes", action="subscribeToDates")
 		.get(name="handbook-people", pattern="/handbook-people/show/[key]", controller="handbook.people", action="show")
@@ -922,8 +933,8 @@
 		.get(name="apiInstructors", pattern="/api/instructors/", controller="conference.instructors", action="listInstructorsAsJson")
 		.get(name="apiInstructorsForThisCourse", pattern="/api/instructors/[courseid]", controller="conference.instructors", action="listInstructorsAsJson")
 		.get(name="apiGeneralConferenceInfo", pattern="/api/conference/information/", controller="admin.contents", action="conferenceInformationAsJson")
-		.get(name="apiSpeakers", pattern="/api/speakers/", controller="conference.instructors", action="speakersAsJson")
 		.get(name="apiSpeakers", pattern="/api/speakers/[ID]", controller="conference.instructors", action="speakersAsJson")
+		.get(name="apiSpeakers", pattern="/api/speakers/", controller="conference.instructors", action="speakersAsJson")
 		.get(name="apiPersonalities", pattern="/api/personalities/", controller="conference.instructors", action="listStaffAsJson")
 		.get(name="apiCrudAnswer", pattern="/api/crud/[id]", controller="crud", action="showjson")
 		.get(name="apiCrudAnswerEdit", pattern="/api/crud/[ID]/edit", controller="crud", action="edit")

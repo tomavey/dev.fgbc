@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
- public void function init(){
+ public void function config(){
     filters(through="checkauth", except="new,content,show,index,email,questions,showjson,delete,list,submit");
     usesLayout("/layoutadmin");
   }
@@ -16,7 +16,7 @@ component extends="Controller" output="false" {
  }
 
  public void function content(){
-    renderPage(layout="/layout_json", template="content", hideDebugInformation=true)
+    renderView(layout="/layout_json", template="content", hideDebugInformation=true)
  }
 
  public void function email(){
@@ -24,7 +24,7 @@ component extends="Controller" output="false" {
     ministryid = params.id;
     contactemail = params.email;
     sendEMail(from="tomavey@fgbc.org", to=contactemail, subject="A New Cooperating Ministry application for #ministryname#", template="email", layout="/layout_for_email");
-    renderPage(template="emailsent");
+    renderView(template="emailsent");
  }
 
  public void function submit(){
@@ -68,14 +68,14 @@ component extends="Controller" output="false" {
            };
         }
 
-        renderPage(template="/json", layout="/layout_json", hideDebugInformation=true);
+        renderView(template="/json", layout="/layout_json", hideDebugInformation=true);
         }
 
  public void function  list(){
     var answers = model("Crud").findAll();
     answers = queryToJson(answers);
     data = answers;
-    renderPage(template="/json", layout="/layout_json", hideDebugInformation=true);
+    renderView(template="/json", layout="/layout_json", hideDebugInformation=true);
   }
 
   public void function delete(){
@@ -87,7 +87,7 @@ component extends="Controller" output="false" {
          else {
             data=false;
          };
-        renderPage(template="/json", layout="/layout_json", hideDebugInformation=true);
+        renderView(template="/json", layout="/layout_json", hideDebugInformation=true);
   }
 
   public void function showjson(){
@@ -98,7 +98,7 @@ component extends="Controller" output="false" {
           else {
               data=false;
         };
-        renderPage(template="/json", layout="/layout_json", hideDebugInformation=true);
+        renderView(template="/json", layout="/layout_json", hideDebugInformation=true);
   }
 
 }

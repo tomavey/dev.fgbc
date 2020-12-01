@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 	
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset useslayout(template='/focus/layout2')>
 		<cfset filters('getRetreats,getRetreatRegions')>
 		<cfset filters(through="setReturn", only="index,show")>
@@ -8,7 +8,7 @@
 
 	<cffunction name="index">
 		<cfset testimonies = model("Focustestimony").findAll(include="retreat", order="createdAt")>
-		<cfset renderPage(layout="/layoutadmin")>
+		<cfset renderView(layout="/layoutadmin")>
 	</cffunction>
 
 	<cffunction name="list">
@@ -41,7 +41,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the testimony.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 
 	</cffunction>
@@ -55,7 +55,7 @@
 			  <cfset redirectTo(action="show", key=params.testimony.id)>
 		<cfelse>
 			  <cfset flashInsert(success = "Testimony NOT updated")>
-			  <cfset renderPage(action="edit")>
+			  <cfset renderView(action="edit")>
 		</cfif>
 
 	</cffunction>

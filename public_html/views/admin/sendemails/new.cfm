@@ -1,7 +1,7 @@
 <div class="container">
 <h1>Create a New Message</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -9,7 +9,7 @@
 
 			#startFormTag(action="create")#
 
-			#includePartial("form")#
+			#includePartial(partial="form")#
 
 			#submitTag()#
 

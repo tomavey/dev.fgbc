@@ -1,7 +1,7 @@
 component extends="Controller" output="false" {
 	dsn = "fgbc_main_3";
 
-	public function init() {
+	public function config() {
 		usesLayout("/conference/adminlayout");
 		filters(through="officeOnly", except="backupall");
 	}

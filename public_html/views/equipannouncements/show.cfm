@@ -1,6 +1,6 @@
 <h1>Showing equipannouncement</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 

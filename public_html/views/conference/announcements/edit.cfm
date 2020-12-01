@@ -1,7 +1,7 @@
 <div data-role="content">
 <h1>Editing announcement:</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -19,7 +19,7 @@
 
 			#hiddenTagForKeyy()#
 
-			#includePartial("form")#
+			#includePartial(partial="form")#
 
 			#submitTag()#
 

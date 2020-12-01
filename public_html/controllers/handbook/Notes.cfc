@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 	
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset filters(through="gotBasicHandbookRights")>
 		<cfset filters(through="setreturn", only="show,index")>
 		<cfset usesLayout(template="/handbook/layout_handbook2")>
@@ -10,7 +10,7 @@
 	<!--- handbook-notes/index --->
 	<cffunction name="index">
 		<cfset handbooknotes = model("Handbooknote").findAll(where="createdBy='#session.auth.email#'")>
-		<cfset renderPage(layout="/handbooklayouts/layout_handbook")>
+		<cfset renderView(layout="/handbooklayouts/layout_handbook")>
 	</cffunction>
 	
 	<!--- handbook-notes/show/key --->
@@ -74,7 +74,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the handbooknote.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 	
@@ -89,7 +89,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the handbooknote.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 	

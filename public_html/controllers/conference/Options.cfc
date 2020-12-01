@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("/conference/adminlayout")>
 		<cfset filters(through="officeOnly", except="rssmeals,rssregs,rssccare,rssexcursions,rsspreconference,rsslabs,showoption,testisbefore,testiframe,jsonmeals,jsonregs,jsonexcursions,list")>
 		<cfset filters(through="setRssEnvironment", only="rssregs,rssmeals,rssccare,rsspreconference")>
@@ -62,7 +62,7 @@
 		<cfelse>
 			<cfset options = model("Conferenceoption").findAll(where="event = '#getEvent()#'", order="type,sortorder")>
 		</cfif>
-		<cfset renderPage(layout="/layout_naked")>
+		<cfset renderView(layout="/layout_naked")>
 	</cffunction>
 
 	<cffunction name="showDescription">
@@ -73,7 +73,7 @@
 	<!--- options/showoption/key --->
 	<cffunction name="showoption">
 		<cfset option = model("Conferenceoption").findAll(where="id=#params.key#", parameterize=true)>
-		<cfset renderPage(layout="/conference/layout")>
+		<cfset renderView(layout="/conference/layout")>
 	</cffunction>
 
 	<!--- options/add --->
@@ -107,7 +107,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the option.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 
@@ -122,7 +122,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the option.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -174,7 +174,7 @@
 			<cfset set(environment="production")>
 		</cfif>
 
-		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
+		<cfset renderView(template="rss.cfm", layout="rsslayout")>
 	</cffunction>
 
 	<cffunction name="jsonmeals">
@@ -251,7 +251,7 @@
 		<cfif application.wheels.environment is not "production">
 			<cfset set(environment="production")>
 		</cfif>
-		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
+		<cfset renderView(template="rss.cfm", layout="rsslayout")>
 	</cffunction>
 
 	<cffunction name="rssexcursions">
@@ -263,7 +263,7 @@
 		<cfelse>
 			<cfset description= "There's lots to do around in the Palm Springs Valley.  Stay tuned as we develop options!">
 		</cfif>
-		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
+		<cfset renderView(template="rss.cfm", layout="rsslayout")>
 	</cffunction>
 
 	<cffunction name="rssregs">
@@ -300,7 +300,7 @@
 			<cfset set(environment="production")>
 		</cfif>
 
-		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
+		<cfset renderView(template="rss.cfm", layout="rsslayout")>
 
 	</cffunction>
 
@@ -308,7 +308,7 @@
 		<cfset options = model("Conferenceoption").findAll(where="type='preconferenceX'", order="sortorder")>
 		<cfset title = "Vision2020 Pre-Conference Options">
 		<cfset description= "Vision2020 includes some pre-conference options that will help your ministry. Classes are July 27 and 28. Stay tunes for more information.">
-		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
+		<cfset renderView(template="rss.cfm", layout="rsslayout")>
 	</cffunction>
 
 	<cffunction name="rsslabs">
@@ -322,7 +322,7 @@
 			<cfset set(environment="production")>
 		</cfif>
 
-		<cfset renderPage(template="rss.cfm", layout="rsslayout")>
+		<cfset renderView(template="rss.cfm", layout="rsslayout")>
 	</cffunction>
 
 <!---End of RSS Actions--->
@@ -371,7 +371,7 @@
 	</cffunction>
 
 	<cffunction name="testiframe">
-	<cfset renderPage(layout="/layout_ajax")>
+	<cfset renderView(layout="/layout_ajax")>
 	</cffunction>
 
 </cfcomponent>

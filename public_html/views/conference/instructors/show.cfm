@@ -1,6 +1,6 @@
 <h1>Showing instructor</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 

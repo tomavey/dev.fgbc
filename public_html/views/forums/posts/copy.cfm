@@ -10,7 +10,7 @@
 			#hiddenFieldTag(name="replyto", value=params.replyto)#
 			</cfif>
 
-			#includePartial("form")#
+			#includePartial(partial="form")#
 		
 			#submitTag()#
 				

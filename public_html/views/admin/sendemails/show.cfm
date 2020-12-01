@@ -2,7 +2,7 @@
 <div class="container">
 	<h1>#sendemails.subject#</h1>
 
-	#includePartial("showFlash")#
+	#includePartial(partial="showFlash")#
 
 			<div class='well'>#sendemails.message#</div>
 

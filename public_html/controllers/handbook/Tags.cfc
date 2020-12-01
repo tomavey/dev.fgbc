@@ -1,6 +1,6 @@
 component extends="Controller" output="true" {
 
-		function init() {
+		function config() {
 		usesLayout(template="/handbook/layout_handbook1", except="download,show,search");
 		filters(through="gotBasicHandbookRights");
 		provides("html,xml,json");
@@ -32,7 +32,7 @@ component extends="Controller" output="true" {
 		people = model("Handbookperson").findAll(where="p_sortorder < 900", include="Handbookstate,Handbookpositions", order="lname,fname,city");
 		organizations = model("Handbookorganization").findAll(where="statusid IN (1,8,2)", include="Handbookstate", order="org_city,state,name");
 		handbooktags = model("Handbooktag").findMyTags(session.auth);
-		renderPage(layout="/handbook/layout_handbook1");
+		renderView(layout="/handbook/layout_handbook1");
 	}
 
 	//  handbook-tags/show/key 
@@ -87,7 +87,7 @@ component extends="Controller" output="true" {
 		if ( isdefined("params.ajax") ) {
 			renderPartial("show");
 		}
-		renderPage(layout="/handbook/layout_handbook");
+		renderView(layout="/handbook/layout_handbook");
 	}
 
 	//  handbook-tags/new 
@@ -127,7 +127,7 @@ component extends="Controller" output="true" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error updating the handbooktag.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
 	}
 
@@ -308,9 +308,9 @@ component extends="Controller" output="true" {
 			showtitles = true;
 		}
 		if ( isdefined("params.format") && params.format == "excel" ) {
-			renderPage(template="download", layout="/layout_download");
+			renderView(template="download", layout="/layout_download");
 		} else {
-			renderPage(template="download", layout="/layout_naked");
+			renderView(template="download", layout="/layout_naked");
 		}
 	}
 
@@ -355,7 +355,7 @@ component extends="Controller" output="true" {
 					order="tag");
 		} catch (any cfcatch) {
 		}
-		renderPage(layout="/handbook/layout_handbook");
+		renderView(layout="/handbook/layout_handbook");
 	}
 	
 	function orphanedTags(){
@@ -560,7 +560,7 @@ component extends="Controller" output="true" {
 			<cfset renderPartial("show")>
 		</cfif>
 
-		<cfset renderPage(layout="/handbook/layout_handbook")>
+		<cfset renderView(layout="/handbook/layout_handbook")>
 
 	</cffunction>
 
@@ -610,7 +610,7 @@ component extends="Controller" output="true" {
 						order="tag")>
 			<cfcatch></cfcatch></cftry>
 		
-			<cfset renderPage(layout="/handbook/layout_handbook")>
+			<cfset renderView(layout="/handbook/layout_handbook")>
 		</cffunction> --->
 		
 	}

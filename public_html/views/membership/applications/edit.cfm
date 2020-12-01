@@ -3,8 +3,8 @@
 <h1>#getQuestion("editheader")#</h1>
 
 
-#includePartial("reload")#
-#includePartial("showFlash")#
+#includePartial(partial="reload")#
+#includePartial(partial="showFlash")#
 
 </cfoutput>
 
@@ -18,17 +18,17 @@
 			#putFormTag()#		
 		
 		<cfif isFellowshipCouncil()>
-			#includePartial("form0")#
+			#includePartial(partial="form0")#
 		</cfif>	
-			#includePartial("form1")#
-			#includePartial("form2")#
-			#includePartial("form3")#
-			#includePartial("form4")#
-			#includePartial("form5")#
-			#includePartial("form6")#
+			#includePartial(partial="form1")#
+			#includePartial(partial="form2")#
+			#includePartial(partial="form3")#
+			#includePartial(partial="form4")#
+			#includePartial(partial="form5")#
+			#includePartial(partial="form6")#
 
 			<cfif isFellowshipCouncil() || gotRights("superadmin,office,handbookedit")>
-				#includePartial("form7")#
+				#includePartial(partial="form7")#
 			</cfif>
 
 			#submitTag(trim(stripTags(getQuestion("submitedit"))))#

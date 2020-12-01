@@ -1,7 +1,7 @@
 <div data-role="content">
 <h1>Copying announcement:</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -15,7 +15,7 @@
 
 			#startFormTag(action="create", key=params.key)#
 
-			#includePartial("form")#
+			#includePartial(partial="form")#
 
 			#submitTag()#
 

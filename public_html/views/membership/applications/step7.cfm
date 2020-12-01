@@ -1,6 +1,6 @@
 <h1>FGBC Membership Application - Step 7</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -11,7 +11,7 @@
 				
 			#putFormTag()#		
 
-			#includePartial("form7")#															
+			#includePartial(partial="form7")#															
 			#hiddenFieldTag(name="nextstep", value="thankyou")#
 
 			#submitTag()#

@@ -111,7 +111,7 @@
             **Possible Duplication**&nbsp;<br/>
           </cfif>
 
-        #includePartial("/_shared/handbookinfo")#
+        #includePartial(partial="/_shared/handbookinfo")#
 
         <p class="bluepageextrainfo">
 

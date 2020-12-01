@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	function init(){
+	function config(){
 		filters(through="isPageEditor", only="edit,index")
 		filters(through="checkOffice", only="new,delete")
 		filters(through="getAllRights", only="new,edit,create")
@@ -30,7 +30,8 @@ component extends="Controller" output="false" {
  	<!--- contents/show/key --->
 	 function show(){
 		if (isDefined("params.shortlink")){
-			content = model("Maincontent").findOne(where="shortlink='#params.shortlink#'")			
+			content = model("Maincontent").findOne(where="shortlink='#params.shortlink#'")
+			params.key = params.shortlink			
 		} else {
 			content = model("Maincontent").findByKey(params.key)
 		}
@@ -65,7 +66,7 @@ component extends="Controller" output="false" {
 			returnBack()
 		} else {
 			flashInsert(error="There was an error creating the content.")
-			renderPage(action="new")
+			renderView(action="new")
 		}
 	}
 
@@ -77,7 +78,7 @@ component extends="Controller" output="false" {
 			returnBack()
 		} else {
 			flashInsert(error="There was an error updating the content.")
-			renderPage(action="edit")
+			renderView(action="edit")
 		}
 	}
 	

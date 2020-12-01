@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("/membership/layout")>
 		<cfset filters(through="getFieldNamesList")>
 		<cfset filters(through="setReturn", only="index,show")>
@@ -56,7 +56,7 @@
 	    </cfif>
 
 		<cfif isDefined("params.ajax")>
-			<cfset renderPage(layout="/membershipapplayouts/layout_ajax")>
+			<cfset renderView(layout="/membershipapplayouts/layout_ajax")>
 		</cfif>
 		
 	</cffunction>
@@ -86,7 +86,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the membershipappquestion.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 	
@@ -101,7 +101,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the membershipappquestion.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 	

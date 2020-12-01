@@ -14,7 +14,7 @@
 						#select(objectName='handbookagbminfo', property='personid', label='Person: ', options=people)#
 				</cfif>				
 					
-			#includePartial("form")#					
+			#includePartial(partial="form")#					
 
 			#submitTag()#
 				

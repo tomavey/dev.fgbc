@@ -2,7 +2,7 @@
 <div class="#params.action#" id="showinfo">
 	 				#showHandbookListingLink(params.key)#
 
-					#includePartial("show")#
+					#includePartial(partial="show")#
 <br/>
 					<div class="googlemap">
 			          <cfif not handbookorganization.address1 contains "box">

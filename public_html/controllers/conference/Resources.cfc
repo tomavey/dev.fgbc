@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 	
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout(template="/conference/adminlayout", except="new,thankyou")>
 	</cffunction>	
 
@@ -58,7 +58,7 @@
 		<!--- Verify that the resource creates successfully --->
 		<cfif resource.hasErrors()>
 			<cfset flashInsert(error="There was an error creating the resource.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(success="The resource was created successfully.")>
@@ -78,7 +78,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the resource.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 	

@@ -8,7 +8,7 @@
 	
 			#startFormTag(action="create", multipart="true")#
 		
-			#includePartial("form")#
+			#includePartial(partial="form")#
 
 			#submitTag("Submit Resource")#
 				

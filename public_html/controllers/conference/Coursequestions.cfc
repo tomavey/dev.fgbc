@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
   
-  function init(){
+  function config(){
     usesLayout(template="/conference/adminlayout", only="index");
 		usesLayout(template="/conference/layout2018", only="list,new,edit")
     filters(through="getCourses", include="new,edit");
@@ -28,7 +28,7 @@ component extends="Controller" output="false" {
   // Coursequestions/index
   function index(){
     Coursequestions = model("Conferencecoursequestion").findAll(where="event='#getEvent()#'", include="person(family),course", order="title");
-    renderPage(layout="/conference/adminlayout")
+    renderView(layout="/conference/adminlayout")
   }
   
 
@@ -59,7 +59,7 @@ component extends="Controller" output="false" {
     } else {
     }
     if (isMobile()){
-      renderPage(layout="/conference/layout_mobile")
+      renderView(layout="/conference/layout_mobile")
     }
   }
   
@@ -72,7 +72,7 @@ component extends="Controller" output="false" {
 			redirectTo(action="index");
 	  }
     if (isMobile()){
-      renderPage(layout="/conference/layout_mobile")
+      renderView(layout="/conference/layout_mobile")
     }
   }
   
@@ -86,13 +86,13 @@ component extends="Controller" output="false" {
       returnBack();
 		} else {
 		  flashInsert(error="There was an error creating the Coursequestion.");
-		  renderPage(action="new");
+		  renderView(action="new");
 		};
   }
 
   // mobile Thank you
   function thankyou() {
-    renderPage(layout="/conference/layout_mobile")
+    renderView(layout="/conference/layout_mobile")
   }
   
   // Coursequestions/update
@@ -104,7 +104,7 @@ component extends="Controller" output="false" {
       returnBack();
 		} else {
 		  flashInsert(error="There was an error updating the course-question.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
   }
   
@@ -138,7 +138,7 @@ component extends="Controller" output="false" {
   function json(){
     Coursequestions = model("Conferencecoursequestion").findAll(where="event='#getEvent()#'", include="person(family),course", order="title");
     data = queryToJson(Coursequestions);
-		renderPage(layout="/layout_json", template="/json", hideDebugInformation=true)
+		renderView(layout="/layout_json", template="/json", hideDebugInformation=true)
   }
   
 }

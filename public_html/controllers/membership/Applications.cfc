@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout(template="/membership/layout", except="about")>
 
 		<cfset filters(through="getstates")>
@@ -109,7 +109,7 @@
 		<cfif NOT isDefined("session.membershipapplication.id") AND NOT
 			isFellowshipCouncil()>
 			<cfset showButtons=false>
-			<cfset renderPage(layout="/membership/layout_no_navbar")>
+			<cfset renderView(layout="/membership/layout_no_navbar")>
 		<cfelse>
 			<cfset showButtons=true>
 		</cfif>
@@ -180,7 +180,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the membershipapplication.")>
-			<cfset renderPage(action="checkin")>
+			<cfset renderView(action="checkin")>
 		</cfif>
 	</cffunction>
 
@@ -202,7 +202,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the membershipapplication.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -242,11 +242,11 @@
 
 	<cffunction name="search">
 		<cfset membershipapplications = model("Membershipapplication").findApps(params.search)>
-		<cfset renderPage(action="index")>
+		<cfset renderView(action="index")>
 	</cffunction>
 
 	<cffunction name="about">
-		<cfset renderPage(layout="/membership/layout_no_navbar")>
+		<cfset renderView(layout="/membership/layout_no_navbar")>
 	</cffunction>
 
 <!---Security functions--->
@@ -280,7 +280,7 @@
 
 	<cffunction name="testSendEmailAtStart">
 		<cfset sendEmailAtStart("tomavey9173@gmail.com","123")>
-		<cfset renderPage(template="sendEmailAtStart")>
+		<cfset renderView(template="sendEmailAtStart")>
 	</cffunction>
 
 	<cfscript>

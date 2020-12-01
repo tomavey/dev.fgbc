@@ -48,11 +48,11 @@
 <cfif isDefined("params.old")>
 
 	<div id="newchurchinfo">
-		#includePartial("gatherer")#
-		#includePartial("shepherd")#
+		#includePartial(partial="gatherer")#
+		#includePartial(partial="shepherd")#
 		#linkto(text="From 'Raising Rabbits' by Tony Webb", href="http://www.amazon.com/Raising-Rabbits-not-elephants-exploration-ebook/dp/B00JEPY29W/ref=sr_sp-atf_title_1_1?ie=UTF8&qid=1398521255&sr=8-1&keywords=tony+webb")#
 		<p>&nbsp;</p>
-		#includePartial("functions")#
+		#includePartial(partial="functions")#
 	</div>
 
 						#textField(objectName='newchurch', property='family01', label='Family (Gathering family)', class="input-xlarge")#

@@ -2,14 +2,14 @@
 	<cfoutput>	
 		<h1>Create a New #typesOfCourses()#</h1>
 		
-		#includePartial("showFlash")#
+		#includePartial(partial="showFlash")#
 		
 					
 					#errorMessagesFor("course")#
 			
 					#startFormTag(action="create")#
 				
-					#includePartial("form")#	
+					#includePartial(partial="form")#	
 						
 		
 						#submitTag()#

@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
   
-  public void function init(){
+  public void function config(){
     usesLayout("/conference/adminlayout")
     filters(through="checkOffice", except="new,newAccessHost,newAccessGuest,show,list,create,$sendEmailNoticeToOffice,$sendEmailNoticeToHost, thankyou")
     filters(through="setReturn", only="index,show,list,new,thankyou")
@@ -109,7 +109,7 @@ component extends="Controller" output="false" {
 		} else {
 		  flashInsert(error="There was an error creating the Conferencehome.");
       formType="formFor#home.type#"
-  	  renderPage(action="new");
+  	  renderView(action="new");
     }
   }
   
@@ -154,7 +154,7 @@ component extends="Controller" output="false" {
       thankyouId = thankyouObj.id
     }
     if ( !gotRights('office') ) {
-      renderPage(layout="/conference/layout2019invoice")
+      renderView(layout="/conference/layout2019invoice")
     }
   }
 
@@ -214,7 +214,7 @@ component extends="Controller" output="false" {
 
   private function $setLayout(){
     if ( !gotRights('office') || devMode ) {
-      renderPage(layout="/conference/layout2020")
+      renderView(layout="/conference/layout2020")
     }
   }
 

@@ -2,7 +2,7 @@
 	</div>
 <cfif NOT application.wheels.environment is "production">
 <cfoutput>
-#includePartial("/_shared/debugfooter")#
+#includePartial(partial="/_shared/debugfooter")#
 </cfoutput>
 
 </cfif>

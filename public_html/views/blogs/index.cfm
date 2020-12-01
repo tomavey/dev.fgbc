@@ -14,7 +14,7 @@
 			<tr>
 				<td valign="top" width="50%" align="left" class="eachblog">
 					
-						#includePartial("blogs")#
+						#includePartial(partial="blogs")#
 							
 				</td>
 			</tr>

@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset table("fgbcmembershipapplications")>
     	<cfset automaticValidations(false)>
         <cfset beforeSave("fixquotes")>

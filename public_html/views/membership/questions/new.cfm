@@ -1,6 +1,6 @@
 <h1>Create a new membership app question:</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -10,7 +10,7 @@
 	
 			#startFormTag(action="create")#
 		
-			#includePartial("form")#																
+			#includePartial(partial="form")#																
 			#submitTag()#
 				
 			#endFormTag()#

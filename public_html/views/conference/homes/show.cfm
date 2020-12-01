@@ -8,7 +8,7 @@
 
   <div class="container" style="background-color:white;padding:20px;border-radius:10px">
 
-    #includePartial("includes/#showType#")#
+    #includePartial(partial="includes/#showType#")#
 
   </div>
 

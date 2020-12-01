@@ -1,6 +1,6 @@
 component extends="Model" output="false" {
 
-	public function init(){
+	public function config(){
 		table("handbookagbminfo")
 		belongsTo(name="Handbookperson", foreignKey="personid")
 		hasMany(name="Handbookpositions", foreignKey="personid")

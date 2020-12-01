@@ -1,5 +1,5 @@
 <div class="postbox" id="log">
 <cfoutput query="updates">
-		#includePartial("logreport")#
+		#includePartial(partial="logreport")#
 </cfoutput>
 </div>

@@ -1,3 +1,3 @@
 <cfoutput>
-#includePartial("/content")#
+#includePartial(partial="/content")#
 </cfoutput>

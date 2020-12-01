@@ -33,7 +33,7 @@
 	</cfif>
 	<cfif request.showpagination>
 		<cfoutput>
-			#includePartial("/_shared/paginationlinks")#
+			#includePartial(partial="/_shared/paginationlinks")#
 		</cfoutput>
 	</cfif>
 
@@ -67,7 +67,7 @@
 
 	<cfif request.showpagination>
 		<cfoutput>
-			#includePartial("/_shared/paginationlinks")#
+			#includePartial(partial="/_shared/paginationlinks")#
 		</cfoutput>
 	</cfif>
 <hr/>

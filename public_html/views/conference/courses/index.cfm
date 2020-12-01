@@ -26,7 +26,7 @@
 	Lists for print: #linkto(text="Cohorts", controller='conference.courses', action="list", params="type=cohort&print=")# | #linkto(text="Workshops", action="list", params="type=workshop&print=")# | #linkto(text="Excursions", action="list", params="type=excursion&print=")#
 </p>
 
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
 <cfif gotRights("superadmin,office")>
 	<p>#linkTo(text="NEW", action="new", class="btn")#</p>

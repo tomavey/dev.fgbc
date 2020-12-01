@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset useslayout(template='/focus/layout', only="welcome")>
 		<cfset useslayout(template='/focus/layout2', only="retreat,about")>
 <!--- 		<cfset useslayout(template='/focus/layout_vue', only='index')> --->
@@ -27,7 +27,7 @@
 <cfscript>
 	public function mobile() {
 		retreats = queryToJson(retreats);
-		renderPage(layout="/focus/layout_vue")
+		renderView(layout="/focus/layout_vue")
 	}
 </cfscript>	
 
@@ -39,7 +39,7 @@
 		<cfelse>
 			<cfset rendertext="Focus Retreat Web site is being updated.  Check back soon.">
 		</cfif>
-		<cfset renderPage(layout="/focus/layout")>
+		<cfset renderView(layout="/focus/layout")>
 	</cffunction>
 
 	<cffunction name="retreat">
@@ -94,7 +94,7 @@
 <cfscript>
 	public function retreatsAsJson() {
 	data = queryToJson(retreats);
-	renderPage(template="json", layout="/layout_json")
+	renderView(template="json", layout="/layout_json")
 	}
 </cfscript>
 

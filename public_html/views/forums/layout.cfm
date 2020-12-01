@@ -9,7 +9,7 @@
 </head>
 <body>
 	<cfoutput>
-		#includePartial("/forums/navbar")#
+		#includePartial(partial="/forums/navbar")#
 	</cfoutput>
 	<div class="container">
 		<cfoutput>#contentForLayout()#</cfoutput>

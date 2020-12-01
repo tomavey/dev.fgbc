@@ -47,7 +47,7 @@
 
 <cfoutput query="datesthisweek" group="fullname">
 	<cfif isInHandbook(personid) && !hasAnAlias(personid)>
-		#includePartial("dates")#
+		#includePartial(partial="dates")#
 		<cfset count = count + 1>
 	</cfif>    
 </cfoutput>
@@ -63,7 +63,7 @@
 
 	<cfoutput group="fullname">
 		<!--- #fullname# --->
-		#includePartial("dates")#	
+		#includePartial(partial="dates")#	
 		<cfset count = count + 1>
 	</cfoutput>
 

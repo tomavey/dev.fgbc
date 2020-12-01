@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
   
-  public void function init(){
+  public void function config(){
     filters(through="isAuthorized");
     filters(through="getCategories", only="index");
     filters(through="setReturn", only="index,show");
@@ -39,7 +39,7 @@ component extends="Controller" output="false" {
     settings = model("Fgbcsetting").findAll(where=whereString, order=orderString);
     applicationSettingsList = getApplicationSettingsList();
     if(isDefined("params.category") && params.category is "conference"){
-      renderPage(layout="/conference/adminlayout");
+      renderView(layout="/conference/adminlayout");
     }
   }
 
@@ -91,7 +91,7 @@ component extends="Controller" output="false" {
       returnBack();
 		} else {
 		  flashInsert(error="There was an error creating the setting.");
-		  renderPage(action="new");
+		  renderView(action="new");
 		}
   }
   
@@ -105,7 +105,7 @@ component extends="Controller" output="false" {
       returnBack();
 		} else {
 		  flashInsert(error="There was an error updating the setting.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
   }
 
@@ -117,7 +117,7 @@ component extends="Controller" output="false" {
 		  flashInsert(error="Setting #paraams.key# was not found.");
       returnBack();
 		}
-			renderPage(action="new");
+			renderView(action="new");
 		}
 
   // settings/delete/key

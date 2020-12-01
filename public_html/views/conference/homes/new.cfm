@@ -9,7 +9,7 @@
 	<div id="app" class="container" style="background-color:white;padding:20px;border-radius:10px">
 
 		<cfif isOffice() && !devMode>
-			#includePartial("includes/navbar")#
+			#includePartial(partial="includes/navbar")#
 		</cfif>
 
 		<cfif gotRights("office")>
@@ -20,7 +20,7 @@
 
 		<p>#instructions#</p>
 
-		#includePartial("includes/showFlash")#
+		#includePartial(partial="includes/showFlash")#
 
 					
 					#errorMessagesFor("home")#

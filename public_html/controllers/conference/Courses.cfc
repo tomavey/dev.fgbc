@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	public function init() {
+	public function config() {
 		usesLayout(template="/conference/layout2018/");
 		filters(through="getevents", only="edit,new,copy");
 		filters(through="setreturn", only="index,show,showallselectedworkshops,showallselectedcohorts,list");
@@ -99,7 +99,7 @@ component extends="Controller" output="false" {
 	//  Courses/index 
 	public function index() {
 		courses = model("Conferencecourse").findAllCourses(params);
-		renderPage(layout="/conference/adminlayout");
+		renderView(layout="/conference/adminlayout");
 	}
 
 	//  Courses/show/key 
@@ -112,7 +112,7 @@ component extends="Controller" output="false" {
 			flashInsert(error="Course/Workshop #params.key# was !found");
 			redirectTo(action="index");
 		}
-		renderPage(layout="/conference/adminlayout");
+		renderView(layout="/conference/adminlayout");
 	}
 
 	//  Courses/create 
@@ -125,7 +125,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error creating the course.");
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 
@@ -139,7 +139,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error updating the course.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
 	}
 
@@ -161,7 +161,7 @@ component extends="Controller" output="false" {
 	public function new() {
 		course = model("Conferencecourse").new();
 		course.event = getEvent();
-		renderPage(layout="/conference/adminlayout");
+		renderView(layout="/conference/adminlayout");
 	}
 
 	//  Courses/edit/key 
@@ -173,7 +173,7 @@ component extends="Controller" output="false" {
 			flashInsert(error="Course #params.key# was !found");
 			redirectTo(action="index");
 		}
-		renderPage(layout="/conference/adminlayout");
+		renderView(layout="/conference/adminlayout");
 	}
 
 	//  Courses/copy/key 
@@ -185,7 +185,7 @@ component extends="Controller" output="false" {
 			flashInsert(error="Course #params.key# was !found");
 			redirectTo(action="index");
 		}
-		renderPage(controller="conference.courses", action="new");
+		renderView(controller="conference.courses", action="new");
 	}
 
 	//  Courses/copyAllToCurrentEvent 
@@ -292,9 +292,9 @@ component extends="Controller" output="false" {
 				ORDER BY fullname");
 			}
 			data = queryToJson(data);
-			renderPage(layout="/layout_json", template="/json", hideDebugInformation=true);
+			renderView(layout="/layout_json", template="/json", hideDebugInformation=true);
 		} else {
-			renderPage(action="showAllSelectedWorkshops");
+			renderView(action="showAllSelectedWorkshops");
 		}
 	}
 
@@ -308,7 +308,7 @@ component extends="Controller" output="false" {
 		registrations = model("Conferenceperson").findAllPeopleRegistered();
 		formaction = "ConferenceCoursesSelectCohorts";
 		headerSubTitle = "Sign up for a Cohort || Workshop";
-		renderPage(template="selectPersonToSelectWorkshops");
+		renderView(template="selectPersonToSelectWorkshops");
 	}
 
 	// Courses/select-person-to-select-cohorts/
@@ -319,7 +319,7 @@ component extends="Controller" output="false" {
 		formaction = "showSelectedWorkshops";
 		headerSubTitle = "Show My Cohorts";
 		instructions = "";
-		renderPage(template="selectPersonToSelectWorkshops");
+		renderView(template="selectPersonToSelectWorkshops");
 	}
 //END OF SELECTING WORKSHOPS/COHORTS/COURSES
 
@@ -348,7 +348,7 @@ component extends="Controller" output="false" {
 	//  Courses/list route="conferenceCoursesList"
 	public function list() {
 		if ( isDefined("params.print") ) {
-			renderPage(layout="/conference/layout_naked", template="listprint");
+			renderView(layout="/conference/layout_naked", template="listprint");
 		} else {
 			setreturn();
 		}
@@ -360,7 +360,7 @@ component extends="Controller" output="false" {
 			whereString = whereString & " AND equip_coursesid = #params.key#";
 		}
 		workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order="eventDate");
-		renderPage(action="showAllSelectedWorkshops");
+		renderView(action="showAllSelectedWorkshops");
 	}
 
 	//  Courses/table 
@@ -448,10 +448,10 @@ component extends="Controller" output="false" {
 
 	public function listCohorts() {
 		if ( isDefined("params.print") ) {
-			renderPage(action="list", key="cohort", layout="/conference/layout_naked", template="listprint");
+			renderView(action="list", key="cohort", layout="/conference/layout_naked", template="listprint");
 		} else {
 			setreturn();
-			renderPage(action="list", key="cohort");
+			renderView(action="list", key="cohort");
 		}
 	}
 	// -------End of Redirections--------------
@@ -467,7 +467,7 @@ component extends="Controller" output="false" {
 		if ( application.wheels.environment != "production" ) {
 			set(environment="production");
 		}
-		renderPage(template="rss.cfm", layout="rsslayout");
+		renderView(template="rss.cfm", layout="rsslayout");
 	}
 
 	public function getInstructors(required numeric courseid) {
@@ -616,7 +616,7 @@ component extends="Controller" output="false" {
 		} catch (any cfcatch) {
 		}
 		if ( isMobile() ) {
-			renderPage(layout="/conference/layout_mobile");
+			renderView(layout="/conference/layout_mobile");
 		}
 		setreturn();
 		headerSubTitle = "Selected Cohorts";
@@ -652,7 +652,7 @@ component extends="Controller" output="false" {
 		}
 		workshops = model("Conferenceregistration").findAll(where=whereString, include="Workshop(Agenda),person(family)", order=orderby);
 		countpeopleregistered = countPeopleRegistered();
-		renderPage(action="downloadallselectedworkshops", layout="/layout_download");
+		renderView(action="downloadallselectedworkshops", layout="/layout_download");
 	}
 
 	public function countPeopleRegistered() {
@@ -709,7 +709,7 @@ component extends="Controller" output="false" {
 
 	public function json() {
 		data = model("Conferencecourse").findAllAsJson(params);
-		renderPage(layout="/layout_json", template="/json", hideDebugInformation=true);
+		renderView(layout="/layout_json", template="/json", hideDebugInformation=true);
 	}
 	//  MArked for Deletion
 

@@ -5,9 +5,9 @@
     <cfif home.status != "No Longer Available">
       #linkTo(text="I am interested in this host home", action="new", params="type=guest&requestedHomeId=#home.homeid#", class="btn btn-large")#
     </cfif>
-    #includePartial("includes/availabilityinfo")#
-    #includePartial("includes/detailsinfo")#
-    #includePartial("includes/locationinfo")#
+    #includePartial(partial="includes/availabilityinfo")#
+    #includePartial(partial="includes/detailsinfo")#
+    #includePartial(partial="includes/locationinfo")#
     <cfif gotRights("office")>
       #listTag(action="index")# #editTag(home.id)#
     </cfif>

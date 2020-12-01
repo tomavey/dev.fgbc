@@ -2,7 +2,7 @@
 
 <cfobject name="register" component="models.conferenceregister" >
 
-<cffunction name="init" access="public" returntype="void" output="false">
+<cffunction name="config" access="public" returntype="void" output="false">
 	<cfset createEmptyShoppingCart()>
 	<cfset flashInsert(welcome="???")>
 	<cfset usesLayout("/conference/layout2018")>
@@ -1324,7 +1324,7 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 
 <cffunction name="tryagain">
 	<cfset emptyCart()>
-	<cfset renderPage(action="selectoptions")>
+	<cfset renderView(action="selectoptions")>
 </cffunction>
 
 <cffunction name="emptyCart" access="public" returntype="void" output="false">
@@ -1691,9 +1691,9 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 <cffunction name="addSingleConcertTicket">
 	<cfset addOneOption(peopleid=params.peopleid, invoiceid=params.invoiceid, optionid=88)>
 	<cfif results>
-		<cfset renderPage(template="addedconcert")>
+		<cfset renderView(template="addedconcert")>
 	<cfelse>
-		<cfset renderPage(template="alreadyhaveticket")>
+		<cfset renderView(template="alreadyhaveticket")>
 	</cfif>
 </cffunction>
 
@@ -1701,9 +1701,9 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 <cffunction name="addCoupleConcertTicket">
 	<cfset addOneOption(peopleid=params.peopleid, invoiceid=params.invoiceid, optionid=88, quantity=2)>
 	<cfif results>
-		<cfset renderPage(template="addedconcert")>
+		<cfset renderView(template="addedconcert")>
 	<cfelse>
-		<cfset renderPage(template="alreadyhaveticket")>
+		<cfset renderView(template="alreadyhaveticket")>
 	</cfif>
 </cffunction>
 

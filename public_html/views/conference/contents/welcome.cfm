@@ -1,5 +1,5 @@
 <cfoutput>
-#includePartial("/content")#
+#includePartial(partial="/content")#
 
 <cfdump var="#registration#">
 

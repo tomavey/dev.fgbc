@@ -19,7 +19,7 @@
 					<p>#linkto(text=file, href="/files/#file#", class="ajaxfiledesc tooltip2", title="Click to download this document.")#<span class="description">#description#</span></p>
 				</cfoutput>
 				<cfoutput>
-					#includePartial("../resources/upload")#
+					#includePartial(partial="../resources/upload")#
 				</cfoutput>
 	
 			</div>

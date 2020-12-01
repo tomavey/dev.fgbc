@@ -1,6 +1,6 @@
 component extends="Model" {
 
-    public function init(){
+    public function config(){
         table('content_fc');
     }
 

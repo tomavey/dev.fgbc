@@ -1,6 +1,6 @@
 <h1>Editing Instructor</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 
@@ -11,7 +11,7 @@
 		
 			#putFormTag()#
 
-			#includePartial("form")#															
+			#includePartial(partial="form")#															
 				
 				
 				#submitTag()#

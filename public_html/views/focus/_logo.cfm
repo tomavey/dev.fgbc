@@ -2,7 +2,12 @@
 <div class="row">
 
 <div class="span4 well">
-#imageTag("/focus/#getSetting('FocusLogo')#")#
+  <cftry>
+    #imageTag("/focus/#getSetting('FocusLogo')#")#
+    <cfcatch>
+      #getSetting('FocusLogo')#
+    </cfcatch>
+  </cftry>
 </div>
 
 <div class="span7 well">

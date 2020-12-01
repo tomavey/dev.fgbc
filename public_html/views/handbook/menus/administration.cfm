@@ -1,6 +1,6 @@
 
 <cfoutput>    
     <div class="container span10 mobileHandbookNav">
-    #includePartial("/handbook/navdropadmin")#
+    #includePartial(partial="/handbook/navdropadmin")#
     </div>
 </cfoutput>

@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-  public void function init(){
+  public void function config(){
     usesLayout("/conference/adminlayout");
     filters(through="geteventsandinstructors", only="new,edit");
     filters(through="setreturn", only="index,show")

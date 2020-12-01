@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 	
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset table("forum_posts")>
 		<cfset belongsTo(name="Forumforum", foreignKey="forumId")>
 		<cfset hasMany("forumVotes")>

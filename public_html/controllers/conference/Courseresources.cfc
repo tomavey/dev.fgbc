@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
   
-  public void function init(){
+  public void function config(){
     usesLayout("/conference/layout2017");
     filters(through="getCourses", only="new,edit,create");
     filters(through="setReturn", only="index,list");
@@ -67,7 +67,7 @@ component extends="Controller" output="false" {
 	    flashInsert(error="Resource #params.key# was not found");
 			redirectTo(action="index");
 	  }
-    renderPage(template="new");
+    renderView(template="new");
   }
   
   // Conferencecourseresources/create
@@ -126,7 +126,7 @@ component extends="Controller" output="false" {
 		} else {
 		  flashInsert(error="There was an error creating this resource.");
       message = "oops";writeDump(message);
-		  renderPage(action="new");
+		  renderView(action="new");
 		}
   
   }
@@ -140,7 +140,7 @@ component extends="Controller" output="false" {
       redirectTo(action="index");
 		} else {
 		  flashInsert(error="There was an error updating the resource.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
     returnBack();
   }

@@ -8,7 +8,7 @@ Resources
     </cfif>
 </h1>
 
-#includePartial("showFlash")#</cfoutput>
+#includePartial(partial="showFlash")#</cfoutput>
 
 <form class="form-search">
   <input type="text" class="input-xlarge search-query" name="search"  placeholder="Search All Resources for All Cohorts">

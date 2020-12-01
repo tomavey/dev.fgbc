@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	public function init() {
+	public function config() {
 		usesLayout("/conference/layout");
 		filters(through="getStates");
 	}
@@ -55,7 +55,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error creating the Childcareworkers.");
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 
@@ -69,7 +69,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error updating the Childcareworkers.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
 	}
 

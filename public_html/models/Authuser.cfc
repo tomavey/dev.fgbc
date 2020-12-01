@@ -1,6 +1,6 @@
 component extends="Model" output="false" {
 	
-	function init() {
+	function config() {
 		table("auth_users")
 		hasMany(name="Usersgroup", model="Authusersgroup", foreignKey="auth_usersid")
 		hasMany(name="Conferenceusers", model="Conferenceuser", foreignKey="userid")

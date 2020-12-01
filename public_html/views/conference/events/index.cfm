@@ -15,7 +15,7 @@
 	<p>#linkTo(text="Add a new event", action="new", title="Add New")#
 	</cfif>
 
-#includePartial("../locations/maps")#
+#includePartial(partial="../locations/maps")#
 
 <!---
 

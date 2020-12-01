@@ -8,9 +8,9 @@
         </button>
         <h4 class="g-mb-20">Login</h4>
         <cfoutput>
-            #startFormTag(route="authCheckLogin")#
+            #startFormTag(route="authCheckLogin", encode=false)#
             #textField(objectName='user', property='username', label='Username:&nbsp;', class="input-block-level")#
-            #passwordField(objectName='user', property='password', label='Password:&nbsp;&nbsp;', class="input-block-level")#
+            #passwordField(objectName='user', property='password', label='Password:&nbsp;&nbsp;', class="input-block-level", encode="attributes")#
             #submitTag(value="Login", class="btn btn-primary")#
             <p>#linkTo(text="Create a new FGBC account", controller="auth.users", action="new")#</p>
             #endFormTag()#

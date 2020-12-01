@@ -1,175 +1,184 @@
-<!--- PUBLIC CONTROLLER INITIALIZATION FUNCTIONS --->
+<cfscript>
+/**
+ * Instructs CFWheels to verify that some specific criterias are met before running an action.
+ * Note that all undeclared arguments will be passed to `redirectTo()` call if a `handler` is not specified.
+ *
+ * [section: Controller]
+ * [category: Configuration Functions]
+ *
+ * @only List of action names to limit this verification to.
+ * @except List of action names to exclude this verification from.
+ * @post Set to true to verify that this is a `POST` request.
+ * @get Set to true to verify that this is a `GET` request.
+ * @ajax Set to true to verify that this is an `AJAX` request.
+ * @cookie Verify that the passed in variable name exists in the cookie scope.
+ * @session Verify that the passed in variable name exists in the session scope.
+ * @params Verify that the passed in variable name exists in the params struct.
+ * @handler Pass in the name of a function that should handle failed verifications. The default is to just abort the request when a verification fails.
+ * @cookieTypes List of types to check each listed cookie value against (will be passed through to your CFML engine's `IsValid` function).
+ * @sessionTypes List of types to check each list session value against (will be passed through to your CFML engine's `IsValid` function).
+ * @paramsTypes List of types to check each params value against (will be passed through to your CFML engine's `IsValid` function).
+ */
+public void function verifies(
+	string only = "",
+	string except = "",
+	any post = "",
+	any get = "",
+	any ajax = "",
+	string cookie = "",
+	string session = "",
+	string params = "",
+	string handler,
+	string cookieTypes = "",
+	string sessionTypes = "",
+	string paramsTypes = ""
+) {
+	$args(name = "verifies", args = arguments);
+	ArrayAppend(variables.$class.verifications, Duplicate(arguments));
+}
 
-<cffunction name="verifies" returntype="void" access="public" output="false">
-	<cfargument name="only" type="string" required="false" default="">
-	<cfargument name="except" type="string" required="false" default="">
-	<cfargument name="post" type="any" required="false" default="">
-	<cfargument name="get" type="any" required="false" default="">
-	<cfargument name="ajax" type="any" required="false" default="">
-	<cfargument name="cookie" type="string" required="false" default="">
-	<cfargument name="session" type="string" required="false" default="">
-	<cfargument name="params" type="string" required="false" default="">
-	<cfargument name="handler" type="string" required="false">
-	<cfargument name="cookieTypes" type="string" required="false" default="">
-	<cfargument name="sessionTypes" type="string" required="false" default="">
-	<cfargument name="paramsTypes" type="string" required="false" default="">
-	<cfscript>
-		$args(name="verifies", args=arguments);
-		ArrayAppend(variables.$class.verifications, Duplicate(arguments));
-	</cfscript>
-</cffunction>
+/**
+ * Returns an array of all the verifications set on this controller in the order in which they will be executed.
+ *
+ * [section: Controller]
+ * [category: Configuration Functions]
+ */
+public array function verificationChain() {
+	return variables.$class.verifications;
+}
 
-<cffunction name="verificationChain" returntype="array" access="public" output="false">
-	<cfscript>
-		var loc = {};
-		loc.rv = variables.$class.verifications;
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
+/**
+ * Use this function if you need a more low level way of setting the entire verification chain for a controller.
+ *
+ * [section: Controller]
+ * [category: Configuration Functions]
+ *
+ * @chain An array of structs, each of which represent an `argumentCollection` that get passed to the `verifies` function. This should represent the entire verification chain that you want to use for this controller.
+ */
+public void function setVerificationChain(required array chain) {
+	// Clear current verification chain and then re-add from the passed in chain.
+	variables.$class.verifications = [];
+	local.iEnd = ArrayLen(arguments.chain);
+	for (local.i = 1; local.i <= local.iEnd; local.i++) {
+		verifies(argumentCollection = arguments.chain[local.i]);
+	}
+}
 
-<cffunction name="setVerificationChain" returntype="void" access="public" output="false">
-	<cfargument name="chain" type="array" required="true">
-	<cfscript>
-		var loc = {};
+/**
+ * Internal function.
+ */
+public void function $runVerifications(
+	required string action,
+	required struct params,
+	struct cgiScope = request.cgi,
+	struct sessionScope = {},
+	struct cookieScope = cookie
+) {
+	// Only access the session scope when session management is enabled in the app.
+	// Default to the Wheels setting but get it on a per request basis if possible (from Application.cfc).
+	local.sessionManagement = $get("sessionManagement");
+	try {
+		local.sessionManagement = GetApplicationMetadata().sessionManagement;
+	} catch (any e) {
+	}
+	if (StructIsEmpty(arguments.sessionScope) && local.sessionManagement) {
+		arguments.sessionScope = session;
+	}
 
-		// clear current verification chain and then re-add from the passed in chain
-		variables.$class.verifications = [];
-		loc.iEnd = ArrayLen(arguments.chain);
-		for (loc.i=1; loc.i <= loc.iEnd; loc.i++)
-		{
-			verifies(argumentCollection=arguments.chain[loc.i]);
+	local.verifications = verificationChain();
+	local.$args = "only,except,post,get,ajax,cookie,session,params,cookieTypes,sessionTypes,paramsTypes,handler";
+	local.abort = false;
+	local.iEnd = ArrayLen(local.verifications);
+	for (local.i = 1; local.i <= local.iEnd; local.i++) {
+		local.element = local.verifications[local.i];
+		if (
+			(!Len(local.element.only) && !Len(local.element.except)) || (
+				Len(local.element.only) && ListFindNoCase(local.element.only, arguments.action)
+			) || (Len(local.element.except) && !ListFindNoCase(local.element.except, arguments.action))
+		) {
+			if (IsBoolean(local.element.post) && ((local.element.post && !isPost()) || (!local.element.post && isPost()))) {
+				local.abort = true;
+			}
+			if (IsBoolean(local.element.get) && ((local.element.get && !isGet()) || (!local.element.get && isGet()))) {
+				local.abort = true;
+			}
+			if (IsBoolean(local.element.ajax) && ((local.element.ajax && !isAjax()) || (!local.element.ajax && isAjax()))) {
+				local.abort = true;
+			}
+			if (!$checkVerificationsVars(arguments.params, local.element.params, local.element.paramsTypes)) {
+				local.abort = true;
+			}
+			if (!$checkVerificationsVars(arguments.sessionScope, local.element.session, local.element.sessionTypes)) {
+				local.abort = true;
+			}
+			if (!$checkVerificationsVars(arguments.cookieScope, local.element.cookie, local.element.cookieTypes)) {
+				local.abort = true;
+			}
 		}
-	</cfscript>
-</cffunction>
-
-<!--- PRIVATE FUNCTIONS --->
-
-<cffunction name="$runVerifications" returntype="void" access="public" output="false">
-	<cfargument name="action" type="string" required="true">
-	<cfargument name="params" type="struct" required="true">
-	<cfargument name="cgiScope" type="struct" required="false" default="#request.cgi#">
-	<cfargument name="sessionScope" type="struct" required="false" default="#StructNew()#">
-	<cfargument name="cookieScope" type="struct" required="false" default="#cookie#">
-	<cfscript>
-		var loc = {};
-
-		// only access the session scope when session management is enabled in the app
-		// default to the wheels setting but get it on a per request basis if possible (from application.cfc)
-		loc.sessionManagement = get("sessionManagement");
-		try
-		{
-			loc.sessionManagement = application.getApplicationSettings().sessionManagement;
-		}
-		catch (any e) {}
-		if (StructIsEmpty(arguments.sessionScope) && loc.sessionManagement)
-		{
-			arguments.sessionScope = session;
-		}
-
-		loc.verifications = verificationChain();
-		loc.$args = "only,except,post,get,ajax,cookie,session,params,cookieTypes,sessionTypes,paramsTypes,handler";
-		loc.abort = false;
-		loc.iEnd = ArrayLen(loc.verifications);
-		for (loc.i=1; loc.i <= loc.iEnd; loc.i++)
-		{
-			loc.element = loc.verifications[loc.i];
-			if ((!Len(loc.element.only) && !Len(loc.element.except)) || (Len(loc.element.only) && ListFindNoCase(loc.element.only, arguments.action)) || (Len(loc.element.except) && !ListFindNoCase(loc.element.except, arguments.action)))
-			{
-				if (IsBoolean(loc.element.post) && ((loc.element.post && !isPost()) || (!loc.element.post && isPost())))
-				{
-					loc.abort = true;
+		if (local.abort) {
+			if (Len(local.element.handler)) {
+				// Invoke the specified handler function.
+				// The assumption is that the developer aborts or redirects from within the handler function.
+				// Processing will return if the developer forgot that or if they made a delayed redirect (e.g. when testing).
+				// If a delayed redirect was not made we redirect to the previous page as a last resort to end processing.
+				$invoke(method = local.element.handler);
+				if (!$performedRedirect()) {
+					redirectTo(back = "true");
 				}
-				if (IsBoolean(loc.element.get) && ((loc.element.get && !isGet()) || (!loc.element.get && isGet())))
-				{
-					loc.abort = true;
+			} else {
+				// Check to see if we should perform a redirect or abort completely.
+				local.redirectArgs = {};
+				for (local.key in local.element) {
+					if (!ListFindNoCase(local.$args, local.key) && StructKeyExists(local.element, local.key)) {
+						local.redirectArgs[local.key] = local.element[local.key];
+					}
 				}
-				if (IsBoolean(loc.element.ajax) && ((loc.element.ajax && !isAjax()) || (!loc.element.ajax && isAjax())))
-				{
-					loc.abort = true;
-				}
-				if (!$checkVerificationsVars(arguments.params, loc.element.params, loc.element.paramsTypes))
-				{
-					loc.abort = true;
-				}
-				if (!$checkVerificationsVars(arguments.sessionScope, loc.element.session, loc.element.sessionTypes))
-				{
-					loc.abort = true;
-				}
-				if (!$checkVerificationsVars(arguments.cookieScope, loc.element.cookie, loc.element.cookieTypes))
-				{
-					loc.abort = true;
+				if (!StructIsEmpty(local.redirectArgs)) {
+					redirectTo(argumentCollection = local.redirectArgs);
+				} else {
+					variables.$instance.abort = true;
 				}
 			}
-			if (loc.abort)
-			{
-				if (Len(loc.element.handler))
-				{
-					$invoke(method=loc.element.handler);
-					redirectTo(back="true");
-				}
-				else
-				{
-					// check to see if we should perform a redirect or abort completly
-					loc.redirectArgs = {};
-					for(loc.key in loc.element)
-					{
-						if (!ListFindNoCase(loc.$args, loc.key) && StructKeyExists(loc.element, loc.key))
-						{
-							loc.redirectArgs[loc.key] = loc.element[loc.key];
-						}
-					}
-					if (!StructIsEmpty(loc.redirectArgs))
-					{
-						redirectTo(argumentCollection=loc.redirectArgs);
-					}
-					else
-					{
-						variables.$instance.abort = true;
-					}
-				}
-				// an abort was issued, no need to process further in the chain
+
+			// An abort was issued, no need to process further in the chain.
+			break;
+		}
+	}
+}
+
+/**
+ * Internal function.
+ */
+public boolean function $checkVerificationsVars(required struct scope, required string vars, required string types) {
+	local.rv = true;
+	local.iEnd = ListLen(arguments.vars);
+	for (local.i = 1; local.i <= local.iEnd; local.i++) {
+		local.item = ListGetAt(arguments.vars, local.i);
+		if (!StructKeyExists(arguments.scope, local.item)) {
+			local.rv = false;
+			break;
+		}
+		if (Len(arguments.types)) {
+			local.value = arguments.scope[local.item];
+			local.typeCheck = ListGetAt(arguments.types, local.i);
+
+			// By default string aren't allowed to be blank.
+			local.typeAllowedBlank = false;
+			if (local.typeCheck == "blank") {
+				local.typeAllowedBlank = true;
+				local.typeCheck = "string";
+			}
+
+			if (
+				!IsValid(local.typeCheck, local.value) || (
+					local.typeCheck == "string" && !local.typeAllowedBlank && !Len(Trim(local.value))
+				)
+			) {
+				local.rv = false;
 				break;
 			}
 		}
-	</cfscript>
-</cffunction>
-
-<cffunction name="$checkVerificationsVars" returntype="boolean" access="public" output="false">
-	<cfargument name="scope" type="struct" required="true">
-	<cfargument name="vars" type="string" required="true">
-	<cfargument name="types" type="string" required="true">
-	<cfscript>
-		var loc = {};
-		loc.rv = true;
-		loc.iEnd = ListLen(arguments.vars);
-		for (loc.i=1; loc.i <= loc.iEnd; loc.i++)
-		{
-			loc.item = ListGetAt(arguments.vars, loc.i);
-			if (!StructKeyExists(arguments.scope, loc.item))
-			{
-				loc.rv = false;
-				break;
-			}
-			if (Len(arguments.types))
-			{
-				loc.value = arguments.scope[loc.item];
-				loc.typeCheck = ListGetAt(arguments.types, loc.i);
-
-				// by default string aren't allowed to be blank
-				loc.typeAllowedBlank = false;
-				if (loc.typeCheck == "blank")
-				{
-					loc.typeAllowedBlank = true;
-					loc.typeCheck = "string";
-				}
-
-				if (!IsValid(loc.typeCheck, loc.value) || (loc.typeCheck == "string" && !loc.typeAllowedBlank && !Len(Trim(loc.value))))
-				{
-					loc.rv = false;
-					break;
-				}
-			}
-		}
-	</cfscript>
-	<cfreturn loc.rv>
-</cffunction>
+	}
+	return local.rv;
+}
+</cfscript>

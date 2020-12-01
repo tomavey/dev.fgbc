@@ -4,7 +4,7 @@
 		<cfif isJson(data)>
 			<cfset loginUserFromJson(data)>
 		</cfif>
-		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
+		<cfset renderView(layout="/layout_json", template="json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="loginUserFromJson">
@@ -23,17 +23,17 @@
 		<cfelse>
 			<cfset data= '[{"rightslist":"","login_method":"0","username":"","email":"","passedstring":"","userid":"","fbid":"","login":"false"}]'>
 		</cfif>
-		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
+		<cfset renderView(layout="/layout_json", template="json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="handyAuthenticate">
 		<cfset data = model("Authuser").handyAuthenticate(params.email)>
-		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
+		<cfset renderView(layout="/layout_json", template="json", hideDebugInformation=true)>
 	</cffunction>
 
 	<cffunction name="handyLogout">
 		<cfset structDelete(session,"auth")>
 		<cfabort>
 		<cfset data = '{"return","true"}'>
-		<cfset renderPage(layout="/layout_json", template="json", hideDebugInformation=true)>
+		<cfset renderView(layout="/layout_json", template="json", hideDebugInformation=true)>
 	</cffunction>

@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	public function init() {
+	public function config() {
 		filters(through="checkOffice", only="index,edit");
 	}
 
@@ -50,7 +50,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error creating the menu.");
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 	//  menus/update 
@@ -64,7 +64,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error updating the menu.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
 	}
 	//  menus/delete/key 

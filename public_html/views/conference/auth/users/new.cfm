@@ -7,9 +7,9 @@
 	
 			#startFormTag(action="create")#
 		
-			#includePartial("form")#	
+			#includePartial(partial="form")#	
 			
-			#includePartial("/captcha")#	
+			#includePartial(partial="/captcha")#	
 
 			#submitTag("Create Your New Account")#
 				

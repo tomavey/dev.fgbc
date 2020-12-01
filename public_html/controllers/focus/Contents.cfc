@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout('/focus/layout')>
 		<cfset filters(through='checkOffice', only="edit")>
 		<cfset filters(through="getRetreats")>
@@ -15,7 +15,7 @@
 	<!--- -contents/index --->
 	<cffunction name="index">
 		<cfset contents = model("Focuscontent").findAll()>
-		<cfset renderPage(layout="/focus/layoutadmin")>
+		<cfset renderView(layout="/focus/layoutadmin")>
 	</cffunction>
 
 	<!--- -contents/show/key --->
@@ -30,7 +30,7 @@
 	        <cfset redirectTo(action="index")>
 	    </cfif>
 
-	    <cfset renderPage(action="show", layout="/focus/layout2")>
+	    <cfset renderView(action="show", layout="/focus/layout2")>
 
 	</cffunction>
 
@@ -38,7 +38,7 @@
 	<!--- -contents/new --->
 	<cffunction name="new">
 		<cfset content = model("Focuscontent").new()>
-		<cfset renderPage(layout="/focus/layoutadmin")>
+		<cfset renderView(layout="/focus/layoutadmin")>
 	</cffunction>
 
 	<!--- -contents/edit/key --->
@@ -53,7 +53,7 @@
 			<cfset redirectTo(action="index")>
 	    </cfif>
 
-		<cfset renderPage(layout="/focus/layoutadmin")>
+		<cfset renderView(layout="/focus/layoutadmin")>
 	</cffunction>
 
 	<!--- -contents/create --->
@@ -67,7 +67,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the content.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 
@@ -83,7 +83,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the content.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 

@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("layout")>
 		<cfset filters(through="getChurch", only="show,create,new,email")>
 		<cfset filters(through="getChurches", only="getChurchId,delinquent")>
@@ -108,9 +108,9 @@
 	<cffunction name="downloadDelegates">
 		<cfset fgbcdelegates = model("Fgbcdelegate").findAll(where="year = '#delegateYear#'", include="Handbookorganization(Handbookstate)", order="name")>
 		<cfif isDefined("params.html")>
-			<cfset renderPage(layout="layout")>
+			<cfset renderView(layout="layout")>
 		<cfelse>	
-			<cfset renderPage(layout="/layout_download")>
+			<cfset renderView(layout="/layout_download")>
 		</cfif>
 	</cffunction>
 
@@ -148,12 +148,12 @@
 				</cfif>
 			</cfif>
 
-		<cfset renderPage(controller="membership.delegates", action="thankyou")>
+		<cfset renderView(controller="membership.delegates", action="thankyou")>
 
 	</cffunction>
 
 	<cffunction name="closed">
-		<cfset renderPage(layout="closed")>
+		<cfset renderView(layout="closed")>
 	</cffunction>
 
 	<!--- fgbcdelegates/new --->
@@ -311,7 +311,7 @@
 				<!--- Verify that the fgbcdelegate creates successfully --->
 				<cfif NOT fgbcdelegate.save()>
 					<cfset flashInsert(error="There was an error creating the fgbcdelegate.")>
-					<cfset renderPage(action="submit", key=params.key)>
+					<cfset renderView(action="submit", key=params.key)>
 				</cfif>
 			</cfif>x
 		</cfloop>
@@ -352,7 +352,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the fgbcdelegate.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -433,7 +433,7 @@
 </cfscript>	
 
 	<cffunction name="welcome">
-		<cfset renderPage(layout="layout_naked")>
+		<cfset renderView(layout="layout_naked")>
 	</cffunction>
 
 	<cffunction name="checkChurchAndEmail">
@@ -466,7 +466,7 @@
 
 	<cffunction name="delinquent">
 		<cfif isDefined("params.download")>
-		  <cfset renderPage(layout="/layout_download")>
+		  <cfset renderView(layout="/layout_download")>
 		</cfif>
 	</cffunction>
 

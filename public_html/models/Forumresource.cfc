@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset uploadableFile(property="file")>
 		<cfset belongsTo(name="Forumforum", foreignKey="forumid")>
 	</cffunction>

@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	public function init() {
+	public function config() {
 		usesLayout("/conference/adminlayout");
 		//  <cfset filters(through="officeOnly", except="list,newest,announcementcount,view,postFromJson,httpTest,httpHeaders")>
 		filters(through="isAuthorized", except="list,newest,announcementcount,view,postFromJson,httpTest,httpHeaders");
@@ -92,7 +92,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error creating the announcement.");
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 
@@ -106,7 +106,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error updating the announcement.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
 	}
 
@@ -138,7 +138,7 @@ component extends="Controller" output="false" {
     //  announcements/rss 
 	public function rss() {
 		announcements = model("Conferenceannouncement").findAll(where="event = '#getevent()#' && approved='yes'", order="createdAt DESC");
-		renderPage(template="rss.cfm", layout="rsslayout");
+		renderView(template="rss.cfm", layout="rsslayout");
 	}
 
 	public function approve() {
@@ -149,7 +149,7 @@ component extends="Controller" output="false" {
 
 	public function list() {
 		data = model("Conferenceannouncement").findAllAnnouncementsAsJson(params);
-		renderPage(template="/json", layout="/layout_json", hideDebugInformation=true);
+		renderView(template="/json", layout="/layout_json", hideDebugInformation=true);
 	}
 
 	public function newest() {
@@ -157,7 +157,7 @@ component extends="Controller" output="false" {
 		var whereString = "event='#getEvent()#' && approved = 'yes' && postAt < '#loc.postAt#'";
 		data = model("Conferenceannouncement").findOne(where=whereString, order="id DESC", returnAs="query");
 		data = queryToJson(data);
-		renderPage(template="/json", layout="/layout_json", hideDebugInformation=true);
+		renderView(template="/json", layout="/layout_json", hideDebugInformation=true);
 	}
 
 	public function announcementcount() {
@@ -165,7 +165,7 @@ component extends="Controller" output="false" {
 		loc.postAt = now();
 		var whereString = "event='#getEvent()#' && emailonly <> 'yes' && approved = 'yes' && postAt < '#loc.postAt#'";
 		data = model("Conferenceannouncement").findAll(where=whereString, order="id DESC", returnAs="query").recordcount;
-		renderPage(template="/json", layout="/layout_json", hideDebugInformation=true);
+		renderView(template="/json", layout="/layout_json", hideDebugInformation=true);
 	}
 
 	public function submit() {
@@ -189,7 +189,7 @@ component extends="Controller" output="false" {
 			notification(announcement.id);
 		} catch (any cfcatch) {
 		}
-		renderPage(template="/json", layout="/layout_json", hideDebugInformation=true);
+		renderView(template="/json", layout="/layout_json", hideDebugInformation=true);
 	}
 
 	public function notification(numeric id) {
@@ -226,7 +226,7 @@ component extends="Controller" output="false" {
 		}
 		showThisEmailList = args.useThisEmailList;
 		if ( application.wheels.environment == "Development" ) {
-			renderpage(layout="/conference/layout_for_email", template="announcementemail2");
+			renderView(layout="/conference/layout_for_email", template="announcementemail2");
 		}
 	}
 // --------------------------------
@@ -354,7 +354,7 @@ component extends="Controller" output="false" {
     //             data = 'false'
     //         }
     //     } catch (any e) { data = cfcatch.message }
-    //         renderPage(template="/json", layout="/layout_json_no_headers", hideDebugInformation=true);
+    //         renderView(template="/json", layout="/layout_json_no_headers", hideDebugInformation=true);
     // }
 	// //  End of cross site testing methods
 

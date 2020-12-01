@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<!---
 		<cfset filters(through="logview", type="after")>
 		--->
@@ -27,7 +27,7 @@
 	<cffunction name="json">
 		<cfset var events = model("Mainevent").findAll(order="begin,end")>
 		<cfset data = queryToJson(events)>
-		<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+		<cfset renderView(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 	
 </cfcomponent>

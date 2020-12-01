@@ -6,11 +6,11 @@
 
     <cfif !isAuthorizedForCohorts()>
 
-        #includePartial("selectPersonToSelect")#
+        #includePartial(partial="selectPersonToSelect")#
 
     <cfelse>
 
-        #includePartial("select")#
+        #includePartial(partial="select")#
 
     </cfif>
 

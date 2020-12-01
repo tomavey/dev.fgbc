@@ -1,6 +1,6 @@
 <cfcomponent output="false">
 
-<cffunction name="init" access="public" returnType="facebook" output="false">
+<cffunction name="config" access="public" returnType="facebook" output="false">
 <cfargument name="accesstoken" type="string" required="true">
 <cfset variables.accesstoken = arguments.accesstoken>
 <cfreturn this>

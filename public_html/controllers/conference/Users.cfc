@@ -1,7 +1,7 @@
 where=""
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset provides("json,xml,xls")>
 		<cfset filters(through="paramsEmailRequired", only="getInvoices")>
 		<cfset usesLayout(template="/conference/layout2018")>
@@ -19,7 +19,7 @@ where=""
 	<cffunction name="index">
 		<cfset users = model("Conferenceuser").findall(include="Auth_users", order="createdAt DESC")>
 		<cfset setreturn()>
-		<cfset renderPage(layout="/conference/adminlayout")>
+		<cfset renderView(layout="/conference/adminlayout")>
 	</cffunction>
 
 	<cffunction name="new">
@@ -94,7 +94,7 @@ where=""
 		<cfset families = model("Conferencefamily").getfamilies()>
 		<cfset renderText("This page cannot display")>
 		<!---
-		<cfset renderPage(layout="/conference/adminlayout")>
+		<cfset renderView(layout="/conference/adminlayout")>
 		--->
 	</cffunction>
 

@@ -61,7 +61,7 @@
 						</cfif>
 
 						<cfif !isDefined("params.simple")>
-							#includePartial("handbookprofile")#
+							#includePartial(partial="handbookprofile")#
 						</cfif>	
 
 					<cfif gotRights("superadmin,office,handbookedit,agbmadmin")>

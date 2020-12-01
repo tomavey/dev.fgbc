@@ -8,7 +8,7 @@
 
 						#textField(objectName='handbookperson', property='phone', label='Home Phone: ')#
 
-            #includePartial("handbookposition")#
+            #includePartial(partial="handbookposition")#
 
 
 </cfoutput>

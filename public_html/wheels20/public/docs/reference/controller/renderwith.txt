@@ -1,3 +1,0 @@
-// This will provide the formats defined in the `config()` function.
-products = model("product").findAll();
-renderWith(products);

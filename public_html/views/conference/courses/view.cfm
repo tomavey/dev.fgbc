@@ -5,7 +5,7 @@
 </cfif>
 
 <div id="courseslist" class="container">
-	<cfoutput>#includePartial("showFlash")#</cfoutput>
+	<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 	<cfoutput>
 

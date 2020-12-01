@@ -1,7 +1,7 @@
 <cfset allemail = "">
 <h1>Listing Instructors</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 <cfif gotRights("superadmin,office")>
 <cfoutput>
 	<p>#linkTo(text="New instructor", controller="conference.instructors", action="index", action="new")#</p>

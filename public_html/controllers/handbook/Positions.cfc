@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	public function init() {
+	public function config() {
 		usesLayout(template="/handbook/layout_handbook", except="download");
 		filters(through="gotBasicHandbookRights");
 	}
@@ -72,7 +72,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error creating the handbookposition.");
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 	//  handbook-positions/update 
@@ -86,7 +86,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error updating the handbookposition.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
 	}
 	//  handbook-positions/delete/key 
@@ -122,13 +122,13 @@ component extends="Controller" output="false" {
 		}
 		positions = model("Handbookpositiontype").findall(where=whereString, include="Handbookpositions(Handbookperson(Handbookstate),Handbookorganization)", order="position,lname,fname");
 		if ( isDefined("params.plain") ) {
-			renderPage(layout="/layout_naked");
+			renderView(layout="/layout_naked");
 		}
 	}
 
 	public function orphanedPositions(){
 		orphanedPositions = model("Handbookposition").findOrphanedPositions()
-		renderPage(layout="/handbook/layout_handbook2")
+		renderView(layout="/handbook/layout_handbook2")
 	}
 <!-------------------------->
 <!--------END OF REPORTS---->

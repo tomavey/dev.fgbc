@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("/conference/adminlayout")>
 		<cfset filters(through="setreturn", only="index,show,list")>
 	</cffunction>
@@ -43,7 +43,7 @@
 				<cfset headerSubTitle = "Staff">
 			</cfif>
 		</cfif>
-		<cfset renderPage(layout="/conference/layout2018")>
+		<cfset renderView(layout="/conference/layout2018")>
 	</cffunction>
 
 	<!--- -instructors/show/key --->
@@ -117,7 +117,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the instructor.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 
@@ -132,7 +132,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the instructor.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -153,14 +153,14 @@
 
 	<cffunction name="listInstructorsAsJson">
 		<cfset data = model("Conferenceinstructor").findInstructorsAsJson(params)>
-	  <cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+	  <cfset renderView(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction>
 
 	<!--- <cffunction name="listSpeakersAsJson">
 		<cfdump var="listspeakersAsJson"><cfabort>
 		<cfset data = model("Conferenceinstructor").findSpeakersAsJson(params)>
 		<cfdump var="#params#"><cfabort>
-   	<cfset renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)>
+   	<cfset renderView(template="/json", layout="/layout_json", hideDebugInformation=true)>
 	</cffunction> --->
 	
 <cfscript>
@@ -168,12 +168,12 @@
 	function speakersAsJson(){
 		var params.orderby = "sortOrder, lname, fname"
 		data = model("Conferenceinstructor").findSpeakersAsJson(params)
-		renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)
+		renderView(template="/json", layout="/layout_json", hideDebugInformation=true)
 	}
 
 	function listStaffAsJson(){
 		data = model("Conferenceinstructor").findStaffAsJson(params)
-		renderPage(template="/json", layout="/layout_json", hideDebugInformation=true)		
+		renderView(template="/json", layout="/layout_json", hideDebugInformation=true)		
 	}
 </cfscript>
 

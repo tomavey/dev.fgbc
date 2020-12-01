@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset table("fgbcnewchurches")>
 		<cfset validatesPresenceOf(properties="fname", message="Please provide a first name.")>
 		<cfset validatesPresenceOf(properties="lname", message="Please provide a first name.")>

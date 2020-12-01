@@ -8,7 +8,7 @@
 #endFormTag()#
 <div class="well" style="height:150px; overflow:scroll">
     preview:
-        #includePartial("message")#
+        #includePartial(partial="message")#
 </div>
     <table id="handbookReviewOptions">
         <tr>

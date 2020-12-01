@@ -1,7 +1,7 @@
 <div data-role="content">
 <h1>Listing announcements</h1>
 
-<cfoutput>#includePartial("showFlash")#
+<cfoutput>#includePartial(partial="showFlash")#
 #linkto(text="View", action="view")#
 </cfoutput>
 

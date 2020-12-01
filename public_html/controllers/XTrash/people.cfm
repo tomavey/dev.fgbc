@@ -37,7 +37,7 @@
 		<cfif handbookperson.private is "yes">
 			<cfset redirectTo(action="index")>
 		</cfif>
-		<cfset renderPage(layout="/handbook/layout_handbook2")>
+		<cfset renderView(layout="/handbook/layout_handbook2")>
 	</cffunction>
 
 	<!---route="handbookVcard", pattern=pattern="/people/vcard/[key]"--->
@@ -90,7 +90,7 @@
 					<cfset handbookperson.handbookpositions[1].organizationid = params.organizationid>	
 			</cfif>
 	
-			<cfset renderPage(layout="/handbook/layout_handbook1.cfm")>
+			<cfset renderView(layout="/handbook/layout_handbook1.cfm")>
 	
 		</cffunction>
 

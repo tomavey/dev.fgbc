@@ -2,7 +2,7 @@
 <!---Added just in case--->
 
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout(template="/handbook/layout_admin")>
 		<cfset filters(through="isAuthorized", only="new,edit,allCurrentNotPaid")>
 		<cfset filters(through="paramsKeyRequired", only="sizeByPercent,getSummary")>
@@ -39,7 +39,7 @@
 	<!---fgbcdelegates/getChurchId--->
 	<cffunction name="getChurchid">
 		<cfset churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="org_city,state_mail_abbrev")>
-		<cfset renderPage(layout="/handbook/layout_handbook2")>
+		<cfset renderView(layout="/handbook/layout_handbook2")>
 	</cffunction>
 
 	<cffunction name="welcome">
@@ -76,7 +76,7 @@
 		<cfset handbookstatistics = model("Handbookstatistic").findAll(where=whereString,include="Handbookorganization(Handbookstate)", order=params.key)>
 
 		<cfif isDefined("params.summary") and params.summary>
-			<cfset renderPage(controller="handbook-statistics", action="summary")>
+			<cfset renderView(controller="handbook-statistics", action="summary")>
 		</cfif>
 	</cffunction>
 
@@ -107,10 +107,10 @@
 		<cfset handbookstatistics = model("Handbookstatistic").findAll(where=whereString,include="Handbookorganization(Handbookstate)", order=params.key)>
 
 		<cfif isDefined("params.summary") and params.summary>
-			<cfset renderPage(controller="handbook-statistics", action="summary")>
+			<cfset renderView(controller="handbook-statistics", action="summary")>
 		</cfif>
 
-		<cfset renderPage(template="index")>
+		<cfset renderView(template="index")>
 	</cffunction>
 
 
@@ -125,7 +125,7 @@
     	<cfset handbookstatistic = model("Handbookstatistic").findAll(where="organizationid=#params.key#",include="Handbookorganization(Handbookstate)",order="year DESC")>
 
 		<cfif not GotRights("superadmin,office")>
-			  <cfset renderPage(layout="/handbook/layout_handbook1")>
+			  <cfset renderView(layout="/handbook/layout_handbook1")>
 		</cfif>
 
 	</cffunction>
@@ -165,7 +165,7 @@
 			<cfset handbookstatistic.year = params.year>
 		</cfif>	
 		<cfset organizations = model("Handbookorganization").findall(where='statusid = 1', include="Handbookstate", order="org_city,state_mail_abbrev,name")>
-		<cfset renderPage(layout="/handbook/layout_handbook2")>
+		<cfset renderView(layout="/handbook/layout_handbook2")>
 	</cffunction>
 
 	<!--- handbook-statistics/edit/key --->
@@ -220,9 +220,9 @@
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the handbookstatistic.")>
 			<cfif isdefined("params.pay") and params.pay>
-				<cfset renderPage(action="submit")>
+				<cfset renderView(action="submit")>
 			<cfelse>
-				<cfset renderPage(action="new")>
+				<cfset renderView(action="new")>
 			</cfif>
 		</cfif>
 	</cffunction>
@@ -246,7 +246,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the handbookstatistic.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -260,7 +260,7 @@
 		<cfset twoyearsago = model("Handbookstatistic").findMemFeePaidBy('-2')>
 		<cfif isDefined("params.download")>
 			<cfset isDownload = true>
-			<cfset renderPage(layout="/layout_download")>
+			<cfset renderView(layout="/layout_download")>
 		</cfif>
 	</cffunction>
 
@@ -368,7 +368,7 @@
 	<cffunction name="delinquent">
 		<cfset churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state_mail_abbrev,org_city,name")>
 		<cfif isDefined("params.download")>
-			<cfset renderPage(layout="/layout_download.cfm")>
+			<cfset renderView(layout="/layout_download.cfm")>
 		</cfif>
 	</cffunction>
 
@@ -496,7 +496,7 @@
 					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
 			</cfif>	
 
-	<cfset renderPage(template="emailNotificationTemplate", layout="/layout_for_email", showResults=true)>
+	<cfset renderView(template="emailNotificationTemplate", layout="/layout_for_email", showResults=true)>
 	</cffunction>
 
 	<cfscript>
@@ -574,7 +574,7 @@
 			<cfset payonline.amount = getOnlineMemFeeMax()>
 		</cfif>
 		<cfset payonline.url = "http://#CGI.http_host#/handbook/statistics/confirm">
-		<cfset renderPage(layout="/handbook/layout_handbook2")>
+		<cfset renderView(layout="/handbook/layout_handbook2")>
 
 	</cffunction>
 
@@ -665,7 +665,7 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 		<cfif params.status>
 			<cfset church = model("Handbookorganization").findOne(where="id=#val(params.orderid)#", include="Handbookstate")>
 			<cfset statistic = model("Handbookstatistic").findOne(where="organizationid=#val(params.orderid)# AND year = #year(now())-1#")>
-			<cfset renderPage(layout="/handbook/layout_handbook2")>
+			<cfset renderView(layout="/handbook/layout_handbook2")>
 			<cfset sendEmail(to=application.wheels.registrarEmail, from=application.wheels.registrarEmail, subject="Statistical Report", type="html", template="confirm")>
 		<cfelse>
 			<cfset redirectTo(action="paymentfailed")>
@@ -774,7 +774,7 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 	<cffunction name="churchgrowth">
 		<cfset churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state,org_city")>
 		<cfif isDefined("params.download")>
-			<cfset renderPage(layout="/layout_download.cfm")>
+			<cfset renderView(layout="/layout_download.cfm")>
 		</cfif>
 	</cffunction>
 
@@ -800,7 +800,7 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 			</cfloop>
 		</cfloop>
 		<cfif isDefined("params.download")>
-			<cfset renderPage(layout="/layout_download.cfm")>
+			<cfset renderView(layout="/layout_download.cfm")>
 		</cfif>
 	</cffunction>
 
@@ -947,7 +947,7 @@ abort;
 				sendEmail(to=listStruct.email, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email");
 			}	
 		};
-		renderPage(template="emailNotificationTemplate", layout="/layout_for_email");
+		renderView(template="emailNotificationTemplate", layout="/layout_for_email");
 	}
 </cfscript>	
 

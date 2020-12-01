@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("/conference/adminlayout")>
 		<cfset filters(through="officeOnly", except="showregs,show,badgesAsJson")>
 		<cfset filters(through="setReturn", only="index,show,list,envelopes")>
@@ -24,7 +24,7 @@
 	    </cfif>
 
 		<cfif !gotRights("office")>
-			<cfset renderpage(layout="/conference/layout2017")>
+			<cfset renderView(layout="/conference/layout2017")>
 		</cfif>
 
 	</cffunction>
@@ -71,7 +71,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the family.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 
@@ -86,7 +86,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the family.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -166,7 +166,7 @@
 		</cfquery>
 		<!--- <cfdump var='#badges#'><cfabort> --->
 		<cfif isdefined("params.download")>
-			  <cfset renderPage(layout="/conference/layoutdownload")>
+			  <cfset renderView(layout="/conference/layoutdownload")>
 		</cfif>
 		<cfif isdefined("params.json")>
 				<cfset badges = getDistinctColumnValuesFromQuery(badges, 'fullnamelastfirst')>
@@ -174,10 +174,10 @@
 				<cfset renderJson()>
 		</cfif>
 		<cfif isDefined("params.print")>
-			<cfset renderPage(template="badgesPrint", layout="/layout_naked")>
+			<cfset renderView(template="badgesPrint", layout="/layout_naked")>
 		</cfif>
 		<cfif isDefined("params.asJson")>
-			<cfset renderPage(layout="/layout_json_simple", hideDebugInformation=true)>
+			<cfset renderView(layout="/layout_json_simple", hideDebugInformation=true)>
 		</cfif>
 	</cffunction>
 
@@ -192,7 +192,7 @@
 	</cffunction>
 
 	<cffunction name="badgesJson">
-		<cfset renderPage(layout="/layout_json_simple", hideDebugInformation=true)>
+		<cfset renderView(layout="/layout_json_simple", hideDebugInformation=true)>
 	</cffunction>
 
 <cfscript>
@@ -274,7 +274,7 @@
 		<cfset listcounts = replace(listcounts,"'","","all")>
 		<!--- <cfdump var="#envelopes#"><cfabort> --->
 		<cfif isdefined("params.download")>
-			  <cfset renderPage(layout="/conference/layoutdownload")>
+			  <cfset renderView(layout="/conference/layoutdownload")>
 		</cfif>
 	</cffunction>
 

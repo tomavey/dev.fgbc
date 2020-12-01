@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 	
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset filters("getForums")>
 		<cfset usesLayout("/forums/layout")>
 		<cfset filters(through="forumCheckin", except="login,authorize,logmein")>
@@ -183,7 +183,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the forumpost.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 	
@@ -202,7 +202,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the forumpost.")>
-			<cfset renderPage(action="edit", key=forumpost.parentid)>
+			<cfset renderView(action="edit", key=forumpost.parentid)>
 		</cfif>
 	</cffunction>
 	

@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout("/handbook/layout_handbook1")>
 		<cfset filters(through="logview", type="after")>
 		<cfset filters(through="gotBasicHandbookRights", only="index,show,new,edit")>
@@ -79,7 +79,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the handbooksubscribe.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 
@@ -95,7 +95,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the handbooksubscribe.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 
@@ -161,7 +161,7 @@
 		<cfelse>
 				<cfset message="You are already subscribed to daily birthday and anniversary reminders.">
 		</cfif>
-		<cfset renderPage(action="youaresubscribed")>
+		<cfset renderView(action="youaresubscribed")>
 	</cfif>
 	</cffunction>
 
@@ -375,7 +375,7 @@
 
 	<cffunction name="sendTodaysPrayerReminders">
 		<cfset sendPrayerReminders(timeframe="today")>
-		<cfset renderPage(template="sendPrayerReminders")>
+		<cfset renderView(template="sendPrayerReminders")>
 	</cffunction>
 
 	<cffunction name="sendVerificationToAdmin">
@@ -463,12 +463,12 @@
 		        <cfset flashInsert(error="No Updates Yesterday!")>
 		</cfif>
 
-		<cfset renderPage(template="/handbook/updates/index.cfm")>
+		<cfset renderView(template="/handbook/updates/index.cfm")>
 	</cffunction>
 
 f`	<cffunction name="xsendTodaysDates">
 		<cfset sendPrayerReminders(timeframe="week")>
-		<cfset renderPage(template="sendPrayerReminders")>
+		<cfset renderView(template="sendPrayerReminders")>
 	</cffunction>
 
 	<cffunction name="testscheduledemailsend">

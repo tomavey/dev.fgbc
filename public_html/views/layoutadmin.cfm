@@ -25,7 +25,7 @@
 
 	</head>
 	<body>
-		#includePartial("/login")#
+		#includePartial(partial="/login")#
 
 		<div id="header-wrapper">
 			<div id="header" class="container">
@@ -37,12 +37,12 @@
 					</div>
 
 					<div class="span7 offset5">
-						#includePartial("/topLinks")#
+						#includePartial(partial="/topLinks")#
 					</div>
 				</div>
 				<div class="row-fluid" id="main-links-wrapper">
 					<div class="span9 offset3"">
-						#includePartial("/mainLinks")#
+						#includePartial(partial="/mainLinks")#
 					</div>
 				</div>
 			</div>

@@ -1,6 +1,6 @@
 <h1>Listing equipannouncements</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 	<p>#linkTo(text="New equipannouncement", action="new")#</p>

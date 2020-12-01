@@ -1,6 +1,6 @@
  <cfoutput><h1>AGBM Region: #handbookagbmregion.name#</h1>
 
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
 
 			

@@ -94,7 +94,7 @@
 				REQUEST.payments = getPayments(personid=person.personid,agbmlifememberAt=person.agbmlifememberAt,formatted=true)
 						if ( !showOrdainedOnly || (showOrdainedOnly && find("Ordained",REQUEST.lastpayment)) || (showOrdainedOnly && isAgbmLifeMember(personid) && find("Ordained",REQUEST.lastpayment) ) ) {
 					if ( !showCommissionedOnly || (showCommissionedOnly && find("Commissioned",REQUEST.lastpayment)) || (showCommissionedOnly && isAgbmLifeMember(personid) && find("Commissioned",REQUEST.lastpayment)) ) {
-						writeOutput( #includePartial("table")# )
+						writeOutput( #includePartial(partial="table")# )
 						count = count + 1
 					}
 				}
@@ -117,7 +117,7 @@
 				<cfset REQUEST.payments = getPayments(personid,agbmlifememberAt)>
 				<cfif !showOrdainedOnly || (showOrdainedOnly && find("Ordained",REQUEST.lastpayment)) || (showOrdainedOnly && isAgbmLifeMember(personid) && find("Ordained",REQUEST.lastpayment))>
 					<cfif !showCommissionedOnly || (showCommissionedOnly && find("Commissioned",REQUEST.lastpayment)) || (showCommissionedOnly && isAgbmLifeMember(personid) && find("Commissioned",REQUEST.lastpayment))>
-	    			#includePartial("table")#<!---Table Row--->
+	    			#includePartial(partial="table")#<!---Table Row--->
 						<cfset count = count +1>
 					</cfif>
 				</cfif>
@@ -132,7 +132,7 @@
 
 <!---cfif showpagination()>
 	<cfoutput>
-		#includePartial("/_shared/paginationlinks")#
+		#includePartial(partial="/_shared/paginationlinks")#
 	</cfoutput>
 </cfif--->
 <cfoutput>

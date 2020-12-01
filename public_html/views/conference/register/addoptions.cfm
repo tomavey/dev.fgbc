@@ -11,7 +11,7 @@
 	#hiddenFieldTag(name="familyid", value=thisperson.family.id)#
 
 
-	#includePartial("selectoptions")#
+	#includePartial(partial="selectoptions")#
 
 	#submitTag(submitvalue)#
 	#endFormTag()#

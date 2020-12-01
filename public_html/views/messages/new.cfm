@@ -46,7 +46,7 @@
 								#textArea(objectName='message', property='message', label='', rows="10", cols="75")#
 
 				<cfif showCaptcha>
-					#includePartial("/captcha")#
+					#includePartial(partial="/captcha")#
 				</cfif>					
 
 					<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">

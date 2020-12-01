@@ -23,7 +23,7 @@
 
 	<cfif not isDefined("params.doc")>
 		<cfoutput>
-			#includePartial("/membership/navbar")#
+			#includePartial(partial="/membership/navbar")#
 		</cfoutput>
 	</cfif>
 

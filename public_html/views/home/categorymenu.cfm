@@ -1,3 +1,3 @@
 <cfoutput>
-#includePartial("categorymenu")#
+#includePartial(partial="categorymenu")#
 </cfoutput>

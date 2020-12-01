@@ -46,7 +46,7 @@ Email: {{lodgingRequest.email}}<br/>
 </div>
 
 
-#includePartial("scripts")#
+#includePartial(partial="scripts")#
 
 </cfoutput>
 </div>

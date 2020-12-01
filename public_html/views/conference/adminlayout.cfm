@@ -10,7 +10,7 @@
 	</head>
 	<body style="padding-top:40px">
 </div>
-			#includePartial("/conference/adminnavigation")#
+			#includePartial(partial="/conference/adminnavigation")#
 			<div id="contentForLayout">
 			#contentForLayout()#
 			</div>

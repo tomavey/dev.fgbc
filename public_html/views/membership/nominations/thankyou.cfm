@@ -2,7 +2,7 @@
 
 <cfoutput>
 
-#includePartial("show")#				
+#includePartial(partial="show")#				
 
 <p>Please print and save this page for your records.</p>
 </cfoutput>

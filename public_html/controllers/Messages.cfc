@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	public function init() {
+	public function config() {
 		filters(through="setShowCaptcha", only="new,create");
 	}
 
@@ -53,7 +53,7 @@ component extends="Controller" output="false" {
 			message.subject = "";
 		}
 		strCaptcha = getcaptcha();
-		renderPage(action="new");
+		renderView(action="new");
 	}
 	//  messages/edit/key 
 
@@ -88,13 +88,13 @@ component extends="Controller" output="false" {
 				//  Otherwise 
 			} else {
 				flashInsert(error="There was an error creating the message.");
-				renderPage(action="new");
+				renderView(action="new");
 			}
 		} else {
 			flashInsert(error="Please try to enter the scrambled image again.");
 			message = model("Mainmessage").new(params.message);
 			strCaptcha = getcaptcha();
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 

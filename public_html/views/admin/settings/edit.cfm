@@ -3,7 +3,7 @@
 		
 		<h1>Editing #setting.name#</h1>
 
-	#includePartial("showFlash")#</cfoutput>
+	#includePartial(partial="showFlash")#</cfoutput>
 
 	<cfoutput>
 				
@@ -15,7 +15,7 @@
 
 				#hiddenTagForKeyy()#
 		
-				#includePartial("form")#
+				#includePartial(partial="form")#
 					
 				#submitTag()#
 					

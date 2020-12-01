@@ -1,9 +1,9 @@
 <cfoutput>
 
-	#includePartial("/handbook/header")#
+	#includePartial(partial="/handbook/header")#
 
 	<cfif !isMobile() && params.action NEQ "inspire">
-	#includePartial("/handbook/banner")#
+	#includePartial(partial="/handbook/banner")#
 	</cfif>
 
 <div class="row">	
@@ -15,6 +15,6 @@
 	
 </div>
 	
-	#includePartial("/handbook/footer")#
+	#includePartial(partial="/handbook/footer")#
 
 </cfoutput>

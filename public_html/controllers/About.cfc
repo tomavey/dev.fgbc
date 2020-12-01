@@ -1,7 +1,7 @@
 <cfcomponent extends="Controller" output="false">
 
 <cfscript>
-	function init(){
+	function config(){
 		filters(through="showContent", except="contactUs,cci,cci_es,commoncommitment,ccm")
 		return this
 	}

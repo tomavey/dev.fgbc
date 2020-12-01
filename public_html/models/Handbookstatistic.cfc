@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 	
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset table(name="handbookstatistics")>
 		<cfset belongsTo(name="Handbookorganization", foreignKey="organizationId")>
 		<cfset property(name="attInt", sql='convert(att,Decimal)')>

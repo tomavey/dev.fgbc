@@ -1,6 +1,6 @@
 component extends="Model" output="false" {
 
-	public function init() {
+	public function config() {
 		Table("handbookpositions");
 		belongsTo(name="Handbookperson", foreignKey="personid", joinType="outer");
 		belongsTo(name="Handbookorganization", foreignKey="organizationid", joinType="outer");

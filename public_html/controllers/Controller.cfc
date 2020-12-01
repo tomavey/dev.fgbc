@@ -357,14 +357,23 @@ component extends="Wheels" {
 	// This is to get around the issue with not being able to use a hyphen in an argument name in CFML.
 	function linkTo(){
 		var loc = structNew();
+		var OKTags = ["<i","<b","<img"]
+		// loop through arguments and replace _ with -
 		for (var arg in arguments) {
 			if (arg is "officeOnly" && arguments.officeOnly) { return arguments.text }
 			loc[replace(arg,"_","-","all")] = arguments[arg];
 		}
+		// Add a params.keyy - needed for cfwheels1x - might not be needed for cfwheels2x
 		if (isDefined('loc.key')) { 
 			if (isDefined('loc.params')) { loc.params = loc.params & '&' & 'keyy=#loc.key#' }
 			else { loc.params = 'keyy=#loc.key#' }
 			};
+		//add encode="attributes" if the text is an image or icon	
+		if ( isDefined("loc.text") ) {
+			for ( var OKTag in OKTags ) {
+				if( find(OKTag,loc.text) ) { loc.encode= "attributes"	}
+			}
+		}
 		return super.linkTo(argumentCollection=loc);
 	}
 

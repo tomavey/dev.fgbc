@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset usesLayout(template="/conference/adminlayout", except="invoice")>
 		<cfset usesLayout(template="/conference/layout2019invoice", only="invoice")>
 		<cfset filters(through="officeOnly,setEvent", except="show,showByEmail")>
@@ -22,7 +22,7 @@
 			<cfset whereString = whereString & " AND ccstatus='#params.status#'">
 		</cfif>	
 		<cfset invoices = model("Conferenceinvoice").findAll(include="registrations", where=whereString)>
-		<cfset renderPage(layout="/conference/adminlayout")>
+		<cfset renderView(layout="/conference/adminlayout")>
 	</cffunction>
 
 	<cffunction name="showByEmail">
@@ -61,9 +61,9 @@
 		</cfif>
 
 		<cfif gotRights("office")>
-			<cfset renderPage(template="showByEmail", layout="/conference/layout2018")>
+			<cfset renderView(template="showByEmail", layout="/conference/layout2018")>
 		<cfelse>	
-			<cfset renderPage(action="regsSent", layout="/conference/layout2018")>
+			<cfset renderView(action="regsSent", layout="/conference/layout2018")>
 		</cfif>
 
 	</cffunction>
@@ -113,9 +113,9 @@
 	    </cfif>
 
 	    <cfif gotRights("superadmin,office")>
-	    	<cfset renderPage(controller="conference.register", action="invoice", layout="/conference/adminlayout")>
+	    	<cfset renderView(controller="conference.register", action="invoice", layout="/conference/adminlayout")>
 	    <cfelse>
-	    	<cfset renderPage(controller="conference.register", action="invoice", layout="/conference/layout2018")>
+	    	<cfset renderView(controller="conference.register", action="invoice", layout="/conference/layout2018")>
 	    </cfif>
 
 	</cffunction>
@@ -157,7 +157,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the invoice.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 
@@ -172,7 +172,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the invoice.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 

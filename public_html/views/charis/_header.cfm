@@ -84,6 +84,7 @@
                       text="Prayer<b class='caret'></b>", 
                       controller="events", 
                       action="index", 
+                      encode="arguments",
                       class="dropdown-toggle nav-link px-0 #isNavActive("events")#", data_toggle="dropdown")#
                   <ul class="dropdown-menu" style="padding:10px">
                     <!--- <li>#linkTo(text="Charis Alliance (global)", href="https://www.charisalliance.org/en/prayer/", target="_new")#</li> --->

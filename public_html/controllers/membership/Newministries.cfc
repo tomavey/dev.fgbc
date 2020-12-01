@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
- public void function init(){
+ public void function config(){
     filters(through="checkauth", except="new,questions,show,index,email");
     usesLayout("/layout");
   }
@@ -16,7 +16,7 @@ component extends="Controller" output="false" {
  }
 
  public void function questions(){
-    renderPage(layout="/layout_json", template="questions", hideDebugInformation=true)
+    renderView(layout="/layout_json", template="questions", hideDebugInformation=true)
  }
 
  public void function email(){
@@ -24,7 +24,7 @@ component extends="Controller" output="false" {
     ministryid = params.id;
     contactemail = params.email;
     sendEMail(from="tomavey@fgbc.org", to=contactemail, subject="A New Cooperating Ministry application for #ministryname#", template="email", layout="/layout_for_email");
-    renderPage(template="emailsent");
+    renderView(template="emailsent");
  }
 
 }

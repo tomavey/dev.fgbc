@@ -2,13 +2,13 @@
 #editButton("step1header")#
 <h1>#getQuestion("step1header")#</h1>
 
-#includePartial("reload")#
+#includePartial(partial="reload")#
 
 <div class="progress">
     <div class="bar" style="width: 0%;">progress...</div>
 </div>
 
-#includePartial("showFlash")#
+#includePartial(partial="showFlash")#
 
 </cfoutput>
 
@@ -21,7 +21,7 @@
 
 			#putFormTag()#		
 				
-			#includePartial("form1")#									
+			#includePartial(partial="form1")#									
 									
 			#hiddenFieldTag(name="nextstep", value="step2")#
 

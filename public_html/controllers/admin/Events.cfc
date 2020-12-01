@@ -1,7 +1,7 @@
 component extends="Controller" output="false" {
 	
 	<!--- Initialize --->
-	function init(){
+	function config(){
 		filters(through="checkOffice", only="index,edit,show,new,delete")
 		filters(through="setReturn", only="list,index,show")
 		filters(through="getEvent", only="copy,edit,update")
@@ -44,7 +44,7 @@ component extends="Controller" output="false" {
 			flashInsert(error="Event #params.key# was not found")
 			returnBack()
 		}
-		renderPage(action="new")
+		renderView(action="new")
 	}
 
 	<!--- events/edit/key --->
@@ -65,7 +65,7 @@ component extends="Controller" output="false" {
 			redirectTo(action="index")
 		} else {
 			flashInsert(error="There was an error creating the event.")
-			renderPage(action="new")
+			renderView(action="new")
 		}
 	}
 
@@ -76,7 +76,7 @@ component extends="Controller" output="false" {
 			returnBack()
 		} else {
 			flashInsert(error="There was an error updating the event.")
-			renderPage(action="edit")
+			renderView(action="edit")
 		}
 	}
 

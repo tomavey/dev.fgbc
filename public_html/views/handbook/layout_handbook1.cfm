@@ -1,12 +1,12 @@
 <cfoutput>
-	#includePartial("/handbook/header")#
+	#includePartial(partial="/handbook/header")#
 
 	<cfif not isMobile()>
-	#includePartial("/handbook/banner")#
+	#includePartial(partial="/handbook/banner")#
 	</cfif>
 
 		<cfif not params.controller is "handbookwelcome">
-			#includePartial("/handbook/navigation")#
+			#includePartial(partial="/handbook/navigation")#
 		</cfif>
 
 <div class="row">
@@ -17,6 +17,6 @@
 	</div>
 </div>
 
-	#includePartial("/handbook/footer")#
+	#includePartial(partial="/handbook/footer")#
 
 </cfoutput>

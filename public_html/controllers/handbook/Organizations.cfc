@@ -5,7 +5,7 @@
 //
 component extends="Controller" output="false" {
 
-	function init(){
+	function config(){
 		usesLayout("/handbook/layout_handbook")
 		filters(through="gotBasicHandbookRights", except="memberChurches,findChurches,findChurchWithStaff,groupRoster")
 		filters(through="getStates,getDistricts,getStatus", only="new,edit,update,index,create,downloadguidelines")
@@ -148,7 +148,7 @@ component extends="Controller" output="false" {
 			$updateNewChurchOrApplication(handbookorganization)
 			redirectTo(action="index", success="The handbookorganization was created successfully.")
 		} else {
-			renderPage(action="new", error="There was an error creating the handbookorganization.")
+			renderView(action="new", error="There was an error creating the handbookorganization.")
 		}
 	}
 
@@ -159,7 +159,7 @@ component extends="Controller" output="false" {
 				flashInsert(success="The handbookorganization was updated successfully.")
 				returnBack()
 			} else {
-				renderPage(action="edit", error="There was an error updating the handbookorganization.")
+				renderView(action="edit", error="There was an error updating the handbookorganization.")
 			}
 		}
 	
@@ -193,7 +193,7 @@ component extends="Controller" output="false" {
 		}
 		churches=session.churches;
 		testchurches = model("Handbookorganization").findChurchesForEmailing(reviewedBefore='#args.reviewedBefore#',go="false",orderby=args.orderby);
-		renderPage(layout="/handbook/layout_handbook2");
+		renderView(layout="/handbook/layout_handbook2");
 	}
 
 	public function EmailChurchesForHandbookReview(){
@@ -211,7 +211,7 @@ component extends="Controller" output="false" {
 		};
 		allemails = replace(allemails,"; ","","one");
 		structDelete(session,"churches");
-		renderPage(template="emailChurchesForHandbookReviewReport", layout="/handbook/layout_handbook2");
+		renderView(template="emailChurchesForHandbookReviewReport", layout="/handbook/layout_handbook2");
 	}
 
 	public function removeChurchFromSessionArray(item){
@@ -246,7 +246,7 @@ component extends="Controller" output="false" {
 
 	<!--------handbookDownloadguidelines	GET	/handbook/downloadguidelines----------->
 	function downloadguidelines(){
-		renderPage(layout="/handbook/layout_handbook1")
+		renderView(layout="/handbook/layout_handbook1")
 	}
 
 	<!---handbookDownloadmembers	GET	/handbook/organizations/downloadmemberchurches--->
@@ -275,7 +275,7 @@ component extends="Controller" output="false" {
 			arrayAppend(statNotesArray,$addStatNote(church.id))
 		}
 		queryAddColumn(churches,"statNote",statNotesArray)
-		renderPage(layout="/handbook/layout_admin")
+		renderView(layout="/handbook/layout_admin")
 	}
 
 	<!---Handbook Pages--->
@@ -304,7 +304,7 @@ component extends="Controller" output="false" {
 			newSortOrder = positions.p_sortorder + 1
 		}
 
-		renderPage(layout="/Handbook/layout_handbook2")
+		renderView(layout="/Handbook/layout_handbook2")
 
 	}
 
@@ -349,9 +349,9 @@ component extends="Controller" output="false" {
 		var includeString = "ListeAsState,Positions(Handbookperson)"
 		churches = model("Handbookorganization").findAll(where=whereString, include=includeString, order=orderString)
 		if ( isDefined("params.noFormat") ) {
-			renderPage(layout="/layout_naked", hideDebugInformation="true")
+			renderView(layout="/layout_naked", hideDebugInformation="true")
 		} else {
-			renderPage(layout="/handbook/layout_handbook")
+			renderView(layout="/handbook/layout_handbook")
 		}
 	}
 
@@ -367,7 +367,7 @@ component extends="Controller" output="false" {
 		if ( isDefined("params.search") ) { whereString = whereString & " AND (selectname LIKE '%#params.search#%' OR fein = '#params.search#')" }
 		// throw(message=whereString)
 		rosterChurches = model("Handbookorganization").findAll(where= whereString, include="State", order="#arguments.orderBy#")
-		renderPage(layout="/handbook/layout_handbook2")
+		renderView(layout="/handbook/layout_handbook2")
 	}
 	
 <!----------------------------->
@@ -569,17 +569,17 @@ component extends="Controller" output="false" {
 <!---------------------------->
 	
 	function json(){
-		renderPage(layout="/layout_json.cfm")
+		renderView(layout="/layout_json.cfm")
 	}
 	
 	function findChurches(){
 		orgs = model("Handbookorganization").findChurchesAsJson()
-		renderPage(layout="/layout_json", template="json", hideDebugInformation=true)
+		renderView(layout="/layout_json", template="json", hideDebugInformation=true)
 	}
 
 	function findMinistries(){
 		orgs = model("Handbookorganization").findMinistriesAsJson(returnAs="structs")
-		renderPage(layout="/layout_json", template="json", hideDebugInformation=true)
+		renderView(layout="/layout_json", template="json", hideDebugInformation=true)
 	}
 
 	function findChurchWithStaff(){
@@ -587,7 +587,7 @@ component extends="Controller" output="false" {
 		if ( get("environment") is "production" ) {
 			set(environment="production")
 		}
-		renderPage(layout="/layout_json", template="json", hideDebugInformation=true)
+		renderView(layout="/layout_json", template="json", hideDebugInformation=true)
 	}
 
 

@@ -8,17 +8,17 @@
 
     #hiddenFieldTag(name="home.type", value=type)#
 
-    #includePartial("includes/contactfields")#
+    #includePartial(partial="includes/contactfields")#
 
-    #includePartial("includes/availabilityfields")#
+    #includePartial(partial="includes/availabilityfields")#
 
-    #includePartial("includes/detailsfields")#
+    #includePartial(partial="includes/detailsfields")#
   
-    #includePartial("includes/locationfields")#
+    #includePartial(partial="includes/locationfields")#
 
   <cfif gotRights("office")>
 
-    #includePartial("includes/officefields")#
+    #includePartial(partial="includes/officefields")#
 
   </cfif>
 

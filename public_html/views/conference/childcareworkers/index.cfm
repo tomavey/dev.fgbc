@@ -1,7 +1,7 @@
 <div class="content">
 <h1>Listing Child Care Workers</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 	<p>#linkTo(text="New Child Care Worker Application", action="new")#</p>

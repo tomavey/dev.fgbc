@@ -26,7 +26,7 @@
 		</p>
 
 	</cfif>
-				#includePartial("show")#
+				#includePartial(partial="show")#
 
 
 
@@ -205,7 +205,7 @@
 
 					<p>#linkTo(text="Search Conference regs for #handbookperson.lname#", controller="conference.registrations", action="showsearch", params="search=#handbookperson.lname#", class="btn", target="_new")#</p>
 
-				#includePartial("groups")#
+				#includePartial(partial="groups")#
 --->
 					<cftry>
 					<p>

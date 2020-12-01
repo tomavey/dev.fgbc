@@ -53,7 +53,7 @@
 
 								<cfloop from="1" to="#church.delegatecount#" index="iii">
 
-										#includePartial("delegate")#
+										#includePartial(partial="delegate")#
 
 								</cfloop>
 

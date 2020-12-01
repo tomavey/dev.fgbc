@@ -1,6 +1,6 @@
 component extends="Controller" output="false" {
 
-	public function init() {
+	public function config() {
 		usesLayout("/conference/adminlayout");
 		filters("officeOnly");
 	}
@@ -51,7 +51,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error creating the content.");
-			renderPage(action="new");
+			renderView(action="new");
 		}
 	}
 
@@ -65,7 +65,7 @@ component extends="Controller" output="false" {
 			//  Otherwise 
 		} else {
 			flashInsert(error="There was an error updating the content.");
-			renderPage(action="edit");
+			renderView(action="edit");
 		}
 	}
 

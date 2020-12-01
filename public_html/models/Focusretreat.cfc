@@ -1,6 +1,6 @@
 <cfcomponent extends="Model" output="false">
 	
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset table("focus_retreats")>
 		<cfset hasMany(name='focusitems', modelName="Focusitem", foreignKey="id")>
 

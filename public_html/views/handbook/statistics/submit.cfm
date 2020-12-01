@@ -17,7 +17,7 @@
 
 				#hiddenFieldTag(name="handbookstatistic[enteredby]", value="temp")#
 
-				#includePartial("form")#
+				#includePartial(partial="form")#
 
 				#submitTag("Submit")#
 

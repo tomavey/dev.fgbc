@@ -3,11 +3,11 @@
 <cfoutput>
     <cfif !isAuthorizedForCohorts()>
 
-        #includePartial("selectPersonToSelect")#
+        #includePartial(partial="selectPersonToSelect")#
 
     <cfelse>
 
-        #includePartial("showSelected")#
+        #includePartial(partial="showSelected")#
 
     </cfif>    
 </cfoutput>

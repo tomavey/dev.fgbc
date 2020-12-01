@@ -84,7 +84,7 @@ Contact Email: {{ministry.contactemail}}<br/>
 
 </div>
 
-#includePartial("scripts")#
+#includePartial(partial="scripts")#
 
 </cfoutput>
 </div>

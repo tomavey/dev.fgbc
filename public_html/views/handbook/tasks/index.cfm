@@ -1,7 +1,7 @@
 <div class="span10 offset1">
 <h1>Listing tasks</h1>
 
-<cfoutput>#includePartial("showFlash")#</cfoutput>
+<cfoutput>#includePartial(partial="showFlash")#</cfoutput>
 
 <cfoutput>
 	<p>#linkTo(text="Create a new task", action="new")#</p>

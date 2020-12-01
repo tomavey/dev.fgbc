@@ -1,122 +1,120 @@
-<cfcomponent extends="Base" output="false">
+component extends="Base" output=false {
 
-	<cffunction name="$generatedKey" returntype="string" access="public" output="false">
-		<cfscript>
-			var loc = {};
-			loc.rv = "generated_key";
-		</cfscript>
-		<cfreturn loc.rv>
-	</cffunction>
-
-	<cffunction name="$randomOrder" returntype="string" access="public" output="false">
-		<cfscript>
-			var loc = {};
-			loc.rv = "RAND()";
-		</cfscript>
-		<cfreturn loc.rv>
-	</cffunction>
-
-	<cffunction name="$defaultValues" returntype="string" access="public" output="false">
-		<cfscript>
-			var loc = {};
-			loc.rv = "() VALUES()";
-		</cfscript>
-		<cfreturn loc.rv>
-	</cffunction>
-
-	<cffunction name="$getType" returntype="string" access="public" output="false">
-		<cfargument name="type" type="string" required="true">
-		<cfscript>
-			var loc = {};
-			switch (arguments.type)
-			{
-				case "bigint":
-					loc.rv = "cf_sql_bigint";
-					break;
-				case "binary":
-					loc.rv = "cf_sql_binary";
-					break;
-				case "bit": case "bool":
-					loc.rv = "cf_sql_bit";
-					break;
-				case "blob": case "tinyblob": case "mediumblob": case "longblob":
-					loc.rv = "cf_sql_blob";
-					break;
-				case "char":
-					loc.rv = "cf_sql_char";
-					break;
-				case "date":
-					loc.rv = "cf_sql_date";
-					break;
-				case "decimal":
-					loc.rv = "cf_sql_decimal";
-					break;
-				case "double":
-					loc.rv = "cf_sql_double";
-					break;
-				case "float":
-					loc.rv = "cf_sql_float";
-					break;
-				case "int": case "mediumint":
-					loc.rv = "cf_sql_integer";
-					break;
-				case "smallint": case "year":
-					loc.rv = "cf_sql_smallint";
-					break;
-				case "time":
-					loc.rv = "cf_sql_time";
-					break;
-				case "datetime": case "timestamp":
-					loc.rv = "cf_sql_timestamp";
-					break;
-				case "tinyint":
-					loc.rv = "cf_sql_tinyint";
-					break;
-				case "varbinary":
-					loc.rv = "cf_sql_varbinary";
-					break;
-				case "varchar": case "text": case "mediumtext": case "longtext": case "tinytext": case "enum": case "set":
-					loc.rv = "cf_sql_varchar";
-					break;
+	/**
+	 * Map database types to the ones used in CFML.
+	 */
+	public string function $getType(required string type, string scale, string details) {
+		// Special handling for unsigned (stores only positive or 0 numbers) data types.
+		// When using unsigned data types we can store a higher value than usual so we need to map to different CF types.
+		// E.g. unsigned int stores up to 4,294,967,295 instead of 2,147,483,647 so we map to cf_sql_bigint to support that.
+		if (StructKeyExists(arguments, "details") && arguments.details == "unsigned") {
+			if (arguments.type == "int") {
+				return "cf_sql_bigint";
+			} else if (arguments.type == "bigint") {
+				return "cf_sql_decimal";
 			}
-		</cfscript>
-		<cfreturn loc.rv>
-	</cffunction>
-	
-	<cffunction name="$query" returntype="struct" access="public" output="false">
-		<cfargument name="sql" type="array" required="true">
-		<cfargument name="limit" type="numeric" required="false" default=0>
-		<cfargument name="offset" type="numeric" required="false" default=0>
-		<cfargument name="parameterize" type="boolean" required="true">
-		<cfargument name="$primaryKey" type="string" required="false" default="">
-		<cfscript>
-			var loc = {};
-			arguments = $convertMaxRowsToLimit(arguments);
-			arguments.sql = $removeColumnAliasesInOrderClause(arguments.sql);
-			loc.rv = $performQuery(argumentCollection=arguments);
-		</cfscript>
-		<cfreturn loc.rv>
-	</cffunction>
-	
-	<cffunction name="$identitySelect" returntype="any" access="public" output="false">
-		<cfargument name="queryAttributes" type="struct" required="true">
-		<cfargument name="result" type="struct" required="true">
-		<cfargument name="primaryKey" type="string" required="true">
-		<cfset var loc = StructNew()>
-		<cfset var query = StructNew()>
-		<cfset loc.sql = Trim(arguments.result.sql)>
-		<cfif Left(loc.sql, 11) IS "INSERT INTO" AND NOT StructKeyExists(arguments.result, $generatedKey())>
-			<cfset loc.startPar = Find("(", loc.sql) + 1>
-			<cfset loc.endPar = Find(")", loc.sql)>
-			<cfset loc.columnList = ReplaceList(Mid(loc.sql, loc.startPar, (loc.endPar-loc.startPar)), "#Chr(10)#,#Chr(13)#, ", ",,")>
-			<cfif NOT ListFindNoCase(loc.columnList, ListFirst(arguments.primaryKey))>
-				<cfset loc.rv = StructNew()>
-				<cfquery attributeCollection="#arguments.queryAttributes#">SELECT LAST_INSERT_ID() AS lastId</cfquery>
-				<cfset loc.rv[$generatedKey()] = query.name.lastId>
-				<cfreturn loc.rv>
-			</cfif>
-		</cfif>
-	</cffunction>
+		}
 
-	<cfinclude template="../../plugins/injection.cfm">
-</cfcomponent>
+		switch (arguments.type) {
+			case "bigint":
+				local.rv = "cf_sql_bigint";
+				break;
+			case "binary":
+			case "geometry":
+			case "point":
+			case "linestring":
+			case "polygon":
+			case "multipoint":
+			case "multilinestring":
+			case "multipolygon":
+			case "geometrycollection":
+				local.rv = "cf_sql_binary";
+				break;
+			case "bit":
+			case "bool":
+				local.rv = "cf_sql_bit";
+				break;
+			case "blob":
+			case "tinyblob":
+			case "mediumblob":
+			case "longblob":
+				local.rv = "cf_sql_blob";
+				break;
+			case "char":
+				local.rv = "cf_sql_char";
+				break;
+			case "date":
+				local.rv = "cf_sql_date";
+				break;
+			case "decimal":
+				local.rv = "cf_sql_decimal";
+				break;
+			case "double":
+				local.rv = "cf_sql_double";
+				break;
+			case "float":
+				local.rv = "cf_sql_float";
+				break;
+			case "int":
+			case "mediumint":
+				local.rv = "cf_sql_integer";
+				break;
+			case "smallint":
+			case "year":
+				local.rv = "cf_sql_smallint";
+				break;
+			case "time":
+				local.rv = "cf_sql_time";
+				break;
+			case "datetime":
+			case "timestamp":
+				local.rv = "cf_sql_timestamp";
+				break;
+			case "tinyint":
+				local.rv = "cf_sql_tinyint";
+				break;
+			case "varbinary":
+				local.rv = "cf_sql_varbinary";
+				break;
+			case "varchar":
+			case "enum":
+			case "set":
+			case "tinytext":
+				local.rv = "cf_sql_varchar";
+				break;
+			case "json":
+			case "text":
+			case "mediumtext":
+			case "longtext":
+				local.rv = "cf_sql_longvarchar";
+				break;
+		}
+		return local.rv;
+	}
+
+	/**
+	 * Call functions to make adapter specific changes to arguments before executing query.
+	 */
+	public struct function $querySetup(
+		required array sql,
+		numeric limit = 0,
+		numeric offset = 0,
+		required boolean parameterize,
+		string $primaryKey = ""
+	) {
+		$convertMaxRowsToLimit(args = arguments);
+		$removeColumnAliasesInOrderClause(args = arguments);
+		$moveAggregateToHaving(args = arguments);
+		return $performQuery(argumentCollection = arguments);
+	}
+
+	/**
+	 * Override Base adapter's function.
+	 */
+	public string function $defaultValues() {
+		return "() VALUES()";
+	}
+
+	include "../../plugins/standalone/injection.cfm";
+
+}

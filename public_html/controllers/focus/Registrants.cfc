@@ -1,6 +1,6 @@
 <cfcomponent extends="Controller" output="true">
 	
-	<cffunction name="init">
+	<cffunction name="config">
 		<cfset useslayout('/focus/layoutadmin')>
 		<cfset filters('checkOffice')>
 		<cfset filters(through="setReturn", only="index,show")>
@@ -69,7 +69,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error creating the registrant.")>
-			<cfset renderPage(action="new")>
+			<cfset renderView(action="new")>
 		</cfif>
 	</cffunction>
 	
@@ -84,7 +84,7 @@
 		<!--- Otherwise --->
 		<cfelse>
 			<cfset flashInsert(error="There was an error updating the registrant.")>
-			<cfset renderPage(action="edit")>
+			<cfset renderView(action="edit")>
 		</cfif>
 	</cffunction>
 	

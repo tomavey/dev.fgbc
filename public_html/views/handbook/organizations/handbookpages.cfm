@@ -135,7 +135,7 @@
    
       <cfoutput query="positionsalpha">
   	
-  	#includePartial("/_shared/handbookinfo")#
+  	#includePartial(partial="/_shared/handbookinfo")#
   	
   	  <p class="extraprofile">Extra Profile information (will not be printed in handbook):
   		 <ul>
