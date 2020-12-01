@@ -31,12 +31,6 @@ component extends="tests.Test" output="true" {
     $run_view_test();
   }
 
-  public function test_courses_View() {
-    //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
-    loc.params = {controller="conference.courses", action="view", key=269};
-    $run_view_test();
-  }
-
   public function test_courses_Show() {
     //  setup some default params for the tests plus the text we are looking for. Defaults to "</body>"
     loc.params = {controller="conference.courses", action="show", key=269, message="Showing"};

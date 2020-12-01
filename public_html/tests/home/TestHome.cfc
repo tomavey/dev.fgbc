@@ -95,4 +95,9 @@ component extends="wheels.Test" output="true" {
 		$run_view_test;
 	}
 
+	public function test_announcement(){
+		loc.params = {controller="Announcements", action="index"};
+		$run_view_test
+	}
+
 }

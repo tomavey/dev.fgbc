@@ -369,8 +369,10 @@ component extends="Wheels" {
 			else { loc.params = 'keyy=#loc.key#' }
 			};
 		//add encode="attributes" if the text is an image or icon	
-		for ( var OKTag in OKTags ) {
-			if( find(OKTag,loc.text) ) { loc.encode= "attributes"	}
+		if ( isDefined("loc.text") ) {
+			for ( var OKTag in OKTags ) {
+				if( find(OKTag,loc.text) ) { loc.encode= "attributes"	}
+			}
 		}
 		return super.linkTo(argumentCollection=loc);
 	}

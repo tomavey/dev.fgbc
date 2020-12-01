@@ -30,7 +30,8 @@ component extends="Controller" output="false" {
  	<!--- contents/show/key --->
 	 function show(){
 		if (isDefined("params.shortlink")){
-			content = model("Maincontent").findOne(where="shortlink='#params.shortlink#'")			
+			content = model("Maincontent").findOne(where="shortlink='#params.shortlink#'")
+			params.key = params.shortlink			
 		} else {
 			content = model("Maincontent").findByKey(params.key)
 		}
