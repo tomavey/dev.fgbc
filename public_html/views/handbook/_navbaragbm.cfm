@@ -81,6 +81,9 @@
 						<li>
 							#linkTo(text="Settings", controller="admin", action="settings", params="category=inspire")#
 						</li>
+						<li>
+							#linkTo(text="Transfer Payments", controller="handbook.agbminfo", action="movePaymentsToNewMember")#
+						</li>
 
 					</ul>	
 				</li>

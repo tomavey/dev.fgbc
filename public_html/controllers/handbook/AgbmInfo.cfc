@@ -626,6 +626,31 @@ function delete() {
 		}
 	}
 
+	private function $movePaymentsToNewMember ( required numeric oldPersonId, required numeric newPersonid ) {
+		var personsIdString = ""
+		var payments = model("Handbookagbminfo").findAll(where="personid = #arguments.oldPersonId#", order="membershipfeeyear DESC")
+		for ( payment in payments ) {
+			var newPayment = model("Handbookagbminfo").new(payment)
+			newPayment.id = ""
+			newPayment.personid = arguments.newPersonid
+			newPayment.save()
+			personsIdString = personsIdString & "; " & payment.personid
+			model("Handbookagbminfo").deleteAll(where="id=#payment.id#")
+		}	
+		return newPersonid
+	}
+
+	function movePaymentsToNewMember(){
+		//move payments from the oldPersonid to the newPersonId - enter numbers manually or in the url
+		oldPersonId = ""
+		newPersonId = ""
+		if ( isDefined("params.oldPersonId") ) { oldPersonId = params.oldPersonId }
+		if ( isDefined("params.newPersonid") ) { newPersonid = params.newPersonid }
+		if ( !len(oldPersonID) || !len(newPersonId) ) { writeOutPut("Need OldPersonId and NewPersonid as URL params"); abort; }
+		newPersonid = $movePaymentsToNewMember(oldPersonId, newPersonid)
+		writeOutPut("payments for #oldPersonId# have been transfered to #newPersonid#"); abort;
+	}
+
 
 	
 	<!--- I don't think index is being used - "list" is--->

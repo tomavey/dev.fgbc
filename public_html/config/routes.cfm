@@ -199,6 +199,7 @@
 			.get(name="agbmLogout", pattern="/agbmInfo/logout/",controller="agbmInfo", action="logout")
 			.get(name="publicList", pattern="/agbm/", controller="agbmInfo", action="publicList")
 			.get(name="addAgbmInfo", pattern="/agbminfo/[key]/add/", controller="agbminfo", action="add")
+			.get(name="movePaymentsToNewMember", pattern="/agbminfo/movePaymentsToNewMember/", controller="agbminfo", action="movePaymentsToNewMember")
 			.resources("agbmInfo")
 
 			.get(name="districtsReport", pattern="/districts/report/", controller="districts", action="handbookreport")
