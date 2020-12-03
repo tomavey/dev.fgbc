@@ -258,6 +258,7 @@
 			.get(name="focusMailingList", pattern="/people/focus/[key]", controller="people", action="focus")
 			.get(name="emailPeopleHandbookReview", pattern="/people/handbookReviewEmail", controller="people", action="emailPeopleForHandbookReview")
 			.delete(name="deleteperson", pattern="/people/[key]/delete", controller="people", action="delete")
+			.get(name="deleteperson", pattern="/people/[key]/delete", controller="people", action="delete")
 			.controller("people")
 				.get(name="hideFromPublic", pattern="hideFromPublic/")
 				.get(name="UnHideFromPublic", pattern="UnHideFromPublic/")
