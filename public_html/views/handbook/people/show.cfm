@@ -185,7 +185,7 @@
 				</cfif>		
 
 					<p>#editTag(handbookperson.id)# #deleteTag(id=handbookperson.id, class="noAjax")#</p>
-
+					<i class='fa fa-trash'></i>
 					<cfif handbookperson.hideFromPublic>
 						<p> The record for #handbookperson.fname# is hidden from public.</br>
 							#linkTo(text="Un-hide #handbookperson.fname# from public", controller="handbook.people", action="unHideFromPublic", params="personid=#handbookperson.id#", class="btn")#
