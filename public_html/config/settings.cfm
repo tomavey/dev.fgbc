@@ -24,8 +24,6 @@
 	set(functionName="select", labelPlacement="before", prependToLabel="<p>", append="</p>", encode="attributes")
 	set(functionName="timeSelect", labelPlacement="before", prependToLabel="<p>", append="</p>", encode="attributes")
 	set(functionName="linkTo", encode="attributes")
-	set(functionName="styleSheetLinkTag", encode="attributes")
-	set(functionName="javaScriptIncludeTag", encode="attributes")
 
 
 
