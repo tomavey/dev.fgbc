@@ -102,7 +102,7 @@
 
 </div>
 <cfif gotRights("superadmin,office,handbookedit")>
-#linkTo(text="Delete this church or ministry", action="delete", key=params.key, method="delete", onClick="return confirm('Are you sure? It might be better to mark this church as closed in case AGBM members are still connected to this church')")#
+#linkTo(text="Delete this church or ministry", controller="handbook.organizations", action="delete", key=params.key, method="delete", onClick="return confirm('Are you sure? It might be better to mark this church as closed in case AGBM members are still connected to this church')", class="btn")#
 <cfif len(handbookorganization.fein)>
 <p>FEIN ##: #handbookorganization.fein#</p>
 <p>501c3 group roster? 

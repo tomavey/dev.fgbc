@@ -238,7 +238,9 @@
 			.get(name="removeChurchFromSessionArray", pattern="/organization/removeChurchFromSessionArray", controller="organizations", action="removeChurchFromSessionArray")
 			.controller("organizations")
 				.get(name="websites", pattern="websites")
-			.end()	
+				.delete(name="deleteOrganization", pattern="/[key]/delete/", action="delete")
+				.get(name="deleteOrganization", pattern="/[key]/delete/", action="delete")
+				.end()	
 			.resources("organizations")
 
 			<!---Controller="handbook.people"--->
