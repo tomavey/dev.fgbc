@@ -9,7 +9,6 @@
 					<cfif NOT isAjax() AND (isDefined("session.auth.handbook.people") AND gotHandbookPersonRights(handbookperson.id)) OR gotrights("superadmin,office,agbmadmin,handbookedit")>
 					<p id="editicon">
 							#linkto(text='<i class="icon-edit"></i>', action="edit", key=params.key, class="tooltipleft", title="Edit #handbookperson.lname#")#
-							<i class="icon-edit"></i>
 					</p>
 					</cfif>
 
