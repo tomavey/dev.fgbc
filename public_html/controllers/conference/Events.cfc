@@ -1,5 +1,5 @@
 <cfcomponent extends="Controller" output="false">
-
+//TODO: Change to cfscript
 	<cffunction name="config">
 		<cfset usesLayout("/conference/adminlayout")>
 		<cfset filters(through="getEvents,getLocations,getCourses", except="update,create,delete")>

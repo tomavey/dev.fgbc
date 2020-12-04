@@ -1,5 +1,5 @@
 <cfcomponent extends="controllers.Controller">
-
+<!--- //TODO: need to change to cfscript --->
 	<cffunction name="isBefore">
 	<cfargument name="date" required="yes" type="date">
 	<cfif datecompare(now(),arguments.date) is -1>

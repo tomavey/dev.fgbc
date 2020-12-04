@@ -813,6 +813,7 @@
 <!--------General - no namespace---->
 <!---------------------------------->
 
+		.get(name="events", pattern="events", controller="events", action="index")
 		.get(name="jobs", pattern="jobs", controller="jobs", action="index")
 		.get(name="resources", pattern="resources", controller="resources", action="index")
 		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
