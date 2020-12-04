@@ -793,7 +793,7 @@
 <cfif isDefined("arguments.route") && len(arguments.route)>
 	<cfset structDelete(arguments, 'controller')>
 	<cfset structDelete(arguments, 'action')>
-	<cfset loc.return = linkto(argumentCollection=arguments, style='color:red')>
+	<cfset loc.return = linkto(argumentCollection=arguments)>
 <cfelseif isDefined("arguments.controller") and len(arguments.controller)>
 	<cfif NOT isDefined("arguments.action") or NOT len(arguments.action)>
 		<cfset arguments.action = "index">
