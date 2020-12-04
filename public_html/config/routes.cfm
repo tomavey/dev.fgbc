@@ -78,8 +78,14 @@
 			.controller("jobs")
 				.get(name="sendNotice", pattern="/sendnotice/[key]", action="sendnotice")
 				.get(name="thankYou", pattern="/thankyou/[key]", action="thankyou")
-				.end()
+				.get(name="index", pattern="/", action="jobs")
+			.end()
 			.resources("jobs")
+
+			.controller("menus")
+				.get(name="deleteMenuItem", pattern="/[key]/delete", action="delete")
+				.delete(name="deleteMenuItem2", pattern="/[key]/delete", action="delete")
+			.end()
 			.resources("menus")
 
 			.controller("messages")
@@ -91,6 +97,7 @@
 			.get(name="listMinistries", pattern="/ministries/list/", controller="ministries", action="list")
 			.get(name="simpleListMinistries", pattern="/ministries/simplelist/", controller="ministries", action="simplelist")
 			.resources("ministries")
+			
 			.resources("resources")
 
 			.get(name="pics", pattern="/pics/", controller="pics", action="index")
@@ -806,6 +813,8 @@
 <!--------General - no namespace---->
 <!---------------------------------->
 
+		.get(name="jobs", pattern="jobs", controller="jobs", action="index")
+		.get(name="resources", pattern="resources", controller="resources", action="index")
 		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
 		.get(name="conferencereg", pattern="/conference", controller="conference.register", action="welcome")
