@@ -7,8 +7,15 @@
 
 <div class="container span10">
 
+	<cfoutput>
+		<p class="email-not-sent">
+			#flash("message")#
+		</p>
+	</cfoutput>
+
 	<cfif isDefined("params.go") && params.go is "test">
 		<cfoutput>#linkto(text="Send to subscribers", route="handbookSendTodaysDates", params="go=send", class="btn")#</cfoutput>
+		<cfoutput>#linkto(text="Re-Send to ALL subscribers", route="handbookSendTodaysDates", params="go=send&reSendToAll", class="btn")#</cfoutput>
 	</cfif>
 
 	<!---cfif isDefined("emailall")>

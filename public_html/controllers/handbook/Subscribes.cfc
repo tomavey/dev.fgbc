@@ -188,19 +188,24 @@
 
 			<cfset emailall = "">
 
-			<cfif isDefined("params.go") && params.go is "test" && !isLocalMachine()>
-				<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@fgbc.org", subject="TEST - From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_naked")>
+			<cfif isDefined("params.go") && params.go is "test">
+				<cfif !isLocalMachine()>
+					<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@fgbc.org", subject="TEST - From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_naked")>
+				<cfelse>	
+					<cfset flashInsert(message="Test - Email would have been sent in production")>	
+				</cfif>
 			<cfelse>
 				<cfif isDefined("params.sendto") and len(params.sendto)>
 					<cfset subscriptions = listToQuery(list=params.sendto, columnName="email")>
 					<cfset lastSendAt = now()-1>
 				</cfif>
 				<cfloop query="subscriptions">
-					<cfif sendToThisPerson(lastSendAt)>
-
+					<cfif sendToThisPerson(lastSendAt) || isDefined("params.reSendToAll")>
 						<cfset useThisEmail = useHandbookEmail(email,handbookemail)>
 						<cfif !isLocalMachine()>
 							<cfset sendEMail(from="tomavey@fgbc.org", to=scrubEmail(useThisEmail), subject="From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_for_email", type="html")>
+						<cfelse>
+							<cfset flashInsert(message="Email would have been sent to #subscriptions.recordCount# in production")>	
 						</cfif>
 						<cfset emailall = emailall & ";" & useThisEmail>
 						<cfif isDefined("id")>
