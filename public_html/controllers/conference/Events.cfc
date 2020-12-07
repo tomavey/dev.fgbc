@@ -1,214 +1,185 @@
-<cfcomponent extends="Controller" output="false">
-//TODO: Change to cfscript
-	<cffunction name="config">
-		<cfset usesLayout("/conference/adminlayout")>
-		<cfset filters(through="getEvents,getLocations,getCourses", except="update,create,delete")>
-		<cfset filters(through="officeOnly", except="index,summary,show,listScheduleAsJson,listMealsAsJson,listExcursionsAsJson,listOtherEventsAsJson,generalInfo,testCopy,copyCategoryToNextDay")>
-		<cfset filters(through="setreturn", only="index,show")>
-	</cffunction>
+component extends="Controller" output="false" {
 
-<!-------------->
-<!---Filters--->
-<!-------------->
+	writeOutput("//TODO: Change to cfscript");
 
-	<cffunction name="getEvents">
-		<cfset var thisEvent = getSetting("event")>
-		<cfset events = model("Conferenceoption").findall(where="event='#thisEvent#'", order="type DESC")>
-	</cffunction>
+	public function config() {
+		usesLayout("/conference/adminlayout");
+		filters(through="getEvents,getLocations,getCourses", except="update,create,delete");
+		filters(through="officeOnly", except="index,summary,show,listScheduleAsJson,listMealsAsJson,listExcursionsAsJson,listOtherEventsAsJson,generalInfo,testCopy,copyCategoryToNextDay");
+		filters(through="setreturn", only="index,show");
+	}
+	// --------
+	// Filters
+	// --------
 
-	<cffunction name="getLocations">
-		<cfset locations = model("Conferencelocation").findall(where="event='#getEvent()#'", order="roomnumber")>
-	</cffunction>
+	public function getEvents() {
+		var thisEvent = getSetting("event");
+		events = model("Conferenceoption").findall(where="event='#thisEvent#'", order="type DESC");
+	}
 
-	<cffunction name="getCourses">
-		<cfset courses = model("Conferencecourse").findall(where="event='#getEvent()#'", order="title")>
-	</cffunction>
-<!-------------->
+	public function getLocations() {
+		locations = model("Conferencelocation").findall(where="event='#getEvent()#'", order="roomnumber");
+	}
 
-<!-------------->
-<!---CCRUD--->
-<!-------------->
+	public function getCourses() {
+		courses = model("Conferencecourse").findall(where="event='#getEvent()#'", order="title");
+	}
+	// --------
+	// --------
+	// CCRUD
+	// --------
+	//  conference/events/index 
 
-<!--- conference/events/index --->
-	<cffunction name="index">
-	<cfset var loc=structNew()>
+	public function index() {
+		var loc=structNew();
+		loc.today = CreateDate(Year(Now()),Month(Now()),Day(Now()));
+		loc.orderbystring = "eventDate,timebegin,category,roomnumber,description";
+		if ( isDefined("params.category") && isDefined("params.date") ) {
+			events = model("Conferenceevent").findAll(where="category='#params.category#' AND event='#getEvent()#' AND date like '#params.date#%'", include="location", order=loc.orderbystring);
+			session.return = params.category;
+		} else if ( isdefined("params.category") && params.category != "all" ) {
+			events = model("Conferenceevent").findAll(where="category='#params.category#' AND event='#getEvent()#'", include="location", order=loc.orderbystring);
+			session.return = params.category;
+		} else if ( isdefined("params.category") && params.category == "all" ) {
+			events = model("Conferenceevent").findAll(where="event='#getEvent()#'", include="location", order=loc.orderbystring);
+		} else if ( isDefined("params.desc") ) {
+			params.desc = left(desc,5);
+			events = model("Conferenceevent").findAll(where="event='#getEvent()#' && description like '#params.desc#%'", include="location", order=loc.orderbyString);
+		} else if ( isDefined("params.locationid") ) {
+			events = model("Conferenceevent").findAll(where="event='#getEvent()#' AND locationid = #params.locationid#", include="location", order=loc.orderbyString);
+		} else {
+			events = model("Conferenceevent").findAll(where="event='#getEvent()#'", include="location", order=loc.orderbystring);
+			if ( isdefined("session.return") ) {
+				structDelete(session,"return");
+			}
+		}
+	}
+	//  conference/events/show/key 
 
-		<cfset loc.today = CreateDate(Year(Now()),Month(Now()),Day(Now()))>
-		<cfset loc.orderbystring = "eventDate,timebegin,category,roomnumber,description">
-		<cfif isDefined("params.category") AND isDefined("params.date")>
-			<cfset events = model("Conferenceevent").findAll(where="category='#params.category#' AND event='#getEvent()#' AND date like '#params.date#%'", include="location", order=loc.orderbystring)>
-			<cfset session.return = params.category>
-		<cfelseif isdefined("params.category") and params.category NEQ "all">
-			<cfset events = model("Conferenceevent").findAll(where="category='#params.category#' AND event='#getEvent()#'", include="location", order=loc.orderbystring)>
-			<cfset session.return = params.category>
-		<cfelseif isdefined("params.category") and params.category is "all">
-			<cfset events = model("Conferenceevent").findAll(where="event='#getEvent()#'", include="location", order=loc.orderbystring)>
-		<cfelseif isDefined("params.desc")>
-			<cfset params.desc = left(desc,5)>
-			<cfset events = model("Conferenceevent").findAll(where="event='#getEvent()#' AND description like '#params.desc#%'", include="location", order=loc.orderbyString)>
-		<cfelseif isDefined("params.locationid")>
-			<cfset events = model("Conferenceevent").findAll(where="event='#getEvent()#' AND locationid = #params.locationid#", include="location", order=loc.orderbyString)>
-		<cfelse>
-			<cfset events = model("Conferenceevent").findAll(where="event='#getEvent()#'", include="location", order=loc.orderbystring)>
-			<cfif isdefined("session.return")>
-				<cfset structDelete(session,"return")>
-			</cfif>
-		</cfif>
-	</cffunction>
+	public function show() {
+		//  Find the record 
+		event = model("Conferenceevent").findByKey(key=params.key, include="location,course");
+		instructors = model("Conferenceevent").findInstructors(params.key);
+		//  Check if the record exists 
+		if ( !IsObject(event) ) {
+			flashInsert(error="Event #params.key# was !found");
+			redirectTo(action="index");
+		}
+	}
+	//  conference/events/new 
 
-<!--- conference/events/show/key --->
-	<cffunction name="show">
-		<!--- Find the record --->
-    	<cfset event = model("Conferenceevent").findByKey(key=params.key, include="location,course")>
-    	<cfset instructors = model("Conferenceevent").findInstructors(params.key)>
+	public function new() {
+		event = model("Conferenceevent").new();
+		event.event = getEvent();
+	}
+	//  conference/events/edit/key 
 
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(event)>
-	        <cfset flashInsert(error="Event #params.key# was not found")>
-	        <cfset redirectTo(action="index")>
-	    </cfif>
+	public function edit() {
+		//  Find the record 
+		event = model("Conferenceevent").findByKey(key=params.key, include="location");
+		try {
+			event.day = DayOfWeekAsString(dayOfWeek(event.date));
+		} catch (any cfcatch) {
+		}
+		//  Check if the record exists 
+		if ( !IsObject(event) ) {
+			flashInsert(error="Event #params.key# was !found");
+			redirectTo(action="index");
+		}
+	}
+	//  conference/events/create 
 
-	</cffunction>
+	public function create() {
+		var newlocation="";
+		event = model("Conferenceevent").new(params.event);
+		if ( isdefined("params.event.day") ) {
+			event.date = dayToDate(params.event.day);
+		}
+		if ( len(params.event.newlocation) ) {
+			newlocation = model("Conferencelocation").create(roomnumber=params.event.newlocation);
+			event.locationid = newlocation.id;
+		}
+		// add a new course and connect if field is defined
+		if ( isDefined("params.event.newCourseName") && len(params.event.newCourseName) ) {
+			var newCourse = model("Conferencecourse").create(title=params.event.newCourseName, type="other", event=getEvent());
+			event.courseid = newCourse.id;
+		}
+		//  Verify that the event creates successfully 
+		if ( event.save() ) {
+			flashInsert(success="The event was created successfully.");
+			if ( isdefined("session.return") ) {
+				returnBack();
+			} else {
+				redirectTo(action="index");
+			}
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error creating the event.");
+			renderView(action="new");
+		}
+	}
+	//  conference/events/copy 
 
-<!--- conference/events/new --->
-	<cffunction name="new">
-		<cfset event = model("Conferenceevent").new()>
-		<cfset event.event = getEvent()>
-	</cffunction>
+	public function copy() {
+		//  Find the record 
+		event = model("Conferenceevent").findByKey(key=params.key, include="location");
+		event.day = DayOfWeekAsString(dayOfWeek(event.date));
+		//  Check if the record exists 
+		if ( !IsObject(event) ) {
+			flashInsert(error="Event #params.key# was !found");
+			redirectTo(action="index");
+		}
+		renderView(action="new");
+	}
+	//  conference/events/copyAllToCurrentEvent 
 
-<!--- conference/events/edit/key --->
-	<cffunction name="edit">
-
-		<!--- Find the record --->
-    	<cfset event = model("Conferenceevent").findByKey(key=params.key, include="location")>
-
-		<cftry>
-			<cfset event.day = DayOfWeekAsString(dayOfWeek(event.date))>
-			<cfcatch></cfcatch>
-		</cftry>
-
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(event)>
-	        <cfset flashInsert(error="Event #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-
-	</cffunction>
-
-<!--- conference/events/create --->
-	<cffunction name="create">
-	<cfset var newlocation="">
-
-		<cfset event = model("Conferenceevent").new(params.event)>
-
-		<cfif isdefined("params.event.day")>
-			<cfset event.date = dayToDate(params.event.day)>
-		</cfif>
-
-		<cfif len(params.event.newlocation)>
-			<cfset newlocation = model("Conferencelocation").create(roomnumber=params.event.newlocation)>
-			<cfset event.locationid = newlocation.id>
-		</cfif>
-
-		<!---add a new course and connect if field is defined--->
-		<cfif isDefined("params.event.newCourseName") && len(params.event.newCourseName)>
-			<cfset var newCourse = model("Conferencecourse").create(title=params.event.newCourseName, type="other", event=getEvent())>
-			<cfset event.courseid = newCourse.id>
-		</cfif>
-
-
-		<!--- Verify that the event creates successfully --->
-		<cfif event.save()>
-			<cfset flashInsert(success="The event was created successfully.")>
-			<cfif isdefined("session.return")>
-            	<cfset returnBack()>
-			<cfelse>
-	            <cfset redirectTo(action="index")>
-			</cfif>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error creating the event.")>
-			<cfset renderView(action="new")>
-		</cfif>
-	</cffunction>
-
-<!--- conference/events/copy --->
-	<cffunction name="copy">
-
-		<!--- Find the record --->
-    	<cfset event = model("Conferenceevent").findByKey(key=params.key, include="location")>
-
-			<cfset event.day = DayOfWeekAsString(dayOfWeek(event.date))>
-
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(event)>
-	        <cfset flashInsert(error="Event #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-
-	    <cfset renderView(action="new")>
-	</cffunction>
-
-<!--- conference/events/copyAllToCurrentEvent --->
-
-	<cfscript>
-		public function copyAllToCurrentEvent(){
+	public function copyAllToCurrentEvent(){
 			super.copyAllToCurrentEvent( tableName = "Conferenceevent" );
 			returnBack();
 		}
-	</cfscript>
+	//  conference/events/update 
 
+	public function update() {
+		if ( isDefined("params.keyy") ) {
+			params.key = params.keyy;
+		}
+		event = model("Conferenceevent").findByKey(params.key);
+		if ( isdefined("params.event.day") ) {
+			event.date = dayToDate(params.event.day);
+		}
+		if ( isdefined("params.event.newlocation") && len(params.event.newlocation) ) {
+			params.event.locationid = model("Conferencelocation").create(roomnumber=params.event.newlocation).id;
+		}
+		// add a new course and connect if field is defined
+		if ( isDefined("params.event.newCourseName") && len(params.event.newCourseName) ) {
+			var newCourse = model("Conferencecourse").create(title=params.event.newCourseName, type="other", event=getEvent());
+			event.courseid = newCourse.id;
+		}
+		//  Verify that the event updates successfully 
+		if ( event.update(params.event) ) {
+			flashInsert(success="The event was updated successfully.");
+			returnBack();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error updating the event.");
+			renderView(action="edit", layout="/adminlayout");
+		}
+	}
+	//  conference/events/delete/key 
 
-<!--- conference/events/update --->
-	<cffunction name="update">
-		<cfif isDefined("params.keyy")>
-			<cfset params.key = params.keyy>
-		</cfif>
+	public function delete() {
+		event = model("Conferenceevent").findByKey(params.key);
+		//  Verify that the event deletes successfully 
+		if ( event.delete() ) {
+			flashInsert(success="The event was deleted successfully.");
+			returnBack();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error deleting the event.");
+			redirectTo(action="index", layout="/adminlayout");
+		}
+	}
 
-		<cfset event = model("Conferenceevent").findByKey(params.key)>
-
-		<cfif isdefined("params.event.day")>
-			<cfset event.date = dayToDate(params.event.day)>
-		</cfif>
-
-		<cfif isdefined("params.event.newlocation") and len(params.event.newlocation)>
-			<cfset params.event.locationid = model("Conferencelocation").create(roomnumber=params.event.newlocation).id>
-		</cfif>
-
-		<!---add a new course and connect if field is defined--->
-		<cfif isDefined("params.event.newCourseName") && len(params.event.newCourseName)>
-			<cfset var newCourse = model("Conferencecourse").create(title=params.event.newCourseName, type="other", event=getEvent())>
-			<cfset event.courseid = newCourse.id>
-		</cfif>
-
-		<!--- Verify that the event updates successfully --->
-		<cfif event.update(params.event)>
-			<cfset flashInsert(success="The event was updated successfully.")>
-           	<cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the event.")>
-			<cfset renderView(action="edit", layout="/adminlayout")>
-		</cfif>
-	</cffunction>
-
-<!--- conference/events/delete/key --->
-	<cffunction name="delete">
-
-		<cfset event = model("Conferenceevent").findByKey(params.key)>
-
-		<!--- Verify that the event deletes successfully --->
-		<cfif event.delete()>
-			<cfset flashInsert(success="The event was deleted successfully.")>
-            	<cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error deleting the event.")>
-			<cfset redirectTo(action="index", layout="/adminlayout")>
-		</cfif>
-	</cffunction>
-
-<cfscript>
 	private function createNewCourseForEvent(courseName){
 		var newCourse = model("Conferencecourse").new();
 		newCourse.title = courseName;
@@ -225,135 +196,125 @@
 				return false;
 			};
 	}
-</cfscript>
-<!--------------------------------->
+	// ---------------------------
+	// --------
+	// Need to edit this each year-
+	// --------
 
-<!-------------->
-<!---Need to edit this each year---->
-<!-------------->
+	private function dayToDate(required string day) {
+		var loc = arguments;
+		loc.dates = structNew();
+		loc.counter = 0;
+		for ( loc.i in eventDaysOptions() ) {
+			loc.dates[loc.i] = dateAdd("d",loc.counter,eventFirstDaysOptionsDate());
+			loc.dates[loc.i] = dateAdd("h",3,loc.dates[loc.i]);
+			loc.counter = loc.counter + 1;
+		}
+		return loc.dates[loc.day];
+	}
 
-	<cffunction name="dayToDate" access="private">
-	<cfargument name="day" required="yes"  type="string">
-	<cfset var loc = arguments>
-	<cfset loc.dates = structNew()>
-	<cfset loc.counter = 0>
-	<cfloop index="loc.i" list="#eventDaysOptions()#"> 
-		<cfset loc.dates[loc.i] = dateAdd("d",loc.counter,eventFirstDaysOptionsDate())>
-		<cfset loc.dates[loc.i] = dateAdd("h",3,loc.dates[loc.i])>
-		<cfset loc.counter = loc.counter + 1>
-	</cfloop>
+	public function testDayToDate() {
+		return dayToDate("Tuesday");
+		writeDump( var=return );
+		abort;
+	}
+	// --------------------------
+	// --------
+	// Misc-
+	// --------
 
-	<cfreturn loc.dates[loc.day]>
+	public function fixdates() {
+		for ( i in "timebegin,timeend" ) {
+			try {
+				params.events[i]= createodbcdate(params.events[i]+1);
+			} catch (any cfcatch) {
+			}
+		}
+	}
 
-	</cffunction>
+	public function eachList(required string category, string startTime, string date) {
+		var thislist="";
+		if ( isdefined("arguments.starttime") && isdefined("arguments.date") ) {
+			thislist = model("Conferenceevent").findAll(where="category='#arguments.category#' AND timeBegin='#arguments.startTime#' AND date = '#arguments.date#'", include="location", order="description");
+			return thislist;
+		} else if ( isdefined("arguments.starttime") ) {
+			thislist = model("Conferenceevent").findAll(where="category='#arguments.category#' AND timeBegin='#arguments.startTime#'", include="location", order="description");
+			return thislist;
+		} else if ( isdefined("arguments.date") ) {
+			thislist = model("Conferenceevent").findAll(where="category='#arguments.category#' AND date = '#arguments.date#'", include="location", order="description");
+			return thislist;
+		}
+	}
 
-	<cffunction name="testDayToDate">
-		<cfset return = dayToDate("Tuesday")>
-		<cfdump var="#return#"><cfabort>
-	</cffunction>
-<!-------------------------------->
+	public function Seminars() {
+		MondayIM = eachlist(category="Seminar-Integrated Ministries", startTime="9:00", date="2011-07-25");
+		MondayLD = eachlist(category="Seminar-Leadership Development", startTime="9:00", date="2011-07-25");
+		TuesdayIM = eachlist(category="Seminar-Integrated Ministries", startTime="9:00", date="2011-07-26");
+		TuesdayLD = eachlist(category="Seminar-Leadership Development", startTime="9:00", date="2011-07-26");
+		MondayMT = eachlist(category="Seminar-Ministry Track", date="2011-07-25");
+		TuesdayMT = eachlist(category="Seminar-Ministry Track", date="2011-07-26");
+		MondayNet = eachlist(category="Network", date="2011-07-25");
+		TuesdayNet = eachlist(category="Network", date="2011-07-26");
+		renderView(layout="/layout");
+	}
 
-<!-------------->
-<!---Misc---->
-<!-------------->
-	<cffunction name="fixdates">
-		<cfloop list="timebegin,timeend" index="i">
-			<cftry>
-			<cfset  params.events[i]= createodbcdate(params.events[i]+1)>
-			<cfcatch></cfcatch></cftry>
-		</cfloop>
-	</cffunction>
+	public function ShowSeminar() {
+		event = model("Conferenceevent").findByKey(key=params.key, include="location");
+		if ( !IsObject(event) ) {
+			renderText("No Seminar Listed");
+		}
+		renderView(layout="/layout");
+	}
 
-	<cffunction name="eachList">
-	<cfargument name="category" required="true" type="string">
-	<cfargument name="startTime" required="false" type="string">
-	<cfargument name="date" required="false" type="string">
-	<cfset var thislist="">
-		<cfif isdefined("arguments.starttime") and isdefined("arguments.date")>
-			<cfset thislist = model("Conferenceevent").findAll(where="category='#arguments.category#' AND timeBegin='#arguments.startTime#' AND date = '#arguments.date#'", include="location", order="description")>
-			<cfreturn thislist>
-		<cfelseif isdefined("arguments.starttime")>
-			<cfset thislist = model("Conferenceevent").findAll(where="category='#arguments.category#' AND timeBegin='#arguments.startTime#'", include="location", order="description")>
-			<cfreturn thislist>
-		<cfelseif isdefined("arguments.date")>
-			<cfset thislist = model("Conferenceevent").findAll(where="category='#arguments.category#' AND date = '#arguments.date#'", include="location", order="description")>
-			<cfreturn thislist>
-		</cfif>
-	</cffunction>
+	public function excel() {
+		events = model("Conferenceevent").findAll(where="event='#getEvent()#'", include="location", order="date,timebegin");
+		renderView(layout="/conference/layoutdownload");
+	}
 
-	<cffunction name="Seminars">
-		<cfset MondayIM = eachlist(category="Seminar-Integrated Ministries", startTime="9:00", date="2011-07-25")>
-		<cfset MondayLD = eachlist(category="Seminar-Leadership Development", startTime="9:00", date="2011-07-25")>
-		<cfset TuesdayIM = eachlist(category="Seminar-Integrated Ministries", startTime="9:00", date="2011-07-26")>
-		<cfset TuesdayLD = eachlist(category="Seminar-Leadership Development", startTime="9:00", date="2011-07-26")>
-		<cfset MondayMT = eachlist(category="Seminar-Ministry Track", date="2011-07-25")>
-		<cfset TuesdayMT = eachlist(category="Seminar-Ministry Track", date="2011-07-26")>
-		<cfset MondayNet = eachlist(category="Network", date="2011-07-25")>
-		<cfset TuesdayNet = eachlist(category="Network", date="2011-07-26")>
-		<cfset renderView(layout="/layout")>
-	</cffunction>
+	public function datatable() {
+		if ( isdefined("session.wheels.datatables") && session.wheels.datatables ) {
+			session.wheels.datatables = 0;
+		} else {
+			session.wheels.datatables = 1;
+		}
+		redirectTo(action="index");
+	}
+	// JSON Controllers
 
-	<cffunction name="ShowSeminar">
-    	<cfset event = model("Conferenceevent").findByKey(key=params.key, include="location")>
-	    <cfif NOT IsObject(event)>
-	    	<cfset renderText("No Seminar Listed")>
-	    </cfif>
-		<cfset renderView(layout="/layout")>
-	</cffunction>
+	public function listScheduleAsJson() {
+		data = model("Conferenceevent").findScheduleAsJson(params);
+		renderView(template="/json", layout="/layout_json", hideDebugInformation=true);
+	}
 
-	<cffunction name="excel">
-		<cfset events = model("Conferenceevent").findAll(where="event='#getEvent()#'", include="location", order="date,timebegin")>
-		<cfset renderView(layout="/conference/layoutdownload")>
-	</cffunction>
+	public function listExcursionsAsJson() {
+		params.useExcursions = true;
+		data = model("Conferenceevent").findScheduleAsJson(params);
+		renderView(template="/json", layout="/layout_json", hideDebugInformation=true);
+	}
 
-	<cffunction name="datatable">
-		<cfif isdefined("session.wheels.datatables") AND session.wheels.datatables>
-			<cfset session.wheels.datatables = 0>
-		<cfelse>
-			<cfset session.wheels.datatables = 1>
-		</cfif>
-		<cfset redirectTo(action="index")>
-	</cffunction>
+	public function listOtherEventsAsJson() {
+		params.useOtherEvents = true;
+		data = model("Conferenceevent").findScheduleAsJson(params);
+		renderView(template="/json", layout="/layout_json", hideDebugInformation=true);
+	}
 
-<!---JSON Controllers--->
+	public function listMealsAsJson() {
+		params.type = "meal";
+		data = model("Conferenceevent").findScheduleAsJson(params);
+		renderView(template="/json", layout="/layout_json", hideDebugInformation=true);
+	}
 
-	<cffunction name="listScheduleAsJson">
-		<cfset data = model("Conferenceevent").findScheduleAsJson(params)>
-       	<cfset renderView(template="/json", layout="/layout_json", hideDebugInformation=true)>
-	</cffunction>
+	public function listMealsAsJson() {
+		params.type = "workshop";
+		data = model("Conferenceevent").findScheduleAsJson(params);
+		renderView(template="/json", layout="/layout_json", hideDebugInformation=true);
+	}
 
-	<cffunction name="listExcursionsAsJson">
-		<cfset params.useExcursions = true>
-		<cfset data = model("Conferenceevent").findScheduleAsJson(params)>
-       	<cfset renderView(template="/json", layout="/layout_json", hideDebugInformation=true)>
-	</cffunction>
+	public function generalInfo() {
+		renderView(layout="/layout_json", hideDebugInformation=true);
+	}
 
-	<cffunction name="listOtherEventsAsJson">
-		<cfset params.useOtherEvents = true>
-		<cfset data = model("Conferenceevent").findScheduleAsJson(params)>
-       	<cfset renderView(template="/json", layout="/layout_json", hideDebugInformation=true)>
-	</cffunction>
-
-	<cffunction name="listMealsAsJson">
-	<cfset params.type = "meal">
-		<cfset data = model("Conferenceevent").findScheduleAsJson(params)>
-	        	<cfset renderView(template="/json", layout="/layout_json", hideDebugInformation=true)>
-	</cffunction>
-
-	<cffunction name="listMealsAsJson">
-	<cfset params.type = "workshop">
-		<cfset data = model("Conferenceevent").findScheduleAsJson(params)>
-	        	<cfset renderView(template="/json", layout="/layout_json", hideDebugInformation=true)>
-	</cffunction>
-
-	<cffunction name="generalInfo">
-	        	<cfset renderView(layout="/layout_json", hideDebugInformation=true)>
-	</cffunction>
-
-
-<cfscript>
-
-public function copyCategoryToNextDay(category,date){
+	public function copyCategoryToNextDay(category,date){
 	var whereString = "category = '#category#'";
 	var events = model("Conferenceevent").findall(where=whereString & " AND date like '#date#%'");
 	date = date & " 23:00:00";
@@ -414,6 +375,4 @@ private function getWorshipTitleForEvent(eventid,description,prefer="course"){
 	return description;
 }
 
-</cfscript>
-</cfcomponent>
-
+}
