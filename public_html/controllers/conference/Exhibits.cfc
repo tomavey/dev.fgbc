@@ -1,147 +1,129 @@
-<cfcomponent extends="Controller" output="false">
+component extends="Controller" output="false" {
 
-	<cffunction name="config">
-		<cfset usesLayout("/conference/adminlayout")>
-		<cfset filters(through="officeOnly", only="edit,delete")>
-		<cfset filters(through="isExhibitsOpen", only="new,info")>
-		<cfset filters(through="setReturn", only="list,index")>
-	</cffunction>
+	public function config() {
+		usesLayout("/conference/adminlayout");
+		filters(through="officeOnly", only="edit,delete");
+		filters(through="isExhibitsOpen", only="new,info");
+		filters(through="setReturn", only="list,index");
+	}
+	// Filters
 
-<!---Filters--->
+	public function isExhibitsOpen() {
+		if ( getSetting('exhibitorsIsOpen') || gotrights("office") ) {
+			return true;
+		} else {
+			renderText("<h2 style='text-align:center'>#getEventAsText()# == just around the corner! Exhibits are all set.  Check back next year.</h2>");
+		}
+	}
+	// -----
+	// CRUD-
+	// -----
+	//  exhibits/index 
 
-	<cffunction name="isExhibitsOpen">
-		<cfif getSetting('exhibitorsIsOpen') || gotrights("office")>
-			<cfreturn true>
-		<cfelse>
-			<cfset renderText("<h2 style='text-align:center'>#getEventAsText()# is just around the corner! Exhibits are all set.  Check back next year.</h2>")>
-		</cfif>
-	</cffunction>
+	public function index() {
+		orderby = "organization";
+		if ( isDefined("params.event") ) {
+			whereString = "event='#params.event#'";
+		} else {
+			whereString = "event='#getEvent()#'";
+		}
+		if ( isDefined("params.history") ) {
+			whereString = "";
+		}
+		if ( isDefined("params.sortby") ) {
+			orderby = params.sortby;
+		}
+		exhibits = model("Conferenceexhibit").findAll(where=whereString, order=orderby);
+	}
+	//  exhibits/show/key 
 
+	public function show() {
+		//  Find the record 
+		exhibit = model("Conferenceexhibit").findByKey(params.key);
+		//  Check if the record exists 
+		if ( !IsObject(exhibit) ) {
+			flashInsert(error="Exhibit #params.key# was !found");
+			redirectTo(action="index");
+		}
+	}
+	//  exhibits/new 
 
+	public function new() {
+		exhibit = model("Conferenceexhibit").new();
+		introTitle = "Exhibitors Request Form";
+		renderView(layout="/conference/layout2018");
+	}
+	//  exhibits/create 
 
-<!----------->
-<!---CRUD---->
-<!----------->
+	public function create() {
+		params.exhibit.event = getEvent();
+		exhibit = model("Conferenceexhibit").create(params.exhibit);
+		if ( exhibit.hasErrors() ) {
+			flashInsert(error="There was an error creating the exhibit.");
+			renderView(action="new");
+		} else {
+			flashInsert(success="The exhibit was created successfully.");
+			if ( !isLocalMachine() ) {
+				sendemail(from=exhibit.email, to=getSetting("registraremail"), template="email", subject="A Vision Conference Exhibitors request has been submitted", layout="/conference/layout_for_email");
+			}
+			redirectTo(action="thankyou",key=exhibit.id);
+		}
+	}
+	//  exhibits/edit/key 
 
-	<!--- exhibits/index --->
-	<cffunction name="index">
-	<cfset orderby = "organization">
-	<cfif isDefined("params.event")>
-		<cfset whereString = "event='#params.event#'">
-	<cfelse>
-		<cfset whereString = "event='#getEvent()#'">
-	</cfif>
-	<cfif isDefined("params.history")>
-		<cfset whereString = "">
-	</cfif>
-	<cfif isDefined("params.sortby")>
-		<cfset orderby = params.sortby>
-	</cfif>
-		<cfset exhibits = model("Conferenceexhibit").findAll(where=whereString, order=orderby)>
-	</cffunction>
+	public function edit() {
+		//  Find the record 
+		exhibit = model("Conferenceexhibit").findByKey(params.key);
+		//  Check if the record exists 
+		if ( !IsObject(exhibit) ) {
+			flashInsert(error="Exhibit #params.key# was !found");
+			redirectTo(action="index");
+		}
+	}
+	//  exhibits/update 
 
+	public function update() {
+		exhibit = model("Conferenceexhibit").findByKey(params.key);
+		//  Verify that the exhibit updates successfully 
+		if ( exhibit.update(params.exhibit) ) {
+			flashInsert(success="The exhibit was updated successfully.");
+			returnBack();
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error updating the exhibit.");
+			renderView(action="edit");
+		}
+	}
+	//  exhibits/delete/key 
 
-	<!--- exhibits/show/key --->
-	<cffunction name="show">
+	public function delete() {
+		exhibit = model("Conferenceexhibit").findByKey(params.key);
+		//  Verify that the exhibit deletes successfully 
+		if ( exhibit.delete() ) {
+			flashInsert(success="The exhibit was deleted successfully.");
+			redirectTo(action="index");
+			//  Otherwise 
+		} else {
+			flashInsert(error="There was an error deleting the exhibit.");
+			redirectTo(action="index");
+		}
+	}
+	// ---------------
+	// - MISC REPORTS-
+	// ---------------
 
-		<!--- Find the record --->
-    	<cfset exhibit = model("Conferenceexhibit").findByKey(params.key)>
+	public function thankyou() {
+		exhibit = Model("Conferenceexhibit").findByKey(params.key);
+		introTitle = "Thank you!";
+		renderView(layout="/conference/layout2018");
+	}
 
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(exhibit)>
-	        <cfset flashInsert(error="Exhibit #params.key# was not found")>
-	        <cfset redirectTo(action="index")>
-	    </cfif>
+	public function info() {
+		introTitle = "Exhibitors Information";
+		renderView(layout="/conference/layout2017");
+	}
 
-	</cffunction>
-
-	<!--- exhibits/new --->
-	<cffunction name="new">
-		<cfset exhibit = model("Conferenceexhibit").new()>
-		<cfset introTitle = "Exhibitors Request Form">
-		<cfset renderView(layout="/conference/layout2018")>
-	</cffunction>
-
-	<!--- exhibits/create --->
-	<cffunction name="create">
-		<cfset params.exhibit.event = getEvent()>
-		<cfset exhibit = model("Conferenceexhibit").create(params.exhibit)>
-
-		<cfif exhibit.hasErrors()>
-			<cfset flashInsert(error="There was an error creating the exhibit.")>
-			<cfset renderView(action="new")>
-		<cfelse>
-			<cfset flashInsert(success="The exhibit was created successfully.")>
-			<cfif !isLocalMachine()>
-				<cfset sendemail(from=exhibit.email, to=getSetting("registraremail"), template="email", subject="A Vision Conference Exhibitors request has been submitted", layout="/conference/layout_for_email")>
-			</cfif>
-      <cfset redirectTo(action="thankyou",key=exhibit.id)>
-		</cfif>
-	</cffunction>
-
-	<!--- exhibits/edit/key --->
-	<cffunction name="edit">
-
-		<!--- Find the record --->
-    	<cfset exhibit = model("Conferenceexhibit").findByKey(params.key)>
-
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(exhibit)>
-	        <cfset flashInsert(error="Exhibit #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-
-	</cffunction>
-
-	<!--- exhibits/update --->
-	<cffunction name="update">
-		<cfset exhibit = model("Conferenceexhibit").findByKey(params.key)>
-
-		<!--- Verify that the exhibit updates successfully --->
-		<cfif exhibit.update(params.exhibit)>
-			<cfset flashInsert(success="The exhibit was updated successfully.")>
-      <cfset returnBack()>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the exhibit.")>
-			<cfset renderView(action="edit")>
-		</cfif>
-	</cffunction>
-
-	<!--- exhibits/delete/key --->
-	<cffunction name="delete">
-		<cfset exhibit = model("Conferenceexhibit").findByKey(params.key)>
-
-		<!--- Verify that the exhibit deletes successfully --->
-		<cfif exhibit.delete()>
-			<cfset flashInsert(success="The exhibit was deleted successfully.")>
-            <cfset redirectTo(action="index")>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error deleting the exhibit.")>
-			<cfset redirectTo(action="index")>
-		</cfif>
-	</cffunction>
-
-
-
-<!--------------------->	
-<!---- MISC REPORTS---->
-<!--------------------->	
-
-	<cffunction name="thankyou">
-		<cfset exhibit = Model("Conferenceexhibit").findByKey(params.key)>
-		<cfset introTitle = "Thank you!">
-		<cfset renderView(layout="/conference/layout2018")>
-	</cffunction>
-
-	<cffunction name="info">
-		<cfset introTitle = "Exhibitors Information">
-		<cfset renderView(layout="/conference/layout2017")>
-	</cffunction>
-
-	<cfscript>
-		<!--- exhibits/list --->
+	<!--- exhibits/list --->
 		public function list(){
 			var orderBy = "organization";
 			var whereString = "event='#getEvent()#'";
@@ -169,6 +151,4 @@
 			renderJson();
 		}
 
-	</cfscript>
-
-</cfcomponent>
+}
