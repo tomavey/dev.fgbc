@@ -14,7 +14,7 @@
 	</cfoutput>
 
 	<cfif isDefined("params.go") && params.go is "test">
-		<cfoutput>#linkto(text="Send to subscribers who have not already sent one today", route="handbookSendTodaysDates", params="go=send", class="btn")#</cfoutput>
+		<cfoutput>#linkto(text="Send to subscribers who have not already been sent one today", route="handbookSendTodaysDates", params="go=send", class="btn")#</cfoutput>
 		<cfoutput>#linkto(text="Re-Send to ALL subscribers", route="handbookSendTodaysDates", params="go=send&reSendToAll", class="btn")#</cfoutput>
 	</cfif>
 
