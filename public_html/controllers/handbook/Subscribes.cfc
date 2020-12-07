@@ -167,6 +167,7 @@
 
 	<cffunction name="sendTodaysDates">
 	<cfargument name="now" default="#now()#">
+	<cfset countEmailsSent = 0>
 
 		<cfif isDefined("params.today")>
 			<cfset arguments.now = params.today>
@@ -201,11 +202,12 @@
 				</cfif>
 				<cfloop query="subscriptions">
 					<cfif sendToThisPerson(lastSendAt) || isDefined("params.reSendToAll")>
+						<cfset countEmailsSent = countEmailsSent + 1>
 						<cfset useThisEmail = useHandbookEmail(email,handbookemail)>
 						<cfif !isLocalMachine()>
 							<cfset sendEMail(from="tomavey@fgbc.org", to=scrubEmail(useThisEmail), subject="From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_for_email", type="html")>
 						<cfelse>
-							<cfset flashInsert(message="Email would have been sent to #subscriptions.recordCount# in production")>	
+							<cfset flashInsert(message="Email would have been sent to #countEmailsSent# in production mode.")>	
 						</cfif>
 						<cfset emailall = emailall & ";" & useThisEmail>
 						<cfif isDefined("id")>
