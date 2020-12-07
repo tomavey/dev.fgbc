@@ -815,6 +815,7 @@
 
 		.get(name="events", pattern="events", controller="events", action="index")
 		.get(name="jobs", pattern="jobs", controller="jobs", action="index")
+		.get(name="ministries", pattern="ministries", controller="ministries", action="index")
 		.get(name="resources", pattern="resources", controller="resources", action="index")
 		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
