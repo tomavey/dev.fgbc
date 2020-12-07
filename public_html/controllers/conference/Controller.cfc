@@ -1,143 +1,130 @@
-<cfcomponent extends="controllers.Controller">
-<!--- //TODO: need to change to cfscript --->
-	<cffunction name="isBefore">
-	<cfargument name="date" required="yes" type="date">
-	<cfif datecompare(now(),arguments.date) is -1>
-		<cfreturn 1>
-	<cfelse>
-		<cfreturn 0>
-	</cfif>
-	</cffunction>
+component extends="controllers.Controller" {
+	//  //TODO: need to change to cfscript 
 
-	<cffunction name="sendMonitoringEmail">
-		<cfif getSetting('Monitoring')>
-			<cfset sendemail(from="tomavey@fgbc.org", to="tomavey@fgbc.org", template="emailparams", subject="V2020 Params", layout="layout_for_email")>
-		</cfif>
-	</cffunction>
+	public function isBefore(required date date) {
+		if ( datecompare(now(),arguments.date) == -1 ) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 
+	public function sendMonitoringEmail() {
+		if ( getSetting('Monitoring') ) {
+			sendemail(from="tomavey@fgbc.org", to="tomavey@fgbc.org", template="emailparams", subject="V2020 Params", layout="layout_for_email");
+		}
+	}
 
-    <cffunction name="inAuthGroup">
-    
-    </cffunction>
+	public function inAuthGroup() {
+	}
 
-	<cffunction name="officeOnly">
-		<cfif isDefined("params.key") AND params.key is "kkjhdgwerlkjshdghhjkskjhd">
-			<cfset session.vision2020admin = 1>
-		<cfelseif isDefined("params.office") and params.office is "kkjhdgwerlkjshdghhjkskjhd">
-			<cfset session.vision2020admin = 1>
-		<cfelseif gotRights("superadmin,office")>
-			<cfset session.vision2020admin = 1>
-		</cfif>
-		<cfif not isDefined("session.vision2020admin") OR not session.vision2020admin>
-			Sorry, you do not have permission to view this page!
-			<cfabort>
-		</cfif>
-	</cffunction>
+	public function officeOnly() {
+		if ( isDefined("params.key") && params.key == "kkjhdgwerlkjshdghhjkskjhd" ) {
+			session.vision2020admin = 1;
+		} else if ( isDefined("params.office") && params.office == "kkjhdgwerlkjshdghhjkskjhd" ) {
+			session.vision2020admin = 1;
+		} else if ( gotRights("superadmin,office") ) {
+			session.vision2020admin = 1;
+		}
+		if ( !isDefined("session.vision2020admin") || !session.vision2020admin ) {
 
-    <cffunction name="getEvent">
-      <cfscript>
+			writeOutput("Sorry, you do not have permission to view this page!");
+			abort;
+		}
+	}
+
+	public function getEvent() {
+
 		if ( isDefined("params.event" )) { return params.event }
-      </cfscript>  
-        <cfreturn getSetting("event")>
-	</cffunction>
+		return getSetting("event");
+	}
 
-	<cffunction name="getPreviousEvent">
-        <cfreturn getSetting("previousEvent")>
-	</cffunction>
+	public function getPreviousEvent() {
+		return getSetting("previousEvent");
+	}
 
-	<cffunction name="getEventAsText">
-        <cfreturn getSetting("eventAsText")>
-	</cffunction>
+	public function getEventAsText() {
+		return getSetting("eventAsText");
+	}
 
-    <cffunction name="getEventAsTextA">
-    <cfset var loc.eventA = getEventAsText()>
-    <cfset var f = left(loc.eventA,1)>
-    <cfif f is "A" || f is "E" || f is "I" || f is "O" || f is "U" >
-        <cfset loc.eventA = ("An " & loc.eventA)>
-    <cfelse>
-        <cfset loc.eventA = ("A " & loc.eventA)>
-    </cfif>    
-    <cfreturn loc.eventA>
-    </cffunction>
+	public function getEventAsTextA() {
+		var loc.eventA = getEventAsText();
+		var f = left(loc.eventA,1);
+		if ( f == "A" || f == "E" || f == "I" || f == "O" || f == "U" ) {
+			loc.eventA = ("An " & loc.eventA);
+		} else {
+			loc.eventA = ("A " & loc.eventA);
+		}
+		return loc.eventA;
+	}
 
-    <cffunction name="getEventAsUrlEncodedText">
-    <cfset var event = "">
-            <cfif isDefined("params.eventAsText")>
-                <cfset event = params.eventAsText>
-            <cfelse>
-                <cfset event = getSetting('eventAsText')>
-            </cfif>
-            <cfset event = replace(event," ","%20","all")>
-            <cfreturn trim(event)>
-    </cffunction>
+	public function getEventAsUrlEncodedText() {
+		var event = "";
+		if ( isDefined("params.eventAsText") ) {
+			event = params.eventAsText;
+		} else {
+			event = getSetting('eventAsText');
+		}
+		event = replace(event," ","%20","all");
+		return trim(event);
+	}
 
-    <cffunction name="getNextEvent">
-           <cfreturn getSetting('nextEvent')>
-    </cffunction>
+	public function getNextEvent() {
+		return getSetting('nextEvent');
+	}
 
-	<cffunction name="getSpouse" access="private" >
-	<cfargument name="id" required="true" type="numeric">
-	<cfset var loc=structNew()>
-		<cfset loc.thisperson = model("Conferenceperson").findOne(where="id=#arguments.id#", include="family")>
+	private function getSpouse(required numeric id) {
+		var loc=structNew();
+		loc.thisperson = model("Conferenceperson").findOne(where="id=#arguments.id#", include="family");
+		if ( isObject(loc.thisperson) && loc.thisperson.type == "Adult" ) {
+			loc.spouse = model("Conferenceperson").findOne(where="equip_familiesid=#loc.thisperson.equip_familiesid# AND type='spouse'", include="family");
+			if ( isObject(loc.spouse) ) {
+				loc.return.id = loc.spouse.id;
+				loc.return.fname = loc.spouse.fname;
+				loc.return.equip_prayer_tripletsid = loc.spouse.equip_prayer_tripletsid;
+				loc.return.email = loc.spouse.email;
+			} else {
+				loc.return.id = "";
+				loc.return.fname = "";
+				loc.return.equip_prayer_tripletsid = "";
+				loc.return.email = "";
+			}
+		} else if ( isObject(loc.thisperson) && loc.thisperson.type == "spouse" ) {
+			loc.adult = model("Conferenceperson").findOne(where="equip_familiesid=#loc.thisperson.equip_familiesid# AND type='Adult'", include="family");
+			if ( isObject(loc.adult) ) {
+				loc.return.id = loc.adult.id;
+				loc.return.fname = loc.adult.fname;
+				loc.return.equip_prayer_tripletsid = loc.adult.equip_prayer_tripletsid;
+				loc.return.email = loc.adult.email;
+			} else {
+				loc.return.id = "";
+				loc.return.fname = "";
+				loc.return.equip_prayer_tripletsid = "";
+				loc.return.email = "";
+			}
+		} else {
+			loc.return.id = "";
+			loc.return.fname = "";
+			loc.return.equip_prayer_tripletsid = "";
+			loc.return.email = "";
+		}
+		return loc.return;
+	}
 
-		<cfif isObject(loc.thisperson) AND loc.thisperson.type is "Adult">
+	public function testGetSpouse(id="#params.key#") {
+		return getSpouse(arguments.id);
+		writeDump( var=return );
+		abort;
+	}
 
-			<cfset loc.spouse = model("Conferenceperson").findOne(where="equip_familiesid=#loc.thisperson.equip_familiesid# AND type='spouse'", include="family")>
+	public function getConfUrl() {
+		return getSetting('webpage');
+	}
+	// ----------------------------------------
+	// Getters for what is open and what is not
+	// ----------------------------------------
 
-			<cfif isObject(loc.spouse)>
-				<cfset loc.return.id = loc.spouse.id>
-				<cfset loc.return.fname = loc.spouse.fname>
-				<cfset loc.return.equip_prayer_tripletsid = loc.spouse.equip_prayer_tripletsid>
-                <cfset loc.return.email = loc.spouse.email>
-			<cfelse>
-				<cfset loc.return.id = "">
-				<cfset loc.return.fname = "">
-				<cfset loc.return.equip_prayer_tripletsid = "">
-                <cfset loc.return.email = "">
-			</cfif>
-
-		<cfelseif isObject(loc.thisperson) AND loc.thisperson.type is "spouse">
-			<cfset loc.adult = model("Conferenceperson").findOne(where="equip_familiesid=#loc.thisperson.equip_familiesid# AND type='Adult'", include="family")>
-
-			<cfif isObject(loc.adult)>
-				<cfset loc.return.id = loc.adult.id>
-				<cfset loc.return.fname = loc.adult.fname>
-				<cfset loc.return.equip_prayer_tripletsid = loc.adult.equip_prayer_tripletsid>
-                <cfset loc.return.email = loc.adult.email>
-			<cfelse>
-				<cfset loc.return.id = "">
-				<cfset loc.return.fname = "">
-				<cfset loc.return.equip_prayer_tripletsid = "">
-	            <cfset loc.return.email = "">
-			</cfif>
-
-		<cfelse>
-				<cfset loc.return.id = "">
-				<cfset loc.return.fname = "">
-				<cfset loc.return.equip_prayer_tripletsid = "">
-	            <cfset loc.return.email = "">
-		</cfif>
-    <cfreturn loc.return>
-	</cffunction>
-
-	<cffunction name="testGetSpouse">
-	<cfargument name="id" default="#params.key#">
-		<cfset return = getSpouse(arguments.id)>
-		<cfdump var="#return#"><cfabort>
-	</cffunction>
-
-	<cffunction name="getConfUrl">
-		<cfreturn getSetting('webpage')>
-	</cffunction>
-
-
-<!---------------------------------------------->
-<!---Getters for what is open and what is not--->
-<!---------------------------------------------->
-
-<cfscript>
-
-    public function regIsOpen(){
+	public function regIsOpen(){
         if (getSetting("registrationIsOpen") OR gotRights("office") || isDefined("params.openreg") || isDefined("session.auth.openreg")){
             return true;
         } else {
@@ -244,46 +231,32 @@
         return getSetting("regOpenPromiseDate");
     }
 
+	public function hasThisPersonSelectedWorkshops(required numeric personid, type="workshop", workshopid="0") {
+		whereString = "equip_peopleid = #arguments.personid# AND equip_optionsid = #getOptionIdFromName(arguments.type)#";
+		if ( arguments.workshopid ) {
+			whereString = whereString & " AND equip_coursesid = #arguments.workshopid#";
+		} else {
+			whereString = whereString & " AND equip_coursesid <> 0";
+		}
+		workshop = model("Conferenceregistration").findOne(where=whereString);
+		if ( isObject(workshop) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-</cfscript>
+	public function getOptionIdFromName(required string name) {
+		var loc=arguments;
+		loc.optionid = model("Conferenceoption").findOne(where="name='#loc.name#'").id;
+		return loc.optionid;
+	}
 
+	public function renderJson() {
+		renderView(layout="/layout_json", template="/json", hideDebugInformation=true);
+	}
 
-	<cffunction name="hasThisPersonSelectedWorkshops">
-	<cfargument name="personid" required="true" type="numeric">
-	<cfargument name="type" default="workshop">
-    <cfargument name="workshopid" default=0>
-
-    <cfset whereString = "equip_peopleid = #arguments.personid# AND equip_optionsid = #getOptionIdFromName(arguments.type)#">
-
-    <cfif arguments.workshopid>
-        <cfset whereString = whereString & " AND equip_coursesid = #arguments.workshopid#">
-    <cfelse>
-        <cfset whereString = whereString & " AND equip_coursesid <> 0">
-    </cfif>
-
-	<cfset workshop = model("Conferenceregistration").findOne(where=whereString)>
-		<cfif isObject(workshop)>
-			<cfreturn true>
-		<cfelse>
-			<cfreturn false>
-		</cfif>
-	</cffunction>
-
-	<cffunction name='getOptionIdFromName'>
-	<cfargument name="name" required="true" type="string">
-	<cfset var loc=arguments>
-		<cfset loc.optionid = model("Conferenceoption").findOne(where="name='#loc.name#'").id>
-		<cfreturn loc.optionid>
-	</cffunction>
-
-	<cffunction name="renderJson">
-		<cfset renderView(layout="/layout_json", template="/json", hideDebugInformation=true)>
-	</cffunction>
-
-
-<cfscript>
-
-    function typeOfAddRegOptions(){
+	function typeOfAddRegOptions(){
         return getSetting('typeOfAddRegOptions');
     }
 
@@ -547,6 +520,5 @@
 			return -1
 		}
 	}
-</cfscript>
 
-</cfcomponent>
+}
