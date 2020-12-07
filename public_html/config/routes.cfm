@@ -813,12 +813,15 @@
 <!--------General - no namespace---->
 <!---------------------------------->
 
+
+<!---Main page routes--->
 		.get(name="events", pattern="events", controller="events", action="index")
 		.get(name="jobs", pattern="jobs", controller="jobs", action="index")
 		.get(name="ministries", pattern="ministries", controller="ministries", action="index")
 		.get(name="resources", pattern="resources", controller="resources", action="index")
-		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
+
+		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
 		.get(name="conferencereg", pattern="/conference", controller="conference.register", action="welcome")
 		.get(name="conferencereg2", pattern="/conference", controller="conference.-register", action="welcome")
 		.get(name="conferencereg3", pattern="/conference.register", controller="conference.register", action="welcome")
