@@ -52,16 +52,18 @@
 	</cfif> 
 
 	<cfif attribute.editable && history.recordcount && isDefined("url.showhistory")>
-		<p id="history"><span>History:</span>
-			<cfif isdefined('form.more')>
-				<cfoutput query="history"><a href="#fbx('content')#&id=#id#&originalid=#content.id#">#dateformat(datetime)# by #author#</a>
-				</cfoutput>
-			<cfelse>
+		<div style="border: 2px solid black; padding:20px; margin:20px">
+		<p><span>History:</span>
+			note: When an document is changed the original document is retained and a new one is created in the database.  So history is never lost! 
+			<ul>
 				<cfoutput query="history">
-					<a href="#fbx('content')#&id=#id#&originalid=#content.id#">#dateformat(datetime)# by #author#</a>
+					<li>
+						<a href="#fbx('content')#&id=#id#&originalid=#content.id#">#dateformat(datetime, "yyyy-mm-dd")# by #author#</a>
+					</li>
 				</cfoutput>
-			</cfif>
+			</ul>	
 		</p>
+	</div>
 	</cfif>
 
 	<cfoutput>
