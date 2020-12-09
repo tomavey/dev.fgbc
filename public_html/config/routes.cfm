@@ -78,7 +78,7 @@
 			.controller("jobs")
 				.get(name="sendNotice", pattern="/sendnotice/[key]", action="sendnotice")
 				.get(name="thankYou", pattern="/thankyou/[key]", action="thankyou")
-				.get(name="index", pattern="/", action="jobs")
+				.get(name="index", pattern="/", action="index")
 			.end()
 			.resources("jobs")
 
