@@ -822,6 +822,13 @@
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
 
 		.get(name="jobsNew", pattern="/jobs/new/", controller="jobs", action="new")
+		.post(name="jobsCreate", pattern="/jobs/create/", controller="jobs", action="create")
+		.put(name="jobsCreate", pattern="/jobs/create/", controller="jobs", action="create")
+		.post(name="jobsUpdate", pattern="/jobs/update/[key]", controller="jobs", action="update")
+		.get(name="jobSendNotice", pattern="/jobs/sendnotice/[key]", controller="jobs", action="sendnotice")
+		.get(name="jobsThankYouWKey", pattern="/jobs/thankyou/[key]", controller="jobs", action="thankyou")
+		.get(name="jobsThankYou", pattern="/jobs/thankyou/", controller="jobs", action="thankyou")
+		.get(name="jobsEdit", pattern="/jobs/edit/", controller="jobs", action="edit")
 		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
 		.get(name="conferencereg", pattern="/conference", controller="conference.register", action="welcome")
 		.get(name="conferencereg2", pattern="/conference", controller="conference.-register", action="welcome")

@@ -68,11 +68,10 @@
 
 			<cfset job = model("Mainjob").new(params.job)>
 			
-			
 			<!--- Verify that the message creates successfully --->
 			<cfif job.save()>
 				<cfset flashInsert(success="The Job was created successfully.")>
-	            <cfset redirectTo(action="sendnotice", key=job.id)>
+	      <cfset redirectTo(action="sendnotice", key=job.id)>
 			<!--- Otherwise --->
 			<cfelse>
 				<cfset flashInsert(error=errorMessagesFor("job"))>
@@ -116,7 +115,11 @@
 	
 	<cffunction name="sendnotice">
 		<!--- Find the record --->
-    	<cfset job = model("Mainjob").findByKey(params.key)>
+		<cfif len(params.key) LTE 10>
+			<cfset job = model("Mainjob").findByKey(params.key)>
+		<cfelse>	
+			<cfset job = model("Mainjob").findOne(where="uuid='#params.key#'")>
+		</cfif>
 		<cfif !isLocalMachine()>
 			<cfset sendEmail(template="emailjob", from=job.email, to=sendJobNoticesTo(), subject="New Jobs Post", key=params.key, description=job.description)>
 		</cfif>

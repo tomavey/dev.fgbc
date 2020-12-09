@@ -7,7 +7,6 @@
 				</p>
 			</cfif>	
 
-	
 			#startFormTag(action="create")#
 			
 			#includePartial(partial="form")#
