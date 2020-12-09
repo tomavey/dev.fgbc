@@ -72,6 +72,8 @@
 
 			.controller("events")
 				.get(name="copyEvent", pattern="/copy/[key]", action="copy")
+				.delete(name="delete", pattern="/[key]/delete/", action="delete")
+				.get(name="delete", pattern="/[key]/delete/", action="delete")
 				.end()
 			.resources("events")
 
