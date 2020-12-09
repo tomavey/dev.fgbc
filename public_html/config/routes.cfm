@@ -79,6 +79,8 @@
 				.get(name="sendNotice", pattern="/sendnotice/[key]", action="sendnotice")
 				.get(name="thankYou", pattern="/thankyou/[key]", action="thankyou")
 				.get(name="index", pattern="/", action="index")
+				.delete(name="delete", pattern="/[key]/delete/", action="delete")
+				.get(name="delete", pattern="/[key]/delete/", action="delete")
 			.end()
 			.resources("jobs")
 
