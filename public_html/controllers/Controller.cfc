@@ -450,9 +450,9 @@ component extends="Wheels" {
 				|| (isdefined("params.format") && params.format is "excel") 
 				|| (isDefined("params.download") && params.download is "excel")
 			) {
-			renderPage(template=arguments.template, layout='/layout_download', showDebugOutput="No")
+			renderView(template=arguments.template, layout='/layout_download', showDebugOutput="No")
 		} else {
-			renderPage(template=arguments.template, layout=arguments.defaultLayout, showDebugOutput="No")
+			renderView(template=arguments.template, layout=arguments.defaultLayout, showDebugOutput="No")
 		}
 	}	
 <!-------------------------------->	
