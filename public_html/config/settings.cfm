@@ -66,7 +66,7 @@
 	set(nominateYear = "2018")
 	set(nominateTerm = "2018-2023")
 	set(sortorderoptions = "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,18,20,100,900,995,999")
-	set(ministryStaffAdmin="'tomavey','hirwin','skoontz','sharmion'")
+	set(ministryStaffAdmin="'tomavey','hirwin','skoontz','sharmion','tomavey@fgbc.org','sharmion@charisfellowship.us','tomavey@charisfellowship.us'")
 	set(agbmDeadlineDate = "07-1-#year(now())#")
 	set(agbmLastPaymentYearsAgo = 1)
 	set(nonStaffSortOrder = 500)

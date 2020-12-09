@@ -273,7 +273,7 @@ component extends="Wheels" {
 
 	function isMinistryStaff(userid) {
 		try {
-			checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) && itemId= #arguments.userid# && tag='ministrystaff'");
+			checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) AND itemId= #arguments.userid# AND tag='ministrystaff'");
 			if ( isObject(checkForTag) ) {
 				return true;
 			} else {
