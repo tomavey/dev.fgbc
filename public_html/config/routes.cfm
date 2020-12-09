@@ -821,6 +821,7 @@
 		.get(name="resources", pattern="resources", controller="resources", action="index")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
 
+		.get(name="jobsNew", pattern="/jobs/new/", controller="jobs", action="new")
 		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
 		.get(name="conferencereg", pattern="/conference", controller="conference.register", action="welcome")
 		.get(name="conferencereg2", pattern="/conference", controller="conference.-register", action="welcome")
