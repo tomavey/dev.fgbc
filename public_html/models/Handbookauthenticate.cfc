@@ -1,8 +1,14 @@
 component extends="model" {
 
   function unLockCode(params){
+    var emailFields = ['email','email2','spouse_email']
     var thisemail = decrypt(params.unlockcode,getSetting("passwordkey"),"CFMX_COMPAT","HEX")
-    var person = model("Handbookperson").findOne(where="email = '#thisemail#' OR email2='#thisemail#' OR spouse_email='#thisemail#'", include="Handbookstate")
+    for ( var emailfield in emailfields ) {
+      var person = findPersonFromEmail(thisemail,"email")
+      if ( isObject(person) ) { break }
+    }
+    var person = findPersonFromEmail(thisemail,"email")
+    // var person = model("Handbookperson").findOne(where="email = '#thisemail#' OR email2='#thisemail#' OR spouse_email='#thisemail#'", include="Handbookstate")
     var auth = {}
     if (isobject(person)) {
       auth.email = thisemail
@@ -17,6 +23,11 @@ component extends="model" {
     }
     return auth
     writeDump(auth);abort;
+  }
+
+  function findPersonFromEmail(email,emailField){
+    var person = model("Handbookperson").findOne(where="#arguments.emailField# = '#arguments.email#'", include="Handbookstate")
+    if ( isObject(person) ) { return person } else { return false }
   }
 
   function isAlreadyAuthorized(){
@@ -65,6 +76,7 @@ component extends="model" {
 
 
   private function isMinistryStaff(userid){
+    // ddd(arguments)
     try {
       var checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) AND itemId= #arguments.userid# AND tag='ministrystaff'")
       if (isObject(checkForTag)) { return true }

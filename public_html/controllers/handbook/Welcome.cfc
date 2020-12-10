@@ -44,33 +44,66 @@
 	<!-------------------->
 
 		<!---Conditions to authorize this user--->
+		<cfset tracer = []>
+		<cfset condition = 0>
+		<cfset showtracer = false>
 		<cftry>
 
 			<!---If params.unlockcode is an encrypted use email that is already in the handbook - give basic rights only--->
 			<cfif isdefined("params.unlockcode") and len(params.unlockcode) GT 5>
+				<cfset condition = 1>
 				<cfset session.auth = authenticate.unLockCode(params)>
+				<cfset arrayAppend(tracer,["condition = #condition#",session.auth])>
+				<cfif showTracer>
+					<cfset ddd(tracer)>
+				</cfif>
 
 			<!--- if this session is already authorized, other conditions don't apply--->
 			<cfelseif isDefined("session.auth.handbook.basic") and session.auth.handbook.basic>
+				<cfset condition = 2>
 				<cfset session.auth.passedString = authenticate.isAlreadyAuthorized()>
+				<cfset arrayAppend(tracer,["condition = #condition#",session.auth])>
+				<cfif showTracer>
+					<cfset ddd(tracer)>
+				</cfif>
 
 			<!---If this person is already logged into fgbc.org with handbook rights - all rights maintained--->
 			<cfelseif isDefined("session.auth") && structKeyExists(session.auth,"rightslist") and NOT isdefined("params.logoutfirst") and NOT isDefined("params.reviewer") and NOT isDefined("params.handbookUpdate")>
+				<cfset condition = 3>
 				<cfset session.auth = authenticate.isAlreadyLoggedInToMainSiteWithHandbookRights(params)>
+				<cfset arrayAppend(tracer,["condition = #condition#",session.auth])>
+				<cfif showTracer>
+					<cfset ddd(tracer)>
+				</cfif>
 
 			<!---If authorization cookies are set - give basic rights only--->
 			<cfelseif isDefined("cookie.authhandbookbasic") && cookie.authhandbookbasic && getSetting('allowHandbookAuthByCookie')>
+				<cfset condition = 4>
 				<cfset session.auth = authenticate.cookiesSet()>
+				<cfset arrayAppend(tracer,["condition = #condition#",session.auth])>
+				<cfif showTracer>
+					<cfset ddd(tracer)>
+				</cfif>
 
 			<!---If this is a reviewer (using a reviewed link) - give basic rights only - reviewed email must--->
 			<cfelseif isDefined("params.reviewer") && len(params.reviewer) && isDefined("params.orgid") && val(params.orgid) && allowHandbookOrgUpdate()>
+				<cfset condition = 5>
 				<cfset session.auth = authenticate.reviewer(params)>
+				<cfset arrayAppend(tracer,["condition = #condition#",session.auth])>
+				<cfif showTracer>
+					<cfset ddd(tracer)>
+				</cfif>
 				<cfset redirectTo(controller="handbook.organization", action="show", key=params.orgid)>
 
 			<!---If this is a handbook updater send to handbook review checkin--->
 			<!---Need to check this out more--->
 			<cfelseif isDefined("params.handbookUpdate") and val(params.handbookupdate)>
+				<cfset condition = 6>
 				<cfset session.auth.passedString = authenticate.isHandbookUpdater()>
+				<cfset arrayAppend(tracer,["condition = #condition#",session.auth])>
+				<cfif showTracer>
+					<cfset ddd(tracer)>
+				</cfif>
 				<cfset redirectTo(action="handbookReviewCheckin", key=params.handbookupdate)>
    		</cfif>
 

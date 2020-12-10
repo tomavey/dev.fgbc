@@ -54,6 +54,16 @@ public function getSetting(name, useSessionSetting=true){
 	function getMinistryStaffAdmin() {
 		return application.wheels.ministryStaffAdmin
 	}
+
+	function isMinistryStaff(userid){
+    try {
+      var checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) AND itemId= #arguments.userid# AND tag='ministrystaff'")
+      if (isObject(checkForTag)) { return true }
+      else { return false }
+    } catch (any e) {
+      return false
+    }
+  }
 	
 	function getNonStaffSortOrder() {
 		return getSetting("nonStaffSortOrder")

@@ -271,19 +271,6 @@ component extends="Wheels" {
 		return loc.return;
 	}
 
-	function isMinistryStaff(userid) {
-		try {
-			checkForTag = model("Handbooktag").findOne(where="username IN (#getMinistryStaffAdmin()#) AND itemId= #arguments.userid# AND tag='ministrystaff'");
-			if ( isObject(checkForTag) ) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (any cfcatch) {
-			return false;
-		}
-	}
-	
 	function facebookloginisopen() {
 		if ( isDefined("session.auth.fblogin") && !session.auth.fblogin ) {
 			return false;

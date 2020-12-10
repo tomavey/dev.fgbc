@@ -184,6 +184,8 @@
 					<p><span>Lifetime member of Inspire since: </span>#handbookperson.handbookprofile.agbmlifememberAt#</p>
 				</cfif>		
 
+					<p>Has ministry staff access: #isMinistryStaff(handbookperson.id)#</p>
+
 					<p>#editTag(handbookperson.id)# #deleteTag(id=handbookperson.id, class="noAjax")#</p>
 
 					<cfif handbookperson.hideFromPublic>
@@ -223,7 +225,12 @@
 
 	</cfif>
 
+	<cfif isMinistryStaff(handbookperson.id)>
+		Ministry Staff
+	</cfif>
 
+	<!--- #isMinistryStaff(params.key)#
+	#session.auth.rightslist# --->
 </div>
 
 </cfoutput>
