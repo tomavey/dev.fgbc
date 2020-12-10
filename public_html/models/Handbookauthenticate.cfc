@@ -3,12 +3,7 @@ component extends="model" {
   function unLockCode(params){
     var emailFields = ['email','email2','spouse_email']
     var thisemail = decrypt(params.unlockcode,getSetting("passwordkey"),"CFMX_COMPAT","HEX")
-    for ( var emailfield in emailfields ) {
-      var person = findPersonFromEmail(thisemail,"email")
-      if ( isObject(person) ) { break }
-    }
-    var person = findPersonFromEmail(thisemail,"email")
-    // var person = model("Handbookperson").findOne(where="email = '#thisemail#' OR email2='#thisemail#' OR spouse_email='#thisemail#'", include="Handbookstate")
+    var person = findFirstPersonFromEmailFields(thisemail)
     var auth = {}
     if (isobject(person)) {
       auth.email = thisemail
@@ -25,9 +20,14 @@ component extends="model" {
     writeDump(auth);abort;
   }
 
-  function findPersonFromEmail(email,emailField){
-    var person = model("Handbookperson").findOne(where="#arguments.emailField# = '#arguments.email#'", include="Handbookstate")
-    if ( isObject(person) ) { return person } else { return false }
+  function findFirstPersonFromEmailFields(email){
+    var emailFields = ['email','email2','spouse_email']
+    // find the first handbookperson that has this email in the first emailField from emailFields[]
+    for ( var emailField in emailfields) {
+      var person = model("Handbookperson").findOne(where="#emailField# = '#arguments.email#'", include="Handbookstate")
+      if ( isObject(person) ) { return person }
+    }
+    return false
   }
 
   function isAlreadyAuthorized(){
