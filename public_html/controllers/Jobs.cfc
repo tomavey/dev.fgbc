@@ -1,42 +1,60 @@
 <cfcomponent extends="Controller" output="false">
-	
-	<cffunction name="config">
-		<cfset filters(through="setReturn", only="list,index,show")>
-	</cffunction>
 
-	<!--- jobs/show/key --->
-	<cffunction name="index">
-		
-		<cfif isdefined("params.key")>
-			<!--- Find the record --->
-	    	<cfset job = model("Mainjob").findAll(where="id=#params.key#")>
-	    	
-		<cfelseif gotrights("superadmin,office")>
-		
-			<cfset job = model("Mainjob").findAll(order="createdAt DESC")>
-	
-		<cfelse>
-		
-			<cfset job = model("Mainjob").findAll(where="expirationdate > now() AND approved='Y'", order="createdAt DESC")>
-	
-		</cfif>	
-    		
-	</cffunction>
+<cfscript>
+	function config(){
+		filters(through="setReturn", only="list,index,show")
+	}
 
-	<cffunction name="show">
-		<cfset redirectTo(action="index", key=params.key)>
-	</cffunction>
+	<!--- jobs/index/key --->
+	function index(){
+		if ( isDefined("params.key") ) {
+			job = model("Mainjob").findAll(where="id=#params.key#")
+		} else if ( gotrights("superadmin,office") ) {
+			job = model("Mainjob").findAll(order="createdAt DESC")
+		} else {
+			job = model("Mainjob").findAll(where="expirationdate > now() AND approved='Y'", order="createdAt DESC")
+		}
+	}
 
-	<cffunction name="list">
-		<cfset redirectTo("index")>
-	</cffunction>
-	
-	
+	function show(){
+		job = model("Mainjob").findAll(where="id=#params.key#")
+	}
+
 	<!--- jobs/new --->
-	<cffunction name="new">
-		<cfset job = model("Mainjob").new()>
-		<cfset strCaptcha = getcaptcha()>
-	</cffunction>
+	function new(){
+		job = model("Mainjob").new()
+		strCaptcha = getcaptcha()
+		formAction="create"
+	}
+
+	<!--- jobs/create --->
+	function create(){
+		if ( len(params.captcha) && params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX") ) {
+			params.job.uuid = CreateUUID()
+			params.job.uuid = replace(params.job.uuid,"-","","all")
+			job = model("Mainjob").new(params.job)
+
+			if ( job.save() ) {
+				flashInsert(success="The Job was created successfully.")
+				redirectTo(action="sendnotice", key=job.id)
+			} else {
+				flashInsert(error=errorMessagesFor("job"))
+				strCaptcha = getcaptcha()
+				renderView(action="new")
+			}
+		} else {
+			flashInsert(error="Please try to enter the scrambled image again.")
+			job = model("Mainjob").new(params.job)
+			strCaptcha = getcaptcha()
+			renderView(action="new")
+		}
+	}
+
+
+
+</cfscript>
+
+
 	
 	<!--- jobs/edit/key --->
 	<cffunction name="edit">
@@ -57,35 +75,6 @@
 			<cfset redirectTo(action="index")>
 	    </cfif>
 		
-	</cffunction>
-	
-	<!--- jobs/create --->
-	<cffunction name="create">
-		<cfif len(params.captcha) AND params.captcha is decrypt(params.captcha_check,getSetting("passwordkey"),"CFMX_COMPAT","HEX")>
-
-			<cfset params.job.uuid = CreateUUID()>
-			<cfset params.job.uuid = replace(params.job.uuid,"-","","all")>
-
-			<cfset job = model("Mainjob").new(params.job)>
-			
-			<!--- Verify that the message creates successfully --->
-			<cfif job.save()>
-				<cfset flashInsert(success="The Job was created successfully.")>
-	      <cfset redirectTo(action="sendnotice", key=job.id)>
-			<!--- Otherwise --->
-			<cfelse>
-				<cfset flashInsert(error=errorMessagesFor("job"))>
-				<cfset job = model("Mainjob").new(params.job)>
-				<cfset strCaptcha = getcaptcha()>
-				<cfset renderView(action="new")>
-			</cfif>
-			
-		<cfelse>
-			<cfset flashInsert(error="Please try to enter the scrambled image again.")>	
-			<cfset job = model("Mainjob").new(params.job)>
-			<cfset strCaptcha = getcaptcha()>
-			<cfset renderView(action="new")>
-		</cfif>
 	</cffunction>
 	
 	<!--- jobs/update --->

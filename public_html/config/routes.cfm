@@ -4,7 +4,7 @@
 <cfset addRoute(name="home", pattern="", controller="home", action="index")>
 	Routes are not cascading, the first pattern that applied is used.
 	So put routes with [key] before the same route without.
-	So put specific routes before "resource()" routes
+	So put specific routes before "resources()" routes
 
 	Sometimes .resources() does not work. Somehow it gives a "key required but not found" error.  
 	This appears to work instead but you have to using something other than the key for selecting records
@@ -817,22 +817,29 @@
 <!--------General - no namespace---->
 <!---------------------------------->
 
+<!---Routes for main page (public) Jobs--->
+	.controller("jobs")
+		.get(name="jobs", pattern="", action="index")
+		.get(name="jobsNew", pattern="/new/", action="new")
+		.post(name="jobsCreate", pattern="/create/", action="create")
+		.put(name="jobsCreate", pattern="/create/", action="create")
+		.post(name="jobsUpdate", pattern="/update/[key]", action="update")
+		.get(name="jobSendNotice", pattern="/sendnotice/[key]", action="sendnotice")
+		.get(name="jobsThankYouWKey", pattern="/thankyou/[key]", action="thankyou")
+		.get(name="jobsThankYou", pattern="/thankyou/", action="thankyou")
+		.get(name="jobsEdit", pattern="/edit/", action="edit")
+		.get(name="jobsShow", pattern="/[key]", action="show")
+	.end()
+
 
 <!---Main page routes--->
 		.get(name="events", pattern="events", controller="events", action="index")
-		.get(name="jobs", pattern="jobs", controller="jobs", action="index")
 		.get(name="ministries", pattern="ministries", controller="ministries", action="index")
 		.get(name="resources", pattern="resources", controller="resources", action="index")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
 
-		.get(name="jobsNew", pattern="/jobs/new/", controller="jobs", action="new")
-		.post(name="jobsCreate", pattern="/jobs/create/", controller="jobs", action="create")
-		.put(name="jobsCreate", pattern="/jobs/create/", controller="jobs", action="create")
-		.post(name="jobsUpdate", pattern="/jobs/update/[key]", controller="jobs", action="update")
-		.get(name="jobSendNotice", pattern="/jobs/sendnotice/[key]", controller="jobs", action="sendnotice")
-		.get(name="jobsThankYouWKey", pattern="/jobs/thankyou/[key]", controller="jobs", action="thankyou")
-		.get(name="jobsThankYou", pattern="/jobs/thankyou/", controller="jobs", action="thankyou")
-		.get(name="jobsEdit", pattern="/jobs/edit/", controller="jobs", action="edit")
+
+
 		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
 		.get(name="conferencereg", pattern="/conference", controller="conference.register", action="welcome")
 		.get(name="conferencereg2", pattern="/conference", controller="conference.-register", action="welcome")
