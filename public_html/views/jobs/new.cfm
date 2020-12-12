@@ -1,3 +1,4 @@
+<cfparam name="formaction" default="create">
 <cfoutput>
 	<div class="container card card-charis">
 			#errorMessagesFor("job")#
@@ -7,7 +8,7 @@
 				</p>
 			</cfif>	
 
-			#startFormTag(action="create")#
+			#startFormTag(action=formaction)#
 			
 			#includePartial(partial="form")#
 

@@ -32,6 +32,7 @@
               <cfoutput query="job">
               <div class="card card-charis">
                 <h4 class="card-title">#linkTo(text=title, key=id)#</h4>
+                //if the listing title is clicked it will add a key which will show just that job with description.  If "showalldescriptions" is in the query string all the jobs will show with descriptions
                 <cfif isDefined("params.key") || isDefined("params.showalldescriptions")>
                 <div class="card-text text-left">
                   #description#
