@@ -1,9 +1,12 @@
-<cfcomponent extends="Controller" output="false">
+component extends="Controller" output="false" {
 
-<cfscript>
 	function config(){
 		filters(through="setReturn", only="list,index,show")
 	}
+
+	<!----------CRUD---------------->	
+	<!----------CRUD---------------->	
+	<!----------CRUD---------------->	
 
 	<!--- jobs/index/key --->
 	function index(){
@@ -50,106 +53,77 @@
 		}
 	}
 
-
-
-</cfscript>
-
-
-	
 	<!--- jobs/edit/key --->
-	<cffunction name="edit">
-	
-		<!--- Find the record --->
-		<cfif isDefined("params.id")>
-			<cfset job = model("Mainjob").findOne(where="uuid='#params.id#'")>
-			<cfset params.key = job.id>
-		<cfelse>
-	    	<cfset job = model("Mainjob").findByKey(params.key)>
-		</cfif>
+	function edit(){
+		<!--- Find the record by uuid --->
+		job = model("Mainjob").findOne(where="uuid='#params.id#'")
 
-		<cfset strCaptcha = getcaptcha()>
-
-    	<!--- Check if the record exists --->
-	    <cfif NOT IsObject(job)>
-	        <cfset flashInsert(error="Job #params.key# was not found")>
-			<cfset redirectTo(action="index")>
-	    </cfif>
-		
-	</cffunction>
+		if ( isObject(job) ) {
+			params.key = job.id
+			strCaptcha = getcaptcha()
+		} else {
+			flashInsert(error="This position opportunity was (#params.id#) was not found")
+			redirectTo(action="index")
+		}
+	}
 	
 	<!--- jobs/update --->
-	<cffunction name="update">
-		<cfset job = model("Mainjob").findByKey(params.key)>
-		
-		<!--- Verify that the job updates successfully --->
-		<cfif job.update(params.job)>
-			<cfset flashInsert(success="The job was updated successfully.")>	
-			<cfif isDefined("job.uuid")>
-				<cfset redirectTo(action="thankyou", key=job.uuid)>
-			<cfelse>
-				<cfset redirectTo(action="thankyou")>
-			</cfif>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error updating the job.")>
-			<cfset renderView(action="edit")>
-		</cfif>
-	</cffunction>
-
-	<cfscript>
-		function sendJobNoticesTo(){
-			return getSetting("sendJobNoticesTo");
+	function update(){
+		job = model("Mainjob").findByKey(params.key)
+		if ( job.update(params.job) ){
+			flashInsert(success="The job was updated successfully.")
+			redirectTo(action="thankyou", key=job.uuid)
+		} else {
+			flashInsert(error="There was an error updating the job.")
+			renderView(action="edit")
 		}
-	</cfscript>
-	
-	<cffunction name="sendnotice">
-		<!--- Find the record --->
-		<cfif len(params.key) LTE 10>
-			<cfset job = model("Mainjob").findByKey(params.key)>
-		<cfelse>	
-			<cfset job = model("Mainjob").findOne(where="uuid='#params.key#'")>
-		</cfif>
-		<cfif !isLocalMachine()>
-			<cfset sendEmail(template="emailjob", from=job.email, to=sendJobNoticesTo(), subject="New Jobs Post", key=params.key, description=job.description)>
-		</cfif>
-		<cfif isDefined("job.uuid")>
-			<cfset redirectTo(action="thankyou", key=job.uuid)>
-		<cfelse>
-			<cfset redirectTo(action="thankyou")>
-		</cfif>
-	</cffunction>
-	
-	<cffunction name="approve">
-	    	<cfset job = model("Mainjob").findByKey(params.key)>
-			<cfset job.approved = "Y">
-			<cfset job.update()>
-	    	<cfset job = model("Mainjob").findAll(where="id=#params.key#")>
-			<cfset renderView(controller="admin.jobs", action="show")>
-	</cffunction>
+	}
 
-	
 	<!--- jobs/delete/key --->
-	<cffunction name="delete">
-			<cfset job = model("Mainjob").findByKey(params.key)>
-			
-			<!--- Verify that the job deletes successfully --->
-			<cfif job.delete()>
-				<cfset flashInsert(success="The job was deleted successfully.")>	
-	            <cfset redirectTo(action="index")>
-			<!--- Otherwise --->
-			<cfelse>
-				<cfset flashInsert(error="There was an error deleting the job.")>
-				<cfset redirectTo(action="index")>
-			</cfif>
-	</cffunction>
-	
-	<cffunction name="rss">
-		<cfset jobs = model("Mainjob").findAll(where="approved='y' AND expirationDate > now()", order="createdAt DESC")>
-		
-		<cfset title = "FGBC Jobs">
-		<cfset description= "Ministry Positions posted by Grace Brethren Churches">
-		<cfset renderView(template="rss.cfm", layout="rsslayout")>
-	</cffunction>
+	function delete(){
+		job = model("Mainjob").findByKey(params.key)
+		if ( job.delete() ){
+			flashInsert(success="The job was deleted successfully.")
+			redirectTo(action="index")
+		} else {
+			flashInsert(error="There was an error deleting the job.")
+			redirectTo(action="index")
+		}
+	}
 
-	
-</cfcomponent>
+	<!----------OTHER REPORTS---------------->	
+	<!----------OTHER REPORTS---------------->	
+	<!----------OTHER REPORTS---------------->	
+
+	function thankyou(){
+		job = model("Mainjob").findOne(where ="uuid='#params.key#'")
+		if ( !job.approved == 'n' ) {
+			thankyouMessage = 'We will review and approve the posting as soon as possible.'
+		} else {
+			thankyouMessage = 'We will review your changes and let you know if there are any problems.'
+		}
+	}
+
+
+	<!----------FUNCTIONS METHODS - NO VIEW---------------->
+	<!----------FUNCTIONS METHODS - NO VIEW---------------->
+	<!----------FUNCTIONS METHODS - NO VIEW---------------->
+
+	//approve a job posting using the link in email notification sent to admin
+	function approve(){
+		job = model("Mainjob").findByKey(params.key)
+		job.approved = "Y"
+		job.update()
+		job = model("Mainjob").findAll(where="id=#params.key#")
+		renderView(controller="admin.jobs", action="show")
+	}
+
+	function sendnotice(){
+		job = model("Mainjob").findByKey(params.key)
+		if ( !isLocalMachine() ){
+			sendEmail(template="emailjob", from=job.email, to=getSetting("sendJobNoticesTo"), subject="New Jobs Post", key=params.key, description=job.description)
+		} 
+		redirectTo(action="thankyou", key=job.uuid)
+	}
+
+}
