@@ -328,10 +328,10 @@ component extends="Wheels" {
 			}
 			if ( findNoCase(theURL,'charisfellowship.us') ) {
 				theUrl = replace(theURL,'http://','https://','one')
-			}
-			if ( gotRights("superadmin") ) {
-				ddd(theURL)
-			}
+				if ( gotRights("superadmin") ) {
+					ddd(theURL)
+				}
+				}
 			return replace(theUrl, "/rewrite.cfm","")
 		}
 		//HACK: this is for the local machine since getPageContext().getRequest().GetRequestUrl() does not report the full path on my localmachine
