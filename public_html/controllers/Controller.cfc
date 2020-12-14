@@ -336,7 +336,7 @@ component extends="Wheels" {
 			theURL = theURL & "?" & CGI.query_string;
 		}
 		if ( findNoCase('charisfellowship.us',theUrl) ) {
-			theUrl = replace('http://','https://')
+			theUrl = replace(theUrl,'http://','https://')
 		}
 		return theURL;
 	}
