@@ -326,10 +326,10 @@ component extends="Wheels" {
 			if ( !find(CGI.query_string,theUrl) ){
 				theURL = theURL & "?" & CGI.query_string;
 			}
-			// //Sometimes CGI does not report https - so make sure it is added
+			//Sometimes CGI does not report https - so make sure it is added - then remove ':80/' - not sure why needed
 			if ( findNoCase('charisfellowship.us',theURL) ) {
 				theURL = replace(theURL,'http://','https://','one')
-				theURL = replace(theURL,':80','','one')
+				theURL = replace(theURL,':80/','/','one')
 			}
 			return replace(theUrl, "/rewrite.cfm","")
 		}
