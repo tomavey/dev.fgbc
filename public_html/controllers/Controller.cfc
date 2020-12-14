@@ -326,6 +326,9 @@ component extends="Wheels" {
 			if ( !find(CGI.query_string,theUrl) ){
 				theURL = theURL & "?" & CGI.query_string;
 			}
+			if ( gotRights("superadmin") ) {
+				ddd(theUrl)
+			}
 			return replace(theUrl, "/rewrite.cfm","")
 		}
 		//HACK: this is for the local machine since getPageContext().getRequest().GetRequestUrl() does not report the full path on my localmachine
@@ -335,8 +338,8 @@ component extends="Wheels" {
 		if ( len( CGI.query_string ) ) {
 			theURL = theURL & "?" & CGI.query_string;
 		}
-		if ( findNoCase(theURl,'charisfellowship.us') ) {
-			theUrl = replace(theUrl,'http://','https://')
+		if ( findNoCase(theURL,'charisfellowship.us') ) {
+			theUrl = replace(theURL,'http://','https://','one')
 		}
 		return theURL;
 	}
