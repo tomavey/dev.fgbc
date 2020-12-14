@@ -326,8 +326,8 @@ component extends="Wheels" {
 			if ( !find(CGI.query_string,theUrl) ){
 				theURL = theURL & "?" & CGI.query_string;
 			}
-			if ( gotRights("superadmin") ) {
-				ddd(theUrl)
+			if ( findNoCase(theURL,'charisfellowship.us') ) {
+				theUrl = replace(theURL,'http://','https://','one')
 			}
 			return replace(theUrl, "/rewrite.cfm","")
 		}
@@ -337,9 +337,6 @@ component extends="Wheels" {
 		} 
 		if ( len( CGI.query_string ) ) {
 			theURL = theURL & "?" & CGI.query_string;
-		}
-		if ( findNoCase(theURL,'charisfellowship.us') ) {
-			theUrl = replace(theURL,'http://','https://','one')
 		}
 		return theURL;
 	}
