@@ -328,7 +328,8 @@ component extends="Wheels" {
 			}
 			// //Sometimes CGI does not report https - so make sure it is added
 			if ( findNoCase('charisfellowship.us',theURL) ) {
-				theUrl = replace(theURL,'http://','https://','one')
+				theURL = replace(theURL,'http://','https://','one')
+				theURL = replace(theURL,':80','','one')
 			}
 			return replace(theUrl, "/rewrite.cfm","")
 		}
