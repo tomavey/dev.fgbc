@@ -326,7 +326,7 @@ component extends="Wheels" {
 			if ( !find(CGI.query_string,theUrl) ){
 				theURL = theURL & "?" & CGI.query_string;
 			}
-			if ( findNoCase(theURL,'charisfellowship.us') ) {
+			if ( findNoCase('charisfellowship.us',theURL) ) {
 				theUrl = replace(theURL,'http://','https://','one')
 				if ( gotRights("superadmin") ) {
 					ddd(theURL)
