@@ -327,9 +327,9 @@ component extends="Wheels" {
 				theURL = theURL & "?" & CGI.query_string;
 			}
 			// //Sometimes CGI does not report https - so make sure it is added
-			// if ( findNoCase('charisfellowship.us',theURL) ) {
-			// 	theUrl = replace(theURL,'http://','https://','one')
-			// }
+			if ( findNoCase('charisfellowship.us',theURL) ) {
+				theUrl = replace(theURL,'http://','https://','one')
+			}
 			return replace(theUrl, "/rewrite.cfm","")
 		}
 		//HACK: this is for the local machine since getPageContext().getRequest().GetRequestUrl() does not report the full path on my localmachine
