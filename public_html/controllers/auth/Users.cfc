@@ -269,7 +269,6 @@ component extends="Controller" output="false" {
 
 	private function checkLogin(){
 		var loc = {}
-
 		// redirectForFBLogin()
 		pauseLoginAfterRepeatedFails()
 
