@@ -121,6 +121,7 @@ component extends="Controller" output="true" {
 
 	private function getSortOrder(personId){
 		person = model("Handbookposition").findAll(where="personId = #personId#", order="p_sortorder")
+		// ddd(person)
 		if ( person.recordCount ) { return person.p_sortorder }
 		return false
 	}
