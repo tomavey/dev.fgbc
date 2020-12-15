@@ -102,6 +102,29 @@ component extends="Controller" output="true" {
 	}
 
 
+	//Misc Reports
+
+	public function peopleWithoutPictures(){
+		var people = model("Handbookperson").findAll(include="state", order="selectName")
+		people = people.filter(function(person){
+			if ( getSortOrder(person.id) >= 500 ) { return false } else { return true }
+		})
+		peopleWithoutPictures = people.filter(function(person){
+			picture = model("Handbookpicture").findOne(where="personId = #person.id#")
+			if ( 
+				isObject(picture) && 
+				!find("Pastor, No",person.selectName)
+				) {return false}
+			return true
+		})
+	}
+
+	private function getSortOrder(personId){
+		person = model("Handbookposition").findAll(where="personId = #personId#", order="p_sortorder")
+		if ( person.recordCount ) { return person.p_sortorder }
+		return false
+	}
+
 	// Image manipulation methods
 
 	private function thumbnail(required string file) {

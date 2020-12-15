@@ -288,6 +288,7 @@
 			.post(name="newPerson", pattern="/pictures/new/", controller="pictures", action="new")
 			.delete(name="pictureDelete", pattern="/picture/[key]/delete", controller="pictures", action="delete")
 			.get(name="pictureDelete", pattern="/picture/[key]/delete", controller="pictures", action="delete")
+			.get(name="peopleWithoutPictures", pattern="pictures/peopleWithoutPictures", controller="pictures", action="peopleWithoutPictures")
 			.resources("pictures")
 
 			.resources("profiles")
