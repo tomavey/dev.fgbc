@@ -126,6 +126,14 @@
             renderText("This page cannot display - wrong parameters");
         }
     }
+    
+	private function pictureExists(file,prefix='thumb_'){
+		var fileToCheck = GetBaseTemplatePath();
+		fileToCheck = replace(filetocheck,"index.cfm","");
+		fileToCheck = replace(filetocheck,"rewrite.cfm","");
+		fileToCheck = fileToCheck & "images\handbookpictures\" & prefix & file;
+		return fileExists(fileToCheck);
+	}
 
 </cfscript>
 

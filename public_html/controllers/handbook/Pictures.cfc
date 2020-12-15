@@ -128,12 +128,5 @@ component extends="Controller" output="true" {
 	}
 	// 142 lines
 
-	private function pictureExists(file){
-	var fileToCheck = GetBaseTemplatePath();
-	fileToCheck = replace(filetocheck,"index.cfm","");
-	fileToCheck = replace(filetocheck,"rewrite.cfm","");
-	fileToCheck = fileToCheck & "images\handbookpictures\thumb_" & file;
-	return fileExists(fileToCheck);
-}
 
 }

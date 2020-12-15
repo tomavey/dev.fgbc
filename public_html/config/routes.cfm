@@ -286,6 +286,8 @@
 			setpictureasdefault")
 			.get(name="getPerson", pattern="/pictures/getperson", controller="pictures", action="getperson")
 			.post(name="newPerson", pattern="/pictures/new/", controller="pictures", action="new")
+			.delete(name="pictureDelete", pattern="/picture/[key]/delete", controller="pictures", action="delete")
+			.get(name="pictureDelete", pattern="/picture/[key]/delete", controller="pictures", action="delete")
 			.resources("pictures")
 
 			.resources("profiles")
