@@ -31,6 +31,8 @@
 		</cfif>
 	</cffunction>
 
+	<!---route: get(name="handbook", pattern="/handbook", controller="handbook.welcome", action="index")
+--->	
 	<cffunction name="index">
 		<!--- <cfset var auth = {}>
 		<cfset auth.handbook = structNew()>
@@ -230,7 +232,7 @@
 	<cffunction name="setAuthCookies">
 		<cfcookie name="authemail" expires="never" value="#session.auth.email#">
 		<cfcookie name="authusername" expires="never" value="#session.auth.username#">
-		<cfcookie name="authhandbookbasic" expires="never" value="#session.auth.handbook.basic#">
+		<cfcookie name="authhandbookbasic" expires="60" value="#session.auth.handbook.basic#">
 	</cffunction>
 
 	<cffunction name="removeDuplicates">

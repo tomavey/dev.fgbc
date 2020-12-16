@@ -8,7 +8,7 @@
 </cfif>
 
 <cfif showdownloadbutton>
-	<cfoutput>#linkToPlus(text="Download as excel", addParams="download=1", class="btn")#</cfoutput>
+	<cfoutput>#linkToPlus(text="Download as excel", addParams="download=excel", class="btn")#</cfoutput>
 </cfif>
 
 <cfif !isDefined('params.onlyIfEmail') && showdownloadbutton>
@@ -28,6 +28,7 @@
 		<th>State</th>
 		<th>Zip</th>
 		<th>Email</th>
+		<th>Cell Phone</th>
 		<th>His Position</th>
 		<th>Church Name</th>
 	</tr>
@@ -43,6 +44,7 @@
 		<td>#state_mail_abbrev#</td>
     <td>#zip#</td>
     <td>#spouse_email#</td>
+    <td>#phone4#</td>
 		<td>#hisPosition#</td>
 		<td>#churchNameCity#</td>
 	</tr>

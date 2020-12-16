@@ -50,8 +50,9 @@
 						</cfif>
 
 						<li>
-							#linkto(text="Wives - Wives of people with 'Pastor' or 'Chaplain' in their title", route="handbookPeoplePastorsWives", params="download=1", id="navsearch", title="Download a spreadsheet of all church staff that have the word 'pastor' in their title.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+							#linkto(text="Wives - Wives of people with 'Pastor' or 'Chaplain' in their title", route="handbookPeoplePastorsWives", params="download=excel", id="navsearch", title="Download a spreadsheet of all church staff that have the word 'pastor' in their title.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
 						</li>
+						
 						<li class="preview">
 							#linkto(text="Preview - Church Staff with 'Pastor' in their title", route="handbookPeoplePastorsWives", class="downloadconfirm" )#
 						</li>	

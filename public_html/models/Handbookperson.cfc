@@ -191,7 +191,7 @@ component extends="Model" output="true" {
 
 	function findPastorsWives(string titleIncludesList = 'pastor,chaplain', string onlyIfEmail = false){
 		var titleIncludes = $buildMysqlLikeString(titleIncludesList)
-		var selectString = "handbookpeople.id, spouse, lname, spouse_email, handbookpeople.address1, handbookpeople.address2, city, state_mail_abbrev, handbookpeople.zip, position AS hisPosition, (CONCAT_WS(', ',org_city,state_mail_abbrev,handbookorganizations.name)) AS churchNameCity"
+		var selectString = "handbookpeople.id, spouse, lname, spouse_email, phone4, handbookpeople.address1, handbookpeople.address2, city, state_mail_abbrev, handbookpeople.zip, position AS hisPosition, (CONCAT_WS(', ',org_city,state_mail_abbrev,handbookorganizations.name)) AS churchNameCity"
 		var whereString = "deletedAt IS NULL AND fnameGender = 'M' AND spouse IS NOT NULL AND (#titleIncludes#)"
 		if ( onlyIfEmail ) {
 			whereString = whereString & " AND spouse_email IS NOT NULL"
