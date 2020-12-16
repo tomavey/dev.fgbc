@@ -28,6 +28,9 @@
     				#linkto(text="People", controller="handbook.people", action="quickSearch", title="People in the FGBC", class="tooltip2")#
     			</li>
     			<li>
+    				#linkto(text="Thrive", controller="handbook.wives", action="index", title="Charis Pastor's Wives Network", class="tooltip2")#
+    			</li>
+    			<li>
     				#linkto(text="My Tags", controller="handbook.tags", action="index", id="navsearch", title="Your Tags", class="tooltip2")#
     			</li>
     			<cfif isDefined("session.auth.handbook.organizations") AND not isMobile() AND 0 EQ 1>

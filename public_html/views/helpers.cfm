@@ -1254,6 +1254,7 @@ function hiddenMessagetoTestFor() {
 		code = replace(code,'>','&gt;','all')
 		return code
 	}
+
 </cfscript>
 
 
