@@ -185,18 +185,6 @@
 
 	</cffunction>
 
-<cfscript>
-	function allowHandbookOrgUpdate(){
-		if (
-			getSetting('allowHandbookOrgUpdate')
-			|| isBefore(getSetting('churchReviewDeadline'))
-		) {
-			return true
-		} else {
-			return false
-		}
-	}
-</cfscript>
 
 	<cffunction name="review">
 		<cfset params.key = simpleDecode(params.orgid)>

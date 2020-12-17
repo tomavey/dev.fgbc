@@ -490,6 +490,18 @@ component extends="Wheels" {
 			return false;
 		}
 	}
+
+	function allowHandbookOrgUpdate(){
+		if (
+			getSetting('allowHandbookOrgUpdate')
+			|| isBefore(getSetting('churchReviewDeadline'))
+		) {
+			return true
+		} else {
+			return false
+		}
+	}
+	
 <!-------------------------------------->
 <!-----END OF GETTERS FOR SETTINGS------>
 <!-------------------------------------->
