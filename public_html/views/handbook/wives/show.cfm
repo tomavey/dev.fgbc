@@ -16,6 +16,7 @@
       <cfif len(pastorsWife.Handbookprofile.anniversaryAsString)>
         Anniversary: #dateFormat(pastorsWife.Handbookprofile.anniversaryAsString,"mmmm dd")#<br/>
       </cfif>
+      <br/>
       #linkTo(text=pastorsWife.selectname, controller="handbook.people", action="show", key=pastorsWife.id)#
     </div>
 
