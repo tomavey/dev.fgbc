@@ -95,7 +95,7 @@
 					<cfif gotrights("office,handbookedit")>
 						<cftry>
 						<p>Reviewer Link:<br/><br/> #linkto(route="reviewhandbook", orgid=simpleEncode(params.key), onlyPath=false)#
-						<cfif allowHandbookOrgUpdate()>
+						<cfif !allowHandbookOrgUpdate()>
 							<p style="font-size:.8em;padding-left:10px">Reviewer link functionality is turned off. #linkto(text="Change allowHandbookOrgUpdate setting to true to activate", controller="admin.settings", action="index", params="category=handbook")# </p>
 						</cfif>
 						</p>
