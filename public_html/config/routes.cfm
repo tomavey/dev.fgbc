@@ -283,6 +283,11 @@
 			.resources("people")
 
 			<!---Controller = "handbook.wives"--->
+			.controller("wives")
+				.get(name="findMe", pattern="/findme/", action="findme")
+				.get(name="editMe", pattern="/editme/", action="editme")
+				.patch(name="updateMe", pattern="/updateme/[key]", action="updateme")
+			.end()
 			.resources("wives")
 
 			.get(name="setPictureAsDefault", pattern="/pictures/setdefault/[key]", controller="pictures", action="

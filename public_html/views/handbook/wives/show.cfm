@@ -13,10 +13,11 @@
         <cfset birthday = "#pastorsWife.Handbookprofile.wifesBirthdayMonthNumber#-#pastorsWife.Handbookprofile.wifesBirthdayDayNumber#">
         Birthday: #dateFormat(birthday,"mmmm dd")#<br/>
       </cfif>
-      #pastorsWife.selectname#
+      <cfif len(pastorsWife.Handbookprofile.anniversaryAsString)>
+        Anniversary: #dateFormat(pastorsWife.Handbookprofile.anniversaryAsString,"mmmm dd")#<br/>
+      </cfif>
+      #linkTo(text=pastorsWife.selectname, controller="handbook.people", action="show", key=pastorsWife.id)#
     </div>
-
-    <!--- #ddd(pastorsWife.properties())# --->
 
   </cfoutput>
 </div>

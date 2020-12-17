@@ -204,7 +204,8 @@ component extends="Model" output="true" {
 			where = whereString,
 			maxRows = maxRows,
 			include = includeString,
-			order = orderString
+			order = orderString,
+			group="id"
 		)
 		return pastorsWives
 	}
