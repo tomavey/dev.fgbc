@@ -3,7 +3,7 @@
   <cfoutput>
     <div class="well">
       #pastorsWife.spouse# #pastorsWife.lname#<br/>
-      #mailto(pastorsWife.email)# #pastorsWife.phone4#<br/>  
+      #mailto(pastorsWife.spouse_email)# #pastorsWife.phone4#<br/>  
       #pastorsWife.address1#<br/>
       <cfif len(pastorsWife.address2)>
         #pastorsWife.address2#<br/>
