@@ -83,7 +83,8 @@
 				.get(name="index", pattern="/", action="index")
 				.delete(name="delete", pattern="/[key]/delete/", action="delete")
 				.get(name="delete", pattern="/[key]/delete/", action="delete")
-			.end()
+				.get(name="approve", pattern="/approve/[key]", action="approve")
+				.end()
 			.resources("jobs")
 
 			.controller("menus")
@@ -840,6 +841,7 @@
 		.get(name="jobsThankYou", pattern="/thankyou/", action="thankyou")
 		.get(name="jobsEdit", pattern="/edit/", action="edit")
 		.get(name="jobsShow", pattern="/[key]", action="show")
+		.get(name="jobsApprove", pattern="/approve/[key]", action="approve")
 	.end()
 
 
