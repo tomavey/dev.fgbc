@@ -7,7 +7,7 @@
 					
 						#textField(objectName='job', property='title', label='Title of the position you are advertising: ')#
 					
-						#textArea(objectName='job', property='description', rows="10", cols="70", class="ckeditor", label='Use the "Paste From Word" icon to past from MSWord.')#
+						#textArea(objectName='job', property='description', rows="10", cols="70", class="ckeditor", label='Use the "Paste From Word" icon to paste from MSWord.')#
 					
 					<cfif gotRights("superadmin,office")>
 					
