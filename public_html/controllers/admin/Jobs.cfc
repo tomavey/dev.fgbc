@@ -115,7 +115,7 @@ function sendnotice() {
 		job.approved = "Y"
 		job.update()
 		job = model("Mainjob").findAll(where="id=#params.key#")
-		renderView(controller="jobs", action="show")
+		renderView(controller="jobs", action="index")
 	}
 
 	function rss(){
