@@ -22,6 +22,7 @@
   </ul>
 <p>
   <cfoutput>
+    #mailto(name='Email All', emailAddress=emailall)#<br/><br/>
     #replace(emailAll,"; ","","one")#
   </cfoutput>
 </p>  
