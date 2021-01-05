@@ -80,7 +80,7 @@
                     #linkto(text="Orphaned Tags", controller="handbook.tags", action="orphanedTags", id="navsearch", title="Tags that don't work!", class="tooltip2")#
                 </li>
                 <li>
-                    #linkto(text="People without pictures", controller="handbook.pictures", action="peopleWithoutPictures", id="navsearch", title="Need pics", class="tooltip2")#
+                    #linkto(text="People without pictures", controller="handbook.pictures", action="notlist", id="navsearch", title="Need pics", class="tooltip2")#
                 </li>
 
             </cfif>

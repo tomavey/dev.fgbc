@@ -104,7 +104,7 @@ component extends="Controller" output="true" {
 
 	//Misc Reports
 
-	public function peoplewithoutpictures(){
+	public function notlist(){
 		var people = model("Handbookperson").findAll(include="state", order="selectName")
 		people = people.filter(function(person){
 			if ( getSortOrder(person.id) >= 500 ) { return false } else { return true }
