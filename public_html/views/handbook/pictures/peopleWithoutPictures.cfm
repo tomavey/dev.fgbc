@@ -2,7 +2,7 @@
 <div class="span11">
   <cfoutput>
     <h2>
-      Handbook people without pictures:
+      Handbook people without pictures::
     </h2>
     <p>Count: #peopleWithoutPictures.recordCount#</p>
   </cfoutput>
