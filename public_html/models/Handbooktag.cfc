@@ -4,7 +4,17 @@
 		<cfset table("handbooktags")>
 		<cfset belongsTo(name="Handbookperson", modelName="Handbookperson", foreignKey="itemid")>
 		<cfset belongsTo(name="Handbookorganization", modelName="Handbookorganization", foreignKey="itemid")>
+		<cfset beforeSave("underlineTag")>
+		<cfset beforeUpdate("underlineTag")>
 	</cffunction>
+
+<cfscript>
+	private function underlineTag() {
+		this.tag = replace(this.tag,' ','_','all')
+	}
+</cfscript>
+
+
 
 	<cffunction name="findMyTagsForId">
 	<cfargument name="id" required="true" type="numeric">

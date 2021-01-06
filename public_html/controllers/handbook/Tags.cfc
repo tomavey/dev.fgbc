@@ -178,7 +178,7 @@ component extends="Controller" output="true" {
 	){
 		var loc = arguments
 		var args = {}
-		loc.newTag = tag & " (copy)"
+		loc.newTag = tag & "_copy"
 		listEach(loc.tagIds,function(item){
 			loc.tag = model("Handbooktag").findOne(where="id=#item#")
 			if ( isObject(loc.tag) ){
