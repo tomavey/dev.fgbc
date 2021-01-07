@@ -1,5 +1,5 @@
 <cfoutput>
-<div class="container">
+<div class="container card card-charis">
 
 <h1>#announcement.title#</h1>
 
@@ -20,7 +20,7 @@
 			<p>
 				<cfif len(announcement.image)>
 					<a href="#announcement.image#" target="_new"><img src="#announcement.image#" /></a>
-				<cfelse>
+				<cfelseif gotrights("superadmin,office")>
 					No Image	
 				</cfif>	
 			</p>
