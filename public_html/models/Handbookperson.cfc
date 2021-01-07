@@ -189,7 +189,11 @@ component extends="Model" output="true" {
 		return staff
 	}
 
-	function findPastorsWives(string titleIncludesList = 'pastor,chaplain', string onlyIfEmail = false){
+	function findPastorsWives(
+		string titleIncludesList = 'pastor,chaplain', 
+		string onlyIfEmail = false, 
+		string orderString = "lname, spouse"
+		){
 		var titleIncludes = $buildMysqlLikeString(titleIncludesList)
 		var selectString = "handbookpeople.id, spouse, lname, spouse_email, phone4, handbookpeople.address1, handbookpeople.address2, city, state_mail_abbrev, handbookpeople.zip, position AS hisPosition, (CONCAT_WS(', ',org_city,state_mail_abbrev,handbookorganizations.name)) AS churchNameCity"
 		var whereString = "deletedAt IS NULL AND fnameGender <> 'F' AND spouse IS NOT NULL AND length(spouse) AND (#titleIncludes#)"
@@ -197,7 +201,7 @@ component extends="Model" output="true" {
 			whereString = whereString & " AND spouse_email IS NOT NULL"
 		}
 		var includeString = "State,Handbookpositions(Handbookorganization)"
-		var orderString = "lname, spouse"
+		var orderString = arguments.orderString
 		var maxRows = 1000000
 		var pastorsWives = model("Handbookperson").findAll(
 			select = selectString,
