@@ -200,6 +200,9 @@ component extends="Model" output="true" {
 		if ( onlyIfEmail ) {
 			whereString = whereString & " AND spouse_email IS NOT NULL"
 		}
+		if ( isDefined('params.search') ) {
+			whereString = whereString & " AND (spouse like '%#params.search#%' OR lname like '%#params.search#%')"
+		}
 		var includeString = "State,Handbookpositions(Handbookorganization)"
 		var orderString = arguments.orderString
 		var maxRows = 1000000
