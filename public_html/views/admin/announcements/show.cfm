@@ -1,5 +1,5 @@
 <cfoutput>
-<div class="container card card-charis">
+<div class="container">
 	<div class="card card-charis">
 		<h1>#announcement.title#</h1>
 
