@@ -7,10 +7,11 @@ component extends="controller" {
   public function index(){
     var onlyIfEmail = false
     var sortBy = "lname, spouse"
-    var paramsString = ""
+    var search = ""
     if ( isDefined('params.sortBy') ) { sortBy = params.sortBy }
     if ( isDefined('params.onlyIfEmail') ) { onlyIfEmail = true }
-    pastorsWives = model("Handbookperson").findPastorsWives(titleIncludesList = 'pastor,chaplain', onlyIfEmail = onlyIfEmail, orderString=sortBy, params=paramsString)
+    if ( isDefined('params.search') ) { search = params.search }
+    pastorsWives = model("Handbookperson").findPastorsWives(titleIncludesList = 'pastor,chaplain', onlyIfEmail = onlyIfEmail, orderString=sortBy, search=search)
   }
 
   public function show(){

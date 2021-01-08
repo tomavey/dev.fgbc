@@ -1,14 +1,17 @@
 <cfset count = 0>
 <div class="span11 container">
 <h2>Thrive - Charis Pastor's Wives Network</h2>
-<p>
-  <cfoutput>
+<cfoutput>
+  <p>
     Sort by: 
     #linkTo(text="first name", controller="handbook.wives", action="index", params="sortBy=spouse")# 
     | 
     #linkTo(text="last name", controller="handbook.wives", action="index", params="sortBy=lname")# 
-  </cfoutput>
-</p>
+  </p>
+  <p>
+    Filter: #linkTo(text="Only show if email is present", controller="handbook.wives", action="index", params="onlyIfEmail=1")#
+  </p>
+</cfoutput>
 <table class="table table-striped">
   <tr>
     <th>Name</th>
