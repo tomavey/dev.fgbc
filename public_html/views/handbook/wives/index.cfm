@@ -22,9 +22,11 @@
           Filter: #linkTo(text="Show all", controller="handbook.wives", action="index", params="")#
         </cfif>
       </p>
-      <p class="pull-right">
-        #linkToPlus(text="<i class='icon-download-alt'></i>", addParams="download=true", class="btn", title="Download this list as an excel spreadasheet")#
-      </p>
+      <cfif gotRights("office,thrive")>
+        <p class="pull-right">
+          #linkToPlus(text="<i class='icon-download-alt'></i>", addParams="download=true", class="btn", title="Download this list as an excel spreadasheet")#
+        </p>
+      </cfif>
     </cfoutput>
   </cfif>
 
