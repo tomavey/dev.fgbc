@@ -12,6 +12,9 @@ component extends="controller" {
     if ( isDefined('params.onlyIfEmail') ) { onlyIfEmail = true }
     if ( isDefined('params.search') ) { search = params.search }
     pastorsWives = model("Handbookperson").findPastorsWives(titleIncludesList = 'pastor,chaplain', onlyIfEmail = onlyIfEmail, orderString=sortBy, search=search)
+    if ( isDefined('params.download') ) { 
+      renderView(layout="/layout_download")
+    }
   }
 
   public function show(){

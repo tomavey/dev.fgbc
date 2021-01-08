@@ -953,14 +953,20 @@ private function listedAsCity (org_city, listed_as_city) {
 	return org_city
 }
 
-public function linkToPlus(required addParams,class="",text="link",oldurl=cgi.path_info,queryString=cgi.query_string,showIf=true){
+public function linkToPlus(
+	required addParams,
+	class="",
+	text="link",
+	oldurl=cgi.path_info,
+	queryString=cgi.query_string,
+	showIf=true){
 	// writeDump(#arguments#);abort;
 	if ( !find(addParams,oldUrl) ) { 
 		var delim = "?"
 		if ( find("?",oldurl) ) { delim = "&" }
 		if ( !showIf ){ return "" };
 		var newUrl = oldurl;
-		newurl = oldurl & delim & addParams;
+		newurl = oldurl & delim & queryString & '&' & addParams;
 		return #linkto(text=text, href=newurl, class=class)#;
 	}
 }
