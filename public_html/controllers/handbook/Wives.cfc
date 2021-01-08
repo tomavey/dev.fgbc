@@ -10,8 +10,6 @@ component extends="controller" {
     var paramsString = ""
     if ( isDefined('params.sortBy') ) { sortBy = params.sortBy }
     if ( isDefined('params.onlyIfEmail') ) { onlyIfEmail = true }
-    if ( isDefined('params.search') )
-
     pastorsWives = model("Handbookperson").findPastorsWives(titleIncludesList = 'pastor,chaplain', onlyIfEmail = onlyIfEmail, orderString=sortBy, params=paramsString)
   }
 
