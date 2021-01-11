@@ -3,7 +3,7 @@
 				<cfif !len(retreat.registrationlink)>
 					#linkTo(text="Register Here", controller="focus.shoppingcarts", action="new", params="retreatid=#retreat.id#", class="btn")#
 				<cfelse>	
-					#linkTo(text="Register Here", href="https://charisfellowship.regfox.com/2021-southwest-focus-retreat", class="btn", target="_new")#
+					#linkTo(text="Register Here", href=retreat.registrationlink, class="btn", target="_new")#
 				</cfif>
 				#retreat.registrationComments#
 

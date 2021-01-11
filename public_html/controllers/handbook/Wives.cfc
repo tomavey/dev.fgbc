@@ -23,7 +23,7 @@ component extends="controller" {
 
   public function findme(){
     if ( isDefined("params.key") ) {
-      redirectTo("edit")
+      redirectTo(action="editMe", key=params.key)
     } else {
       var onlyIfEmail = false
       if ( isDefined('params.onlyIfEmail') ) { onlyIfEmail = true }
@@ -41,16 +41,17 @@ component extends="controller" {
   }
 
   public function updateme(){
-    pastorsWife = model("Handbookperson").findByKey(key=params.key, include="state,handbookprofile")
-    pastorsWife.spouse_email = params.pastorsWife.spouse_email
-    pastorsWife.phone4 = params.pastorsWife.phone4
+    var person = model("Handbookperson").findByKey(key=params.key, include="state")
+    ddd(params)
+    // pastorsWife.spouse_email = params.pastorsWife.spouse_email
+    // pastorsWife.phone4 = params.pastorsWife.phone4
     // ddd(pastorsWife.properties())
-    if ( pastorsWife.save() ) {
-      ddd(params)
+    ddd(person.save(params.pastorsWife))
+    if ( person.update(params.pastorsWife) ) {
+      ddd(person.properties())
     } else { 
-      ddd("oops")
+      ddd(params)
     }  
-
   }
   
 }

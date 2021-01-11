@@ -13,7 +13,10 @@
 					<p><span>Show registration options? </span> 
 						#retreat.showregs#</p>
 
-					<p>#linkTo(text="View Options for #retreat.title#", controller="focus.items", action="index", params="retreatid=#params.key#", class="btn")#	</p>
+						<p><span>External Registration Link? </span> 
+							<a href="#retreat.registrationlink#" target="_new">#retreat.registrationlink#</a></p>
+
+							<p>#linkTo(text="View Options for #retreat.title#", controller="focus.items", action="index", params="retreatid=#params.key#", class="btn")#	</p>
 				
 					<p><span>Retreat Begins: </span> 
 						#dateformat(retreat.startAt)#</p>
