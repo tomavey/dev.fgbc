@@ -1,6 +1,6 @@
 component extends="Model" output="false" {
  function config(){
-  table('Handbookpeople')
+  table('handbookpeople')
   belongsTo(name="State", modelName="Handbookstate", foreignkey="stateid")
   hasMany(name="Positions", modelName="Handbookposition", foreignKey="personid", dependent="delete", joinType="outer")
   hasOne(name="Profile", modelName="Handbookprofile", foreignKey="personid", dependent="delete")
