@@ -3,12 +3,12 @@
   <h2>Enter New Thrive Data for:</h2>
   <cfoutput>
       <h3>
-        #person.spouse# #person.lname#
+        #handbookperson.spouse# #handbookperson.lname#
       </h3>
       #startFormTag(route=formRoute, key=params.key, method="patch")#
-      #hiddenField(objectName='person', property='sendHandbook')#
-      #textField(objectName='person', property='spouse_email', label="Email: ")#
-      #textField(objectName='person', property='phone4', label="Cell Phone: ")#
+      #hiddenField(objectName='handbookperson', property='sendHandbook')#
+      #textField(objectName='handbookperson', property='spouse_email', label="Email: ")#
+      #textField(objectName='handbookperson', property='phone4', label="Cell Phone: ")#
       #submitTag()#
       #endFormTag()#
   </cfoutput>
