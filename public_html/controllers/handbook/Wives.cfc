@@ -51,12 +51,11 @@ component extends="controller" {
     writeDump(person.properties().spouse_email)
     // ddd(person.properties())
     if ( person.update() ) {
-      writeOutput("After Save: ") 
-      ddd(personcheck.properties().spouse_email)
       flashInsert(success="Information was updated successfully");
       returnBack()
     } else { 
       flashInsert(error="There was an error updating the information.");
+      ddd(person.errors)
       returnBack();    
     }  
   }
