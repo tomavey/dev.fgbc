@@ -42,7 +42,7 @@ component extends="controller" {
   }
 
   public function updateme(){
-    var person = model("Handbookpastorswives").findOne(where="id=#params.key#", include="state", reload=true)
+    var person = model("Handbookpastorswives").findOne(where="id=#params.key#", include="state")
     writeOutput("Before Params: ") 
     writeDump(person.properties().spouse_email)
     person.spouse_email = params.person.spouse_email
@@ -50,7 +50,7 @@ component extends="controller" {
     writeOutput("Before Save: ") 
     writeDump(person.properties().spouse_email)
     // ddd(person.properties())
-    writeOutput(person.update())
+    writeOutput(person.save())
     abort;
     // if ( person.update() ) {
     //   flashInsert(success="Information was updated successfully");
