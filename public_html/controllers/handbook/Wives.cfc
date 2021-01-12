@@ -49,7 +49,7 @@ component extends="controller" {
     person.phone4 = params.person.phone4
     writeOutput("Before Save: ") 
     writeDump(person.properties().spouse_email)
-    ddd(pastorsWife.properties())
+    ddd(person.properties())
     if ( person.update() ) {
       writeOutput("After Save: ") 
       ddd(personcheck.properties().spouse_email)
