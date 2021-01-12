@@ -73,7 +73,7 @@
 
 </cfif>
 
-<cfif params.action is "edit" and gotRights("superadmin,office,handbookedit")>
+<cfif params.action is "edit" and gotRights("superadmin,office,handbookedit,agbmadmin")>
 
 #linkTo(text="Delete this position", controller="handbook.positions", action="delete", key=handbookperson.handbookpositions[arguments.current].id)#
 
