@@ -285,9 +285,10 @@
 
 			<!---Controller = "handbook.wives"--->
 			.controller("wives")
-				.get(name="findMe", pattern="/findme/[key]", action="findme")
+				.get(name="findMeKey", pattern="/findme/[key]", action="findme")
 				.get(name="findMe", pattern="/findme/", action="findme")
-				.get(name="editMe", pattern="/editme/[key]", action="editme")
+				.get(name="editMeKey", pattern="/editme/[key]", action="editme")
+				.get(name="editMe", pattern="/editme/", action="editme")
 				.patch(name="updateMe", pattern="/updateme/[key]", action="updateme")
 				.post(name="updateMe", pattern="/updateme/[key]", action="updateme")
 			.end()
