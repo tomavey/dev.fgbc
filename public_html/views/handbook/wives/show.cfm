@@ -38,7 +38,7 @@
         Anniversary: #dateFormat(pastorsWife.profile.anniversaryAsString,"mmmm dd")#<br/>
       </cfif>
       <br/>
-      #linkTo(text=pastorsWife.selectname, controller="handbook.people", action="show", key=pastorsWife.id)#
+      #linkTo(text="#pastorsWife.selectname#&nbsp;<i class='icon-search'></i>", controller="handbook.people", action="show", key=pastorsWife.id)#
     </div>
 
   </cfoutput>
