@@ -44,6 +44,7 @@ component extends="controller" {
   public function updateme(){
     var person = model("Handbookpastorswives").findOne(where="id=#params.key#", include="state")
     if (isObject(person)) {
+      writeDump(params)
       writeDump(person.update(params.person));abort;
     }
     writeOutput("Before Params: ") 
