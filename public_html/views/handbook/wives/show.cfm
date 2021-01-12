@@ -1,7 +1,7 @@
 <div class="container span11">
 
   <cfoutput>
-    #errorMessagesFor("Handbookpastorswife")#
+    #errorMessagesFor(objectName = "pastorsWife")#
     <cfif NOT flashIsEmpty()>
       <div id="flash-messages">
           <cfif flashKeyExists("error")>
