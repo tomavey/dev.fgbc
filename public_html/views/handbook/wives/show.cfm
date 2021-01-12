@@ -3,7 +3,12 @@
   <cfoutput>
     <div class="well">
       #pastorsWife.spouse# #pastorsWife.lname#<br/>
-      #mailto(pastorsWife.spouse_email)# #pastorsWife.phone4#<br/>  
+      #mailto(pastorsWife.spouse_email)# 
+      #pastorsWife.phone4#
+      <cfif gotRights("office,thrive")>
+        #linkTo(text='<i class="icon-edit"></i>', controller="handbook.wives", action="editMe", key=params.key)#
+      </cfif>
+      <br/>  
       #pastorsWife.address1#<br/>
       <cfif len(pastorsWife.address2)>
         #pastorsWife.address2#<br/>
@@ -11,7 +16,8 @@
       #pastorsWife.city# #pastorsWife.state_mail_abbrev# #pastorsWife.zip#<br/>
       <cfif val(pastorsWife.Handbookprofile.wifesBirthdayMonthNumber) && val(pastorsWife.Handbookprofile.wifesBirthdayDayNumber)>
         <cfset birthday = "#pastorsWife.Handbookprofile.wifesBirthdayMonthNumber#-#pastorsWife.Handbookprofile.wifesBirthdayDayNumber#">
-        Birthday: #dateFormat(birthday,"mmmm dd")#<br/>
+        Birthday: #dateFormat(birthday,"mmmm dd")# 
+        <br/>
       </cfif>
       <cfif len(pastorsWife.Handbookprofile.anniversaryAsString)>
         Anniversary: #dateFormat(pastorsWife.Handbookprofile.anniversaryAsString,"mmmm dd")#<br/>

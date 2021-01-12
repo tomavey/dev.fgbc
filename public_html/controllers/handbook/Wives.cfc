@@ -2,6 +2,7 @@ component extends="controller" {
 
   function config(){
     usesLayout(template="/handbook/layout_handbook2")
+    filters(through="setReturn", only="index,show")
   }
   
   public function index(){
@@ -41,14 +42,12 @@ component extends="controller" {
   }
 
   public function updateme(){
-    var person = model("Handbookperson").findByKey(key=params.key, include="state")
-    ddd(params)
+    var person = model("Handbookperson").findOne(key=params.key, include="state")
     // pastorsWife.spouse_email = params.pastorsWife.spouse_email
     // pastorsWife.phone4 = params.pastorsWife.phone4
     // ddd(pastorsWife.properties())
-    ddd(person.save(params.pastorsWife))
     if ( person.update(params.pastorsWife) ) {
-      ddd(person.properties())
+      returnBack()
     } else { 
       ddd(params)
     }  
