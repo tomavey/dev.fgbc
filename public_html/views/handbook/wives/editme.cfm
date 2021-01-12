@@ -2,11 +2,11 @@
   <h2>Enter New Thrive Data for:</h2>
   <cfoutput>
       <h3>
-        #pastorsWife.spouse# #pastorsWife.lname#
+        #person.spouse# #person.lname#
       </h3>
       #startFormTag(route="handbookWivesUpdateMe", key=params.key, method="patch")#
-      #textField(objectName='pastorsWife', property='spouse_email', label="Email: ")#
-      #textField(objectName='pastorsWife', property='phone4', label="Cell Phone: ")#
+      #textField(objectName='person', property='spouse_email', label="Email: ")#
+      #textField(objectName='person', property='phone4', label="Cell Phone: ")#
       #submitTag()#
       #endFormTag()#
   </cfoutput>

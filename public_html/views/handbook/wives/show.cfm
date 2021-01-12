@@ -1,7 +1,21 @@
 <div class="container span11">
 
   <cfoutput>
-    <div class="well">
+    <cfif NOT flashIsEmpty()>
+      <div id="flash-messages">
+          <cfif flashKeyExists("error")>
+              <p class="errorMessage">
+                  #flash("error")#
+              </p>
+          </cfif>
+          <cfif flashKeyExists("success")>
+              <p class="successMessage">
+                  #flash("success")#
+              </p>
+          </cfif>
+      </div>
+    </cfif>
+     <div class="well">
       #pastorsWife.spouse# #pastorsWife.lname#<br/>
       #mailto(pastorsWife.spouse_email)# 
       #pastorsWife.phone4#
@@ -14,13 +28,13 @@
         #pastorsWife.address2#<br/>
       </cfif>
       #pastorsWife.city# #pastorsWife.state_mail_abbrev# #pastorsWife.zip#<br/>
-      <cfif val(pastorsWife.Handbookprofile.wifesBirthdayMonthNumber) && val(pastorsWife.Handbookprofile.wifesBirthdayDayNumber)>
-        <cfset birthday = "#pastorsWife.Handbookprofile.wifesBirthdayMonthNumber#-#pastorsWife.Handbookprofile.wifesBirthdayDayNumber#">
+      <cfif val(pastorsWife.profile.wifesBirthdayMonthNumber) && val(pastorsWife.profile.wifesBirthdayDayNumber)>
+        <cfset birthday = "#pastorsWife.profile.wifesBirthdayMonthNumber#-#pastorsWife.profile.wifesBirthdayDayNumber#">
         Birthday: #dateFormat(birthday,"mmmm dd")# 
         <br/>
       </cfif>
-      <cfif len(pastorsWife.Handbookprofile.anniversaryAsString)>
-        Anniversary: #dateFormat(pastorsWife.Handbookprofile.anniversaryAsString,"mmmm dd")#<br/>
+      <cfif len(pastorsWife.profile.anniversaryAsString)>
+        Anniversary: #dateFormat(pastorsWife.profile.anniversaryAsString,"mmmm dd")#<br/>
       </cfif>
       <br/>
       #linkTo(text=pastorsWife.selectname, controller="handbook.people", action="show", key=pastorsWife.id)#

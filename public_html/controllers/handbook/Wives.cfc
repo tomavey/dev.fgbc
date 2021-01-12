@@ -12,14 +12,14 @@ component extends="controller" {
     if ( isDefined('params.sortBy') ) { sortBy = params.sortBy }
     if ( isDefined('params.onlyIfEmail') ) { onlyIfEmail = true }
     if ( isDefined('params.search') ) { search = params.search }
-    pastorsWives = model("Handbookperson").findPastorsWives(titleIncludesList = 'pastor,chaplain', onlyIfEmail = onlyIfEmail, orderString=sortBy, search=search)
+    pastorsWives = model("Handbookpastorswives").findPastorsWives(titleIncludesList = 'pastor,chaplain', onlyIfEmail = onlyIfEmail, orderString=sortBy, search=search)
     if ( isDefined('params.download') ) { 
       renderView(layout="/layout_download")
     }
   }
 
   public function show(){
-    pastorsWife = model("Handbookperson").findByKey(key=params.key, include="state,handbookprofile")
+    pastorsWife = model("Handbookpastorswives").findByKey(key=params.key, include="state,profile")
   }
 
   public function findme(){
@@ -28,7 +28,7 @@ component extends="controller" {
     } else {
       var onlyIfEmail = false
       if ( isDefined('params.onlyIfEmail') ) { onlyIfEmail = true }
-      pastorsWives = model("Handbookperson").findPastorsWives(titleIncludesList = 'pastor,chaplain', onlyIfEmail = onlyIfEmail)
+      pastorsWives = model("Handbookpastorswives").findPastorsWives(titleIncludesList = 'pastor,chaplain', onlyIfEmail = onlyIfEmail)
       pastorsWives.addColumn('wifeSelectName','string')
       pastorsWives = queryMap(pastorsWives,function(wife){
         wife.wifeSelectName = wife.lname & ', ' & wife.spouse
@@ -38,18 +38,26 @@ component extends="controller" {
   }
 
   public function editme(){
-    pastorsWife = model("Handbookperson").findByKey(key=params.key, include="state,handbookprofile")
+    person = model("Handbookpastorswives").findOne(where="id=#params.key#", include="state,profile")
   }
 
   public function updateme(){
-    var person = model("Handbookperson").findOne(key=params.key, include="state")
-    // pastorsWife.spouse_email = params.pastorsWife.spouse_email
-    // pastorsWife.phone4 = params.pastorsWife.phone4
+    var person = model("Handbookpastorswives").findOne(where="id=#params.key#", include="state", reload=true)
+    // writeOutput("Before Params: ") 
+    // writeDump(person.properties().spouse_email)
+    person.spouse_email = params.person.spouse_email
+    person.phone4 = params.person.phone4
+    // writeOutput("Before Save: ") 
+    // writeDump(person.properties().spouse_email)
     // ddd(pastorsWife.properties())
-    if ( person.update(params.pastorsWife) ) {
+    if ( person.update() ) {
+      // writeOutput("After Save: ") 
+      // ddd(personcheck.properties().spouse_email)
+      flashInsert(success="Information was updated successfully");
       returnBack()
     } else { 
-      ddd(params)
+      flashInsert(error="There was an error updating the information.");
+      returnBack();    
     }  
   }
   
