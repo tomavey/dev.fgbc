@@ -57,7 +57,8 @@ component extends="controller" {
       returnBack()
     } else { 
       flashInsert(error="There was an error updating the information.");
-      returnBack();    
+      errors = person.errorsOnBase()
+      ddd(errors)
     }  
   }
   
