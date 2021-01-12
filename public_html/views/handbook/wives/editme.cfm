@@ -6,6 +6,7 @@
         #person.spouse# #person.lname#
       </h3>
       #startFormTag(route=formRoute, key=params.key, method="patch")#
+      #hiddenField(objectName='person', property='sendHandbook')#
       #textField(objectName='person', property='spouse_email', label="Email: ")#
       #textField(objectName='person', property='phone4', label="Cell Phone: ")#
       #submitTag()#
