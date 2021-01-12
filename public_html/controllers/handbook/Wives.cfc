@@ -39,6 +39,7 @@ component extends="controller" {
 
   public function editme(){
     person = model("Handbookpastorswives").findOne(where="id=#params.key#", include="state,profile")
+    formRoute = "handbookPerson"
   }
 
   public function updateme(){

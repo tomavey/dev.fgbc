@@ -188,6 +188,7 @@ component extends="Controller" output="true" {
 				flashInsert(success="The profile was !created.");
 			}
 		}
+		if ( isDefined("params.person") ) { params.handbookperson = params.person }
 		handbookperson = model("Handbookperson").findByKey(key=params.key, include="Handbookstate,Handbookprofile,Handbookpositions");
 		//  Verify that the handbookperson updates successfully 
 		if ( handbookperson.update(params.handbookperson) ) {
