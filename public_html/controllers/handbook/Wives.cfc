@@ -50,15 +50,15 @@ component extends="controller" {
     writeOutput("Before Save: ") 
     writeDump(person.properties().spouse_email)
     // ddd(person.properties())
-    writeOutput(person.save())
-    abort;
-    // if ( person.update() ) {
-    //   flashInsert(success="Information was updated successfully");
-    //   returnBack()
-    // } else { 
-    //   flashInsert(error="There was an error updating the information.");
-    //   returnBack();    
-    // }  
+    // writeOutput(person.save())
+    // abort;
+    if ( person.update() ) {
+      flashInsert(success="Information was updated successfully");
+      returnBack()
+    } else { 
+      flashInsert(error="There was an error updating the information.");
+      returnBack();    
+    }  
   }
   
 }
