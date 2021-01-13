@@ -1,5 +1,4 @@
 component extends="controllers.Controller" {
-	//  //TODO: need to change to cfscript 
 
 	public function isBefore(required date date) {
 		if ( datecompare(now(),arguments.date) == -1 ) {

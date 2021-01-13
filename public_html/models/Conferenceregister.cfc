@@ -1,3 +1,4 @@
+//TODO - Convert to cfscript
 <cfcomponent output="false" extends="Model">
 
 <cfset dsn = application.wheels.datasourcename>	

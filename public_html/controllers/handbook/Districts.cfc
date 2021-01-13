@@ -1,3 +1,4 @@
+//TODO - Convert to cfscript
 <cfcomponent output="false" extends="Controller">
 
 	<cffunction name="config">

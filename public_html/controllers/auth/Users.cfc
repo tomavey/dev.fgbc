@@ -13,7 +13,8 @@ component extends="Controller" output="false" {
 	private function bypassCaptcha() {
 		bypassCaptcha = true
 	} 
-	// TODO: need to remove all captcha methods later
+
+// TODO: need to remove all captcha methods later
 
 
 <!------------------->

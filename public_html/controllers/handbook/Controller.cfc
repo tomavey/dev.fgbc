@@ -1,3 +1,4 @@
+//TODO - Convert to cfscript
 <cfcomponent extends="controllers.Controller">
 
     <cffunction name="getState">

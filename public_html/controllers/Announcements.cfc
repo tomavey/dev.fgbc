@@ -1,3 +1,4 @@
+<!---TODO: Finish Coversion to cfscript--->
 <cfcomponent extends="Controller" output="false">
 
 	<cffunction name="config">

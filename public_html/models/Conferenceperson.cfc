@@ -1,4 +1,5 @@
- <cfcomponent output="false" extends="Model">
+ //TODO - Convert to cfscript
+<cfcomponent output="false" extends="Model">
 
 	<cffunction name='config'>
 		<cfset table("equip_people")>

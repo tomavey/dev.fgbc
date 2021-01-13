@@ -1,7 +1,5 @@
 component extends="Controller" output="false" {
 
-	writeOutput("//TODO: Change to cfscript");
-
 	public function config() {
 		usesLayout("/conference/adminlayout");
 		filters(through="getEvents,getLocations,getCourses", except="update,create,delete");

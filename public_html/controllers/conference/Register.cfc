@@ -1,5 +1,7 @@
 <cfcomponent extends="Controller" output="false">
 
+//TODO: Change to script  - however Charis may move registrations to 3rd party
+
 <cfobject name="register" component="models.conferenceregister" >
 
 <cffunction name="config" access="public" returntype="void" output="false">

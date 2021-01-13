@@ -1,3 +1,4 @@
+//TODO - Convert to cfscript
 <cfcomponent extends="Controller" output="false">
 	<cffunction name="config">
 		<cfset filters(through="setReturn", only="show,index")>

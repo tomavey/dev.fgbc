@@ -1,3 +1,4 @@
+//TODO - Convert to cfscript
 <cfcomponent extends="Controller" output="false">
 
 	<cfobject name="authorize" component="models.handbookauthorize" >
