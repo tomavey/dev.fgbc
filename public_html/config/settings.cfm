@@ -197,7 +197,7 @@
 						link: 'https://charisfellowship.us/page/resolutions2020'
 					},
 					{
-						name: 'Graphical Resources',
+						name: 'Media and Graphics',
 						link: 'https://charisfellowship.us/page/charisgraphics'
 					},
 					{
