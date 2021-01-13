@@ -3,6 +3,7 @@ component extends="controller" {
   function config(){
     usesLayout(template="/handbook/layout_handbook2")
     filters(through="setReturn", only="index,show")
+    filters(through="gotBasicHandbookRights")
   }
   
   public function index(){
