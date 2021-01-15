@@ -15,6 +15,5 @@
 
 						#select(objectName='ministry', property='category', label='Category', options=getministryCategories())#
 
-						#select(objectName='ministry', property='includeInFooter', label='Show in footer?', options="No,Yes")#
-
+						#textField(objectName='ministry', property='sortorder', label='Sort Order (effects which ministries show at the top of the category list)
 </cfoutput>

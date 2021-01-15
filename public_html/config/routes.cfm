@@ -101,6 +101,7 @@
 
 			.get(name="listMinistries", pattern="/ministries/list/", controller="ministries", action="list")
 			.get(name="simpleListMinistries", pattern="/ministries/simplelist/", controller="ministries", action="simplelist")
+			.get(name="deleteMin", pattern="/ministry/[key]/delete/", controller="ministries", action="delete")
 			.resources("ministries")
 			
 			.resources("resources")

@@ -13,7 +13,7 @@ component extends="Controller" output="false" {
 
 	//  ministries/index 
 	public function index() {
-		ministries = model("Mainministry").findAll(order="category,name");
+		ministries = model("Mainministry").findAll(order="category,sortorder,name");
 	}
 
 	//  ministries/list 
@@ -25,7 +25,7 @@ component extends="Controller" output="false" {
 		} else {
 			wherestring = "";
 		}
-		ministry = model("Mainministry").findAll(where=whereString, order="category,name");
+		ministry = model("Mainministry").findAll(where=whereString, order="category,sortorder,name");
 		categories = model("Mainministry").findAll(where="category <> 'none'", order="category,name");
 	}
 

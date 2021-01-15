@@ -16,7 +16,7 @@
 			<cfset wherestring = "status <> 'inactive'">
 		</cfif>
 
-    	<cfset ministry = model("Mainministry").findAll(where=whereString, order="category,name")>
+    	<cfset ministry = model("Mainministry").findAll(where=whereString, order="category,sortorder,name")>
     	<cfset categories = model("Mainministry").findAll(where="category <> 'none'", order="category,name")>
 
 	</cffunction>
