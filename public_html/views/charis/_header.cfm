@@ -170,6 +170,17 @@
 
           </cfif>  
 
+          <cfif isBefore('2021-02-28 19:00') || getSetting("forceMainPageBannerOpen")>
+            <div class="container" style="border: 3px solid #51758C; border-radius:20px; box-shadow: 5px 5px 5px #4F7F71;" >
+              <p>
+                <a href="https://buildmomentum.org/" target="_new" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; color: white; display: block; margin-top:10px; background-color: #345671">
+                  Inroducing Momentum Ministry Partners 
+                </a>
+              </p>
+            </div>  
+
+          </cfif>  
+
         <cfcatch></cfcatch>  
         </cftry>
       </div>
