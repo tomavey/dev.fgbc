@@ -190,8 +190,8 @@
 	    <cfif NOT IsObject(newchurch)>
 	        <cfset flashInsert(error="New church #params.key# was not found")>
 	        <cfset redirectTo(action="index")>
-	    </cfif>
-
+			</cfif>
+			
 	</cffunction>
 
 	<!--- Newchurch/edit/key --->

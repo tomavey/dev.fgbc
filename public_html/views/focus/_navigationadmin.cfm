@@ -16,8 +16,10 @@
     		  <ul class="nav">
     			<li class="#getActive('home')#">#linkTo(controller='focus.main', action='welcome', text="Main Page")#</li>
     			<li class="#getActive('home')#">#linkTo(controller="focus.retreats", action="index", text="Retreats")#</li>
-    
-    			<li class="dropdown">
+		
+					<!---OPTIONS DROPDOWN--->
+
+					<li class="dropdown">
 					#linkToData(text="Options<b class='caret'></b>", href="##", data_toggle="dropdown", class="dropdown-toggle")#
         				<ul class="dropdown-menu">
         					<cfloop query="#showOptionsFor()#">
@@ -29,7 +31,9 @@
         				</ul>
     			</li>
 
-    			<li class="dropdown">
+					<!---CONTENT DROPDOWN--->
+
+					<li class="dropdown">
 					#linkToData(text="Content<b class='caret'></b>", href="##", data_toggle="dropdown", class="dropdown-toggle")#
         				<ul class="dropdown-menu">
         					<li>
@@ -44,7 +48,9 @@
         				</ul>
     			</li>
 
-				<li class="dropdown">
+					<!---MAILING LISTS DROPDOWN--->
+
+					<li class="dropdown">
 					#linkToData(text="Mailing List<b class='caret'></b>", href="##", data_toggle="dropdown", class="dropdown-toggle")#
         				<ul class="dropdown-menu">
     						<cfoutput query="retreatRegions" group="focusretreat">
@@ -62,7 +68,9 @@
 							</ul>
     			</li>
 				
-    			<li class="dropdown">
+					<!---REGISTRATIONS DROPDOWN--->
+
+					<li class="dropdown">
         			#linkToData(href="##", text="Registrations<b class='caret'></b>", data_toggle="dropdown", class="dropdown-toggle")#
         				<ul class="dropdown-menu">
 										<li>#linkTo(controller="focus.registrations", action="index", text="Recent")#</li>
@@ -72,15 +80,22 @@
                      <li>#linkTo(controller="focus.registrations", action="summary", text="Summary")#</li>
         				</ul>
       			</li>	
-						<li class="dropdown">
+
+<!---MISC DROPDOWN--->
+
+					<li class="dropdown">
         			#linkToData(href="##", text="Misc<b class='caret'></b>", data_toggle="dropdown", class="dropdown-toggle")#
         				<ul class="dropdown-menu">
 									<li>#linkTo(text="Recent Regs", controller="focus.registrants", action="recentRegistrants")#</li>
 									<li>#linkTo(text="Shopping Carts", controller="focus.shoppingcarts", action="index")#</li>
+									<li>#linkTo(text="Reg Fox (under development)", href="/focus/regFox")#</li>
         				</ul>
       			</li>	
 			</ul>
-				  #startFormTag(controller="focus.registrations", action="index", method="get" ,class="navbar-search")#
+
+<!---SEARCH FIELD--->
+
+			#startFormTag(controller="focus.registrations", action="index", method="get" ,class="navbar-search")#
 						#textFieldTag(name="search", class="search-query input-small", placeholder="Search")#
 					#endFormTag()#
     			<p class="navbar-text pull-right">#linkTo(text="Logout", route="authLogoutUser")#</p>

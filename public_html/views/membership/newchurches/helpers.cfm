@@ -1,10 +1,10 @@
 <cffunction name="getState">
 <cfargument name="stateid" required="false">
 <cfset var loc=structNew()>
-	<cfif isDefined("arguments.stateid") and isNumeric("arguments.stateid")>
-		<cfset loc.return = model("Handbookstate").findone(where="id=#arguments.stateid#").state>
+	<cfif isDefined("arguments.stateid")>
+		<cfset loc.return = model("Handbookstate").findone(where="id=#val(arguments.stateid)#").state>
 	<cfelse>
-		<cfset loc.return = "NA">
+		<cfset loc.return = arguments.stateid>
 	</cfif>		
 <cfreturn loc.return>	
 </cffunction>
