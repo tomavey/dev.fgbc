@@ -2,14 +2,15 @@
 
 
   <div id="regFox">
+    {{formName}}
     <p>Sort by: <span @click="sortByLastName" class="pointer">Last Name</span> | <span @click="sortByFirstName" class="pointer">First Name</span></p>
-    {{simpleRegs}}
-    <ul>
-      <li v-for="reg in regs">
+    <ol>
+      <li v-for="reg in sortedSimpleRegs">
         {{reg.firstName}} {{reg.lastName}} - 
         <a :href="`mailto:${reg.email}`">{{reg.email}}</a>
       </li>
-    </ul>
+    </ol>
+
   </div>
 
 <script>
@@ -27,16 +28,21 @@
 
   var db = firebase.firestore()
 
+  //settings from coldfusion
+  <cfoutput>
+    var formName = <cfoutput>'#regFoxFormName#'</cfoutput>
+  </cfoutput>
+
   const vm = new Vue({
     el: "#regFox",
     data() { return {
       message: "RegFox",
       registrations: [],
       simpleRegs: [],
-      formName: "2021 South Focus Retreat",
+      formName: formName,
       excludeLabels: ['Registration Options','Name of Spouse (for couple registration)', 'Church', 'Cell Phone Number', 'Roommate(s)'],
       sortOrder: "DESC",
-      sortBy: "lastName"
+      sortBy: "lastName",
       }
     },
     methods: {
@@ -87,6 +93,9 @@
       },
     },
     computed: {
+      sortedSimpleRegs: function() {
+        return this.sortRegs(this.simpleRegs)
+      },
       regs: function() {
         let sortableRegs = []
         //loop through registrations
@@ -109,7 +118,7 @@
                 if ( registrantData.first.label === 'First Name' ) { registrantObj.firstName = registrantData.first.value }
                 if ( registrantData.last.label === 'Last Name' ) { registrantObj.lastName = registrantData.last.value }
               } catch (err) {
-                console.log(err)
+                console.log(err.message)
               }
               // console.log("NewObj: ",newObj)
               if ( Object.keys(registrantObj).length !== 0 ) {

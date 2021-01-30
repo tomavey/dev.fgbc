@@ -223,7 +223,17 @@
 				writeOutput("Cannot find #name#");abort
 			}
 		}
+
+		public function regfox(){
+			regFoxFormName = "2021 South Focus Retreat"
+			if ( isDefined("params.regfoxformname") ) {
+				regFoxFormName = params.regfoxformname
+			}
+		}
+
 	</cfscript>
+
+
 
 	<cffunction name="whoiscoming">
 		<cfif isDefined("params.keyy")>
