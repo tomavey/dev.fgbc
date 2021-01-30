@@ -3,6 +3,7 @@
 
   <div id="regFox">
     <p>Sort by: <span @click="sortByLastName" class="pointer">Last Name</span> | <span @click="sortByFirstName" class="pointer">First Name</span></p>
+    {{simpleRegs}}
     <ul>
       <li v-for="reg in regs">
         {{reg.firstName}} {{reg.lastName}} - 
@@ -31,6 +32,7 @@
     data() { return {
       message: "RegFox",
       registrations: [],
+      simpleRegs: [],
       formName: "2021 South Focus Retreat",
       excludeLabels: ['Registration Options','Name of Spouse (for couple registration)', 'Church', 'Cell Phone Number', 'Roommate(s)'],
       sortOrder: "DESC",
@@ -127,6 +129,15 @@
           if ( doc.data().data.formName === this.formName ) {
             console.dir(`${doc.id} => ${doc.data().data}`)
             this.registrations.push(doc.data().data)
+          }
+        });
+      }
+      )
+      db.collection("SimpleRegs").get().then( (snap) => {
+        snap.forEach(doc => {
+          if ( doc.data().formName === this.formName ) {
+            console.dir(`${doc.lname} => ${doc.data()}`)
+            this.simpleRegs.push(doc.data())
           }
         });
       }
