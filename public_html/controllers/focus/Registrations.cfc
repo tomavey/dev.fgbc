@@ -3,7 +3,7 @@
 
 	<cffunction name="config">
 		<cfset useslayout('/focus/layoutadmin')>
-		<cfset filters(through='checkOffice', except="whoiscoming,list,summary,index")>
+		<cfset filters(through='checkOffice', except="whoiscoming,list,summary,index,regFox")>
 		<cfset filters(through="setReturn", only="index,show")>
 		<cfset filters(through="getRetreatRegions")>
 	</cffunction>
@@ -226,8 +226,12 @@
 
 		public function regfox(){
 			regFoxFormName = "2021 South Focus Retreat"
+			showEmail = false
 			if ( isDefined("params.regfoxformname") ) {
 				regFoxFormName = params.regfoxformname
+			}
+			if ( gotRights("office") ) {
+				showEmail = true
 			}
 		}
 
