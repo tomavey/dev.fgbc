@@ -6,8 +6,8 @@
     <p>Sort by: <span @click="sortByLastName" class="pointer">Last Name</span> | <span @click="sortByFirstName" class="pointer">First Name</span></p>
     <ol>
       <li v-for="reg in sortedSimpleRegs">
-        {{reg.firstName}} {{reg.lastName}} - 
-        <a :href="`mailto:${reg.email}`">{{reg.email}}</a>
+        {{reg.firstName}} {{reg.lastName}} 
+        <span v-if="showEmail">- <a :href="`mailto:${reg.email}`">{{reg.email}}</a></span>
       </li>
     </ol>
 
@@ -43,6 +43,7 @@
       excludeLabels: ['Registration Options','Name of Spouse (for couple registration)', 'Church', 'Cell Phone Number', 'Roommate(s)'],
       sortOrder: "DESC",
       sortBy: "lastName",
+      showEmail: false
       }
     },
     methods: {
