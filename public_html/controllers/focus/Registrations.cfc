@@ -225,7 +225,7 @@
 		}
 
 		public function regfox(){
-			regFoxFormName = "2021 South Focus Retreat"
+			regFoxFormName = "NoName"
 			showEmail = false
 			if ( isDefined("params.regfoxformname") ) {
 				regFoxFormName = params.regfoxformname

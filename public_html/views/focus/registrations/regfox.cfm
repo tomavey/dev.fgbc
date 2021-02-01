@@ -2,6 +2,8 @@
 
 
   <div id="regFox">
+    <h2 v-if="sortedSimpleRegs.length">{{formName}}</h2>    
+    <h3 v-if="!sortedSimpleRegs.length">No registrations yet!</h3>
     <p>Sort by: <span @click="sortByLastName" class="pointer">Last Name</span> | <span @click="sortByFirstName" class="pointer">First Name</span></p>
     <ol>
       <li v-for="reg in sortedSimpleRegs">
