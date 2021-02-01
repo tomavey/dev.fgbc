@@ -69,7 +69,7 @@
 
 <cfif isBefore(retreat.whoiscomingdeadline) || gotRights("office")>
 	<div id="whoiscoming" class="well">
-		<h1>#linkto(text="Who is coming?", controller="focus.registrations", action="whoiscoming", key=params.key)#</h1>
+		<h1>#linkto(text="Who is coming?", href="/focus/regFox?regfoxformname=#retreat.regFoxFormName#")#</h1>
 	</div>
 </cfif>
 

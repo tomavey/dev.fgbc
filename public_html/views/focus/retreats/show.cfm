@@ -7,7 +7,10 @@
 					<p><span>Retreat ID: </span> 
 						#retreat.regid#</p>
 				
-					<p><span>This retreat is active? </span> 
+						<p><span>Reg Fox Form Name: </span> 
+							#retreat.regFoxFormName#</p>
+
+							<p><span>This retreat is active? </span> 
 						#retreat.active#</p>
 				
 					<p><span>Show registration options? </span> 

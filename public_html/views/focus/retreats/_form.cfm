@@ -12,6 +12,8 @@
 
 						#textField(objectName='retreat', property='menuname', label='Menu name: (used in page web address - "charisfellowship.us/focus/?????")')#
 
+						#textField(objectName='retreat', property='regFoxFormName', label='Form Name used by regfox - for "who is coming" report')#
+						
 <!--- 						#fileField(objectName='retreat', property='image', label='Image: ')# --->
 
 						#textField(objectName='retreat', property='registrationlink', label='External registration link (ie: Reg fox): ')#
