@@ -2,7 +2,7 @@
 				
 						#textField(objectName='setting', property='name', label='Setting name: ', class="form-control form-control-lg")#
 					
-						#textField(objectName='setting', property='value', label='Setting Value: ', class="form-control form-control-lg")#
+						#textArea(objectName='setting', property='value', label='Setting Value (255 chars max): ', class="form-control form-control-lg")#
 						<cftry>
 							<p>Default Setting Value is "#application.wheels[setting.name]#"</p>
 						<cfcatch></cfcatch>
