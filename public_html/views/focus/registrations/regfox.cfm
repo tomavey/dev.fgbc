@@ -1,26 +1,5 @@
-
-
-
   <div id="regFox">
-    <div id="form" v-if="showForm && showModal">
-      <p class="closeModal pointer" @click="showModal = false">CLOSE</p>
-      <legend>{{formTitle}}</legend>
-      <label>First Name</label>
-      <input type="text" placeholder="First Name" v-model="registrant.firstName">
-      <label>Last Name</label>
-      <input type="text" placeholder="Last Name" v-model="registrant.lastName">
-      <label>Email</label>
-      <input type="text" placeholder="Email" v-model="registrant.email">
-      <label>Church</label>
-      <input type="text" placeholder="Church" v-model="registrant.church">
-      <label>Spouse first name</label>
-      <input type="text" placeholder="Spouse first name" v-model="registrant.spouse">
-      <label>Phone</label>
-      <input type="text" placeholder="Phone" v-model="registrant.phone"><br/>
-      <button type="submit" class="btn btn-large btn-block btn-primary" @click="addOrUpdateReg">Submit</button>
-      <p class="closeModal pointer" @click="showModal = false">CLOSE</p>
-    </div>
-
+  
     <div id="list">
       <h2 v-if="sortedSimpleRegs.length">{{formName}}</h2>    
       <h3 v-if="!sortedSimpleRegs.length">No registrations yet!</h3>
@@ -50,6 +29,32 @@
       </p>
     </div>
 
+    <transition name="fade" appear>
+      <div class="modal-overlay" v-if="showModal" @click="closeModal"></div>
+     </transition>
+     <transition name="slide" appear>
+      <div class="modal" v-if="showModal">
+        <h1>{{formTitle}}</h1>
+        <div>
+          <label>First Name</label>
+          <input type="text" placeholder="First Name" v-model="registrant.firstName">
+          <label>Last Name</label>
+          <input type="text" placeholder="Last Name" v-model="registrant.lastName">
+          <label>Email</label>
+          <input type="text" placeholder="Email" v-model="registrant.email">
+          <label>Church</label>
+          <input type="text" placeholder="Church" v-model="registrant.church">
+          <label>Spouse first name</label>
+          <input type="text" placeholder="Spouse first name" v-model="registrant.spouse">
+          <label>Phone</label>
+          <input type="text" placeholder="Phone" v-model="registrant.phone"><br/>
+          <input value="Submit" type="submit" class="btn btn-large btn-block btn-primary" @click="addOrUpdateReg" />
+        </div>
+        <p class="closeModal pointer" @click="closeModal">
+          &#10060;
+        </p>
+       </div>
+     </transition>
 
   </div>
 
@@ -90,16 +95,19 @@
       showModal: false,
       delimiter: '; ',
       registrant: {},
-      registrantToEdit: {},
       formTitle: "For Office Only: Add a new person to this list"
       }
     },
     methods: {
+      closeModal: function(){
+        this.showModal = false
+        this.registrant = {}
+      },
       editReg: function(reg){
         //Show the modal, create a form title, and create this registrant for form
         this.showModal = true
         this.formTitle="Edit " + reg.firstName
-        this.registrant = reg
+        Object.assign(this.registrant, reg)
       },
       deleteReg: function(reg) {
         //Confirm deletion
@@ -109,10 +117,12 @@
           simpleRegsRef.doc(reg.docId).set({formName: "Deleted"}, {merged: true})
           //then remove the reg from simpleRegs array
           .then( () => {
-            let removeIndex = this.simpleRegs.map(function(item) { return item.docId; }).indexOf(reg.docId);
-            this.simpleRegs.splice(removeIndex,1)
+            this.simpleRegs.splice(this.removeIndex(reg.docId),1)
           })
         }
+      },
+      removeIndex: function (docId) {
+        return this.simpleRegs.map(function(item) { return item.docId; }).indexOf(docId);
       },
       addOrUpdateReg: function () {
         //this is a switch to choose addReg or updateReg
@@ -142,6 +152,12 @@
       updateReg: function(){
         //update the database
         simpleRegsRef.doc(this.registrant.docId).set(this.registrant, {merge:true})
+        .then( () => {
+          this.simpleRegs.push(this.registrant)
+        })
+        .then( () => {
+          this.simpleRegs.splice(this.removeIndex(this.registrant.docId),1)
+        })
         //then clear registrant and hide modal
         .then( () => {
           this.registrant = {}
@@ -209,7 +225,6 @@
       getSimpleRegs: function(){
         simpleRegsRef.where("formName", "==", this.formName).get().then( (docs) => {
         docs.forEach(doc => {
-          console.dir(`${doc.lname} => ${doc.data()}`)
           let obj = doc.data()
           obj.docId = doc.id
           this.simpleRegs.push(obj)
@@ -223,6 +238,9 @@
       },
     },
     computed: {
+      registrantToEdit: function () {
+        return this.registrant
+      },
       sortedSimpleRegs: function() {
         return this.sortRegs(this.simpleRegs)
       },
@@ -246,20 +264,114 @@
   .pointer {
     cursor: pointer 
   }
-  #form {
-    border: solid 2px grey;
-    border-radius: 20px;
-    padding:20px;
-    background-color: Ivory;
-    position: absolute;
-    margin:auto;
-    text-align: center;
-  }
   .closeModal {
     text-align:right
   }
   .addIcon {
     list-style:none
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'montserrat', sans-serif;
+  }
+
+  #app {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .button {
+    appearance: none;
+    outline: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    
+    display: inline-block;
+    padding: 15px 25px;
+    background-image: linear-gradient(to right, #CC2E5D, #FF5858);
+    border-radius: 8px;
+    
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 700;
+    
+    box-shadow: 3px 3px rgba(0, 0, 0, 0.4);
+    transition: 0.4s ease-out;
+    
+    &:hover {
+      box-shadow: 6px 6px rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  .modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 98;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: auto;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+    
+    width: 100%;
+    max-width: 300px;
+    background-color: #FFF;
+    border-radius: 16px;
+    
+    padding: 25px;
+    
+    h1 {
+      color: #222;
+      font-size: 32px;
+      font-weight: 900;
+      margin-bottom: 15px;
+    }
+    
+    p {
+      color: #666;
+      font-size: 18px;
+      font-weight: 400;
+      margin-bottom: 15px;
+    }
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .5s;
+  }
+
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
+
+  .slide-enter-active,
+  .slide-leave-active {
+    transition: transform .5s;
+  }
+
+  .slide-enter,
+  .slide-leave-to {
+    transform: translateY(-50%) translateX(-100vw);
   }
 
 </style>

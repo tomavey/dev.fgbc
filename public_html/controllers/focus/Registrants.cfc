@@ -2,7 +2,7 @@
 <cfcomponent extends="Controller" output="true">
 	
 	<cffunction name="config">
-		<cfset useslayout('/focus/layoutadmin')>
+		<cfset useslayout(template='/focus/layoutadmin')>
 		<cfset filters('checkOffice')>
 		<cfset filters(through="setReturn", only="index,show")>
 		<cfset filters(through="getRetreatRegions")>
@@ -118,31 +118,40 @@
 		oldEmail="",
 		newEmail="",
 		wholeWord=false,
-		go= false
+		go= false,
+		includeString = ""
 		){
 		emailList = []
 
+		if ( !isDefined("session.tableName") ) { session.tableName = "Focusregistrant"}
+		if ( isDefined("params.tableName") ) { session.tableName = params.tableName }
+
+		// ddd(session)
 
 		if ( isDefined("params.oldEmail") ) { arguments.oldEmail = params.oldEmail }	
 		if ( isDefined("params.newEmail") ) { arguments.newEmail = params.newEmail }	
 		if ( isDefined("params.go") && params.go ) { arguments.go = true }	
+		if ( isDefined("session.tableName") && session.tableName == "Conferenceperson" ) { 
+			arguments.includeString = "family"
+			pageTitle = "Update multiple emails in conference registrations "
+		}
 		if ( isValid("email", arguments.oldemail) && isValid("email", arguments.newEmail) ) { arguments.wholeword = true }
 
 		args=arguments
 
+		args.tableName = session.tableName
 
 		if ( len(args.oldemail) ) {
-
 			//find all regs based on whole email or part of the email
 			if ( args.wholeWord ) { whereString = "email='#args.oldEmail#'" }
 			else { whereString = "email LIKE '%#args.oldEmail#%'" }
-			var registrants = model("Focusregistrant").findAll(where=whereString)
+			var registrants = model(args.tableName).findAll(where=whereString, include=includeString)
 			var count  = 0
 			// iterate through each registrant	
 			for ( registrant in registrants ){
 				var thisNewEmail = ""
 				//get each registrant as an object
-				var thisReg = model("Focusregistrant").findOne(where="id = #registrant.id#")
+				var thisReg = model(args.tableName).findOne(where="id = #registrant.id#", include=includeString)
 
 				//convert to the new email
 				if ( args.wholeword ) { thisNewEmail = args.newemail }

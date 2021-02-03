@@ -158,6 +158,7 @@
 <!--- END OF CRUD ----->
 <!--------------------->
 
+
 	<cffunction name="male">
 		<cfset thisperson = model("Conferenceperson").findOne(where="id=#params.key#", include="family")>
 		<cfset thisperson.gender = "M">

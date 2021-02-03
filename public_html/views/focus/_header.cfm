@@ -18,7 +18,7 @@
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="/assets/img/favicon2.ico">
 
-  <script src="../assets/js/vue.js" type="text/javascript"></script>
+  <script src="/assets/js/vue.js" type="text/javascript"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-firestore.js"></script>
 

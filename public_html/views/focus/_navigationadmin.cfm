@@ -63,7 +63,7 @@
 										</li>
 								</cfoutput>	
 								<cfoutput>
-									#linkTo(text="Update Multiple Emails", controller="focus.registrants", action="updateemail")#
+									#linkTo(text="Update Multiple Emails", controller="focus.registrants", action="updateemail", params="tableName=Focusregistrant")#
 								</cfoutput>
 							</ul>
     			</li>

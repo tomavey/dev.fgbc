@@ -82,6 +82,7 @@
 						<li>#linkto(text="Mail List - People", controller="conference.people", action="mailList")#</li>
 						<li>#linkto(text="Email List - People", controller="conference.people", action="emailList")#</li>
 						<li>#linkto(text="Mail List - Churches", controller="handbook.organizations", action="download-member-churches	")#</li>
+						<li>#linkto(text="Update multiple emails", controller="focus.registrants", action="updateEmail", params="tableName=Conferenceperson")#</li>
 						<li>#linkto(text="Workshop Email List", controller="conference.families", action="badges", params="forWorkshops")#</li>
 						<!--- <li>#linkto(text="Group Rate for 1", controller="conference.register", action="selectOptions", params="group=1&useoptionscount")#</li> --->
 						<li>#linkto(text="Settings", controller="admin.settings", action="index", params="category=conference")#</li>
