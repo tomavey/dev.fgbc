@@ -227,11 +227,13 @@
 		public function regfox(){
 			regFoxFormName = "NoName"
 			showEmail = false
+			showForm = false
 			if ( isDefined("params.regfoxformname") ) {
 				regFoxFormName = params.regfoxformname
 			}
 			if ( gotRights("office") ) {
 				showEmail = true
+				showForm = true
 			}
 		}
 

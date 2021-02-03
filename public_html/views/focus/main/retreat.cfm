@@ -69,6 +69,9 @@
 
 <cfif isBefore(retreat.whoiscomingdeadline) || gotRights("office")>
 	<div id="whoiscoming" class="well">
+		<cfif !len(retreat.regFoxFormName)>
+			<cfset retreat.regFoxFormName = retreat.regid>
+		</cfif>
 		<h1>#linkto(text="Who is coming?", href="/focus/regFox?regfoxformname=#retreat.regFoxFormName#")#</h1>
 	</div>
 </cfif>
