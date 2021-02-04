@@ -239,6 +239,7 @@
 
 	<cffunction name="emailList">
 		<cfset emailList=model("Conferenceperson").findEmailList()>
+		
 		<cfset emailList = removeNotListFromQuery(emailList)>
 		<cfif isdefined("params.key") and params.key is "download">
 			<cfset params.download = true>

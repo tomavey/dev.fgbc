@@ -65,15 +65,26 @@
 	</cffunction>
 
 	<cffunction name="findMailList">
+		<cfargument name="yearsAgo" default = #getSetting('yearsAgoForMailingListConferenceRegs')#>
 
-		<!---Get every person in the handbook--->
-		<cfset handbookpeople = findAllHandbookPeople()>
+		<cfscript>
 
-		<!---Get Every church in the handbook--->
-		<cfset churches = findAllChurches()>
+			<!---Get every person in the handbook--->
+			handbookpeople = findAllHandbookPeople()
 
-		<!---Get every person in the conference reg database--->
-		<cfset conference = findAll(include="Family(state)", select="equip_people.email as email, concat(fname,' ',lname) as name, address, city, state_mail_abbrev")>
+			<!---Get Every church in the handbook--->
+			churches = findAllChurches()
+
+			<!---Get every person in the conference reg database--->
+			allconference = findAll(include="Family(state)", select="equip_people.email as email, concat(fname,' ',lname) as name, address, city, state_mail_abbrev,equip_people.createdAt")
+	
+			<!---Filter out older regs--->
+			var createdAfter = dateFormat(dateAdd("yyyy",-arguments.yearsAgo, now()),"yyyy-mm-dd")
+			conference = allconference.filter(function(el) {
+				return el.createdAt GT createdAfter
+			})
+
+		</cfscript>
 
 		<!---Merge all three lists--->
 		<cfquery dbtype="query" name="allemail">
@@ -100,8 +111,9 @@
 		<cfreturn getSetting("emailNotList")>
 	</cffunction>
 
+	<!---I use the findEmailList method to gather people data and then select only name and email--->
 	<cffunction name="findEmailList">
-	<cfset var loc=structNew()>
+		<cfset var loc=structNew()>
 		<cfset loc.list = findMailList()>
 		<cfquery dbtype="query" name="loc.emailList">
 			SELECT name,email

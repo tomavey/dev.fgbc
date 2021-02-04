@@ -158,6 +158,7 @@
 	set(maxCohorts = 3)
 	set(requiredToken = "nDIyfwSXltprRbwmgc2V")
 	set(requireRegForBadge = false)
+	set(yearsAgoForMailingListConferenceRegs = 5)
 
 	// options used in dropdowns and menus
 	set(typeOfOptions=listsort("Registration-Couple,Registration-Single,Registration-Group,Registration-Staff,Workshop,Meal,TouristOption,GraceKids-Nursery,GraceKids-Preschool,GraceKids-Elementary,GraceKidsSegments,GraceKidsExcursions,Other,Discount,AutoDiscount,InActive,preRegistration","text"))

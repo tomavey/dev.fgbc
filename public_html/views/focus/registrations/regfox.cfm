@@ -1,62 +1,63 @@
-  <div id="regFox">
-  
-    <div id="list">
-      <h2 v-if="sortedSimpleRegs.length">{{formName}}</h2>    
-      <h3 v-if="!sortedSimpleRegs.length">No registrations yet!</h3>
-      <p>Sort by: 
-        <span @click="sortByLastName" class="pointer">Last Name</span> | 
-        <span @click="sortByFirstName" class="pointer">First Name</span> | 
-        <span @click="sortByDate" class="pointer">Date Registered</span>
-      </p>  
-      <p>
-        <li class="addIcon"><span v-if="showForm" @click="$showModal"><i class="icon-plus pointer"></i></span></li>
-      </p>
-      <ol v-if="simpleRegs.length">
-        <li v-for="(reg, index) in sortedSimpleRegs" :key="index">
-          {{reg.firstName}} 
-          <span v-if="reg.spouse"> & {{reg.spouse}}</span> 
-          <span v-if="!spouseNameContainsLastName(reg)">{{reg.lastName}}</span>
-          <span v-if="showEmail">- <a :href="`mailto:${reg.email}`">{{reg.email}}</a></span> 
-          <span v-if="showForm" @click="editReg(reg,index)"><i class="icon-edit pointer"></i></span>
-          <span v-if="showForm" @click="deleteReg(reg,index)"><i class="icon-trash pointer"></i></span> 
-        </li>
-      </ol>
-      <p>
-        <li class="addIcon"><span v-if="showForm" @click="$showModal"><i class="icon-plus pointer"></i></span></li>
-      </p>
-      <p>
-        <span v-if="showEmail"><a :href="`mailto:${allEmailsList}`">Email All</a></span>
+<div id="regFox">
+
+  <div id="list">
+    <h2 v-if="sortedSimpleRegs.length">{{formName}}</h2>    
+    <h3 v-if="!sortedSimpleRegs.length">No registrations yet!</h3>
+    <p>Sort by: 
+      <span @click="$sortBy('lastName')" class="pointer">Last Name</span> | 
+      <span @click="$sortBy('firstName')" class="pointer">First Name</span> | 
+      <span @click="$sortBy('timestamp')" class="pointer">Date Registered</span>
+    </p>  
+    <p>
+      <li class="addIcon"><span v-if="showForm" @click="$showModal"><i class="icon-plus pointer"></i></span></li>
+    </p>
+    <ol v-if="simpleRegs.length">
+      <li v-for="(reg, index) in sortedSimpleRegs" :key="index">
+        {{reg.firstName}} 
+        <span v-if="reg.spouse"> & {{reg.spouse}}</span> 
+        <span v-if="!spouseNameContainsLastName(reg)">{{reg.lastName}}</span>
+        <span v-if="showEmail">- <a :href="`mailto:${reg.email}`">{{reg.email}}</a></span> 
+        <span v-if="showForm" @click="editReg(reg,index)"><i class="icon-edit pointer"></i></span>
+        <span v-if="showForm" @click="deleteReg(reg,index)"><i class="icon-trash pointer"></i></span> 
+      </li>
+    </ol>
+    <p>
+      <li class="addIcon"><span v-if="showForm" @click="$showModal"><i class="icon-plus pointer"></i></span></li>
+    </p>
+    <p>
+      <span v-if="showEmail"><a :href="`mailto:${allEmailsList}`">Email All</a></span>
+    </p>
+  </div>
+
+  <transition name="fade" appear>
+    <div class="modal-overlay" v-if="showModal" @click="closeModal">
+    </div>
+  </transition>
+  <transition name="slide" appear>
+    <div class="modal" v-show="showModal">
+      <h1>{{formTitle}}</h1>
+      <div>
+        <label>First Name</label>
+        <input type="text" placeholder="First Name" v-model="registrant.firstName" ref="lName">
+        <label>Last Name</label>
+        <input type="text" placeholder="Last Name" v-model="registrant.lastName">
+        <label>Email</label>
+        <input type="text" placeholder="Email" v-model="registrant.email">
+        <label>Church</label>
+        <input type="text" placeholder="Church" v-model="registrant.church">
+        <label>Spouse first name</label>
+        <input type="text" placeholder="Spouse first name" v-model="registrant.spouse">
+        <label>Phone</label>
+        <input type="text" placeholder="Phone" v-model="registrant.phone"><br/>
+        <input value="Submit" type="submit" class="btn btn-large btn-block btn-primary" @click="addOrUpdateReg(registrant.index)" />
+      </div>
+      <p class="closeModal pointer" @click="closeModal">
+        &#10060;
       </p>
     </div>
+  </transition>
 
-    <transition name="fade" appear>
-      <div class="modal-overlay" v-if="showModal" @click="closeModal"></div>
-     </transition>
-     <transition name="slide" appear>
-      <div class="modal" v-show="showModal">
-        <h1>{{formTitle}}</h1>
-        <div>
-          <label>First Name</label>
-          <input type="text" placeholder="First Name" v-model="registrant.firstName" ref="lName">
-          <label>Last Name</label>
-          <input type="text" placeholder="Last Name" v-model="registrant.lastName">
-          <label>Email</label>
-          <input type="text" placeholder="Email" v-model="registrant.email">
-          <label>Church</label>
-          <input type="text" placeholder="Church" v-model="registrant.church">
-          <label>Spouse first name</label>
-          <input type="text" placeholder="Spouse first name" v-model="registrant.spouse">
-          <label>Phone</label>
-          <input type="text" placeholder="Phone" v-model="registrant.phone"><br/>
-          <input value="Submit" type="submit" class="btn btn-large btn-block btn-primary" @click="addOrUpdateReg(registrant.index)" />
-        </div>
-        <p class="closeModal pointer" @click="closeModal">
-          &#10060;
-        </p>
-       </div>
-     </transition>
-
-  </div>
+</div>
 
 <script>
   var firebaseConfig = {
@@ -83,8 +84,6 @@
   const vm = new Vue({
     el: "#regFox",
     data() { return {
-      message: "RegFox",
-      registrations: [],
       simpleRegs: [],
       formName: formName,
       excludeLabels: ['Registration Options','Name of Spouse (for couple registration)', 'Church', 'Cell Phone Number', 'Roommate(s)'],
@@ -101,10 +100,7 @@
     methods: {
       $showModal: function() {
         this.showModal = true
-        // this.$focusInput()
-      },
-      $focusInput: function(){
-        this.$refs.lName[0].focus();
+        this.$nextTick(() => this.$refs.lName.focus())
       },
       closeModal: function(){
         this.showModal = false
@@ -113,10 +109,12 @@
       editReg: function(reg,index){
         //Show the modal, create a form title, and create this registrant for form
         this.$showModal()
+        //Used in the head of the edit form
         this.formTitle="Edit " + reg.firstName
+        //add the index to the reg object
         reg.index = index
+        //reference this.registrant used in form v-models
         this.registrant = reg
-        // Object.assign(this.registrant, reg)
       },
       deleteReg: function(reg,index) {
         //Confirm deletion
@@ -124,14 +122,7 @@
         if (r) {
           //Delete the reg from database
           simpleRegsRef.doc(reg.docId).set({formName: "Deleted"}, {merge: true})
-          //then remove the reg from simpleRegs array
-          .then( () => {
-            this.simpleRegs.splice(index,1)
-          })
         }
-      },
-      removeIndex: function (docId) {
-        return this.simpleRegs.map(function(item) { return item.docId; }).indexOf(docId);
       },
       addOrUpdateReg: function (index) {
         //this is a switch to choose addReg or updateReg
@@ -145,14 +136,7 @@
         this.registrant.timestamp = dateVar
         //add the registrant object
         simpleRegsRef.add(this.registrant)
-        //then get the new doc id and add to the registrant object then push to the simpleRegs array 
-        // .then( ( docRef ) => {
-        //   console.log(docRef.id)
-        //   this.registrant.docId = docRef.id
-        //   console.log(this.registrant)
-        //   this.simpleRegs.push(this.registrant)
-        // })
-        //then clear out the registrant object and hide modal
+        //then clear out the registraion and close modal
         .then( () => {
           this.registrant = {}
           this.showModal = false
@@ -161,14 +145,7 @@
       updateReg: function(index){
         //update the database
         simpleRegsRef.doc(this.registrant.docId).set(this.registrant, {merge:true})
-        // .then( () => {
-        //   this.simpleRegs.push(this.registrant)
-        // })
-        // .then( () => {
-        //   console.log(index)
-        //   this.simpleRegs.splice(index,1)
-        // })
-        //then clear registrant and hide modal
+        //then clear out the registraion and close modal
         .then( () => {
           this.registrant = {}
           this.showModal = false
@@ -179,26 +156,15 @@
         if ( !reg.spouse ) { return false }
         if ( reg.spouse.includes(reg.lastName) ) { return true } else { return false }
       },
-      sortByLastName: function() {
-        this.sortBy = "lastName"
+      $sortBy: function(sortBy){
+        this.sortBy = sortBy
       },
-      sortByFirstName: function() {
-        this.sortBy = "firstName"
-      },
-      sortByDate: function() {
-        this.sortBy = "timestamp"
-      },
-      // getDataStringFromRegistrantData: function(registrantData){
-      //   let dataString = ""
-      //   if ( registrantData.label !== undefined && registrantData.value && (!this.excludeLabels.includes(registrantData.label)) ) { dataString = dataString + registrantData.value}
-      //   return this.linkIfEmail(dataString)
-      // },
-      //used by linkIfEmail()
+      //validate email address
       validateEmail: function(email) {
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
       },
-      //Turns a valud email into a mailto link
+      //Turns a valid email into a mailto link
       linkIfEmail: function(str){
         if ( this.validateEmail(str) ) {
           return '<a href="mailto:' + str + '">' + str + '<a>'
@@ -231,22 +197,7 @@
           );
         };
       },
-      //used in created function
-      getSimpleRegs: function(){
-        simpleRegsRef.where("formName", "==", this.formName).get().then( (docs) => {
-        docs.forEach(doc => {
-          let obj = doc.data()
-          obj.docId = doc.id
-          this.simpleRegs.push(obj)
-        });
-          }
-          ).then( () =>
-            {
-              this.loading = false  
-            }
-          )
-      },
-      syncSimpleRegs: function() {
+      getSimpleRegs: function() {
         simpleRegsRef.where("formName", "==", this.formName)
         .onSnapshot( (snap) => {
           this.simpleRegs = []
@@ -274,9 +225,7 @@
       }
     },
     created(){
-      // var dateVar = new Date();
-      // console.log(dateVar)
-      this.syncSimpleRegs()
+      this.getSimpleRegs()
     }
   })
 </script>
