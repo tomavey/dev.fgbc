@@ -9,10 +9,9 @@
         <span @click="sortByDate" class="pointer">Date Registered</span>
       </p>  
       <p>
-        <li class="addIcon"><span v-if="showForm" @click="showModal = true"><i class="icon-plus pointer"></i></span></li>
+        <li class="addIcon"><span v-if="showForm" @click="$showModal"><i class="icon-plus pointer"></i></span></li>
       </p>
-      {{simpleRegs}}
-      <ol v-if="sortedSimpleRegs.length">
+      <ol v-if="simpleRegs.length">
         <li v-for="(reg, index) in sortedSimpleRegs" :key="index">
           {{reg.firstName}} 
           <span v-if="reg.spouse"> & {{reg.spouse}}</span> 
@@ -23,7 +22,7 @@
         </li>
       </ol>
       <p>
-        <li class="addIcon"><span v-if="showForm" @click="showModal = true"><i class="icon-plus pointer"></i></span></li>
+        <li class="addIcon"><span v-if="showForm" @click="$showModal"><i class="icon-plus pointer"></i></span></li>
       </p>
       <p>
         <span v-if="showEmail"><a :href="`mailto:${allEmailsList}`">Email All</a></span>
@@ -34,11 +33,11 @@
       <div class="modal-overlay" v-if="showModal" @click="closeModal"></div>
      </transition>
      <transition name="slide" appear>
-      <div class="modal" v-if="showModal">
+      <div class="modal" v-show="showModal">
         <h1>{{formTitle}}</h1>
         <div>
           <label>First Name</label>
-          <input type="text" placeholder="First Name" v-model="registrant.firstName">
+          <input type="text" placeholder="First Name" v-model="registrant.firstName" ref="lName">
           <label>Last Name</label>
           <input type="text" placeholder="Last Name" v-model="registrant.lastName">
           <label>Email</label>
@@ -86,6 +85,7 @@
     data() { return {
       message: "RegFox",
       registrations: [],
+      simpleRegs: [],
       formName: formName,
       excludeLabels: ['Registration Options','Name of Spouse (for couple registration)', 'Church', 'Cell Phone Number', 'Roommate(s)'],
       sortOrder: "DESC",
@@ -99,13 +99,20 @@
       }
     },
     methods: {
+      $showModal: function() {
+        this.showModal = true
+        // this.$focusInput()
+      },
+      $focusInput: function(){
+        this.$refs.lName[0].focus();
+      },
       closeModal: function(){
         this.showModal = false
         this.registrant = {}
       },
       editReg: function(reg,index){
         //Show the modal, create a form title, and create this registrant for form
-        this.showModal = true
+        this.$showModal()
         this.formTitle="Edit " + reg.firstName
         reg.index = index
         this.registrant = reg
@@ -116,7 +123,7 @@
         let r = confirm("Are you sure that you want to remove " + reg.firstName + " from this list? \nClick either OK or Cancel.")
         if (r) {
           //Delete the reg from database
-          simpleRegsRef.doc(reg.docId).set({formName: "Deleted"}, {merged: true})
+          simpleRegsRef.doc(reg.docId).set({formName: "Deleted"}, {merge: true})
           //then remove the reg from simpleRegs array
           .then( () => {
             this.simpleRegs.splice(index,1)
@@ -128,7 +135,7 @@
       },
       addOrUpdateReg: function (index) {
         //this is a switch to choose addReg or updateReg
-        this.showModal = true
+        this.$showModal()
         if ( !this.registrant.docId ) { this.addReg() } else { this.updateReg(index) }
       },
       addReg: function(){
@@ -239,22 +246,22 @@
             }
           )
       },
+      syncSimpleRegs: function() {
+        simpleRegsRef.where("formName", "==", this.formName)
+        .onSnapshot( (snap) => {
+          this.simpleRegs = []
+          snap.forEach( doc => {
+            let obj = doc.data()
+            obj.docId = doc.id
+            this.simpleRegs.push(obj)
+          })
+        })
+        return null
+      },
     },
     computed: {
       registrantToEdit: function () {
         return this.registrant
-      },
-      simpleRegs: function() {
-        let regs = []
-        simpleRegsRef.where("formName", "==", this.formName)
-        .onSnapshot( (snap) => {
-          snap.forEach( doc => {
-            let obj = doc.data()
-            obj.docId = doc.id
-            regs.push(obj)
-          })
-        })
-        return regs
       },
       sortedSimpleRegs: function() {
         return this.sortRegs(this.simpleRegs)
@@ -269,6 +276,7 @@
     created(){
       // var dateVar = new Date();
       // console.log(dateVar)
+      this.syncSimpleRegs()
     }
   })
 </script>
@@ -346,7 +354,7 @@
     z-index: 99;
     
     width: 100%;
-    max-width: 300px;
+    max-width: 400px;
     background-color: #FFF;
     border-radius: 16px;
     
