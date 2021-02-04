@@ -11,14 +11,15 @@
       <p>
         <li class="addIcon"><span v-if="showForm" @click="showModal = true"><i class="icon-plus pointer"></i></span></li>
       </p>
+      {{simpleRegs}}
       <ol v-if="sortedSimpleRegs.length">
-        <li v-for="reg in sortedSimpleRegs">
+        <li v-for="(reg, index) in sortedSimpleRegs" :key="index">
           {{reg.firstName}} 
           <span v-if="reg.spouse"> & {{reg.spouse}}</span> 
           <span v-if="!spouseNameContainsLastName(reg)">{{reg.lastName}}</span>
           <span v-if="showEmail">- <a :href="`mailto:${reg.email}`">{{reg.email}}</a></span> 
-          <span v-if="showForm" @click="editReg(reg)"><i class="icon-edit pointer"></i></span>
-          <span v-if="showForm" @click="deleteReg(reg)"><i class="icon-trash pointer"></i></span> 
+          <span v-if="showForm" @click="editReg(reg,index)"><i class="icon-edit pointer"></i></span>
+          <span v-if="showForm" @click="deleteReg(reg,index)"><i class="icon-trash pointer"></i></span> 
         </li>
       </ol>
       <p>
@@ -48,7 +49,7 @@
           <input type="text" placeholder="Spouse first name" v-model="registrant.spouse">
           <label>Phone</label>
           <input type="text" placeholder="Phone" v-model="registrant.phone"><br/>
-          <input value="Submit" type="submit" class="btn btn-large btn-block btn-primary" @click="addOrUpdateReg" />
+          <input value="Submit" type="submit" class="btn btn-large btn-block btn-primary" @click="addOrUpdateReg(registrant.index)" />
         </div>
         <p class="closeModal pointer" @click="closeModal">
           &#10060;
@@ -85,7 +86,6 @@
     data() { return {
       message: "RegFox",
       registrations: [],
-      simpleRegs: [],
       formName: formName,
       excludeLabels: ['Registration Options','Name of Spouse (for couple registration)', 'Church', 'Cell Phone Number', 'Roommate(s)'],
       sortOrder: "DESC",
@@ -103,13 +103,15 @@
         this.showModal = false
         this.registrant = {}
       },
-      editReg: function(reg){
+      editReg: function(reg,index){
         //Show the modal, create a form title, and create this registrant for form
         this.showModal = true
         this.formTitle="Edit " + reg.firstName
-        Object.assign(this.registrant, reg)
+        reg.index = index
+        this.registrant = reg
+        // Object.assign(this.registrant, reg)
       },
-      deleteReg: function(reg) {
+      deleteReg: function(reg,index) {
         //Confirm deletion
         let r = confirm("Are you sure that you want to remove " + reg.firstName + " from this list? \nClick either OK or Cancel.")
         if (r) {
@@ -117,17 +119,17 @@
           simpleRegsRef.doc(reg.docId).set({formName: "Deleted"}, {merged: true})
           //then remove the reg from simpleRegs array
           .then( () => {
-            this.simpleRegs.splice(this.removeIndex(reg.docId),1)
+            this.simpleRegs.splice(index,1)
           })
         }
       },
       removeIndex: function (docId) {
         return this.simpleRegs.map(function(item) { return item.docId; }).indexOf(docId);
       },
-      addOrUpdateReg: function () {
+      addOrUpdateReg: function (index) {
         //this is a switch to choose addReg or updateReg
         this.showModal = true
-        if ( !this.registrant.docId ) { this.addReg() } else { this.updateReg() }
+        if ( !this.registrant.docId ) { this.addReg() } else { this.updateReg(index) }
       },
       addReg: function(){
         //add formName and timestamp to registrant object
@@ -137,27 +139,28 @@
         //add the registrant object
         simpleRegsRef.add(this.registrant)
         //then get the new doc id and add to the registrant object then push to the simpleRegs array 
-        .then( ( docRef ) => {
-          console.log(docRef.id)
-          this.registrant.docId = docRef.id
-          console.log(this.registrant)
-          this.simpleRegs.push(this.registrant)
-        })
+        // .then( ( docRef ) => {
+        //   console.log(docRef.id)
+        //   this.registrant.docId = docRef.id
+        //   console.log(this.registrant)
+        //   this.simpleRegs.push(this.registrant)
+        // })
         //then clear out the registrant object and hide modal
         .then( () => {
           this.registrant = {}
           this.showModal = false
         })
       },
-      updateReg: function(){
+      updateReg: function(index){
         //update the database
         simpleRegsRef.doc(this.registrant.docId).set(this.registrant, {merge:true})
-        .then( () => {
-          this.simpleRegs.push(this.registrant)
-        })
-        .then( () => {
-          this.simpleRegs.splice(this.removeIndex(this.registrant.docId),1)
-        })
+        // .then( () => {
+        //   this.simpleRegs.push(this.registrant)
+        // })
+        // .then( () => {
+        //   console.log(index)
+        //   this.simpleRegs.splice(index,1)
+        // })
         //then clear registrant and hide modal
         .then( () => {
           this.registrant = {}
@@ -241,6 +244,18 @@
       registrantToEdit: function () {
         return this.registrant
       },
+      simpleRegs: function() {
+        let regs = []
+        simpleRegsRef.where("formName", "==", this.formName)
+        .onSnapshot( (snap) => {
+          snap.forEach( doc => {
+            let obj = doc.data()
+            obj.docId = doc.id
+            regs.push(obj)
+          })
+        })
+        return regs
+      },
       sortedSimpleRegs: function() {
         return this.sortRegs(this.simpleRegs)
       },
@@ -254,8 +269,6 @@
     created(){
       // var dateVar = new Date();
       // console.log(dateVar)
-      this.loading = true
-      this.getSimpleRegs()
     }
   })
 </script>
