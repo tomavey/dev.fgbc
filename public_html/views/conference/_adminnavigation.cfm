@@ -73,33 +73,39 @@
 					</ul>
 				</li>
 				<li class="dropdown">
+					#linkToData(href="##", class="dropdown-toggle", data_toggle="dropdown", text="Email Lists<b class='caret'></b>")#
+				<ul class="dropdown-menu">
+					<li>#linkto(text="Mail List - People", controller="conference.people", action="mailList")#</li>
+					<li>#linkto(text="Email List - People", controller="conference.people", action="emailList")#</li>
+					<li>#linkto(text="Mail List - Churches", controller="handbook.organizations", action="download-member-churches	")#</li>
+					<li>#linkto(text="Update multiple emails", controller="focus.registrants", action="updateEmail", params="tableName=Conferenceperson")#</li>
+					<li>#linkto(text="Email Not List", controller="admin.settings", action="show", key=77)#</li>
+					<li>#linkto(text="Workshop Email List", controller="conference.families", action="badges", params="forWorkshops")#</li>
+					<!--- <li>#linkto(text="Group Rate for 1", controller="conference.register", action="selectOptions", params="group=1&useoptionscount")#</li> --->
+					<li>
+						#linkto(
+							text="Mail List for Posters",
+							controller="handbook.organizations",
+							action="downloadMemberChurches",
+							key="includecampusesandnewchurches"
+							)#
+					</li>
+
+				</ul>
+			</li>
+			<li class="dropdown">
     				#linkToData(href="##", class="dropdown-toggle", data_toggle="dropdown", text="Misc<b class='caret'></b>")#
 					<ul class="dropdown-menu">
 						<li>#linkto(text="Conference Announcements", controller="conference.announcements", action="index")#</li>
 						<li>#linkto(text="Hosts", action="index", controller="conference.homes")#</li>
 						<li>#linkto(text="Backup Tables", controller="conference.backups", action="list")#</li>
 						<li>#linkto(text="Clear Session", controller="conference.options", action="clearsession")#</li>
-						<li>#linkto(text="Mail List - People", controller="conference.people", action="mailList")#</li>
-						<li>#linkto(text="Email List - People", controller="conference.people", action="emailList")#</li>
-						<li>#linkto(text="Mail List - Churches", controller="handbook.organizations", action="download-member-churches	")#</li>
-						<li>#linkto(text="Update multiple emails", controller="focus.registrants", action="updateEmail", params="tableName=Conferenceperson")#</li>
-						<li>#linkto(text="Email Not List", controller="admin.settings", action="show", key=77)#</li>
-						<li>#linkto(text="Workshop Email List", controller="conference.families", action="badges", params="forWorkshops")#</li>
 						<!--- <li>#linkto(text="Group Rate for 1", controller="conference.register", action="selectOptions", params="group=1&useoptionscount")#</li> --->
 						<li>#linkto(text="Settings", controller="admin.settings", action="index", params="category=conference")#</li>
 						<li>#linkto(text="Change to Previous Event", controller="conference.register", action="changeSessionSettingsToPreviousConference")#</li>
 						<li>#linkto(text="Clear Temp Event", controller="conference.register", action="clearSessionSettingsForEvent")#</li>
 						<!--- <li>#linkto(text="Show Childcare Prices in Price List", controller="admin.settings", action="showGraceKidsPrices")#</li>
 						<li>#linkto(text="Hide Childcare Prices in Price List", controller="admin.settings", action="hideGraceKidsPrices")#</li> --->
-						<li>
-							#linkto(
-								text="Mail List for Posters",
-								controller="handbook.organizations",
-								action="downloadMemberChurches",
-								key="includecampusesandnewchurches"
-								)#
-						</li>
-
 					</ul>
 				</li>
 			</ul>
