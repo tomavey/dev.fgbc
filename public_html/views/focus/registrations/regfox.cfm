@@ -1,20 +1,21 @@
 <div id="regFox">
 
   <div id="list">
-    <h2 v-if="sortedSimpleRegs.length">{{formName}}</h2>    
-    <h3 v-if="!sortedSimpleRegs.length">No registrations yet!</h3>
+    <h2 v-if="filteredSortedSimpleRegs.length">{{formName}}</h2>    
+    <h3 v-if="!filteredSortedSimpleRegs.length">No registrations yet!</h3>
     <p>Sort by: 
       <span @click="$sortBy('lastName')" :class="colHeaderclass('lastName')">Last Name</span> | 
       <span @click="$sortBy('firstName')" :class="colHeaderclass('firstName')">First Name</span> | 
       <span @click="$sortBy('timestamp')" :class="colHeaderclass('timestamp')">Date Registered</span>
-      <i class="icon-arrow-up" v-if="!reverse"></i>
-      <i class="icon-arrow-down" v-if="reverse"></i>
+      <i class="icon-arrow-up" v-if="reverse"></i>
+      <i class="icon-arrow-down" v-if="!reverse"></i>
     </p>  
+    <input type="text" placeholder="Search" v-model="searchText" class="input-large search-query" ref="search">
     <p>
       <li class="addIcon"><span v-if="showForm" @click="$showModal"><i class="icon-plus pointer"></i></span></li>
     </p>
-    <ol v-if="simpleRegs.length">
-      <li v-for="(reg, index) in sortedSimpleRegs" :key="index">
+    <ol v-if="filteredSortedSimpleRegs.length">
+      <li v-for="(reg, index) in filteredSortedSimpleRegs" :key="index">
         {{reg.firstName}} 
         <span v-if="reg.spouse"> & {{reg.spouse}}</span> 
         <span v-if="!spouseNameContainsLastName(reg)">{{reg.lastName}}</span>
@@ -96,14 +97,16 @@
       showModal: false,
       delimiter: '; ',
       registrant: {},
-      formTitle: "For Office Only: Add a new person to this list"
+      formTitle: "For Office Only: Add a new person to this list",
+      searchText: ""
       }
     },
     methods: {
-      colHeaderclass: function(fieldName) {
-        if ( fieldName === this.sortBy ) { return "pointer bold"}
-        return "pointer"
-      },
+
+      //////////////////
+      //Modal controlls
+      //////////////////
+
       $showModal: function() {
         this.showModal = true
         this.$nextTick(() => this.$refs.lName.focus())
@@ -112,6 +115,11 @@
         this.showModal = false
         this.registrant = {}
       },
+
+      ///////////
+      //CRUD
+      //////////
+
       editReg: function(reg,index){
         //Show the modal, create a form title, and create this registrant for form
         this.$showModal()
@@ -157,29 +165,23 @@
           this.showModal = false
         })
       },
-      spouseNameContainsLastName: function(reg){
-        //used to make sure the last name is not repeated if the spouses full name was entered into registration
-        if ( !reg.spouse ) { return false }
-        if ( reg.spouse.includes(reg.lastName) ) { return true } else { return false }
-      },
-      $sortBy: function(sortBy){
-        this.reverse = (this.sortBy == sortBy) ? ! this.reverse : false;
-        this.sortBy = sortBy
-      },
-      //validate email address
-      validateEmail: function(email) {
-        var re = /\S+@\S+\.\S+/;
-        return re.test(email);
-      },
-      //Turns a valid email into a mailto link
-      linkIfEmail: function(str){
-        if ( this.validateEmail(str) ) {
-          return '<a href="mailto:' + str + '">' + str + '<a>'
-        } else { return str }
-      },
+
+      /////////// 
+      //Sorting and filtering methods
+      /////////// 
+
       //used by computed property
       sortRegs: function(sortableRegs){return sortableRegs.sort(this.compareValues(this.sortBy));
-        },
+      },
+      //used by computed property
+      filterRegs: function(filterableRegs){return filterableRegs.filter( e => {
+          let searchString = e.lastName.toUpperCase() + e.firstName.toUpperCase()
+          this.$nextTick(() => this.$refs.search.focus())
+          if ( !this.searchText.length ) { return true }
+          if ( searchString.includes(this.searchText.toUpperCase()) ) { return true }
+          return false
+        });
+      },
       //used in sorts  
       compareValues: function(key, order=this.reverse) {
         return function(a, b) {
@@ -195,15 +197,49 @@
 
           let comparison = 0;
           if (varA > varB) {
-          comparison = 1;
-          } else if (varA < varB) {
           comparison = -1;
+          } else if (varA < varB) {
+          comparison = 1;
           }
           return (
           (order == false) ? (comparison * -1) : comparison
           );
         };
       },
+      colHeaderclass: function(fieldName) {
+        if ( fieldName === this.sortBy ) { return "pointer bold"}
+        return "pointer"
+      },
+      $sortBy: function(sortBy){
+        this.reverse = (this.sortBy == sortBy) ? ! this.reverse : false;
+        this.sortBy = sortBy
+      },
+
+      ////////////////
+      //Helpers
+      ///////////////
+
+      spouseNameContainsLastName: function(reg){
+        //used to make sure the last name is not repeated if the spouses full name was entered into registration
+        if ( !reg.spouse ) { return false }
+        if ( reg.spouse.includes(reg.lastName) ) { return true } else { return false }
+      },
+      //Turns a valid email into a mailto link
+      linkIfEmail: function(str){
+        if ( this.validateEmail(str) ) {
+          return '<a href="mailto:' + str + '">' + str + '<a>'
+        } else { return str }
+      },
+      //validate email address
+      validateEmail: function(email) {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+      },
+
+      //////////////////
+      //Used by created()
+      //////////////////
+
       getSimpleRegs: function() {
         simpleRegsRef.where("formName", "==", this.formName)
         .onSnapshot( (snap) => {
@@ -218,17 +254,12 @@
       },
     },
     computed: {
-      registrantToEdit: function () {
-        return this.registrant
-      },
-      sortedSimpleRegs: function() {
-        return this.sortRegs(this.simpleRegs)
-      },
-      allEmailsArray: function() {
-        return this.simpleRegs.map( el => el.email )
+      filteredSortedSimpleRegs: function() {
+        return this.filterRegs(this.sortRegs(this.simpleRegs))
       },
       allEmailsList: function() {
-        return this.allEmailsArray.join(this.delimiter)
+        let allEmailsArray = this.simpleRegs.map( el => el.email )
+        return allEmailsArray.join(this.delimiter)
       }
     },
     created(){
