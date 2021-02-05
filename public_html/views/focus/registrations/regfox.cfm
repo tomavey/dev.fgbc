@@ -4,9 +4,11 @@
     <h2 v-if="sortedSimpleRegs.length">{{formName}}</h2>    
     <h3 v-if="!sortedSimpleRegs.length">No registrations yet!</h3>
     <p>Sort by: 
-      <span @click="$sortBy('lastName')" class="pointer">Last Name</span> | 
-      <span @click="$sortBy('firstName')" class="pointer">First Name</span> | 
-      <span @click="$sortBy('timestamp')" class="pointer">Date Registered</span>
+      <span @click="$sortBy('lastName')" :class="colHeaderclass('lastName')">Last Name</span> | 
+      <span @click="$sortBy('firstName')" :class="colHeaderclass('firstName')">First Name</span> | 
+      <span @click="$sortBy('timestamp')" :class="colHeaderclass('timestamp')">Date Registered</span>
+      <i class="icon-arrow-up" v-if="!reverse"></i>
+      <i class="icon-arrow-down" v-if="reverse"></i>
     </p>  
     <p>
       <li class="addIcon"><span v-if="showForm" @click="$showModal"><i class="icon-plus pointer"></i></span></li>
@@ -87,8 +89,8 @@
       simpleRegs: [],
       formName: formName,
       excludeLabels: ['Registration Options','Name of Spouse (for couple registration)', 'Church', 'Cell Phone Number', 'Roommate(s)'],
-      sortOrder: "DESC",
       sortBy: "lastName",
+      reverse: false,
       showEmail: showEmail,
       showForm: showForm,
       showModal: false,
@@ -98,6 +100,10 @@
       }
     },
     methods: {
+      colHeaderclass: function(fieldName) {
+        if ( fieldName === this.sortBy ) { return "pointer bold"}
+        return "pointer"
+      },
       $showModal: function() {
         this.showModal = true
         this.$nextTick(() => this.$refs.lName.focus())
@@ -157,6 +163,7 @@
         if ( reg.spouse.includes(reg.lastName) ) { return true } else { return false }
       },
       $sortBy: function(sortBy){
+        this.reverse = (this.sortBy == sortBy) ? ! this.reverse : false;
         this.sortBy = sortBy
       },
       //validate email address
@@ -174,7 +181,7 @@
       sortRegs: function(sortableRegs){return sortableRegs.sort(this.compareValues(this.sortBy));
         },
       //used in sorts  
-      compareValues: function(key, order=this.sortOrder) {
+      compareValues: function(key, order=this.reverse) {
         return function(a, b) {
           if(!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
           // property doesn't exist on either object
@@ -193,7 +200,7 @@
           comparison = -1;
           }
           return (
-          (order == 'desc') ? (comparison * -1) : comparison
+          (order == false) ? (comparison * -1) : comparison
           );
         };
       },
@@ -233,6 +240,9 @@
 <style>
   .pointer {
     cursor: pointer 
+  }
+  .bold {
+    font-weight: bold
   }
   .closeModal {
     text-align:right
