@@ -10,7 +10,9 @@
       <i class="icon-arrow-up" v-if="reverse"></i>
       <i class="icon-arrow-down" v-if="!reverse"></i>
     </p>  
-    <input type="text" placeholder="Search" v-model="searchText" class="input-large search-query" ref="search">
+    <p>
+      <input type="text" placeholder="Search" v-model="searchText" class="input-large search-query regFoxSearch" ref="search">
+    </p>
     <p>
       <li class="addIcon"><span v-if="showForm" @click="$showModal"><i class="icon-plus pointer"></i></span></li>
     </p>
@@ -268,7 +270,7 @@
   })
 </script>
 
-<style>
+<style scoped>
   .pointer {
     cursor: pointer 
   }
@@ -280,6 +282,9 @@
   }
   .addIcon {
     list-style:none
+  }
+  .regFoxSearch {
+    height:25px
   }
   * {
     margin: 0;
