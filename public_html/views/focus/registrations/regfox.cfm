@@ -1,5 +1,19 @@
+<!----------------------------------------->
+<!----------------------------------------->
+<!--- 
+  This page is controlled by vue js.
+  Event registrations on regfox and pushed to
+  a firestore function endpoint (firebase) 
+  and then accessed via vue js on this page.
+  Registrants can be edited on this page but
+  updates are not pushed back up to regFox.
+  Created by Tom Avey - February 2021
+ --->
+<!----------------------------------------->
+<!----------------------------------------->
 <div id="regFox">
 
+<!----the list of names--->
   <div id="list">
     <h2 v-if="filteredSortedSimpleRegs.length">{{formName}}</h2>    
     <h3 v-if="!filteredSortedSimpleRegs.length">No registrations yet!</h3>
@@ -34,12 +48,13 @@
     </p>
   </div>
 
+<!---the modal to add and edit names--->
   <transition name="fade" appear>
     <div class="modal-overlay" v-if="showModal" @click="closeModal">
     </div>
   </transition>
   <transition name="slide" appear>
-    <div class="modal" v-show="showModal">
+    <div class="modal" v-if="showModal">
       <h1>{{formTitle}}</h1>
       <div>
         <label>First Name</label>
@@ -91,7 +106,6 @@
     data() { return {
       simpleRegs: [],
       formName: formName,
-      excludeLabels: ['Registration Options','Name of Spouse (for couple registration)', 'Church', 'Cell Phone Number', 'Roommate(s)'],
       sortBy: "lastName",
       reverse: false,
       showEmail: showEmail,
@@ -104,19 +118,6 @@
       }
     },
     methods: {
-
-      //////////////////
-      //Modal controlls
-      //////////////////
-
-      $showModal: function() {
-        this.showModal = true
-        this.$nextTick(() => this.$refs.lName.focus())
-      },
-      closeModal: function(){
-        this.showModal = false
-        this.registrant = {}
-      },
 
       ///////////
       //CRUD
@@ -177,9 +178,13 @@
       },
       //used by computed property
       filterRegs: function(filterableRegs){return filterableRegs.filter( e => {
+          //I want to search on both first name and last name          
           let searchString = e.lastName.toUpperCase() + e.firstName.toUpperCase()
+          //make sure the cursor stays in the search box
           this.$nextTick(() => this.$refs.search.focus())
+          //if there is not searchText, include everything
           if ( !this.searchText.length ) { return true }
+          //if there is a searchText only include matches
           if ( searchString.includes(this.searchText.toUpperCase()) ) { return true }
           return false
         });
@@ -191,12 +196,12 @@
           // property doesn't exist on either object
               return 0; 
           }
-
+          //turns each item key compared to uppercase unless it is a number  
           const varA = (typeof a[key] === 'string') ? 
           a[key].toUpperCase() : a[key];
           const varB = (typeof b[key] === 'string') ? 
           b[key].toUpperCase() : b[key];
-
+          //set the comparison variable based on > or <
           let comparison = 0;
           if (varA > varB) {
           comparison = -1;
@@ -204,25 +209,41 @@
           comparison = 1;
           }
           return (
+          //reverse the retuned result based on the reverse data item  
           (order == false) ? (comparison * -1) : comparison
           );
         };
-      },
-      colHeaderclass: function(fieldName) {
-        if ( fieldName === this.sortBy ) { return "pointer bold"}
-        return "pointer"
       },
       $sortBy: function(sortBy){
         this.reverse = (this.sortBy == sortBy) ? ! this.reverse : false;
         this.sortBy = sortBy
       },
 
+
+      //////////////////
+      //Modal controlls
+      //////////////////
+
+      $showModal: function() {
+        this.showModal = true
+        this.$nextTick(() => this.$refs.lName.focus())
+      },
+      closeModal: function(){
+        this.showModal = false
+        this.registrant = {}
+      },
+
       ////////////////
       //Helpers
       ///////////////
 
+      //used by the column header to set bold if selected
+      colHeaderclass: function(fieldName) {
+        if ( fieldName === this.sortBy ) { return "pointer bold"}
+        return "pointer"
+      },
+      //used to make sure the last name is not repeated if the spouses full name was entered into registration
       spouseNameContainsLastName: function(reg){
-        //used to make sure the last name is not repeated if the spouses full name was entered into registration
         if ( !reg.spouse ) { return false }
         if ( reg.spouse.includes(reg.lastName) ) { return true } else { return false }
       },
@@ -242,6 +263,7 @@
       //Used by created()
       //////////////////
 
+      //Get simple regs from firestore and store them in this.simpleRegs
       getSimpleRegs: function() {
         simpleRegsRef.where("formName", "==", this.formName)
         .onSnapshot( (snap) => {
@@ -256,15 +278,18 @@
       },
     },
     computed: {
+      //filter on this.selectText then sort on this.sortBy - is used in the v-for list
       filteredSortedSimpleRegs: function() {
         return this.filterRegs(this.sortRegs(this.simpleRegs))
       },
+      //create a list of email addresses for the Email All mailto link
       allEmailsList: function() {
         let allEmailsArray = this.simpleRegs.map( el => el.email )
         return allEmailsArray.join(this.delimiter)
       }
     },
     created(){
+      //get the simpleRegs on initial load
       this.getSimpleRegs()
     }
   })
