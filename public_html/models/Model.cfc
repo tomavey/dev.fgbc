@@ -193,9 +193,7 @@
 		loc.todayString = now()
 		//for testing
 		if ( isDefined("params.agbmDeadlineDate") ) { loc.agbmDeadlineDate = params.agbmDeadlineDate }
-		if ( isDefined("params.agbmDeadlineDate") ) { loc.agbmDeadlineDate = params.agbmDeadlineDate }
 		if ( isDefined("params.testing") ) { loc.testing = true }
-		ddd(getAgbmDeadlineDate())
 		//use params first
 		if ( isDefined("params.currentMembershipyear") ) {
 			loc.return = params.currentMembershipYear
@@ -206,54 +204,28 @@
 		} 
 		//then use setting for agbmDeadlineDate
 		else {
-			loc.today = createODBCDate(loc.todayString)
-			// loc.today = createODBCDate("01-01-2021")
-			loc.deadline = createODBCDate(loc.agbmDeadlineDate)
-			if ( year(loc.today) == year(loc.deadline) ) {
-				if ( day(loc.today) > day(loc.deadline) ) {
-					loc.return = year(loc.today)-1
-				}  
-			}
-			else {
-				if ( dateCompare(loc.today,loc.deadline) == 1 ) {
-					loc.return = loc.return + 1
-				}
-			}
+			loc.return = getAgbmDeadlineYearFromSetting(params)
 		}
-		ddd(loc.return)
+		
 		return loc.return
 	}	
 
-	function getAgbmDeadlineDate(){
+	//This created a deadline date from the agbmDeadlineDate setting for the current date context
+	function getAgbmDeadlineYearFromSetting(){
 		var loc = {}
 		loc.today = now()
 		loc.deadline = getSetting("agbmDeadlineDate")
-		//for testing
-		loc.today=createDate(2021,8,2)
-		loc.deadline=createDate(2021,07,1)
-
-		loc.yearToday = year(loc.today)
-		loc.dayOfYearToday = dayOfYear(loc.today)
-		loc.yearDeadline = year(loc.deadline)
-		loc.dayOfYearDeadline = dayOfYear(loc.deadline)
-		if ( loc.yearToday == loc.yearDeadline ) {
-			if ( loc.dayOfYearToday <= loc.dayOfYearDeadline ) {
-				return 2020
-			}
-			if ( loc.dayOfYearToday > loc.dayOfYearDeadline ) {
-				return 2021
-			}
+		loc.todayObj = {
+			year: year(loc.today),
+			dayOfYear: dayOfYear(loc.today)
 		}
-		if ( loc.yearToday != loc.yearDeadline ) {
-			if ( loc.dayOfYearToday <= loc.dayOfYearDeadline ) {
-				return 2020
-			}
-			if ( loc.dayOfYearToday > loc.dayOfYearDeadline ) {
-				return 2020
-			}
+		loc.deadLineObj.dayOfYear = dayOfYear(loc.deadline)
+		//if todays dayOfYear is less than or equaly to the deadline, return current year - 1
+		if ( loc.todayObj.dayOfYear <= loc.deadLineObj.dayOfYear ) {
+			return loc.todayObj.year - 1
+		} else {
+			return loc.todayObj.year
 		}
-		var flipDate = createDate(year(now()),month(getSetting("agbmDeadlineDate")),day(getSetting("agbmDeadlineDate")))
-		return "oops"
 	}
 
 </cfscript>	

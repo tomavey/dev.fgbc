@@ -69,6 +69,7 @@
 	set(ministryStaffAdmin="'tomavey','hirwin','skoontz','sharmion','tomavey@fgbc.org','sharmion@charisfellowship.us','tomavey@charisfellowship.us'")
 	set(agbmDeadlineDate = "07-1-#year(now())#")
 	set(agbmLastPaymentYearsAgo = 1)
+	set(agbmMembershipfee = 100)
 	set(nonStaffSortOrder = 500)
 	set(churchStatusForHandbook = "1,4,8,9")
 	set(churchAndOrgStatusForHandbook = "1,4,8,9,10,11")

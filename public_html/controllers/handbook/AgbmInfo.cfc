@@ -91,7 +91,7 @@ function testGetCurrentMembershipYear() {
 	function add() {
 		handbookagbminfo = model("Handbookagbminfo").new();
 		handbookagbminfo.membershipfeeyear = year(now());
-		handbookagbminfo.membershipfee = 100;
+		handbookagbminfo.membershipfee = getSetting("agbmMembershipfee");
 		try {
 			handbookagbminfo.agbmlifememberAt = model("Handbookprofile").findOne(where="personid = #params.key#").agbmlifememberAt;
 		} catch (any cfcatch) {
