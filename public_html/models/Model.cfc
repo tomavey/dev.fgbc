@@ -189,17 +189,72 @@
 	function currentMembershipYear(struct params) {
 		var loc = structNew()
 		loc.return = year(now())
+		loc.agbmDeadlineDate = getSetting("agbmDeadlineDate")
+		loc.todayString = now()
+		//for testing
+		if ( isDefined("params.agbmDeadlineDate") ) { loc.agbmDeadlineDate = params.agbmDeadlineDate }
+		if ( isDefined("params.agbmDeadlineDate") ) { loc.agbmDeadlineDate = params.agbmDeadlineDate }
+		if ( isDefined("params.testing") ) { loc.testing = true }
+		ddd(getAgbmDeadlineDate())
+		//use params first
 		if ( isDefined("params.currentMembershipyear") ) {
 			loc.return = params.currentMembershipYear
-		} else if ( isDefined("session.agbm.currentmembershipyear") ) {
+		} 
+		//then check session.agbm
+		else if ( isDefined("session.agbm.currentmembershipyear") && !loc.testing ) {
 			loc.return = session.agbm.currentmembershipyear
-		} else {
-			if ( dateCompare(createODBCDate(now()),createODBCDate(getSetting("agbmDeadlineDate"))) == -1 ) {
-				loc.return = loc.return-1
+		} 
+		//then use setting for agbmDeadlineDate
+		else {
+			loc.today = createODBCDate(loc.todayString)
+			// loc.today = createODBCDate("01-01-2021")
+			loc.deadline = createODBCDate(loc.agbmDeadlineDate)
+			if ( year(loc.today) == year(loc.deadline) ) {
+				if ( day(loc.today) > day(loc.deadline) ) {
+					loc.return = year(loc.today)-1
+				}  
+			}
+			else {
+				if ( dateCompare(loc.today,loc.deadline) == 1 ) {
+					loc.return = loc.return + 1
+				}
 			}
 		}
+		ddd(loc.return)
 		return loc.return
 	}	
+
+	function getAgbmDeadlineDate(){
+		var loc = {}
+		loc.today = now()
+		loc.deadline = getSetting("agbmDeadlineDate")
+		//for testing
+		loc.today=createDate(2021,8,2)
+		loc.deadline=createDate(2021,07,1)
+
+		loc.yearToday = year(loc.today)
+		loc.dayOfYearToday = dayOfYear(loc.today)
+		loc.yearDeadline = year(loc.deadline)
+		loc.dayOfYearDeadline = dayOfYear(loc.deadline)
+		if ( loc.yearToday == loc.yearDeadline ) {
+			if ( loc.dayOfYearToday <= loc.dayOfYearDeadline ) {
+				return 2020
+			}
+			if ( loc.dayOfYearToday > loc.dayOfYearDeadline ) {
+				return 2021
+			}
+		}
+		if ( loc.yearToday != loc.yearDeadline ) {
+			if ( loc.dayOfYearToday <= loc.dayOfYearDeadline ) {
+				return 2020
+			}
+			if ( loc.dayOfYearToday > loc.dayOfYearDeadline ) {
+				return 2020
+			}
+		}
+		var flipDate = createDate(year(now()),month(getSetting("agbmDeadlineDate")),day(getSetting("agbmDeadlineDate")))
+		return "oops"
+	}
 
 </cfscript>	
 

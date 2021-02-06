@@ -21,7 +21,13 @@ function getCurrentMembershipYear() {
 	}
 }
 
-	
+function testGetCurrentMembershipYear() {
+	params.agbmDeadlineDate = "06-02-2021"
+	params.today = "07-06-2020"
+	params.testing = true
+	var temp = model("Handbookagbminfo").currentMembershipYear(params);
+	ddd(temp);
+}
 
 
 
