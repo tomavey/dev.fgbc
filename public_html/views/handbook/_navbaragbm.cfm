@@ -79,7 +79,7 @@
 							#linkTo(text="Districts", controller="handbook.districts", action="index")#
 						</li>
 						<li>
-							#linkTo(text="Settings", controller="admin", action="settings", params="category=inspire")#
+							#linkTo(text="Settings", controller="admin.settings", action="index", params="category=inspire")#
 						</li>
 						<li>
 							#linkTo(text="Transfer Payments", controller="handbook.agbminfo", action="movePaymentsToNewMember")#
