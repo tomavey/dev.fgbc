@@ -204,7 +204,7 @@
 		} 
 		//then use setting for agbmDeadlineDate
 		else {
-			loc.return = getAgbmDeadlineYearFromSetting(params)
+			loc.return = getAgbmDeadlineYearFromSetting()
 		}
 		
 		return loc.return
