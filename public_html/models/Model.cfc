@@ -203,8 +203,8 @@
 			loc.return = session.agbm.currentmembershipyear
 		} 
 		//then use setting for agbmDeadlineDate
-		else if ( isDefined("params") ) {
-			loc.return = getAgbmDeadlineYearFromSetting(params)
+		else {
+			loc.return = getAgbmDeadlineYearFromSetting()
 		}
 		
 		return loc.return
