@@ -3,16 +3,17 @@
 <h1>Create new resource</h1>
 
 <cfoutput>
+		#linkTo(text="upload a resource", route="adminResourcesUploadDialog", class="btn")#
 
-			#errorMessagesFor("resource")#
+		#errorMessagesFor("resource")#
 	
-			#startFormTag(action="create", multipart="true")#
-		
-			#includePartial(partial="form")#
+		#startFormTag(action="create", multipart="true")#
+	
+		#includePartial(partial="form")#
 
-			#submitTag("Submit Resource")#
+		#submitTag("Submit Resource")#
 				
-			#endFormTag()#
+		#endFormTag()#
 			
 
 #linkTo(text="Return to the listing", action="list")#

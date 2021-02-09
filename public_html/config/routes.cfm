@@ -104,6 +104,12 @@
 			.get(name="deleteMin", pattern="/ministry/[key]/delete/", controller="ministries", action="delete")
 			.resources("ministries")
 			
+			.controller("resources")
+				.post(name="Upload", pattern="/upload/", action="uploadResource")
+				.put(name="Upload", pattern="/upload/", action="uploadResource")
+				.get(name="Upload", pattern="/upload/", action="uploadResource")
+				.get(name="UploadDialog", pattern="/uploadDialog/", action="uploadDialog")
+			.end()
 			.resources("resources")
 
 			.get(name="pics", pattern="/pics/", controller="pics", action="index")

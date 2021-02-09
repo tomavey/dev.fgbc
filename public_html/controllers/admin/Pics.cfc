@@ -16,6 +16,11 @@ component extends="Controller" output="false" {
     folderName = folder
   }
 
+  public function uploadDialog(){
+    formController = "admin.pics"
+    formAction = "uploadPic"
+  }
+
   public function uploadPic(){
       cffile(
         action="upload",

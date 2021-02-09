@@ -9,8 +9,13 @@ component extends="Controller" output="false" {
 <!------------------------->
 
 	//  resources/index 
-	public function index() {
-		resources = model("Mainresource").findAll();
+	public function index(orderBy="createdAt DESC") {
+		if ( isDefined("params.orderBy") ) { arguments.orderBy = params.orderBy }
+		var whereString = ""
+		if ( isDefined("params.search") ) {
+			whereString = "description LIKE '%#params.search#%'"
+		}
+		resources = model("Mainresource").findAll(where=wherestring, order="#arguments.orderBy#");
 		setReturn();
 	}
 
@@ -36,7 +41,10 @@ component extends="Controller" output="false" {
 	//  resources/new 
 	public function new() {
 		resource = model("Mainresource").new();
-	}
+		if ( isDefined("params.filename") ) {
+			resource.file = params.filename
+		}
+}
 
 	//  resources/edit/key 
 	public function edit() {
@@ -90,5 +98,29 @@ component extends="Controller" output="false" {
 			redirectTo(action="index");
 		}
 	}
+
+	public function uploadDialog(){
+    formController = "admin.resources"
+    formAction = "uploadResource"
+		renderView(template="/admin/pics/uploadDialog.cfm")
+  }
+
+	public function uploadResource(){
+		cffile(
+			action="upload",
+			fileField = "FileContents",
+			destination = getBaseFileFolder(), 
+			nameConflict = "MakeUnique",
+			result = "results",
+			);
+		// ddd(results)
+		// ddd(params)
+		redirectTo(controller="admin.resources", action="new", params="filename=#results.serverfile#")
+	}
+
+  public function getBaseFileFolder( folder, baseFolder=GetDirectoryFromPath(GetBaseTemplatePath()) ){
+    return baseFolder & "files"
+  }
+
 
 }
