@@ -6,6 +6,6 @@
       #submitTag()#
       #endFormTag()#
     </cfoutput>
-    Upload coming ... under development!
+    <!--- Upload coming ... under development! --->
   </h2>
 </div>
