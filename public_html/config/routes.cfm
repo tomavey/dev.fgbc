@@ -109,6 +109,8 @@
 				.put(name="Upload", pattern="/upload/", action="uploadResource")
 				.get(name="Upload", pattern="/upload/", action="uploadResource")
 				.get(name="UploadDialog", pattern="/uploadDialog/", action="uploadDialog")
+				.delete(name="delete", pattern="/[key]/delete/", action="delete")
+				.get(name="delete", pattern="/[key]/delete/", action="delete")
 			.end()
 			.resources("resources")
 
