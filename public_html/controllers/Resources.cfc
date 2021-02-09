@@ -6,11 +6,11 @@
 	</cffunction>
 
 	<cffunction name="index">
-	<cfif gotRights("basic,office")>
-		<cfset resources = model("Mainresource").findAll(order="description")>
-	<cfelse>
-		<cfset resources = model("Mainresource").findAll(where="status='public'", order="description")>
-	</cfif>
+		<cfif gotRights("office") && isDefined("params.showAll") >
+			<cfset resources = model("Mainresource").findAll(order="description")>
+		<cfelse>
+			<cfset resources = model("Mainresource").findAll(where="status='public'", order="description")>
+		</cfif>
 	</cffunction>
 
 	<!--- resources/show/key --->
