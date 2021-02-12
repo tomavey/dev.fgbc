@@ -1,15 +1,15 @@
-<cfparam name="natmin" default="false">
-<cfif isdefined("params.natmin")>
-	<cfset natmin = "true">
+<cfparam name="natmin" default="true">
+<cfif isdefined("params.natmin") && !params.natmin>
+	<cfset natmin = "false">
 </cfif>
 
 
 <div id="exhibitorguidelines" class="container">
   <cfoutput>
     <h1>EXHIBIT INFORMATION for organizations <cfif !natmin>NOT </cfif>affiliated with the Charis Fellowship</h1>
-    <cfif !natmin>
+    <cfif natmin>
       <p style="font-size:.8em;color:gray">
-      #linkto(text="Official Charis Fellowship Ministries should use this link", action="info", params="natmin=1")#
+      #linkto(text="Ministries that are NOT official Charis Fellowship Ministries should use this link", action="info", params="natmin=0")#
     </cfif>
     
     <p>#getEventAsText()# is at <a href="https://gracecommunity-church.com/">Grace Community Church in Goshen, Indiana</a>.</p>

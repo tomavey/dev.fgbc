@@ -32,22 +32,22 @@
 	</fieldset>
 	<fieldset>
 		<legend>Specifications</legend>
-						#select(objectName='exhibit', property='numbertables', label='Number of spaces w/tables:', options=optionslist, class="input-mini")#
+						#select(objectName='exhibit', property='numbertables', label='Number of spaces w/tables:', options=optionslist, class="input-small")#
 
 						<cfif getEvent() is "visionconference2019">
 							<p style="font-size: .8em">Note: if you would like 6' tables instead of 8' tables, indicate accordingly in the special request field below.</p>
 							<p style="font-size: .8em">Also, you may be limited to one table depending on space and requests.  Space is limited!</p>
 						</cfif>
 
-						#select(objectName='exhibit', property='numberspaces', label='Number of spaces w/o tables:', options=optionslist, class="input-mini")#
+						#select(objectName='exhibit', property='numberspaces', label='Number of spaces w/o tables:', options=optionslist, class="input-small")#
 
 						#hiddenFieldTag(name="exhibit[section]", value="A")#
 
 						<!---#select(objectName='exhibit', property='section', label='Section: ', options=sectionslist)#--->
 
-						#select(objectName='exhibit', property='elect', label='Will you need electricity?', options=yesno, valueField="dec", class="input-mini")#
+						#select(objectName='exhibit', property='elect', label='Will you need electricity?', options=yesno, valueField="dec", class="input-small")#
 
-						#select(objectName='exhibit', property='specialrequest', label='Do you want to participate in the give-away? We will invoice you an additional $50 and place a basket on your exhibit to collect names for a drawing:', class="input-block-level span9", options=yesno, class="input-mini")#
+						#select(objectName='exhibit', property='specialrequest', label='Do you want to participate in the give-away? We will invoice you an additional $50 and place a basket on your exhibit to collect names for a drawing:', class="input-block-level span9", options=yesno, class="input-small")#
 
 	</fieldset>
 				<cfif params.action is "edit">
