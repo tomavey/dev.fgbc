@@ -48,6 +48,6 @@
       Deadline for exhibit request is June 30, 2021.
     </p>
     <p>Please complete your request form with the link below. Please contact Sharmion Bowell at: sharmion@charisfellowship.us or 574-269-1269 with additional questions.</p>
-    <p class="well">#linkTo(controller="conference/exhibit", action="new", text="Go to the Exhibitor Request Form", class="btn btn-block btn-primary btn-lg")#</p>
+    <p class="well">#linkTo(route="conferencenewexhibitform", text="Go to the Exhibitor Request Form", class="btn btn-block btn-primary btn-lg")#</p>
     </cfoutput>
 </div>
