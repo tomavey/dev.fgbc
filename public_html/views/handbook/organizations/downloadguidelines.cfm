@@ -15,79 +15,92 @@
 
 <cfoutput>
 	<ul>
-			<li>
-				#linkto(text="Member Churches and their campuses", route="handbookDownloadmembers", id="navsearch",  params="download=1&include=campuses", title="Download Spreadsheet of Member Churches with their campuses", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
-			</li>
-			<li class="preview">
-				#linkto(text="Preview - Member Churches and their campuses", route="handbookDownloadmembers", class="downloadconfirm" )#
-			</li>
-			<li>
-				#linkto(text="Member Churches, their campuses and new churches", route="handbookDownloadmembers", params="download=1&include=campusesandnewchurches", id="navsearch", title="Download Spreadsheet of Member Churches, with campuses PLUS new churches", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
-			</li>
-			<li class="preview">
-				#linkto(text="Preview - Member Churches, their campuses and new churches", route="handbookDownloadmembers", params="include=campusesandnewchurches", class="downloadconfirm" )#
-			</li>
-			<li>&nbsp;</li>
-			<li>
-				#linkto(text="People - Blue Pages", route="handbookBluepages", params="download=1", id="navsearch", title="Download a spreadsheet of all people in the blue pages of the handbook.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
-			</li>
-			<li class="preview">
-				#linkto(text="Preview - Blue Pages", route="handbookBluepages", params="preview=1", class="downloadconfirm" )#
-			</li>
-			<li>
-				#linkto(text="People - Church Staff", route="handbookBluepages", params="download=1&staffonly=1", id="navsearch", title="Download a spreadsheet of all church staff.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
-			</li>
-			<li class="preview">
-				#linkto(text="Preview - Church Staff", route="handbookBluepages", params="preview=1&staffonly=1", class="downloadconfirm" )#
-			</li>
-			<li>
-				#linkto(text="People - Church Staff with 'Pastor' in their title", route="handbookBluepages", params="download=1&pastoralstaffonly=1", id="navsearch", title="Download a spreadsheet of all church staff that have the word 'pastor' in their title.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
-			</li>
-			<li class="preview">
-				#linkto(text="Preview - Church Staff with 'Pastor' in their title", route="handbookBluepages", params="preview=1&pastoralstaffonly=1", class="downloadconfirm" )#
-			</li>
+		<li>
+			#linkto(text="Member Churches", route="handbookDownloadmembers", id="navsearch",  params="download=1", title="Download Spreadsheet of Member Churches", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+		</li>
+		<li class="preview">
+			#linkto(text="Preview - Member Churches", route="handbookDownloadmembers", class="downloadconfirm" )#
+		</li>
+		<li>
+			#linkto(text="Member Churches and their campuses", route="handbookDownloadmembers", id="navsearch",  params="download=1&include=campuses", title="Download Spreadsheet of Member Churches with their campuses", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+		</li>
+		<li class="preview">
+			#linkto(text="Preview - Member Churches and their campuses", params="include=campuses", route="handbookDownloadmembers", class="downloadconfirm" )#
+		</li>
+		<li>
+			#linkto(text="Member Churches and their campuses", route="handbookDownloadmembers", id="navsearch",  params="download=1&include=campuses", title="Download Spreadsheet of Member Churches with their campuses", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+		</li>
+		<li class="preview">
+			#linkto(text="Preview - Member Churches and their campuses", params="include=campuses", route="handbookDownloadmembers", class="downloadconfirm" )#
+		</li>
+		<li>
+			#linkto(text="Member Churches, their campuses and new churches", route="handbookDownloadmembers", params="download=1&include=campusesandnewchurches", id="navsearch", title="Download Spreadsheet of Member Churches, with campuses PLUS new churches", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+		</li>
+		<li class="preview">
+			#linkto(text="Preview - Member Churches, their campuses and new churches", route="handbookDownloadmembers", params="include=campusesandnewchurches", class="downloadconfirm" )#
+		</li>
+		<li>&nbsp;</li>
+		<li>
+			#linkto(text="People - Blue Pages", route="handbookBluepages", params="download=1", id="navsearch", title="Download a spreadsheet of all people in the blue pages of the handbook.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+		</li>
+		<li class="preview">
+			#linkto(text="Preview - Blue Pages", route="handbookBluepages", params="preview=1", class="downloadconfirm" )#
+		</li>
+		<li>
+			#linkto(text="People - Church Staff", route="handbookBluepages", params="download=1&staffonly=1", id="navsearch", title="Download a spreadsheet of all church staff.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+		</li>
+		<li class="preview">
+			#linkto(text="Preview - Church Staff", route="handbookBluepages", params="preview=1&staffonly=1", class="downloadconfirm" )#
+		</li>
+		<li>
+			#linkto(text="People - Church Staff with 'Pastor' in their title", route="handbookBluepages", params="download=1&pastoralstaffonly=1", id="navsearch", title="Download a spreadsheet of all church staff that have the word 'pastor' in their title.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+		</li>
+		<li class="preview">
+			#linkto(text="Preview - Church Staff with 'Pastor' in their title", route="handbookBluepages", params="preview=1&pastoralstaffonly=1", class="downloadconfirm" )#
+		</li>
 
-			<cfif gotRights("office")>
+		<cfif gotRights("office")>
 
-			<li>
-				#linkto(text="People - Non-Staff (ie: retired)", route="handbookBluepages", params="download=1&nonstaff=1", id="navsearch", title="Download a spreadsheet of all who are listed in the bluepages but who are NOT on staff at a church or ministry", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
-			</li>
-			<li class="preview">
-				#linkto(text="Preview - People - Non-Staff (ie: retired)", route="handbookBluepages", params="preview=1&nonstaff=1", class="downloadconfirm" )#
-			</li>
+		<li>
+			#linkto(text="People - Non-Staff (ie: retired)", route="handbookBluepages", params="download=1&nonstaff=1", id="navsearch", title="Download a spreadsheet of all who are listed in the bluepages but who are NOT on staff at a church or ministry", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+		</li>
+		<li class="preview">
+			#linkto(text="Preview - People - Non-Staff (ie: retired)", route="handbookBluepages", params="preview=1&nonstaff=1", class="downloadconfirm" )#
+		</li>
 
-			</cfif>
+		</cfif>
 
-			<li>
-				#linkto(text="Wives - Wives of people with 'Pastor' or 'Chaplain' in their title", route="handbookPeoplePastorsWives", params="download=excel", id="navsearch", title="Download a spreadsheet of all church staff that have the word 'pastor' in their title.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
-			</li>
-			
-			<li class="preview">
-				#linkto(text="Preview - Church Staff with 'Pastor' in their title", route="handbookPeoplePastorsWives", class="downloadconfirm" )#
-			</li>	
+		<li>
+			#linkto(text="Wives - Wives of people with 'Pastor' or 'Chaplain' in their title", route="handbookPeoplePastorsWives", params="download=excel", id="navsearch", title="Download a spreadsheet of all church staff that have the word 'pastor' in their title.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+		</li>
+		
+		<li class="preview">
+			#linkto(text="Preview - Church Staff with 'Pastor' in their title", route="handbookPeoplePastorsWives", class="downloadconfirm" )#
+		</li>	
 
-			<li><h3 class="text-center">Download staff of churches in a district:</h3> 
-				<cfoutput query="districts">
-					<cfif district NEQ "Empty">
-					#linkTo(text=district, route="handbookBluepages", params="download=1&staffonly=1&districtid=#districtid#", id="navsearch", title="Download a spreadsheet of all church staff in district.", class="btn btn-large btn-primary tooltip2 downloadconfirm")# 
-					</cfif>
-				</cfoutput>
-			</li>
-			<li>&nbsp;</li>
-			<li>
-				#linkto(text="AGBM", route="handbookDownloadagbm", id="navsearch", title="Download a spreadsheet of all AGBM members.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
-			</li>
+		<li><h3 class="text-center">Download staff of churches in a district:</h3> 
+			<cfoutput query="districts">
+				<cfif district NEQ "Empty">
+				#linkTo(text=district, route="handbookBluepages", params="download=1&staffonly=1&districtid=#districtid#", id="navsearch", title="Download a spreadsheet of all church staff in district.", class="btn btn-large btn-primary tooltip2 downloadconfirm")# 
+				</cfif>
+			</cfoutput>
+		</li>
+		<li>&nbsp;</li>
+		<li>
+			#linkto(text="AGBM", route="handbookDownloadagbm", id="navsearch", title="Download a spreadsheet of all AGBM members.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+		</li>
 
 		<cfif gotRights("superadmin,office")>
 
-			<li>
-				#linkto(text="Links to handbook review pages", route="handbookUpdatelinks", id="navsearch", title="Download a spreadsheet of links to church update pages", class="tooltip2 btn btn-large btn-block btn-primary")#
-			</li>
-			<li>
-				#linkto(text="Brotherhood Mutual Download", route="handbookDownloadMemberChurchesForBrotherhoodPreview", id="navsearch", title="Download a spreadsheet for Brotherhood Mutual", class="tooltip2 btn btn-large btn-block btn-primary")#
-			</li>
+		<li>
+			#linkto(text="Links to handbook review pages", route="handbookUpdatelinks", id="navsearch", title="Download a spreadsheet of links to church update pages", class="tooltip2 btn btn-large btn-block btn-primary")#
+		</li>
+		<li>
+			#linkto(text="Brotherhood Mutual Download", route="handbookDownloadMemberChurchesForBrotherhoodPreview", id="navsearch", title="Download a spreadsheet for Brotherhood Mutual", class="tooltip2 btn btn-large btn-block btn-primary")#
+		</li>
 
 		</cfif>
+	
 	</ul>
 
 </cfoutput>
