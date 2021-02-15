@@ -438,9 +438,10 @@ component extends="Wheels" {
 
 	private void function $setDownloadLayout(defaultLayout='/layout_naked', template=''){
 		if ( 
-				(isdefined("params.key") && params.key is "excel") 
-				|| (isdefined("params.format") && params.format is "excel") 
-				|| (isDefined("params.download") && params.download is "excel")
+				( isdefined("params.key") && params.key is "excel" ) 
+				|| ( isdefined("params.format") && params.format is "excel" ) 
+				|| ( isDefined("params.download") && params.download is "excel" )
+				|| ( isDefined("params.download") )
 			) {
 			renderView(template=arguments.template, layout='/layout_download', showDebugOutput="No")
 		} else {
