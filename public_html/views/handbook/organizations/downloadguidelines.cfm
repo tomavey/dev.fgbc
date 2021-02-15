@@ -7,7 +7,7 @@
 		<li>If you provide downloaded spreadsheets to staff inside your organization, you are responsible that they follow these guidelines.</li>
 		<li>Do not send downloaded spreadsheets to anyone outside of your organization.</li>
 		<li>Do not use the information in these spreadsheets for regular (weekly or monthly) mass emails. You can use this list as a one-time invitation to subscribe to regular email distribution.</li>
-		<li>If you use this list to send an email messsage to more than 30 addresses, copy that email to tomavey@fgbc.org along with an explanation of the purpose and destination or your mass email.</li>
+		<li>If you use this list to send an email messsage to more than 30 addresses, copy that email to sharmion@charisfellowhip.us along with an explanation of the purpose and destination or your mass email.</li>
 		<li>By clicking on any of the links below, you agree to follow these guidelines!</li>
 	</ol>
 
