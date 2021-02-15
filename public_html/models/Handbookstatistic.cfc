@@ -18,7 +18,18 @@
 		</cfif>
 	</cffunction>
 
-	<cffunction name="getNow">
+	<cffunction name="findLastAttYear">
+		<cfargument name='churchid' required="true" type="numeric">
+		<cfset var loc = structNew()>
+			<cfset loc.statistic = findAll(where="organizationid = #churchid#", order="updatedAt DESC")>
+			<cfif loc.statistic.recordcount>
+				<cfreturn loc.statistic.year>
+			<cfelse>
+				<cfreturn "NA">
+			</cfif>
+		</cffunction>
+
+		<cffunction name="getNow">
 	<cfset var loc = structNew()>
 	<cfset loc.return = dateAdd("yyyy",-1,now())>	
 		<cfreturn loc.return>

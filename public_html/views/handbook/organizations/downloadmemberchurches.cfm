@@ -55,6 +55,9 @@
 			Attendance
 		</th>
 		<th>
+			Last stats
+		</th>
+		<th>
 			Status
 		</th>
 
@@ -103,7 +106,10 @@
 			#$getLastAtt(id)#
 		</td>
 		<td>
-			#status#
+			#$getLastAttYear(id)#
+		</td>
+		<td>
+			#churches.status#
 		</td>
 	</tr>
 	<cfset count = count + 1>
