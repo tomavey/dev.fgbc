@@ -640,7 +640,7 @@
 			<cfset payonline.amount = payonline.amount + stat.relief>
 		</cfif>
 		<cfset payonline.url = "http://#CGI.http_host#/handbook/statistics/confirm">
-		<cflocation url="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5834/default.aspx?order_id=#payonline.orderid#&amount=#payonline.amount#&url=payonline.url">
+		<cflocation url="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5834/default.aspx?order_id=#payonline.orderid#&amount=#payonline.amount#&url=#payonline.url#">
 
 	</cffunction>
 
@@ -649,7 +649,7 @@
 	<cfargument name="statId" required="true" type="number">
 		<cfset var ii = "">
 		<cfset var orderid = ""> 
-		<cfset orderid = statId & "STATS" & churchinfo.id & churchinfo.name & churchinfo.org_city>
+		<cfset orderid = statId & "_STATS_" & churchinfo.id & "_" & churchinfo.name & churchinfo.org_city>
 		<cftry>
 			<cfloop list='-,!,_, ,",&' index='ii'>
 				<cfset orderid = replace(orderid,ii,"","all")>
@@ -694,7 +694,13 @@
 					<cfif payonline.amount GTE getOnlineMemFeeMax()>
 						<cfset payonline.amount = getOnlineMemFeeMax()>
 					</cfif>
-						<cfelse>
+					<cfif val(stat.donate)>
+						<cfset payonline.amount = payonline.amount + stat.donate>
+					</cfif>
+					<cfif val(stat.relief)>
+						<cfset payonline.amount = payonline.amount + stat.relief>
+					</cfif>
+				<cfelse>
 					<cfset renderText("this invoice does not exist")>
 				</cfif>	
 	
@@ -729,8 +735,9 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 
 <cffunction name="confirm">
 		<cfif params.status>
-			<cfset church = model("Handbookorganization").findOne(where="id=#val(params.orderid)#", include="Handbookstate")>
-			<cfset statistic = model("Handbookstatistic").findOne(where="organizationid=#val(params.orderid)# AND year = #year(now())-1#")>
+			<cfset var churchId = listToArray(params.order_id,"_")[3]>
+			<cfset church = model("Handbookorganization").findOne(where="id=#val(churchid)#", include="Handbookstate")>
+			<cfset statistic = model("Handbookstatistic").findOne(where="organizationid=#val(churchId)# AND year = #year(now())-1#")>
 			<cfset renderView(layout="/handbook/layout_handbook2")>
 			<cfset sendEmail(to=application.wheels.registrarEmail, from=application.wheels.registrarEmail, subject="Statistical Report", type="html", template="confirm")>
 		<cfelse>

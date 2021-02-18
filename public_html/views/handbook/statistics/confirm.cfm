@@ -28,10 +28,10 @@
 	</li>
 	<li>&nbsp;</li>
 	<li>
-		Order id: #params.orderid#
+		Order id: #params.order_id#
 	</li>
 	<li>
-		Amount: #dollarFormat(params.total)#
+		Amount: #dollarFormat(params.amount)#
 	</li>
 	<li>
 		Status:
@@ -40,9 +40,6 @@
 		<cfelse>
 			Not Paid	
 		</cfif>	
-	</li>
-	<li>
-		Name on card: #params.nameoncard#
 	</li>
 
 </ul>
