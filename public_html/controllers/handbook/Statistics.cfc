@@ -230,14 +230,22 @@
 		<cfset var ii = "">
 		<cftry>
 		<cfloop list="att,members,memfee,members,baptisms,conversions" index="ii">
-			<cfif isDefined("params.handbookstatistic[ii]") && isValid("string",params.handbookstatistic[ii])>
+			<cfif isDefined("params.handbookstatistic[ii]") && len(params.handbookstatistic[ii]) && isValid("string",params.handbookstatistic[ii])>
 				<cfset params.handbookstatistic[ii] = LSParseNumber(params.handbookstatistic[ii])>	
 			</cfif>
 		</cfloop>
 		<cfcatch></cfcatch>
 		</cftry>
 
-		<cfif !isNumeric(params.handbookstatistic.donate) or !isNumeric(params.handbookstatistic.relief)>
+		<!---Clean up donations and relief so that they amts can be added to payment online--->
+		<cfset params.handbookstatistic.donate = replace(params.handbookstatistic.donate,"$","","all")>
+		<cfset params.handbookstatistic.donate = replace(params.handbookstatistic.donate,",","","all")>
+		<cfset params.handbookstatistic.donate = val(params.handbookstatistic.donate)>
+		<cfset params.handbookstatistic.relief = replace(params.handbookstatistic.relief,"$","","all")>
+		<cfset params.handbookstatistic.relief = replace(params.handbookstatistic.relief,",","","all")>
+		<cfset params.handbookstatistic.relief = val(params.handbookstatistic.relief)>
+
+		<cfif !isNumeric(params.handbookstatistic.donate) || !isNumeric(params.handbookstatistic.relief)>
 			<cfset session.handbookstatistic = params.handbookstatistic>
 			<cfset handbookstatistic = params.handbookstatistic>
 			<cfset handbookstatistic.donate = "">
@@ -558,7 +566,7 @@
 		if ( !isLocalMachine() && isObject(stat) && isObject(church) ) {
 			sendEmail(to=getSetting("HandbookStatsReviewer"), from=getSetting('HandbookStatsReviewer'), subject="New Stats Submitted", type="html", template="emailNotifyOfficeOfNewStat");
 		} else {
-			cfthrow(message="Email notification would be sent if not on localhost:")
+			consoleLog("Email notification would be sent if not on localhost:")
 		}
 		return stat;
 		}
@@ -625,8 +633,14 @@
 		<cfif payonline.amount GTE getOnlineMemFeeMax()>
 			<cfset payonline.amount = getOnlineMemFeeMax()>
 		</cfif>
+		<cfif val(stat.donate)>
+			<cfset payonline.amount = payonline.amount + stat.donate>
+		</cfif>
+		<cfif val(stat.relief)>
+			<cfset payonline.amount = payonline.amount + stat.relief>
+		</cfif>
 		<cfset payonline.url = "http://#CGI.http_host#/handbook/statistics/confirm">
-		<cfset renderView(layout="/handbook/layout_handbook2")>
+		<cflocation url="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5834/default.aspx?order_id=#payonline.orderid#&amount=#payonline.amount#&url=payonline.url">
 
 	</cffunction>
 

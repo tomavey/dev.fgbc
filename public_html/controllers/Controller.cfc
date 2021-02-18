@@ -574,4 +574,16 @@ component extends="Wheels" {
 		}
 	}
 
+	public function consoleLog(newContent){
+    var file = getBaseFilesFolder() & "consolelog.html"
+    var content = fileRead(file)  
+    fileWrite(file, newContent & now() & "<br/><br/>" & content );
+    var content = fileRead(file)  
+    // ddd(content)
+  }
+
+	public function getBaseFilesFolder( folder, baseFolder=GetDirectoryFromPath(GetBaseTemplatePath()) ){
+    return baseFolder & "files\"
+  }
+
 }
