@@ -1,7 +1,10 @@
 <div class="span10 offset1">
-
+<cfoutput>
+	
 	<h2>Use of Charis Fellowship Handbook data</h2>
-	<p>You have been given access to downloads of church and people data from the Charis Fellowship annual handbook (directory). In order to protect people and organizations listed in the handbook, you are to observe the following guidelines:</p>
+	<p>
+		You have been given access to downloads of church and people data from the Charis Fellowship annual handbook (directory). In order to protect people and organizations listed in the handbook, you are to observe the following guidelines:
+	</p>
 	<ol>
 		<li>Do not share your login information with anyone else. If you need access for administrative staff, that person should create and user account on charisfellowship.us and use the contact form on charisfellowship.us to request access to the handbook. Please allow 2 or 3 days for that access to be granted.</li>
 		<li>If you provide downloaded spreadsheets to staff inside your organization, you are responsible that they follow these guidelines.</li>
@@ -13,7 +16,7 @@
 
 	<hr/>
 
-<cfoutput>
+
 	<ul>
 		<li>
 			#linkto(text="Member Churches", route="handbookDownloadmembers", id="navsearch",  params="download=1", title="Download Spreadsheet of Member Churches", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#

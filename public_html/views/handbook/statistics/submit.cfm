@@ -8,8 +8,27 @@
 	<cfif FileExists(ExpandPath(request.pdfForm))>
 		<p>#linkTo(text="Download the PDF form with extra information.", href="#request.pdfForm#", class="btn")#</p>
 	</cfif>
-
+	<cfif flashKeyExists("error")>
+		<p class="alert alert-error">
+				#flash("error")#
+		</p>
+	</cfif>
+<p>
+		<span class="text-error lead">Special COVID instructions:</span> Due to the challenges of recording average attendance during 2020, Charis Fellowship delegates made the decision last July to use the average weekly attendance details for 2019 to determine this year's Fellowship Fee.
+		<cftry>
+			<cfif handbookstatistic.attyear LT 2019 && handbookstatistic.attyear GTE 2017>
+				<span>However, according to our records your church did not send statistics last year for 2019. The last attendance stats we have for your church was #handbookstatistic.att# for #handbookstatistic.attyear#. If you have updated average attendance figures (or even estimates) for 2019 please edit the attendance number provided below.</span>
+			</cfif>
+			<cfif handbookstatistic.attyear LT 2017>
+				<span>However, according to our records your church did not send statistics last year for 2019. If you have updated average attendance figures (or even estimates) for 2019 please edit the attendance number provided below.</span>
+			</cfif>
+			<cfcatch></cfcatch>
+		</cftry>
+	</p>
+			<cftry>
 				#errorMessagesFor("handbookstatistic")#
+				<cfcatch></cfcatch>
+			</cftry>
 
 				#startFormTag(action="create")#
 

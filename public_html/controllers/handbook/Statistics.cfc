@@ -7,7 +7,7 @@
 		<cfset usesLayout(template="/handbook/layout_admin")>
 		<cfset filters(through="isAuthorized", only="new,edit,allCurrentNotPaid")>
 		<cfset filters(through="paramsKeyRequired", only="sizeByPercent,getSummary")>
-		<cfset filters(through="setReturn", only="index")>
+		<cfset filters(through="setReturn", only="index,submit")>
 	</cffunction>
 
 	<cffunction name="isAuthorized">
@@ -140,19 +140,43 @@
 			<cfset thisorg = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
 		</cfif>
 		<cfset handbookstatistic.year = year(now())-1>
+		<cfif isCovidStatsYear()>
+			<cfset handbookstatistic.attyear = 0>
+		</cfif>
 		<cfset organizations = model("Handbookorganization").findall(where='statusid in (1,4)', include="Handbookstate", order="org_city,state_mail_abbrev,name")>
 	</cffunction>
 
+<cfscript>
+	function isCovidStatsYear(){
+		if ( isAfter("2021-01-01") && isBefore("2021-12-31") ) { return true }
+		return false
+	}
+</cfscript>	
+
 	<!--- handbook-statistics/submit --->
 	<cffunction name="submit">
+
+		<cfif isDefined("params.churchid")>
+			<cfset params.key = params.churchid>
+		</cfif>
+
 		<cfif !isdefined("params.key") && !isdefined("params.churchid")>
 			  <cfset flashInsert(error="Welcome! Please select your church from this drop-down list...")>
 			  <cfset redirectTo(action="getChurchid")>
 		</cfif>
+
 		<cfif isDefined("params.extendDeadline")>
 			<cfset session.statistics.extendDeadLine = true>
 		</cfif>
-		<cfset handbookstatistic = model("Handbookstatistic").new()>
+
+		<cfif StructKeyExists(session, "handbookstatistic") && isDefined("session.handbookstatistic")>
+			<cfset params.handbookstatistic = session.handbookstatistic>
+			<cfset structDelete(session,"handbookstatistic")>
+			<cfset handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)>
+		<cfelse>
+			<cfset handbookstatistic = model("Handbookstatistic").new()>
+		</cfif>	
+
 		<cfif isdefined("params.key") || isDefined("params.churchid")>
 			<cfset params.key = keyFromChurchid()>
 			<cfset handbookstatistic.organizationid = params.key>
@@ -160,12 +184,25 @@
 		<cfelse>
 			<cfset renderText("Church not found.")>
 		</cfif>
+
+		<!--- <cfset ddd(params)> --->
+
+		<cfif isCovidStatsYear() && ($getLastAttYear(params.key) GT 2017)>
+			<cfset handbookstatistic.att = $getLastAtt(params.key)>
+			<cfset handbookstatistic.attYear = $getLastAttYear(params.key)>
+		<cfelse>	
+			<cfset handbookstatistic.att = ''>
+			<cfset handbookstatistic.attYear = ''>
+		</cfif>
+
 		<cfif !isDefined("params.year")>
 			<cfset handbookstatistic.year = year(now())-1>
 		<cfelse>
 			<cfset handbookstatistic.year = params.year>
 		</cfif>	
+
 		<cfset organizations = model("Handbookorganization").findall(where='statusid = 1', include="Handbookstate", order="org_city,state_mail_abbrev,name")>
+
 		<cfset renderView(layout="/handbook/layout_handbook2")>
 	</cffunction>
 
@@ -174,6 +211,9 @@
 		<!--- Find the record --->
    	<cfset handbookstatistic = model("Handbookstatistic").findByKey(params.key)>
 		<cfset organizations = model("Handbookorganization").findall(include="Handbookstate", order="selectName")>
+		<cfif isCovidStatsYear()>
+			<cfset handbookstatistic.attyear = "">
+		</cfif>
 
     	<!--- Check if the record exists --->
 	    <cfif NOT IsObject(handbookstatistic)>
@@ -185,8 +225,9 @@
 
 	<!--- handbook-statistics/create --->
 	<cffunction name="create">
-		<cfset var ii = "">
 
+		<!---Loop through the stats field and make sure the form param for each field is numberi---> 
+		<cfset var ii = "">
 		<cftry>
 		<cfloop list="att,members,memfee,members,baptisms,conversions" index="ii">
 			<cfif isDefined("params.handbookstatistic[ii]") && isValid("string",params.handbookstatistic[ii])>
@@ -196,26 +237,36 @@
 		<cfcatch></cfcatch>
 		</cftry>
 
+		<cfif !isNumeric(params.handbookstatistic.donate) or !isNumeric(params.handbookstatistic.relief)>
+			<cfset session.handbookstatistic = params.handbookstatistic>
+			<cfset handbookstatistic = params.handbookstatistic>
+			<cfset handbookstatistic.donate = "">
+			<cfset handbookstatistic.relief = "">
+			<cfset flashInsert(error="Contributions in lines 8 and 9 must be entered as numbers")>
+			<cfset returnBack()>
+		</cfif>
+
 
 		<cfset handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)>
 		<cfset organizations = model("Handbookorganization").findall(include="Handbookstate", order="selectName")>
-
+<!--- <cfset ddd(params)> --->
 
 		<!--- Verify that the handbookstatistic creates successfully --->
 		<cfif handbookstatistic.save()>
-			<cfif gotRights("superadmin")>
+			<cfif gotRights("office")>
 				<cfset notifyOfficeOfNewStat(handbookstatistic.id)>
 			</cfif>
 			<cfset flashInsert(success="The handbookstatistic was created successfully.")>
 			<cfif isdefined("params.pay") and params.pay>
-<!---			
-<cfdump var="#handbookstatistic.properties()#">
+			
+<!--- <cfdump var="#handbookstatistic.properties()#">
 <cfdump var="#params#">
-<cfabort>
---->
-	            <cfset redirectTo(action="payonline", params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#&statId=#handbookstatistic.id#")>
+<cfabort> --->
+
+        <cfset redirectTo(action="payonline", params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#&statId=#handbookstatistic.id#")>
 			<cfelse>
-	            <cfset returnBack()>
+				<!--- <cfset ddd(params)> --->
+				<cfset returnBack()>
 			</cfif>
 		<!--- Otherwise --->
 		<cfelse>
@@ -995,6 +1046,7 @@ abort;
 	public function testPayapproved(){
 		redirectTo(url="https://charisfellowship.us/home/thankyou?status=True&auth_code=081549&auth_response=APPROVED&avs_code=Z&cvv2_code=M&order_id=3466visionconference2019Avey&reference_number=143969803&amount=60&storename=fellowshipofgracen&processor=fifththird&mid=020004948386&tid=001")
 	}
+
 </cfscript>
 
 </cfcomponent>

@@ -435,16 +435,6 @@ component extends="Controller" output="false" {
 		return ""
 	}
 
-	function $getLastAtt(required numeric churchid) {
-		var lastAtt = model("Handbookstatistic").findLastAtt(arguments.churchid)
-		return lastAtt
-	}
-
-	function $getLastAttYear(required numeric churchid) {
-		var lastAttYear = model("Handbookstatistic").findLastAttYear(arguments.churchid)
-		return lastAttYear
-	}
-
 	<!---handbookDownloadMemberChurchesForBrotherhood	GET	/handbook/organizations/brotherhood--->
 	function downloadMemberChurchesForBrotherhood(){
 		var whereString = "statusId in (1,2,8,9,10,11)"

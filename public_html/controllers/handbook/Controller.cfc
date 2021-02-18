@@ -136,6 +136,19 @@
 		return fileExists(fileToCheck);
 	}
 
+//used by handbook organizations download and by statform
+    function $getLastAtt(required numeric churchid) {
+		var lastAtt = model("Handbookstatistic").findLastAtt(arguments.churchid)
+		return lastAtt
+	}
+
+//used by handbook organizations download and by statform
+    function $getLastAttYear(required numeric churchid) {
+		var lastAttYear = model("Handbookstatistic").findLastAttYear(arguments.churchid)
+		return lastAttYear
+	}
+
+
 </cfscript>
 
 <cffunction name="delegatesSubmitIsOpen">

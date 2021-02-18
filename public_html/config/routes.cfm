@@ -347,6 +347,7 @@
 			.get(name="failedPayment", pattern="/statistics/paymentfailed/", controller="statistics", action="paymentfailed")
 			.post(name="feeProjection", pattern="/statistics/projection/", controller="statistics", action="getFeeTotal")
 			.get(name="closedChurches", pattern="/statistics/closedchurches", controller="statistics", action="closedchurches")
+			.get(name="createStats", pattern="/statistics/create", controller="statistics", action="create")
 
 			.post(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")
 			.get(name="Searchtags", pattern="/tags/search/", controller="tags", action="search")

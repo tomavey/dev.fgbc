@@ -1,21 +1,23 @@
-<cfif isdefined("params.key")>
-	<h1>Create new stat for <br/><cfoutput>#thisOrg.selectName#</cfoutput></h1>
-<cfelse>
-	<h1>Create new stat:</h1>
-</cfif>
-
-<cfoutput>
-
-			#errorMessagesFor("handbookstatistic")#
+<div class="span10">
+	<cfif isdefined("params.key")>
+		<h1>Create new statistical record for <br/><cfoutput>#thisOrg.selectName#</cfoutput></h1>
+	<cfelse>
+		<h1>Create new statistical record:</h1>
+	</cfif>
 	
-			#startFormTag(action="create")#
+	<cfoutput>
+	
+				#errorMessagesFor("handbookstatistic")#
 		
-			#includePartial(partial="form")#	
-					
-			#submitTag()#
-				
-			#endFormTag()#
+				#startFormTag(action="create")#
 			
-
-#linkTo(text="Return to the listing", action="index")#
-</cfoutput>
+				#includePartial(partial="form")#	
+						
+				#submitTag()#
+					
+				#endFormTag()#
+				
+	
+	#linkTo(text="Return to the listing", action="index")#
+	</cfoutput>
+</div>
