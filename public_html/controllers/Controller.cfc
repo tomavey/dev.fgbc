@@ -575,16 +575,15 @@ component extends="Wheels" {
 	}
 
 	public function consoleLog(newContent){
-		try {
 			var newContentString = serialize(newContent)
 			var file = getBaseFilesFolder() & "consolelog.html"
+			if ( !fileExists(file) ) {
+				fileWrite(file,"New Console Log File")
+			}
 			var content = fileRead(file)
 			var $now = dateformat(now())  
 			fileWrite(file, $now & ": " & newContentString & "<br/><br/>" & content );
 			var content = fileRead(file)  
-		} catch (e) {
-			//do nothing
-		}
     // ddd(content)
   }
 
