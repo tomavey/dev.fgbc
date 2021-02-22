@@ -750,6 +750,7 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 --->
 
 <cffunction name="confirm">
+	<cfset consolelog(cgi.query_string)>
 		<cfif params.status>
 			<cfset var churchId = listToArray(params.order_id,"_")[3]>
 			<cfset church = model("Handbookorganization").findOne(where="id=#val(churchid)#", include="Handbookstate")>
