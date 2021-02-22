@@ -325,6 +325,7 @@
 				.post(name="create", pattern="create/")
 				.put(name="update", pattern="update/")
 				.delete(name="delete", pattern="delete/")
+				.get(name="delete", pattern="delete/")
 			.end()
 
 			.get(name="statlist", pattern="/liststatistics/", controller="statistics", action="list")
