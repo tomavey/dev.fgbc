@@ -1,7 +1,5 @@
 //TODO - Convert to cfscript
 <cfcomponent extends="Controller" output="false">
-<!---Added just in case--->
-
 
 	<cffunction name="config">
 		<cfset usesLayout(template="/handbook/layout_admin")>
@@ -243,10 +241,8 @@
 </cfscript>	
 
 	<!--- handbook-statistics/create --->
-	<cffunction name="create">
-
-		<cfscript>
-
+<cfscript>
+		function create(){
 			//check to make sure att and donation and relief amounts are numeric
 			//If not, reload form with error message at the top.
 			var formIsValid = true
@@ -276,32 +272,29 @@
 			organizations = model("Handbookorganization").findall(include="Handbookstate", order="selectName")
 		//ddd(params)>
 
-		</cfscript>
+			if ( handbookstatistic.save() )	{
+				if ( getSetting("notifyOfficeWhenStatsSubmitted") ) {
+					notifyOfficeOfNewStat(handbookstatistic.id)	
+				}
+				flashInsert(success="The handbookstatistic was created successfully.")
+				if ( isdefined("params.pay") and params.pay ) {
+					redirectTo(action="payonline", params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#&statId=#handbookstatistic.id#")
+				} else {
+					returnBack()
+				}	
+			} else {
+				flashInsert(error="There was an error creating the handbookstatistic.")
+				if ( isdefined("params.pay") and params.pay ) {
+					renderView(action="submit")
+				} else {
+					renderView(action="new")
+				}
+			}			
 
+		}
 
-		<!--- Verify that the handbookstatistic creates successfully --->
-		<cfif handbookstatistic.save()>
-			<cfif gotRights("office")>
-				<cfset notifyOfficeOfNewStat(handbookstatistic.id)>
-			</cfif>
-			<cfset flashInsert(success="The handbookstatistic was created successfully.")>
-			<cfif isdefined("params.pay") and params.pay>
-			
-        <cfset redirectTo(action="payonline", params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#&statId=#handbookstatistic.id#")>
-			<cfelse>
-				<!--- <cfset ddd(params)> --->
-				<cfset returnBack()>
-			</cfif>
-		<!--- Otherwise --->
-		<cfelse>
-			<cfset flashInsert(error="There was an error creating the handbookstatistic.")>
-			<cfif isdefined("params.pay") and params.pay>
-				<cfset renderView(action="submit")>
-			<cfelse>
-				<cfset renderView(action="new")>
-			</cfif>
-		</cfif>
-	</cffunction>
+</cfscript>
+
 
 	<!--- handbook-statistics/update --->
 	<cffunction name="update">
@@ -582,7 +575,7 @@
 		if ( !isLocalMachine() && isObject(stat) && isObject(church) ) {
 			sendEmail(to=getSetting("HandbookStatsReviewer"), from=getSetting('HandbookStatsReviewer'), subject="New Stats Submitted", type="html", template="emailNotifyOfficeOfNewStat");
 		} else {
-			consoleLog("Email notification would be sent if not on localhost:")
+			consoleLog("Email notification would be sent for #church.selectName# if not on localhost:")
 		}
 		return stat;
 		}
@@ -632,37 +625,45 @@
 	</cffunction>
 
 	<cffunction name="payonline">
+		<!--- get method with params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#&statId=#handbookstatistic.id#" --->
 
 		<cfset payonline = structnew()>
 		<cfset payonline.merchant = "fellowshipofgracen">
-		<cfset church = model("Handbookorganization").findOne(where="id=#params.churchid#", include="handbookstate", order="createdAt DESC")>
+
+		<cfset church = model("Handbookorganization").findOne(where="id=#params.churchid#", include="state", order="createdAt DESC")>
 		<cfset church.name = replace(church.name," ","","all")>
 		<cfset church.org_city = replace(church.org_city," ","","all")>
 		<cfset payonline.orderid = createOrderId(church.properties(),params.statId)>
-		<cfif !isDefined("params.year")>
-			<cfset payonline.usethisyear = year(now())-1>
-		<cfelse>
-			<cfset payonline.usethisyear = params.year>
-		</cfif>	
-		<cfset stat = model("handbookstatistics").findOne(where="organizationid=#params.churchid# AND year = #payonline.usethisyear#", order="id DESC")>
-		<cfset payonline.amount = (val(stat.att) * getOnlineMemFee())>
-		<cfif payonline.amount GTE getOnlineMemFeeMax()>
-			<cfset payonline.amount = getOnlineMemFeeMax()>
-		</cfif>
-		<cfif val(stat.donate)>
-			<cfset payonline.amount = payonline.amount + stat.donate>
-		</cfif>
-		<cfif val(stat.relief)>
-			<cfset payonline.amount = payonline.amount + stat.relief>
-		</cfif>
-		<cfset payonline.url = "http://#CGI.http_host#/handbook/statistics/confirm">
+
+		<cfset payonline.amount = getPayonlineAmount(params.statId)>
+
 		<cfif isLocalMachine()>
 			<!--- <cfset ddd(payonline)> --->
+			<cfset payonline.url = "http://#CGI.http_host#/handbook/statistics/confirm">
 			<cflocation url="#payonline.url#/?status=True&auth_code=014154&auth_response=APPROVED&avs_code=N&cvv2_code=M&order_id=#payonline.orderid#&reference_number=216048353&amount=#payonline.amount#&storename=fellowshipofgracen&processor=fifththird&mid=020004948386&tid=001">			
 		</cfif>
-		<cflocation url="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5835/default.aspx?order_id=#payonline.orderid#&amount=#payonline.amount#&url=#payonline.url#">
+		<cflocation url="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5835/default.aspx?order_id=#payonline.orderid#&amount=#payonline.amount#">
 
 	</cffunction>
+
+<cfscript>
+	private function getPayonlineAmount(statId){
+		var amount
+		var stat = model("handbookstatistics").findOne(where="id=#params.statid#")
+		amount = (val(stat.att) * getOnlineMemFee())
+		if ( amount GTE getOnlineMemFeeMax() ) {
+			amount = getOnlineMemFeeMax()
+		}
+		if ( val(stat.donate) ) {
+			amount = amount + stat.donate
+		}
+		if ( val(stat.relief) ) {
+			amount = amount + stat.relief
+		}
+		return amount
+	}
+
+</cfscript>	
 
 	<cffunction name="createOrderId">
 	<cfargument name="churchinfo" required="true" type="struct">
@@ -757,8 +758,11 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 	<cfset consolelog(cgi.query_string)>
 		<cfif params.status>
 			<cfset var churchId = listToArray(params.order_id,"_")[3]>
+			<cfset var statId = listToArray(params.order_id,"_")[1]>
 			<cfset church = model("Handbookorganization").findOne(where="id=#val(churchid)#", include="Handbookstate")>
-			<cfset statistic = model("Handbookstatistic").findOne(where="organizationid=#val(churchId)# AND year = #year(now())-1#")>
+			<!--- not sure why this was used. It gets the last stat for the churchId rather than the stat by statid -tda 2/22/21--->
+			<!--- <cfset statistic = model("Handbookstatistic").findOne(where="organizationid=#val(churchId)# AND year = #year(now())-1#")> --->
+			<cfset statistic = model("Handbookstatistic").findOne(where="id=#statId#")>
 			<cfset renderView(layout="/handbook/layout_handbook2")>
 			<cfset sendEmail(to=application.wheels.registrarEmail, from=application.wheels.registrarEmail, subject="Statistical Report", type="html", template="confirm")>
 		<cfelse>

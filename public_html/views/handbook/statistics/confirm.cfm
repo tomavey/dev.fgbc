@@ -27,6 +27,13 @@
 	</li>
 	<li>&nbsp;</li>
 	<li>
+		Donated funds to help Charis Churches having difficulty covering their fellowship fee this year: #statistic.donate#
+	</li>
+	<li>
+		Donated funds for the Charis Fellowship COVID Emergency Relief Fund: #statistic.relief#
+	</li>
+	<li>&nbsp;</li>
+	<li>
 		Order id: #params.order_id#
 	</li>
 	<li>
