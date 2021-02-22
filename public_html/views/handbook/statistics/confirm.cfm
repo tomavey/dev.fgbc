@@ -12,7 +12,6 @@
 
 	<li>
 		Attendance: #statistic.att#
-		
 	</li>
 	<li>
 		Small Group: #statistic.ss#
@@ -40,6 +39,9 @@
 		<cfelse>
 			Not Paid	
 		</cfif>	
+		<cfif isLocalMachine()>
+			(test)
+		</cfif>
 	</li>
 
 </ul>

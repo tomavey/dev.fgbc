@@ -656,6 +656,10 @@
 			<cfset payonline.amount = payonline.amount + stat.relief>
 		</cfif>
 		<cfset payonline.url = "http://#CGI.http_host#/handbook/statistics/confirm">
+		<cfif isLocalMachine()>
+			<!--- <cfset ddd(payonline)> --->
+			<cflocation url="#payonline.url#/?status=True&auth_code=014154&auth_response=APPROVED&avs_code=N&cvv2_code=M&order_id=#payonline.orderid#&reference_number=216048353&amount=#payonline.amount#&storename=fellowshipofgracen&processor=fifththird&mid=020004948386&tid=001">			
+		</cfif>
 		<cflocation url="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5835/default.aspx?order_id=#payonline.orderid#&amount=#payonline.amount#&url=#payonline.url#">
 
 	</cffunction>
@@ -667,7 +671,7 @@
 		<cfset var orderid = ""> 
 		<cfset orderid = statId & "_STATS_" & churchinfo.id & "_" & churchinfo.name & churchinfo.org_city>
 		<cftry>
-			<cfloop list='-,!,_, ,",&' index='ii'>
+			<cfloop list='-,!, ,",&' index='ii'>
 				<cfset orderid = replace(orderid,ii,"","all")>
 			</cfloop>
 		<cfcatch>
