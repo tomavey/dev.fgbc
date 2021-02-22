@@ -156,26 +156,30 @@
 	<!--- handbook-statistics/submit --->
 	<cffunction name="submit">
 
-		<cfif isDefined("params.churchid")>
-			<cfset params.key = params.churchid>
-		</cfif>
+		<cfscript>
+			//Lets allow the church id to come from params.key OR params.churchid
+			if ( isDefined("params.churchId") ) { params.key = params.churchId }
 
-		<cfif !isdefined("params.key") && !isdefined("params.churchid")>
-			  <cfset flashInsert(error="Welcome! Please select your church from this drop-down list...")>
-			  <cfset redirectTo(action="getChurchid")>
-		</cfif>
+			//If there is not church id provided redirect to the getChurchId Page
+			if ( !isDefined("params.key") ) {
+				flashInsert(error="Welcome! Please select your church from this drop-down list...")
+				redirectTo(action="getChurchid")
+			}
 
-		<cfif isDefined("params.extendDeadline")>
-			<cfset session.statistics.extendDeadLine = true>
-		</cfif>
+			//This extends the memfee deadline by 3 months if extendDeadline is in params (query string)
+			if ( isDefined("params.extendDeadline") ) {
+				session.statistics.extendDeadLine = true
+			}
 
-		<cfif StructKeyExists(session, "handbookstatistic") && isDefined("session.handbookstatistic")>
-			<cfset params.handbookstatistic = session.handbookstatistic>
-			<cfset structDelete(session,"handbookstatistic")>
-			<cfset handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)>
-		<cfelse>
-			<cfset handbookstatistic = model("Handbookstatistic").new()>
-		</cfif>	
+			//create the handbookstatistic object either as a mew object or from a session stored from a previous object that failed validation
+			if ( StructKeyExists(session, "handbookstatistic") && isDefined("session.handbookstatistic") ) {
+				params.handbookstatistic = session.handbookstatistic
+				structDelete(session,"handbookstatistic")
+				handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)
+			} else {
+				handbookstatistic = model("Handbookstatistic").new()
+			}
+		</cfscript>
 
 		<cfif isdefined("params.key") || isDefined("params.churchid")>
 			<cfset params.key = keyFromChurchid()>
@@ -223,41 +227,57 @@
 			<cfset formaction = "update">
 	</cffunction>
 
+<cfscript>
+
+	private function makeStatValid(stat, allowEmpty) {
+		if ( !len(stat)  && allowEmpty ) { return stat }
+		stat = replace(stat,"$","","all")
+		stat = replace(stat,",","","all")
+		if ( isNumeric(stat) ) {
+				return stat
+			} else {
+				return false
+			}
+	}
+
+</cfscript>	
+
 	<!--- handbook-statistics/create --->
 	<cffunction name="create">
 
-		<!---Loop through the stats field and make sure the form param for each field is numberi---> 
-		<cfset var ii = "">
-		<cftry>
-		<cfloop list="att,members,memfee,members,baptisms,conversions" index="ii">
-			<cfif isDefined("params.handbookstatistic[ii]") && len(params.handbookstatistic[ii]) && isValid("string",params.handbookstatistic[ii])>
-				<cfset params.handbookstatistic[ii] = LSParseNumber(params.handbookstatistic[ii])>	
-			</cfif>
-		</cfloop>
-		<cfcatch></cfcatch>
-		</cftry>
+		<cfscript>
 
-		<!---Clean up donations and relief so that they amts can be added to payment online--->
-		<cfset params.handbookstatistic.donate = replace(params.handbookstatistic.donate,"$","","all")>
-		<cfset params.handbookstatistic.donate = replace(params.handbookstatistic.donate,",","","all")>
-		<cfset params.handbookstatistic.donate = val(params.handbookstatistic.donate)>
-		<cfset params.handbookstatistic.relief = replace(params.handbookstatistic.relief,"$","","all")>
-		<cfset params.handbookstatistic.relief = replace(params.handbookstatistic.relief,",","","all")>
-		<cfset params.handbookstatistic.relief = val(params.handbookstatistic.relief)>
+			//check to make sure att and donation and relief amounts are numeric
+			//If not, reload form with error message at the top.
+			var formIsValid = true
+			var fieldsMustBeNumberOrEmpty = ["donate","relief"]
+			var fieldsMustBeNumberNOTEmpty = ["att"]
+			for ( f in fieldsMustBeNumberOrEmpty ) {
+				params.handbookstatistic[f] = makeStatValid(stat = params.handbookstatistic[f], allowEmpty = true)
+				if ( params.handbookstatistic[f] == false ) { formIsValid = false }
+			}
+			for ( f in fieldsMustBeNumberNOTEmpty ) {
+				params.handbookstatistic[f] = makeStatValid(stat = params.handbookstatistic[f], allowEmpty = false)
+				if ( params.handbookstatistic[f] == false ) { formIsValid = false }
+			}
 
-		<cfif !isNumeric(params.handbookstatistic.donate) || !isNumeric(params.handbookstatistic.relief)>
-			<cfset session.handbookstatistic = params.handbookstatistic>
-			<cfset handbookstatistic = params.handbookstatistic>
-			<cfset handbookstatistic.donate = "">
-			<cfset handbookstatistic.relief = "">
-			<cfset flashInsert(error="Contributions in lines 8 and 9 must be entered as numbers")>
-			<cfset returnBack()>
-		</cfif>
+			//if the form is not valid, reload form with error message at top
+			if ( !formIsValid ) {
+				session.handbookstatistic = params.handbookstatistic
+				handbookstatistic = params.handbookstatistic
+				handbookstatistic.att = ""
+				handbookstatistic.donate = ""
+				handbookstatistic.relief = ""
+				flashInsert(error="Attendance on line 1 must be a number. Lines 8 and 9 must be entered as numbers or left blank")
+				returnBack()
+			}
 
+			handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)
+			organizations = model("Handbookorganization").findall(include="Handbookstate", order="selectName")
+		//ddd(params)>
 
-		<cfset handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)>
-		<cfset organizations = model("Handbookorganization").findall(include="Handbookstate", order="selectName")>
-<!--- <cfset ddd(params)> --->
+		</cfscript>
+
 
 		<!--- Verify that the handbookstatistic creates successfully --->
 		<cfif handbookstatistic.save()>
@@ -267,10 +287,6 @@
 			<cfset flashInsert(success="The handbookstatistic was created successfully.")>
 			<cfif isdefined("params.pay") and params.pay>
 			
-<!--- <cfdump var="#handbookstatistic.properties()#">
-<cfdump var="#params#">
-<cfabort> --->
-
         <cfset redirectTo(action="payonline", params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#&statId=#handbookstatistic.id#")>
 			<cfelse>
 				<!--- <cfset ddd(params)> --->
@@ -640,7 +656,7 @@
 			<cfset payonline.amount = payonline.amount + stat.relief>
 		</cfif>
 		<cfset payonline.url = "http://#CGI.http_host#/handbook/statistics/confirm">
-		<cflocation url="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5834/default.aspx?order_id=#payonline.orderid#&amount=#payonline.amount#&url=#payonline.url#">
+		<cflocation url="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5835/default.aspx?order_id=#payonline.orderid#&amount=#payonline.amount#&url=#payonline.url#">
 
 	</cffunction>
 

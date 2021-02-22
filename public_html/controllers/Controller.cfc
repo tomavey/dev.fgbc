@@ -575,9 +575,11 @@ component extends="Wheels" {
 	}
 
 	public function consoleLog(newContent){
+		var newContentString = serialize(newContent)
     var file = getBaseFilesFolder() & "consolelog.html"
-    var content = fileRead(file)  
-    fileWrite(file, newContent & now() & "<br/><br/>" & content );
+    var content = fileRead(file)
+		var $now = dateformat(now())  
+    fileWrite(file, $now & ": " & newContentString & "<br/><br/>" & content );
     var content = fileRead(file)  
     // ddd(content)
   }
