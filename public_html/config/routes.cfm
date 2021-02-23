@@ -316,6 +316,7 @@
 
 			.controller("statistics")
 				.get(name="index", pattern="/")
+				.get(name="list", pattern="list/")
 				.get(name="welcome", pattern="welcome")
 				.get(name="show", pattern="show/")
 				.get(name="new", pattern="new/")
