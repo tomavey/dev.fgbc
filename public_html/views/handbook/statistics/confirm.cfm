@@ -27,6 +27,19 @@
 	</li>
 	<li>&nbsp;</li>
 	<li>
+		Celebrations: #statistic.celebrate#
+		
+	</li>
+	<li>
+		Challenges: #statistic.assist#
+		
+	</li>
+	<li>
+		Pray for: #statistic.prayer#
+		
+	</li>
+	<li>&nbsp;</li>
+	<li>
 		Donated funds to help Charis Churches having difficulty covering their fellowship fee this year: #statistic.donate#
 	</li>
 	<li>
