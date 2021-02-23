@@ -44,7 +44,7 @@
 					<cfcol header="Status: " text="#enteredBy#" />
 
 					<cfif gotRights("superadmin,office")>
-						<cfcol header="&nbsp;" text="#showTag(organizationid)#&nbsp;#editTag()#&nbsp;#deleteTag(class="notajax")#" />
+						<cfcol header="&nbsp;" text="#showTag(organizationid)#&nbsp;#editTag()#&nbsp;#deleteTag(class="notajax")##iif(comment=='test',DE('TEST'),'')#" />
 					</cfif>
 </cftable>
 </div>
