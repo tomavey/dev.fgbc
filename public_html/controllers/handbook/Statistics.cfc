@@ -630,13 +630,14 @@
 		<cfset payonline.merchant = "fellowshipofgracen">
 
 		<cfset church = model("Handbookorganization").findOne(where="id=#params.churchid#", include="state", order="createdAt DESC")>
+		<cfset stat = model("Handbookstatistic").findOne(where="id=#params.statId#")>
 		<cfset church.name = replace(church.name," ","","all")>
 		<cfset church.org_city = replace(church.org_city," ","","all")>
 		<cfset payonline.orderid = createOrderId(church.properties(),params.statId)>
 
 		<cfset payonline.amount = getPayonlineAmount(params.statId)>
 
-		<cfif isLocalMachine()>
+		<cfif isLocalMachine() || stat.comment == "test">
 			<!--- <cfset ddd(payonline)> --->
 			<cfset payonline.url = "http://#CGI.http_host#/handbook/statistics/confirm">
 			<cflocation url="#payonline.url#/?status=True&auth_code=014154&auth_response=APPROVED&avs_code=N&cvv2_code=M&order_id=#payonline.orderid#&reference_number=216048353&amount=#payonline.amount#&storename=fellowshipofgracen&processor=fifththird&mid=020004948386&tid=001">			
