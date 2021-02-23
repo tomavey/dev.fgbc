@@ -151,6 +151,17 @@
 		return false
 	}
 
+	private function makeStatValid(stat, allowEmpty) {
+		if ( !len(stat)  && allowEmpty ) { return stat }
+		stat = replace(stat,"$","","all")
+		stat = replace(stat,",","","all")
+		if ( isNumeric(stat) ) {
+				return stat
+			} else {
+				return false
+			}
+	}
+
 	<!--- handbook-statistics/submit - used in public send stats form--->
 	function submit () {
 		//Lets allow the church id to come from params.key OR params.churchid

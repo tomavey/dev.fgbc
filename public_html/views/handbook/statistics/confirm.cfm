@@ -35,7 +35,7 @@
 		
 	</li>
 	<li>
-		Pray for: #statistic.prayer#
+		Pray for: #statistic.pray#
 		
 	</li>
 	<li>&nbsp;</li>
