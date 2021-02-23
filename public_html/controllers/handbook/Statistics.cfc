@@ -81,7 +81,9 @@
 	</cffunction>
 
 	<!--- handbook/statistics/list --->
+	<!---Is this needed?--->
 	<cffunction name="list">
+
 		<cfset var loc=structNew()>
 
 		<cfif isDefined("params.year") and len(params.year)>
