@@ -1,31 +1,32 @@
 //TODO - Convert to cfscript
 <cfcomponent extends="Controller" output="false">
 
-	<cffunction name="config">
-		<cfset usesLayout(template="/handbook/layout_admin")>
-		<cfset filters(through="isAuthorized", only="new,edit,allCurrentNotPaid")>
-		<cfset filters(through="paramsKeyRequired", only="sizeByPercent,getSummary")>
-		<cfset filters(through="setReturn", only="index,submit")>
-	</cffunction>
-
-	<cffunction name="isAuthorized">
-		<cftry>
-			<cfif not gotRights("superadmin,office")>
-				<cfset redirectto(action="nopermission")>
-				<cfabort>
-			</cfif>
-		<cfcatch>
-				<cfset redirectto(action="nopermission")>
-		</cfcatch>
-		</cftry>
-	</cffunction>
-
-	<cffunction name="nopermission">
-		<cfset renderText("You do not have permission to view this page")>
-		<cfabort>
-	</cffunction>
 
 <cfscript>
+	function config() {
+		usesLayout(template="/handbook/layout_admin");
+		filters(through="isAuthorized", only="new,edit,allCurrentNotPaid");
+		filters(through="paramsKeyRequired", only="sizeByPercent,getSummary");
+		filters(through="setReturn", only="index,submit");
+	}
+	
+<!---FILTERS--->	
+
+	function isAuthorized() {
+		try {
+			if ( !gotRights("superadmin,office") ) {
+				redirectto(action="nopermission");
+				abort;
+			}
+		} catch (any cfcatch) {
+			redirectto(action="nopermission");
+		}
+	}
+
+	function nopermission() {
+		renderText("You do !have permission to view this page");
+		abort;
+	}
 
 	function paramsKeyRequired() {
 		if ( !isDefined("params.key") ) {
@@ -149,64 +150,75 @@
 		if ( isAfter("2021-01-01") && isBefore("2021-12-31") ) { return true }
 		return false
 	}
+
+	private function makeStatValid(stat, allowEmpty) {
+		if ( !len(stat)  && allowEmpty ) { return stat }
+		stat = replace(stat,"$","","all")
+		stat = replace(stat,",","","all")
+		if ( isNumeric(stat) ) {
+				return stat
+			} else {
+				return false
+			}
+	}
+
+	<!--- handbook-statistics/submit - used in public send stats form--->
+	function submit () {
+		//Lets allow the church id to come from params.key OR params.churchid
+		if ( isDefined("params.churchId") ) { params.key = params.churchId }
+
+		//If there is not church id provided redirect to the getChurchId Page
+		if ( !isDefined("params.key") ) {
+			flashInsert(error="Welcome! Please select your church from this drop-down list...")
+			redirectTo(action="getChurchid")
+		}
+
+		//This extends the memfee deadline by 3 months if extendDeadline is in params (query string)
+		if ( isDefined("params.extendDeadline") ) {
+			session.statistics.extendDeadLine = true
+		}
+
+		//create the handbookstatistic object either as a mew object or from a session stored from a previous object that failed validation
+		if ( StructKeyExists(session, "handbookstatistic") && isDefined("session.handbookstatistic") ) {
+			params.handbookstatistic = session.handbookstatistic
+			structDelete(session,"handbookstatistic")
+			handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)
+		} else {
+			handbookstatistic = model("Handbookstatistic").new()
+		}
+
+		//find the organization/church from the params key - if no params key show a church not found
+		if ( isDefined("params.key") ) {
+			handbookstatistic.organizationid = params.key
+			thisorg = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")
+		} else {
+			renderText("Church not found.")
+		}
+
+		//fees for 2020 will be based on 2019 stats - or the last stats submitted
+		if ( isCovidStatsYear() && ($getLastAttYear(params.key) GT 2017) ) {
+			handbookstatistic.att = $getLastAtt(params.key)
+			handbookstatistic.attYear = $getLastAttYear(params.key)
+		} else {
+			handbookstatistic.att = ''
+			handbookstatistic.attYear = ''
+		}
+
+		//use the previous year for stats unless set in params.year
+		if ( !isDefined("params.year") ) {
+			handbookstatistic.year = year(now())-1
+		} else {
+			handbookstatistic.year = params.year
+		}
+
+		//get a list of member churches for dropdown list
+		organizations = model("Handbookorganization").findall(where='statusid = 1', include="Handbookstate", order="org_city,state_mail_abbrev,name")
+
+		renderView(layout="/handbook/layout_handbook2")
+	}
+
 </cfscript>	
 
-	<!--- handbook-statistics/submit --->
-	<cffunction name="submit">
-
-		<cfscript>
-			//Lets allow the church id to come from params.key OR params.churchid
-			if ( isDefined("params.churchId") ) { params.key = params.churchId }
-
-			//If there is not church id provided redirect to the getChurchId Page
-			if ( !isDefined("params.key") ) {
-				flashInsert(error="Welcome! Please select your church from this drop-down list...")
-				redirectTo(action="getChurchid")
-			}
-
-			//This extends the memfee deadline by 3 months if extendDeadline is in params (query string)
-			if ( isDefined("params.extendDeadline") ) {
-				session.statistics.extendDeadLine = true
-			}
-
-			//create the handbookstatistic object either as a mew object or from a session stored from a previous object that failed validation
-			if ( StructKeyExists(session, "handbookstatistic") && isDefined("session.handbookstatistic") ) {
-				params.handbookstatistic = session.handbookstatistic
-				structDelete(session,"handbookstatistic")
-				handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)
-			} else {
-				handbookstatistic = model("Handbookstatistic").new()
-			}
-		</cfscript>
-
-		<cfif isdefined("params.key") || isDefined("params.churchid")>
-			<cfset params.key = keyFromChurchid()>
-			<cfset handbookstatistic.organizationid = params.key>
-			<cfset thisorg = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
-		<cfelse>
-			<cfset renderText("Church not found.")>
-		</cfif>
-
-		<!--- <cfset ddd(params)> --->
-
-		<cfif isCovidStatsYear() && ($getLastAttYear(params.key) GT 2017)>
-			<cfset handbookstatistic.att = $getLastAtt(params.key)>
-			<cfset handbookstatistic.attYear = $getLastAttYear(params.key)>
-		<cfelse>	
-			<cfset handbookstatistic.att = ''>
-			<cfset handbookstatistic.attYear = ''>
-		</cfif>
-
-		<cfif !isDefined("params.year")>
-			<cfset handbookstatistic.year = year(now())-1>
-		<cfelse>
-			<cfset handbookstatistic.year = params.year>
-		</cfif>	
-
-		<cfset organizations = model("Handbookorganization").findall(where='statusid = 1', include="Handbookstate", order="org_city,state_mail_abbrev,name")>
-
-		<cfset renderView(layout="/handbook/layout_handbook2")>
-	</cffunction>
 
 	<!--- handbook-statistics/edit/key --->
 	<cffunction name="edit">
@@ -225,73 +237,60 @@
 			<cfset formaction = "update">
 	</cffunction>
 
-<cfscript>
-
-	private function makeStatValid(stat, allowEmpty) {
-		if ( !len(stat)  && allowEmpty ) { return stat }
-		stat = replace(stat,"$","","all")
-		stat = replace(stat,",","","all")
-		if ( isNumeric(stat) ) {
-				return stat
-			} else {
-				return false
-			}
-	}
-
-</cfscript>	
 
 	<!--- handbook-statistics/create --->
 <cfscript>
-		function create(){
-			//check to make sure att and donation and relief amounts are numeric
-			//If not, reload form with error message at the top.
-			var formIsValid = true
-			var fieldsMustBeNumberOrEmpty = ["donate","relief"]
-			var fieldsMustBeNumberNOTEmpty = ["att"]
-			for ( f in fieldsMustBeNumberOrEmpty ) {
-				params.handbookstatistic[f] = makeStatValid(stat = params.handbookstatistic[f], allowEmpty = true)
-				if ( params.handbookstatistic[f] == false ) { formIsValid = false }
-			}
-			for ( f in fieldsMustBeNumberNOTEmpty ) {
-				params.handbookstatistic[f] = makeStatValid(stat = params.handbookstatistic[f], allowEmpty = false)
-				if ( params.handbookstatistic[f] == false ) { formIsValid = false }
-			}
 
-			//if the form is not valid, reload form with error message at top
-			if ( !formIsValid ) {
-				session.handbookstatistic = params.handbookstatistic
-				handbookstatistic = params.handbookstatistic
-				handbookstatistic.att = ""
-				handbookstatistic.donate = ""
-				handbookstatistic.relief = ""
-				flashInsert(error="Attendance on line 1 must be a number. Lines 8 and 9 must be entered as numbers or left blank")
-				returnBack()
-			}
-
-			handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)
-			organizations = model("Handbookorganization").findall(include="Handbookstate", order="selectName")
-		//ddd(params)>
-
-			if ( handbookstatistic.save() )	{
-				if ( getSetting("notifyOfficeWhenStatsSubmitted") ) {
-					notifyOfficeOfNewStat(handbookstatistic.id)	
-				}
-				flashInsert(success="The handbookstatistic was created successfully.")
-				if ( isdefined("params.pay") and params.pay ) {
-					redirectTo(action="payonline", params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#&statId=#handbookstatistic.id#")
-				} else {
-					returnBack()
-				}	
-			} else {
-				flashInsert(error="There was an error creating the handbookstatistic.")
-				if ( isdefined("params.pay") and params.pay ) {
-					renderView(action="submit")
-				} else {
-					renderView(action="new")
-				}
-			}			
-
+	function create(){
+		//check to make sure att and donation and relief amounts are numeric
+		//If not, reload form with error message at the top.
+		var formIsValid = true
+		var fieldsMustBeNumberOrEmpty = ["donate","relief"]
+		var fieldsMustBeNumberNOTEmpty = ["att"]
+		for ( f in fieldsMustBeNumberOrEmpty ) {
+			params.handbookstatistic[f] = makeStatValid(stat = params.handbookstatistic[f], allowEmpty = true)
+			if ( params.handbookstatistic[f] == false ) { formIsValid = false }
 		}
+		for ( f in fieldsMustBeNumberNOTEmpty ) {
+			params.handbookstatistic[f] = makeStatValid(stat = params.handbookstatistic[f], allowEmpty = false)
+			if ( params.handbookstatistic[f] == false ) { formIsValid = false }
+		}
+
+		//if the form is not valid, reload form with error message at top
+		if ( !formIsValid ) {
+			session.handbookstatistic = params.handbookstatistic
+			handbookstatistic = params.handbookstatistic
+			handbookstatistic.att = ""
+			handbookstatistic.donate = ""
+			handbookstatistic.relief = ""
+			flashInsert(error="Attendance on line 1 must be a number. Lines 8 and 9 must be entered as numbers or left blank")
+			returnBack()
+		}
+
+		handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)
+		organizations = model("Handbookorganization").findall(include="Handbookstate", order="selectName")
+	//ddd(params)>
+
+		if ( handbookstatistic.save() )	{
+			if ( getSetting("notifyOfficeWhenStatsSubmitted") ) {
+				notifyOfficeOfNewStat(handbookstatistic.id)	
+			}
+			flashInsert(success="The handbookstatistic was created successfully.")
+			if ( isdefined("params.pay") and params.pay ) {
+				redirectTo(action="payonline", params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#&statId=#handbookstatistic.id#")
+			} else {
+				returnBack()
+			}	
+		} else {
+			flashInsert(error="There was an error creating the handbookstatistic.")
+			if ( isdefined("params.pay") and params.pay ) {
+				renderView(action="submit")
+			} else {
+				renderView(action="new")
+			}
+		}			
+
+	}
 
 </cfscript>
 
