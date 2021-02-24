@@ -12,118 +12,118 @@
 </head>
 
 <body bgcolor="#FFFFFF">
-<cfif isDefined("params.test")>
-    <cfoutput>
-        <p>This email was only sent to tomavey@fgbc.org. Click #linkto(text="this link", action="emailAllCurrentNotPaid")# when you are ready to send to the complete unpaid list.</p>
-    </cfoutput>
+<cfif !isDefined("params.go")>
+  <cfoutput>
+    <p>This email was only sent to tomavey@fgbc.org. Click #linkto(text="this link", action="emailAllCurrentNotPaid", params="go=1")# when you are ready to send to the complete unpaid list.</p>
+  </cfoutput>
 </cfif>
 <table class="head-wrap" bgcolor="#ffffff">
 <tr>
-    <td></td>
-    <td class="header container">
-        <div class="content">
-            <table bgcolor="#ffffff">
-                <tr>
-                    <td colspan="2">
-                        <cfoutput>
-                        <a href="https://charisfellowship.us/sendstats/#args.id#">
-                            <img src="https://charisfellowship.us/assets/img/logo/charis-logo-main.png" />
-                        </a>
-                        </cfoutput>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </td>
-    <td></td>
+  <td></td>
+  <td class="header container">
+    <div class="content">
+      <table bgcolor="#ffffff">
+        <tr>
+          <td colspan="2">
+            <cfoutput>
+            <a href="https://charisfellowship.us/sendstats/#args.id#">
+                <img src="https://charisfellowship.us/assets/img/logo/charis-logo-main.png" />
+            </a>
+            </cfoutput>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </td>
+  <td></td>
 </tr>
 </table>
 
 <table class="body-wrap">
-    <tr>
-    <td></td>
-    <td class="container" bgcolor="#FFFFFF">
-    <div class="content">
+  <tr>
+  <td></td>
+  <td class="container" bgcolor="#FFFFFF">
+  <div class="content">
 
-        <table>
-            <tr>
-                <td>
+<table>
+  <tr>
+    <td>
 
-                    <cfoutput>
-                        <cfif !covidAlternateMessage>
+    <cfoutput>
+      <cfif !covidAlternateMessage>
 
-                            <h3>Subject: #args.name# (#args.city#) statistics for #year(now())-1# and fellowship fee for #year(now())# are due May 15. </h3>
-                            <p class="lead">
-                                GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship. Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
-                            </p>
-                            <p>
-                                Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# are due May 15.  After that date, the fee increases. Your office should receive #linkto(text="this brochure", href='http://charisfellowship.us/files/#getSetting("StatForm")#')# by regular post requesting your statistics and fellowship fee.
-                            </p>
-                            <p class="callout">
-                                If you would prefer to submit this information and pay online you can use this link: #linkto(href='https://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
-                            </p>
+        <h3>Subject: #args.name# (#args.city#) statistics for #year(now())-1# and fellowship fee for #year(now())# are due May 15. </h3>
+        <p class="lead">
+            GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship. Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
+        </p>
+        <p>
+            Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# are due May 15.  After that date, the fee increases. Your office should receive #linkto(text="this brochure", href='http://charisfellowship.us/files/#getSetting("StatForm")#')# by regular post requesting your statistics and fellowship fee.
+        </p>
+        <p class="callout">
+            If you would prefer to submit this information and pay online you can use this link: #linkto(href='https://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
+        </p>
 
-                        <cfelse>
+      <cfelse>
 
-                            <h3>Subject: #args.name# (#args.city#) statistics for #year(now())-1# and fellowship fees for #year(now())#. </h3>
-                            <p>
-                                GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship. Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
-                            </p>
-                            <p>
-                                Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# #wereOrAre()# due May 15.
-                            <p class="lead">
-                                However, due to the COVID-19 crisis we are not going to increase the fellowship fee until after July 1. If your church needs additional help, email Tom Avey at <a href="mailto:tomavey@charisfellowship.us">tomavey@charisfellowship.us</a> or call Tom at 574-527-6061. 
-                            </p>      
-                            </p>
-                            <p class="callout">
-                                You can download the form <a href="https://charisfellowship.us/files/FGBCStatCard2019-20.pdf" target="_new">HERE</a> or submit this information and pay online at: #linkto(href='https://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
-                            </p>
+        <h3>Subject: #args.name# (#args.city#) statistics for #year(now())-1# and fellowship fees for #year(now())#. </h3>
+        <p>
+            GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship. Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
+        </p>
+        <p>
+            Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# #wereOrAre()# are due May 15. After that date, the fee increases. Your office should receive #linkto(text="this brochure", href='http://charisfellowship.us/files/#getSetting("StatForm")#')# by regular post requesting your statistics and fellowship fee.
+        <p class="lead">
+            Due to the COVID-19 crisis fellowship fees for 2021 will be based on 2019 attendance. If your church needs additional help, email Tim Hodge at <a href="mailto:tim@charisfellowship.us">tim@charisfellowship.us</a> or call the national office at 574-269-1269. 
+        </p>      
+        </p>
+        <p class="callout">
+            You can download the form <a href="https://charisfellowship.us/files/#getSetting('StatForm')#" target="_new">HERE</a> or submit this information and pay online at: #linkto(href='https://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
+                </p>
 
-                        </cfif>    
+      </cfif>    
 
-                    </cfoutput>
+    </cfoutput>
 
-                    <table class="social" width="100%">
-                        <tr>
-                            <td>
+            <table class="social" width="100%">
+                <tr>
+                    <td>
 
-                                <table align="left" class="column">
-                                    <tr>
-                                        <td>
-                                            <h5 class="">Connect with Us:</h5>
-                                            <p class="">
-                                                <a href="https://www.facebook.com/charischurches/" class="soc-btn fb">Facebook</a> 
-                                                <a href="https://twitter.com/charischurches" class="soc-btn tw">Twitter</a> 
-                                                <a href="https://charisfellowship.us" class="soc-btn gp">CharisFellowship.us</a>
-                                            </p>
-                                        </td>
-                                    </tr>
-                                </table>
+                        <table align="left" class="column">
+                            <tr>
+                                <td>
+                                    <h5 class="">Connect with Us:</h5>
+                                    <p class="">
+                                        <a href="https://www.facebook.com/charischurches/" class="soc-btn fb">Facebook</a> 
+                                        <a href="https://twitter.com/charischurches" class="soc-btn tw">Twitter</a> 
+                                        <a href="https://charisfellowship.us" class="soc-btn gp">CharisFellowship.us</a>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
 
-                                <table align="left" class="column">
-                                    <tr>
-                                        <td>
-                                            <h5 class="">Contact Info:</h5>
-                                            <p>Phone: <strong>574.269.1269</strong><br />
-                                            Email: <strong><a href="emailto:tomavey@charisfellowship.us">tomavey@charisfellowship.us</a></strong></p>
-                                        </td>
-                                    </tr>
-                                </table>
+                        <table align="left" class="column">
+                            <tr>
+                                <td>
+                                    <h5 class="">Contact Info:</h5>
+                                    <p>Phone: <strong>574.269.1269</strong><br />
+                                    Email: <strong><a href="emailto:tim@charisfellowship.us">tim@charisfellowship.us</a></strong></p>
+                                </td>
+                            </tr>
+                        </table>
 
-                            <span class="clear"></span>
-                            </td>
-                        </tr>
-                    </table>
-                    <p style="text-align:center;font-size:.9em;color:grey">Charis Fellowship is an assumed business name (D.B.A.) of the Fellowship of Grace Brethren Churches inc.</p>
+                    <span class="clear"></span>
+                    </td>
+                </tr>
+            </table>
+                  <p style="text-align:center;font-size:.9em;color:grey">Charis Fellowship is an assumed business name (D.B.A.) of the Fellowship of Grace Brethren Churches inc.</p>
 
 
-                </td>
-            </tr>
-        </table>
-    </div>
-    </td>
-    <td></td>
-    </tr>
+              </td>
+          </tr>
+      </table>
+  </div>
+  </td>
+  <td></td>
+  </tr>
 </table>
 
 <table class="footer-wrap">
