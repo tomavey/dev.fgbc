@@ -5,7 +5,7 @@
 <cfscript>
 	function config() {
 		usesLayout(template="/handbook/layout_admin");
-		filters(through="isAuthorized", only="new,edit,allCurrentNotPaid");
+		filters(through="isAuthorized", only="new,edit,allCurrentNotPaid,emailAllCurrentNotPaid");
 		filters(through="paramsKeyRequired", only="sizeByPercent,getSummary");
 		filters(through="setReturn", only="index,submit");
 	}
@@ -340,7 +340,7 @@
 		queryAddRow(list,1);
 		querySetCell(list,"emails", "tomavey@fgbc.org");
 		querySetCell(list,"link", "https://charisfellowship.us/sendstats");
-		querySetCell(list,"name", "Tom Avey Test");
+		querySetCell(list,"name", "Test Church");
 		querySetCell(list,"id", 1);
 		querySetCell(list,"city", listedAsCity('anytown','listedastown'));
 		return list;
@@ -525,7 +525,7 @@
 	<cfset statsEmail.Sent = []>
 	<cfset statsEmail.Failed = []>
 
-		<cfif isDefined("params.test")>
+		<cfif !isDefined("params.go")>
 			<cfset churches = makeTestList()>
 		<cfelse>
 			<cfset churches = allcurrentnotpaid()>
