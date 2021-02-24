@@ -1,5 +1,5 @@
 <!---cftry--->
-<cfset isNotes=arraylen(handbookperson.handbooknotes)>
+<!--- <cfset isNotes=arraylen(handbookperson.handbooknotes)> --->
 
 <cfoutput>
 #forcecfcatch()#
