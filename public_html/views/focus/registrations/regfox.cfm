@@ -25,7 +25,7 @@
       <i class="icon-arrow-down" v-if="!reverse"></i>
     </p>  
     <p>
-      <input type="text" placeholder="Search" v-model="searchText" class="input-large search-query regFoxSearch" ref="search" @onkeyup="$onKeyUp">
+      <input type="text" placeholder="Search" v-model="searchText" class="input-large search-query regFoxSearch" ref="search" @keyup="$onKeyUp">
     </p>
     <p>
       <li class="addIcon"><span v-if="showForm" @click="$showModal"><i class="icon-plus pointer"></i></span></li>
@@ -125,7 +125,7 @@
       //CRUD
       //////////
       $onKeyUp: function(){
-        if ( this.searchText == "CHARISFELLOWSHIP!" ) {
+        if ( this.searchText === "CHARISFELLOWSHIP!" ) {
           this.showEmail = true
         }
       },
@@ -277,6 +277,7 @@
           snap.forEach( doc => {
             let obj = doc.data()
             obj.docId = doc.id
+            // if ( !this.showEmail ) { obj.email = "" }
             this.simpleRegs.push(obj)
           })
         })
