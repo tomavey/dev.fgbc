@@ -125,7 +125,7 @@
       //CRUD
       //////////
       $onKeyUp: function(){
-        if ( this.searchText == "charisEmail" ) {
+        if ( this.searchText == "CHARISFELLOWSHIP!" ) {
           this.showEmail = true
         }
       },
@@ -189,7 +189,7 @@
           //make sure the cursor stays in the search box
           this.$nextTick(() => this.$refs.search.focus())
           //if there is not searchText, include everything
-          if ( !this.searchText.length || this.searchText === "CHARISFELLOWSHIP!") { return true }
+          if ( !this.searchText.length || this.searchText === "CHARISFELLOWSHIP!" ) { return true }
           //if there is a searchText only include matches
           if ( searchString.includes(this.searchText.toUpperCase()) ) { return true }
           return false
