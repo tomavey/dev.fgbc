@@ -25,7 +25,7 @@
       <i class="icon-arrow-down" v-if="!reverse"></i>
     </p>  
     <p>
-      <input type="text" placeholder="Search" v-model="searchText" class="input-large search-query regFoxSearch" ref="search">
+      <input type="text" placeholder="Search" v-model="searchText" class="input-large search-query regFoxSearch" ref="search" @onkeyup="$onKeyUp">
     </p>
     <p>
       <li class="addIcon"><span v-if="showForm" @click="$showModal"><i class="icon-plus pointer"></i></span></li>
@@ -94,6 +94,7 @@
 
   var db = firebase.firestore()
   var simpleRegsRef = db.collection("SimpleRegs")  
+  var RegsRef = db.collection("Regs")  
   //settings from coldfusion
   <cfoutput>
     var formName = '#regFoxFormName#'
@@ -104,6 +105,7 @@
   const vm = new Vue({
     el: "#regFox",
     data() { return {
+      Regs: [],
       simpleRegs: [],
       formName: formName,
       sortBy: "lastName",
@@ -122,7 +124,11 @@
       ///////////
       //CRUD
       //////////
-
+      $onKeyUp: function(){
+        if ( this.searchText == "charisEmail" ) {
+          this.showEmail = true
+        }
+      },
       editReg: function(reg,index){
         //Show the modal, create a form title, and create this registrant for form
         this.$showModal()
@@ -183,7 +189,7 @@
           //make sure the cursor stays in the search box
           this.$nextTick(() => this.$refs.search.focus())
           //if there is not searchText, include everything
-          if ( !this.searchText.length ) { return true }
+          if ( !this.searchText.length || this.searchText === "CHARISFELLOWSHIP!") { return true }
           //if there is a searchText only include matches
           if ( searchString.includes(this.searchText.toUpperCase()) ) { return true }
           return false
@@ -276,6 +282,18 @@
         })
         return null
       },
+      //Get simple regs from firestore and store them in this.simpleRegs
+      getRegs: function() {
+        RegsRef.onSnapshot( (snap) => {
+          this.Regs = []
+          snap.forEach( doc => {
+            let obj = doc.data()
+            obj.docId = doc.id
+            this.Regs.push(obj)
+          })
+        })
+        return null
+      },
     },
     computed: {
       //filter on this.selectText then sort on this.sortBy - is used in the v-for list
@@ -291,6 +309,7 @@
     created(){
       //get the simpleRegs on initial load
       this.getSimpleRegs()
+      // this.getRegs()
     }
   })
 </script>
