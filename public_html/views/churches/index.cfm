@@ -91,6 +91,7 @@ var vm = new Vue({
           console.log(this.filterString);
           this.columnsClass = "";
           },300),
+        },
         setSearch: function(state){
           this.filterString = state;
           this.columnsClass = "";
