@@ -16,9 +16,15 @@
 		View people by ministry types
 	</span>
 </span>
+<span @click="changeListOrientation()" @mouseover="showToolTip('Change List Orientation')" @mouseLeave="clearTooltip" class="pointer">
+	[**]
+	<span v-if="showPositionsTooltip" >
+		Change List Orientation
+	</span>
+</span>
 
 	<div v-if="!loading" class="flex-container">
-		<p><input v-model="searchString" placeholder="Quick search..." class="search-input" @mouseover="showToolTip('Really FAST search. Just start typing')" @mouseLeave="clearTooltip" @input="showSearchTooltip"/></p>
+		<p><input v-model="searchString" @keyUp="onkeyup()" placeholder="Quick search..." class="search-input" @mouseover="showToolTip('Really FAST search. Just start typing')" @mouseLeave="clearTooltip" @input="showSearchTooltip"/></p>
 		<p class="tip" v-html="tooltip" ></p></br>
 	</div>
 
@@ -45,7 +51,8 @@
 			showPositionsTooltip: false,
 			namesListClass: "columns-container",
 			defaultNamesListClass: "columns-container",
-			tooltip: ""
+			tooltip: "",
+			filterString: "",
 			}
 		},
 		computed: {
@@ -56,7 +63,7 @@
 			sortedPeople: function(){return this.people.sort(this.compareValues(this.sortBy))},
 			filteredSortedPeople: function(){
 				var self = this
-				var searchString = this.searchString.toLowerCase()
+				var searchString = this.filterString.toLowerCase()
 				var people_array = this.sortedPeople
 					if( self.alphaFilter.length ) {
 						people_array = people_array.filter(person => person.alpha === self.alphaFilter)
@@ -111,6 +118,11 @@
 					localStorage.setItem("handbookpeopleorientation","grid-container"); 
 					return}
 			},
+			//Uses lodash debounce function to cause the filter to wait for typing to pause 20 millsecs
+			onkeyup: _.debounce(function(){
+          this.filterString = this.searchString;
+          },200
+			),
 			goToPositions: function(){
 				window.location.href="/handbook/positions/listpeople"
 			},
