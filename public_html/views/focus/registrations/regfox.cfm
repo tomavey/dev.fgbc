@@ -45,6 +45,7 @@
     </p>
     <p>
       <span v-if="showEmail"><a :href="`mailto:${allEmailsList}`">Email All</a></span>
+      Total people registered (including spouses) = {{countNames}}
     </p>
   </div>
 
@@ -305,6 +306,15 @@
       allEmailsList: function() {
         let allEmailsArray = this.simpleRegs.map( el => el.email )
         return allEmailsArray.join(this.delimiter)
+      },
+      countNames: function(){
+        let spouseCount = 0
+        this.filteredSortedSimpleRegs.forEach(element => {
+          if ( element.spouse ) {
+            spouseCount ++ 
+          }
+        })
+        return this.simpleRegs.length + spouseCount
       }
     },
     created(){
