@@ -21,8 +21,8 @@
       <span @click="$sortBy('lastName')" :class="colHeaderclass('lastName')">Last Name</span> | 
       <span @click="$sortBy('firstName')" :class="colHeaderclass('firstName')">First Name</span> | 
       <span @click="$sortBy('timestamp')" :class="colHeaderclass('timestamp')">Date Registered</span>
-      <i class="icon-arrow-up" v-if="reverse"></i>
-      <i class="icon-arrow-down" v-if="!reverse"></i>
+      <i class="icon-arrow-up pointer" v-if="reverse" @click="$reverse"></i>
+      <i class="icon-arrow-down pointer" v-if="!reverse" @click="$reverse"></i>
     </p>  
     <p>
       <input type="text" placeholder="Search" v-model="searchText" class="input-large search-query regFoxSearch" ref="search" @keyup="$onKeyUp">
@@ -121,15 +121,17 @@
       }
     },
     methods: {
-
-      ///////////
-      //CRUD
-      //////////
+      $reverse: function(){
+        this.reverse = !this.reverse
+      },
       $onKeyUp: function(){
         if ( this.searchText === "CHARISFELLOWSHIP!" ) {
           this.showEmail = true
         }
       },
+      ///////////
+      //CRUD
+      //////////
       editReg: function(reg,index){
         //Show the modal, create a form title, and create this registrant for form
         this.$showModal()
