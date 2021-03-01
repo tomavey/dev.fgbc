@@ -271,7 +271,6 @@
 
 		handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)
 		organizations = model("Handbookorganization").findall(include="Handbookstate", order="selectName")
-	//ddd(params)>
 
 		if ( handbookstatistic.save() )	{
 			if ( getSetting("notifyOfficeWhenStatsSubmitted") ) {
@@ -335,6 +334,7 @@
 	</cffunction>
 
 <cfscript>
+
 	public function makeTestList(){
 		var list = queryNew("id, emails, link, name, city");
 		queryAddRow(list,1);
@@ -345,6 +345,7 @@
 		querySetCell(list,"city", listedAsCity('anytown','listedastown'));
 		return list;
 	}
+
 </cfscript>	
 
 	<cffunction name="sizeByPercent">
@@ -765,6 +766,7 @@ https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=
 			<!--- not sure why this was used. It gets the last stat for the churchId rather than the stat by statid -tda 2/22/21--->
 			<!--- <cfset statistic = model("Handbookstatistic").findOne(where="organizationid=#val(churchId)# AND year = #year(now())-1#")> --->
 			<cfset statistic = model("Handbookstatistic").findOne(where="id=#statId#")>
+			<cfset markStatFormPaid(statId, val(params.amount))>
 			<cfset renderView(layout="/handbook/layout_handbook2")>
 			<cfset sendEmail(to=application.wheels.registrarEmail, from=application.wheels.registrarEmail, subject="Statistical Report", type="html", template="confirm")>
 		<cfelse>
