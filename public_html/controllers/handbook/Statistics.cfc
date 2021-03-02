@@ -8,9 +8,14 @@
 		filters(through="isAuthorized", only="new,edit,allCurrentNotPaid,emailAllCurrentNotPaid");
 		filters(through="paramsKeyRequired", only="sizeByPercent,getSummary");
 		filters(through="setReturn", only="index,submit");
+		filters(through="setParamsKey")
 	}
 	
 <!---FILTERS--->	
+
+	function setParamsKey(){
+		if ( isdefined("params.keyy") ) { params.key = params.keyy }
+	}
 
 	function isAuthorized() {
 		try {
