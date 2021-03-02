@@ -76,7 +76,7 @@
         </p>      
         </p>
         <p class="callout">
-            You can download the form <a href="https://charisfellowship.us/files/#getSetting('StatForm')#" target="_new">HERE</a> or submit this information and pay online at: #linkto(href='https://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
+            You can download the form #linkto(text="HERE", href='http://charisfellowship.us/files/#getSetting("StatForm")#')# or submit this information and pay online at: #linkto(href='https://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
                 </p>
 
       </cfif>    

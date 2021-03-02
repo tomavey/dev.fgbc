@@ -38,7 +38,7 @@
 
 				#includePartial(partial="form")#
 
-				#submitTag("Submit")#
+				#submitTag(value="Submit", class="btn btn-block btn-primary btn-large")#
 
 				#endFormTag()#
 

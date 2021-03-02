@@ -12,6 +12,7 @@
 		#linkTo(text="Show All", controller="handbook.statistics", action="index", class="btn")#
 	</cfif>
 </p>
+#linkto(text='Show All Detail for #statyear#', controller="handbook.statistics", action="show", class="btn")#
 </cfoutput>
 
 </div>
@@ -33,7 +34,11 @@
 
 					<cfcol header="Yr: " text="#year#" />
 
-					<cfcol header="Fee: " text="#dollarformat(memfee)#" />
+					<cfcol header="Total: " text="#dollarformat(memfee)#" />
+
+					<cfcol header="Donation: " text="#dollarformat(donate)#" />
+
+					<cfcol header="Relief: " text="#dollarformat(relief)#" />
 
 					<cfcol header="Ck##" text="#checkno#" />
 
@@ -44,7 +49,8 @@
 					<cfcol header="Status: " text="#enteredBy#" />
 
 					<cfif gotRights("superadmin,office")>
-						<cfcol header="&nbsp;" text="#showTag(organizationid)#&nbsp;#editTag()#&nbsp;#deleteTag(class="notajax")##iif(comment=='test',DE('TEST'),'')#" />
+						<cfcol header="&nbsp;" text="#showTag(handbookstatistics.id)#&nbsp;#editTag()#&nbsp;#deleteTag(class="notajax")##iif(comment=='test',DE('TEST'),'')#" />
+						<cfcol header="&nbsp;" text="#linkto(text='<i class="icon-th-list" />', controller="handbook.statistics", action="list", key=handbookstatistics.organizationid)#" />
 					</cfif>
 </cftable>
 </div>

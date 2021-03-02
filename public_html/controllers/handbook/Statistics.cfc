@@ -8,9 +8,23 @@
 		filters(through="isAuthorized", only="new,edit,allCurrentNotPaid,emailAllCurrentNotPaid");
 		filters(through="paramsKeyRequired", only="sizeByPercent,getSummary");
 		filters(through="setReturn", only="index,submit");
+		filters(through="setParamsKey")
+		filters(through="setStatYear", only="index,show")
 	}
 	
 <!---FILTERS--->	
+
+	function setStatYear(){
+		if ( isDefined("params.year") and len(params.year) ) {
+			statyear = params.year
+		} else {
+			statYear = year(now())-1
+		}
+	}
+
+	function setParamsKey(){
+		if ( isdefined("params.keyy") ) { params.key = params.keyy }
+	}
 
 	function isAuthorized() {
 		try {
@@ -53,12 +67,6 @@
 	<cffunction name="index">
 		<cfset var loc=structNew()>
 
-		<cfif isDefined("params.year") and len(params.year)>
-			<cfset statyear = params.year>
-		<cfelse>
-			<cfset statYear = year(now())-1>
-		</cfif>
-
 		<cfif not isdefined("params.key")>
 			<cfset params.key = "year">
 		</cfif>
@@ -84,41 +92,6 @@
 	<!---Is this needed?--->
 	<cffunction name="list">
 
-		<cfset var loc=structNew()>
-
-		<cfif isDefined("params.year") and len(params.year)>
-			<cfset statyear = params.year>
-		<cfelse>
-			<cfset statYear = year(now())-1>
-		</cfif>
-
-		<cfif not isdefined("params.key")>
-			<cfset params.key = "year">
-		</cfif>
-
-		<cfif isdefined("params.year")>
-			<cfset whereString="year=#params.year#">
-		<cfelse>
-			<cfset whereString="year=#statYear#">
-		</cfif>
-
-		<cfif isDefined("params.temp")>
-			<cfset whereString=whereString & " AND enteredBy='temp'">
-		</cfif>
-
-		<cfset handbookstatistics = model("Handbookstatistic").findAll(where=whereString,include="Handbookorganization(Handbookstate)", order=params.key)>
-
-		<cfif isDefined("params.summary") and params.summary>
-			<cfset renderView(controller="handbook-statistics", action="summary")>
-		</cfif>
-
-		<cfset renderView(template="index")>
-	</cffunction>
-
-
-	<!--- handbook/statistic/show/key --->
-	<cffunction name="show">
-
 		<cfif params.key is "0" || params.key is "nokey">
 			<cfset redirectTo(action="index")>
 		</cfif>	
@@ -131,6 +104,25 @@
 		</cfif>
 
 	</cffunction>
+
+
+<cfscript>
+
+	function show(){
+		var whereString = "year='#statyear#'"
+		if ( isDefined('params.key') ) { whereString = "id=#params.key#" }
+		if ( isDefined('params.request') ) { whereString = "pray IS NOT NULL OR assist IS NOT NULL OR celebrate IS NOT NULL" }
+		statistics = model("Handbookstatistic").findAll(where=whereString)
+		statistics.addColumn('netMemFee','string')
+		statistics = queryMap(statistics, function(stat){
+			stat.netMemFee = val(stat.memfee)
+				if ( val(stat.donate) ) { stat.netMemFee = stat.netMemFee - val(stat.donate) }
+				if ( val(stat.relief) ) { stat.netMemFee = stat.netMemFee - val(stat.relief) }
+			return stat
+		})
+	}
+
+</cfscript>	
 
 	<!--- handbook-statistics/new --->
 	<cffunction name="new">

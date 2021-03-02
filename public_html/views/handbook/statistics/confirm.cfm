@@ -40,15 +40,17 @@
 	</li>
 	<li>&nbsp;</li>
 	<li>
-		Donated funds to help Charis Churches having difficulty covering their fellowship fee this year: #statistic.donate#
+		Donated funds to help Charis Churches having difficulty covering their fellowship fee this year: #dollarformat(statistic.donate)#
 	</li>
 	<li>
-		Donated funds for the Charis Fellowship COVID Emergency Relief Fund: #statistic.relief#
+		Donated funds for the Charis Fellowship COVID Emergency Relief Fund: #dollarformat(statistic.relief)#
 	</li>
 	<li>&nbsp;</li>
-	<li>
-		Order id: #params.order_id#
-	</li>
+	<cfif isDefined("params.order_id")>
+		<li>
+			Order id: #params.order_id#
+		</li>
+	</cfif>
 	<li>
 		Amount: #dollarFormat(params.amount)#
 	</li>
