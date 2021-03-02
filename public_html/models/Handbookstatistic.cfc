@@ -4,6 +4,7 @@
 	<cffunction name="config">
 		<cfset table(name="handbookstatistics")>
 		<cfset belongsTo(name="Handbookorganization", foreignKey="organizationId")>
+		<cfset belongsTo(name="Church", modelName="Handbookorganization", foreignKey="organizationId")>
 		<cfset property(name="attInt", sql='convert(att,Decimal)')>
 	</cffunction>
 

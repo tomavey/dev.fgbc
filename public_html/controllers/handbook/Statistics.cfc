@@ -84,41 +84,6 @@
 	<!---Is this needed?--->
 	<cffunction name="list">
 
-		<cfset var loc=structNew()>
-
-		<cfif isDefined("params.year") and len(params.year)>
-			<cfset statyear = params.year>
-		<cfelse>
-			<cfset statYear = year(now())-1>
-		</cfif>
-
-		<cfif not isdefined("params.key")>
-			<cfset params.key = "year">
-		</cfif>
-
-		<cfif isdefined("params.year")>
-			<cfset whereString="year=#params.year#">
-		<cfelse>
-			<cfset whereString="year=#statYear#">
-		</cfif>
-
-		<cfif isDefined("params.temp")>
-			<cfset whereString=whereString & " AND enteredBy='temp'">
-		</cfif>
-
-		<cfset handbookstatistics = model("Handbookstatistic").findAll(where=whereString,include="Handbookorganization(Handbookstate)", order=params.key)>
-
-		<cfif isDefined("params.summary") and params.summary>
-			<cfset renderView(controller="handbook-statistics", action="summary")>
-		</cfif>
-
-		<cfset renderView(template="index")>
-	</cffunction>
-
-
-	<!--- handbook/statistic/show/key --->
-	<cffunction name="show">
-
 		<cfif params.key is "0" || params.key is "nokey">
 			<cfset redirectTo(action="index")>
 		</cfif>	
@@ -131,6 +96,22 @@
 		</cfif>
 
 	</cffunction>
+
+
+<cfscript>
+
+	function show(){
+		statistics = model("Handbookstatistic").findAll(where="id=#params.key#")
+		statistics = queryMap(statistics, function(stat){
+			stat.membershipfee = val(stat.memfee)
+				if ( val(stat.donate) ) { stat.membershipfee = membershipfee - stat.donate }
+				if ( val(stat.relief) ) { stat.membershipfee = membershipfee - stat.relief }
+			return stat
+		})
+		ddd(statistics)
+	}
+
+</cfscript>	
 
 	<!--- handbook-statistics/new --->
 	<cffunction name="new">

@@ -46,9 +46,11 @@
 		Donated funds for the Charis Fellowship COVID Emergency Relief Fund: #statistic.relief#
 	</li>
 	<li>&nbsp;</li>
-	<li>
-		Order id: #params.order_id#
-	</li>
+	<cfif isDefined("params.order_id")>
+		<li>
+			Order id: #params.order_id#
+		</li>
+	</cfif>
 	<li>
 		Amount: #dollarFormat(params.amount)#
 	</li>
