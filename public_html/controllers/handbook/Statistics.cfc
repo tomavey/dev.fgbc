@@ -9,9 +9,18 @@
 		filters(through="paramsKeyRequired", only="sizeByPercent,getSummary");
 		filters(through="setReturn", only="index,submit");
 		filters(through="setParamsKey")
+		filters(through="setStatYear", only="index,show")
 	}
 	
 <!---FILTERS--->	
+
+	function setStatYear(){
+		if ( isDefined("params.year") and len(params.year) ) {
+			statyear = params.year
+		} else {
+			statYear = year(now())-1
+		}
+	}
 
 	function setParamsKey(){
 		if ( isdefined("params.keyy") ) { params.key = params.keyy }
@@ -58,12 +67,6 @@
 	<cffunction name="index">
 		<cfset var loc=structNew()>
 
-		<cfif isDefined("params.year") and len(params.year)>
-			<cfset statyear = params.year>
-		<cfelse>
-			<cfset statYear = year(now())-1>
-		</cfif>
-
 		<cfif not isdefined("params.key")>
 			<cfset params.key = "year">
 		</cfif>
@@ -106,14 +109,17 @@
 <cfscript>
 
 	function show(){
-		statistics = model("Handbookstatistic").findAll(where="id=#params.key#")
+		var whereString = "year='#statyear#'"
+		if ( isDefined('params.key') ) { whereString = "id=#params.key#" }
+		if ( isDefined('params.request') ) { whereString = "pray IS NOT NULL OR assist IS NOT NULL OR celebrate IS NOT NULL" }
+		statistics = model("Handbookstatistic").findAll(where=whereString)
+		statistics.addColumn('netMemFee','string')
 		statistics = queryMap(statistics, function(stat){
-			stat.membershipfee = val(stat.memfee)
-				if ( val(stat.donate) ) { stat.membershipfee = membershipfee - stat.donate }
-				if ( val(stat.relief) ) { stat.membershipfee = membershipfee - stat.relief }
+			stat.netMemFee = val(stat.memfee)
+				if ( val(stat.donate) ) { stat.netMemFee = stat.netMemFee - val(stat.donate) }
+				if ( val(stat.relief) ) { stat.netMemFee = stat.netMemFee - val(stat.relief) }
 			return stat
 		})
-		ddd(statistics)
 	}
 
 </cfscript>	

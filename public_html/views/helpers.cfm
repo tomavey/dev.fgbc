@@ -466,8 +466,12 @@
 <cffunction name="getChurchName">
 <cfargument name="churchid" required="true" type="numeric">
 <cfset var loc = structNew()>
-	   <cfset loc.church = model("Handbookorganization").findOne(where="id=#arguments.churchid#", include="Handbookstate").selectname>
-	   <cfreturn loc.church>
+  <cfset loc.church = model("Handbookorganization").findOne(where="id=#arguments.churchid#", include="Handbookstate")>
+	<cfif isObject(loc.church)>
+		<cfreturn loc.church.selectname>
+	<cfelse>
+		<cfreturn "NA">	
+	</cfif>
 </cffunction>
 
 <cffunction name="ckeditor">

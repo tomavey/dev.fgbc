@@ -1,5 +1,5 @@
 <cfoutput>
-  <div class="span10">
+  <div class="span10" style="border: 2px solid grey; padding:10px; margin:5px; border-radius:5px">
     <h3>
       #getChurchName(statistic.organizationid)#
     </h3>
@@ -20,15 +20,16 @@
         Total Amount paid: #statistic.memfee#
       </li>
       <li>
-        Donation: #statistic.donate#
+        Donation: #dollarFormat(statistic.donate)#
       </li>
       <li>
-        Relief: #statistic.relief#
+        Relief: #dollarformat(statistic.relief)#
       </li>
       <li>
-        Memfee: #statistic.membershipfee#
+        Memfee: #dollarformat(statistic.netMemFee)#
       </li>
     </ul>
+    <h4>Special Requests:</h4>
     <p>What can we pray for?
       #statistic.pray#
     </p>

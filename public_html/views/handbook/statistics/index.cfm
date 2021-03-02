@@ -12,7 +12,7 @@
 		#linkTo(text="Show All", controller="handbook.statistics", action="index", class="btn")#
 	</cfif>
 </p>
-#linkto(text='list', controller="handbook.statistics", action="list", key=251)#
+#linkto(text='Show All Detail for #statyear#', controller="handbook.statistics", action="show", class="btn")#
 </cfoutput>
 
 </div>
@@ -36,9 +36,9 @@
 
 					<cfcol header="Total: " text="#dollarformat(memfee)#" />
 
-					<cfcol header="Donation: " text="#dollarformat(memfee)#" />
+					<cfcol header="Donation: " text="#dollarformat(donate)#" />
 
-					<cfcol header="Relief: " text="#dollarformat(memfee)#" />
+					<cfcol header="Relief: " text="#dollarformat(relief)#" />
 
 					<cfcol header="Ck##" text="#checkno#" />
 
