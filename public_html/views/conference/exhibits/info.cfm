@@ -48,7 +48,7 @@
       Deadline for exhibit request is June 30, 2021.
     </p>
     <p>Please complete your request form with the link below. Please contact Sharmion Bowell at: sharmion@charisfellowship.us or 574-269-1269 with additional questions.</p>
-    <p class="well">#linkTo(text="Go to the Exhibitor Request Form", href="https://charisfellowship.regfox.com/access2021-exhibitor-registration", class="btn btn-block btn-primary btn-lg")#</p>
+    <p class="well">#linkTo(text="Go to the Exhibitor Request and Payment Form", href="https://charisfellowship.regfox.com/access2021-exhibitor-registration", class="btn btn-block btn-primary btn-lg")#</p>
     <p style="font-size:.8em;text-align:center;display:none">
       After your exhibit has been approved, use this link to pay for your space and or table: #linkto(text="Payment page", href="https://charisfellowship.regfox.com/access2021-exhibitor-registration")#
     </p>
