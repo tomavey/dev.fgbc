@@ -53,6 +53,7 @@
 
 
     function findStaffAsJson (struct params) {
+        params.orderBy = "sortOrder, lname, fname"
         var staff = findSpeakersAsJson(params=params, tags='Staff');
         return staff;
     }
