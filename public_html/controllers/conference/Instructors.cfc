@@ -19,6 +19,7 @@
 	<cfargument name="event" default="#getevent()#">
 
 		<cfset var whereString = "event='#arguments.event#'">
+		<cfset var orderString = "sortOrder, lname, fname">
 		<cfif isDefined("params.tag")>
 			<cfset whereString = whereString & " AND tags LIKE '%#params.tag#%'">
 		</cfif>
@@ -27,10 +28,6 @@
 		</cfif>
 		<cfif isDefined("params.key")>
 			<cfset whereString = whereString & " AND id = #params.key#">
-		</cfif>
-		<cfset var orderString = "lname, fname">
-		<cfif isDefined("params.tag") && params.tag == "speaker">
-			<cfset var orderString = "sortOrder, lname, fname">
 		</cfif>
 		<cfset instructors = model("Conferenceinstructor").findAll(order=orderString, where=whereString)>
 		<cfset headerSubTitle = "Speakers">
