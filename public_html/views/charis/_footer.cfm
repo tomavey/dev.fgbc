@@ -159,6 +159,7 @@
                           </li>
                         </ul>
                         {{message}}
+                        <p style="text-align:center">Charis Fellowship - 1401 Kings Highway, Winona Lake, Indiana 46590</p>
                       </div>
                       <!-- End Footer Content -->
 
