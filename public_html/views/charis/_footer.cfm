@@ -159,7 +159,8 @@
                           </li>
                         </ul>
                         {{message}}
-                        <p style="text-align:center">Charis Fellowship, 1401 Kings Highway, Winona Lake, Indiana 46590</p>
+                        <p>&nbsp;</p>
+                        <p style="text-align:center">Charis Fellowship<br/>PO Box 384<br/>1401 Kings Highway<br/>Winona Lake, Indiana 46590</p>
                       </div>
                       <!-- End Footer Content -->
 
