@@ -65,9 +65,9 @@
 	<!--- <cfdump var="#handbookTaggedPeople#"> --->
 		<cfoutput query="handbookTaggedPeople" group="itemid">
 			<cfset email = trim(email)>
-			<cfset namesThis = selectName>
+			<cfset namesThis = '#alias('fname',fname,itemid)# #alias('lname',lname,itemid)# of #city# #iif(state IS "Non US",'',DE(state))#'>
 				<p>#linkTo(
-							text="#fname# #lname#",
+							text="#alias('fname',fname,itemid)# #alias('lname',lname,itemid)#",
 							controller="handbook.people", 
 							action="show", 
 							class="ajaxclickable tooltip2", 
