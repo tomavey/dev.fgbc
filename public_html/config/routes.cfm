@@ -867,6 +867,7 @@
 		.get(name="ministries", pattern="ministries", controller="ministries", action="index")
 		.get(name="resources", pattern="resources", controller="resources", action="index")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
+		.post(name="contactus", pattern="/contactus", controller="messages", action="new")
 
 
 
