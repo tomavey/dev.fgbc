@@ -39,9 +39,6 @@
         					<li>
         						#linkTo(text="Home Page", controller="focus.contents", action="index")#
         					</li>
-        					<li>
-        						#linkTo(text="Testimonies", controller="focus.testimonies", action="index")#
-									</li>
 									<li>
 										#linkTo(text="Settings", href="https://charisfellowship.us/admin/settings/?category=focus")#
 									</li>

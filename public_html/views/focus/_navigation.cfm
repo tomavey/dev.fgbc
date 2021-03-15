@@ -26,7 +26,8 @@
 								<li>
 									#linkto(text=menuname, controller="focus.main", action="retreat", key=id)#
 								</li>
-							</cfloop>	
+							</cfloop>
+							#getFocusContent("CalendarComment")#
 						<cfelse>
 								<li>#linkto(text="Future retreats", controller="events", action="index", params="search=focus")#</li>
 						</cfif>	

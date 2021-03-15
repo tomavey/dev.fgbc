@@ -1,10 +1,10 @@
-<script src="https://www.google.com/recaptcha/api.js"></script>
+<!--- <script src="https://www.google.com/recaptcha/api.js"></script> --->
 
-<script>
+<!--- <script>
 	function onSubmit(token) {
 		document.getElementById("contact-us").submit();
 	}
-</script>
+</script> --->
 
 <cfparam name="headerMessage" default="Send us a message!">
 <cfparam name="instructions" default="">

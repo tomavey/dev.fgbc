@@ -879,9 +879,6 @@
 		.get(name="ministries", pattern="ministries", controller="ministries", action="index")
 		.get(name="resources", pattern="resources", controller="resources", action="index")
 		.get(name="contactus", pattern="/contactus", controller="messages", action="new")
-		.post(name="contactus", pattern="/contactus", controller="messages", action="new")
-
-
 
 		.get(name="showpage", pattern="/page/[key]", controller="contents", action="show")
 		.get(name="conferencereg", pattern="/conference", controller="conference.register", action="welcome")
