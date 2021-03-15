@@ -29,7 +29,7 @@
 		<cfset StructDelete(session,"contactMessage")>
 		</cfif>
 
-		<h1>#headerMessage#</h1>
+		<h1>#headerMessage#!!</h1>
 		<p>#instructions#</p>
 
 
