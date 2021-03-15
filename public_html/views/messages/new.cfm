@@ -34,16 +34,16 @@
 
 					#errorMessagesFor("message")#
 
-					<form action="/create" id="xcontact-us" method="post">
-					<!--- #startFormTag(action='create', id="xcontact-us")# --->
+					<!--- <form action="/message/create/" id="contact-us" method="post"> --->
+					#startFormTag(action='create', id="xcontact-us", encode="false")#
 
-								#hiddenField(objectName='message', property='subject')#
+						#hiddenField(objectName='message', property='subject')#
 
-								#textField(objectName='message', property='name', label='Name: ')#
+						#textField(objectName='message', property='name', label='Name: ')#
 
-								#textField(objectName='message', property='email', label='Email: ')#
+						#textField(objectName='message', property='email', label='Email: ')#
 
-								#textArea(objectName='message', property='message', label='', rows="10", cols="75")#
+						#textArea(objectName='message', property='message', label='', rows="10", cols="75")#
 
 				<cfif showCaptcha>
 					#includePartial(partial="/captcha")#
