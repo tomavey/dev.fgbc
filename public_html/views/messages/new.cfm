@@ -49,15 +49,16 @@
 					#includePartial(partial="/captcha")#
 				</cfif>					
 
-					<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
-					<input type="hidden" name="action" value="validate_captcha">
+					<!--- <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+					<input type="hidden" name="action" value="validate_captcha"> --->
 					
 
-					<button class="g-recaptcha" 
+					<!--- <button class="g-recaptcha" 
 							data-sitekey="6LeL3tYZAAAAAPHseKw3n5Hl_XtCtx-JPYqbaDj7" 
 							data-callback='onSubmit' 
-							data-action='submit'>Send Message</button>
+							data-action='submit'>Send Message</button> --->
 
+					#submitTag("Send Message")#		
 					#endFormTag()#
 
 
