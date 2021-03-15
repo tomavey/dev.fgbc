@@ -33,8 +33,8 @@
 		<p>#instructions#</p>
 
 					#errorMessagesFor("message")#
-					#formaction#
-					#startFormTag(action=formaction, id="xcontact-us")#
+
+					#startFormTag(action='create', id="xcontact-us")#
 
 								#hiddenField(objectName='message', property='subject')#
 
