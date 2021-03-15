@@ -36,7 +36,7 @@ component extends="Controller" output="false" {
 		} else {
 			message.subject = "";
 		}
-		formaction="create";
+		formaction="xcreate";
 		if ( showCaptcha ) {
 			strCaptcha = getcaptcha();
 		}
