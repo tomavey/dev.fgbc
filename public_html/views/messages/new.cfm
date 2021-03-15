@@ -34,7 +34,7 @@
 
 					#errorMessagesFor("message")#
 
-					<form action="/messages/create/" id="contact-us" method="get">
+					<form action="/messages/create/" id="contact-us" method="post">
 					<!--- #startFormTag(action='create', id="xcontact-us", encode="true")# --->
 
 						#hiddenField(objectName='message', property='subject')#
