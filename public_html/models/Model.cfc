@@ -191,6 +191,7 @@
 		loc.return = year(now())
 		loc.agbmDeadlineDate = getSetting("agbmDeadlineDate")
 		loc.todayString = now()
+		loc.testing = false
 		//for testing
 		if ( isDefined("params.agbmDeadlineDate") ) { loc.agbmDeadlineDate = params.agbmDeadlineDate }
 		if ( isDefined("params.testing") ) { loc.testing = true }
