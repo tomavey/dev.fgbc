@@ -67,7 +67,7 @@ component extends="Model" output="false" {
 			var loc = arguments
 
 			if ( isDefined("loc.district") and loc.district is "all" ) {
-				loc.orderby = "district"
+				loc.orderby = "district, lname, fname"
 			}
 
 			//Get the big list of potentialmembers
