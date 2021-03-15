@@ -69,7 +69,7 @@ component extends="Controller" output="false" {
 	//  messages/create 
 
 	public function create() {
-		ddd(params)
+		// ddd(params)
 		if ( isBadMessage(params.message.email, params.message.message) ) { 
 				redirectTo(action="thankyou")
 			}
