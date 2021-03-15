@@ -31,7 +31,6 @@
 
 		<h1>#headerMessage#</h1>
 		<p>#instructions#</p>
-#formaction#
 
 					#errorMessagesFor("message")#
 
