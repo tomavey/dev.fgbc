@@ -34,7 +34,7 @@
 
 					#errorMessagesFor("message")#
 
-					#startFormTag(action=formaction, id="contact-us")#
+					#startFormTag(action=formaction, id="xcontact-us")#
 
 								#hiddenField(objectName='message', property='subject')#
 
