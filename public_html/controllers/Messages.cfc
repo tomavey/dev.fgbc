@@ -1,5 +1,15 @@
 component extends="Controller" output="false" {
 
+	function init(){
+		filters(through="isOffice")
+	}
+
+	function isOffice(){
+		if ( !gotRights("office") ) {
+			redirectTo("/")
+		} else { return true }
+	}
+
 	public function config() {
 		filters(through="setShowCaptcha", only="new,create");
 	}
@@ -30,6 +40,7 @@ component extends="Controller" output="false" {
 	//  messages/new 
 
 	public function new() {
+		renderText("Our contact us form is temporarily inactive")
 		message = model("Mainmessage").new();
 		if ( isDefined("params.subject") ) {
 			message.subject = params.subject;
