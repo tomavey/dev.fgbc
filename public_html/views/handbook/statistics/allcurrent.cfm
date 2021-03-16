@@ -76,7 +76,7 @@
 					<cfif isOnDate(getSetting('memFeeDeadline'))>
 						<cfset body = "Just a friendly reminder! %0D%0A%0D%0AToday is the deadline for submitting the annual stat report and fellowship fee.%0D%0A%0D%0AYou can submit stats for #getThisStatYear()# and pay the fellowship fee for #getThisMemYear()# at https://charisfellowship.us/sendstats/#id#%0D%0A%0D%0AIf you need help, you can call 574-269-1269">
 					<cfelse>	
-						<cfset body = "Reminder! %0D%0A%0D%0AThe deadline for submitting the annual stat report and fellowship fee is May 15.%0D%0A%0D%0AYou can download the form at https://charisfellowship.us/files/FGBCStatCard2017-18.pdf if needed.%0D%0A%0D%0AOr you can submit stats for #getThisStatYear()# and pay the fellowship fee for #getThisMemYear()# at https://charisfellowship.us/sendstats/#id#">
+						<cfset body = "Reminder! %0D%0A%0D%0AThe deadline for submitting the annual stat report and fellowship fee is May 15.%0D%0A%0D%0AYou can download the form at https://charisfellowship.us/files/#getSetting('StatForm')# if needed.%0D%0A%0D%0AOr you can submit stats for #getThisStatYear()# and pay the fellowship fee for #getThisMemYear()# at https://charisfellowship.us/sendstats/#id#">
 					</cfif>
 					<td>
 						<cfif NOT val(thisMemFee)>
