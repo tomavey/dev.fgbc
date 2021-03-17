@@ -873,6 +873,12 @@
 		.get(name="jobsApprove", pattern="/approve/[key]", action="approve")
 	.end()
 
+	.controller("messages")
+		.get(name="notification", pattern="/notification/", action="notification")
+		.post(name="notification", pattern="/notification/", action="notification")
+		.get(name="thankyou", pattern="/thankyou/", action="thankyou")
+	.end()
+
 
 <!---Main page routes--->
 		.get(name="events", pattern="events", controller="events", action="index")

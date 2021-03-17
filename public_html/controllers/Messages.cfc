@@ -1,15 +1,5 @@
 component extends="Controller" output="false" {
 
-	function init(){
-		filters(through="isOffice")
-	}
-
-	function isOffice(){
-		if ( !gotRights("office") ) {
-			redirectTo("/")
-		} else { return true }
-	}
-
 	public function config() {
 		filters(through="setShowCaptcha", only="new,create");
 	}
@@ -40,7 +30,6 @@ component extends="Controller" output="false" {
 	//  messages/new 
 
 	public function new() {
-		renderText("Our contact us form is temporarily inactive")
 		message = model("Mainmessage").new();
 		if ( isDefined("params.subject") ) {
 			message.subject = params.subject;
@@ -80,7 +69,6 @@ component extends="Controller" output="false" {
 	//  messages/create 
 
 	public function create() {
-		// ddd(params)
 		if ( isBadMessage(params.message.email, params.message.message) ) { 
 				redirectTo(action="thankyou")
 			}
@@ -94,8 +82,10 @@ component extends="Controller" output="false" {
 			message = model("Mainmessage").new(params.message);
 			//  Verify that the message creates successfully 
 			if ( message.save() ) {
+				// ddd(message.properties())
 				flashInsert(success="The message was created successfully.");
-				redirectTo(action="notification", key=message.id);
+				session.messageid=message.id
+				redirectTo(action="notification");
 				//  Otherwise 
 			} else {
 				flashInsert(error="There was an error creating the message.");
@@ -125,8 +115,9 @@ component extends="Controller" output="false" {
 	}
 
 	public function notification() {
+		// ddd(session.messageid)
 		var loc = structNew();
-		message = model("Mainmessage").findByKey(params.key);
+		message = model("Mainmessage").findOne(where="id=#session.messageid#");
 		if ( len(message.subject) ) {
 			loc.subject = message.subject;
 		} else {
@@ -137,6 +128,8 @@ component extends="Controller" output="false" {
 		} else {
 			flashInsert(failed="Email was !sent from this local machine to #getSetting('sendContactUsTo')#");
 		}
+		// ddd(message.properties())
+		structDelete(session,"messageid")
 		redirectTo(action="thankyou");
 	}
 
