@@ -21,7 +21,7 @@
   <table>
     <tr>
       <td>
-      First Name
+      First Name or Church Name
       </td>
       <td>
       Last Name
