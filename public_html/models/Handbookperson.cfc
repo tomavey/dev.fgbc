@@ -311,7 +311,7 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 		//  Get names from handbook people with positions in organizations in districts in regions 
 		loc.handbookpeople = findAll(select="fname, lname, handbookpeople.email, focusretreat, region, handbookpeople.phone2 as phone", where=loc.whereString, include="Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict))", order="email")
 
-		loc.handbookOrganizations = model("Handbookorganization").findAll(select="email, phone, region, focusretreat", where="focusretreat = '#loc.retreat#'", include="Handbookdistrict", order="email" )
+		loc.handbookOrganizations = model("Handbookorganization").findAll(select="name AS 'fname', email, phone, region, focusretreat", where="focusretreat = '#loc.retreat#'", include="Handbookdistrict", order="email" )
 
 		loc.focuspeople = $findAllRegional(region=loc.retreat, yearsAgo=params.yearsAgo)
 
