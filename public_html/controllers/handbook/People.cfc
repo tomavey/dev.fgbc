@@ -327,9 +327,9 @@ component extends="Controller" output="true" {
 		people = queryMap(people,function(person){
 			if ( person.region == "A" || person.region == "B" || person.region == "C"  ) {
 				if ( !len(person.lname) ) {
-					person.source = "Handbook person from region #person.region#"
-				} else {
 					person.source = "Handbook organization from region #person.region#"
+				} else {
+					person.source = "Handbook person from region #person.region#"
 				}
 			} else {
 				person.source = "Past focus registration for #person.region#"
