@@ -303,17 +303,17 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 <!----------------------------------------->	
 	function findFocus(required struct params) {
 		var loc = structNew()
-		loc.region = params.key
-		loc.whereString = "p_sortorder < 500 AND focusretreat = '#loc.region#'"
+		loc.retreat = params.key
+		loc.whereString = "p_sortorder < 500 AND focusretreat = '#loc.retreat#'"
 		if ( params.includeWomen ) {
 			loc.whereString = loc.whereString & "  AND fnamegender = 'm'"
 		}
 		//  Get names from handbook people with positions in organizations in districts in regions 
-		loc.handbookpeople = findAll(select="fname, lname, handbookpeople.email, region, handbookpeople.phone2 as phone", where=loc.whereString, include="Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict))", order="email")
+		loc.handbookpeople = findAll(select="fname, lname, handbookpeople.email, focusretreat, region, handbookpeople.phone2 as phone", where=loc.whereString, include="Handbookstate,Handbookpositions(Handbookorganization(Handbookdistrict))", order="email")
 
-		loc.handbookOrganizations = model("Handbookorganization").findAll(select="email, phone, region", where="focusretreat = '#loc.region#'", include="Handbookdistrict", order="email" )
+		loc.handbookOrganizations = model("Handbookorganization").findAll(select="email, phone, region, focusretreat", where="focusretreat = '#loc.retreat#'", include="Handbookdistrict", order="email" )
 
-		loc.focuspeople = $findAllRegional(region=loc.region, yearsAgo=params.yearsAgo)
+		loc.focuspeople = $findAllRegional(region=loc.retreat, yearsAgo=params.yearsAgo)
 
 		//  Get names from past focus registrations in that region 
 		//  Combine both queries 
