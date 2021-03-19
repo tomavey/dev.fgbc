@@ -9,6 +9,10 @@
     <cfoutput>
       #linkTo(text="Download as excel", controller="handbook.people", action="focus", key=params.key, params="download=excel&includeWomen=#params.includeWomen#&yearsAgo=#params.yearsago#&params.key", class="btn")#
       #linkTo(text="View CSV", controller="handbook.people", action="focus", key=params.key, params="includeWomen=#params.includeWomen#&yearsAgo=#params.yearsago#&csv", class="btn")#
+      <p>
+        Using past #params.yearsago# years of focus registrations 
+        <cfif isDefined("params.includeWomen") && params.includeWomen > including women </cfif>  
+      </p>
     </cfoutput>
   </cfif>
 
@@ -26,12 +30,12 @@
       Email
       </td>
       <td>
-      Region
-      </td>
-      <td>
         Cell
       </td>
-      </tr>
+      <td>
+        Source
+        </td>
+        </tr>
     <cfoutput query="people">
     <cfif len(email) and email NEQ previousemail>
     <tr>
@@ -45,12 +49,12 @@
       #email#
       </td>
       <td>
-      #region#
-      </td>
-      <td>
         #phone#
       </td>
-      </tr>
+      <td>
+        #source#
+      </td>
+    </tr>
     <cfset count = count +1>
     <cfset previousemail = email>
     </cfif>

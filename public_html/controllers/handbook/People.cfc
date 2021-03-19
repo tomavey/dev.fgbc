@@ -323,6 +323,19 @@ component extends="Controller" output="true" {
 			params.key = params.keyy;
 		}
 		people = model("Handbookperson").findFocus(params);
+		queryAddColumn(people,"source")
+		people = queryMap(people,function(person){
+			if ( person.region == "A" || person.region == "B" || person.region == "C"  ) {
+				if ( !len(person.lname) ) {
+					person.source = "Handbook person from region #person.region#"
+				} else {
+					person.source = "Handbook organization from region #person.region#"
+				}
+			} else {
+				person.source = "Past focus registration for #person.region#"
+			}
+			return person;
+		})
 		if ( isDefined("params.csv") ) {
 			people = QueryToCSV(people,'fname, lname, email, phone, phone1')
 		}
