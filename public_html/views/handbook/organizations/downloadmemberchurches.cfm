@@ -49,7 +49,7 @@
 			Email
 		</th>
 		<th>
-			Email
+			Lead Pastor Email
 		</th>
 		<th>
 			Attendance
