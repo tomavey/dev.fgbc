@@ -1,4 +1,6 @@
 <cfoutput>
+	<!--- <cfset ddd(retreat.properties())> --->
+	<cfset ddd(options)>
 <div id="retreatPage" class="row" style="text-align:center;">
 
 	<div id="title" class="center">
@@ -43,10 +45,11 @@
 				</cfif>
 
 			<cfelseif showRegistration(options.recordcount, retreat)>
-					#includePartial(partial="retreatRegOptions")#
+
+				#includePartial(partial="retreatRegOptions")#
 
 			<cfelse>
-				Registration is not open. (this should not show)
+				Registration is not open. (this should not show - make sure there are somme not-expired options for this retreat)
 
 			</cfif>
 		</div>
