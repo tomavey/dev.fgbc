@@ -1,6 +1,6 @@
 <cfoutput>
 	<!--- <cfset ddd(retreat.properties())> --->
-	<cfset ddd(options)>
+	<!--- <cfset ddd(options)> --->
 <div id="retreatPage" class="row" style="text-align:center;">
 
 	<div id="title" class="center">
