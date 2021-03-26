@@ -336,6 +336,10 @@ component extends="Controller" output="true" {
 			}
 			return person;
 		})
+		people = queryFilter(people,function(person){
+			if ( listFind(getSetting('emailNotList'), person.email) ) { return false }
+			return true
+		})
 		if ( isDefined("params.csv") ) {
 			people = QueryToCSV(people,'fname, lname, email, phone, phone1')
 		}
