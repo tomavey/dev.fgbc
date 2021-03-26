@@ -222,7 +222,7 @@
 	<cfset newQuery = QueryNew(oldquery.columnlist)>
 
 	<cfloop query="oldquery">
-		<cfif !listFind(emailNotList(),email) && isValid("email",email) && email NEQ previousEmail>
+		<cfif !listFindNoCase(emailNotList(),email) && isValid("email",email) && email NEQ previousEmail>
 			<cfset QueryAddRow(newquery)>
 			<cfloop list="#oldquery.columnlist#" index="i">
 				<cfset QuerySetCell(newQuery, i, oldquery[i])>
