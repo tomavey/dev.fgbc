@@ -7,7 +7,7 @@
   <title>sendNotificationToOffice</title>
 </head>
 <body>
-  <h2>The following Fellowship Council nomination has been submitted:/h2>
+  <h2>The following Fellowship Council nomination has been submitted:</h2>
   <cfoutput>
     #includePartial('show')#
   </cfoutput>
