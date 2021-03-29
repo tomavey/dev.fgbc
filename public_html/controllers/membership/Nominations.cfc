@@ -154,8 +154,9 @@
 
 	public function sendNotificationToOffice(id){
 		var list = getSetting('sendNominationNoticesTo')
+		key = arguments.id
 		if ( !isLocalMachine() ) { 
-			sendEmail(to=list, from="charis@fgbc.org", subject="A Fellowship Council Nomination", template="send_notification_to_office.cfm", params="id=#id#")
+			sendEmail(to=list, from="charis@fgbc.org", subject="A Fellowship Council Nomination", template="send_notification_to_office.cfm")
 		}
 	}
 

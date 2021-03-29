@@ -9,7 +9,7 @@
 <body>
   send
   <cfoutput>
-    #id#
+    #key#
   </cfoutput>
 </body>
 </html>
