@@ -105,7 +105,6 @@
 
 	<!--- nominations/create --->
 	<cffunction name="create">
-
 		<cfset nominations = model("Fgbcnomination").create(params.nominations)>
 
 		<!--- Verify that the nominations creates successfully --->
@@ -115,8 +114,9 @@
 			<cfset renderView(action="new")>
 		<!--- Otherwise --->
 		<cfelse>
+			<cfset sendNotificationToOffice(nominations.id)>
 			<cfset flashInsert(success="The nominations was created successfully.")>
-            <cfset redirectTo(action="thankyou", key=nominations.id)>
+      <cfset redirectTo(action="thankyou", key=nominations.id)>
 		</cfif>
 	</cffunction>
 
@@ -151,6 +151,13 @@
 	</cffunction>
 
 <cfscript>
+
+	private function sendNotificationToOffice(id){
+		var list = getSetting('sendNominationNoticesTo')
+		if ( !isLocalMachine() ) { 
+			sendEmail(to=list, from="charis@fgbc.org", subject="A Fellowship Council Nomination", template="sendNotificationToOffice", params="key=id")
+		}
+	}
 
 	private function nominateMessage(year){
 		var nominateYear = year;
