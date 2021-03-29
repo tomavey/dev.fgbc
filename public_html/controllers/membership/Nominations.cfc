@@ -159,7 +159,7 @@
 			nominations = model("Fgbcnomination").findByKey(key=key, include="District")
 			if ( !isLocalMachine() ) { 
 				sendEmail(to=list, from="charis@fgbc.org", subject="A Fellowship Council Nomination", template="send_notification_to_office.cfm")
-			} catch (e) {
+			} catch(any e) {
 				consoleLog("Something when wrong with a FC nomination notification")
 			}
 		}
