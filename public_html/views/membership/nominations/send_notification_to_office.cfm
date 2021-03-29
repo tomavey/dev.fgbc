@@ -7,9 +7,8 @@
   <title>sendNotificationToOffice</title>
 </head>
 <body>
-  send
   <cfoutput>
-    #key#
+    #includePartial('show')#
   </cfoutput>
 </body>
 </html>
