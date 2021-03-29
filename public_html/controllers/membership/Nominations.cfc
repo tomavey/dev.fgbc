@@ -152,10 +152,10 @@
 
 <cfscript>
 
-	private function sendNotificationToOffice(id){
+	public function sendNotificationToOffice(id){
 		var list = getSetting('sendNominationNoticesTo')
 		if ( !isLocalMachine() ) { 
-			sendEmail(to=list, from="charis@fgbc.org", subject="A Fellowship Council Nomination", template="sendNotificationToOffice", params="key=id")
+			sendEmail(to=list, from="charis@fgbc.org", subject="A Fellowship Council Nomination", template="sendNotificationToOffice")
 		}
 	}
 
