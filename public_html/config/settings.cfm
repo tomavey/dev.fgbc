@@ -1,6 +1,6 @@
 <cfscript>
 
-	// DSN for database
+	// DSN for database -
 	set(dataSourceName="fgbc_main_3")
 		if ( isLocalMachine() ) {
 			set(dataSourceUserName="root")
