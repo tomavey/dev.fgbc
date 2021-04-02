@@ -13,3 +13,6 @@
 /public_html/files/consolelog.html
 fgbc_keys.ppk
 box.exe
+jre/
+public_html/jre/
+server.json
