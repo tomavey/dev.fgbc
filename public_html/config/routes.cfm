@@ -1020,6 +1020,7 @@
 		.get(name="apiSpeakers", pattern="/api/speakers/[ID]", controller="conference.instructors", action="speakersAsJson")
 		.get(name="apiSpeakers", pattern="/api/speakers/", controller="conference.instructors", action="speakersAsJson")
 		.get(name="apiPersonalities", pattern="/api/personalities/", controller="conference.instructors", action="listStaffAsJson")
+		.get(name="apiStaff", pattern="/api/staff/", controller="conference.instructors", action="listStaffAsJson")
 		.get(name="apiCrudAnswer", pattern="/api/crud/[id]", controller="crud", action="showjson")
 		.get(name="apiCrudAnswerEdit", pattern="/api/crud/[ID]/edit", controller="crud", action="edit")
 		.get(name="apiCrudAnswers", pattern="/api/crud/", controller="crud", action="list")
