@@ -1,4 +1,4 @@
-<cfparam name="covidAlternateMessage" default=true>
+<cfparam name="covidAlternateMessage" default=false>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -70,7 +70,7 @@
             GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship. Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
         </p>
         <p>
-            Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# #wereOrAre()# are due May 15. After that date, the fee increases. Your office should receive #linkto(text="this brochure", href='http://charisfellowship.us/files/#getSetting("StatForm")#')# by regular post requesting your statistics and fellowship fee.
+            Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# #wereOrAre()# due May 15. After that date, the fee increases. Your office should receive #linkto(text="this brochure", href='http://charisfellowship.us/files/#getSetting("StatForm")#')# by regular post requesting your statistics and fellowship fee.
         <p class="lead">
             Due to the COVID-19 crisis fellowship fees for 2021 will be based on 2019 attendance. If your church needs additional help, email Tim Hodge at <a href="mailto:tim@charisfellowship.us">tim@charisfellowship.us</a> or call the national office at 574-269-1269. 
         </p>      

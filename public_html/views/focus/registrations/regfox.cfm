@@ -24,15 +24,16 @@
       <i class="icon-arrow-up pointer" v-if="reverse" @click="$reverse"></i>
       <i class="icon-arrow-down pointer" v-if="!reverse" @click="$reverse"></i>
     </p>  
-    <p>
+    <p v-if="!showModal">
       <input type="text" placeholder="Search" v-model="searchText" class="input-large search-query regFoxSearch" ref="search" @keyup="$onKeyUp">
     </p>
     <p>
       <li class="addIcon"><span v-if="showForm" @click="$showModal"><i class="icon-plus pointer"></i></span></li>
     </p>
+
     <ol v-if="filteredSortedSimpleRegs.length">
       <li v-for="(reg, index) in filteredSortedSimpleRegs" :key="index">
-        {{reg.firstName}} 
+        <span contenteditable="true">{{reg.firstName}}</span> 
         <span v-if="reg.spouse"> & {{reg.spouse}}</span> 
         <span v-if="!spouseNameContainsLastName(reg)">{{reg.lastName}}</span>
         <span v-if="showEmail">- <a :href="`mailto:${reg.email}`">{{reg.email}}</a></span> 
@@ -117,7 +118,8 @@
       delimiter: '; ',
       registrant: {},
       formTitle: "For Office Only: Add a new person to this list",
-      searchText: ""
+      searchText: "",
+      registrantBeingEdited: {}
       }
     },
     methods: {
@@ -173,6 +175,8 @@
         simpleRegsRef.doc(this.registrant.docId).set(this.registrant, {merge:true})
         //then clear out the registraion and close modal
         .then( () => {
+          let editToEdit = {...this.registrant,test:"test"}
+          console.log(editToEdit)
           this.registrant = {}
           this.showModal = false
         })
