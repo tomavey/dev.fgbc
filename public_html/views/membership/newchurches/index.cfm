@@ -28,7 +28,7 @@
 
 					<cfcol header="FGBC?" text="#becomefgbc#" />
 
-					<cfcol header="Grant Eligible" text="#grantEligibleAt#" />
+					<cfcol header="Year to be recognized" text="#grantEligibleAt#" />
 
 					<cfcol header="Created" text="#dateFormat(createdAt)#" />
 
