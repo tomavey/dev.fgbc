@@ -12,7 +12,7 @@
             #textField(objectName='user', property='username', label='Username:&nbsp;', class="input-block-level")#
             #passwordField(objectName='user', property='password', label='Password:&nbsp;&nbsp;', class="input-block-level", encode="attributes")#
             #submitTag(value="Login", class="btn btn-primary")#
-            <p>#linkTo(text="Create a new FGBC account", controller="auth.users", action="new")#</p>
+            <p>#linkTo(text="Create a new Charis Fellowship account", controller="auth.users", action="new")#</p>
             #endFormTag()#
         </cfoutput>
       </div>
