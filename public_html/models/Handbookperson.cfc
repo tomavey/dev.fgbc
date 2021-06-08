@@ -286,7 +286,13 @@ function findDatesThisWeek(required string type, today="#dayOfYear(now())#", unt
 					 select = loc.selectString,
 					 where=loc.whereString,
 					 order=loc.orderstring
-					 )			 
+					 )
+		//filters out anyone with a 900 or higher sort order - used for temporarily deceased!			 			 
+		loc.profiles = QueryFilter(loc.profiles,function(person) {
+			var sortOrder = model('Handbookposition').findOne(where="personid == #person.id#", order="p_sortorder DESC")
+			if ( isDefined('sortOrder.p_sortorder') && sortOrder.p_sortorder < 900 ) { return true }
+			return false
+		})			 
 		return loc.profiles
 	}
 <!-------------------------------------------------------->
