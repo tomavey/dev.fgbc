@@ -34,12 +34,12 @@
 </cfoutput>
 
 <p>
-	<!--- <cfif isQuery("districts")> --->
+	<cfif isQuery("districts")>
 		<cfoutput query="districts">
 			#linkto(text=district, route="handbookAgbmList", params="type=members&district=#district#")#
 		</cfoutput>
 		<cfoutput>#linkto(text="ALL", route="handbookAgbmList", params="type=members&district=all")#</cfoutput>
-	<!--- </cfif> --->
+	</cfif>
 </p>
 
 <cfoutput>
