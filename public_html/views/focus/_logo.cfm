@@ -3,7 +3,11 @@
 
 <div class="span4 well">
   <cftry>
-    #imageTag("/focus/#getSetting('FocusLogo')#")#
+    <cfif FindNoCase("http", getSetting('FocusLogo'))>
+      #imageTag(getSetting('FocusLogo'))#
+    <cfelse>  
+      #imageTag("/focus/#getSetting('FocusLogo')#")#
+    </cfif>
     <cfcatch>
       #getSetting('FocusLogo')#
     </cfcatch>
