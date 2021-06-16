@@ -80,9 +80,11 @@
 			<th>
 				Category
 			</th>
-			<th>
-				Last Payment
-			</th>
+			<cfif gotRights("superadmin,agbmadmin")>
+				<th>
+					Last Payment
+				</th>
+			</cfif>
 		</tr>
 	</thead>
 
