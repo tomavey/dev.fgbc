@@ -1,4 +1,9 @@
 <cfparam name="count" default="0">
+<cfparam name="hideLastPayment" default=false>
+<cfif isDefined("params.hideLastPayment")>
+	<cfset hideLastPayment = true>
+</cfif>
+
 <cfoutput>
 
 	#linkToPlus(
@@ -8,8 +13,18 @@
 		title="Download this list as an excel spreadsheet after review",
 		showIf=!isDefined("params.excel")
 		)#
-
-<table class="table table-stripped">
+<br/>
+	<cfif gotRights("superadmin,agbmadmin")>
+	#linkToPlus(
+		text="Hide Last Payment Column", 
+		addParams="hideLastPayment=true", 
+		class="tooltipleft btn download", 
+		title="Hide Last Payment Column ",
+		showIf=!isDefined("params.hideLastPayment")
+		)#
+	</cfif>	
+	
+			<table class="table table-stripped">
 	<thead>
 		<tr>
 			<th>
@@ -80,7 +95,7 @@
 			<th>
 				Category
 			</th>
-			<cfif gotRights("superadmin,agbmadmin")>
+			<cfif gotRights("superadmin,agbmadmin") && ! hideLastPayment>
 				<th>
 					Last Payment
 				</th>

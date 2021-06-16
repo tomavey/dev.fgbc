@@ -82,8 +82,10 @@
 					NA	
 				</cfif>
 			</td>
-			<td>
+			<cfif gotRights("superadmin,agbmadmin") && ! hideLastPayment>
+				<td>
 				#REQUEST.lastpayment#
 			</td>		
+		</cfif>
 		</tr>
 </cfoutput>

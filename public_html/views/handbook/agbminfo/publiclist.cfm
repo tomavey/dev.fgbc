@@ -18,7 +18,7 @@
     </div>
 <div class="container">
 <p style="margin-top:60px">&nbsp;</p>
-<cfoutput query="ministerium" group="district">
+<cfoutput query="people" group="district">
 <h2>#district#</h2>
 <ol>
 <cfoutput>
@@ -28,5 +28,5 @@
 </cfoutput>
 </div>
 <cfoutput>
-Total Count = #ministerium.recordcount#<br/>
+Total Count = #people.recordcount#<br/>
 </cfoutput>
