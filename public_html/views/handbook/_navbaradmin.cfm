@@ -52,11 +52,7 @@
 								controller="handbook.statistics",
 								action="getSummary",
 								key=year(now())-1,
-								params="
-									compyear=#year(now())-2#&
-									compyear2=#year(now())-3#&
-									compyear3=#year(now())-4#&
-									compyear4=#year(now())-5#"
+								params="compyear=#year(now())-2#&compyear2=#year(now())-3#&compyear3=#year(now())-4#&compyear4=#year(now())-5#"
 									)
 								#
 						</li>
