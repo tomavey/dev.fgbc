@@ -84,7 +84,7 @@
 		</li>
 		<li>&nbsp;</li>
 		<li>
-			#linkto(text="AGBM", controller="handbook.agbmInfo", action="list", params="download=true&type=mail", id="navsearch", title="Download a spreadsheet of all AGBM members.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
+			#linkto(text="AGBM", route="handbookDownloadagbm", id="navsearch", title="Download a spreadsheet of all AGBM members.", class="tooltip2 btn btn-large btn-block btn-primary downloadconfirm")#
 		</li>
 
 		<cfif gotRights("superadmin,office")>

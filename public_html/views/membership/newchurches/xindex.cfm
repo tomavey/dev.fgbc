@@ -11,7 +11,7 @@
 	<cfelse>
 		<p>#linkTo(text="Show all", action="index", params="showall")#</p>
 	</cfif>
-	<p>#linkto(text="Show Year to be celebrated in #year(now())#", action="index", params="grantEligibleAt=#year(now())#")#</p>
+	<p>#linkto(text="Show grant eligible in #year(now())#", action="index", params="grantEligibleAt=#year(now())#")#</p>
 </cfoutput>
 <div class="table">
 <cftable query="newchurches" colHeaders="true" HTMLTable="true">
@@ -28,7 +28,7 @@
 
 					<cfcol header="FGBC?" text="#becomefgbc#" />
 
-					<cfcol header="Year to be recognized" text="#grantEligibleAt#" />
+					<cfcol header="Grant Eligible" text="#grantEligibleAt#" />
 
 					<cfcol header="Created" text="#dateFormat(createdAt)#" />
 

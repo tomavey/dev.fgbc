@@ -233,6 +233,7 @@
 			.get(name="publicList", pattern="/agbm/", controller="agbmInfo", action="publicList")
 			.get(name="addAgbmInfo", pattern="/agbminfo/[key]/add/", controller="agbminfo", action="add")
 			.get(name="movePaymentsToNewMember", pattern="/agbminfo/movePaymentsToNewMember/", controller="agbminfo", action="movePaymentsToNewMember")
+			.get(name="deleteAgbmInfo", pattern="/agbm-info/[key]/delete/", controller="agbminfo", action="delete")
 			.resources("agbmInfo")
 
 			.get(name="districtsReport", pattern="/districts/report/", controller="districts", action="handbookreport")
@@ -776,6 +777,8 @@
 			.end()
 
 			.controller("delegates")
+				.get(name="delete", pattern="delete/")
+				.delete(name="delete", pattern="delete/")
 				.get(name="delinquent", pattern="/delinquent/", action="delinquent")
 				.get(name="downloaddelegates", pattern="/downloaddelegates/", action="downloaddelegates")
 				.post(name="create", pattern="/create/", action="create")

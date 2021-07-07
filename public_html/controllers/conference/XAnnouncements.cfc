@@ -263,8 +263,7 @@ component extends="Controller" output="false" {
 	}
 
 	private function $emailNotList(dontsendtothese="") {
-		var emailNotList = getSetting('emailNotList')
-		var returnthis = replace(emailNotList," ","","all");
+		var returnthis = application.wheels.emailnotList;
 		if ( ListLen(arguments.dontsendtothese) ) {
 			returnthis = returnthis & "," & arguments.dontsendtothese;
 		}

@@ -1,0 +1,39 @@
+ Volume in drive C is Local Disk
+ Volume Serial Number is E611-B227
+
+ Directory of C:\Users\tomav\OneDrive\Documents\GitHub\fgbc\.git
+
+06/30/2021  09:11 AM                12 COMMIT_EDITMSG-TABLET-RQQHK9E4
+07/05/2021  10:45 PM               323 FETCH_HEAD-TABLET-RQQHK9E4
+06/30/2021  09:11 AM         2,311,420 index-TABLET-RQQHK9E4
+04/23/2021  03:45 PM               315 packed-refs-TABLET-RQQHK9E4
+               4 File(s)      2,312,070 bytes
+
+ Directory of C:\Users\tomav\OneDrive\Documents\GitHub\fgbc\.git\logs
+
+06/30/2021  09:11 AM             4,166 HEAD-TABLET-RQQHK9E4
+               1 File(s)          4,166 bytes
+
+ Directory of C:\Users\tomav\OneDrive\Documents\GitHub\fgbc\.git\logs\refs\heads
+
+06/30/2021  09:11 AM             3,379 master-TABLET-RQQHK9E4
+               1 File(s)          3,379 bytes
+
+ Directory of C:\Users\tomav\OneDrive\Documents\GitHub\fgbc\.git\logs\refs\remotes\origin
+
+06/30/2021  09:11 AM             2,840 master-TABLET-RQQHK9E4
+               1 File(s)          2,840 bytes
+
+ Directory of C:\Users\tomav\OneDrive\Documents\GitHub\fgbc\.git\refs\heads
+
+06/30/2021  09:11 AM                41 master-TABLET-RQQHK9E4
+               1 File(s)             41 bytes
+
+ Directory of C:\Users\tomav\OneDrive\Documents\GitHub\fgbc\.git\refs\remotes\origin
+
+06/30/2021  09:11 AM                41 master-TABLET-RQQHK9E4
+               1 File(s)             41 bytes
+
+     Total Files Listed:
+               9 File(s)      2,322,537 bytes
+               0 Dir(s)  19,341,647,872 bytes free

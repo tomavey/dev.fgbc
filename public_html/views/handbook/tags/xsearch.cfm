@@ -23,12 +23,7 @@
 				<h4>People that match "<cfoutput>#params.search#</cfoutput>":</h4></br>
 			<ul>	
 			<cfoutput query="people" group="id">
-				<cfscript>
-					if ( isDefined("params.tags") ) {
-						setTags(id,session.auth.username,params.tags,"person")
-					}
-				</cfscript>
-						<cfset peoplecount = peoplecount+1>
+					<cfset peoplecount = peoplecount+1>
 					<cfset selectnameAlias = "#alias('lname',lname,id)#, #alias('fname',fname,id)# of #city#, #state#">
     			<cfset selectnameAlias = replace(selectnameAlias,"Non","","all")>
     				<li>
@@ -73,12 +68,6 @@
 				<h4>Churches or Organizations that match "<cfoutput>#params.search#</cfoutput>":</h4></br>
 			  <ul>
 			<cfoutput query="organizations">
-				<cfscript>
-					if ( isDefined("params.tags") ) {
-						setTags(id,session.auth.username,params.tags,"organization")
-					}
-				</cfscript>
-
 			<cfset organizationcount = organizationcount + 1>
 				<li>
 					#linkTo(

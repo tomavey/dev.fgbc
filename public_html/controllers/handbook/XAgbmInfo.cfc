@@ -67,9 +67,10 @@ function testGetCurrentMembershipYear() {
 					} 
 				)
 			}
-		// if ( !gotRights("agbm,superadmin,agbmadmin") ) {
-		// 	reDirectTo(action="publicList");
-		// }
+		if ( !gotRights("agbm,superadmin,agbmadmin") ) {
+			people = model("Handbookagbminfo").findAllMembers(currentMembershipYear=currentmembershipyear, orderby="district", publicOnly=true);
+			renderView(template="publicList");
+		}
 		// Set the layout for normal, download view, or download excel
 		if ( isdefined("params.download") ) {
 			renderView(template="download", layout="/layout_naked");
@@ -203,7 +204,7 @@ function delete() {
 
 	// For public lists - just name and location - no links
 	function publicList() {
-		people = getAgbmMembers(currentMembershipYear=currentmembershipyear, orderby="district, lname");
+		ministerium = getAgbmMembers(currentMembershipYear=currentmembershipyear, orderby="district, lname");
 	}
 
 	// Use on home page for a simple list of everyone in the handbook with links

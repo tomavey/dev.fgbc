@@ -32,7 +32,6 @@
 			<th>Organization Zip</th>
 			<th>Organization Phone</th>
 			<th>Organization Email</th>
-			<th>Inspire?</th>
 		</tr>
 		<cfoutput query="TaggedPeople">
 		<tr>
@@ -57,11 +56,6 @@
 			<td>#handbookOrganizationZip#</td>
 			<td>#handbookOrganizationPhone#</td>
 			<td>#handbookOrganizationEmail#</td>
-			<td>
-				<cfif #isAgbmMember(id)#>
-					Current member of Inspire
-				</cfif>
-			</td>
 		</tr>
 		</cfoutput>
 	</table>

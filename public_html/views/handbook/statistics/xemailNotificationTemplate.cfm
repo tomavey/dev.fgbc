@@ -1,4 +1,4 @@
-<cfparam name="covidAlternateMessage" default=false>
+<cfparam name="covidAlternateMessage" default=true>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -50,28 +50,7 @@
     <td>
 
     <cfoutput>
-
-      <cfif !isBefore(getSetting("memFeeDeadline"))> 
-
-        <h3>Subject: #args.name# (#args.city#) statistics for #year(now())-1# and fellowship fees for #year(now())#. </h3>
-        <p>
-            GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship. Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
-        </p>
-        <p>
-            Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. Stats for #year(now())-1# and the fellowship fee for #year(now())# was May 15 however it is not too late to count!</p>
-        <p>
-            We are working on a statistical report for the Charis Fellowship and would like to include your church's information. 
-        </p>
-        <p class="lead">
-            Due to the COVID-19 crisis fellowship fees for 2021 will be based on 2019 attendance. If your church needs additional help, email Tim Hodge at <a href="mailto:tim@charisfellowship.us">tim@charisfellowship.us</a> or call the national office at 574-269-1269. 
-        </p>      
-        </p>
-        <p class="callout">
-            You can submit this information and pay online at: #linkto(href='https://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
-        </p>
-
-
-      <cfelseif !covidAlternateMessage>
+      <cfif !covidAlternateMessage>
 
         <h3>Subject: #args.name# (#args.city#) statistics for #year(now())-1# and fellowship fee for #year(now())# are due May 15. </h3>
         <p class="lead">
@@ -83,6 +62,22 @@
         <p class="callout">
             If you would prefer to submit this information and pay online you can use this link: #linkto(href='https://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
         </p>
+
+      <cfelse>
+
+        <h3>Subject: #args.name# (#args.city#) statistics for #year(now())-1# and fellowship fees for #year(now())#. </h3>
+        <p>
+            GREETINGS! It is a privilege to serve Jesus together in the Charis Fellowship. Out of our deep commitment to biblical truth, relationships and mission we are planting churches, training leaders and doing good for the sake of the gospel!
+        </p>
+        <p>
+            Each year, Charis Fellowship churches agree to send a simple statistical report for the previous year and a fellowship fee for the current year. This is a friendly reminder that stats for #year(now())-1# and the fellowship fee for #year(now())# #wereOrAre()# are due May 15. After that date, the fee increases. Your office should receive #linkto(text="this brochure", href='http://charisfellowship.us/files/#getSetting("StatForm")#')# by regular post requesting your statistics and fellowship fee.
+        <p class="lead">
+            Due to the COVID-19 crisis fellowship fees for 2021 will be based on 2019 attendance. If your church needs additional help, email Tim Hodge at <a href="mailto:tim@charisfellowship.us">tim@charisfellowship.us</a> or call the national office at 574-269-1269. 
+        </p>      
+        </p>
+        <p class="callout">
+            You can download the form #linkto(text="HERE", href='http://charisfellowship.us/files/#getSetting("StatForm")#')# or submit this information and pay online at: #linkto(href='https://charisfellowship.us/sendstats/#args.id#', onlyPath="false")# 
+                </p>
 
       </cfif>    
 

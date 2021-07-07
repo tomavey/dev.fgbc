@@ -126,7 +126,7 @@
 
 						#textField(objectName='newchurch', property='reviewedBy', label='Reviewed By')#
 
-						#textField(objectName='newchurch', property='grantEligibleAt', label='Conference Year to be celebrated: ')#
+						#textField(objectName='newchurch', property='grantEligibleAt', label='Eligible for a grant at conference in: ')#
 
 </fieldset>
 
