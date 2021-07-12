@@ -790,6 +790,8 @@
 				.get(name="closed", pattern="/closed/", action="closed")
 				.post(name="updateSubmitter", pattern="/updatesubmitter/", action="updatesubmitter")
 				.post(name="createOne", pattern="/createOne/", action="createOne")
+				.delete(name="deleteAllByYear", pattern="/deleteAllByYear")
+				.get(name="deleteAllByYear", pattern="/deleteAllByYear")
 			.end()
 			.resources("delegates")
 

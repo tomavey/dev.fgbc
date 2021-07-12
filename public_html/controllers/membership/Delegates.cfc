@@ -454,6 +454,18 @@
 		<cfset redirectTo(action="submit", key=params.key)>
 	</cffunction>
 
+	<!---deleteAllByYear/inactiveAll--- use from url only - used in 2021 so we could do a 2nd delegates seating --->
+<cfscript>
+	function deleteAllByYear(){
+		if ( !isDefined('params.year') ) {
+			ddd("need year in params")
+		}
+		var all = model("Fgbcdelegate").deleteAll(where="year='#params.year#'")
+		ddd(all)
+	}
+</cfscript>
+
+
 	<!--- fgbcdelegates/clearChurchId --->
 	<cffunction name="clearChurchId">
 		<cfset structDelete(session,"delegate")>
