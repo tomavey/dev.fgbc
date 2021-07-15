@@ -40,9 +40,9 @@
 			--->
 			<li>New members of the Fellowship Council (board of directors)</li>
 			<li>Future executive director of the Charis Fellowship</li>
-			<li>New member churches</li>
-			<li>New cooperating organizations</li>
+			<li>New national ministries</li>
 			<li>The Charis Fellowship Annual budget including fellowship fees</li>
+			<li>Proposals from the Fellowship Council.</li>
 		</ul>
 		</p>
 
