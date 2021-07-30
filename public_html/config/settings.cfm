@@ -40,11 +40,11 @@
 	set(sendEmailOnError=false)
 	set(sendConferenceEmailOnError=false)
 	set(sendHandbookEmailOnError=false)
-	set(errorEmailAddress="tomavey@charisfellowship.us")
+	set(errorEmailAddress="sharmion@charisfellowship.us")
 	set(errorEmailSubject="charisfellowship.us error")
 	set(sendConferenceEmailOnError=true)
 	set(sendHandbookEmailOnError=true)
-	set(userAdminEmailAddress="tomavey@charisfellowship.us")
+	set(userAdminEmailAddress="sharmion@charisfellowship.us")
 	set(fileRef = "http://" & cgi.http_host & replace(cgi.script_name,"index.cfm","") & "files/")
 	addFormat(extension="js", mimeType="text/javascript")
 	set(goEMerchantId = "fellowshipofgracen")
@@ -87,13 +87,13 @@
 	// Current Year
 	// used by handbook
 	set(handbookRightsRequired = "handbook,office,superadmin,natmin,agbmadmin")
-	set(HandbookProfileSecretary="tomavey@charisfellowship.us")
+	set(HandbookProfileSecretary="sharmion@charisfellowship.us")
 	set(showLinkToHandbookPageBefore = "11-1-#year(now())#")
 	set(sendHandbookDeadline = "January 5, 2018")
 	set(HandbookReviewSecretary = "Cassie Rayl <raylcassie@gmail.com>")
-	set(HandbookReviewSecretary2 = "Tom Avey <tomavey@charisfellowship.us>")
-	set(HandbookStatsReviewer = "tomavey@charisfellowship.us")
-	set(SendHandbookStatsReminderCopyTo = "tomavey@fgbc.org")
+	set(HandbookReviewSecretary2 = "Sharmion <sharmion@charisfellowship.us>")
+	set(HandbookStatsReviewer = "sharmion@charisfellowship.us")
+	set(SendHandbookStatsReminderCopyTo = "sharmion@charisfellowship.us")
 	set(SendHandbookStatsReminderCopy = true)
 	set(SendImmediatePersonUpdates = false)
 	set(ChurchHandbookReviewGreeting = "It's Time to Update the Charis Fellowship Handbook!")
@@ -103,8 +103,8 @@
 	set(personReviewDeadline = "October 20")
 	set(allowHandbookAuthByCookie = false)
 	set(allowHandbookOrgUpdate = true)
-	set(superAdminUserName = "tomavey")
-	set(testEmailsForHandbookReview = "tomavey@fgbc.org,tomavey@outlook.com")
+	set(superAdminUserName = "Sharmion")
+	set(testEmailsForHandbookReview = "sharmion@charisfellowship.us")
 
 	// used at users.cfc login to give access to FC pages
 	set(alias = {
@@ -131,8 +131,8 @@
 	set(emailUpdateSubjectFromBluepages = "Please review your personal Charis Fellowship Handbook listing")
 
 	// Used by Focus MVC
-	set(registrant = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")
-	set(testAgents = "tomavey@charisfellowship.us,sharmion@charisfellowship.us,tomavey@fgbc.org")
+	set(registrant = "sharmion@charisfellowship.us")
+	set(testAgents = "sharmion@charisfellowship.us")
 	set(mainregistrar = "sharmion@charisfellowship.us")
 	set(optionTypes = "Public,Discount,Office")
 	set(focusIsOpen = true)
@@ -231,14 +231,14 @@
 			)
 	// email addresses used
 	set(registrarEmail="sharmion@charisfellowship.us")
-	set(registrarEmailBackup="tomavey@charisfellowship.us")
+	set(registrarEmailBackup="sharmion@charisfellowship.us")
 	set(requestInvoiceReceiptFrom = "sharmion@charisfellowship.us")
 	set(registrarBackupEmail="sharmion@charisfellowship.us")
 	set(housingCoordinatorEmail = "sharmion@charisfellowship.us")
-	set(childcarenotifications = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")
-	set(workshopnotifications = "tomavey@charisfellowship.us")
-	set(sendJobNoticesTo = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")
-	set(sendContactUsTo = "tomavey@charisfellowship.us,sharmion@charisfellowship.us")
+	set(childcarenotifications = "sharmion@charisfellowship.us")
+	set(workshopnotifications = "sharmion@charisfellowship.us")
+	set(sendJobNoticesTo = "sharmion@charisfellowship.us")
+	set(sendContactUsTo = "sharmion@charisfellowship.us")
 
 	set(focusForFinancialHelp="sharmion@charisfellowship.us")
 
@@ -280,7 +280,7 @@
 
 	// For Vision Conference Announcements
 	set(useTestEmailList = false)
-	set(testEmailList = "tomavey@charisfellowship.us,tomavey@fgbc.org")
+	set(testEmailList = "sharmion@charisfellowship.us")
 	set(emailNotList = "tomavey@test.net,caesar.die2self@gmail.com,graham.cochrane@td.com,guypelay@verizon.net,Crazyfox65@gmail.com")
 
 </cfscript>
