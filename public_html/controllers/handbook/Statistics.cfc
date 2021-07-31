@@ -1,0 +1,1094 @@
+//TODO - Convert to cfscript
+<cfcomponent extends="Controller" output="false">
+
+
+<cfscript>
+	function config() {
+		usesLayout(template="/handbook/layout_admin");
+		filters(through="isAuthorized", only="new,edit,allCurrentNotPaid,emailAllCurrentNotPaid");
+		filters(through="paramsKeyRequired", only="sizeByPercent,getSummary");
+		filters(through="setReturn", only="index,submit");
+		filters(through="setParamsKey")
+		filters(through="setStatYear", only="index,show")
+	}
+	
+<!---FILTERS--->	
+
+	function setStatYear(){
+		if ( isDefined("params.year") and len(params.year) ) {
+			statyear = params.year
+		} else {
+			statYear = year(now())-1
+		}
+	}
+
+	function setParamsKey(){
+		if ( isdefined("params.keyy") ) { params.key = params.keyy }
+	}
+
+	function isAuthorized() {
+		try {
+			if ( !gotRights("superadmin,office") ) {
+				redirectto(action="nopermission");
+				abort;
+			}
+		} catch (any cfcatch) {
+			redirectto(action="nopermission");
+		}
+	}
+
+	function nopermission() {
+		renderText("You do !have permission to view this page");
+		abort;
+	}
+
+	function paramsKeyRequired() {
+		if ( !isDefined("params.key") ) {
+			renderText("This page cannot display - wrong parameters");
+		}
+	}
+
+</cfscript>	
+
+	<!---fgbcdelegates/getChurchId--->
+	<cffunction name="getChurchid">
+		<cfset churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="org_city,state_mail_abbrev")>
+		<cfset renderView(layout="/handbook/layout_handbook2")>
+	</cffunction>
+
+	<cffunction name="welcome">
+		<cfif gotRights("superadmin,office")>
+			<cfset redirectTo(action="index")>
+		</cfif>
+
+	</cffunction>
+
+	<!--- handbook-statistics/index --->
+	<cffunction name="index">
+		<cfset var loc=structNew()>
+
+		<cfif not isdefined("params.key")>
+			<cfset params.key = "year">
+		</cfif>
+
+		<cfif isdefined("params.year")>
+			<cfset whereString="year=#params.year#">
+		<cfelse>
+			<cfset whereString="year=#statYear#">
+		</cfif>
+
+		<cfif isDefined("params.temp")>
+			<cfset whereString=whereString & " AND enteredBy='temp'">
+		</cfif>
+
+		<cfset handbookstatistics = model("Handbookstatistic").findAll(where=whereString,include="Handbookorganization(Handbookstate)", order=params.key)>
+
+		<cfif isDefined("params.summary") and params.summary>
+			<cfset renderView(controller="handbook-statistics", action="summary")>
+		</cfif>
+	</cffunction>
+
+	<!--- handbook/statistics/list --->
+	<!---Is this needed?--->
+	<cffunction name="list">
+
+		<cfif params.key is "0" || params.key is "nokey">
+			<cfset redirectTo(action="index")>
+		</cfif>	
+
+		<!--- Find the record --->
+    	<cfset handbookstatistic = model("Handbookstatistic").findAll(where="organizationid=#params.key#",include="Handbookorganization(Handbookstate)",order="year DESC")>
+
+		<cfif not GotRights("superadmin,office")>
+			  <cfset renderView(layout="/handbook/layout_handbook1")>
+		</cfif>
+
+	</cffunction>
+
+
+<cfscript>
+
+	function show(){
+		var whereString = "year='#statyear#'"
+		if ( isDefined('params.key') ) { whereString = "id=#params.key#" }
+		if ( isDefined('params.request') ) { whereString = "pray IS NOT NULL OR assist IS NOT NULL OR celebrate IS NOT NULL" }
+		statistics = model("Handbookstatistic").findAll(where=whereString)
+		statistics.addColumn('netMemFee','string')
+		statistics = queryMap(statistics, function(stat){
+			stat.netMemFee = val(stat.memfee)
+				if ( val(stat.donate) ) { stat.netMemFee = stat.netMemFee - val(stat.donate) }
+				if ( val(stat.relief) ) { stat.netMemFee = stat.netMemFee - val(stat.relief) }
+			return stat
+		})
+	}
+
+</cfscript>	
+
+	<!--- handbook-statistics/new --->
+	<cffunction name="new">
+		<cfset handbookstatistic = model("Handbookstatistic").new()>
+		<cfif isdefined("params.key")>
+			<cfset params.key = keyFromChurchid()>
+			<cfset handbookstatistic.organizationid = params.key>
+			<cfset thisorg = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")>
+		</cfif>
+		<cfset handbookstatistic.year = year(now())-1>
+		<cfif isCovidStatsYear()>
+			<cfset handbookstatistic.attyear = 0>
+		</cfif>
+		<cfset organizations = model("Handbookorganization").findall(where='statusid in (1,4)', include="Handbookstate", order="org_city,state_mail_abbrev,name")>
+	</cffunction>
+
+<cfscript>
+	function isCovidStatsYear(){
+		if ( isAfter("2021-01-01") && isBefore("2021-12-31") ) { return true }
+		return false
+	}
+
+	private function makeStatValid(stat, allowEmpty) {
+		if ( !len(stat)  && allowEmpty ) { return stat }
+		stat = replace(stat,"$","","all")
+		stat = replace(stat,",","","all")
+		if ( isNumeric(stat) ) {
+				return stat
+			} else {
+				return false
+			}
+	}
+
+	<!--- handbook-statistics/submit - used in public send stats form--->
+	function submit () {
+		//Lets allow the church id to come from params.key OR params.churchid
+		if ( isDefined("params.churchId") ) { params.key = params.churchId }
+
+		//If there is not church id provided redirect to the getChurchId Page
+		if ( !isDefined("params.key") ) {
+			flashInsert(error="Welcome! Please select your church from this drop-down list...")
+			redirectTo(action="getChurchid")
+		}
+
+		//This extends the memfee deadline by 3 months if extendDeadline is in params (query string)
+		if ( isDefined("params.extendDeadline") ) {
+			session.statistics.extendDeadLine = true
+		}
+
+		//create the handbookstatistic object either as a mew object or from a session stored from a previous object that failed validation
+		if ( StructKeyExists(session, "handbookstatistic") && isDefined("session.handbookstatistic") ) {
+			params.handbookstatistic = session.handbookstatistic
+			structDelete(session,"handbookstatistic")
+			handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)
+		} else {
+			handbookstatistic = model("Handbookstatistic").new()
+		}
+
+		//find the organization/church from the params key - if no params key show a church not found
+		if ( isDefined("params.key") ) {
+			handbookstatistic.organizationid = params.key
+			thisorg = model("Handbookorganization").findOne(where="id=#params.key#", include="Handbookstate")
+		} else {
+			renderText("Church not found.")
+		}
+
+		//fees for 2020 will be based on 2019 stats - or the last stats submitted
+		if ( isCovidStatsYear() && ($getLastAttYear(params.key) GT 2017) ) {
+			handbookstatistic.att = $getLastAtt(params.key)
+			handbookstatistic.attYear = $getLastAttYear(params.key)
+		} else {
+			handbookstatistic.att = ''
+			handbookstatistic.attYear = ''
+		}
+
+		//use the previous year for stats unless set in params.year
+		if ( !isDefined("params.year") ) {
+			handbookstatistic.year = year(now())-1
+		} else {
+			handbookstatistic.year = params.year
+		}
+
+		//get a list of member churches for dropdown list
+		organizations = model("Handbookorganization").findall(where='statusid = 1', include="Handbookstate", order="org_city,state_mail_abbrev,name")
+
+		renderView(layout="/handbook/layout_handbook2")
+	}
+
+</cfscript>	
+
+
+	<!--- handbook-statistics/edit/key --->
+	<cffunction name="edit">
+		<!--- Find the record --->
+   	<cfset handbookstatistic = model("Handbookstatistic").findByKey(params.key)>
+		<cfset organizations = model("Handbookorganization").findall(include="Handbookstate", order="selectName")>
+		<cfif isCovidStatsYear()>
+			<cfset handbookstatistic.attyear = "">
+		</cfif>
+
+    	<!--- Check if the record exists --->
+	    <cfif NOT IsObject(handbookstatistic)>
+	        <cfset flashInsert(error="HandbookStatistic #params.key# was not found")>
+			<cfset returnBack()>
+	    </cfif>
+			<cfset formaction = "update">
+	</cffunction>
+
+
+	<!--- handbook-statistics/create --->
+<cfscript>
+
+	function create(){
+		//check to make sure att and donation and relief amounts are numeric
+		//If not, reload form with error message at the top.
+		var formIsValid = true
+		var fieldsMustBeNumberOrEmpty = ["donate","relief"]
+		var fieldsMustBeNumberNOTEmpty = ["att"]
+		for ( f in fieldsMustBeNumberOrEmpty ) {
+			params.handbookstatistic[f] = makeStatValid(stat = params.handbookstatistic[f], allowEmpty = true)
+			if ( params.handbookstatistic[f] == false ) { formIsValid = false }
+		}
+		for ( f in fieldsMustBeNumberNOTEmpty ) {
+			params.handbookstatistic[f] = makeStatValid(stat = params.handbookstatistic[f], allowEmpty = false)
+			if ( params.handbookstatistic[f] == false ) { formIsValid = false }
+		}
+
+		//if the form is not valid, reload form with error message at top
+		if ( !formIsValid ) {
+			session.handbookstatistic = params.handbookstatistic
+			handbookstatistic = params.handbookstatistic
+			handbookstatistic.att = ""
+			handbookstatistic.donate = ""
+			handbookstatistic.relief = ""
+			flashInsert(error="Attendance on line 1 must be a number. Lines 8 and 9 must be entered as numbers or left blank")
+			returnBack()
+		}
+
+		handbookstatistic = model("Handbookstatistic").new(params.handbookstatistic)
+		organizations = model("Handbookorganization").findall(include="Handbookstate", order="selectName")
+
+		if ( handbookstatistic.save() )	{
+			if ( getSetting("notifyOfficeWhenStatsSubmitted") ) {
+				notifyOfficeOfNewStat(handbookstatistic.id)	
+			}
+			flashInsert(success="The handbookstatistic was created successfully.")
+			if ( isdefined("params.pay") and params.pay ) {
+				redirectTo(action="payonline", params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#&statId=#handbookstatistic.id#")
+			} else {
+				returnBack()
+			}	
+		} else {
+			flashInsert(error="There was an error creating the handbookstatistic.")
+			if ( isdefined("params.pay") and params.pay ) {
+				renderView(action="submit")
+			} else {
+				renderView(action="new")
+			}
+		}			
+
+	}
+
+</cfscript>
+
+
+	<!--- handbook-statistics/update --->
+	<cffunction name="update">
+		<cfset handbookstatistic = model("Handbookstatistic").findByKey(params.key)>
+
+		<cfloop list="att,members,memfee,members,baptisms,conversions" index="ii">
+			<cfif isDefined("params.handbookstatistic[ii]") && isValid("string",params.handbookstatistic[ii])>
+				<cftry>
+				<cfset params.handbookstatistic[ii] = LSParseNumber(params.handbookstatistic[ii])>	
+				<cfcatch></cfcatch></cftry>
+			</cfif>
+		</cfloop>
+
+		<!--- Verify that the handbookstatistic updates successfully --->
+		<cfif handbookstatistic.update(params.handbookstatistic)>
+			<cfset flashInsert(success="The handbookstatistic was updated successfully.")>
+            <cfset returnBack()>
+		<!--- Otherwise --->
+		<cfelse>
+			<cfset flashInsert(error="There was an error updating the handbookstatistic.")>
+			<cfset renderView(action="edit")>
+		</cfif>
+	</cffunction>
+
+	<cffunction name="allCurrent">
+		<cfif isDefined("params.notPaid")>
+			<cfset churches = allCurrentNotPaid()>
+		<cfelse>		
+			<cfset churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state_mail_abbrev,org_city,name")>
+		</cfif>	
+		<cfset yearago = model("Handbookstatistic").findMemFeePaidBy()>
+		<cfset twoyearsago = model("Handbookstatistic").findMemFeePaidBy('-2')>
+		<cfif isDefined("params.download")>
+			<cfset isDownload = true>
+			<cfset renderView(layout="/layout_download")>
+		</cfif>
+	</cffunction>
+
+<cfscript>
+
+	public function makeTestList(){
+		var list = queryNew("id, emails, link, name, city");
+		queryAddRow(list,1);
+		querySetCell(list,"emails", "tomavey@fgbc.org");
+		querySetCell(list,"link", "https://charisfellowship.us/sendstats");
+		querySetCell(list,"name", "Test Church");
+		querySetCell(list,"id", 1);
+		querySetCell(list,"city", listedAsCity('anytown','listedastown'));
+		return list;
+	}
+
+</cfscript>	
+
+	<cffunction name="sizeByPercent">
+	<cfargument name="fieldname" default="att">
+	<cfargument name="xxlarge" default="90">
+	<cfargument name="xlarge" default="80">
+	<cfargument name="large" default="50">
+	<cfargument name="medium" default="25">
+	<cfset var loc=structNew()>
+
+		<cfset loc.count = model("Handbookstatistic").findAll(where="year='#params.key#'", select="count(*) AS count")>
+
+		<cfset loc.xxlarge.count = round(loc.count.count*((100-arguments.xxlarge)/100))>
+		<cfset loc.xxlarge.startrow = 1>
+		<cfset loc.xxlarge.maxrows = loc.xxlarge.count>
+		<cfset loc.xxlarge.endrow = loc.xxlarge.startrow + loc.xxlarge.maxrows>
+
+		<cfset loc.xlarge.count = round(loc.count.count*((100-arguments.xlarge)/100))>
+		<cfset loc.xlarge.startrow = loc.xxlarge.maxrows+1>
+		<cfset loc.xlarge.maxrows = loc.xlarge.count - loc.xlarge.startrow>
+		<cfset loc.xlarge.endrow = loc.xlarge.startrow + loc.xlarge.maxrows>
+
+		<cfset loc.large.count = round(loc.count.count*((100-arguments.large)/100))>
+		<cfset loc.large.startrow = loc.xlarge.endrow+1>
+		<cfset loc.large.maxrows = loc.large.count - loc.large.startrow>
+		<cfset loc.large.endrow = loc.large.startrow + loc.large.maxrows>
+
+		<cfset loc.medium.count = round(loc.count.count*((100-arguments.medium)/100))>
+		<cfset loc.medium.startrow = loc.large.endrow+1>
+		<cfset loc.medium.maxrows = loc.medium.count - loc.medium.startrow>
+		<cfset loc.medium.endrow = loc.medium.startrow + loc.medium.maxrows>
+
+		<cfset loc.small.startrow = loc.medium.endrow+1>
+		<cfset loc.small.maxrows = 10000>
+		<cfset loc.small.endrow = loc.small.startrow + loc.small.maxrows>
+
+		<cfset loc.all = model("Handbookstatistic").findAll(where="year='#params.key#'", include="Handbookorganization(Handbookstate)", order="attInt DESC")>
+		<cfset loc.xxlarge.total = getTotal(
+							fieldname=arguments.fieldname,
+							thisquery=loc.all,
+							startrow=loc.xxlarge.startrow,
+							maxrows=loc.xxlarge.maxrows
+							)>
+		<cfset loc.xlarge.total = getTotal(
+							fieldname=arguments.fieldname,
+							thisquery=loc.all,
+							startrow=loc.xlarge.startrow,
+							maxrows=loc.xlarge.maxrows
+							)>
+		<cfset loc.large.total = getTotal(
+							fieldname=arguments.fieldname,
+							thisquery=loc.all,
+							startrow=loc.large.startrow,
+							maxrows=loc.large.maxrows
+							)>
+		<cfset loc.medium.total = getTotal(
+							fieldname=arguments.fieldname,
+							thisquery=loc.all,
+							startrow=loc.medium.startrow,
+							maxrows=loc.medium.maxrows
+							)>
+		<cfset loc.small.total = getTotal(
+							fieldname=arguments.fieldname,
+							thisquery=loc.all,
+							startrow=loc.small.startrow,
+							maxrows=100000
+							)>
+		<cfset attributes = loc>
+	</cffunction>
+
+	<cffunction name="closedChurches">
+	<cfargument name="since" default="#createDate(year(now())-1,08,01)#">
+		<cfset churches = model("Handbookupdate").findAll(where="modelname='Handbookorganization' AND columnName='statusid' AND olddata = 1 AND newdata in (3,4,5,6,7,8,9) AND createdAt > '#arguments.since#'", include="Handbookorganization(Handbookstate)")>
+	</cffunction>
+
+
+	<!--- handbook-statistics/delete/key --->
+	<cffunction name="delete">
+		<cfset handbookstatistic = model("Handbookstatistic").findByKey(params.key)>
+
+		<!--- Verify that the handbookstatistic deletes successfully --->
+		<cfif handbookstatistic.delete()>
+			<cfset flashInsert(success="The handbookstatistic was deleted successfully.")>
+		<!--- Otherwise --->
+		<cfelse>
+			<cfset flashInsert(error="There was an error deleting the handbookstatistic.")>
+		</cfif>
+        <cfset returnBack()>
+	</cffunction>
+
+	<cffunction name="delinquent">
+		<cfset churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state_mail_abbrev,org_city,name")>
+		<cfif isDefined("params.download")>
+			<cfset renderView(layout="/layout_download.cfm")>
+		</cfif>
+	</cffunction>
+
+	<cffunction name="howDelinquent">
+	<cfargument name="churchid" required="true" type="numeric">
+	<cfset var loc = structNew()>
+		<cfif month(now()) LTE 7>
+			<cfset loc.year = year(now()) - 1>
+		<cfelse>
+			<cfset loc.year = year(now())>
+		</cfif>
+		<cfset loc.1 = loc.year-1>
+		<cfset loc.2 = loc.year-2>
+		<cfset loc.3 = loc.year-3>
+		<cfset loc.4 = loc.year-4>
+		<cfset loc.return = "">
+		<cfset loc.count = 0>
+
+		<cfloop from="1" to="4" index="i">
+			<cfif noMemFee(arguments.churchid,loc[i])>
+				<cfset loc.text = loc[i]+1>
+				<cfset loc.count = 1>
+			<cfelse>
+				<cfset loc.text = "&nbsp;">
+			</cfif>
+				<cfset loc.return = loc.return & "</td><td>" & loc.text>
+		</cfloop>
+
+		<cfset loc.return = replace(loc.return,"; ","","one")>
+
+		<cfif loc.count>
+			<cfreturn loc.return>
+		<cfelse>
+			<cfreturn false>
+		</cfif>
+
+	</cffunction>
+
+	<cffunction name="noMemFee">
+	<cfargument name="churchid" required="true" type="numeric">
+	<cfargument name="year" required="true" typeq="string">
+		<!---First check to see if this church joined after this date--->
+		<cfset church = model("Handbookorganization").findOne(where="id=#arguments.churchid#", include="Handbookstate")>
+		<cfset statistic = model("Handbookstatistic").findOne(where="organizationid = #arguments.churchid# AND year = '#arguments.year#'")>
+
+		<cfif val(church.joinedAt) GTE val(arguments.year)>
+			<cfreturn false>
+		<cfelseif isObject(statistic)>
+			<cfreturn false>
+		<cfelse>
+			<cfreturn true>
+		</cfif>
+
+		<!---then check for a payment record for this church for this year--->
+	</cffunction>
+
+
+	<cffunction name="allCurrentNotPaid">
+		<cfset var churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state_mail_abbrev,org_city,name")>
+		<cfset var notpaidchurches = queryNew("id,name,city,emails")>
+		<cfloop query="churches">
+			<cfif getFeePaid(id) is "NONE" || getFeePaid(id) is 0>
+				<cfset queryAddRow(notpaidchurches,1)>
+				<cfset querySetCell(notpaidchurches,"id",#id#)>
+				<cfset querySetCell(notpaidchurches,"name",#name#)>
+				<cfset querySetCell(notpaidchurches,"city",#listedAsCity(org_city,listed_as_city)#)>
+				<cfset querySetCell(notpaidchurches,"emails",#getOrgEmails(id)#)>
+			</cfif>
+		</cfloop>
+		<cfreturn notpaidchurches>
+	</cffunction>
+
+<cfscript>
+	private function $getBccForEmailNotifications(){
+		if (getSetting('SendHandbookStatsReminderCopy')) {
+			return getSetting('SendHandbookStatsReminderCopyTo');
+		} 
+			return "";
+	} 
+</cfscript>
+
+	<cffunction name="emailAllCurrentNotPaid">
+	<cfset args = structNew()>
+	<cfset statsEmail.Sent = []>
+	<cfset statsEmail.Failed = []>
+
+		<cfif !isDefined("params.go")>
+			<cfset churches = makeTestList()>
+		<cfelse>
+			<cfset churches = allcurrentnotpaid()>
+		</cfif>
+		<cfif onlocalhost()>
+		<cfelse>
+		</cfif>
+		<cfloop query="churches">
+			<cfset args.emails = emails>
+			<cfset args.name = name>
+			<cfset args.city = city>
+			<cfset args.id = id>
+			<cfset args.bcc = $getBccForEmailNotifications()>
+			<cfif !onLocalhost()>
+				<cftry>
+					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", bcc=args.bcc, subject="Charis Fellowship Stats and Fee are due May 15.", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
+					<cfset arrayAppend(statsEmail.sent, args)>
+				<cfcatch>
+					<cfset arrayAppend(statsEmail.failed, args)>
+				</cfcatch>
+				</cftry>
+			<cfelse>
+				<cfdump var="#args#">		
+			</cfif>	
+			<cfset args = structNew()>
+		</cfloop>
+
+		<cfif onlocalhost()>
+		</cfif>
+
+		<!----Copy last email to me--->	
+			<cfset args.emails = "tomavey@fgbc.org">
+			<cfset args.name = churches.name>
+			<cfset args.city = churches.city>
+			<cfset args.id = churches.id>
+			<cfif !onLocalhost()>
+					<cfset showResults = true>
+					<cfset sendEmail(to=args.emails, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email")>
+			</cfif>	
+
+	<cfset renderView(template="emailNotificationTemplate", layout="/layout_for_email", showResults=true)>
+	</cffunction>
+
+	<cfscript>
+		private function notifyOfficeOfNewStat (statId) {
+		var stat = model("Handbookstatistic").findOne(where="id=#statid#");
+		church = model("Handbookorganization").findOne(where="id = #stat.organizationid#", include="state")
+		if ( !isLocalMachine() && isObject(stat) && isObject(church) ) {
+			sendEmail(to=getSetting("HandbookStatsReviewer"), from=getSetting('HandbookStatsReviewer'), subject="New Stats Submitted", type="html", template="emailNotifyOfficeOfNewStat");
+		} else {
+			consoleLog("Email notification would be sent for #church.selectName# if not on localhost:")
+		}
+		return stat;
+		}
+
+		public function testNotifyOfficeOfNewStat () {
+			writeDump(notifyOfficeOfNewStat(3793).properties());abort;
+		}
+	</cfscript>
+
+	<cffunction name="getThisYear">
+	<cfset var loc = structNew()>
+	<cfset loc.now = now()>
+	<cfset loc.year = year(now())>
+	<cfif isDefined("params.year")>
+		<cfset loc.year = params.year>
+	</cfif>
+		<cfreturn loc.year>
+	</cffunction>
+
+	<cffunction name="getFeePaid">
+	<cfargument name="orgid" required="true" type="numeric">
+		<cfset fee = model("Handbookstatistic").findOne(where="organizationid=#arguments.orgid# AND year = '#getThisYear()-1#'", order="createdAt DESC")>
+		<cfif isObject(fee)>
+			<cfif val(fee.memfee)>
+				<cfreturn fee.memfee>
+			<cfelse>
+				<cfreturn "Memfee not paid">
+			</cfif>
+		<cfelse>
+			<cfreturn "NONE">
+		</cfif>
+	</cffunction>
+
+	<cffunction name="getFeeTotal">
+	<cfargument name="rate" default="#params.rate#">
+	<cfargument name="max" default="#params.max#">
+	<cfargument name="year" default='#params.year#'>
+	<cfset feeTotal = 0>
+		<cfset stats = model("Handbookstatistic").findAll(where="year='#arguments.year#'")>
+		<cfloop query = "stats">
+			<cfif val(att) * arguments.rate GTE params.max>
+				<cfset feeTotal = feeTotal + params.max>
+			<cfelse>
+				<cfset feeTotal = feeTotal + (params.rate * val(att))>
+			</cfif>
+		</cfloop>
+	</cffunction>
+
+	<cffunction name="payonline">
+		<!--- get method with params="churchid=#params.handbookstatistic.organizationid#&year=#handbookstatistic.year#&statId=#handbookstatistic.id#" --->
+
+		<cfset payonline = structnew()>
+		<cfset payonline.merchant = "fellowshipofgracen">
+
+		<cfset church = model("Handbookorganization").findOne(where="id=#params.churchid#", include="state", order="createdAt DESC")>
+		<cfset stat = model("Handbookstatistic").findOne(where="id=#params.statId#")>
+		<cfset church.name = replace(church.name," ","","all")>
+		<cfset church.org_city = replace(church.org_city," ","","all")>
+		<cfset payonline.orderid = createOrderId(church.properties(),params.statId)>
+
+		<cfset payonline.amount = getPayonlineAmount(params.statId)>
+
+		<cfif isLocalMachine() || stat.comment == "test">
+			<!--- <cfset ddd(payonline)> --->
+			<cfset payonline.url = "http://#CGI.http_host#/handbook/statistics/confirm">
+			<cflocation url="#payonline.url#/?status=True&auth_code=014154&auth_response=APPROVED&avs_code=N&cvv2_code=M&order_id=#payonline.orderid#&reference_number=216048353&amount=#payonline.amount#&storename=fellowshipofgracen&processor=fifththird&mid=020004948386&tid=001">			
+		</cfif>
+		<cflocation url="https://secure.goemerchant.com/secure/custompayment/fellowshipofgracen/5835/default.aspx?order_id=#payonline.orderid#&amount=#payonline.amount#">
+
+	</cffunction>
+
+<cfscript>
+	private function getPayonlineAmount(statId){
+		var amount
+		var stat = model("handbookstatistics").findOne(where="id=#params.statid#")
+		amount = (val(stat.att) * getOnlineMemFee())
+		if ( amount GTE getOnlineMemFeeMax() ) {
+			amount = getOnlineMemFeeMax()
+		}
+		if ( val(stat.donate) ) {
+			amount = amount + stat.donate
+		}
+		if ( val(stat.relief) ) {
+			amount = amount + stat.relief
+		}
+		return amount
+	}
+
+</cfscript>	
+
+	<cffunction name="createOrderId">
+	<cfargument name="churchinfo" required="true" type="struct">
+	<cfargument name="statId" required="true" type="number">
+		<cfset var ii = "">
+		<cfset var orderid = ""> 
+		<cfset orderid = statId & "_STATS_" & churchinfo.id & "_" & churchinfo.name & churchinfo.org_city>
+		<cftry>
+			<cfloop list='-,!, ,",&' index='ii'>
+				<cfset orderid = replace(orderid,ii,"","all")>
+			</cfloop>
+		<cfcatch>
+			<cfset orderid = churchinfo.id & "year" & year(now())>
+		</cfcatch></cftry>
+		<cfif len(orderid) GTE 44>
+			<cfset orderid = left(orderid,44)>
+		</cfif>
+		<cfset orderid = orderid & "MEMFEE">	
+		<cfreturn orderid>
+		<cfdump var="#orderid#"><cfabort>
+	</cffunction>
+
+	<cffunction name="thankyou">
+		<cfif !isDefined("params.key") && isDefined("url.order_id")>
+			<cfset params.key = val(url.order_id)>
+		</cfif>	
+		<cfif isDefined("url.auth_response") && url.auth_response is "APPROVED">
+			<cfset markStatFormPaid(params.key, val(params.amount))>
+		<cfelse>	
+			<cfset redirectTo(action="declined", key=params.key)>
+		</cfif>
+		<cfset redirectTo(controller="home", action="thankyou")>
+	</cffunction>
+
+	<cffunction name="declined">
+
+		<cftry>
+			<cfset var thiskey = "">
+		
+			<cfset payonline = structnew()>
+			<cfset thisinvoice = structNew()>
+			<cfset thiskey = val(params.key)>
+			
+				<cfset stat = model("handbookstatistics").findOne(where="id=#thiskey#")>
+				<cfif isObject(stat)>
+					<cfset payonline.merchant = "fellowshipofgracen">
+					<cfset payonline.orderid = createOrderId(church.properties())>
+					<cfset payonline.amount = (val(stat.att) * getOnlineMemFee())>
+					<cfif payonline.amount GTE getOnlineMemFeeMax()>
+						<cfset payonline.amount = getOnlineMemFeeMax()>
+					</cfif>
+					<cfif val(stat.donate)>
+						<cfset payonline.amount = payonline.amount + stat.donate>
+					</cfif>
+					<cfif val(stat.relief)>
+						<cfset payonline.amount = payonline.amount + stat.relief>
+					</cfif>
+				<cfelse>
+					<cfset renderText("this invoice does not exist")>
+				</cfif>	
+	
+			<cfcatch>
+				<cfset showSimpleDecline = true>	
+			</cfcatch>
+		</cftry>
+		
+	</cffunction>
+		
+<cfscript>
+
+    public function markStatFormPaid(id, amount){
+        var args = arguments;
+        var stat = model("handbookstatistics").findOne(where="id='#args.id#'");
+				stat.enteredby = "Paid";
+				stat.memfee = args.amount;
+				stat.date = dateFormat(now());
+        stat.update();
+    }
+
+</cfscript>
+
+<!---
+GoEMerchant Response codes:
+http://[MERCHANT_DEFINED_URL]?status={True/False}&auth_code={number}&auth_response={string}&avs_code={string}&cvv2_code={string}&order_id={string}&reference_number={number}&amount={money}&storename={string}&processor={string}&mid={string}&tid={string}
+
+use for a fail test: (May need to make sure the orderid exists)
+https://charisfellowship.us/conference/register/thankyou?status=False&auth_code=&auth_response=Transaction+Declined+Due+to+Security+Reasons&avs_code=&cvv2_code=&order_id=3090visionconference2018Avey&reference_number=&amount=95&storename=fellowshipofgracen&processor=fifththird&mid=020004948386&tid=001
+
+--->
+
+<cffunction name="confirm">
+	<cfset consolelog(cgi.query_string)>
+		<cfif params.status>
+			<cfset var churchId = listToArray(params.order_id,"_")[3]>
+			<cfset var statId = listToArray(params.order_id,"_")[1]>
+			<cfset church = model("Handbookorganization").findOne(where="id=#val(churchid)#", include="Handbookstate")>
+			<!--- not sure why this was used. It gets the last stat for the churchId rather than the stat by statid -tda 2/22/21--->
+			<!--- <cfset statistic = model("Handbookstatistic").findOne(where="organizationid=#val(churchId)# AND year = #year(now())-1#")> --->
+			<cfset statistic = model("Handbookstatistic").findOne(where="id=#statId#")>
+			<cfset markStatFormPaid(statId, val(params.amount))>
+			<cfset renderView(layout="/handbook/layout_handbook2")>
+			<cfset sendEmail(to=application.wheels.registrarEmail, from=application.wheels.registrarEmail, subject="Statistical Report", type="html", template="confirm")>
+		<cfelse>
+			<cfset redirectTo(action="paymentfailed")>
+		</cfif>
+	</cffunction>
+
+	<cffunction name="paymentfailed">
+	</cffunction>
+
+	<cffunction name="ewpSummary">
+	<cfset var ewp = structNew()>
+		<cfset ewp.memberchurches = model("Handbookorganization").findAll(where="statusid =1", include="state").recordcount>
+		<cfset ewp.campuses = model("Handbookorganization").findAll(where="statusid IN (8,9)", include="state").recordcount>
+		<cfset ewp.campuses = model("Handbookorganization").findAll(where="statusid IN (4,2)", include="state").recordcount>
+	<cfreturn ewp>
+	</cffunction>
+
+
+	<!---Stat Report Functions--->
+	<cffunction name="getSummary">
+		<cfset summary1 = model("Handbookstatistic").findStatsSummary(params.key)>
+		<cfif isdefined("params.compYear")>
+			<cfset summaryCompYear = model("Handbookstatistic").findStatsSummary(params.compYear)>
+		</cfif>
+		<cfif isdefined("params.compYear2")>
+			<cfset summaryCompYear2 = model("Handbookstatistic").findStatsSummary(params.compYear2)>
+		</cfif>
+		<cfif isdefined("params.compYear3")>
+			<cfset summaryCompYear3 = model("Handbookstatistic").findStatsSummary(params.compYear3)>
+		</cfif>
+		<cfif isdefined("params.compYear4")>
+			<cfset summaryCompYear4 = model("Handbookstatistic").findStatsSummary(params.compYear4)>
+		</cfif>
+		<cfset ewp = ewpSummary()>
+	</cffunction>
+
+	<cffunction name="thisChurchesGrowth">
+	<cfargument name="churchid" required="true" type="numeric">
+	<cfargument name="year1" required="true" type="string">
+	<cfargument name="year2" required="true" type="string">
+	<cfargument name="delta" required="true" type="numeric">
+	<cfset var loc=structNew()>
+
+	<cfset loc.year1 = model("Handbookstatistic").findOne(where="organizationid=#arguments.churchid# AND year = '#arguments.year1#'")>
+	<cfif not isObject(loc.year1)>
+		<cfset arguments.year1 = arguments.year1-1>
+		<cfset loc.year1 = model("Handbookstatistic").findOne(where="organizationid=#arguments.churchid# AND year = '#arguments.year1#'")>
+		<cfif not isObject(loc.year1)>
+			<cfset arguments.year1 = arguments.year1+2>
+			<cfset loc.year1 = model("Handbookstatistic").findOne(where="organizationid=#arguments.churchid# AND year = '#arguments.year1#'")>
+		</cfif>
+	</cfif>
+
+	<cfset loc.year2 = model("Handbookstatistic").findOne(where="organizationid=#arguments.churchid# AND year = '#arguments.year2#'")>
+	<cfif not isObject(loc.year2)>
+		<cfset arguments.year2 = arguments.year2-1>
+		<cfset loc.year2 = model("Handbookstatistic").findOne(where="organizationid=#arguments.churchid# AND year = '#arguments.year2#-1'")>
+		<cfif not isObject(loc.year2)>
+			<cfset arguments.year2 = arguments.year2+2>
+			<cfset loc.year2 = model("Handbookstatistic").findOne(where="organizationid=#arguments.churchid# AND year = '#arguments.year2#-1'")>
+		</cfif>
+	</cfif>
+
+	<cftry>
+		<cfset loc.growth = round(((loc.year1.att - loc.year2.att)/loc.year2.att)*100)>
+	<cfcatch>
+		<cfset loc.growth = "na">
+	</cfcatch>
+	</cftry>
+
+	<cfset loc.growthdescription = "Static">
+	<cfif loc.growth GTE arguments.delta>
+		<cfset loc.growthdescription = "Growing">
+	</cfif>
+	<cfif loc.growth LTE 0 and abs(loc.growth) GTE arguments.delta>
+		<cfset loc.growthdescription = "Declining">
+	</cfif>
+	<cfif loc.growth is "na">
+		<cfset loc.growthdescription = "Na">
+	</cfif>
+
+	<cftry>
+		<cfset loc.year1att = loc.year1.att>
+	<cfcatch>
+		<cfset loc.year1att = "na">
+	</cfcatch>
+	</cftry>
+
+	<cftry>
+		<cfset loc.year2att = loc.year2.att>
+	<cfcatch>
+		<cfset loc.year2att = "na">
+	</cfcatch>
+	</cftry>
+
+	<cfif val(loc.growth)>
+		<cfset loc.growth = toString(numberformat(loc.growth,"()"))>
+		<cfset loc.growth = loc.growth & '%'>
+	</cfif>
+
+	<cfset loc.return = "<td>" & loc.year1att & "</td><td>" & loc.year2att & "</td><td>" & loc.growth
+		& "</td><td class=" & loc.growthdescription & ">" & loc.growthdescription & "</td>">
+	<cfreturn loc.return>
+	</cffunction>
+
+	<cffunction name="churchgrowth">
+		<cfset churches = model("Handbookorganization").findAll(where="statusid = 1", include="Handbookstate", order="state,org_city")>
+		<cfif isDefined("params.download")>
+			<cfset renderView(layout="/layout_download.cfm")>
+		</cfif>
+	</cffunction>
+
+	<cffunction name="statHistory">
+		<cfset var stattype = "att">
+		<cfif isDefined("params.key")>
+			<cfset stattype = params.key>
+		</cfif>
+		<cfset churches = model("Handbookorganization").findAll(select="id,state,state_mail_abbrev,org_city,name,selectname", where="statusid = 1", include="Handbookstate", order="state, org_city, id")>
+		<cfset churchyears = model("Handbookstatistic").findAll(order="year DESC")>
+		<cfset years = "">
+		<cfoutput query="churchyears" group="year">
+			<cfset years = years & "," & year>
+		</cfoutput>
+		<cfset years = replace(years,",","","one")>
+		<cfloop list="#years#" index="i">
+			<cfset queryAddColumn(churches,i)>
+		</cfloop>
+		<cfloop query="churches">
+			<cfloop list="#years#" index="ii">
+				<cfset thisstat = getStat(stattype,id,ii)>
+				<cfset QuerySetCell(churches,ii,thisstat,churches.currentrow)>
+			</cfloop>
+		</cfloop>
+		<cfif isDefined("params.download")>
+			<cfset renderView(layout="/layout_download.cfm")>
+		</cfif>
+	</cffunction>
+
+	<cffunction name="getStat">
+	<cfargument name="fieldname" required="true" type="string">
+	<cfargument name="churchid" required="true" type="numeric">
+	<cfargument name="year" required="true" type="string">
+	<cfset var selectString = "att,ss,conversions,baptisms,members">
+		<cfset stat = model("Handbookstatistics").findOne(select=selectstring, where="organizationid = #arguments.churchid# AND year = '#arguments.year#'")>
+		<cfif isobject(stat)>
+			<cfset thisstat = stat[fieldname]>
+		<cfelse>
+			<cfset thisstat = "&nbsp;">
+		</cfif>
+		<cfreturn thisstat>
+	</cffunction>
+
+	<cffunction name="size">
+	<cfargument name="fieldname" default="att">
+	<cfargument name="xxlarge" default="1000">
+	<cfargument name="xlarge" default="500">
+	<cfargument name="large" default="200">
+	<cfargument name="medium" default="100">
+	<cfargument name="small" default="50">
+	<cfargument name="xsmall" default="1">
+	<cfset var loc=structnew()>
+	<cfset loc.arguments = arguments>
+		<cfif arguments.xxlarge>
+			<cfset loc.xxlarge = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.xxlarge# AND 100000", include="Handbookorganization(Handbookstate)", select="sum(#arguments.fieldname#) as size", order="att DESC")>
+		<cfelse>
+			<cfset loc.xxlarge.size = "">
+		</cfif>
+		<cfif arguments.xlarge>
+			<cfset loc.xlarge = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.xlarge# AND #arguments.xxlarge-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att DESC")>
+		<cfelse>
+			<cfset loc.xlarge.size = "">
+		</cfif>
+		<cfif arguments.large>
+			<cfset loc.large = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.large# AND #arguments.xlarge-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att DESC")>
+		<cfelse>
+			<cfset loc.large.size = "">
+		</cfif>
+		<cfif arguments.large>
+			<cfset loc.medium = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.medium# AND #arguments.large-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att DESC")>
+		<cfelse>
+			<cfset loc.medium.size = "">
+		</cfif>
+		<cfif arguments.small>
+			<cfset loc.small = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.small# AND #arguments.medium-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att DESC")>
+		<cfelse>
+			<cfset loc.small.size = "">
+		</cfif>
+		<cfif arguments.xsmall>
+			<cfset loc.xsmall = model("Handbookstatistic").findAll(where="year='#params.key#' AND att BETWEEN #arguments.xsmall# AND #arguments.small-1#", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att DESC")>
+		<cfelse>
+			<cfset loc.xsmall.size = "">
+		</cfif>
+		<cfset loc.all = model("Handbookstatistic").findAll(where="year='#params.key#'", select="sum(#arguments.fieldname#) as size", include="Handbookorganization(Handbookstate)", order="att DESC")>
+		<cfdump var='#loc#'><cfabort>
+	</cffunction>
+
+	<cffunction name="getTotal" access="private">
+	<cfargument name="fieldname" required="true" type="string">
+	<cfargument name="thisquery" required="true" type="query">
+	<cfargument name="maxrows" required="true" type="numeric">
+	<cfargument name="startrow" required="true" type="numeric">
+	<cfset var loc=structNew()>
+	<cfset loc.return=0>
+	<cfoutput query="arguments.thisquery" startRow="#arguments.startrow#" maxRows="#arguments.maxrows#">
+		<cfif val(#evaluate(arguments.fieldname)#)>
+			<cfset loc.return = loc.return + val(evaluate(arguments.fieldname))>
+		</cfif>
+
+	</cfoutput>
+	<cfreturn loc.return>
+	</cffunction>
+
+	<cffunction name="getMemFeeDeadline">
+	<cfset var date = getSetting("memFeeDeadline")>
+		<cfif isDefined('session.statistics.extendDeadline') AND session.statistics.extendDeadline>
+			<cfset date = dateAdd("m",3,date)>
+		</cfif>
+		<cfreturn date>
+	</cffunction>
+
+	<cffunction name="getMemFee">
+		<cfreturn getSetting("MemFee")>
+	</cffunction>
+
+	<cffunction name="getMemFeeMax">
+		<cfreturn getSetting("memFeeMax")>
+	</cffunction>
+
+	<cffunction name="getLateMemFee">
+		<cfreturn getSetting("lateMemFee")>
+	</cffunction>
+
+	<cffunction name="getLateMemFeeMax">
+		<cfreturn getSetting("lateMemFeeMax")>
+	</cffunction>
+
+	<cffunction name="getOnlineMemFee">
+	<cfset var memfee = getMemFee() * 1.03>
+	<cfset memfee = iif(memfee mod .05,memfee+(.05-(memfee mod .05)),memfee)>
+	<cfif isAfter(getMemFeeDeadline())>
+		<cfset memfee = getLateMemFee()>
+	</cfif>
+		<cfreturn memfee>
+	</cffunction>
+
+	<cffunction name="getOnlineMemFeeMax">
+	<cfset var memfee = getMemFeeMax() * 1.03>
+	<cfset memfee = iif(memfee mod 5,memfee+(5-(memfee mod 5)),memfee)>
+	<cfif isAfter(getMemFeeDeadline())>
+		<cfset memfee = getLateMemFeeMax()>
+	</cfif>
+		<cfreturn memfee>
+	</cffunction>
+
+	<cffunction name="keyFromChurchid"><!---Method to use churchid for key if it is set--->
+		<cfif isDefined("params.churchid")>
+			<cfreturn params.churchid>
+		<cfelseif isDefined("params.key")>
+			<cfreturn params.key>	
+		<cfelse>
+			<cfreturn "">	
+		</cfif>	
+	</cffunction>
+
+<cfscript>
+	public function sendEmailNotification(arguments){
+		listStruct = arguments[1];
+		var i = 1;
+		var eachListStruct = "";
+		writeDump(listStruct);
+		for ( i=1; i <= #listStruct.recordCount#; i=i+1) {
+			writeDump(listStruct.email[i]);
+		};
+
+abort;
+
+		if (!onLocalhost()){
+			for (i=1; i < #listStruct.recordCount#; i=i+1){
+				sendEmail(to=listStruct.email, from="tomavey@charisfellowship.us", subject="Charis Fellowship Stats and Fellowship Fee", type="html", template="emailNotificationTemplate", layout="/layout_for_email");
+			}	
+		};
+		renderView(template="emailNotificationTemplate", layout="/layout_for_email");
+	}
+</cfscript>	
+
+<!---Test Methods--->
+
+<cfscript>
+	function testNoMemFee(){
+		var test = noMemFee(1382,2017)
+		ddd(test)
+	}
+</cfscript>
+
+	<cffunction name="test">
+		<cfset test=model("Handbookstatistic").findMemFeePaidBy(yearsago='-3')>
+		<cfdump var="#test#"><cfabort>
+	</cffunction>
+
+	<cffunction name="testAllCurrentNotPaid">
+		<cfdump var="#allCurrentNotPaid()#"><cfabort>
+	</cffunction>
+
+	<cffunction name="alterTable">
+		<cfquery datasource="fgbc_main_3">
+			ALTER TABLE `fgbc_main_3`.`handbookstatistics`
+			ADD COLUMN `churchplanting` VARCHAR(3) NULL DEFAULT NULL AFTER `more_info_im`
+		</cfquery>
+		<cfquery datasource="fgbc_main_3">
+			ALTER TABLE `fgbc_main_3`.`handbookstatistics`
+			ADD COLUMN `churchplantingcontact` VARCHAR(255) NULL DEFAULT NULL AFTER `churchplanting`
+		</cfquery>
+	</cffunction>
+
+	<cffunction name="testChurchGrowth">
+		<cfset test = thisChurchesGrowth(churchid=1,year1='2010',year2='2007',delta=5)>
+		<cfdump var="#test#"><cfabort>
+	</cffunction>
+
+	<cffunction name="testGetStat">
+		<cfset test = getStat(churchid=891,year="2007",fieldname="att")>
+		<cfdump var="#test#"><cfabort>
+	</cffunction>
+
+<cfscript>
+	public function testPayapproved(){
+		redirectTo(url="https://charisfellowship.us/home/thankyou?status=True&auth_code=081549&auth_response=APPROVED&avs_code=Z&cvv2_code=M&order_id=3466visionconference2019Avey&reference_number=143969803&amount=60&storename=fellowshipofgracen&processor=fifththird&mid=020004948386&tid=001")
+	}
+
+</cfscript>
+
+</cfcomponent>

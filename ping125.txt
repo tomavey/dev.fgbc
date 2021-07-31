@@ -1,0 +1,11 @@
+
+Pinging fgbc.org [74.114.207.196] with 32 bytes of data:
+Reply from 74.114.207.196: bytes=32 time=75ms TTL=51
+Reply from 74.114.207.196: bytes=32 time=76ms TTL=51
+Reply from 74.114.207.196: bytes=32 time=77ms TTL=51
+Reply from 74.114.207.196: bytes=32 time=75ms TTL=51
+
+Ping statistics for 74.114.207.196:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 75ms, Maximum = 77ms, Average = 75ms

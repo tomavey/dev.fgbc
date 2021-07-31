@@ -1,0 +1,197 @@
+div.sponsorlinks div img {
+    border-radius: 25px;
+    border: 2px solid #47A4A8;
+    padding: 5px;
+    width: 200px;
+    height: 150px;
+}
+
+.news-entry {
+    height:500px;
+    overflow-y: scroll;
+}
+
+#welcome {
+    text-align: center
+}
+
+#welcome table {
+    margin:0 auto;
+}
+
+#welcome #churchpack {
+    margin-top: 30px
+}
+
+.Message {
+    text-align: center;
+    font-size:1.3em;
+    font-weight:bold;
+    padding:30px;
+    border: 3px solid grey;
+    margin:20px 0 30px 0;
+     border-radius: 25px;
+}
+
+#selectoptions {
+    float:left;
+    width: 50%
+}
+
+fieldset#registrationOptions label{
+   width:80%;
+   float:left;
+   font-size: 1.3em
+}
+
+fieldset#registrationOptions input[type="radio"]{
+   width:15%;
+   float:right;
+   font-size: 1.3em
+}
+
+fieldset#registrationOptions span.cost {
+    display: block;
+    width:30px;
+    margin-top: 20px
+}
+
+#shoppingcart {
+    width: 40%;
+    float:right;
+}
+
+#personForm form {
+    text-align: center;
+}
+
+#personForm select {
+    height: 40px;
+}
+
+#personForm .optional {
+    display: none
+}
+
+.eachregistration, .eachItemShown {
+    text-align: center;
+    border: 2px solid gray;
+    border-radius: 25px;
+    margin: 20px;
+}
+
+.eachregistration table {
+    margin: 0 auto;
+}
+
+.eachregistration table td {
+    padding:20px;
+}
+
+#cartTotal {
+    text-align: center
+}
+
+#registrationCenter #intro {
+    height: 340px !important
+}
+
+.regcosts table th {
+    padding: 5px;
+}
+
+.top-bar.alt .logo span {
+    background: url("/images/conference/logo-hover3.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+#invoice table {margin:0 auto;}
+#invoice table td {padding:5px;}
+#invoice table tr.invoiceRegName {font-size: 1.3em; font-weight: bold}
+#invoice table td.buttondescription {padding-left:25px;}
+#invoice table td.quantity {text-align: center}
+#invoice table td.optionCost {text-align: right}
+#invoice table th {padding:0 10px 0 10px;}
+#invoice table th.optionCost {text-align: right; padding-right:0;}
+
+#exhibitRequestForm .input-mini {height:50px;}
+
+.lodgingrequest select {
+    color: #4c5d67;
+    line-height: 24px;
+    background-color:  #d3dce0;
+    height:40px;
+}
+
+#selectoptions select, #otheroptions select {
+    height: 35px;
+}
+
+#tooltip {position:absolute;background-color:white;border:1px solid gray;z-index:1;padding:3px}
+
+.top-bar {
+    position: static;
+}
+
+p.subsidynote {
+    font-size:.8em;
+    color: grey;
+}
+
+.instructorpic {
+    float: left;
+    width:100px;
+    margin: 0 10px 10px 0;
+}
+
+#tabletabs {
+    margin-top: 10px
+}
+
+.facilitators ul li {
+    margin-bottom: 10px;
+    font-size:.8em;
+}
+
+#courseslist {
+    padding: 20px 0 20px 0;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.workshoptrack {
+  font-size: .8em;
+  color:grey;
+}
+
+.locationtime {
+    font-size: .9em;
+}
+
+#coursestable .well {
+    height:150px;
+    overflow: auto;
+}
+
+#coursestable .well-track {
+    height:120px;
+    overflow: auto;
+}
+
+#coursestable .col1 {
+    width:13%;
+}
+
+#coursestable .col2, #coursestable .col3, #coursestable .col4 {
+    width:29%;
+}
+
+#coursestable #buttons, #courseslist #tabletabs {
+    margin: 10px 0 10px 0;
+    text-align: center;
+}
+
+#selectworkshops .selectname {
+    height:50px;
+}

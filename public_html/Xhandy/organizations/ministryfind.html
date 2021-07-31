@@ -1,0 +1,21 @@
+<div class="container handy-church handy-churchfind">
+	<div class="row">
+		<div class="form-group">
+			<input ng-model="query" ng-model-options="{ debounce: 200 }" type="text" placeholder="Search Ministries" class="input-xlarge search-query form-control"/>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Ministries
+			</div>
+			<div class="panel-body">
+				<div class="list-group" id="handy-find-list">
+					<a ng-repeat="ministry in ministries | filter:query | orderBy:sortField:reverse track by $index" ng-href="#/churches/{{ministry.id}}" class="list-group-item">{{ministry.name}}
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

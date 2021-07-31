@@ -1,0 +1,25 @@
+
+<h1>Editing event</h1>
+<div class="eachItemShown new">
+<cfoutput>
+
+			#errorMessagesFor("event")#
+	
+			#startFormTag(action="update", keyy=params.key)#
+			
+			#hiddenField(objectName="event", property='id')#
+					
+			#putFormTag()#		
+
+			#hiddenTagForKeyy()#
+
+			#includePartial(partial="form")#
+				
+			#submitTag()#
+				
+			#endFormTag()#
+			
+
+#linkTo(text="Return to the listing", action="index")#
+</cfoutput>
+</div>

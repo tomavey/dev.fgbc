@@ -1,0 +1,4 @@
+AuthUserFile /home/dev/public_html/fc/documents/.htpasswd
+AuthType Basic
+AuthName "Fellowship Council Documents: username = fc ; password = charis"
+Require valid-user

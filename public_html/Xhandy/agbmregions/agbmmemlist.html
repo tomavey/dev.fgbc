@@ -1,0 +1,46 @@
+<div class="container handy-staff handy-stafffind" ng-show="members.length > 0">
+	<div class="row">
+		<div class="form-group">
+			<input ng-model="query" ng-model-options="{ debounce: 200 }" type="text" placeholder="Search AGBM Members" class="input-xlarge search-query form-control"/>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-header">
+				<div class="list-group-item">
+					Members of the Association of Grace Brethren Ministers
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="list-group" id="handy-find-list">
+					<table class="table table-stripped">
+					<thead>
+						<tr>
+							<th>
+								<a href="" ng-click="sortField = 'lname'; reverse=!reverse; showchevronmem=true; showchevronrep=false">Member&nbsp;<span class="glyphicon glyphicon-chevron-up" ng-show="reverse && showchevronmem"></span><span class="glyphicon glyphicon-chevron-down" ng-show="!reverse && showchevronmem"></span></a>
+							</th>
+							<th>
+								<a href="" ng-click="sortField = 'regionreplname'; reverse=!reverse; showchevronrep=true; showchevronmem=false">Representative&nbsp;<span class="glyphicon glyphicon-chevron-down" ng-show="reverse && showchevronrep"></span><span class="glyphicon glyphicon-chevron-up" ng-show="!reverse && showchevronrep"></span></a>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr ng-repeat="member in members | filter:query | orderBy:sortField:reverse | limitTo:limit track by $index" >
+						<td>
+							<a ng-href="#/staff/{{member.personid}}">{{member.lname}},{{member.fname}}</a>
+						</td>
+						<td>
+							<a ng-href="#/staff/{{member.regionrepid}}"> {{member.regionreplname}}, {{member.regionrepfname}}</a>
+						</td>
+					</tr>
+					</tbody>
+					<table
+				</div>
+				<div class="list-group text-center" ng-click="showmore()">
+				<a href="" class="list-group-item">SHOW MORE</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,21 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header pull-left">
+      <a class="navbar-brand" href="#/">Handy</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="pull-right" ng-controller="HeaderController" id="selector">
+        <ul class="nav nav-pills">
+            <li ng-class="{ active: isActive('/churches/') }"><a href="#/churches">Churches</a></li>
+            <li ng-class="{ active: isActive('/staff/')}"><a href="#/staff">Staff</a></li>
+            <li><button type="button" class="btn btn-default btn-md" ng-click="openAside('right')">
+            <span class="glyphicon glyphicon-align-justify"></span>
+          </button></li>
+
+        </ul>
+    </div>
+    
+  </div><!-- /.container-fluid -->
+</nav>

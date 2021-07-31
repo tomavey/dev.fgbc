@@ -1,0 +1,10 @@
+{
+	"folders": [
+		{
+			"path": "C:\\inetpub\\wwwroot\\fgbc\\public_html"
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}

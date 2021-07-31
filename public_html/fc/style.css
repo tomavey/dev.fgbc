@@ -1,0 +1,57 @@
+html,body{margin:0;padding:0}
+body{font: 80% arial,sans-serif}
+p{margin:0 10px 10px}
+a{color: #981793;padding:0px}
+div#header h1{height:80px;line-height:80px;margin:0;
+  padding-left:10px;background: #908545;color: white}
+div#content p{line-height:1.4}
+div#navigation{background:#FFEE9F}
+div#extra{background:#F2CA06}
+div#footer{background: #333;color: #FFF}
+div#footer p{margin:0;padding:5px 10px}
+#header a {color:white;text-decoration:none}
+div#wrapper{float:right;width:100%;margin-left:-200px}
+div#content{margin-left:205px;padding:10px;color:#3F3A1F}
+div#navigation{float:left;width:185px;padding:5px}
+div#extra{float:left;clear:left;width:185px;padding:5px}
+div#footer{clear:both;width:100%}
+table {margin:0 auto;border:solid 1px gray;background-color:#FFF6CF}
+table td.aligncenter {text-align:center}
+table td.alignleft {text-align:left}
+table#datatable {margin:0;width:100%;float:left}
+#introduction {text-align:center;font-size:1.5em;font-weight:bold}
+.editlink {margin:40px;text-align:center}
+#assignments {font-size:1.2em}
+#footer a:link {color:white}
+.menu ul {list-style:none;margin-left:0px;padding-left:0px}
+.menu li {border:1px solid #5F582F;margin:2px;background-color:#FFFCEF;text-align:center;font-weight:bold}
+.menu li a {color:#5F582F;text-decoration:none;width:100%;display:block}
+.menu li:hover a, .menu li:hover  {background-color:#908545;color:white}
+.menu li a:hover {color:white}
+.menu p {text-align:center;font-size:1.3em}
+#doclink {font-size:.8em}
+.menu {margin:5px 0 0 5px}
+#extra {margin-bottom:5px}
+.staffinfo {margin:0 0 10px 0;width:250px;float:left;height:250px;border:1px solid gray;padding:5px;margin:10px}
+.churchinfo {margin:10px 0 0 25px}
+.fname {font-weight:bold}
+#searchform {margin: 0 auto;text-align:center}
+.staffinfo a:link {color:#000000}
+.staffinfo a:hover {text-decoration:none}
+.sendlink {color:gray;font-size:.7em;font-weight:normal}
+#editbutton {margin:0 auto;text-align:center}
+#editbutton input, input[type="submit"] {background-color:#4F4927;color:white;font-weight:bold;border:2px outset}
+#buttonOne {text-align:center;display:block;margin-top:10px}
+textarea {width:100%;height:100%}
+#editlink {text-align:right}
+img {border:none}
+#history {margin-top:30px;border:1px solid gray;font-size:.8em;color:gray}
+#history a {color:gray}
+#history a:hover {background-color:#908545;color:white}
+div.video {text-align:center}
+.emailall {margin:10px;background-color:#e8e8e8;border:1px solid gray;padding:5px}
+.commissionlist li span {padding:10px}
+a.emaillink:link {display:block}
+a.emaillink:hover {display:block;background-color:#ffffcc}
+#history {height:75px;overflow:auto}
+.eachset {background-color:#FFFFCC;border:solid 1px gray}

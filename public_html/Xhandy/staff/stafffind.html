@@ -1,0 +1,22 @@
+<div class="container handy-staff handy-stafffind" ng-show="staff.length > 0">
+	<div class="row">
+		<div class="form-group">
+			<input ng-model="query" ng-model-options="{ debounce: 200 }" type="text" placeholder="Search Staff" class="input-xlarge search-query form-control"/>
+		</div>
+	</div>
+	<div class="row">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Staff
+			</div>
+			<div class="panel-body">
+				<div class="list-group" id="handy-find-list">
+					<a ng-repeat="staff in staff | unique:staff.id | filter:query | orderBy:sortField:reverse | limitTo:limit track by $index" ng-href="#/staff/{{staff.id}}" class="list-group-item">{{staff.selectname}}...</a>
+				</div>
+				<div class="list-group text-center" ng-click="showmore()">
+				<a href="" class="list-group-item">SHOW MORE</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

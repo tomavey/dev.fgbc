@@ -1,0 +1,345 @@
+<cfparam name="selectDefault" default="--Select One---">
+<cfparam name="emailDelimiter" default="semi-colon">
+
+<!--- <cfdump var="#people#" abort> --->
+
+<cfset peoplecount = 0>
+<cfset churchcount = 0>
+<cfset emailall = "">
+<cfset namesAll = "">
+<cfset namesThis = "">
+<cfset cellPhones = "">
+<cfset noCellPhone = "">
+
+
+<div id="show">
+	<!--- <cfdump var="#params#"> --->
+
+	<cfoutput>
+	<h2>Tag: "#params.key#"</h2>
+
+	<cfif gotRights("superadmin")>
+		<div style="font-size:.8em;color:gray">
+			<p>
+				Tag ids: #replace(session.tags.tagids,",",", ","all")#
+			</p>
+		</div>
+	</cfif>
+
+	<cfif listLen(session.tags.usernames)>
+		<p>This tag is shared by #session.tags.usernames#</p>
+	</cfif>
+
+<!---BEGINNING of managing this tag section--->	
+	<div class="well">	
+		<p>
+			#startFormTag(action="changeTag")#
+			#hiddenFieldTag(name="key", value=params.key)#
+			#textFieldTag(name="newTag", placeholder="Rename this tag")#
+			#submitTag()#
+			#endFormTag()#
+		</p>
+	</div>	
+	
+	<div class="well">	
+
+		<p>
+			#linkto(text="Download #params.key#", action="download", key=params.key, class="btn")#<br/>
+
+			#linkTo(text="Remove #params.key#", action="remove", params="tag=#params.key#", onclick="return confirm('Are you sure you want to remove this tag?')", class="btn btn-medium")#<br/>
+
+			#linkTo(text="Copy #params.key#", action="duplicateTag", key=params.key, class="btn btn-medium")#
+		</p>			
+		
+	</div>
+	</cfoutput>
+<!---END of managing this tag--->	
+
+
+<!---BEGINNING of tagged people and organizations section--->
+	<cfif handbookTaggedPeople.recordcount>
+		<h3>People:</h3>
+	</cfif>
+
+	<!---PEOPLE--->
+	<!--- <cfdump var="#handbookTaggedPeople#"> --->
+		<cfoutput query="handbookTaggedPeople" group="itemid">
+			<cfset email = trim(email)>
+			<cfset namesThis = '#alias('fname',fname,itemid)# #alias('lname',lname,itemid)# of #city# #iif(state IS "Non US",'',DE(state))#'>
+				<p>#linkTo(
+							text="#alias('fname',fname,itemid)# #alias('lname',lname,itemid)#",
+							controller="handbook.people", 
+							action="show", 
+							class="ajaxclickable tooltip2", 
+							title="Click to show #fname# #lname# in the center panel.", 
+							key=itemid
+							)# 
+					-
+					#linkTo(
+							text="x",
+							action="removeFromTag",
+							params="tag=#params.key#&itemid=#itemid#&username=#username#",
+							class="tooltipside",
+							title="Remove #fname# from #params.key#"
+							)#
+					<cfset request.personupdatedat = personupdatedat(itemid)>
+					<cfif len(request.personupdatedat)>
+					#linkto(
+							text=dateformat(request.personupdatedat), 
+							controller="handbook.updates", 
+							action="index", 
+							params="showperson=#itemid#", 
+							class="updatedat tooltipside", 
+							title="View updates for #fname#"
+							)#
+					</cfif>
+					<span class="updatedat tooltipside" title="Tagged by #username#">?</span>
+				</p>
+
+				<!--- updating counts--->
+				<cfif isvalid("email",email)>
+					<cfset emailall = emailall & "; " & email>
+				</cfif>
+				<cfif len(phone2)>
+					<cfset cellPhones = cellPhones & ", " & phone2>
+				<cfelse>
+					<cfset noCellPhone = noCellPhone & ", " & lname>	
+				</cfif>
+
+			<cfset namesAll = namesAll & '; ' & namesThis> 
+			<cfset peoplecount = peoplecount + 1>
+
+		</cfoutput>	
+		<cfif handbookTaggedPeople.recordcount>
+			<cfoutput>Count = #peoplecount#</cfoutput>
+		</cfif>
+
+<!---ORGANIZATIONS--->
+
+		<cfif handbookTaggedOrganizations.recordcount>
+			<h3>Organizations:</h3>	
+		</cfif>		
+		
+		<cfoutput query="handbookTaggedOrganizations" group="itemid">
+			<cfset namesThis = "#name#: #org_city#,#state_mail_abbrev#">
+			<p>#linkTo(
+					   text="#name#: #org_city#,#state_mail_abbrev#",
+					   controller="handbook.organizations", 
+					   action="show", 
+					   class="ajaxclickable tooltip2", 
+					   title="Click to show #name# in the center panel.", 
+					   key=itemid
+					   )#
+				-
+				#linkTo(
+						text="x",
+						action="removeFromTag",
+						params="tag=#params.key#&itemid=#itemid#&username=#username#",
+						class="tooltipside",
+						title="Remove #name# from #params.key#"
+						)#
+				<span class="updatedat tooltipside" title="Tagged by #username#">?</span>
+			</p>
+			<cfif isvalid("email",email)>
+				<cfset emailall = emailall & "; " & email>
+			</cfif>
+		<cfset churchcount = churchcount + 1>	
+		<cfset namesAll = namesAll & ', ' & namesThis> 
+		</cfoutput>
+		<cfif handbookTaggedOrganizations.recordcount>
+			<cfoutput>Count = #churchcount#</cfoutput>
+		</cfif>
+
+		<cfset emailall = replace(emailall,";","","one")>
+		<cfset emailAllComma = replace(emailall,";",",","all")>
+
+<!---END of tagged people and organizations--->
+
+
+	<cfoutput>
+
+
+<!---Beginning of listing section--->		
+		<p>&nbsp;</p>	
+		<div>
+		<!---Send Email to items in tag--->			
+			<cfif emailDelimiter == "semi-colon">
+				<p>#linkTo(text='Email Everyone Tagged "#params.key#" (semicolon delimited)', href="mailto:#emailall#", class="btn tooltipside", title="This will create one email message in your email client (ie:outlook) to all these people/organizations" )#</p>
+			<cfelse>
+				<p>#linkTo(text='Email Everyone Tagged "#params.key#" (comma delimited)', href="mailto:#emailallComma#", class="btn tooltipside", title="This will create one email message in your email client (ie:outlook) to all these people/organizations" )#</p>
+			</cfif>
+
+		<p class="pull-right" style="font-size:.8em">
+			<cfif emailDelimiter == "comma">
+				#linkTo(text="(Change email delimiter to semi-colon)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=semi-colon")#
+			<cfelseif emailDelimiter == "semi-colon">	
+				#linkTo(text="(Change email delimiter to comma)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=comma")#
+			</cfif>
+		</p>
+	<p>Some email clients prefer comma delimited.</p>
+	<br/>
+		</div>
+		<p>
+			List of names-<br/> #replace(namesAll,'; ','','one')#
+		</p>
+		<p>&nbsp;</p>
+		<p>
+			<cfif emailDelimiter == "semi-colon">
+				List of emails-<br/> #replace(emailAll,'','','one')#
+			<cfelse>	
+				List of emails-<br/> #replace(emailAll,';',',','all')#
+			</cfif>
+		</p>
+		<p class="pull-right" style="font-size:.8em">
+			<cfif emailDelimiter == "comma">
+				#linkTo(text="(Change email delimiter to semi-colon)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=semi-colon")#
+			<cfelseif emailDelimiter == "semi-colon">	
+				#linkTo(text="(Change email delimiter to comma)", controller="handbook.tags", action="show", key=params.key, params="emailDelimiter=comma")#
+			</cfif>
+		</p>
+		<p>&nbsp;</p>
+		<cfif len(cellPhones)>
+			<p>List of Cellphones: #replace(cellPhones,",","","one")#</p>
+		</cfif>
+		<cfif len(noCellPhone)>
+			<p>No cellphone ## for: #replace(noCellPhone,",","","one")#</p>
+		</cfif>
+<!---END of listing section--->		
+
+
+<!---Beginning of Adding Section--->		
+
+	<!---Add one person to this tag--->
+		<p>&nbsp;</p>
+			<div class="well">
+				<p>
+					#startFormTag(action="create")#
+					#hiddenFieldTag(name="tags", value=params.key)#
+					#hiddenFieldTag(name="username", value=session.tags.usernames)#
+					#hiddenFieldTag(name="type", value="person")#
+					#selectTag(name="itemid", options=people, includeBlank="-Add one person-", valuefield="id", textfield="selectname")#
+					#submitTag("Add to tag")#
+					#endFormTag()#
+				</p>
+			
+			</div>	
+
+		<!---Add one organization to this tag--->
+		<div class="well">
+				<p>
+					#startFormTag(action="create")#
+					#hiddenFieldTag(name="tags", value=params.key)#
+					#hiddenFieldTag(name="username", value=session.auth.username)#
+					#hiddenFieldTag(name="type", value="organization")#
+					#selectTag(
+						name="itemid", 
+						options=organizations, 
+						includeBlank="-Add one organization-", 
+						valuefield="id", 
+						textfield="selectnamecity", 
+						selected=selectDefault
+						)#
+					#submitTag("Add to tag")#
+					#endFormTag()#
+				</p>
+			
+			</div>	
+
+<!---END of Adding Section--->		
+
+
+
+<!---Beginning of sharing section--->
+
+		<div class="well">
+			<h3>Sharing</h3>
+		<!---Copy this tag and send to another user--->
+			<div class="well">
+				<p>
+					<cfset selectDefault = "--Select one person--">
+					#startFormTag(action="copyTags")#
+					#hiddenFieldTag(name="tag", value=params.key)#
+					#hiddenFieldTag(name="type", value="person")#
+					#hiddenFieldTag(name="shareOrCopy", value="copy")#
+					#hiddenFieldTag(name="username", value=session.auth.username)#
+					#selectTag(
+						name="newuserName", 
+						options=people, 
+						includeBlank=selectDefault, 
+						valuefield="email", 
+						textfield="selectname", 
+						selected=selectDefault
+						)#
+					<!--- <select name="newuserName">
+						<cfscript>
+							writeOutput("<option value=''>--Select one person--</option>")
+							queryEach(people, function(el){
+								writeOutput("<option value='#el.email#'>#el.selectName#</option>")
+							})
+						</cfscript>
+					</select> --->
+					#submitTag("Send this tag to another handbook user")#
+					#endFormTag()#
+				</p>
+				<p>
+					This tag list will not sync with the shared list when you make changes.  However, re-sharing this tag list will update the shared tag list.
+				</p>
+			</div>	
+
+		<!---Share this tag with another user--->
+			<div class="well">
+				<p>
+					#startFormTag(action="shareTag")#
+					#hiddenFieldTag(name="tag", value=params.key)#
+					#hiddenFieldTag(name="type", value="person")#
+					#hiddenFieldTag(name="shareOrCopy", value="share")#
+					#hiddenFieldTag(name="username", value=session.tags.usernames)#
+					#selectTag(
+						name="newuserName", 
+						options=people, 
+						includeBlank=selectDefault, 
+						valuefield="email", 
+						textfield="selectname",
+						selected=selectDefault
+						)#
+					#submitTag("Share this tag with another handbook user")#
+					#endFormTag()#
+				</p>
+				<p>
+					This tag list will sync with the shared list when you make changes.
+				</p>
+			</div>	
+
+		<!---Share this tag with another user group--->
+			<cfif isDefined("session.auth.rightslist")>
+				<div class="well">
+					<p>
+						<cfset selectDefault = "--Select one user group--">
+						#startFormTag(action="shareTagWithGroup")#
+						#hiddenFieldTag(name="tag", value=params.key)#
+						#hiddenFieldTag(name="type", value="person")#
+						#hiddenFieldTag(name="username", value=session.auth.username)#
+						#selectTag(
+							name="userGroup", 
+							options=session.auth.rightslist, 
+							includeBlank=selectDefault, 
+							valuefield="id", 
+							textfield="selectname",
+							selected=selectDefault
+							)#
+						#submitTag("Share this tag with a user group")#
+						#endFormTag()#
+					</p>
+					<p>
+						This tag list will sync with others in the same user group.
+					</p>
+				</div>	
+			</cfif>
+
+		</div>
+
+<!---End of sharing section--->
+
+	</cfoutput>		
+
+</div>

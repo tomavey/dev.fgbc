@@ -1,0 +1,83 @@
+<style>
+	p span {margin-left:10px}
+	p {margin-bottom:20px}
+</style>
+<cfoutput>
+
+#ckeditor()#
+
+						#textField(objectName='retreat', property='regid', label='ID for Registration Item: ')#
+
+						#textField(objectName='retreat', property='title', label='Title: ')#
+
+						#textField(objectName='retreat', property='menuname', label='Menu name: (used in page web address - "charisfellowship.us/focus/?????")')#
+
+						#textField(objectName='retreat', property='regFoxFormName', label='Form Name used by regfox - for "who is coming" report')#
+						
+<!--- 						#fileField(objectName='retreat', property='image', label='Image: ')# --->
+
+						#textField(objectName='retreat', property='registrationlink', label='External registration link (ie: Reg fox): ')#
+
+						#select(objectName='retreat', property='active', label='Active? ("Yes" = this retreat will show up in admin, "No = this retreat will be hidden in admin")', options="Yes,No", values = "1,0")#
+
+						#select(objectName='retreat', property='showregs', label='Show in the admin list of registrations? ', options="Yes,No", values = "1,0")#
+
+						#select(objectName='retreat', property='regisopen', label='Registration is open? ', options="Yes,No", values = "1,0")#
+
+						#select(objectName='retreat', property='showoptions', label='Show Reg Options on retreat page? ', options="Yes,No", values = "1,0")#
+
+						<p>Beginning Date:
+							#dateSelect(objectName='retreat', property='startAt', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#
+						</p>
+
+						<p>Ending Date:
+							#dateSelect(objectName='retreat', property='endAt', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#
+						</p>
+
+						<p>Discount Deadline:
+							#dateSelect(objectName='retreat', property='discountdeadline', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#
+						</p>
+
+						#select(objectName='retreat', property='priceincrease', label='Planned price increase (must increase reg prices manually): ', options="5,10,15,20")#
+
+						<p>Registration Deadline:
+							#dateSelect(objectName='retreat', property='deadline', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#</br>
+							<span>After this date the public registration will be closed.</span>
+						</p>
+
+						<p>Stop showing who is coming:
+							#dateSelect(objectName='retreat', property='whoiscomingdeadline', dateOrder='year,month,day', monthDisplay='abbreviations', class="input-small")#</br>
+							<span>After this date the "Who is coming link on the retreat page will not show, unless the viewer is logged in as an admin.</span>
+						</p>
+
+						<p>Public comments for Registration: <br/>
+						#textArea(objectName='retreat', property='registrationcomments', label='', cols="75", rows="10", class="ckeditor")#
+						</p>
+
+						<p>Not-Open Message: <br/>
+						#textArea(objectName='retreat', property='notopenmessage', label='', editor="ckeditor", rows=10, cols=100, class="ckeditor")#
+						<span style="font-size:.8em; padding-left:20px">This is what will show in place of the registration info when the retreat is marked 'No' in the 'Registration is open" field (above).</span></br>
+						</p>
+						<br/>
+
+						<p>Past-the-deadline message: <br/>
+						#textArea(objectName='retreat', property='pastdeadlinemessage', label='', editor="ckeditor", rows=10, cols=100, class="ckeditor")#
+						<span style="font-size:.8em; padding-left:20px">This is what will show in place of the registration info when it is past the registration deadline.</span>
+						</p>
+					</br>
+
+						<p>Schedule: <br/>
+						#textArea(objectName='retreat', property='schedule', label='', editor="ckeditor", rows=10, cols=100, class="ckeditor")#
+						</p>
+
+						<p>Location: (images should be less than 400px wide @ 72dpi) <br/>
+						#textArea(objectName='retreat', property='location', label='', editor="ckeditor", rows=10, cols=100, class="ckeditor")#
+						</p>
+
+						<p>Comments (for office only): <br/>
+						#textArea(objectName='retreat', property='comments', label='', editor='ckeditor', rows=10, cols=100, class="ckeditor")#
+						</p>
+
+<!--- 						#textField(objectName='retreat', property='facebooklink', label='Facebook Link ')# --->
+
+</cfoutput>
