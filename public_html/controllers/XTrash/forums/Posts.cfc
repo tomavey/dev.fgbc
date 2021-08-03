@@ -267,9 +267,6 @@
 	<cfset users = model("Forumusers").findAll(where="subscribed = 1 AND groupcode = '#post.forumforum.groupcode#'")>
 	
 	<cfloop query="users">
-		<cfif users.email is "tomavey@fgbc.org">
-			<cfset users.email = "tomavey@comcast.net">
-		</cfif>
 		<cfset sendEmail(template="notify", from="tomavey@fgbc.org", to=users.email, subject="New post on the Charis Fellowhip Forum", layout="/layout_naked")>
 	</cfloop>
 	</cffunction>

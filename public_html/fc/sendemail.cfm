@@ -4,13 +4,13 @@
 
 <cfinvoke component="control" method="get_staff_email" staffid="#url.id#" returnvariable="thisstaff" />
 
-<cfif thisstaff.email is "tomavey@fgbc.org">
+<cfif thisstaff.email is "">
 	<cfset email = "tomavey@comcast.net">
 <cfelse>
 	<cfset email = thisstaff.email>
 </cfif>
 
-<cfmail from="tomavey@fgbc.org" to="#email#" subject="Your link to the Fellowship Council web site" type="html">
+<cfmail from="tim@charisfellowship.us" to="#email#" subject="Your link to the Fellowship Council web site" type="html">
 <html>
 <head>
 <title></title>

@@ -211,7 +211,7 @@
           accept = "text/html, application/msword,  application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.msword, application/vnd.ms-excel, application/msexcel, application/unknown, application/x-octet-stream,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
           nameconflict="overwrite">
 
-<center><h2>This type of file cannot be uploaded. Use your browser's back-button to try again or contact <a href="mailto:tomavey@fgbc.org">tomavey@fgbc.org</a> if you need assistance.</h2></center>
+<center><h2>This type of file cannot be uploaded. Use your browser's back-button to try again or contact <a href="mailto:tim@charisfellowship.us">tim@charisfellowship.us</a> if you need assistance.</h2></center>
 
 <!---Put data into table--->
 <cfquery datasource="#dsn#">

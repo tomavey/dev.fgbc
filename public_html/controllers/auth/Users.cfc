@@ -241,7 +241,7 @@ component extends="Controller" output="false" {
 			}
 			usersTokens = model("Authuser").findAll(where="email = '#params.user.email#'", reLoad=true)
 			if ( usersTokens.recordcount && !isLocalMachine() ) {
-				sendEmail(template="emailChangePasswordLink", layout="layoutforemail", from=application.wheels.userAdminEmailAddress, to=users.email, bcc="tomavey@fgbc.org", subject="Your Password on charisfellowship.us")
+				sendEmail(template="emailChangePasswordLink", layout="layoutforemail", from=application.wheels.userAdminEmailAddress, to=users.email, subject="Your Password on charisfellowship.us")
 				renderView(action="emailSent")
 			} elseIf ( usersTokens.recordcount ) {
 				renderView(action="emailSent")

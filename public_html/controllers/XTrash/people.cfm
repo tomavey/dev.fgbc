@@ -126,9 +126,6 @@
 					<cfif not isDefined("arguments.emailto")>
 							<cfset arguments.emailto = model("Handbookperson").findOne(where="id=#params.key#", include="Handbookstate").email>
 					</cfif>
-					<cfif arguments.emailto is "tomavey@fgbc.org">
-							<cfset arguments.emailto = "tomavey@comcast.net">
-					</cfif>
 		
 				<cfset params.emailto=arguments.emailto>
 		
@@ -141,7 +138,7 @@
 			
 				<cfset sendEmail(
 					to=application.wheels.HandbookProfileSecretary,
-					from="tomavey@fgbc.org",
+					from="tim@charisfellowship.us",
 					subject="Person Update",
 					layout="/layout_naked",
 					template="/views/handbook_updates/notice"

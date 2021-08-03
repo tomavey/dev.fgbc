@@ -143,7 +143,7 @@
 
 			<cfif !isLocalMachine()>
 				<cfif isDefined("delegates.submitteremail")>
-					<cfset sendEmail(template="email", to=delegates.submitteremail, from="tim@charisfellowship.us", bcc="tomavey@fgbc.org", subject="Your Charis Fellowship Delegates")>
+					<cfset sendEmail(template="email", to=delegates.submitteremail, from="tim@charisfellowship.us", subject="Your Charis Fellowship Delegates")>
 				<cfelse>
 					<cfset sendEmail(template="email", to="tim@charisfellowship.us", from="tim@charisfellowship.us", subject=" Charis Fellowship Delegates")>
 				</cfif>
