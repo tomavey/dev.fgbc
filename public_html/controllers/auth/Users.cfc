@@ -140,7 +140,7 @@ component extends="Controller" output="false" {
 	private function emailCheckCode(required string email,required codeToConfirm){
 		code = codeToConfirm
 		if ( !isLocalMachine() ) {
-			sendEmail(template="emailCheckCode", layout="layoutforemail", from=getSetting("userAdminEmailAddress"), to=email, bcc="tomavey@fgbc.org", subject="Your User Account on charisfellowship.us")
+			sendEmail(template="emailCheckCode", layout="layoutforemail", from=getSetting("userAdminEmailAddress"), to=email, bcc="tim@charisfellowship.us", subject="Your User Account on charisfellowship.us")
 		} 
 	}
 
