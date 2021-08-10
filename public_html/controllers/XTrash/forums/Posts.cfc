@@ -129,7 +129,7 @@
 			<cfif gotrights("superadmin")>
 				<cfset showsubjectfield = 1>
 			</cfif>
-			<cfif session.auth.email is "tomavey@fgbc.org">
+			<cfif session.auth.email is getSetting("HandbookProfileSecretary")>
 				<cfset showsubjectfield = 1>
 			</cfif>
     	
@@ -151,7 +151,7 @@
 			<cfif gotrights("superadmin")>
 				<cfset showsubjectfield = 1>
 			</cfif>
-			<cfif session.auth.email is "tomavey@fgbc.org">
+			<cfif session.auth.email is getSetting("HandbookProfileSecretary")>
 				<cfset showsubjectfield = 1>
 			</cfif>
 
@@ -267,7 +267,7 @@
 	<cfset users = model("Forumusers").findAll(where="subscribed = 1 AND groupcode = '#post.forumforum.groupcode#'")>
 	
 	<cfloop query="users">
-		<cfset sendEmail(template="notify", from="tomavey@fgbc.org", to=users.email, subject="New post on the Charis Fellowhip Forum", layout="/layout_naked")>
+		<cfset sendEmail(template="notify", from=getSetting("HandbookProfileSecretary"), to=users.email, subject="New post on the Charis Fellowhip Forum", layout="/layout_naked")>
 	</cfloop>
 	</cffunction>
 	
@@ -277,11 +277,7 @@
 
 	<cfset post = model("Forumpost").findByKey(key=arguments.id, include="Forumforum")>
 
-		<cfif arguments.replyto is "tomavey@fgbc.org">
-			<cfset arguments.replyto = "tomavey@comcast.net">
-		</cfif>
-	
-		<cfset sendEmail(template="reply", from=session.auth.email, to=arguments.replyto, subject="Reply to your post on the FGBC Forum", layout="/layout_naked")>
+	<cfset sendEmail(template="reply", from=session.auth.email, to=arguments.replyto, subject="Reply to your post on the FGBC Forum", layout="/layout_naked")>
 	<cfset flashInsert(success="Your post was saved and reply sent.")>
 	</cffunction>
 

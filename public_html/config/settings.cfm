@@ -90,7 +90,7 @@
 	set(HandbookProfileSecretary="sharmion@charisfellowship.us")
 	set(showLinkToHandbookPageBefore = "11-1-#year(now())#")
 	set(sendHandbookDeadline = "January 5, 2018")
-	set(HandbookReviewSecretary = "Cassie Rayl <raylcassie@gmail.com>")
+	set(HandbookReviewSecretary = "Sharmion <sharmion@charisfellowship.us>")
 	set(HandbookReviewSecretary2 = "Sharmion <sharmion@charisfellowship.us>")
 	set(HandbookStatsReviewer = "sharmion@charisfellowship.us")
 	set(SendHandbookStatsReminderCopyTo = "sharmion@charisfellowship.us")

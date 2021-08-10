@@ -519,7 +519,7 @@ component extends="Controller" output="false" {
 	}
 
 	function setReview(organizationId=params.key){
-		if ( session.auth.email NEQ "tomavey@fgbc.org" && session.auth.email NEQ "tomavey@charisfellowship.us" ){
+		if ( session.auth.email NEQ getSetting("HandbookProfileSecretary") && session.auth.email NEQ getSetting("HandbookProfileSecretary")getSetting("HandbookProfileSecretary") ){
 			var organization = model("Handbookorganization").findOne(where="id=#arguments.organizationid#", include="Handbookstate")
 			if ( !len(organization.updatedBy) ) {
 				organization.updatedBy = session.auth.email

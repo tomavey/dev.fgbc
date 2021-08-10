@@ -198,7 +198,7 @@ component extends="Controller" output="true" {
 				if ( $isSendImmediatePersonUpdates() ) {
 					sendEmail(
 							to=getSetting("HandbookProfileSecretary"),
-							from="tomavey@fgbc.org",
+							from=getSetting("HandbookProfileSecretary"),
 							subject="Person Update",
 							layout="/layout_naked",
 							template="/handbook/updates/notices"
@@ -410,10 +410,10 @@ component extends="Controller" output="true" {
 				emailall = emailall & "; " & distinctemail.emailsend
 				count = count + 1
 				if ( isdefined("params.go") && params.go is "send" && !isLocalMachine() ) {
-					sendEmail(from="tomavey@charisfellowship.us", subject=emailsubject, to=distinctemail.emailsend, template="message", layout="/layout_naked", name=name)
+					sendEmail(from=getSetting("HandbookProfileSecretary"), subject=emailsubject, to=distinctemail.emailsend, template="message", layout="/layout_naked", name=name)
 				}
 				if ( isdefined("params.go") && params.go is "test" && !isLocalMachine() ) {
-					sendEmail(from="tomavey@charisfellowship.us", subject=emailsubject, to="tomavey@fgbc.org", template="message", layout="/layout_naked", name=name)
+					sendEmail(from=getSetting("HandbookProfileSecretary"), subject=emailsubject, to=getSetting("HandbookProfileSecretary"), template="message", layout="/layout_naked", name=name)
 				}
 			}
 		}

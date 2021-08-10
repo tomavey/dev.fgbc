@@ -14,7 +14,7 @@
 <body bgcolor="#FFFFFF">
 <cfif !isDefined("params.go")>
   <cfoutput>
-    <p>This email was only sent to tomavey@fgbc.org. Click #linkto(text="this link", action="emailAllCurrentNotPaid", params="go=1")# when you are ready to send to the complete unpaid list.</p>
+    <p>This email was only sent to #getSetting("HandbookProfileSecretary")#. Click #linkto(text="this link", action="emailAllCurrentNotPaid", params="go=1")# when you are ready to send to the complete unpaid list.</p>
   </cfoutput>
 </cfif>
 <table class="head-wrap" bgcolor="#ffffff">

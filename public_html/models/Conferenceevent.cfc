@@ -109,7 +109,7 @@
 	<!---CallBack Functions--->
 	<cffunction name="logUpdates">
 	<cfargument name="modelName" default="Conferenceevent">
-	<cfargument name="createdBy" default="tomavey@fgbc.org">
+	<cfargument name="createdBy" default=getSetting("HandbookProfileSecretary")>
 
 		<cfset old = model("#arguments.modelName#").findByKey(key=this.id)>
 		<cfset new = this>
@@ -144,7 +144,7 @@
 
 	<cffunction name="logCreates">
 	<cfargument name="modelName" default="Event">
-	<cfargument name="createdBy" default="tomavey@fgbc.org">
+	<cfargument name="createdBy" default=getSetting("HandbookProfileSecretary")>
 
 		<cfset newSave.modelName = arguments.modelName>
 		<cfset newSave.recordId = this.id>
@@ -160,7 +160,7 @@
 	<cffunction name="logDeletes">
 	<cfargument name="modelName" default="Event">
 	<cfargument name="olddata" default="NA">
-	<cfargument name="createdBy" default="tomavey@fgbc.org">
+	<cfargument name="createdBy" default=getSetting("HandbookProfileSecretary")>
 
 		<cfset person = model("#arguments.modelName#").findByKey(key=this.id)>
 

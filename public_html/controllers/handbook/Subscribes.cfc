@@ -192,7 +192,7 @@
 
 			<cfif isDefined("params.go") && params.go is "test">
 				<cfif !isLocalMachine()>
-					<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@fgbc.org", subject="TEST - From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_naked")>
+					<cfset sendEMail(from=getSetting("HandbookProfileSecretary"), to=getSetting("HandbookProfileSecretary"), subject="TEST - From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_naked")>
 				<cfelse>	
 					<cfset flashInsert(message="Test - Email would have been sent in production")>	
 				</cfif>
@@ -206,7 +206,7 @@
 						<cfset countEmailsSent = countEmailsSent + 1>
 						<cfset useThisEmail = useHandbookEmail(email,handbookemail)>
 						<cfif !isLocalMachine()>
-							<cfset sendEMail(from="tomavey@fgbc.org", to=scrubEmail(useThisEmail), subject="From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_for_email", type="html")>
+							<cfset sendEMail(from=getSetting("HandbookProfileSecretary"), to=scrubEmail(useThisEmail), subject="From the Charis Fellowship Online Handbook: Todays Birthdays and Anniversaries", template="sendtodaysdates", layout="/layout_for_email", type="html")>
 						<cfelse>
 							<cfset flashInsert(message="Email would have been sent to #countEmailsSent# in production mode.")>	
 						</cfif>
@@ -341,9 +341,8 @@
 		<cfset subscriptions = model("Handbooksubscribe").findAll(where="type='#loc.subscribeType#'")>
 		<cfset emailall = "">
 
-		<!--- If being sent to tomavey@fgbc.org change to tomavey@comcast.net--->
 		<cfif isDefined("params.key") and params.key is "test">
-			<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@comcast.net", subject="TEST - From the Charis Fellowship Online Handbook: #greeting#Prayer Reminders", template="sendprayerreminders", layout="/layout_naked")>
+			<cfset sendEMail(from=getSetting("HandbookProfileSecretary"), to=getSetting("HandbookProfileSecretary"), subject="TEST - From the Charis Fellowship Online Handbook: #greeting#Prayer Reminders", template="sendprayerreminders", layout="/layout_naked")>
 		<cfelse>
 
 			<cfloop query="subscriptions">
@@ -351,7 +350,7 @@
 				<!--- Check to see if email has been sent to this person today --->
 				<cfif sendToThisPerson(lastSendAt)>
 					<cfset useThisEmail = useHandbookEmail(email,handbookemail)>
-					<cfset sendEMail(from="tomavey@fgbc.org", to=scrubEmail(useThisEmail), subject="From the Charis Fellowship Online Handbook: #greeting#Prayer Reminders", template="sendprayerreminders", layout="/layout_naked")>
+					<cfset sendEMail(from=getSetting("HandbookProfileSecretary"), to=scrubEmail(useThisEmail), subject="From the Charis Fellowship Online Handbook: #greeting#Prayer Reminders", template="sendprayerreminders", layout="/layout_naked")>
 
 					<cfset setLastSendAt(id)>
 
@@ -387,7 +386,7 @@
 	</cffunction>
 
 	<cffunction name="sendVerificationToAdmin">
-		<cfset sendEmail(to="tomavey@fgbc.org", from="tomavey9173@gmail.com", subject="Did his work?", template="sendVerificationToAdmin", layout="/layout_for_email")>
+		<cfset sendEmail(to=getSetting("HandbookProfileSecretary"), from=getSetting("HandbookProfileSecretary"), subject="Did his work?", template="sendVerificationToAdmin", layout="/layout_for_email")>
 	</cffunction>
 
 	<cffunction name="sendYesterdaysUpdates">
@@ -441,7 +440,7 @@
 
 		<!---Set the email list--->
 		<cfif isDefined("params.go") AND params.go is "test">
-			<cfset emailTestList = "tomavey@fgbc.org">
+			<cfset emailTestList = getSetting("HandbookProfileSecretary")>
 			<cfset subscriptions = listToQuery(emailTestList,"email")>
 		<cfelse>
 			<cfset subscriptions = model("Handbooksubscribe").findAll(where="type='updates'")>
@@ -455,7 +454,7 @@
 			<!---Send notice to the list of email addresses--->
 			<cfoutput query="subscriptions">
 				<cfset emailTo = emailTo & ", " & email>
-				<cfset sendEmail(to=email, from="tomavey@fgbc.org", subject="Yesterdays Handbook Updates", template="/handbook/updates/index.cfm", layout="/layout_for_email")>
+				<cfset sendEmail(to=email, from=getSetting("HandbookProfileSecretary"), subject="Yesterdays Handbook Updates", template="/handbook/updates/index.cfm", layout="/layout_for_email")>
 				<cfif isDefined("id")>
 					<cftry>
 						<cfset setLastSendAt(id)>
@@ -480,7 +479,7 @@ f`	<cffunction name="xsendTodaysDates">
 	</cffunction>
 
 	<cffunction name="testscheduledemailsend">
-			<cfset sendEMail(from="tomavey@fgbc.org", to="tomavey@comcast.net", subject="Test of send mail", template="testscheduledemailsend", layout="/layout_naked")>
+			<cfset sendEMail(from=getSetting("HandbookProfileSecretary"), to=getSetting("HandbookProfileSecretary"), subject="Test of send mail", template="testscheduledemailsend", layout="/layout_naked")>
 	</cffunction>
 
 	<cffunction name="plugLastSendAt">
@@ -499,9 +498,6 @@ f`	<cffunction name="xsendTodaysDates">
 	<cfargument name="emailaddress" required="true" type="string">
 	<cfset var loc=structNew()>
 	<cfset loc.return = trim(arguments.emailAddress)>
-		<cfif arguments.emailaddress is "tomavey@fgbc.org">
-			<cfset loc.return = "tomavey@comcast.net">
-		</cfif>
 	<cfreturn loc.return>
 	</cffunction>
 
