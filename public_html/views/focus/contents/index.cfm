@@ -19,8 +19,8 @@
 
 	</cftable>
 <cfoutput>
-	#linkto(text="Edit logo", controller="admin/settings", action="edit", params="keyy=49")#
-	<p>Note: Change the setting for "FocusLogo". The focus logo image needs to be uploaded to the web server at /images/focus/</p>
+	#linkto(text="Edit logo", controller="admin.Settings", action="index", params="category=focus")#
+	<p>Note: Change the setting for "FocusLogo". Hint: Use the #linkto(text="PICS", controller="admin.Pics", action="index")# page to upload the logo to our server.</p>
 </cfoutput>	
 
 </div>
