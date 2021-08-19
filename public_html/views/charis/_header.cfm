@@ -169,7 +169,13 @@
               </p>
             </div>  
 
-            #getMarquee()#
+            <cfoutput>
+              <div class="container" style="border: 3px solid ##51758C; border-radius:20px; box-shadow: 5px 5px 5px ##4F7F71;" >
+                <p style="border: 3px solid ##51758C; text-align:center; font-weight: bold; font-size: 1.2em; color: white; display: block; margin-top:10px; background-color: ##345671">
+                #getMarquee()#
+                </p>
+              </div>  
+              </cfoutput>
 
           </cfif>  
 

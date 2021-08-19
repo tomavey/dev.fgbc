@@ -516,7 +516,7 @@ component extends="Wheels" {
 <!-------------------------------------->
 
 	public function getMarquee(){
-		marquee = model("Mainannouncement").findOne(where="marquee IS 'yes' AND startAt < now() AND endAt > now()")
+		marquee = model("Mainannouncement").findOne(where="marquee = 'yes' AND startAt < now() AND endAt > now()")
 		return marquee.content
 	}
 
