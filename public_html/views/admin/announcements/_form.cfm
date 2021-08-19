@@ -39,4 +39,6 @@ Hint - check into how the FC site does it using cffile tag
 
 						#select(objectName='announcement', property='onhold', label='Onhold', options="N,Y")#
 
-</cfoutput>
+						#select(objectName='announcement', property='marquee', label='Marquee (only one announcement can be the marquee)?', options="No,Yes")#
+
+					</cfoutput>

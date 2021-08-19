@@ -515,6 +515,13 @@ component extends="Wheels" {
 <!---------GENERAL METHODS-------------->
 <!-------------------------------------->
 
+	public function getMarquee(){
+		marquee = model("Mainannouncement").findOne(where="marquee IS 'yes' AND startAt < now() AND endAt > now()")
+		return marquee.content
+	}
+
+
+
 	//used in multiple controllers to log the view
 	function logview() {
 		if ( !getsetting("logviews") ) { return false }

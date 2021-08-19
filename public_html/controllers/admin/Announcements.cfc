@@ -72,6 +72,7 @@ component extends="Controller" output="false" {
 
 	public function create() {
 		announcement = model("Mainannouncement").new(params.announcement);
+		if ( announcement.marquee == "yes") { clearMarquees() }
 		//  Verify that the announcement creates successfully 
 		if ( announcement.save() ) {
 			// cfset $uploadImage(params.announcement.image)
@@ -88,6 +89,7 @@ component extends="Controller" output="false" {
 
 	public function update() {
 		announcement = model("Mainannouncement").findByKey(params.key);
+		if ( announcement.marquee == "yes") { clearMarquees() }
 		//  Verify that the announcement updates successfully 
 		if ( announcement.update(params.announcement) ) {
 			// cfset $uploadImage(params.announcement.image)
@@ -116,5 +118,17 @@ component extends="Controller" output="false" {
 	}
 	// End of Crud
 
+	public function getMarquee(){
+		marquee model("Mainannouncement").findOne(where="marquee IS 'yes' AND startAt < now() AND endAt > now()")
+		return marquee.content
+	}
+
+	public function clearMarquees(){
+		marquees=  model("Mainannouncement").findAll(where="marquee IS 'yes'")
+		queryEach(marquees,function(el) {
+			el.marquee = "No"
+		})
+		return null
+	}
 
 }
