@@ -169,8 +169,6 @@
               </p>
             </div>  
 
-            #getMarquee()#
-
           </cfif>  
 
           <cfif isBefore('2021-02-01 00:00')>
