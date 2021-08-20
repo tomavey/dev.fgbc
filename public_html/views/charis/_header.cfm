@@ -180,7 +180,8 @@
                     </p>
                   </div>  
                 </cfif>
-                <cfcatch>
+                <cfcatch type="any">
+                  consolelog(catch.message)  
                 </cfcatch>
               </cftry>
              </cfoutput>
