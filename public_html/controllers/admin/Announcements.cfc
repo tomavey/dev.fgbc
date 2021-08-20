@@ -118,17 +118,11 @@ component extends="Controller" output="false" {
 	}
 	// End of Crud
 
-	public function getMarquee(){
-		marquee model("Mainannouncement").findOne(where="marquee IS 'yes' AND startAt < now() AND endAt > now()")
-		return marquee.content
-	}
-
 	public function clearMarquees(){
-		marquees=  model("Mainannouncement").findAll(where="marquee IS 'yes'")
+		marquees=  model("Mainannouncement").findAll(where="marquee = 'yes'")
 		queryEach(marquees,function(el) {
 			el.marquee = "No"
 		})
-		return null
 	}
 
 }

@@ -49,6 +49,9 @@
 			<tr>
 				<td>
 					#Title#
+					<cfif #marquee#>
+						<span style="font-size: .8em">[marquee]</span>
+					</cfif>
 				</td>
 				<td>
 					#linkto(text=left(link,15), href=link)#
