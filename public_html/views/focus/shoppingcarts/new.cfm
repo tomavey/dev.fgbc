@@ -1,4 +1,8 @@
 <cfparam name="formaction" default="create">
+
+<p style="font-size:1.5em; line-height:2; text-align:center">We are no longer using this system for Focus Retreat Registrations. Please go to <a href="http://charisfellowship.us/focus">charisfellowship.us/focus</a> to register or contact <a href="mailto:sharmion@charisfellowship.us">sharmion@charisfellowship.us</a> for assistance.</p>
+
+<cfif gotrights("office")>
 <cfoutput>
 <h1>Register for #retreat.title#:</h1>
 <div id="#params.controller#" ng-controller="registerController">
@@ -81,5 +85,8 @@
 
 
 </div>
+
 </cfoutput>
+</cfif>	
+
 
