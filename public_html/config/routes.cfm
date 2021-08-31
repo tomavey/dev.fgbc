@@ -389,6 +389,8 @@
 			.get(name="sendYesterdaysUpdates", pattern="/sendYesterdaysUpdates/", controller="subscribes", action="sendYesterdaysUpdates")
 			.get(name="sendTodaysUpdates", pattern="/sendTodaysUpdates/", controller="subscribes", action="sendTodaysUpdates")
 			.get(name="sendVerificationToAdmin", pattern="/sendVerificationToAdmin/", controller="subscribes", action="sendVerificationToAdmin")
+			.get(name="subscribeDelete", pattern="/subscribes/delete/", controller="subscribes", action="delete")
+			.delete(name="subscribeDelete", pattern="/subscribes/delete/", controller="subscribes", action="delete")
 			.resources("subscribes")
 
 			.get(name="hits", pattern="/updates/hits/", controller="updates", action="hits")

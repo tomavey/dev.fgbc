@@ -172,7 +172,7 @@
                 </div>  
               </cfif>
               <cfcatch type="any">
-                consolelog(catch.message)  
+                #consolelog(catch.message)#  
               </cfcatch>
             </cftry>
             </cfoutput>
