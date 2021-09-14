@@ -582,6 +582,23 @@ function delete() {
 		return "Inspire Member";
 	}
 
+	function paymentsList(){
+		var orderString = "lname,fname,membershipfeeyear"
+		var whereString = ""
+		var maxrowsString = "-1"
+		if (isDefined("params.lname")) { whereString = "lname = '#params.lname#'"}
+		if (isDefined("params.year")) { whereString = "membershipfeeyear = '#params.year#'"}
+		if (isDefined("params.maxrows")) { maxrowsString = "#params.maxrows#" }
+		payments = model("Handbookagbminfo").findall(where=whereString, include="Handbookperson(state)", order=orderString, maxrows=maxrowsString)
+		queryAddColumn(payments,"statuss")
+		data = queryMap(payments, function(el) { 
+			if ( el.ordained == 1 ) { el.statuss = "ordained" }
+			if ( el.licensed == 1 ) { el.statuss = "licensed" }
+			if ( el.commissioned == 1 ) { el.statuss = "commissioned" }
+			return el
+		})
+	}
+
 	<!-------------------------->
 <!---------END OF GETTERS--->
 <!-------------------------->
