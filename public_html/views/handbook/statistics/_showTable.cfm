@@ -1,0 +1,14 @@
+<cfoutput>
+  <tr>
+    <td>#statistic.year#</td>
+    <td>#statistic.organizationid#</td>
+    <td>#statistic.att#</td>
+    <td>#statistic.conversions#</td>
+    <td>#statistic.baptisms#</td>
+    <td>#statistic.members#</td>
+    <td>#dollarFormat(statistic.memfee)#</td>
+    <td>#dollarFormat(statistic.donate)#</td>
+    <td>#dollarFormat(statistic.relief)#</td>
+    <td>#dollarFormat(statistic.netMemFee)#</td>
+  </tr>
+</cfoutput>
