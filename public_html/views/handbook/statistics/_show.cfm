@@ -5,6 +5,9 @@
     </h3>
     <ul>
       <li>
+        Year: #statistic.year#
+      </li>
+      <li>
         Attendance: #statistic.att#
       </li>
       <li>
