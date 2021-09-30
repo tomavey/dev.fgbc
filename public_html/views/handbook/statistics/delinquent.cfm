@@ -35,7 +35,8 @@
 						text='<i class="fa fa-list" aria-hidden="true"></i>',
 						controller="handbook.statistics",
 						action="list",
-						title="List"
+						title="List",
+						params="keyy=#id#"
 					)#</td>
 					<td>
 						<cfif gotrights("office")>
