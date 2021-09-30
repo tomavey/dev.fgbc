@@ -110,7 +110,7 @@
 
 	function show(){
 		var whereString = "year='#statyear#'"
-		if ( isDefined('params.key') ) { whereString = "organizationid=#params.key#" }
+		if ( isDefined('params.key') ) { whereString = "id=#params.key#" }
 		if ( isDefined('params.request') ) { whereString = "pray IS NOT NULL OR assist IS NOT NULL OR celebrate IS NOT NULL" }
 		statistics = model("Handbookstatistic").findAll(where=whereString)
 		statistics.addColumn('netMemFee','string')

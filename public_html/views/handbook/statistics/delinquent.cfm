@@ -31,7 +31,7 @@
 					<td>#linkTo(text=name, action="show", controller="Handbook.organizations", key=id)#- #state_mail_abbrev#, #org_city# #joinedAt#</td>
 					<td>#howDelinquent(id)# </td>
 				<cfif not isdownload>
-					<td>#showTag(id)#</td>
+					<td>#listTag(id)#</td>
 					<td>
 						<cfif gotrights("office")>
 							<cfset body = "Greetings!%0D%0A%0D%0AI am working on the membership and stat report for the Fellowship Council and would like it as complete as possible.%0D%0A%0D%0AWould it be possible for you to use this link to submit that information this week? https://charisfellowship.us/sendstats/?churchid=#id#.%0D%0A%0D%0AIf you believe this has already been cared for, let me know and I will check it out!%0D%0A%0D%0A(note:the Fellowship of Grace Brethren Churches is now doing business as Charis Fellowship)">

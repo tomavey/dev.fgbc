@@ -91,7 +91,7 @@
 
 				</div>
 
-					<p>#linkTo(text="View Statistics",controller="handbook.statistics",action="show",key=params.key)#</p>
+					<p>#linkTo(text="View Statistics",controller="handbook.statistics",action="list",key=params.key, class="btn")#</p>
 					<cfif gotrights("office,handbookedit")>
 						<cftry>
 						<p>Reviewer Link:<br/><br/> #linkto(route="reviewhandbook", orgid=simpleEncode(params.key), onlyPath=false)#
