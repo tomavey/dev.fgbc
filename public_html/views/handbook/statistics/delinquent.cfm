@@ -33,7 +33,7 @@
 				<cfif not isdownload>
 					<td>#linkTo(
 						text='<i class="fa fa-list" aria-hidden="true"></i>',
-						controller=handbook.statistics,
+						controller="handbook.statistics",
 						action="list",
 						title="List"
 					)#</td>
