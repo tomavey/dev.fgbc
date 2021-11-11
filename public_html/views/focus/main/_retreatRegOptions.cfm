@@ -24,9 +24,8 @@
 					</cfloop>
 					</ul>
 					<p>
-					</cfif>	
 
-					<cfif dateCompare(retreat.deadline, retreat.discountdeadline) && isBefore(retreat.discountdeadline)>
+						<cfif dateCompare(retreat.deadline, retreat.discountdeadline) && isBefore(retreat.discountdeadline)>
 							This price increases 
 							<cfif val(retreat.priceincrease)>
 								(#dollarFormat(retreat.priceincrease)#)
@@ -37,4 +36,5 @@
 						No refunds for cancelations or changes after #dateformat(retreat.deadline,"medium")#. </br>
 						#retreat.registrationComments#
 					</p>
+				</cfif>	
 </cfoutput>
