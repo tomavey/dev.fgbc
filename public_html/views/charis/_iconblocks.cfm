@@ -4,7 +4,7 @@
       <div class="container">
       <div class="charisIs">
       <p>Charis Fellowship is a network of churches, campuses and ministries in the USA and Canada who are passionate about Jesus in Truth, Relationship, Mission. And that mission is to start new churches, train leaders and do good for the sake of the gospel.</p>
-      <p>Charis Fellowship is a proud member of the <a href="http://charisalliance.org" target="_new">global Charis Alliance</a> with 3000+ churches in more than 25 countries.</p>   
+      <p>Charis Fellowship is a proud member of the <a href="https://charisalliance.org" target="_new">global Charis Alliance</a> with 3000+ churches in more than 25 countries.</p>   
       </div>
 		  <header class="text-center g-width-60x--md mx-auto g-mb-50">
           <div class="u-heading-v2-3--bottom g-brd g-mb-20">
