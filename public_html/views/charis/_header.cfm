@@ -121,7 +121,7 @@
                         action="index", 
                         class="dropdown-toggle nav-link px-0 #isNavActive("events")#", data_toggle="dropdown")#
                     <ul class="dropdown-menu" style="padding:10px">
-                      <li>#linkTo(text="Give", href="http://www.encompassworldpartners.org/FellowshipCovid")#</li>
+                      <li>#linkTo(text="Give", href="https://www.encompassworldpartners.org/FellowshipCovid")#</li>
                       <li class="list-inline-item g-mx-4 g-mt-10">
                       </li>
                       <li>#linkTo(text="Positions", controller="jobs", action="index")#</li>
