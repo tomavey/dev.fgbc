@@ -12,7 +12,7 @@
             <div class="col-auto g-px-15">
               <ul class="list-inline g-line-height-1 g-mt-minus-10 g-mx-minus-4 mb-0">
                 <li class="list-inline-item g-mx-4 g-mt-10">
-                    #linkto(text="Give", href="http://www.encompassworldpartners.org/FellowshipCovid", class="g-color-white g-color-primary--hover g-text-underline--none--hover")#
+                    #linkto(text="Give", href="https://www.encompassworldpartners.org/FellowshipCovid", class="g-color-white g-color-primary--hover g-text-underline--none--hover")#
                 </li>
                 <li class="list-inline-item g-mx-4 g-mt-10">|</li>
                 <li class="list-inline-item g-mx-4 g-mt-10">
@@ -145,7 +145,7 @@
           </a>
         </cfif>
           <cfif isBefore(getSetting('prayerWallIsOpenBefore'))>
-            <a href=" http://charisfellowship.us/page/globalPrayerWall" target="_new" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display: block; margin-top:10px">
+            <a href=" https://charisfellowship.us/page/globalPrayerWall" target="_new" class="container" style="border: 3px solid #51758C; text-align:center; font-weight: bold; font-size: 1.2em; display: block; margin-top:10px">
               The Charis Prayer Wall
             </a>
           </cfif>
