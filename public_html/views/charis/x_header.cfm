@@ -12,7 +12,7 @@
             <div class="col-auto g-px-15">
               <ul class="list-inline g-line-height-1 g-mt-minus-10 g-mx-minus-4 mb-0">
                 <li class="list-inline-item g-mx-4 g-mt-10">
-                    #linkto(text="Give", href="http://www.encompassworldpartners.org/FellowshipCovid", class="g-color-white g-color-primary--hover g-text-underline--none--hover")#
+                    #linkto(text="Give", href="https://www.encompassworldpartners.org/FellowshipCovid", class="g-color-white g-color-primary--hover g-text-underline--none--hover")#
                 </li>
                 <li class="list-inline-item g-mx-4 g-mt-10">|</li>
                 <li class="list-inline-item g-mx-4 g-mt-10">
@@ -121,7 +121,7 @@
                         action="index", 
                         class="dropdown-toggle nav-link px-0 #isNavActive("events")#", data_toggle="dropdown")#
                     <ul class="dropdown-menu" style="padding:10px">
-                      <li>#linkTo(text="Give", href="http://www.encompassworldpartners.org/FellowshipCovid")#</li>
+                      <li>#linkTo(text="Give", href="https://www.encompassworldpartners.org/FellowshipCovid")#</li>
                       <li class="list-inline-item g-mx-4 g-mt-10">
                       </li>
                       <li>#linkTo(text="Positions", controller="jobs", action="index")#</li>
