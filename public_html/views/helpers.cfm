@@ -822,11 +822,13 @@
 <cfargument name="begin" required="yes" type="string">
 <cfargument name="end" required="yes" type="string">
 <cfset var datetext = "">
-	<cfif datepart("m",arguments.begin) is datepart("m",arguments.end)>
+	<cfif begin is end>	
+		<cfset dateText = "#dateformat(arguments.begin,"MMM")# #dateformat(arguments.begin,"dd")# , #dateformat(arguments.begin,"yyyy")#">
+	<cfelseif datepart("m",arguments.begin) is datepart("m",arguments.end)>
        <cfset datetext = "#dateformat(arguments.begin,"MMM")# #dateformat(arguments.begin,"dd")# - #dateformat(arguments.end,"dd")#, #dateformat(arguments.begin,"yyyy")#">
-    <cfelse>
-       <cfset datetext = "#dateformat(arguments.begin,"MMM")# #dateformat(arguments.begin,"dd")# - #dateformat(arguments.end,"MMM")# #dateformat(arguments.end,"dd")#, #dateformat(arguments.begin,"yyyy")#">
-    </cfif>
+	<cfelse>
+			<cfset datetext = "#dateformat(arguments.begin,"MMM")# #dateformat(arguments.begin,"dd")# - #dateformat(arguments.end,"MMM")# #dateformat(arguments.end,"dd")#, #dateformat(arguments.begin,"yyyy")#">
+  </cfif>
 <cfreturn datetext>
 
 </cffunction>
