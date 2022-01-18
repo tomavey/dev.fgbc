@@ -680,7 +680,7 @@ component extends="Controller" output="true" {
 	}
 
 	private function $getEmailMessageForPeopleReview(){
-		var emailMessage = "<h3>We are updating our database for the #year(now())+1# Charis Fellowship Handbook!</h3><p>Churches have updated their staff. You can check your personal listing before #getSetting('personReviewDeadline')# using the link below.</p><p>Be sure to click the 'This information is correct' button when you are finished. </p>";
+		var emailMessage = "<h3>We are in the process of updating and making some helpful changes to our database and online handbook. We would like to make sure we have your correct information.</h3><p>Churches have updated their staff. You can check your personal listing before #getSetting('personReviewDeadline')# using the link below.</p><p>Be sure to click the 'This information is correct' button when you are finished. </p>";
 		return emailMessage; 
 	}
 

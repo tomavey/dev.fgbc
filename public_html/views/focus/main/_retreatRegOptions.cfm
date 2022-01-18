@@ -33,7 +33,7 @@
 							on #dateformat(retreat.discountdeadline,"medium")#</br>
 						</cfif>
 						Registration deadline is #dateformat(retreat.deadline,"medium")#. <br/>
-						No refunds for cancelations or changes after #dateformat(retreat.deadline,"medium")#. </br>
+						No refunds for cancellations or changes after #dateformat(retreat.deadline,"medium")#. </br>
 						#retreat.registrationComments#
 					</p>
 				</cfif>	

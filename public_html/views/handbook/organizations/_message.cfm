@@ -7,7 +7,7 @@
 <cfoutput>
   <h1>#getSetting('ChurchHandbookReviewGreeting')#</h1>
 
-  <h3>The #year(now())+1# Charis Fellowship Handbook is in production and we would like to make sure our information about #church.selectName# is correct!</h3>
+  <h3>We are in the process of updating and making some helpful changes to our database and online handbook. We would like to make sure our information about #church.selectName# is correct!</h3>
   
   <p>Please use this link to update the listing for #church.selectName# before #$deadLineAsString()#</p>
   
