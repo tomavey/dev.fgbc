@@ -12,7 +12,9 @@
       <span class="d-block g-color-white g-font-size-20 g-pos-rel g-top-minus-30--md g-line-height-1_2 ml-md-0">charis: <em>kar'-us</em><br>definition: <em>grace</em></span>
         </div>
         <div class="col-lg-6">
+            <a href="https://access2022.us">
               <img src="https://charisfellowship.us/images/Access2022snip.jpg" width="530" height="300" />
+            </a>
         </div>
       </div>
     </div>
