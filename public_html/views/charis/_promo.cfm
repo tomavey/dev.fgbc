@@ -18,7 +18,7 @@
         </div>
         <div class="col-lg-4">
         <p style="margin-top: 25px;">
-            <iframe title="vimeo-player" src="https://player.vimeo.com/video/684262222?h=1489752b7a" width="350" height="200" frameborder="0" allowfullscreen></iframe>
+            <iframe title="vimeo-player" src="https://player.vimeo.com/video/684262222?h=1489752b7a&byline=false&background=false&title=false" width="350" height="200" frameborder="0" allowfullscreen ></iframe>
         </p>    
         </div>
       </div>
