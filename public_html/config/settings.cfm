@@ -142,6 +142,7 @@
 	set(yearsago = 5)
 
 	// Used by Conference Registration
+	set(promoVimeo = '684262222')
 	set(event="visionconference2018")
 	set(previousEvent = "visionconference2017")
 	set(nextEvent = "visionconference2019")
