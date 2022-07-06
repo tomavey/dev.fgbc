@@ -15,14 +15,18 @@
             <a href="https://access2022.us">
               <img src="https://charisfellowship.us/images/Access2022snip.jpg" width="350" height="200" />
             </a>
+            <!---
             <button href="https://access2022.us" class="btn-block" style="cursor:pointer" onclick="window.location.href='https://www.access2022.us'">Register for Access2022</button>
+            --->
         </div>
 
+        <cfif isBefore('07/05/2022')>
         <div class="col-lg-4">
           <p style="margin-top: 25px;">
               <iframe title="vimeo-player" src="https://player.vimeo.com/video/691841056?h=1489752b7a&byline=false&background=false&title=false" width="350" height="200" frameborder="0" allowfullscreen ></iframe>
           </p>    
         </div>
+        </cfif>
 
       </div>
     </div>
