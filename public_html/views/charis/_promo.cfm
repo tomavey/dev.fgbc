@@ -11,13 +11,13 @@
     mission.</h1>
       <span class="d-block g-color-white g-font-size-20 g-pos-rel g-top-minus-30--md g-line-height-1_2 ml-md-0">charis: <em>kar'-us</em><br>definition: <em>grace</em></span>
         </div>
-        <div class="col-lg-4 align-items-center">
-            <a href="https://access2022.us">
-              <img src="https://charisfellowship.us/images/Access2022snip.jpg" width="350" height="200" />
+        <div class="col-lg-6 align-items-center">
+            <a href="https://GraceConnect.us">
+              <img src="/images/CharisConnectBanner[8138].png" width="100%"/>
             </a>
-            <!---
-            <button href="https://access2022.us" class="btn-block" style="cursor:pointer" onclick="window.location.href='https://www.access2022.us'">Register for Access2022</button>
-            --->
+            
+            <button href="https://youtube.com/charisfellowship" class="btn-block" style="cursor:pointer" onclick="window.location.href='https://youtube.com/charisfellowship'">Watch live feeds from Access2022</button>
+
         </div>
 
         <cfif isBefore('07/05/2022')>

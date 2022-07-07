@@ -116,7 +116,7 @@
                       </div>
                       <!-- End Footer Content -->
 
-                      <!-- Footer Content -->
+                      <!---
                       <div class="col-lg-12 col-md-12 text-center" style="margin-top:20px">
                           <h3>Communication</h3>
 
@@ -130,6 +130,7 @@
 
                             
                       </div>
+                      --->
 
                       <div class="col-lg-12 col-md-12 text-center" id="socialIcons" style="margin-top:20px">
                         <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
@@ -137,24 +138,33 @@
                         </div>
 
                         <ul class="list-inline mb-0">
+                        <!---
                           <li class="list-inline-item g-mr-10">
                             <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://vimeo.com/charisfellowship" @mouseover='message="Vimeo"' @mouseleave='message="Social Media"'>
                               <i class="fa fa-vimeo"></i>
                             </a>
                           </li>
+                        --->
                           <li class="list-inline-item g-mr-10">
                             <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://twitter.com/charischurches" @mouseover='message="Twitter"' @mouseleave='message="Social Media"'>
                               <i class="fa fa-twitter"></i>
                             </a>
                           </li>
                           <li class="list-inline-item g-mr-10">
-                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://www.facebook.com/charischurches/" @mouseover='message="Facebook"' @mouseleave='message="Social Media"'>
+                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://www.facebook.com/TheCharisFellowship/" @mouseover='message="Facebook"' @mouseleave='message="Social Media"'>
                               <i class="fa fa-facebook"></i>
                             </a>
                           </li>
+                        <!---  
                           <li class="list-inline-item g-mr-10">
                             <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://www.youtube.com/channel/UCHpppy8S5akFMz3avHNTQCw" @mouseover='message="Youtube"' @mouseleave='message="Social Media"'>
                               <i class="fa fa-youtube"></i>
+                            </a>
+                          </li>
+                        --->  
+                          <li class="list-inline-item g-mr-10">
+                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href=https://www.instagram.com/Charis_Fellowship/" @mouseover='message="Instagram"' @mouseleave='message="Social Media"'>
+                              <i class="fa fa-instagram"></i>
                             </a>
                           </li>
                         </ul>
