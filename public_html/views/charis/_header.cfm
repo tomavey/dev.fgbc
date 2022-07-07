@@ -74,7 +74,7 @@
                   #linkTo(text="ABOUT", href="##about", class="nav-link px-0 #isNavActive("about")#")#
                 </li>
                 <li class="nav-item g-mx-20--lg">
-                  #linkTo(text="GRACE CONNECT", href="https://GraceConnect.us", class="nav-link px-0 #isNavActive("news")#")#
+                  #linkTo(text="CHARIS CONNECT", href="https://GraceConnect.us", class="nav-link px-0 #isNavActive("news")#")#
                 </li>
                 <!--- <li class="nav-item g-mx-20--lg">
                   #linkTo(text="PRAYER", href="https://www.charisalliance.org/en/prayer/", target="_new", class="nav-link px-0 #isNavActive("prayer")#")#

@@ -163,7 +163,7 @@
                           </li>
                         --->  
                           <li class="list-inline-item g-mr-10">
-                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href=https://www.instagram.com/Charis_Fellowship/" @mouseover='message="Instagram"' @mouseleave='message="Social Media"'>
+                            <a class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-bg-white-opacity-0_2--hover g-color-white-opacity-0_6" href="https://www.instagram.com/Charis_Fellowship/" @mouseover='message="Instagram"' @mouseleave='message="Social Media"'>
                               <i class="fa fa-instagram"></i>
                             </a>
                           </li>
