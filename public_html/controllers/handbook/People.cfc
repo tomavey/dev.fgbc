@@ -7,7 +7,7 @@ component extends="Controller" output="true" {
 
 	function config(){
 		usesLayout(template="/handbook/layout_handbook", except="index")
-		filters(through="gotBasicHandbookRights,getStates,getPositionTypes", except="focus,sendhandbook,inspire,findstaff,findallstaff,peopleAsJson")
+		filters(through="gotBasicHandbookRights,getStates,getPositionTypes", except="sendhandbook,inspire,findstaff,findallstaff,peopleAsJson")
 		filters(through="getPositions", only="edit,show,view")
 		filters(through="getChurches", only="new,edit,create,update")
 		filters(through="setReturn", only="show,bluepages,distribution")
