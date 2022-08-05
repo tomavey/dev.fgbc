@@ -107,10 +107,12 @@
                       <li>#linkTo(text="General Calendar", controller="events", action="index")#</li>
                       <li class="list-inline-item g-mx-4 g-mt-10">
                       </li>
-                      <li>#linkTo(text="Focus Retreats", controller="focus.main", action="welcome")#</li>
-                      <li class="list-inline-item g-mx-4 g-mt-10"></li>
-                      <li class="list-inline-item g-mx-4 g-mt-10"></li>
-                      <li>#linkTo(text="Access2022", href="https://access2022.us/")#</li>
+                      <!---
+                        <li>#linkTo(text="Focus Retreats", controller="focus.main", action="welcome")#</li>
+                        <li class="list-inline-item g-mx-4 g-mt-10"></li>
+                        <li class="list-inline-item g-mx-4 g-mt-10"></li>
+                        <li>#linkTo(text="Access2022", href="https://access2022.us/")#</li>
+                      --->
                     </ul>
                 </li>
                 <li class="nav-item dropdown g-mx-20--lg">
